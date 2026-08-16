@@ -1,0 +1,111 @@
+<!-- style #56 E-Ink / Paper -->
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marginalia — 安静的阅读笔记应用</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { font-family: 'Newsreader', Georgia, serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  body {
+    background-color: #f5f1eb;
+    color: #1a1a1a;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  }
+  .hairline { border-color: #1a1a1a; }
+  .no-shadow * { box-shadow: none !important; }
+  ::selection { background: #1a1a1a; color: #f5f1eb; }
+</style>
+</head>
+<body class="no-shadow">
+  <header class="max-w-3xl mx-auto px-6 pt-10 pb-6 flex items-center justify-between border-b hairline">
+    <span class="mono text-sm tracking-widest uppercase">Marginalia</span>
+    <nav class="mono text-xs tracking-wide flex gap-6 text-black/60">
+      <a href="#" class="hover:text-black">书架</a>
+      <a href="#" class="hover:text-black">笔记</a>
+      <a href="#" class="hover:text-black">关于</a>
+    </nav>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-6">
+    <section class="py-16 border-b hairline">
+      <p class="mono text-xs tracking-widest uppercase text-black/50 mb-6">002 / 阅读应用</p>
+      <h1 class="text-5xl md:text-6xl font-medium leading-[1.15] mb-8">
+        安静地读，<br>留下你自己的注脚。
+      </h1>
+      <p class="text-lg leading-relaxed text-black/75 max-w-xl mb-10 italic">
+        Marginalia 是一个刻意做「慢」的阅读工具——没有推送、没有算法推荐，只有你、文字，与页边空白处的笔记。
+      </p>
+      <a href="#" class="mono text-sm border-b hairline pb-1 inline-block">开始阅读 →</a>
+    </section>
+
+    <section class="py-14 border-b hairline">
+      <p class="mono text-xs tracking-widest uppercase text-black/50 mb-8">正在读</p>
+      <div class="space-y-10">
+        <article class="grid md:grid-cols-[100px_1fr] gap-6">
+          <div class="mono text-xs text-black/50">
+            <p>73%</p>
+            <p class="mt-1">第 12 章</p>
+          </div>
+          <div>
+            <h2 class="text-2xl font-medium mb-2">《如何阅读一本书》</h2>
+            <p class="text-black/70 leading-relaxed mb-3">
+              "真正的阅读，是在合上书本之后，仍然与作者持续对话的过程。"
+            </p>
+            <p class="mono text-xs text-black/40">你的批注 · 3 条 · 最后编辑于 2 小时前</p>
+          </div>
+        </article>
+        <article class="grid md:grid-cols-[100px_1fr] gap-6">
+          <div class="mono text-xs text-black/50">
+            <p>34%</p>
+            <p class="mt-1">第 4 章</p>
+          </div>
+          <div>
+            <h2 class="text-2xl font-medium mb-2">《寂静的春天》</h2>
+            <p class="text-black/70 leading-relaxed mb-3">
+              一部改变环境政策历史的作品，本周共读小组的指定书目。
+            </p>
+            <p class="mono text-xs text-black/40">你的批注 · 7 条 · 最后编辑于昨天</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="py-14 border-b hairline">
+      <p class="mono text-xs tracking-widest uppercase text-black/50 mb-8">为什么做减法</p>
+      <div class="grid md:grid-cols-3 gap-10">
+        <div>
+          <p class="mono text-xs text-black/40 mb-2">01</p>
+          <h3 class="text-xl font-medium mb-2">无推送通知</h3>
+          <p class="text-black/65 text-sm leading-relaxed">阅读的节奏该由你决定，不该被应用打断。</p>
+        </div>
+        <div>
+          <p class="mono text-xs text-black/40 mb-2">02</p>
+          <h3 class="text-xl font-medium mb-2">墨水感排版</h3>
+          <p class="text-black/65 text-sm leading-relaxed">高对比、无阴影、无动效，长时间阅读也不刺眼。</p>
+        </div>
+        <div>
+          <p class="mono text-xs text-black/40 mb-2">03</p>
+          <h3 class="text-xl font-medium mb-2">笔记即页边注</h3>
+          <p class="text-black/65 text-sm leading-relaxed">批注直接写在文字旁，像在读一本真正被翻旧的书。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 text-center">
+      <h2 class="text-3xl font-medium mb-4">找回读完一本书的耐心</h2>
+      <p class="text-black/65 mb-8">Marginalia 目前仅限邀请，可先加入等候名单</p>
+      <a href="#" class="mono text-sm border hairline px-6 py-3 inline-block hover:bg-black hover:text-[#f5f1eb] transition-colors">加入等候名单 →</a>
+    </section>
+  </main>
+
+  <footer class="max-w-3xl mx-auto px-6 py-8 border-t hairline mono text-xs text-black/40 flex justify-between">
+    <span>© 2026 MARGINALIA</span>
+    <span>MADE FOR SLOW READERS</span>
+  </footer>
+</body>
+</html>

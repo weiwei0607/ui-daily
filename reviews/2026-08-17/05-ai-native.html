@@ -1,0 +1,118 @@
+<!-- style #43 AI-Native -->
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ondo — 你的 AI 写作副驾</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { font-family: 'Inter', sans-serif; }
+  body { background: #0a0a12; color: #f1f0f8; }
+  .glow-bg {
+    background: radial-gradient(circle at 15% 0%, rgba(118,75,162,0.35), transparent 45%),
+                radial-gradient(circle at 90% 20%, rgba(102,126,234,0.3), transparent 40%),
+                radial-gradient(circle at 50% 100%, rgba(240,147,251,0.15), transparent 50%);
+  }
+  .grad-text { background: linear-gradient(90deg,#818cf8,#c084fc,#f0abfc); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .grad-border { position: relative; }
+  .grad-border::before {
+    content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1px;
+    background: linear-gradient(135deg, rgba(129,140,248,0.6), rgba(240,171,252,0.3));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
+  }
+  .card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  .float { animation: float 4s ease-in-out infinite; }
+  @keyframes blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+  .caret { animation: blink 1s step-end infinite; }
+  .typewriter { transition: width 3s steps(40); }
+</style>
+</head>
+<body class="glow-bg min-h-screen">
+  <nav class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+    <div class="flex items-center gap-2 font-bold text-lg">
+      <span class="w-7 h-7 rounded-full bg-gradient-to-br from-indigo-400 to-fuchsia-400"></span>
+      Ondo
+    </div>
+    <div class="hidden md:flex gap-8 text-sm text-white/70">
+      <a href="#" class="hover:text-white">产品</a>
+      <a href="#" class="hover:text-white">案例</a>
+      <a href="#" class="hover:text-white">定价</a>
+    </div>
+    <button class="grad-border rounded-full px-5 py-2 text-sm font-semibold bg-white/5">开始使用</button>
+  </nav>
+
+  <header class="max-w-4xl mx-auto text-center px-6 pt-16 pb-14">
+    <div class="grad-border inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium text-white/70 mb-6 bg-white/5">
+      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> 由 Ondo-3 模型驱动
+    </div>
+    <h1 class="text-4xl md:text-6xl font-extrabold leading-[1.1] mb-6">
+      写作卡住的时候，<br><span class="grad-text">让 AI 陀你想下去</span>
+    </h1>
+    <p class="text-white/60 text-lg max-w-xl mx-auto mb-10">
+      Ondo 理解你的语气与目的，从大纲到成稿全程协作——不是取代你写，是陀你把话说得更准。
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <button class="rounded-xl px-8 py-3.5 font-bold bg-gradient-to-r from-indigo-500 to-fuchsia-500 shadow-lg shadow-fuchsia-500/20">免费开始写作</button>
+      <button class="grad-border rounded-xl px-8 py-3.5 font-bold bg-white/5">查看使用案例</button>
+    </div>
+  </header>
+
+  <section class="max-w-3xl mx-auto px-6 pb-20">
+    <div class="grad-border rounded-2xl p-6 md:p-8 bg-white/[0.03] float">
+      <div class="flex items-center gap-2 mb-5 text-xs text-white/40">
+        <span class="w-2.5 h-2.5 rounded-full bg-red-400/60"></span>
+        <span class="w-2.5 h-2.5 rounded-full bg-amber-400/60"></span>
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400/60"></span>
+        <span class="ml-2">Ondo · 新文档</span>
+      </div>
+      <div class="flex gap-3 mb-4">
+        <div class="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-xs shrink-0">我</div>
+        <p class="text-white/80 text-sm bg-white/5 rounded-xl rounded-tl-sm px-4 py-2.5">帮我把这段产品说明改得更有说服力，语气再自信一点</p>
+      </div>
+      <div class="flex gap-3">
+        <div class="w-7 h-7 rounded-full bg-gradient-to-br from-indigo-400 to-fuchsia-400 flex items-center justify-center text-xs shrink-0">✦</div>
+        <div class="text-sm bg-gradient-to-br from-indigo-500/10 to-fuchsia-500/10 border border-white/10 rounded-xl rounded-tl-sm px-4 py-3 text-white/90 leading-relaxed">
+          「Ondo 不只是另一个写作工具——它是那个在你卡住时，愿意陀你把句子重写十遍的伙伴。」<span class="caret">▌</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-6 pb-20">
+    <h2 class="text-3xl font-extrabold text-center mb-3">协作，而不是代写</h2>
+    <p class="text-center text-white/50 mb-12">三个 Ondo 用户每天都在用的能力</p>
+    <div class="grid md:grid-cols-3 gap-5">
+      <div class="card rounded-2xl p-6">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-indigo-500/30 to-indigo-500/10 flex items-center justify-center mb-4">🧭</div>
+        <h3 class="font-bold mb-2">语气校准</h3>
+        <p class="text-white/60 text-sm leading-relaxed">告诉 Ondo 你想要正式、修皮还是权威，它会持续对齐整篇文章的语气。</p>
+      </div>
+      <div class="card rounded-2xl p-6">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-fuchsia-500/30 to-fuchsia-500/10 flex items-center justify-center mb-4">🔄</div>
+        <h3 class="font-bold mb-2">版本对比</h3>
+        <p class="text-white/60 text-sm leading-relaxed">每次修改都保留分支，随时比较不同版本，挖出最打动人的那句。</p>
+      </div>
+      <div class="card rounded-2xl p-6">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-indigo-500/30 to-fuchsia-500/10 flex items-center justify-center mb-4">🧠</div>
+        <h3 class="font-bold mb-2">记住你的风格</h3>
+        <p class="text-white/60 text-sm leading-relaxed">用得越多，Ondo 越了解你的写作习惯，建议也越来越像「你会说的话」。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-3xl mx-auto px-6 pb-24 text-center">
+    <div class="grad-border rounded-3xl p-10 md:p-14 bg-white/[0.03]">
+      <h2 class="text-3xl font-extrabold mb-4">让下一段文字更好写</h2>
+      <p class="text-white/60 mb-8">免费额度足够写完你的第一篇文章</p>
+      <button class="rounded-xl px-9 py-3.5 font-bold bg-gradient-to-r from-indigo-500 to-fuchsia-500 shadow-lg shadow-fuchsia-500/20">立即免费试用</button>
+    </div>
+  </section>
+
+  <footer class="text-center text-white/30 text-sm pb-10">© 2026 Ondo AI</footer>
+</body>
+</html>
