@@ -1,125 +1,53 @@
-<!doctype html>
-<html lang="zh-Hant">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!doctype html><html lang="zh-Hant"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>韡寧的 UI 待審 · 2026-08-17</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root { font-family: 'Inter', sans-serif; }
-  body { background: #f7f6f3; color: #16161a; }
-  .card { background: #ffffff; border: 1px solid #e8e6e1; }
-  .frame-wrap { background: #eeece6; }
-  iframe { background: #fff; }
-  .heart-btn { transition: transform .15s ease; }
-  .heart-btn:active { transform: scale(0.85); }
-  .heart-btn.liked { color: #e0245e; }
-  @keyframes pop { 0%{transform:scale(1)} 40%{transform:scale(1.35)} 100%{transform:scale(1)} }
-  .heart-pop { animation: pop .35s ease; }
-</style>
-</head>
-<body>
-  <header class="max-w-6xl mx-auto px-6 pt-12 pb-8">
-    <p class="text-sm font-semibold text-black/40 mb-2 tracking-wide">UI DAILY · 私人審查</p>
-    <h1 class="text-3xl md:text-4xl font-extrabold mb-2">韡寧的 UI 待審 · 2026-08-17</h1>
-    <p class="text-black/55">今天 6 個不同風格方向，喜歡的點 ❤️，我會記進品味檔慢慢學。</p>
-  </header>
-
-  <main class="max-w-6xl mx-auto px-6 pb-20">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="gallery"></div>
-  </main>
-
-  <footer class="max-w-6xl mx-auto px-6 pb-12 text-center text-xs text-black/35">
-    <a href="../index.html" class="underline hover:text-black/60">← 回所有日期</a>
-  </footer>
-
+:root{--bg:#f4f4f5;--card:#fff;--ink:#18181b;--sub:#71717a;--line:#e4e4e7;--accent:#e11d48}
+@media(prefers-color-scheme:dark){:root{--bg:#0c0c0f;--card:#18181b;--ink:#fafafa;--sub:#a1a1aa;--line:#27272a}}
+*{box-sizing:border-box;margin:0}body{background:var(--bg);color:var(--ink);font-family:-apple-system,"Noto Sans TC",system-ui,sans-serif;line-height:1.5;padding:28px 16px 80px}
+.wrap{max-width:960px;margin:0 auto}h1{font-size:1.5rem;letter-spacing:-.02em}.sub{color:var(--sub);font-size:.9rem;margin-top:6px}
+.grid{display:grid;grid-template-columns:1fr;gap:20px;margin-top:24px}@media(min-width:720px){.grid{grid-template-columns:1fr 1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.frame{position:relative;height:300px;overflow:hidden;border-bottom:1px solid var(--line);background:#fff}
+.frame iframe{position:absolute;top:0;left:0;width:200%;height:200%;transform:scale(.5);transform-origin:top left;border:0;pointer-events:none}
+.meta{display:flex;align-items:center;gap:12px;padding:14px 16px}
+.meta .t{flex:1;min-width:0}.meta .t b{font-size:1rem;display:block}.meta .t small{color:var(--sub);font-size:.78rem}
+.open{font-size:.8rem;color:var(--sub);text-decoration:none;border:1px solid var(--line);padding:6px 11px;border-radius:9px;white-space:nowrap}
+.like{border:1.5px solid var(--line);background:none;font-size:1.15rem;width:44px;height:38px;border-radius:10px;cursor:pointer;transition:.15s}
+.like.on{background:var(--accent);border-color:var(--accent)}
+.tip{margin-top:22px;color:var(--sub);font-size:.85rem;text-align:center}
+</style></head><body><div class="wrap">
+<h1>韡寧的 UI 待審 · 2026-08-17</h1>
+<p class="sub">喜歡的按 ❤️ — 我會學起來，之後生得更準。這頁未公開，只有你看得到。</p>
+<div class="grid" id="grid"></div>
+<p class="tip">🌱 第一批（4 個）。按下的 ❤️ 會記進品味檔。</p>
+</div>
 <script>
-const DATE = "2026-08-17";
-const ITEMS = [
-  { id: "01", slug: "01-glassmorphism.html", name: "#03 Glassmorphism", desc: "毛玻璃 · SaaS landing" },
-  { id: "02", slug: "02-swiss-modernism.html", name: "#50 Swiss Modernism 2.0", desc: "瑞士网格 · 作品集 hero" },
-  { id: "03", slug: "03-realtime-monitoring.html", name: "#31 Real-Time Monitoring", desc: "即时监控 · 儀表板" },
-  { id: "04", slug: "04-neubrutalism.html", name: "#38 Neubrutalism", desc: "新野兽派 · App 首頁" },
-  { id: "05", slug: "05-ai-native.html", name: "#43 AI-Native", desc: "AI 渐层 · SaaS landing" },
-  { id: "06", slug: "06-eink-paper.html", name: "#56 E-Ink / Paper", desc: "电子墨水纸感 · 作品集 hero" },
+const DATE="2026-08-17";
+const UIS=[
+ {n:"01",file:"01-glassmorphism.html",name:"Glassmorphism #03",desc:"毛玻璃透明层叠"},
+ {n:"02",file:"02-swiss-modernism.html",name:"Swiss Modernism #50",desc:"瑞士国际主义・严格网格"},
+ {n:"03",file:"03-realtime-monitoring.html",name:"Real-Time Monitoring #31",desc:"即时监控仪表板"},
+ {n:"04",file:"04-neubrutalism.html",name:"Neubrutalism #38",desc:"新野兽派・硬阴影撞色"},
 ];
-
-const DB_BASE = "https://b-battle-580b5-default-rtdb.firebaseio.com";
-
-function keyFor(id) { return `${DATE}_${id}`; }
-
-function cardHTML(item) {
-  return `
-  <div class="card rounded-2xl overflow-hidden flex flex-col" data-id="${item.id}">
-    <div class="frame-wrap aspect-[4/3] overflow-hidden relative">
-      <iframe src="${item.slug}" class="w-full h-full border-0" style="width:250%;height:250%;transform:scale(0.4);transform-origin:top left;" loading="lazy"></iframe>
-    </div>
-    <div class="p-4 flex items-center justify-between gap-3">
-      <div class="min-w-0">
-        <p class="font-bold truncate">${item.id} · ${item.name}</p>
-        <p class="text-xs text-black/45 truncate">${item.desc}</p>
-      </div>
-      <div class="flex items-center gap-3 shrink-0">
-        <a href="${item.slug}" target="_blank" rel="noopener" class="text-xs font-semibold text-black/50 hover:text-black underline underline-offset-2">新分頁開啟</a>
-        <button class="heart-btn text-2xl leading-none text-black/25" data-id="${item.id}" aria-label="喜歡">♡</button>
-      </div>
-    </div>
-  </div>`;
+const RTDB="https://b-battle-580b5-default-rtdb.firebaseio.com/uigallery";
+let liked={};
+fetch(RTDB+".json").then(r=>r.json()).then(d=>{liked=d||{};render()}).catch(render);
+function render(){
+ const g=document.getElementById("grid");g.innerHTML="";
+ UIS.forEach(u=>{
+  const id=DATE+"_"+u.n, on=liked[id]===true;
+  const c=document.createElement("div");c.className="card";
+  c.innerHTML=`<div class="frame"><iframe src="${u.file}" loading="lazy"></iframe></div>
+   <div class="meta"><div class="t"><b>${u.name}</b><small>${u.desc}</small></div>
+   <a class="open" href="${u.file}" target="_blank" rel="noopener">開啟 ↗</a>
+   <button class="like${on?' on':''}" data-id="${id}">${on?'❤️':'🤍'}</button></div>`;
+  g.appendChild(c);
+ });
+ g.querySelectorAll(".like").forEach(b=>b.onclick=()=>{
+  const id=b.dataset.id, now=!(liked[id]===true); liked[id]=now;
+  b.classList.toggle("on",now); b.textContent=now?'❤️':'🤍';
+  fetch(RTDB+"/"+id+".json",{method:"PUT",body:JSON.stringify(now)});
+ });
 }
-
-function render() {
-  document.getElementById('gallery').innerHTML = ITEMS.map(cardHTML).join('');
-  document.querySelectorAll('.heart-btn').forEach(btn => {
-    btn.addEventListener('click', () => onHeart(btn));
-  });
-}
-
-function setLiked(btn, liked, animate) {
-  btn.textContent = liked ? '♥' : '♡';
-  btn.classList.toggle('liked', liked);
-  btn.classList.toggle('text-black/25', !liked);
-  if (animate) {
-    btn.classList.remove('heart-pop');
-    void btn.offsetWidth;
-    btn.classList.add('heart-pop');
-  }
-}
-
-async function onHeart(btn) {
-  const id = btn.dataset.id;
-  const liked = !btn.classList.contains('liked');
-  setLiked(btn, liked, true);
-  try {
-    await fetch(`${DB_BASE}/uigallery/${keyFor(id)}.json`, {
-      method: 'PUT',
-      body: JSON.stringify(liked),
-    });
-  } catch (e) {
-    console.error('heart sync failed', e);
-  }
-}
-
-async function restoreState() {
-  try {
-    const res = await fetch(`${DB_BASE}/uigallery.json`);
-    const data = await res.json();
-    if (!data) return;
-    ITEMS.forEach(item => {
-      const key = keyFor(item.id);
-      if (data[key] === true) {
-        const btn = document.querySelector(`.heart-btn[data-id="${item.id}"]`);
-        if (btn) setLiked(btn, true, false);
-      }
-    });
-  } catch (e) {
-    console.error('failed to load like state', e);
-  }
-}
-
-render();
-restoreState();
-</script>
-</body>
-</html>
+</script></body></html>
