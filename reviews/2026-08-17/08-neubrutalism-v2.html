@@ -1,0 +1,103 @@
+<!-- style #54 Neubrutalism v2 -->
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>拼圖 Piece — 團隊任務一眼看懂</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Archivo+Black&display=swap" rel="stylesheet">
+<style>
+  :root{ font-family:'Space Grotesk', sans-serif; }
+  .display{ font-family:'Archivo Black', sans-serif; }
+  body{ background:#f7f4ec; color:#1c1c1c; }
+  .nb{ border:2.5px solid #1c1c1c; border-radius:18px; }
+  .nb-shadow{ box-shadow:5px 5px 0 #1c1c1c; }
+  .nb-shadow-lg{ box-shadow:8px 8px 0 #1c1c1c; }
+  .nb-btn{ transition: transform .12s ease, box-shadow .12s ease; }
+  .nb-btn:hover{ transform: translate(-2px,-2px); box-shadow:7px 7px 0 #1c1c1c; }
+  .nb-btn:active{ transform: translate(0,0); box-shadow:2px 2px 0 #1c1c1c; }
+</style>
+</head>
+<body>
+
+  <nav class="max-w-6xl mx-auto px-5 md:px-10 py-5 flex items-center justify-between">
+    <div class="flex items-center gap-2.5">
+      <div class="w-10 h-10 nb nb-shadow bg-[#ffd166] flex items-center justify-center display text-sm">P</div>
+      <span class="font-bold text-xl">拼圖 Piece</span>
+    </div>
+    <div class="hidden md:flex gap-7 font-semibold text-sm">
+      <a href="#" class="hover:underline">功能</a>
+      <a href="#" class="hover:underline">團隊方案</a>
+      <a href="#" class="hover:underline">價格</a>
+    </div>
+    <button class="nb-btn nb nb-shadow bg-[#7bd3c0] px-5 py-2.5 font-bold text-sm">免費試用</button>
+  </nav>
+
+  <header class="max-w-6xl mx-auto px-5 md:px-10 py-14 md:py-20 grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <span class="inline-block nb nb-shadow bg-[#f4a5c0] px-3 py-1.5 font-bold text-sm mb-6">✦ 給 10 人以下小團隊</span>
+      <h1 class="display text-4xl md:text-5xl leading-[1.15] mb-6">
+        別再問<br>
+        <span class="bg-[#ffd166] nb px-2 inline-block">「這件事到底誰在做」</span>
+      </h1>
+      <p class="text-lg font-medium mb-8 max-w-md text-[#4a4a4a]">
+        拼圖把散落的任務、訊息、檔案拼成一張看板。誰卡關、誰超前，三秒鐘看完，不用再開會確認進度。
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <button class="nb-btn nb nb-shadow-lg bg-[#7bd3c0] px-7 py-3.5 font-bold text-lg">建立團隊看板</button>
+        <button class="nb-btn nb nb-shadow-lg bg-white px-7 py-3.5 font-bold text-lg">看 2 分鐘介紹</button>
+      </div>
+      <p class="mt-6 text-sm font-semibold text-[#6b6b6b]">已有 2,400+ 個團隊在用，平均每週省下 3 小時會議</p>
+    </div>
+    <div class="nb nb-shadow-lg bg-white p-5">
+      <p class="display text-xs mb-4">本週看板</p>
+      <div class="space-y-3">
+        <div class="nb nb-shadow bg-[#ffd166] px-4 py-3 flex justify-between items-center font-bold">
+          <span>🎨 新版首頁視覺</span><span class="text-xs">進行中</span>
+        </div>
+        <div class="nb nb-shadow bg-[#7bd3c0] px-4 py-3 flex justify-between items-center font-bold">
+          <span>🚀 API 串接測試</span><span class="text-xs">待審核</span>
+        </div>
+        <div class="nb nb-shadow bg-[#f4a5c0] px-4 py-3 flex justify-between items-center font-bold">
+          <span>📝 用戶訪談整理</span><span class="text-xs">已完成</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="max-w-6xl mx-auto px-5 md:px-10 py-16">
+    <h2 class="display text-2xl md:text-3xl mb-10 text-center">拼圖幫你把混亂拼回去</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="nb nb-shadow bg-white p-6">
+        <div class="text-4xl mb-3">🧩</div>
+        <h3 class="font-bold text-xl mb-2">看板即時同步</h3>
+        <p class="font-medium text-[#4a4a4a]">任何人拖拉卡片，全隊立刻看到最新狀態，不再各自為政。</p>
+      </div>
+      <div class="nb nb-shadow bg-white p-6">
+        <div class="text-4xl mb-3">💬</div>
+        <h3 class="font-bold text-xl mb-2">任務內直接討論</h3>
+        <p class="font-medium text-[#4a4a4a]">留言、附檔、@提及都在同一張卡片，不用再切來切去找對話串。</p>
+      </div>
+      <div class="nb nb-shadow bg-white p-6">
+        <div class="text-4xl mb-3">📊</div>
+        <h3 class="font-bold text-xl mb-2">週報自動生成</h3>
+        <p class="font-medium text-[#4a4a4a]">每週一自動整理進度摘要，主管不用再追著問「做到哪了」。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-5 md:px-10 py-16 text-center">
+    <div class="nb nb-shadow-lg bg-[#ffd166] p-10 md:p-14">
+      <h2 class="display text-2xl md:text-3xl mb-4">讓團隊的每一片拼圖歸位</h2>
+      <p class="font-semibold mb-8">14 天免費試用，不用信用卡</p>
+      <button class="nb-btn nb nb-shadow-lg bg-white px-10 py-4 font-bold text-lg">立即建立團隊 →</button>
+    </div>
+  </section>
+
+  <footer class="max-w-6xl mx-auto px-5 md:px-10 py-8 text-center font-semibold text-sm text-[#6b6b6b]">
+    © 2026 拼圖 Piece · 把工作拼回原本的樣子
+  </footer>
+</body>
+</html>

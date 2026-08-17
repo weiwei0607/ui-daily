@@ -1,0 +1,107 @@
+<!-- style #45 Vaporwave -->
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>霓虹電台 NEON WAVES — 深夜放送中</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+  :root{ font-family:'VT323', monospace; font-size:20px; }
+  .pixel{ font-family:'Press Start 2P', monospace; }
+  body{
+    background: radial-gradient(ellipse at 50% 0%, #3a1a5c 0%, #1a0b2e 55%, #0a0416 100%);
+    color:#f5e6ff; overflow-x:hidden;
+  }
+  .neon{ text-shadow: 0 0 6px #ff71ce, 0 0 18px #ff71ce, 0 0 32px #c0c0c0; }
+  .neon-cyan{ text-shadow: 0 0 6px #01cdfe, 0 0 18px #01cdfe; }
+  .grid-floor{
+    position:relative; height:220px; overflow:hidden;
+    background: linear-gradient(180deg, transparent, #ff71ce22 80%);
+  }
+  .grid-floor::before{
+    content:""; position:absolute; inset:0;
+    background-image:
+      linear-gradient(#01cdfe66 1px, transparent 1px),
+      linear-gradient(90deg, #01cdfe66 1px, transparent 1px);
+    background-size: 40px 40px;
+    transform: perspective(300px) rotateX(60deg);
+    transform-origin: top;
+    animation: scroll 3s linear infinite;
+  }
+  @keyframes scroll{ from{ background-position:0 0;} to{ background-position:0 40px;} }
+  .chrome{
+    background: linear-gradient(180deg,#fff 0%,#c0c0c0 25%,#8a8a9e 50%,#fff 75%,#c0c0c0 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .glitch:hover{ animation: glitch .3s steps(2) infinite; }
+  @keyframes glitch{
+    0%{ clip-path: inset(0 0 90% 0); transform:translate(-2px,0);}
+    50%{ clip-path: inset(40% 0 40% 0); transform:translate(2px,0);}
+    100%{ clip-path: inset(90% 0 0 0); transform:translate(-1px,0);}
+  }
+  .card{ background: rgba(255,255,255,.06); border:1px solid #ff71ce55; border-radius:4px; backdrop-filter: blur(4px); }
+</style>
+</head>
+<body>
+
+  <nav class="max-w-5xl mx-auto px-6 py-6 flex items-center justify-between">
+    <span class="pixel text-xs neon">NEON WAVES</span>
+    <div class="hidden md:flex gap-6 text-lg neon-cyan">
+      <a href="#">頻道</a><a href="#">歌單</a><a href="#">關於電台</a>
+    </div>
+    <button class="pixel text-[10px] chrome border border-[#ff71ce] px-4 py-2">立即收聽</button>
+  </nav>
+
+  <header class="max-w-5xl mx-auto px-6 py-10 text-center">
+    <p class="pixel text-[10px] neon-cyan mb-6">深夜 00:00 － 06:00 放送中</p>
+    <h1 class="pixel chrome text-3xl md:text-5xl leading-[1.8] mb-6 glitch">
+      永遠的<br>1989
+    </h1>
+    <p class="text-2xl text-[#c9b8e8] max-w-lg mx-auto mb-8">
+      每晚播放合成器音樂與都市傳說，陪你度過打不完的案子與睡不著的夜。ようこそ。
+    </p>
+    <div class="flex justify-center gap-4 flex-wrap">
+      <button class="pixel text-[10px] bg-[#ff71ce] text-[#1a0b2e] px-6 py-3">▶ 開始收聽</button>
+      <button class="pixel text-[10px] border border-[#01cdfe] neon-cyan px-6 py-3">下載 App</button>
+    </div>
+  </header>
+
+  <div class="grid-floor"></div>
+
+  <section class="max-w-5xl mx-auto px-6 py-16 -mt-10 relative">
+    <h2 class="pixel text-sm neon-cyan mb-10 text-center">本週熱門頻道</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="card p-6 text-center">
+        <div class="text-4xl mb-3">🌴</div>
+        <p class="pixel text-[11px] mb-2">MALL SOFT</p>
+        <p class="text-xl text-[#c9b8e8]">空無一人的百貨公司回音</p>
+      </div>
+      <div class="card p-6 text-center">
+        <div class="text-4xl mb-3">🗾</div>
+        <p class="pixel text-[11px] mb-2">昭和喫茶</p>
+        <p class="text-xl text-[#c9b8e8]">老式爵士混上取樣人聲</p>
+      </div>
+      <div class="card p-6 text-center">
+        <div class="text-4xl mb-3">🕶️</div>
+        <p class="pixel text-[11px] mb-2">SLOW DRIVE</p>
+        <p class="text-xl text-[#c9b8e8]">深夜公路的慢速合成器</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-3xl mx-auto px-6 py-16 text-center">
+    <div class="card p-10">
+      <p class="pixel chrome text-lg mb-4">訂閱電台週報</p>
+      <p class="text-xl text-[#c9b8e8] mb-6">每週五收到新歌單與電台故事</p>
+      <button class="pixel text-[10px] bg-[#01cdfe] text-[#1a0b2e] px-8 py-3">加入訂閱 →</button>
+    </div>
+  </section>
+
+  <footer class="text-center py-8 pixel text-[9px] text-[#9a86c9]">
+    © 2026 NEON WAVES RADIO
+  </footer>
+</body>
+</html>

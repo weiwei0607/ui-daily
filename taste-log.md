@@ -21,6 +21,10 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-08-17 第 2 批（6 個，#07–12）
+- ⚠️ Firebase ❤️ 讀取仍被環境網路政策擋下（`b-battle-580b5-default-rtdb.firebaseio.com` CONNECT 403），本輪無法讀取第 1 批的按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
+- 本批風格：Claymorphism #09（圓體 Baloo 2，延續她要「圓潤風配圓體」的偏好）、Neubrutalism v2 #54（延續她喜歡的 #38 方向，配色更協調）、Trust & Authority #26（延續她要「報紙體」的偏好，改用 Playfair+Noto Serif TC 但換一種結構，避免和 #50 重複）、Financial Dashboard #36（避免整頁 Inter，改用 IBM Plex Sans + JetBrains Mono）、Organic Biophilic #42（Cormorant Garamond + Nunito，全新族群）、Vaporwave #45（Press Start 2P + VT323，全新族群）。全數繁體中文文案。
+
 ### 2026-08-17 第 1 批（4 個）
 - ❌ Glassmorphism #03：字體不好看 → 她要「圓一點」。歸納：玻璃風配圓體。
 - ❌ Swiss Modernism #50：字體不好看 → 她要「報紙體」。歸納：Swiss/編輯風配襯線報紙體。
