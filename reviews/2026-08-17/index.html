@@ -1,70 +1,42 @@
-<!doctype html><html lang="zh-Hant"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>韡寧的 UI 待審 · 2026-08-17</title>
-<style>
+<!doctype html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>韡寧的 UI 待審 · 2026-08-17</title><style>
 :root{--bg:#f4f4f5;--card:#fff;--ink:#18181b;--sub:#71717a;--line:#e4e4e7;--accent:#e11d48}
 @media(prefers-color-scheme:dark){:root{--bg:#0c0c0f;--card:#18181b;--ink:#fafafa;--sub:#a1a1aa;--line:#27272a}}
 *{box-sizing:border-box;margin:0}body{background:var(--bg);color:var(--ink);font-family:-apple-system,"Noto Sans TC",system-ui,sans-serif;line-height:1.5;padding:28px 16px 80px}
 .wrap{max-width:960px;margin:0 auto}h1{font-size:1.5rem;letter-spacing:-.02em}.sub{color:var(--sub);font-size:.9rem;margin-top:6px}
-.batch{margin-top:26px;color:var(--sub);font-size:.8rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
-.grid{display:grid;grid-template-columns:1fr;gap:20px;margin-top:14px}@media(min-width:720px){.grid{grid-template-columns:1fr 1fr}}
+.grid{display:grid;grid-template-columns:1fr;gap:20px;margin-top:24px}@media(min-width:720px){.grid{grid-template-columns:1fr 1fr}}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .frame{position:relative;height:300px;overflow:hidden;border-bottom:1px solid var(--line);background:#fff}
 .frame iframe{position:absolute;top:0;left:0;width:200%;height:200%;transform:scale(.5);transform-origin:top left;border:0;pointer-events:none}
 .meta{display:flex;align-items:center;gap:12px;padding:14px 16px}
 .meta .t{flex:1;min-width:0}.meta .t b{font-size:1rem;display:block}.meta .t small{color:var(--sub);font-size:.78rem}
 .open{font-size:.8rem;color:var(--sub);text-decoration:none;border:1px solid var(--line);padding:6px 11px;border-radius:9px;white-space:nowrap}
-.like{border:1.5px solid var(--line);background:none;font-size:1.15rem;width:44px;height:38px;border-radius:10px;cursor:pointer;transition:.15s}
+.like{border:1.5px solid var(--line);background:none;font-size:1.15rem;width:44px;height:38px;border-radius:10px;cursor:pointer}
 .like.on{background:var(--accent);border-color:var(--accent)}
 .tip{margin-top:22px;color:var(--sub);font-size:.85rem;text-align:center}
 </style></head><body><div class="wrap">
 <h1>韡寧的 UI 待審 · 2026-08-17</h1>
-<p class="sub">喜歡的按 ❤️ — 我會學起來，之後生得更準。這頁未公開，只有你看得到。</p>
-<p class="batch">第 1 批</p>
-<div class="grid" id="grid1"></div>
-<p class="batch">第 2 批</p>
-<div class="grid" id="grid2"></div>
-<p class="tip">🌱 今天共 12 個不同風格方向。按下的 ❤️ 會記進品味檔。</p>
-</div>
+<p class="sub">已套用你的回饋：繁體中文＋字體配風格。喜歡的按 ❤️，我會繼續學。這頁未公開。</p>
+<div class="grid" id="grid"></div>
+<p class="tip">🌱 修正版 8 個（早上簡體那批已移除）。</p></div>
 <script>
 const DATE="2026-08-17";
-const UIS1=[
- {n:"01",file:"01-glassmorphism.html",name:"Glassmorphism #03",desc:"毛玻璃透明層疊 · SaaS landing"},
- {n:"02",file:"02-swiss-modernism.html",name:"Swiss Modernism #50",desc:"瑞士國際主義・嚴格網格 · 作品集 hero"},
- {n:"03",file:"03-realtime-monitoring.html",name:"Real-Time Monitoring #31",desc:"即時監控儀表板"},
- {n:"04",file:"04-neubrutalism.html",name:"Neubrutalism #38",desc:"新野獸派・硬陰影撞色 · App 首頁"},
- {n:"05",file:"05-ai-native.html",name:"AI-Native #43",desc:"AI 漸層・對話式佈局 · SaaS landing"},
- {n:"06",file:"06-eink-paper.html",name:"E-Ink / Paper #56",desc:"電子墨水紙感 · 作品集 hero"},
-];
-const UIS2=[
- {n:"07",file:"07-claymorphism.html",name:"Claymorphism #09",desc:"黏土 3D 圓潤可愛 · 放鬆練習 App（圓體 Baloo 2）"},
- {n:"08",file:"08-neubrutalism-v2.html",name:"Neubrutalism v2 #54",desc:"新野獸派精緻化 · 團隊協作工具（Space Grotesk）"},
- {n:"09",file:"09-trust-authority.html",name:"Trust & Authority #26",desc:"權威編輯報紙體 · 財富顧問官網（Playfair+Noto Serif TC）"},
- {n:"10",file:"10-financial-dashboard.html",name:"Financial Dashboard #36",desc:"深色金融後台 · 等寬數字（IBM Plex Sans+JetBrains Mono）"},
- {n:"11",file:"11-organic-biophilic.html",name:"Organic Biophilic #42",desc:"自然有機大地色 · 植物訂閱電商（Cormorant+Nunito）"},
- {n:"12",file:"12-vaporwave.html",name:"Vaporwave #45",desc:"蒸汽波復古故障 · 深夜電台 App（Press Start 2P+VT323）"},
+const UIS=[
+ {n:"05",file:"05-ai-native.html",name:"AI-Native #43",desc:"AI 產品科技漸層"},
+ {n:"06",file:"06-eink-paper.html",name:"E-Ink / Paper #56",desc:"電子墨水紙感・襯線"},
+ {n:"07",file:"07-claymorphism.html",name:"Claymorphism #09",desc:"黏土圓潤・圓體 Baloo"},
+ {n:"08",file:"08-neubrutalism-v2.html",name:"Neubrutalism v2 #54",desc:"新野獸派・粗展示字"},
+ {n:"09",file:"09-trust-authority.html",name:"Trust & Authority #26",desc:"權威襯線 Playfair"},
+ {n:"10",file:"10-financial-dashboard.html",name:"Financial #36",desc:"金融儀表板・等寬數字"},
+ {n:"11",file:"11-organic-biophilic.html",name:"Organic Biophilic #42",desc:"自然大地・襯線"},
+ {n:"12",file:"12-vaporwave.html",name:"Vaporwave #45",desc:"蒸汽波・故障美學"},
 ];
 const RTDB="https://b-battle-580b5-default-rtdb.firebaseio.com/uigallery";
 let liked={};
 fetch(RTDB+".json").then(r=>r.json()).then(d=>{liked=d||{};render()}).catch(render);
-function render(){
- renderGrid("grid1",UIS1); renderGrid("grid2",UIS2);
-}
-function renderGrid(gridId,list){
- const g=document.getElementById(gridId);g.innerHTML="";
- list.forEach(u=>{
-  const id=DATE+"_"+u.n, on=liked[id]===true;
-  const c=document.createElement("div");c.className="card";
-  c.innerHTML=`<div class="frame"><iframe src="${u.file}" loading="lazy"></iframe></div>
-   <div class="meta"><div class="t"><b>${u.name}</b><small>${u.desc}</small></div>
-   <a class="open" href="${u.file}" target="_blank" rel="noopener">開啟 ↗</a>
-   <button class="like${on?' on':''}" data-id="${id}">${on?'❤️':'🤍'}</button></div>`;
-  g.appendChild(c);
- });
- g.querySelectorAll(".like").forEach(b=>b.onclick=()=>{
-  const id=b.dataset.id, now=!(liked[id]===true); liked[id]=now;
-  b.classList.toggle("on",now); b.textContent=now?'❤️':'🤍';
-  fetch(RTDB+"/"+id+".json",{method:"PUT",body:JSON.stringify(now)});
- });
-}
+function render(){const g=document.getElementById("grid");g.innerHTML="";
+ UIS.forEach(u=>{const id=DATE+"_"+u.n,on=liked[id]===true;const c=document.createElement("div");c.className="card";
+  c.innerHTML=`<div class="frame"><iframe src="${u.file}" loading="lazy"></iframe></div><div class="meta"><div class="t"><b>${u.name}</b><small>${u.desc}</small></div><a class="open" href="${u.file}" target="_blank" rel="noopener">開啟 ↗</a><button class="like${on?' on':''}" data-id="${id}">${on?'❤️':'🤍'}</button></div>`;
+  g.appendChild(c);});
+ g.querySelectorAll(".like").forEach(b=>b.onclick=()=>{const id=b.dataset.id,now=!(liked[id]===true);liked[id]=now;b.classList.toggle("on",now);b.textContent=now?'❤️':'🤍';fetch(RTDB+"/"+id+".json",{method:"PUT",body:JSON.stringify(now)});});}
 </script></body></html>
