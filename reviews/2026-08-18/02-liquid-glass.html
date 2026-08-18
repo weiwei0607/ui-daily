@@ -1,0 +1,85 @@
+<!-- style #14 Liquid Glass -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>療心 Mendful — 溫柔的每日心情紀錄</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Quicksand','Noto Sans TC',sans-serif;
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 45%,#f093fb 100%);
+    min-height:100vh; overflow-x:hidden;}
+  .disp{font-family:'Zen Maru Gothic','Noto Sans TC',sans-serif;}
+  .glass{background:rgba(255,255,255,.22); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,.4); box-shadow:0 8px 32px rgba(31,38,135,.2);}
+  .glass-strong{background:rgba(255,255,255,.35); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px);
+    border:1px solid rgba(255,255,255,.55);}
+  .blob{position:absolute; border-radius:50%; filter:blur(60px); opacity:.5; animation:float 10s ease-in-out infinite;}
+  @keyframes float{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(20px,-30px) scale(1.08);}}
+  .btn-glass{background:rgba(255,255,255,.9); border-radius:999px; transition:all .2s;}
+  .btn-glass:hover{background:#fff; transform:translateY(-2px); box-shadow:0 10px 30px rgba(0,0,0,.15);}
+</style>
+</head>
+<body class="text-white relative">
+
+<div class="blob w-72 h-72 bg-pink-300 top-10 left-10"></div>
+<div class="blob w-96 h-96 bg-indigo-300 top-40 right-0"></div>
+<div class="blob w-80 h-80 bg-purple-300 bottom-0 left-1/3"></div>
+
+<nav class="relative z-10 max-w-5xl mx-auto px-6 py-5 flex items-center justify-between">
+  <div class="glass-strong rounded-full px-5 py-2 disp font-bold text-lg">🌙 療心 Mendful</div>
+  <div class="glass rounded-full px-6 py-2 hidden md:flex gap-6 text-sm font-medium">
+    <a href="#" class="hover:opacity-70">功能</a>
+    <a href="#" class="hover:opacity-70">會員方案</a>
+    <a href="#" class="hover:opacity-70">關於我們</a>
+  </div>
+  <button class="btn-glass text-[#764ba2] font-bold px-5 py-2 text-sm">下載 App</button>
+</nav>
+
+<header class="relative z-10 max-w-3xl mx-auto px-6 pt-16 pb-24 text-center">
+  <div class="glass-strong inline-block rounded-full px-4 py-1.5 text-sm font-bold mb-6">✨ 已有 12 萬人每天記錄心情</div>
+  <h1 class="disp text-4xl md:text-6xl font-black leading-tight mb-6 drop-shadow-sm">把每一天的心情<br>輕輕地留下來</h1>
+  <p class="text-lg font-medium opacity-90 mb-10 max-w-xl mx-auto">療心用一分鐘的每日紀錄，陪你看見情緒的變化，也在低潮時溫柔地提醒你不孤單。</p>
+  <div class="flex gap-4 justify-center flex-wrap">
+    <button class="btn-glass text-[#764ba2] font-bold px-8 py-4 text-lg">免費開始記錄</button>
+    <button class="glass rounded-full font-bold px-8 py-4 text-lg">看看怎麼用</button>
+  </div>
+</header>
+
+<section class="relative z-10 max-w-5xl mx-auto px-6 pb-20">
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="glass rounded-[2rem] p-7">
+      <div class="text-4xl mb-4">🌤️</div>
+      <h3 class="disp text-xl font-bold mb-2">一分鐘打卡</h3>
+      <p class="text-sm opacity-90 leading-relaxed">選個表情、寫一句話，今天的心情就記好了，不用長篇日記的壓力。</p>
+    </div>
+    <div class="glass-strong rounded-[2rem] p-7">
+      <div class="text-4xl mb-4">📈</div>
+      <h3 class="disp text-xl font-bold mb-2">看見情緒曲線</h3>
+      <p class="text-sm opacity-90 leading-relaxed">每週、每月自動整理成柔和的曲線圖，讓你看見自己真正的狀態。</p>
+    </div>
+    <div class="glass rounded-[2rem] p-7">
+      <div class="text-4xl mb-4">💌</div>
+      <h3 class="disp text-xl font-bold mb-2">溫柔的提醒</h3>
+      <p class="text-sm opacity-90 leading-relaxed">連續低落時，我們會用一段暖心的話陪你，而不是制式通知。</p>
+    </div>
+  </div>
+</section>
+
+<section class="relative z-10 max-w-3xl mx-auto px-6 pb-24">
+  <div class="glass-strong rounded-[2.5rem] p-10 text-center">
+    <h2 class="disp text-3xl font-black mb-4">今天，想留下什麼心情？</h2>
+    <p class="opacity-90 mb-8">加入療心，讓紀錄成為一種被自己溫柔對待的習慣。</p>
+    <button class="btn-glass text-[#764ba2] font-bold px-10 py-4 text-lg">立即免費體驗</button>
+  </div>
+</section>
+
+<footer class="relative z-10 text-center pb-10 text-sm opacity-80 font-medium">
+  © 2026 Mendful 療心・你的情緒，值得被溫柔紀錄
+</footer>
+
+</body>
+</html>

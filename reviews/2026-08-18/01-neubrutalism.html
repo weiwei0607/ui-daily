@@ -1,0 +1,127 @@
+<!-- style #38 Neubrutalism -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>衝刺板 Sprintly — 團隊任務追蹤 SaaS</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Space Grotesk','Noto Sans TC',sans-serif;background:#fdf6e3;}
+  .disp{font-family:'Archivo Black','Noto Sans TC',sans-serif;}
+  .brut{border:4px solid #111; box-shadow:8px 8px 0 #111; transition:transform .12s, box-shadow .12s;}
+  .brut:hover{transform:translate(-4px,-4px); box-shadow:12px 12px 0 #111;}
+  .brut-sm{border:3px solid #111; box-shadow:5px 5px 0 #111;}
+  .btn-brut{border:3px solid #111; box-shadow:5px 5px 0 #111; transition:all .1s;}
+  .btn-brut:active{transform:translate(5px,5px); box-shadow:0 0 0 #111;}
+</style>
+</head>
+<body class="text-[#111]">
+
+<nav class="border-b-4 border-[#111] bg-[#fdf6e3] sticky top-0 z-20">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="disp text-2xl tracking-tight">⚡ SPRINTLY</div>
+    <div class="hidden md:flex gap-8 font-bold">
+      <a href="#features" class="hover:underline">功能</a>
+      <a href="#pricing" class="hover:underline">價格</a>
+      <a href="#team" class="hover:underline">團隊怎麼用</a>
+    </div>
+    <button class="btn-brut bg-[#ffe66d] px-5 py-2 font-bold">免費試用</button>
+  </div>
+</nav>
+
+<header class="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-10 items-center">
+  <div>
+    <span class="inline-block bg-[#4ecdc4] border-3 border-[#111] px-3 py-1 font-bold text-sm mb-5 brut-sm">給不想再開五個會的團隊</span>
+    <h1 class="disp text-5xl md:text-6xl leading-[1.05] mb-6">任務別再<br><span class="bg-[#ff6b6b] px-2">卡在群組訊息</span>裡爛掉</h1>
+    <p class="text-lg font-medium mb-8 max-w-md">Sprintly 把待辦、進度、負責人全部釘在一塊看板上。三分鐘看懂團隊卡在哪，不用再問「進度到哪了？」。</p>
+    <div class="flex gap-4 flex-wrap">
+      <button class="btn-brut bg-[#111] text-white px-7 py-4 font-bold text-lg">立即開始・免費</button>
+      <button class="btn-brut bg-white px-7 py-4 font-bold text-lg">看 90 秒介紹</button>
+    </div>
+    <p class="mt-4 text-sm font-bold">不用信用卡・14 天完整功能</p>
+  </div>
+  <div class="brut bg-white p-5">
+    <div class="flex items-center gap-2 mb-4 border-b-2 border-[#111] pb-3">
+      <div class="w-3 h-3 rounded-full bg-[#ff6b6b] border border-[#111]"></div>
+      <div class="w-3 h-3 rounded-full bg-[#ffe66d] border border-[#111]"></div>
+      <div class="w-3 h-3 rounded-full bg-[#4ecdc4] border border-[#111]"></div>
+      <span class="ml-2 font-bold text-sm">本週衝刺看板</span>
+    </div>
+    <div class="grid grid-cols-3 gap-3 text-sm">
+      <div>
+        <div class="font-bold mb-2 bg-[#f5f1e8] border-2 border-[#111] px-2 py-1 text-center">待處理 · 5</div>
+        <div class="brut-sm bg-white p-2 mb-2 text-xs font-medium">重新設計登入頁</div>
+        <div class="brut-sm bg-white p-2 text-xs font-medium">API 速率限制</div>
+      </div>
+      <div>
+        <div class="font-bold mb-2 bg-[#ffe66d] border-2 border-[#111] px-2 py-1 text-center">進行中 · 3</div>
+        <div class="brut-sm bg-white p-2 mb-2 text-xs font-medium">結帳流程優化</div>
+        <div class="brut-sm bg-white p-2 text-xs font-medium">通知系統重構</div>
+      </div>
+      <div>
+        <div class="font-bold mb-2 bg-[#4ecdc4] border-2 border-[#111] px-2 py-1 text-center">已完成 · 12</div>
+        <div class="brut-sm bg-white p-2 mb-2 text-xs font-medium line-through opacity-60">首頁 A/B 測試</div>
+        <div class="brut-sm bg-white p-2 text-xs font-medium line-through opacity-60">客服機器人上線</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="features" class="max-w-6xl mx-auto px-6 py-16">
+  <h2 class="disp text-4xl mb-10">為什麼團隊<span class="bg-[#4ecdc4] px-2">用得下去</span></h2>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="brut bg-white p-6">
+      <div class="text-4xl mb-3">🎯</div>
+      <h3 class="disp text-xl mb-2">一眼看懂卡點</h3>
+      <p class="font-medium text-sm">看板即時反映誰卡在哪一步，不用再逐一追問進度。</p>
+    </div>
+    <div class="brut bg-[#ffe66d] p-6">
+      <div class="text-4xl mb-3">⏱️</div>
+      <h3 class="disp text-xl mb-2">自動每日彙整</h3>
+      <p class="font-medium text-sm">每天早上 9 點，Sprintly 幫你把昨天完成的事整理成一段話，貼進群組就好。</p>
+    </div>
+    <div class="brut bg-[#ff6b6b] p-6 text-white">
+      <div class="text-4xl mb-3">🔗</div>
+      <h3 class="disp text-xl mb-2">串接你在用的工具</h3>
+      <p class="font-medium text-sm">GitHub、Slack、Notion 一鍵接上，不用改變團隊原本的工作習慣。</p>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" class="max-w-6xl mx-auto px-6 py-16">
+  <h2 class="disp text-4xl mb-10 text-center">簡單到不用比價</h2>
+  <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+    <div class="brut bg-white p-6 text-center">
+      <h3 class="disp text-lg mb-2">個人版</h3>
+      <div class="text-4xl font-black mb-4">NT$0</div>
+      <p class="text-sm font-medium mb-6">最多 3 人小團隊，功能不打折</p>
+      <button class="btn-brut bg-[#f5f1e8] px-6 py-2 font-bold w-full">開始使用</button>
+    </div>
+    <div class="brut bg-[#111] text-white p-6 text-center scale-105">
+      <span class="inline-block bg-[#ffe66d] text-[#111] px-2 py-1 text-xs font-bold mb-2">最多人選</span>
+      <h3 class="disp text-lg mb-2">團隊版</h3>
+      <div class="text-4xl font-black mb-4">NT$299<span class="text-sm">/人/月</span></div>
+      <p class="text-sm font-medium mb-6">無限專案、自動彙整、優先支援</p>
+      <button class="btn-brut bg-[#ffe66d] text-[#111] px-6 py-2 font-bold w-full">立即升級</button>
+    </div>
+    <div class="brut bg-white p-6 text-center">
+      <h3 class="disp text-lg mb-2">企業版</h3>
+      <div class="text-4xl font-black mb-4">洽談</div>
+      <p class="text-sm font-medium mb-6">單一登入、專屬客服、客製報表</p>
+      <button class="btn-brut bg-[#f5f1e8] px-6 py-2 font-bold w-full">聯絡業務</button>
+    </div>
+  </div>
+</section>
+
+<footer class="border-t-4 border-[#111] bg-[#111] text-white py-10 mt-10">
+  <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+    <div class="disp text-xl">⚡ SPRINTLY</div>
+    <p class="text-sm font-medium opacity-70">© 2026 Sprintly Inc. 讓團隊少開一點會。</p>
+  </div>
+</footer>
+
+</body>
+</html>

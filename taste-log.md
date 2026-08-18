@@ -21,6 +21,10 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-08-18（6 個，#01–06）
+- ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（CONNECT 403），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
+- 本批風格（避開近 3 天用過的 #09/#26/#36/#42/#45/#43/#54/#56）：Neubrutalism #38（她先前按讚過但因簡體字被清掉，這次用繁體重做，Archivo Black + Space Grotesk）、Liquid Glass #14（延續「玻璃風配圓體」教訓，改用 Zen Maru Gothic + Quicksand，不再用 Inter）、Storytelling #27（延續「敘事配報紙體」，Newsreader + Noto Serif TC）、Cyberpunk #41（全新族群，Orbitron + Share Tech Mono，避免用 Inter）、Executive Summary Dashboard #30（儀表板但换用 Manrope + JetBrains Mono，不是預設 Inter）、Kinetic Typography #48（全新族群，Bebas Neue + Work Sans 展示字）。中文字元一律用字型堆疊 fallback 到 Noto Sans/Serif TC，確保英文展示字與中文都到位。全數繁體中文文案。
+
 ### 2026-08-17 第 2 批（6 個，#07–12）
 - ⚠️ Firebase ❤️ 讀取仍被環境網路政策擋下（`b-battle-580b5-default-rtdb.firebaseio.com` CONNECT 403），本輪無法讀取第 1 批的按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
 - 本批風格：Claymorphism #09（圓體 Baloo 2，延續她要「圓潤風配圓體」的偏好）、Neubrutalism v2 #54（延續她喜歡的 #38 方向，配色更協調）、Trust & Authority #26（延續她要「報紙體」的偏好，改用 Playfair+Noto Serif TC 但換一種結構，避免和 #50 重複）、Financial Dashboard #36（避免整頁 Inter，改用 IBM Plex Sans + JetBrains Mono）、Organic Biophilic #42（Cormorant Garamond + Nunito，全新族群）、Vaporwave #45（Press Start 2P + VT323，全新族群）。全數繁體中文文案。
