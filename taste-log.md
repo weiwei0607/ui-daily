@@ -21,6 +21,10 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-08-19（6 個，#01–06）
+- ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（CONNECT 403，連續第 3 次），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
+- 本批風格（避開近 3 天用過的 #38/#14/#27/#41/#30/#48/#09/#54/#26/#36/#42/#45/#03/#50/#31，並刻意避免與近期重複的字體組合）：Soft UI Evolution #19（延續「圓潤風配圓體」偏好，改用全新組合 Baloo 2 + Varela Round，做成好眠睡眠 App）、E-Ink / Paper #56（延續「報紙體」偏好，Noto Serif TC + Space Mono，做成讀墨深度閱讀日報，全新族群）、Vibrant Block #06（高飽和色塊風，換掉配方預設的 Space Grotesk，改用 Unbounded + DM Sans 避免與 #38/#54 重複，做成音樂節售票頁）、Gen Z Chaos #57（配方建議的 Clash Display 非 Google Fonts 可靠取得，改用同樣有個性的 Bricolage Grotesque + IBM Plex Mono，做成潮玩交易所）、Bento Grids #53（避免用 Inter，改用 Plus Jakarta Sans，做成產品設計師作品集）、Comparative Dashboard #33（BI 儀表板全新類型，避免用 Inter/JetBrains Mono 撞前幾輪，改用 Sora + Roboto Mono，做成廣告成效比較看板）。全數繁體中文文案，中文字元皆保留 Noto Sans/Serif TC 作為 fallback。
+
 ### 2026-08-18（6 個，#01–06）
 - ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（CONNECT 403），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
 - 本批風格（避開近 3 天用過的 #09/#26/#36/#42/#45/#43/#54/#56）：Neubrutalism #38（她先前按讚過但因簡體字被清掉，這次用繁體重做，Archivo Black + Space Grotesk）、Liquid Glass #14（延續「玻璃風配圓體」教訓，改用 Zen Maru Gothic + Quicksand，不再用 Inter）、Storytelling #27（延續「敘事配報紙體」，Newsreader + Noto Serif TC）、Cyberpunk #41（全新族群，Orbitron + Share Tech Mono，避免用 Inter）、Executive Summary Dashboard #30（儀表板但换用 Manrope + JetBrains Mono，不是預設 Inter）、Kinetic Typography #48（全新族群，Bebas Neue + Work Sans 展示字）。中文字元一律用字型堆疊 fallback 到 Noto Sans/Serif TC，確保英文展示字與中文都到位。全數繁體中文文案。

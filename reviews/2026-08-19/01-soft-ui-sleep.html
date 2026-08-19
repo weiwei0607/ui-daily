@@ -1,0 +1,143 @@
+<!-- style #19 Soft UI Evolution -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>好眠 · 睡眠陪伴 App</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Varela+Round&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#eef6fb;
+    --pink:#ffd6e0;
+    --blue:#bfe3f5;
+    --green:#c9f0dc;
+    --purple:#e3d6fb;
+    --ink:#4a4560;
+  }
+  *{font-family:'Varela Round','Zen Maru Gothic',sans-serif;}
+  h1,h2,h3,.display{font-family:'Baloo 2','Zen Maru Gothic',sans-serif;}
+  body{background:linear-gradient(160deg,#eef6fb 0%,#f6eefc 100%);color:var(--ink);}
+  .soft{
+    background:#eef3fa;
+    border-radius:32px;
+    box-shadow: 10px 10px 24px #c9d6e6, -10px -10px 24px #ffffff;
+  }
+  .soft-pressed{
+    background:#eef3fa;
+    border-radius:24px;
+    box-shadow: inset 6px 6px 14px #c9d6e6, inset -6px -6px 14px #ffffff;
+  }
+  .soft-btn{
+    background:linear-gradient(145deg,#ffffff,#e4ecf7);
+    border-radius:999px;
+    box-shadow: 6px 6px 14px #c9d6e6, -6px -6px 14px #ffffff;
+    transition:all .25s ease;
+  }
+  .soft-btn:active{
+    box-shadow: inset 4px 4px 10px #c9d6e6, inset -4px -4px 10px #ffffff;
+  }
+  .pastel-pink{background:linear-gradient(145deg,#ffe1ea,#ffd0dd);}
+  .pastel-blue{background:linear-gradient(145deg,#d4ecf9,#bfe3f5);}
+  .pastel-green{background:linear-gradient(145deg,#d7f5e6,#c2edda);}
+  .pastel-purple{background:linear-gradient(145deg,#ece0fd,#ddc9fb);}
+  .wave{
+    animation: floaty 6s ease-in-out infinite;
+  }
+  @keyframes floaty{
+    0%,100%{transform:translateY(0px);}
+    50%{transform:translateY(-10px);}
+  }
+</style>
+</head>
+<body class="min-h-screen px-5 py-8 md:px-16 md:py-14">
+
+  <header class="flex items-center justify-between max-w-5xl mx-auto mb-10">
+    <div class="flex items-center gap-3">
+      <div class="w-11 h-11 pastel-purple soft-pressed flex items-center justify-center text-xl">🌙</div>
+      <span class="display text-xl font-bold">好眠</span>
+    </div>
+    <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-[#6b6485]">
+      <a href="#">功能</a>
+      <a href="#">睡眠報告</a>
+      <a href="#">會員方案</a>
+    </nav>
+    <button class="soft-btn px-5 py-2.5 text-sm font-semibold text-[#5b4b8a]">立即下載</button>
+  </header>
+
+  <main class="max-w-5xl mx-auto">
+    <section class="grid md:grid-cols-2 gap-8 items-center mb-14">
+      <div>
+        <span class="inline-block pastel-pink soft-pressed px-4 py-1.5 text-xs font-semibold text-[#9c4f68] mb-5">連續 30 天好眠挑戰開跑</span>
+        <h1 class="display text-4xl md:text-5xl font-extrabold leading-tight mb-5">
+          今晚，讓身體<br class="hidden md:block">學會<span class="text-[#8a6fd1]">放鬆</span>
+        </h1>
+        <p class="text-[#6b6485] text-base md:text-lg mb-8 leading-relaxed">
+          好眠用溫柔的白噪音、呼吸練習與睡眠分析，陪你找回每晚該有的深層休息。已有 42 萬人跟著我們睡得更好。
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <button class="soft-btn pastel-purple px-7 py-3.5 font-bold text-[#4a3a80]">開始 7 天免費體驗</button>
+          <button class="soft-btn px-7 py-3.5 font-bold text-[#6b6485]">看看怎麼運作</button>
+        </div>
+      </div>
+
+      <div class="soft p-8 wave">
+        <div class="flex justify-between items-center mb-6">
+          <span class="text-sm font-semibold text-[#6b6485]">昨晚睡眠評分</span>
+          <span class="pastel-green soft-pressed px-3 py-1 text-xs font-bold text-[#2f7a55]">良好</span>
+        </div>
+        <div class="text-6xl font-extrabold display text-[#4a3a80] mb-2">86<span class="text-2xl text-[#a79bcf]">分</span></div>
+        <p class="text-sm text-[#8a83a5] mb-6">深層睡眠 2 小時 14 分・比平常多 18 分鐘</p>
+        <div class="grid grid-cols-3 gap-3">
+          <div class="pastel-blue soft-pressed p-4 text-center">
+            <div class="text-xs text-[#3d6f8a] mb-1">入睡時間</div>
+            <div class="font-bold text-[#274a5e]">23:42</div>
+          </div>
+          <div class="pastel-pink soft-pressed p-4 text-center">
+            <div class="text-xs text-[#9c4f68] mb-1">起床時間</div>
+            <div class="font-bold text-[#7a3350]">07:15</div>
+          </div>
+          <div class="pastel-green soft-pressed p-4 text-center">
+            <div class="text-xs text-[#2f7a55] mb-1">心率</div>
+            <div class="font-bold text-[#1f5a3d]">58</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-14">
+      <h2 class="display text-2xl md:text-3xl font-bold text-center mb-10">陪你入睡的三個小工具</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="soft p-7">
+          <div class="w-14 h-14 pastel-blue soft-pressed flex items-center justify-center text-2xl mb-5">🌊</div>
+          <h3 class="display font-bold text-lg mb-2">環境白噪音</h3>
+          <p class="text-sm text-[#8a83a5] leading-relaxed">雨聲、海浪、壁爐柴火，200+ 種聲音任你混搭，睡前也能自動淡出。</p>
+        </div>
+        <div class="soft p-7">
+          <div class="w-14 h-14 pastel-pink soft-pressed flex items-center justify-center text-2xl mb-5">🫁</div>
+          <h3 class="display font-bold text-lg mb-2">4-7-8 呼吸練習</h3>
+          <p class="text-sm text-[#8a83a5] leading-relaxed">跟著呼吸動畫慢慢吸氣、屏息、吐氣，五分鐘讓神經系統安定下來。</p>
+        </div>
+        <div class="soft p-7">
+          <div class="w-14 h-14 pastel-green soft-pressed flex items-center justify-center text-2xl mb-5">📈</div>
+          <h3 class="display font-bold text-lg mb-2">每週睡眠報告</h3>
+          <p class="text-sm text-[#8a83a5] leading-relaxed">用簡單好懂的圖表，看懂你的睡眠週期與改善建議，不用是專家也看得懂。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="soft p-8 md:p-12 text-center">
+      <h2 class="display text-2xl md:text-3xl font-bold mb-4">今晚，就先睡個好覺吧</h2>
+      <p class="text-[#8a83a5] mb-7">免費體驗 7 天，不滿意隨時取消，不囉嗦。</p>
+      <button class="soft-btn pastel-purple px-8 py-4 font-bold text-[#4a3a80] text-lg">下載好眠 App</button>
+    </section>
+  </main>
+
+  <footer class="max-w-5xl mx-auto mt-14 text-center text-xs text-[#a79bcf]">
+    © 2026 好眠 HaoMian・用溫柔的科技，陪你好好休息
+  </footer>
+
+</body>
+</html>

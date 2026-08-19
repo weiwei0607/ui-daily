@@ -1,0 +1,110 @@
+<!-- style #56 E-Ink / Paper -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>讀墨 · 深度閱讀日報</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f4f1e9;
+    --ink:#1c1a17;
+    --line:#c9c2b0;
+  }
+  body{
+    background-color:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Serif TC', serif;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px),
+      repeating-linear-gradient(90deg, rgba(0,0,0,0.01) 0px, rgba(0,0,0,0.01) 1px, transparent 1px, transparent 3px);
+  }
+  .mono{font-family:'Space Mono', monospace;}
+  .rule{border-color:var(--line);}
+  .rule-thick{border-color:var(--ink);}
+  .no-shadow{box-shadow:none;}
+  ::selection{background:var(--ink); color:var(--paper);}
+</style>
+</head>
+<body class="min-h-screen px-6 py-10 md:px-0">
+<div class="max-w-3xl mx-auto">
+
+  <header class="border-b-4 rule-thick pb-4 mb-6">
+    <div class="flex justify-between items-baseline mono text-xs tracking-widest uppercase mb-3 text-[#5a5548]">
+      <span>2026 年 8 月 19 日 · 星期三</span>
+      <span>第 1142 期・讀墨日報</span>
+    </div>
+    <h1 class="text-5xl md:text-6xl font-black tracking-tight text-center mb-2">讀 墨</h1>
+    <p class="text-center text-sm mono text-[#5a5548] tracking-widest">DEEP READING, DAILY DELIVERED</p>
+  </header>
+
+  <div class="grid grid-cols-3 gap-6 border-b-2 rule pb-6 mb-8 text-xs mono text-[#5a5548]">
+    <div>ISSUE&nbsp;NO.1142</div>
+    <div class="text-center">今日文章 12 篇</div>
+    <div class="text-right">閱讀時間 48 分鐘</div>
+  </div>
+
+  <main>
+    <article class="mb-10">
+      <span class="mono text-xs tracking-widest uppercase text-[#5a5548]">頭條 / 科技與社會</span>
+      <h2 class="text-3xl md:text-4xl font-bold leading-snug mt-2 mb-4">當演算法決定我們讀什麼：一場關於注意力的無聲戰爭</h2>
+      <div class="flex gap-6 text-sm">
+        <p class="leading-8 text-[17px] first-letter:text-6xl first-letter:font-black first-letter:mr-2 first-letter:float-left first-letter:leading-[0.8]">
+          過去十年，我們把「該讀什麼」這件事，悄悄外包給了推薦系統。它比任何編輯都更了解我們的弱點——什麼標題會讓手指停下、什麼情緒會讓人多滑三秒。讀墨這篇長文專訪了三位前平台工程師，還原演算法如何一步步從「幫你找到好內容」，演變成「幫你找到讓你離不開的內容」。他們也提出一個問題：如果連我們讀什麼都不是自己選的，我們還算是在思考嗎？
+        </p>
+      </div>
+      <div class="mt-4 pt-3 border-t rule flex justify-between text-xs mono text-[#5a5548]">
+        <span>作者・林知遠</span>
+        <span>閱讀時間 12 分鐘</span>
+      </div>
+    </article>
+
+    <div class="grid md:grid-cols-2 gap-8 border-t-2 rule-thick pt-8 mb-10">
+      <article class="border-r-0 md:border-r rule md:pr-8">
+        <span class="mono text-xs tracking-widest uppercase text-[#5a5548]">財經</span>
+        <h3 class="text-xl font-bold leading-snug mt-2 mb-3">小額儲蓄的複利假象：為什麼多數人的計算都錯了</h3>
+        <p class="text-sm leading-7 text-[#3a362e]">一份追蹤 800 位受訪者的調查發現，超過六成的人高估了自己的年化報酬率，也低估了通膨侵蝕的速度。</p>
+        <div class="mt-3 text-xs mono text-[#5a5548]">作者・陳惠敏 ・ 7 分鐘</div>
+      </article>
+      <article>
+        <span class="mono text-xs tracking-widest uppercase text-[#5a5548]">人文</span>
+        <h3 class="text-xl font-bold leading-snug mt-2 mb-3">在一座逐漸消失的漁村，記錄最後十位討海人</h3>
+        <p class="text-sm leading-7 text-[#3a362e]">攝影記者花了三年時間，跟著台灣西南沿海的漁民出海，拍下這門手藝真正消失前的最後樣貌。</p>
+        <div class="mt-3 text-xs mono text-[#5a5548]">作者・黃信璁 ・ 9 分鐘</div>
+      </article>
+    </div>
+
+    <div class="border-t-2 rule-thick pt-8 mb-10">
+      <h3 class="mono text-xs tracking-widest uppercase text-[#5a5548] mb-4">今日精選短讀</h3>
+      <ul class="space-y-3">
+        <li class="flex justify-between border-b rule pb-3">
+          <span class="font-medium">辦公室植物真的能降低壓力嗎？三份研究的交叉比對</span>
+          <span class="mono text-xs text-[#8a8371] whitespace-nowrap ml-4">4 分鐘</span>
+        </li>
+        <li class="flex justify-between border-b rule pb-3">
+          <span class="font-medium">從咖啡渣到建材：一間新創如何把廢棄物變成磚頭</span>
+          <span class="mono text-xs text-[#8a8371] whitespace-nowrap ml-4">6 分鐘</span>
+        </li>
+        <li class="flex justify-between border-b rule pb-3">
+          <span class="font-medium">為什麼你總在深夜做出最差的決定：睡眠科學小簡報</span>
+          <span class="mono text-xs text-[#8a8371] whitespace-nowrap ml-4">5 分鐘</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="text-center border-2 rule-thick p-8">
+      <p class="text-lg font-bold mb-2">訂閱讀墨，每天早上七點準時送達</p>
+      <p class="text-sm text-[#5a5548] mb-5">不推播、不打斷，一天一次，讀完就好。</p>
+      <button class="mono text-sm border-2 rule-thick px-6 py-3 font-bold hover:bg-[#1c1a17] hover:text-[#f4f1e9] transition-colors">訂閱電子報 →</button>
+    </div>
+  </main>
+
+  <footer class="mt-12 pt-4 border-t-4 rule-thick text-center mono text-xs text-[#5a5548] tracking-wide">
+    讀墨 READMO — 印刷體的閱讀感，數位時代的送報方式
+  </footer>
+</div>
+</body>
+</html>
