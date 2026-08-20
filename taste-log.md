@@ -23,6 +23,8 @@
 
 ### 2026-08-20（6 個，#01–06）
 - ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（連線逾時，HTTP 000，連續第 4 次），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
+- ⚠️ 本輪 GH_TOKEN 直連 GitHub API（publish.py）被環境閘道擋下（403「GitHub access is not enabled for this session」），改用 GitHub App／MCP 工具（push_files）發布，已確認 commit 成功。
+- ⚠️ 本輪 Telegram 通知（步驟 8）也被環境網路政策擋下（api.telegram.org CONNECT tunnel failed, 403），與 Firebase 同一機制擋下。畫廉已正常生成並發布到 GitHub，只是這次沒有 Telegram 訊息推播，請直接看連結：https://raw.githack.com/weiwei0607/ui-daily/master/reviews/2026-08-20/index.html
 - 本批風格（避開近 3 天用過的 #19/#56/#06/#57/#53/#33/#38/#14/#27/#41/#30/#48/#09/#54/#26/#36/#42/#45/#03/#50/#31，並刻意避免與近期重複的字體組合）：Brutalism #04（延續她喜歡「字體對得上設計」的方向，粗野展示字改用 Anton + Space Mono，避免和 #38/#54 的 Archivo Black+Space Grotesk 重複，做成街頭系咖啡烘豆所）、Skeuomorphism #13（全新族群，質感/仿真風不套用「圓體」也不套「報紙體」規則——因其本質是仿實體材質而非圓潤或編輯敘事，改用 Roboto Slab + Nunito Sans 做出木紋皮革的溫暖手感，做成類比錄音室混音控台）、Inclusive Design #17（全新族群，依配方使用 Atkinson Hyperlegible 這款專為無障礙設計的可讀字體，避免 Inter，做成長者友善居家服務預約平台）、Heatmap & Density Dashboard #29（BI 儀表板全新類型，避免用 Inter/JetBrains Mono 撞前幾輪的 Sora/Manrope/IBM Plex，改用全新的 Outfit + JetBrains Mono 組合，做成機房溫控與流量密度監控台）、Dimensional Layering #46（全新族群，中性層次風改用 Hanken Grotesk 避免與 #53 的 Plus Jakarta Sans 重複，做成動態設計師作品集）、Exaggerated Minimalism #47（配方建議 Space Grotesk 已在前幾輪重複出現多次，改用更符合「巨型展示字」精神的 Big Shoulders Display + Archivo，做成極簡眼鏡新品官網）。全數繁體中文文案，中文字元皆保留 Noto Sans/Serif TC 作為 fallback。
 
 ### 2026-08-19（6 個，#01–06）
