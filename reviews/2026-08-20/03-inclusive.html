@@ -1,0 +1,110 @@
+<!-- style #17 Inclusive Design -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>安心到府｜長者友善服務預約</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Atkinson Hyperlegible','Noto Sans TC',sans-serif;background:#fafafa;color:#001a33;}
+  .focus-ring:focus-visible{outline:4px solid #d32f2f;outline-offset:3px;}
+  .btn-primary{background:#0066cc;color:#fff;}
+  .btn-primary:hover{background:#004d99;}
+  .btn-danger{background:#d32f2f;color:#fff;}
+  .card{border:2px solid #001a33;}
+  .skip-link{position:absolute;left:-999px;top:0;background:#001a33;color:#fff;padding:12px 20px;}
+  .skip-link:focus{left:0;z-index:50;}
+</style>
+</head>
+<body class="min-h-screen text-lg">
+
+<a href="#main" class="skip-link focus-ring">跳到主要內容</a>
+
+<header class="bg-[#003366] text-white px-6 py-5 flex justify-between items-center">
+  <div class="text-2xl font-bold">安心到府</div>
+  <div class="flex items-center gap-4 text-base">
+    <button class="focus-ring underline decoration-2 underline-offset-4" aria-label="切換為大字模式">Aa 放大字體</button>
+    <button class="btn-danger focus-ring px-4 py-2 rounded font-bold">緊急聯絡</button>
+  </div>
+</header>
+
+<main id="main" class="px-6 py-10 max-w-4xl mx-auto">
+  <h1 class="text-4xl font-bold mb-3">預約居家照護服務</h1>
+  <p class="text-xl mb-10 leading-relaxed">三步驟完成預約，全程有真人客服電話協助，不需要會用電腦也沒關係。</p>
+
+  <section class="card rounded-2xl p-6 mb-8 bg-white">
+    <h2 class="text-2xl font-bold mb-4">第一步：選擇服務項目</h2>
+    <div class="grid md:grid-cols-2 gap-4">
+      <label class="card rounded-xl p-5 flex items-start gap-4 cursor-pointer bg-white hover:bg-[#eaf2fb] focus-within:bg-[#eaf2fb]">
+        <input type="radio" name="service" class="focus-ring w-6 h-6 mt-1" checked>
+        <span>
+          <span class="block text-xl font-bold">陪同就醫</span>
+          <span class="block text-base mt-1">陪伴前往醫院看診、拿藥、往返接送</span>
+        </span>
+      </label>
+      <label class="card rounded-xl p-5 flex items-start gap-4 cursor-pointer bg-white hover:bg-[#eaf2fb] focus-within:bg-[#eaf2fb]">
+        <input type="radio" name="service" class="focus-ring w-6 h-6 mt-1">
+        <span>
+          <span class="block text-xl font-bold">居家照顧</span>
+          <span class="block text-base mt-1">協助盥洗、備餐、日常起居照料</span>
+        </span>
+      </label>
+      <label class="card rounded-xl p-5 flex items-start gap-4 cursor-pointer bg-white hover:bg-[#eaf2fb] focus-within:bg-[#eaf2fb]">
+        <input type="radio" name="service" class="focus-ring w-6 h-6 mt-1">
+        <span>
+          <span class="block text-xl font-bold">復健運動陪伴</span>
+          <span class="block text-base mt-1">陪同做居家復健運動，注意安全</span>
+        </span>
+      </label>
+      <label class="card rounded-xl p-5 flex items-start gap-4 cursor-pointer bg-white hover:bg-[#eaf2fb] focus-within:bg-[#eaf2fb]">
+        <input type="radio" name="service" class="focus-ring w-6 h-6 mt-1">
+        <span>
+          <span class="block text-xl font-bold">喘息服務</span>
+          <span class="block text-base mt-1">讓主要照顧者能休息幾小時</span>
+        </span>
+      </label>
+    </div>
+  </section>
+
+  <section class="card rounded-2xl p-6 mb-8 bg-white">
+    <h2 class="text-2xl font-bold mb-4">第二步：選擇日期與時段</h2>
+    <div class="grid grid-cols-3 gap-3 mb-4">
+      <button class="card focus-ring rounded-lg py-4 font-bold hover:bg-[#eaf2fb]">
+        <span class="block text-sm">8 月 21 日</span>
+        <span class="block">星期五</span>
+      </button>
+      <button class="card focus-ring rounded-lg py-4 font-bold bg-[#0066cc] text-white" aria-pressed="true">
+        <span class="block text-sm">8 月 22 日</span>
+        <span class="block">星期六</span>
+      </button>
+      <button class="card focus-ring rounded-lg py-4 font-bold hover:bg-[#eaf2fb]">
+        <span class="block text-sm">8 月 23 日</span>
+        <span class="block">星期日</span>
+      </button>
+    </div>
+    <div class="grid grid-cols-2 gap-3">
+      <button class="card focus-ring rounded-lg py-3 hover:bg-[#eaf2fb]">上午 09:00–12:00</button>
+      <button class="card focus-ring rounded-lg py-3 bg-[#0066cc] text-white font-bold" aria-pressed="true">下午 14:00–17:00</button>
+    </div>
+  </section>
+
+  <section class="card rounded-2xl p-6 mb-8 bg-[#fff8e1]">
+    <h2 class="text-2xl font-bold mb-3">需要協助嗎？</h2>
+    <p class="text-lg mb-4">如果不方便自己填表，可以打電話請客服幫忙預約，服務時間每天早上八點到晚上八點。</p>
+    <a href="tel:0800000123" class="focus-ring btn-primary inline-block rounded-xl px-6 py-4 text-xl font-bold">
+      📞 撥打 0800-000-123
+    </a>
+  </section>
+
+  <button class="focus-ring btn-primary w-full rounded-2xl py-5 text-2xl font-bold">確認預約</button>
+</main>
+
+<footer class="bg-[#003366] text-white text-center py-6 mt-10 text-base">
+  安心到府居家服務 © 2026 · 通過 AAA 無障礙檢核 · 客服專線 0800-000-123
+</footer>
+
+</body>
+</html>

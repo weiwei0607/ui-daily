@@ -1,0 +1,129 @@
+<!-- style #46 Dimensional Layering -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>林知遠｜動態設計作品集</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Hanken Grotesk','Noto Sans TC',sans-serif;background:#f1efe9;color:#161311;}
+  .layer{
+    background:#fff;
+    border-radius:20px;
+    transition:transform .35s ease, box-shadow .35s ease;
+  }
+  .layer-1{box-shadow:0 2px 6px rgba(22,19,17,.06);}
+  .layer-2{box-shadow:0 10px 24px rgba(22,19,17,.08);}
+  .layer-3{box-shadow:0 24px 48px rgba(22,19,17,.14);}
+  .stack:hover .layer-3{transform:translateY(-10px) translateX(6px);}
+  .stack:hover .layer-2{transform:translateY(-4px) translateX(3px);}
+  .depth-bg{
+    background:
+      radial-gradient(600px 300px at 80% -10%, rgba(0,0,0,.05), transparent),
+      radial-gradient(600px 300px at -10% 110%, rgba(0,0,0,.04), transparent);
+  }
+</style>
+</head>
+<body class="min-h-screen depth-bg">
+
+<header class="px-8 py-6 flex justify-between items-center max-w-6xl mx-auto">
+  <p class="font-extrabold text-lg">林知遠</p>
+  <nav class="hidden md:flex gap-8 text-sm text-black/60">
+    <a href="#work" class="hover:text-black">作品</a>
+    <a href="#about" class="hover:text-black">關於我</a>
+    <a href="#contact" class="hover:text-black">聯絡</a>
+  </nav>
+</header>
+
+<section class="px-8 py-16 max-w-6xl mx-auto">
+  <p class="text-sm uppercase tracking-widest text-black/50 mb-4">Motion &amp; Product Design</p>
+  <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6 max-w-3xl">
+    把介面做出<br>「拿得到」的層次感
+  </h1>
+  <p class="text-lg text-black/60 max-w-xl mb-10">六年產品設計經驗，專注在互動動效與空間層次。相信好的介面應該像實體物件一樣，有前後、有深淺。</p>
+  <a href="#work" class="inline-block bg-black text-white rounded-full px-7 py-3.5 font-semibold">看作品集 ↓</a>
+</section>
+
+<section id="work" class="px-8 py-16 max-w-6xl mx-auto">
+  <h2 class="text-2xl font-bold mb-10">精選案例</h2>
+
+  <div class="grid md:grid-cols-2 gap-10">
+    <div class="stack relative h-80 cursor-pointer">
+      <div class="layer layer-1 absolute inset-0 translate-x-3 translate-y-3"></div>
+      <div class="layer layer-2 absolute inset-0 translate-x-1.5 translate-y-1.5"></div>
+      <div class="layer layer-3 absolute inset-0 p-7 flex flex-col justify-between">
+        <div>
+          <p class="text-xs uppercase tracking-widest text-black/40 mb-2">SaaS · 儀表板重設計</p>
+          <p class="text-2xl font-bold">「途遠」物流平台</p>
+        </div>
+        <p class="text-sm text-black/60">重新設計資訊層次，任務完成率提升 31%</p>
+      </div>
+    </div>
+
+    <div class="stack relative h-80 cursor-pointer">
+      <div class="layer layer-1 absolute inset-0 translate-x-3 translate-y-3"></div>
+      <div class="layer layer-2 absolute inset-0 translate-x-1.5 translate-y-1.5"></div>
+      <div class="layer layer-3 absolute inset-0 p-7 flex flex-col justify-between">
+        <div>
+          <p class="text-xs uppercase tracking-widest text-black/40 mb-2">App · 互動動效</p>
+          <p class="text-2xl font-bold">「輕鬆記」記帳 App</p>
+        </div>
+        <p class="text-sm text-black/60">卡片堆疊互動，日活躍使用時長增加 18%</p>
+      </div>
+    </div>
+
+    <div class="stack relative h-80 cursor-pointer">
+      <div class="layer layer-1 absolute inset-0 translate-x-3 translate-y-3"></div>
+      <div class="layer layer-2 absolute inset-0 translate-x-1.5 translate-y-1.5"></div>
+      <div class="layer layer-3 absolute inset-0 p-7 flex flex-col justify-between">
+        <div>
+          <p class="text-xs uppercase tracking-widest text-black/40 mb-2">品牌 · 空間視覺</p>
+          <p class="text-2xl font-bold">「近山」選物店官網</p>
+        </div>
+        <p class="text-sm text-black/60">用層次陰影營造實體選物架的空間感</p>
+      </div>
+    </div>
+
+    <div class="stack relative h-80 cursor-pointer">
+      <div class="layer layer-1 absolute inset-0 translate-x-3 translate-y-3"></div>
+      <div class="layer layer-2 absolute inset-0 translate-x-1.5 translate-y-1.5"></div>
+      <div class="layer layer-3 absolute inset-0 p-7 flex flex-col justify-between">
+        <div>
+          <p class="text-xs uppercase tracking-widest text-black/40 mb-2">設計系統</p>
+          <p class="text-2xl font-bold">層次陰影規範庫</p>
+        </div>
+        <p class="text-sm text-black/60">開源 Figma 元件，累計被 400+ 團隊採用</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="px-8 py-16 max-w-6xl mx-auto">
+  <div class="layer layer-2 p-10 grid md:grid-cols-3 gap-8">
+    <div class="md:col-span-2">
+      <h2 class="text-2xl font-bold mb-4">關於我</h2>
+      <p class="text-black/70 leading-relaxed">曾任職於兩間新創擔任產品設計主管，現為獨立接案設計師。專長是把扁平的資訊介面，透過陰影、層疊與微動效，做出使用者能直覺理解的空間關係。近期也在研究 visionOS 的空間互動語彙。</p>
+    </div>
+    <div class="space-y-4">
+      <div>
+        <p class="text-3xl font-extrabold">6 年</p>
+        <p class="text-sm text-black/50">產品設計經驗</p>
+      </div>
+      <div>
+        <p class="text-3xl font-extrabold">24 個</p>
+        <p class="text-sm text-black/50">上線專案</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact" class="px-8 py-10 max-w-6xl mx-auto flex justify-between items-center text-sm text-black/50 border-t border-black/10">
+  <p>© 2026 林知遠</p>
+  <a href="mailto:hi@lin-studio.tw" class="text-black hover:underline">hi@lin-studio.tw</a>
+</footer>
+
+</body>
+</html>
