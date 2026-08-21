@@ -1,0 +1,152 @@
+<!-- style #04 Sales Intelligence Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>銷售智庫 · 業績戰情室</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Lexend','Noto Sans TC',sans-serif; background:#0b0f17; color:#e6ebf2; }
+  .mono{ font-family:'IBM Plex Mono',monospace; }
+  .card{ background:#111826; border:1px solid #1f2937; }
+  .up{ color:#34d399; } .down{ color:#f87171; }
+  .bar{ background:linear-gradient(90deg,#3b82f6,#60a5fa); }
+  .track{ background:#1c2434; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="flex">
+  <aside class="hidden md:flex flex-col w-56 min-h-screen border-r border-white/10 px-5 py-6 gap-6">
+    <div class="font-semibold text-lg tracking-tight">銷售智庫</div>
+    <nav class="flex flex-col gap-1 text-sm text-white/60">
+      <a class="px-3 py-2 rounded-lg bg-white/5 text-white" href="#">戰情總覽</a>
+      <a class="px-3 py-2 rounded-lg hover:bg-white/5" href="#">業務員排行</a>
+      <a class="px-3 py-2 rounded-lg hover:bg-white/5" href="#">銷售管線</a>
+      <a class="px-3 py-2 rounded-lg hover:bg-white/5" href="#">客戶帳號</a>
+      <a class="px-3 py-2 rounded-lg hover:bg-white/5" href="#">報表匯出</a>
+    </nav>
+    <div class="mt-auto card rounded-xl p-4 text-xs text-white/50">
+      本季結算倒數 <span class="mono text-white">18</span> 天
+    </div>
+  </aside>
+
+  <main class="flex-1 px-6 md:px-10 py-8">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+      <div>
+        <h1 class="text-2xl font-semibold">業績戰情室</h1>
+        <p class="text-sm text-white/50 mt-1">Q3 業務團隊即時追蹤 · 最後更新 3 分鐘前</p>
+      </div>
+      <div class="flex gap-3">
+        <button class="card px-4 py-2 rounded-lg text-sm text-white/70 hover:text-white">篩選團隊</button>
+        <button class="bg-blue-500 hover:bg-blue-400 transition px-4 py-2 rounded-lg text-sm font-medium">匯出週報</button>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-4 gap-5 mb-8">
+      <div class="card rounded-2xl p-5">
+        <p class="text-xs text-white/50 mb-2">本季達成率</p>
+        <p class="mono text-3xl font-semibold">78.4<span class="text-lg text-white/40">%</span></p>
+        <p class="text-xs up mt-2">▲ 4.2% 較上週</p>
+      </div>
+      <div class="card rounded-2xl p-5">
+        <p class="text-xs text-white/50 mb-2">新增商機金額</p>
+        <p class="mono text-3xl font-semibold">NT$ 6.2<span class="text-lg text-white/40">M</span></p>
+        <p class="text-xs up mt-2">▲ 12% 較上週</p>
+      </div>
+      <div class="card rounded-2xl p-5">
+        <p class="text-xs text-white/50 mb-2">平均成交週期</p>
+        <p class="mono text-3xl font-semibold">21<span class="text-lg text-white/40">天</span></p>
+        <p class="text-xs down mt-2">▼ 2 天 較上季</p>
+      </div>
+      <div class="card rounded-2xl p-5">
+        <p class="text-xs text-white/50 mb-2">流失風險客戶</p>
+        <p class="mono text-3xl font-semibold text-amber-400">7</p>
+        <p class="text-xs text-white/40 mt-2">需本週內聯繫</p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-5 mb-8">
+      <div class="card rounded-2xl p-6 md:col-span-2">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="font-semibold">業務員達成排行</h2>
+          <span class="text-xs text-white/40">目標 vs 實際</span>
+        </div>
+        <div class="space-y-5">
+          <div>
+            <div class="flex justify-between text-sm mb-2"><span>林 詩涵</span><span class="mono text-white/60">112%</span></div>
+            <div class="track h-2.5 rounded-full"><div class="bar h-2.5 rounded-full" style="width:100%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-2"><span>陳 昱安</span><span class="mono text-white/60">94%</span></div>
+            <div class="track h-2.5 rounded-full"><div class="bar h-2.5 rounded-full" style="width:94%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-2"><span>黃 柏睿</span><span class="mono text-white/60">81%</span></div>
+            <div class="track h-2.5 rounded-full"><div class="bar h-2.5 rounded-full" style="width:81%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-2"><span>吳 芷萱</span><span class="mono text-white/60">63%</span></div>
+            <div class="track h-2.5 rounded-full"><div class="bar h-2.5 rounded-full" style="width:63%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card rounded-2xl p-6">
+        <h2 class="font-semibold mb-5">管線階段分布</h2>
+        <div class="space-y-4 text-sm">
+          <div class="flex justify-between"><span class="text-white/60">初步接觸</span><span class="mono">142</span></div>
+          <div class="flex justify-between"><span class="text-white/60">需求確認</span><span class="mono">88</span></div>
+          <div class="flex justify-between"><span class="text-white/60">提案報價</span><span class="mono">46</span></div>
+          <div class="flex justify-between"><span class="text-white/60">合約簽署</span><span class="mono text-emerald-400">19</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card rounded-2xl p-6">
+      <h2 class="font-semibold mb-5">需優先跟進客戶</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="text-white/40 text-xs">
+            <tr class="border-b border-white/10">
+              <th class="text-left font-normal pb-3">客戶</th>
+              <th class="text-left font-normal pb-3">商機金額</th>
+              <th class="text-left font-normal pb-3">階段</th>
+              <th class="text-left font-normal pb-3">負責人</th>
+              <th class="text-left font-normal pb-3">風險</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-white/5">
+            <tr>
+              <td class="py-3">遠景生技股份有限公司</td>
+              <td class="py-3 mono">NT$ 820,000</td>
+              <td class="py-3">提案報價</td>
+              <td class="py-3">林詩涵</td>
+              <td class="py-3"><span class="text-amber-400">中</span></td>
+            </tr>
+            <tr>
+              <td class="py-3">晶采科技</td>
+              <td class="py-3 mono">NT$ 1,450,000</td>
+              <td class="py-3">合約簽署</td>
+              <td class="py-3">陳昱安</td>
+              <td class="py-3"><span class="up">低</span></td>
+            </tr>
+            <tr>
+              <td class="py-3">安好連鎖藥局</td>
+              <td class="py-3 mono">NT$ 340,000</td>
+              <td class="py-3">需求確認</td>
+              <td class="py-3">吳芷萱</td>
+              <td class="py-3"><span class="down">高</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

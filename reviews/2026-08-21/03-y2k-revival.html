@@ -1,0 +1,110 @@
+<!-- style #03 Y2K Revival -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>千禧特快 Y2K SHOP</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Rajdhani:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Rajdhani','Noto Sans TC',sans-serif;
+    background:#0d0221;
+    color:#fdf4ff;
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(255,0,255,.18), transparent 40%),
+      radial-gradient(circle at 85% 75%, rgba(0,255,255,.16), transparent 40%);
+  }
+  .display{ font-family:'Audiowide','Noto Sans TC',sans-serif; }
+  .chrome{
+    background:linear-gradient(180deg,#fff 0%, #c0c0c0 25%, #8a8a8a 50%, #fff 65%, #b0b0b0 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    filter:drop-shadow(0 2px 0 rgba(255,0,255,.5)) drop-shadow(0 -2px 0 rgba(0,255,255,.4));
+  }
+  .neon{ text-shadow:0 0 6px #ff00ff, 0 0 18px #ff00ff, 0 0 34px #00ffff; }
+  .starburst{
+    background: repeating-conic-gradient(from 0deg, #ff00ff 0deg 6deg, transparent 6deg 18deg);
+    border-radius:50%;
+  }
+  .y2k-card{
+    background:linear-gradient(155deg, rgba(255,255,255,.10), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.25);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 10px 40px -10px rgba(255,0,255,.35);
+  }
+  .btn-chrome{
+    background:linear-gradient(180deg,#fff,#c0c0c0 40%,#e5e5e5 60%,#fff);
+    color:#0d0221;
+  }
+  .marquee{ white-space:nowrap; animation:scroll-left 14s linear infinite; }
+  @keyframes scroll-left{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="border-y-2 border-fuchsia-400/60 bg-black/40 overflow-hidden py-2">
+  <div class="marquee flex gap-10 text-sm text-cyan-300 font-semibold">
+    <span>★ 千禧年限定復刻 ★ 全館滿 1999 免運 ★ 銀色未來已抵達 ★ 千禧年限定復刻 ★ 全館滿 1999 免運 ★ 銀色未來已抵達 ★</span>
+    <span>★ 千禧年限定復刻 ★ 全館滿 1999 免運 ★ 銀色未來已抵達 ★ 千禧年限定復刻 ★ 全館滿 1999 免運 ★ 銀色未來已抵達 ★</span>
+  </div>
+</div>
+
+<nav class="max-w-6xl mx-auto flex items-center justify-between px-6 py-6">
+  <h1 class="display text-xl chrome">千禧特快</h1>
+  <div class="hidden md:flex gap-8 text-sm font-semibold tracking-wide text-fuchsia-200">
+    <a href="#">新品</a>
+    <a href="#">配件</a>
+    <a href="#">聯名</a>
+    <a href="#">會員專區</a>
+  </div>
+  <button class="btn-chrome px-5 py-2 rounded-full text-sm font-bold">購物車 (0)</button>
+</nav>
+
+<header class="max-w-6xl mx-auto px-6 pt-10 pb-24 text-center relative">
+  <div class="absolute left-6 top-4 w-16 h-16 starburst opacity-40 hidden md:block"></div>
+  <div class="absolute right-10 bottom-0 w-24 h-24 starburst opacity-30 hidden md:block"></div>
+  <p class="text-cyan-300 font-semibold tracking-[0.3em] text-sm mb-6">Y2K REVIVAL COLLECTION</p>
+  <h2 class="display text-4xl md:text-6xl leading-tight chrome">
+    重返千禧年<br>穿上未來的錯覺
+  </h2>
+  <p class="mt-8 text-lg text-fuchsia-100/80 max-w-xl mx-auto">
+    鉻銀質感、螢光配色、蝶形墨鏡與果凍手機殼，一次把 2000 年的想像搬回今天的衣櫃。
+  </p>
+  <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+    <button class="btn-chrome px-8 py-3.5 rounded-full font-bold neon-none">立即逛逛新品</button>
+    <button class="border-2 border-cyan-300 text-cyan-200 px-8 py-3.5 rounded-full font-bold hover:bg-cyan-300/10 transition">加入會員抽福利</button>
+  </div>
+</header>
+
+<section class="max-w-6xl mx-auto px-6 pb-24">
+  <h3 class="display text-2xl mb-8 neon">本週熱銷</h3>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="y2k-card rounded-3xl p-6">
+      <div class="h-40 rounded-2xl mb-5" style="background:linear-gradient(135deg,#ff71ce,#c0c0c0)"></div>
+      <p class="font-bold text-lg">蝶翼鉻銀墨鏡</p>
+      <p class="text-sm text-fuchsia-200/70 mt-1">NT$ 1,290</p>
+    </div>
+    <div class="y2k-card rounded-3xl p-6">
+      <div class="h-40 rounded-2xl mb-5" style="background:linear-gradient(135deg,#00ffff,#ff00ff)"></div>
+      <p class="font-bold text-lg">果凍透明隨身包</p>
+      <p class="text-sm text-fuchsia-200/70 mt-1">NT$ 1,680</p>
+    </div>
+    <div class="y2k-card rounded-3xl p-6">
+      <div class="h-40 rounded-2xl mb-5" style="background:linear-gradient(135deg,#c0c0c0,#8b00ff)"></div>
+      <p class="font-bold text-lg">星芒鉚釘項鍊</p>
+      <p class="text-sm text-fuchsia-200/70 mt-1">NT$ 990</p>
+    </div>
+  </div>
+</section>
+
+<footer class="max-w-6xl mx-auto px-6 py-10 border-t border-fuchsia-400/30 flex flex-col md:flex-row justify-between gap-4 text-xs text-fuchsia-200/60">
+  <span>© 2026 千禧特快 Y2K SHOP</span>
+  <div class="flex gap-6">
+    <a href="#" class="hover:text-cyan-300">退換貨政策</a>
+    <a href="#" class="hover:text-cyan-300">聯絡客服</a>
+  </div>
+</footer>
+
+</body>
+</html>
