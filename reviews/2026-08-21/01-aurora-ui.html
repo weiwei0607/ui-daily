@@ -1,0 +1,132 @@
+<!-- style #01 Aurora UI -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>靈光 AI · 讓靈感先你一步</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --aurora-1:#0080ff; --aurora-2:#8b00ff; --aurora-3:#ff1493; --aurora-4:#00ffff;
+  }
+  body{
+    font-family:'Instrument Sans','Noto Sans TC',sans-serif;
+    background:#07071a;
+    color:#f4f2ff;
+    overflow-x:hidden;
+  }
+  .aurora-bg{
+    position:fixed; inset:0; z-index:0; overflow:hidden;
+  }
+  .aurora-bg::before, .aurora-bg::after{
+    content:''; position:absolute; width:140vw; height:140vw; border-radius:50%;
+    filter:blur(90px); opacity:.55; mix-blend-mode:screen;
+  }
+  .aurora-bg::before{
+    background:radial-gradient(circle at 30% 30%, var(--aurora-1), transparent 60%),
+               radial-gradient(circle at 70% 60%, var(--aurora-2), transparent 60%);
+    top:-50vw; left:-40vw;
+    animation:drift1 22s ease-in-out infinite alternate;
+  }
+  .aurora-bg::after{
+    background:radial-gradient(circle at 60% 40%, var(--aurora-3), transparent 55%),
+               radial-gradient(circle at 30% 70%, var(--aurora-4), transparent 55%);
+    bottom:-60vw; right:-45vw;
+    animation:drift2 26s ease-in-out infinite alternate;
+  }
+  @keyframes drift1{ from{ transform:translate(0,0) scale(1);} to{ transform:translate(6vw,4vw) scale(1.15);} }
+  @keyframes drift2{ from{ transform:translate(0,0) scale(1);} to{ transform:translate(-5vw,-6vw) scale(1.1);} }
+  .glass{
+    background:rgba(255,255,255,.06);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,.14);
+  }
+  .grad-text{
+    background:linear-gradient(90deg,#8bd8ff,#c58bff,#ff9ad5);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .glow-btn{
+    background:linear-gradient(90deg,var(--aurora-1),var(--aurora-2));
+    box-shadow:0 0 40px -6px rgba(139,0,255,.7);
+  }
+  .glow-btn:hover{ box-shadow:0 0 60px -4px rgba(255,20,147,.75); }
+</style>
+</head>
+<body class="relative min-h-screen">
+<div class="aurora-bg"></div>
+
+<nav class="relative z-10 max-w-6xl mx-auto flex items-center justify-between px-6 py-6">
+  <div class="flex items-center gap-2">
+    <div class="w-8 h-8 rounded-full glow-btn"></div>
+    <span class="text-lg font-semibold tracking-wide">靈光 AI</span>
+  </div>
+  <div class="hidden md:flex items-center gap-8 text-sm text-white/70">
+    <a href="#" class="hover:text-white transition">功能</a>
+    <a href="#" class="hover:text-white transition">案例</a>
+    <a href="#" class="hover:text-white transition">價格</a>
+  </div>
+  <button class="glass px-5 py-2 rounded-full text-sm hover:bg-white/15 transition">免費開始</button>
+</nav>
+
+<header class="relative z-10 max-w-4xl mx-auto text-center px-6 pt-20 pb-28">
+  <div class="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs text-white/70 mb-8">
+    <span class="w-1.5 h-1.5 rounded-full bg-cyan-300 animate-pulse"></span>
+    新版本上線：多模態靈感板
+  </div>
+  <h1 class="text-5xl md:text-7xl font-bold leading-tight tracking-tight">
+    讓靈感<span class="grad-text">先你一步</span>
+    <br class="hidden md:block">抵達下一頁
+  </h1>
+  <p class="mt-8 text-lg text-white/70 max-w-xl mx-auto leading-relaxed">
+    靈光 AI 把散落的筆記、語音備忘與剪報，織成一份會呼吸的靈感牆。
+    寫作卡關的當下，它先幫你把思緒攤開。
+  </p>
+  <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+    <button class="glow-btn px-8 py-3.5 rounded-full font-medium text-white transition">立即免費試用</button>
+    <button class="glass px-8 py-3.5 rounded-full font-medium text-white/90 hover:bg-white/15 transition">觀看 90 秒介紹</button>
+  </div>
+  <p class="mt-6 text-xs text-white/40">無需信用卡・14 天完整功能體驗</p>
+</header>
+
+<section class="relative z-10 max-w-6xl mx-auto px-6 pb-24 grid md:grid-cols-3 gap-6">
+  <div class="glass rounded-3xl p-8">
+    <div class="w-11 h-11 rounded-2xl mb-6" style="background:linear-gradient(135deg,#0080ff,#00ffff)"></div>
+    <h3 class="text-xl font-semibold mb-3">靈感雲圖</h3>
+    <p class="text-white/60 text-sm leading-relaxed">把零散片段自動歸類成脈絡，關聯性用光暈強度呈現，一眼看出哪個題目正在發燙。</p>
+  </div>
+  <div class="glass rounded-3xl p-8 md:scale-105 md:shadow-2xl" style="box-shadow:0 30px 80px -20px rgba(139,0,255,.35)">
+    <div class="w-11 h-11 rounded-2xl mb-6" style="background:linear-gradient(135deg,#8b00ff,#ff1493)"></div>
+    <h3 class="text-xl font-semibold mb-3">共寫模式</h3>
+    <p class="text-white/60 text-sm leading-relaxed">AI 只補完你沒說完的句子，語氣、節奏都由你的舊文章學來，不會寫出一股「AI 味」。</p>
+  </div>
+  <div class="glass rounded-3xl p-8">
+    <div class="w-11 h-11 rounded-2xl mb-6" style="background:linear-gradient(135deg,#ff1493,#0080ff)"></div>
+    <h3 class="text-xl font-semibold mb-3">跨裝置同步</h3>
+    <p class="text-white/60 text-sm leading-relaxed">手機隨手錄的一句話，回到電腦就已經躺在對的靈感夾裡，不用自己整理。</p>
+  </div>
+</section>
+
+<section class="relative z-10 max-w-4xl mx-auto px-6 pb-28 text-center">
+  <div class="glass rounded-[2.5rem] p-12">
+    <p class="text-2xl md:text-3xl font-medium leading-relaxed grad-text">
+      「以前開新文件像面對空白的雪地，現在靈光 AI 先幫我踩出第一排腳印。」
+    </p>
+    <p class="mt-6 text-white/50 text-sm">—— 陳品妤，內容策略總監</p>
+  </div>
+</section>
+
+<footer class="relative z-10 max-w-6xl mx-auto px-6 py-10 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-white/40 text-xs">
+  <span>© 2026 靈光 AI 股份有限公司</span>
+  <div class="flex gap-6">
+    <a href="#" class="hover:text-white/70 transition">隱私權政策</a>
+    <a href="#" class="hover:text-white/70 transition">服務條款</a>
+    <a href="#" class="hover:text-white/70 transition">聯絡我們</a>
+  </div>
+</footer>
+
+</body>
+</html>
