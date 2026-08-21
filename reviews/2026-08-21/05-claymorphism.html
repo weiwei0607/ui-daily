@@ -1,0 +1,125 @@
+<!-- style #05 Claymorphism -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>軟軟習慣 · 一天一小步</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=M+PLUS+Rounded+1c:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Fredoka','M PLUS Rounded 1c',sans-serif;
+    background:linear-gradient(180deg,#fdf0ea,#eaf6ec 60%);
+    color:#4a3f3a;
+  }
+  .clay{
+    border-radius:2rem;
+    background:#fdf6f2;
+    box-shadow:
+      8px 8px 20px rgba(200,150,130,.25),
+      -8px -8px 20px rgba(255,255,255,.9);
+  }
+  .clay-inset{
+    border-radius:1.5rem;
+    box-shadow:
+      inset 6px 6px 14px rgba(190,140,120,.22),
+      inset -6px -6px 14px rgba(255,255,255,.85);
+  }
+  .clay-btn{
+    border-radius:9999px;
+    box-shadow:
+      6px 6px 14px rgba(200,150,130,.3),
+      -6px -6px 14px rgba(255,255,255,.9);
+  }
+  .clay-btn:active{ box-shadow: inset 4px 4px 10px rgba(190,140,120,.3), inset -4px -4px 10px rgba(255,255,255,.8); }
+  .blob{ border-radius:60% 40% 55% 45% / 45% 55% 40% 60%; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="max-w-6xl mx-auto px-6 py-8 flex items-center justify-between">
+  <div class="flex items-center gap-3">
+    <div class="w-10 h-10 blob" style="background:linear-gradient(135deg,#ffb6c1,#98ff98)"></div>
+    <span class="text-xl font-semibold">軟軟習慣</span>
+  </div>
+  <div class="clay-btn px-5 py-2 text-sm font-medium text-[#7a6a63]">午安，芯妤 🌤️</div>
+</div>
+
+<header class="max-w-6xl mx-auto px-6 pb-10 text-center">
+  <h1 class="text-4xl md:text-5xl font-semibold leading-tight">
+    每天軟軟地<br>養成一個好習慣
+  </h1>
+  <p class="mt-6 text-[#7a6a63] max-w-md mx-auto leading-relaxed">
+    不打卡連續失敗就重來，軟軟習慣只記錄「你做到的那些天」，用溫柔的方式陰你走長路。
+  </p>
+</header>
+
+<section class="max-w-6xl mx-auto px-6 pb-8 grid md:grid-cols-3 gap-6">
+  <div class="clay p-7">
+    <div class="flex items-center justify-between mb-4">
+      <span class="text-2xl">💧</span>
+      <span class="clay-inset px-3 py-1 text-xs text-[#7a6a63]">連續 12 天</span>
+    </div>
+    <h3 class="font-semibold text-lg mb-1">每天喝滿 2000cc</h3>
+    <p class="text-sm text-[#9a8a83]">今天已經喝了 1450cc</p>
+    <div class="clay-inset h-3 mt-4 overflow-hidden">
+      <div class="h-3 rounded-full" style="width:72%;background:linear-gradient(90deg,#add8e6,#98d8ff)"></div>
+    </div>
+  </div>
+  <div class="clay p-7">
+    <div class="flex items-center justify-between mb-4">
+      <span class="text-2xl">🧘‍♀️</span>
+      <span class="clay-inset px-3 py-1 text-xs text-[#7a6a63]">連續 5 天</span>
+    </div>
+    <h3 class="font-semibold text-lg mb-1">睡前 10 分鐘伸展</h3>
+    <p class="text-sm text-[#9a8a83]">今天還沒開始，晚點提醒你</p>
+    <div class="clay-inset h-3 mt-4 overflow-hidden">
+      <div class="h-3 rounded-full" style="width:20%;background:linear-gradient(90deg,#fdbcb4,#ffcac2)"></div>
+    </div>
+  </div>
+  <div class="clay p-7">
+    <div class="flex items-center justify-between mb-4">
+      <span class="text-2xl">📖</span>
+      <span class="clay-inset px-3 py-1 text-xs text-[#7a6a63]">連續 21 天</span>
+    </div>
+    <h3 class="font-semibold text-lg mb-1">睡前讀 10 頁書</h3>
+    <p class="text-sm text-[#9a8a83]">昨天讀了《原子習慣》第 6 章</p>
+    <div class="clay-inset h-3 mt-4 overflow-hidden">
+      <div class="h-3 rounded-full" style="width:100%;background:linear-gradient(90deg,#98ff98,#8be08b)"></div>
+    </div>
+  </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-6 py-10 grid md:grid-cols-2 gap-6 items-center">
+  <div class="clay p-8">
+    <h2 class="font-semibold text-xl mb-5">本週小結</h2>
+    <div class="grid grid-cols-7 gap-2 text-center text-xs text-[#9a8a83] mb-3">
+      <span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span>
+    </div>
+    <div class="grid grid-cols-7 gap-2">
+      <div class="clay-inset aspect-square flex items-center justify-center" style="background:#c9f2c9">✓</div>
+      <div class="clay-inset aspect-square flex items-center justify-center" style="background:#c9f2c9">✓</div>
+      <div class="clay-inset aspect-square flex items-center justify-center" style="background:#c9f2c9">✓</div>
+      <div class="clay-inset aspect-square flex items-center justify-center text-[#c9b8b0]">·</div>
+      <div class="clay-inset aspect-square flex items-center justify-center" style="background:#c9f2c9">✓</div>
+      <div class="clay-inset aspect-square flex items-center justify-center" style="background:#c9f2c9">✓</div>
+      <div class="clay-inset aspect-square flex items-center justify-center text-[#c9b8b0]">今天</div>
+    </div>
+    <p class="mt-5 text-sm text-[#9a8a83]">已經是連續第 3 週保持 5 天以上達成率了，慢慢來比較快 🐢</p>
+  </div>
+  <div class="clay p-8 text-center">
+    <div class="w-24 h-24 blob mx-auto mb-6" style="background:linear-gradient(135deg,#ffcac2,#add8e6)"></div>
+    <h3 class="font-semibold text-xl mb-3">今天想加一個新習慣嗎？</h3>
+    <p class="text-sm text-[#9a8a83] mb-6">不用一次很多個，一個軟軟地開始就好。</p>
+    <button class="clay-btn px-7 py-3 font-medium" style="background:#fdf6f2">＋ 新增習慣</button>
+  </div>
+</section>
+
+<footer class="max-w-6xl mx-auto px-6 py-10 text-center text-xs text-[#b3a49d]">
+  © 2026 軟軟習慣 · 慢慢來，比較快
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!-- style #06 HUD / Sci-Fi -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天穹防綼系統 · 監控主控台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Share+Tech+Mono&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Chakra Petch','Noto Sans TC',sans-serif;
+    background:#050b0d;
+    color:#c9fdf2;
+    background-image:
+      linear-gradient(rgba(0,255,220,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,220,.05) 1px, transparent 1px);
+    background-size:32px 32px;
+  }
+  .mono{ font-family:'Share Tech Mono',monospace; }
+  .hud-panel{
+    position:relative;
+    background:rgba(6,20,22,.7);
+    border:1px solid rgba(0,255,220,.35);
+  }
+  .hud-panel::before, .hud-panel::after{
+    content:''; position:absolute; width:14px; height:14px; border-color:#00ffdc; border-style:solid;
+  }
+  .hud-panel::before{ top:-1px; left:-1px; border-width:2px 0 0 2px; }
+  .hud-panel::after{ bottom:-1px; right:-1px; border-width:0 2px 2px 0; }
+  .glow{ text-shadow:0 0 8px rgba(0,255,220,.7); }
+  .scan{
+    position:absolute; inset:0; overflow:hidden; pointer-events:none;
+  }
+  .scan::after{
+    content:''; position:absolute; left:0; right:0; height:2px;
+    background:linear-gradient(90deg, transparent, rgba(0,255,220,.6), transparent);
+    animation:scanline 3.5s linear infinite;
+  }
+  @keyframes scanline{ 0%{top:-5%;} 100%{top:105%;} }
+  .ring{ border-radius:50%; border:2px solid rgba(0,255,220,.3); }
+  .pulse-dot{ animation:pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:.3;} }
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between border-b border-cyan-400/20">
+  <div class="flex items-center gap-3">
+    <div class="w-3 h-3 rounded-full bg-cyan-300 pulse-dot"></div>
+    <span class="glow font-semibold tracking-widest">天穹防綼系統</span>
+  </div>
+  <div class="mono text-xs text-cyan-300/70 flex gap-6">
+    <span>SECTOR: 07-TAIPEI</span>
+    <span>STATUS: <span class="text-emerald-300">ONLINE</span></span>
+    <span>03:14:52</span>
+  </div>
+</div>
+
+<main class="max-w-6xl mx-auto px-6 py-8 grid md:grid-cols-3 gap-6">
+
+  <div class="hud-panel scan rounded-sm p-6 md:col-span-2">
+    <p class="mono text-xs text-cyan-300/60 mb-4">// 空域監控 · 即時航跡</p>
+    <div class="relative h-64 flex items-center justify-center">
+      <div class="ring w-56 h-56 absolute"></div>
+      <div class="ring w-40 h-40 absolute"></div>
+      <div class="ring w-24 h-24 absolute"></div>
+      <div class="w-2 h-2 bg-cyan-300 rounded-full absolute" style="top:30%;left:60%;box-shadow:0 0 10px #00ffdc"></div>
+      <div class="w-2 h-2 bg-amber-300 rounded-full absolute" style="top:65%;left:38%;box-shadow:0 0 10px #fbbf24"></div>
+      <div class="w-2 h-2 bg-cyan-300 rounded-full absolute" style="top:45%;left:25%;box-shadow:0 0 10px #00ffdc"></div>
+      <span class="mono text-xs text-cyan-300/40 absolute bottom-2 right-2">RANGE 80km</span>
+    </div>
+  </div>
+
+  <div class="hud-panel rounded-sm p-6">
+    <p class="mono text-xs text-cyan-300/60 mb-5">// 系統狀態</p>
+    <div class="space-y-4">
+      <div class="flex justify-between items-center">
+        <span class="text-sm">主雷達陣列</span>
+        <span class="mono text-xs text-emerald-300">正常</span>
+      </div>
+      <div class="flex justify-between items-center">
+        <span class="text-sm">無人機警戒網</span>
+        <span class="mono text-xs text-emerald-300">正常</span>
+      </div>
+      <div class="flex justify-between items-center">
+        <span class="text-sm">通訊鏈路</span>
+        <span class="mono text-xs text-amber-300">延遲 210ms</span>
+      </div>
+      <div class="flex justify-between items-center">
+        <span class="text-sm">備援電源</span>
+        <span class="mono text-xs text-emerald-300">98%</span>
+      </div>
+    </div>
+    <div class="mt-6 pt-5 border-t border-cyan-400/20">
+      <p class="mono text-xs text-cyan-300/60 mb-3">// 威脅等級</p>
+      <p class="text-3xl font-semibold glow">LOW</p>
+    </div>
+  </div>
+
+  <div class="hud-panel rounded-sm p-6 md:col-span-3">
+    <p class="mono text-xs text-cyan-300/60 mb-4">// 事件紀錄</p>
+    <div class="grid md:grid-cols-4 gap-4 mono text-xs">
+      <div class="border-l-2 border-cyan-400/40 pl-3">
+        <p class="text-cyan-300/50">03:12:08</p>
+        <p class="mt-1 text-cyan-100">未識別航跡進入 D 區，已自動追蹤</p>
+      </div>
+      <div class="border-l-2 border-cyan-400/40 pl-3">
+        <p class="text-cyan-300/50">02:58:41</p>
+        <p class="mt-1 text-cyan-100">第 3 號雷達完成例行校正</p>
+      </div>
+      <div class="border-l-2 border-amber-400/50 pl-3">
+        <p class="text-amber-300/70">02:40:15</p>
+        <p class="mt-1 text-cyan-100">通訊鏈路延遲超過門檸，已切換備援</p>
+      </div>
+      <div class="border-l-2 border-cyan-400/40 pl-3">
+        <p class="text-cyan-300/50">02:10:33</p>
+        <p class="mt-1 text-cyan-100">值班人員交接完成，系統全綠</p>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="max-w-6xl mx-auto px-6 py-6 mono text-xs text-cyan-300/40 border-t border-cyan-400/20">
+  天穹防綼系統 v4.2 · 僅供授權人員使用
+</footer>
+
+</body>
+</html>
