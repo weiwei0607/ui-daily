@@ -1,0 +1,117 @@
+<!-- style #52 Pixel Art / Retro Gaming -->
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PIXEL QUEST｜復古遊戲成就追蹤 App</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Noto+Sans+TC:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root{ --gb-light:#8bac0f; --gb-mid:#306230; --gb-dark:#0f380f; --gb-screen:#9bbc0f; }
+  body{ font-family:'Pixelify Sans','Noto Sans TC',sans-serif; background:var(--gb-dark); color:var(--gb-screen); image-rendering: pixelated; }
+  .mono{ font-family:'Space Mono',monospace; }
+  * { image-rendering: pixelated; }
+  .pixel-border{ box-shadow: 0 0 0 4px var(--gb-dark), 0 0 0 8px var(--gb-mid); border-radius:0; }
+  .screen{ background: var(--gb-screen); color: var(--gb-dark); border-radius:0; }
+  .btn-pixel{ background: var(--gb-mid); color: var(--gb-screen); border:none; box-shadow: 4px 4px 0 var(--gb-dark); border-radius:0; }
+  .btn-pixel:active{ box-shadow: 2px 2px 0 var(--gb-dark); transform: translate(2px,2px); }
+  .dotted-bg{ background-image: radial-gradient(var(--gb-mid) 1.5px, transparent 1.5px); background-size: 16px 16px; }
+  .blink{ animation: blink 1s steps(1) infinite; }
+  @keyframes blink{ 50%{opacity:0} }
+  ::selection{ background: var(--gb-light); color: var(--gb-dark); }
+</style>
+</head>
+<body class="antialiased dotted-bg min-h-screen">
+
+  <header class="max-w-5xl mx-auto px-6 py-6 flex items-center justify-between">
+    <div class="text-2xl font-bold tracking-wide">🎮 PIXEL<span class="text-[var(--gb-light)]">QUEST</span></div>
+    <nav class="hidden md:flex gap-8 text-sm mono">
+      <a href="#" class="hover:text-[var(--gb-light)]">遊戲庫</a>
+      <a href="#" class="hover:text-[var(--gb-light)]">成就</a>
+      <a href="#" class="hover:text-[var(--gb-light)]">排行榜</a>
+    </nav>
+    <button class="btn-pixel px-4 py-2 text-sm mono">開始遊戲 ▶</button>
+  </header>
+
+  <section class="max-w-5xl mx-auto px-6 pt-10 pb-16">
+    <div class="pixel-border screen p-8 md:p-14 text-center">
+      <p class="mono text-xs mb-4">— LEVEL SELECT —</p>
+      <h1 class="text-3xl md:text-5xl font-bold leading-tight mb-6">
+        你的每一場遊戲，<br />都值得被記錄。
+      </h1>
+      <p class="mono text-sm md:text-base max-w-xl mx-auto mb-8 leading-relaxed">
+        PIXELQUEST 自動追蹤成就解鎖、遊戲時數與稀有度，把你的復古收藏做成一本會升級的戰績書。
+      </p>
+      <div class="flex flex-col md:flex-row items-center justify-center gap-4">
+        <button class="bg-[var(--gb-dark)] text-[var(--gb-screen)] px-6 py-3 mono text-sm border-4 border-[var(--gb-dark)]">
+          ▶ 免費建立帳號
+        </button>
+        <span class="mono text-xs blink">PRESS START</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-5xl mx-auto px-6 pb-16 grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="pixel-border bg-[var(--gb-mid)] p-5 text-center">
+      <div class="text-3xl font-bold">128</div>
+      <div class="mono text-xs mt-2">已收錄遊戲</div>
+    </div>
+    <div class="pixel-border bg-[var(--gb-mid)] p-5 text-center">
+      <div class="text-3xl font-bold">2,340</div>
+      <div class="mono text-xs mt-2">成就解鎖數</div>
+    </div>
+    <div class="pixel-border bg-[var(--gb-mid)] p-5 text-center">
+      <div class="text-3xl font-bold">96h</div>
+      <div class="mono text-xs mt-2">本月遊玩時數</div>
+    </div>
+    <div class="pixel-border bg-[var(--gb-mid)] p-5 text-center">
+      <div class="text-3xl font-bold">S+</div>
+      <div class="mono text-xs mt-2">收藏家評級</div>
+    </div>
+  </section>
+
+  <section class="max-w-5xl mx-auto px-6 pb-16">
+    <h2 class="text-2xl font-bold mb-6">▍最新成就解鎖</h2>
+    <div class="space-y-3">
+      <div class="pixel-border bg-[var(--gb-mid)] p-4 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <div class="w-10 h-10 bg-[var(--gb-light)]"></div>
+          <div>
+            <div class="font-bold text-sm">速通大師</div>
+            <div class="mono text-xs opacity-70">《迷宮遺跡》20 分鐘內通關</div>
+          </div>
+        </div>
+        <span class="mono text-xs bg-[var(--gb-dark)] px-3 py-1">稀有度 3%</span>
+      </div>
+      <div class="pixel-border bg-[var(--gb-mid)] p-4 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <div class="w-10 h-10 bg-[var(--gb-light)]"></div>
+          <div>
+            <div class="font-bold text-sm">全收集</div>
+            <div class="mono text-xs opacity-70">《星塵冒險》蒐集全部 64 個道具</div>
+          </div>
+        </div>
+        <span class="mono text-xs bg-[var(--gb-dark)] px-3 py-1">稀有度 12%</span>
+      </div>
+      <div class="pixel-border bg-[var(--gb-mid)] p-4 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <div class="w-10 h-10 bg-[var(--gb-light)]"></div>
+          <div>
+            <div class="font-bold text-sm">無傷通關</div>
+            <div class="mono text-xs opacity-70">《機甲防線》全程未受任何傷害</div>
+          </div>
+        </div>
+        <span class="mono text-xs bg-[var(--gb-dark)] px-3 py-1">稀有度 1%</span>
+      </div>
+    </div>
+  </section>
+
+  <footer class="max-w-5xl mx-auto px-6 py-10 text-center mono text-xs opacity-70">
+    © 2026 PIXELQUEST — GAME OVER? NEVER. CONTINUE?
+  </footer>
+
+</body>
+</html>

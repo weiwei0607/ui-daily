@@ -1,0 +1,127 @@
+<!-- style #35 User Behavior Dashboard -->
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>行為雷達｜App 用戶行為分析後台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Public Sans','Noto Sans TC',sans-serif; background:#f8fafc; color:#0f172a; }
+  .num{ font-family:'Roboto Mono',monospace; }
+  .card{ background:#fff; border:1px solid #e2e8f0; border-radius:14px; }
+  .up{ color:#16a34a; } .down{ color:#dc2626; }
+  .funnel-bar{ background: linear-gradient(90deg,#3b82f6,#60a5fa); border-radius:6px; }
+  .side-link{ display:flex; align-items:center; gap:.6rem; padding:.55rem .8rem; border-radius:8px; font-size:.875rem; }
+  .side-link.active{ background:#eff6ff; color:#1d4ed8; font-weight:600; }
+</style>
+</head>
+<body class="antialiased">
+  <div class="flex min-h-screen">
+    <aside class="w-60 border-r border-slate-200 bg-white hidden md:flex flex-col px-4 py-6">
+      <div class="text-lg font-extrabold px-2 mb-8">行為雷達</div>
+      <nav class="space-y-1 text-slate-500">
+        <div class="side-link active">📊 總覽</div>
+        <div class="side-link">🔻 轉換漏斗</div>
+        <div class="side-link">🔁 留存曲線</div>
+        <div class="side-link">🧭 使用者路徑</div>
+        <div class="side-link">⚙️ 事件設定</div>
+      </nav>
+      <div class="mt-auto text-xs text-slate-400 px-2">資料範圍：近 30 天</div>
+    </aside>
+
+    <main class="flex-1 px-6 md:px-10 py-8">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <h1 class="text-2xl font-extrabold">用戶行為總覽</h1>
+          <p class="text-sm text-slate-500 mt-1">更新於 2026-08-22 09:12</p>
+        </div>
+        <button class="bg-blue-600 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">匯出報表</button>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="card p-5">
+          <div class="text-xs text-slate-500 mb-2">月活躍用戶</div>
+          <div class="num text-2xl font-bold">184,203</div>
+          <div class="text-xs up mt-1">▲ 8.4%</div>
+        </div>
+        <div class="card p-5">
+          <div class="text-xs text-slate-500 mb-2">次日留存率</div>
+          <div class="num text-2xl font-bold">42.1%</div>
+          <div class="text-xs up mt-1">▲ 1.2%</div>
+        </div>
+        <div class="card p-5">
+          <div class="text-xs text-slate-500 mb-2">平均使用時長</div>
+          <div class="num text-2xl font-bold">6m 32s</div>
+          <div class="text-xs down mt-1">▼ 0.4%</div>
+        </div>
+        <div class="card p-5">
+          <div class="text-xs text-slate-500 mb-2">流失率</div>
+          <div class="num text-2xl font-bold">3.8%</div>
+          <div class="text-xs up mt-1">▲ 0.6%</div>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 mb-8">
+        <div class="card p-6 md:col-span-2">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="font-bold">轉換漏斗 — 註冊到付費</h2>
+            <span class="text-xs text-slate-400">近 7 天</span>
+          </div>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between text-sm mb-1"><span>造訪首頁</span><span class="num">100,000</span></div>
+              <div class="w-full bg-slate-100 rounded-md h-6"><div class="funnel-bar h-6" style="width:100%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1"><span>完成註冊</span><span class="num">41,230</span></div>
+              <div class="w-full bg-slate-100 rounded-md h-6"><div class="funnel-bar h-6" style="width:41%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1"><span>啟用核心功能</span><span class="num">22,860</span></div>
+              <div class="w-full bg-slate-100 rounded-md h-6"><div class="funnel-bar h-6" style="width:23%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1"><span>完成付費</span><span class="num">6,140</span></div>
+              <div class="w-full bg-slate-100 rounded-md h-6"><div class="funnel-bar h-6" style="width:6%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card p-6">
+          <h2 class="font-bold mb-6">留存曲線</h2>
+          <svg viewBox="0 0 240 140" class="w-full h-36">
+            <polyline points="0,20 40,55 80,72 120,85 160,92 200,97 240,100" fill="none" stroke="#3b82f6" stroke-width="3"/>
+            <polyline points="0,20 40,55 80,72 120,85 160,92 200,97 240,100" fill="url(#g)" stroke="none" opacity="0.15"/>
+            <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/></linearGradient></defs>
+          </svg>
+          <div class="flex justify-between text-xs text-slate-400 mt-2">
+            <span>Day 0</span><span>Day 30</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card p-6">
+        <h2 class="font-bold mb-4">熱門使用者路徑</h2>
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="text-left text-slate-400 border-b border-slate-100">
+              <th class="py-2 font-medium">路徑</th>
+              <th class="py-2 font-medium num">用戶數</th>
+              <th class="py-2 font-medium num">轉換率</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <tr><td class="py-3">首頁 → 商品頁 → 加入購物車 → 結帳</td><td class="py-3 num">18,420</td><td class="py-3 num up">32.1%</td></tr>
+            <tr><td class="py-3">搜尋 → 商品頁 → 離開</td><td class="py-3 num">14,203</td><td class="py-3 num down">6.4%</td></tr>
+            <tr><td class="py-3">推播通知 → App 開啟 → 消息中心</td><td class="py-3 num">9,880</td><td class="py-3 num up">44.7%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

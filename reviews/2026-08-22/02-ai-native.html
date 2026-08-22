@@ -1,0 +1,130 @@
+<!-- style #43 AI-Native -->
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>信匣 Sender｜AI 智慧郵件助理</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Schibsted Grotesk','Noto Sans TC',sans-serif; background:#0b0a14; color:#f3f1ff; }
+  .gradient-bg{
+    background: radial-gradient(circle at 20% 20%, rgba(118,75,162,0.55), transparent 45%),
+                radial-gradient(circle at 80% 10%, rgba(102,126,234,0.5), transparent 45%),
+                radial-gradient(circle at 60% 80%, rgba(240,147,251,0.35), transparent 50%),
+                #0b0a14;
+  }
+  .card{ background: rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); backdrop-filter: blur(14px); }
+  .grad-text{ background: linear-gradient(90deg,#a78bfa,#818cf8,#f0abfc); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .pulse-dot{ animation: pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{opacity:.4} 50%{opacity:1} }
+  .float{ animation: float 6s ease-in-out infinite; }
+  @keyframes float{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+  .glow-btn{ box-shadow: 0 0 40px rgba(129,140,248,0.5); }
+  .typing span{ display:inline-block; width:6px; height:6px; border-radius:9999px; background:#c4b5fd; margin-right:4px; }
+</style>
+</head>
+<body class="antialiased gradient-bg min-h-screen">
+
+  <header class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-400 to-fuchsia-400"></div>
+      <span class="text-lg font-bold">信匣 <span class="text-white/50 font-medium">Sender</span></span>
+    </div>
+    <nav class="hidden md:flex gap-8 text-sm text-white/70">
+      <a href="#" class="hover:text-white transition-colors">功能</a>
+      <a href="#" class="hover:text-white transition-colors">工作流程</a>
+      <a href="#" class="hover:text-white transition-colors">價格</a>
+    </nav>
+    <button class="rounded-full bg-white text-[#0b0a14] px-5 py-2 text-sm font-semibold hover:opacity-90 transition-opacity">免費試用</button>
+  </header>
+
+  <section class="max-w-5xl mx-auto px-6 pt-16 pb-24 text-center">
+    <div class="inline-flex items-center gap-2 rounded-full card px-4 py-1.5 text-xs text-white/70 mb-8">
+      <span class="w-1.5 h-1.5 rounded-full bg-fuchsia-400 pulse-dot"></span>
+      新版本：一鍵摘要整週信件
+    </div>
+    <h1 class="text-4xl md:text-6xl font-black leading-tight mb-6">
+      讓 AI 先讀信，<br />
+      <span class="grad-text">你只回覆真正重要的。</span>
+    </h1>
+    <p class="text-white/60 text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+      信匣會自動分類、摘要、草擬回覆，把每天兩小時的收件匣清理，壓縮成十分鐘的決策時間。
+    </p>
+    <div class="flex flex-col md:flex-row items-center justify-center gap-4">
+      <button class="glow-btn rounded-full bg-gradient-to-r from-indigo-400 to-fuchsia-400 text-[#0b0a14] font-bold px-8 py-4 hover:opacity-90 transition-opacity">
+        連接你的信箱 →
+      </button>
+      <button class="rounded-full card px-8 py-4 text-white/80 hover:text-white transition-colors">觀看 90 秒示範</button>
+    </div>
+  </section>
+
+  <section class="max-w-5xl mx-auto px-6 pb-24">
+    <div class="card rounded-3xl p-6 md:p-10 float">
+      <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-400 to-fuchsia-400"></div>
+          <div>
+            <div class="text-sm font-semibold">信匣助理</div>
+            <div class="text-xs text-white/40">正在分析 32 封未讀信</div>
+          </div>
+        </div>
+        <div class="typing"><span></span><span></span><span></span></div>
+      </div>
+      <div class="space-y-3">
+        <div class="rounded-2xl bg-white/5 p-4 flex items-center justify-between">
+          <div>
+            <div class="text-sm font-semibold">客戶合約 — 需今日回覆</div>
+            <div class="text-xs text-white/40 mt-1">摘要：對方希望將付款條件由 30 天調整為 45 天</div>
+          </div>
+          <span class="text-xs rounded-full bg-fuchsia-500/20 text-fuchsia-300 px-3 py-1">高優先</span>
+        </div>
+        <div class="rounded-2xl bg-white/5 p-4 flex items-center justify-between">
+          <div>
+            <div class="text-sm font-semibold">週會記錄彙整</div>
+            <div class="text-xs text-white/40 mt-1">已自動生成摘要，附三項待辦</div>
+          </div>
+          <span class="text-xs rounded-full bg-indigo-500/20 text-indigo-300 px-3 py-1">已摘要</span>
+        </div>
+        <div class="rounded-2xl bg-white/5 p-4 flex items-center justify-between">
+          <div>
+            <div class="text-sm font-semibold">電子報訂閱通知</div>
+            <div class="text-xs text-white/40 mt-1">已自動歸檔，不需處理</div>
+          </div>
+          <span class="text-xs rounded-full bg-white/10 text-white/50 px-3 py-1">低優先</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-6 pb-24 grid md:grid-cols-3 gap-6">
+    <div class="card rounded-3xl p-8">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-400 to-fuchsia-400 mb-5"></div>
+      <h3 class="font-bold text-lg mb-2">語意分類</h3>
+      <p class="text-white/60 text-sm leading-relaxed">依緊急度、主題、寄件人關係自動排序，不再靠關鍵字規則。</p>
+    </div>
+    <div class="card rounded-3xl p-8">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-fuchsia-400 to-purple-400 mb-5"></div>
+      <h3 class="font-bold text-lg mb-2">草擬回覆</h3>
+      <p class="text-white/60 text-sm leading-relaxed">學習你過去的語氣與慣用句，草稿修改幅度平均低於一成。</p>
+    </div>
+    <div class="card rounded-3xl p-8">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-400 to-indigo-400 mb-5"></div>
+      <h3 class="font-bold text-lg mb-2">每日簡報</h3>
+      <p class="text-white/60 text-sm leading-relaxed">早上八點自動送出當日待辦與需回覆清單，一目了然。</p>
+    </div>
+  </section>
+
+  <footer class="max-w-6xl mx-auto px-6 py-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/40">
+    <div>© 2026 信匣 Sender. 讓 AI 做初稿，你做決定。</div>
+    <div class="flex gap-6">
+      <a href="#" class="hover:text-white/70 transition-colors">隱私權</a>
+      <a href="#" class="hover:text-white/70 transition-colors">服務條款</a>
+    </div>
+  </footer>
+
+</body>
+</html>

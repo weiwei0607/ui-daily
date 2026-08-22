@@ -21,6 +21,11 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-08-22（6 個，#01–06）
+- ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（連線逾時 HTTP 000），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
+- ⚠️ 本輪 GH_TOKEN 直連 GitHub API（publish.py）再度被環境閘道擋下（403），改用 GitHub MCP 工具（push_files）發布。
+- 本批風格（避開近 3 天用過的 #19/#56/#06/#57/#53/#33/#04/#13/#17/#29/#46/#47/#10/#26/#40/#37/#09/#51，並優先挑選至今完全沒用過的風格）：Minimalism/Swiss #01（延續她要「報紙體」的偏好，Noto Serif TC + Lora，全新族群，做成質感選物雜誌訂閱「讀誌」）、AI-Native #43（全新族群，避免 Inter 改用 Schibsted Grotesk + Noto Sans TC，做成 AI 智慧郵件助理「信匣」）、Social Proof-Focused #24（landing 結構型，全新族群，避免撞前幾輪的字體改用 Geologica + Noto Sans TC，做成 B2B SaaS 企業導入見證頁「導軌」）、Pixel Art/Retro Gaming #52（全新族群，避免與 08-19 Vaporwave 重複的 Press Start 2P + VT323，改用 Pixelify Sans + Space Mono 做出更純粹的 Game Boy 綠像素感，做成復古遊戲成就追蹤 App「PIXELQUEST」）、User Behavior Dashboard #35（BI 儀表板全新類型，避免 Inter/JetBrains Mono 改用 Public Sans + Roboto Mono，做成用戶行為分析後台「行為雷達」）、Flat Design 2.0 #12（全新族群，配方建議 Open Sans 偏通用，改用 Be Vietnam Pro + Noto Sans TC，做成產地直送生鮮雜貨電商「菜籃仔」）。全數繁體中文文案，中文字元皆保留 Noto Sans/Serif TC 作為 fallback。
+
 ### 2026-08-21（6 個，#01–06）
 - ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（CONNECT tunnel 403），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
 - ⚠️ 本輪 GH_TOKEN 直連 GitHub API 的 `/user` 端點測試回 200，但 publish.py 實際用到的 repo 範圍端點（`/repos/.../git/ref/...`）仍被環境閘道擋下（403「GitHub access is not enabled for this session」），與前幾輪一致，改用 GitHub App／MCP 工具（push_files）發布。
