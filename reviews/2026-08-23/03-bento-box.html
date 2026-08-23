@@ -1,0 +1,91 @@
+<!-- style #03 Bento Box -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>格子帳 · 生活記帳一目了然</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ background:#f1efe9; color:#232220; font-family:'Noto Sans TC','Figtree',sans-serif; }
+  .font-display{ font-family:'Figtree','Noto Sans TC',sans-serif; }
+  .bento{ border-radius:28px; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="max-w-6xl mx-auto px-6 py-10">
+
+  <header class="flex items-center justify-between mb-8">
+    <div class="flex items-center gap-2">
+      <div class="w-9 h-9 rounded-2xl bg-[#232220] flex items-center justify-center text-white text-sm font-bold">格</div>
+      <span class="font-display font-extrabold text-lg">格子帳</span>
+    </div>
+    <div class="flex items-center gap-3 text-sm font-display font-medium">
+      <span class="text-[#7a7870]">8 月</span>
+      <div class="w-9 h-9 rounded-full bg-[#dcd8cc] flex items-center justify-center text-xs">陳</div>
+    </div>
+  </header>
+
+  <div class="grid grid-cols-4 md:grid-cols-6 gap-4 auto-rows-[110px]">
+
+    <div class="bento col-span-4 md:col-span-3 row-span-2 bg-[#232220] text-white p-7 flex flex-col justify-between">
+      <div>
+        <p class="text-xs text-white/50 font-display mb-1">本月結餘</p>
+        <p class="font-display font-extrabold text-4xl">NT$ 18,240</p>
+      </div>
+      <div class="flex gap-6 text-xs font-display">
+        <div><p class="text-white/50 mb-1">收入</p><p class="font-bold text-[#a9e5b8]">NT$ 52,000</p></div>
+        <div><p class="text-white/50 mb-1">支出</p><p class="font-bold text-[#f2a9a9]">NT$ 33,760</p></div>
+      </div>
+    </div>
+
+    <div class="bento col-span-2 md:col-span-3 bg-[#ffd23f] p-5 flex flex-col justify-between">
+      <p class="font-display font-bold text-sm">🍜 餐飲</p>
+      <p class="font-display font-extrabold text-2xl">NT$ 8,420</p>
+    </div>
+
+    <div class="bento col-span-2 md:col-span-3 bg-[#a9e5b8] p-5 flex flex-col justify-between">
+      <p class="font-display font-bold text-sm">🚗 交通</p>
+      <p class="font-display font-extrabold text-2xl">NT$ 3,150</p>
+    </div>
+
+    <div class="bento col-span-2 row-span-2 bg-white p-5 flex flex-col justify-between">
+      <p class="font-display font-bold text-sm text-[#7a7870]">本週趨勢</p>
+      <svg viewBox="0 0 100 40" class="w-full h-16">
+        <polyline points="0,30 15,25 30,32 45,15 60,20 75,8 100,12" fill="none" stroke="#232220" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <p class="font-display text-xs text-[#7a7870]">週支出比上週 <span class="text-[#2b9b52] font-bold">↓ 12%</span></p>
+    </div>
+
+    <div class="bento col-span-2 md:col-span-2 bg-[#c9b8f5] p-5 flex flex-col justify-between">
+      <p class="font-display font-bold text-sm">🛍️ 購物</p>
+      <p class="font-display font-extrabold text-2xl">NT$ 6,900</p>
+    </div>
+
+    <div class="bento col-span-2 md:col-span-2 bg-[#f5c6d6] p-5 flex flex-col justify-between">
+      <p class="font-display font-bold text-sm">🏠 居家</p>
+      <p class="font-display font-extrabold text-2xl">NT$ 9,890</p>
+    </div>
+
+    <div class="bento col-span-4 md:col-span-4 bg-white p-5">
+      <p class="font-display font-bold text-sm text-[#7a7870] mb-3">最近記錄</p>
+      <div class="space-y-2 font-display text-sm">
+        <div class="flex justify-between"><span>豆花好朋友 · 甜點</span><span class="font-bold">- NT$ 65</span></div>
+        <div class="flex justify-between"><span>捷運儲值</span><span class="font-bold">- NT$ 500</span></div>
+        <div class="flex justify-between"><span>接案設計費入帳</span><span class="font-bold text-[#2b9b52]">+ NT$ 12,000</span></div>
+      </div>
+    </div>
+
+    <button class="bento col-span-2 md:col-span-2 bg-[#232220] text-white flex flex-col items-center justify-center gap-1 font-display font-bold">
+      <span class="text-2xl">＋</span>
+      <span class="text-sm">記一筆</span>
+    </button>
+
+  </div>
+</div>
+
+</body>
+</html>

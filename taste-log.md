@@ -21,6 +21,10 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-08-23（6 個，#01–06）
+- ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（curl CONNECT tunnel 403，WebFetch 回 EGRESS_BLOCKED），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
+- 本批風格（避開近 3 天用過的 #04/#13/#17/#29/#46/#47/#10/#26/#40/#37/#09/#51/#01/#43/#24/#52/#35/#12，並優先挑選至今完全沒用過的風格）：Neumorphism #02（全新族群，柔和同色系浮雕本質上也是「圓潤風」，依偏好套圓體，改用全新組合 Comfortaa + Kosugi Maru，避免 Inter，做成靜心冥想 App「靜語」）、Zero Interface #18（全新族群，隱形 UI 以內容/文字為主，比照「敘事/編輯配報紙體」精神，改用 Fraunces + Noto Serif TC，做成一次只記一件事的極簡筆記「留白」）、Bento Box #39（全新族群，避免預設 Inter，改用 Figtree + Noto Sans TC，做成生活記帳 App「格子帳」）、Memphis Revival #44（全新族群，配方建議 Archivo Black 已在前幾輪 Neubrutalism 系列重複出現，改用 Righteous + Poppins 做出同樣分量的孟菲斯塗鴉感，做成潮流玩具盲盒商店「怪奇盒」）、Drill-Down Dashboard #32（BI 儀表板全新類型，避免 Inter/JetBrains Mono，改用 Albert Sans + IBM Plex Mono，做成電商後台銷售下鑽分析「鑽點」）、Parallax Storytelling #49（配方建議 Playfair 已多輪重複使用，改用全新組合 Bitter + Noto Serif TC 延續「敘事配報紙體」偏好，做成老屋改造紀實故事頁「時光修復」）。全數繁體中文文案，中文字元皆保留 Noto Sans/Serif TC 作為 fallback。
+
 ### 2026-08-22（6 個，#01–06）
 - ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（連線逾時 HTTP 000），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
 - ⚠️ 本輪 GH_TOKEN 直連 GitHub API（publish.py）再度被環境閘道擋下（403），改用 GitHub MCP 工具（push_files）發布。

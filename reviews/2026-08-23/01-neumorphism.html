@@ -1,0 +1,159 @@
+<!-- style #01 Neumorphism -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>靜語 · 每日五分鐘冥想</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Kosugi+Maru&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#e6e4de;
+    --shadow-light:#ffffff;
+    --shadow-dark:#c4c2bb;
+    --accent:#8fa593;
+    --accent-deep:#5f7a68;
+    --text:#4a4844;
+  }
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Kosugi Maru','Comfortaa',sans-serif;
+  }
+  .font-display{ font-family:'Comfortaa','Kosugi Maru',sans-serif; }
+  .neu-flat{
+    background:var(--bg);
+    border-radius:24px;
+    box-shadow: 9px 9px 18px var(--shadow-dark), -9px -9px 18px var(--shadow-light);
+  }
+  .neu-pressed{
+    background:var(--bg);
+    border-radius:24px;
+    box-shadow: inset 6px 6px 12px var(--shadow-dark), inset -6px -6px 12px var(--shadow-light);
+  }
+  .neu-circle{
+    background:var(--bg);
+    border-radius:9999px;
+    box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light);
+  }
+  .neu-btn{
+    background:var(--bg);
+    border-radius:9999px;
+    box-shadow: 5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light);
+    transition: box-shadow .15s ease, transform .15s ease;
+  }
+  .neu-btn:active{
+    box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+    transform: scale(0.98);
+  }
+  .progress-track{
+    background:var(--bg);
+    border-radius:9999px;
+    box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="max-w-5xl mx-auto px-6 py-10">
+
+  <header class="flex items-center justify-between mb-12">
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 neu-circle flex items-center justify-center">
+        <span class="text-xl">🌿</span>
+      </div>
+      <span class="font-display text-xl font-bold text-[--text]">靜語</span>
+    </div>
+    <nav class="hidden md:flex items-center gap-2">
+      <a href="#" class="neu-pressed px-5 py-2 text-sm font-display" style="color:var(--accent-deep)">今日練習</a>
+      <a href="#" class="px-5 py-2 text-sm font-display text-[--text]/70 hover:text-[--text]">課程庫</a>
+      <a href="#" class="px-5 py-2 text-sm font-display text-[--text]/70 hover:text-[--text]">睡眠故事</a>
+      <a href="#" class="px-5 py-2 text-sm font-display text-[--text]/70 hover:text-[--text]">社群</a>
+    </nav>
+    <div class="w-12 h-12 neu-circle flex items-center justify-center">
+      <span class="text-sm font-display">王</span>
+    </div>
+  </header>
+
+  <main class="grid md:grid-cols-3 gap-6">
+
+    <section class="md:col-span-2 neu-flat p-8 md:p-10">
+      <p class="font-display text-sm mb-2" style="color:var(--accent-deep)">早安，今天是練習的第 18 天</p>
+      <h1 class="font-display text-3xl md:text-4xl font-bold mb-4 leading-snug">先深呼吸三次，<br class="hidden md:block">再開始今天的五分鐘</h1>
+      <p class="text-sm leading-relaxed text-[--text]/70 mb-8 max-w-md">情緒像潮水，來了又走。今天的練習聚焦在「觀察念頭而不評判」，適合工作前或睡前使用。</p>
+
+      <div class="flex items-center gap-6">
+        <button class="neu-circle w-20 h-20 flex items-center justify-center neu-btn">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7L8 5z" fill="#5f7a68"/></svg>
+        </button>
+        <div class="flex-1">
+          <div class="flex justify-between text-xs font-display mb-2 text-[--text]/60">
+            <span>觀息練習</span><span>05:00</span>
+          </div>
+          <div class="progress-track h-3 w-full overflow-hidden">
+            <div class="h-full rounded-full" style="width:32%; background:linear-gradient(90deg,#8fa593,#5f7a68)"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="neu-flat p-8 flex flex-col items-center justify-center text-center">
+      <div class="neu-circle w-28 h-28 flex items-center justify-center mb-5 relative">
+        <svg width="90" height="90" viewBox="0 0 100 100" class="absolute">
+          <circle cx="50" cy="50" r="42" fill="none" stroke="var(--shadow-dark)" stroke-width="8"/>
+          <circle cx="50" cy="50" r="42" fill="none" stroke="#5f7a68" stroke-width="8" stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="70" transform="rotate(-90 50 50)"/>
+        </svg>
+        <span class="font-display font-bold text-2xl relative">74%</span>
+      </div>
+      <p class="font-display font-bold mb-1">本週平靜指數</p>
+      <p class="text-xs text-[--text]/60">比上週提升了 12%，繼續保持</p>
+    </section>
+
+    <section class="neu-flat p-6">
+      <p class="font-display font-bold mb-4">今日推薦</p>
+      <div class="space-y-3">
+        <div class="neu-pressed p-4 flex items-center gap-4">
+          <div class="neu-circle w-10 h-10 flex items-center justify-center text-sm">🌙</div>
+          <div class="flex-1">
+            <p class="font-display text-sm font-bold">入睡前放鬆</p>
+            <p class="text-xs text-[--text]/50">12 分鐘 · 身體掃描</p>
+          </div>
+        </div>
+        <div class="neu-pressed p-4 flex items-center gap-4">
+          <div class="neu-circle w-10 h-10 flex items-center justify-center text-sm">🌊</div>
+          <div class="flex-1">
+            <p class="font-display text-sm font-bold">焦慮緩解</p>
+            <p class="text-xs text-[--text]/50">8 分鐘 · 呼吸練習</p>
+          </div>
+        </div>
+        <div class="neu-pressed p-4 flex items-center gap-4">
+          <div class="neu-circle w-10 h-10 flex items-center justify-center text-sm">☀️</div>
+          <div class="flex-1">
+            <p class="font-display text-sm font-bold">晨間專注</p>
+            <p class="text-xs text-[--text]/50">5 分鐘 · 觀息練習</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="md:col-span-2 neu-flat p-8">
+      <p class="font-display font-bold mb-6">連續練習紀錄</p>
+      <div class="grid grid-cols-7 gap-3">
+        <template x-for=""></template>
+        <div class="flex flex-col items-center gap-2"><span class="text-xs text-[--text]/50">一</span><div class="neu-pressed w-9 h-9"></div></div>
+        <div class="flex flex-col items-center gap-2"><span class="text-xs text-[--text]/50">二</span><div class="neu-circle w-9 h-9 flex items-center justify-center text-xs" style="background:linear-gradient(145deg,#a3b8a7,#8fa593); box-shadow:5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light);">✓</div></div>
+        <div class="flex flex-col items-center gap-2"><span class="text-xs text-[--text]/50">三</span><div class="neu-circle w-9 h-9 flex items-center justify-center text-xs" style="background:linear-gradient(145deg,#a3b8a7,#8fa593); box-shadow:5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light);">✓</div></div>
+        <div class="flex flex-col items-center gap-2"><span class="text-xs text-[--text]/50">四</span><div class="neu-circle w-9 h-9 flex items-center justify-center text-xs" style="background:linear-gradient(145deg,#a3b8a7,#8fa593); box-shadow:5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light);">✓</div></div>
+        <div class="flex flex-col items-center gap-2"><span class="text-xs text-[--text]/50">五</span><div class="neu-circle w-9 h-9 flex items-center justify-center text-xs" style="background:linear-gradient(145deg,#a3b8a7,#8fa593); box-shadow:5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light);">✓</div></div>
+        <div class="flex flex-col items-center gap-2"><span class="text-xs text-[--text]/50">六</span><div class="neu-pressed w-9 h-9"></div></div>
+        <div class="flex flex-col items-center gap-2"><span class="text-xs font-bold" style="color:var(--accent-deep)">今</span><div class="neu-circle w-9 h-9 border-2" style="border-color:#5f7a68"></div></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+</body>
+</html>
