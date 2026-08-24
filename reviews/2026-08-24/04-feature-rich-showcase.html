@@ -1,0 +1,150 @@
+<!-- style #22 Feature-Rich Showcase -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>整備 · 團隊協作的每一步都準備好了</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#171717;
+    --sub:#5f6368;
+    --line:#e8e8e6;
+    --brand:#2f5d50;
+    --brand-soft:#e7efec;
+    --accent:#e8a33d;
+  }
+  body{
+    background:#fbfaf8;
+    color:var(--ink);
+    font-family:'Onest','Noto Sans TC',sans-serif;
+  }
+  .section-line{ border-top:1px solid var(--line); }
+  .chip{
+    background:var(--brand-soft);
+    color:var(--brand);
+  }
+  .btn-brand{
+    background:var(--brand);
+    color:#fff;
+  }
+  .btn-brand:hover{ background:#254a40; }
+  .feature-card{
+    border:1px solid var(--line);
+    background:#fff;
+    transition: box-shadow .2s ease, transform .2s ease;
+  }
+  .feature-card:hover{ box-shadow: 0 12px 30px rgba(0,0,0,.06); transform: translateY(-2px); }
+  .icon-tile{
+    background:var(--brand-soft);
+    color:var(--brand);
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+<header class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+  <div class="flex items-center gap-3">
+    <div class="w-8 h-8 rounded-lg btn-brand flex items-center justify-center font-bold text-sm">整</div>
+    <span class="text-lg font-bold">整備</span>
+  </div>
+  <nav class="hidden md:flex items-center gap-8 text-sm text-[var(--sub)] font-medium">
+    <a href="#features" class="hover:text-[var(--ink)] transition">功能總覽</a>
+    <a href="#workflow" class="hover:text-[var(--ink)] transition">工作流程</a>
+    <a href="#pricing" class="hover:text-[var(--ink)] transition">方案</a>
+  </nav>
+  <button class="btn-brand rounded-full px-5 py-2.5 text-sm font-semibold">免費開始使用</button>
+</header>
+
+<section class="max-w-6xl mx-auto px-6 pt-10 pb-16 text-center">
+  <span class="chip inline-block px-4 py-1.5 rounded-full text-sm font-semibold mb-6">一個工具，取代五個分頁</span>
+  <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6 max-w-3xl mx-auto">把任務、時程、<br>文件與溝通<span style="color:var(--brand)">整備</span>在同一頁</h1>
+  <p class="text-lg text-[var(--sub)] max-w-xl mx-auto mb-8">團隊不再需要在任務管理、雲端文件、聊天室之間來回切換。整備把它們縫在一起，還幫你記得該提醒誰。</p>
+  <div class="flex flex-wrap justify-center gap-4">
+    <button class="btn-brand rounded-full px-8 py-3.5 font-semibold">開始 14 天免費試用</button>
+    <button class="rounded-full px-8 py-3.5 font-semibold border border-[var(--line)] hover:bg-white transition">觀看 3 分鐘介紹</button>
+  </div>
+</section>
+
+<section id="features" class="max-w-6xl mx-auto px-6 py-16 section-line">
+  <div class="text-center mb-12">
+    <p class="text-sm font-semibold text-[var(--brand)] mb-2">FEATURES</p>
+    <h2 class="text-3xl font-bold">團隊需要的，全部準備好了</h2>
+  </div>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="feature-card rounded-2xl p-7">
+      <div class="icon-tile w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-5">📋</div>
+      <h3 class="text-lg font-bold mb-2">任務看板</h3>
+      <p class="text-sm text-[var(--sub)] leading-relaxed">拖拉式看板搭配自動指派規則，卡片逾期會自動提醒負責人。</p>
+    </div>
+    <div class="feature-card rounded-2xl p-7">
+      <div class="icon-tile w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-5">🗓️</div>
+      <h3 class="text-lg font-bold mb-2">時程整合</h3>
+      <p class="text-sm text-[var(--sub)] leading-relaxed">與行事曆雙向同步，會議前自動彙整相關任務與文件連結。</p>
+    </div>
+    <div class="feature-card rounded-2xl p-7">
+      <div class="icon-tile w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-5">📄</div>
+      <h3 class="text-lg font-bold mb-2">文件協作</h3>
+      <p class="text-sm text-[var(--sub)] leading-relaxed">即時共編搭配版本紀錄，任何人改到哪一段都清楚可查。</p>
+    </div>
+    <div class="feature-card rounded-2xl p-7">
+      <div class="icon-tile w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-5">💬</div>
+      <h3 class="text-lg font-bold mb-2">情境式討論串</h3>
+      <p class="text-sm text-[var(--sub)] leading-relaxed">留言直接掛在任務或段落上，不再需要另外解釋「哪一項」。</p>
+    </div>
+    <div class="feature-card rounded-2xl p-7">
+      <div class="icon-tile w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-5">📊</div>
+      <h3 class="text-lg font-bold mb-2">進度儀表板</h3>
+      <p class="text-sm text-[var(--sub)] leading-relaxed">一眼看出哪個專案卡關、哪個成員負載過重。</p>
+    </div>
+    <div class="feature-card rounded-2xl p-7">
+      <div class="icon-tile w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-5">🔔</div>
+      <h3 class="text-lg font-bold mb-2">智慧提醒</h3>
+      <p class="text-sm text-[var(--sub)] leading-relaxed">只在真的需要你注意時才通知，減少無效打擾。</p>
+    </div>
+  </div>
+</section>
+
+<section id="workflow" class="max-w-6xl mx-auto px-6 py-16 section-line">
+  <div class="grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <p class="text-sm font-semibold text-[var(--brand)] mb-2">WORKFLOW</p>
+      <h2 class="text-3xl font-bold mb-4">從接手任務到完成交付，<br>整條路都被記住</h2>
+      <ul class="space-y-4">
+        <li class="flex gap-3"><span class="chip w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">1</span><span class="text-[var(--sub)]">任務建立時自動帶入相關文件與負責人</span></li>
+        <li class="flex gap-3"><span class="chip w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">2</span><span class="text-[var(--sub)]">進度變動即時同步到所有相關人員的儀表板</span></li>
+        <li class="flex gap-3"><span class="chip w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">3</span><span class="text-[var(--sub)]">交付完成自動封存並產出結案摘要</span></li>
+      </ul>
+    </div>
+    <div class="feature-card rounded-2xl p-6">
+      <div class="space-y-3">
+        <div class="flex items-center justify-between p-3 rounded-lg bg-[var(--brand-soft)]">
+          <span class="text-sm font-semibold">設計驗收頁面稿</span>
+          <span class="text-xs px-2 py-1 rounded-full bg-white text-[var(--brand)] font-semibold">進行中</span>
+        </div>
+        <div class="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+          <span class="text-sm font-semibold">串接金流 API</span>
+          <span class="text-xs px-2 py-1 rounded-full bg-white text-[var(--sub)] font-semibold">待開始</span>
+        </div>
+        <div class="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+          <span class="text-sm font-semibold">Q3 成效簡報</span>
+          <span class="text-xs px-2 py-1 rounded-full font-semibold text-white" style="background:var(--accent)">已完成</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" class="max-w-6xl mx-auto px-6 py-16 section-line text-center">
+  <p class="text-sm font-semibold text-[var(--brand)] mb-2">PRICING</p>
+  <h2 class="text-3xl font-bold mb-8">團隊規模越大，越省下協調時間</h2>
+  <button class="btn-brand rounded-full px-8 py-3.5 font-semibold">查看方案與價格</button>
+</section>
+
+<footer class="section-line py-8 text-center text-sm text-[var(--sub)]">整備 © 2026 — 讓團隊少開一次會</footer>
+
+</body>
+</html>

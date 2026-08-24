@@ -1,0 +1,174 @@
+<!-- style #07 Dark Mode (OLED) -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>夜半 · 深夜專注工作模式</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0a;
+    --panel:#131313;
+    --panel-2:#1a1a1a;
+    --line:#242424;
+    --text:#e4e4e4;
+    --dim:#7a7a7a;
+    --glow:#39ff14;
+  }
+  *{box-sizing:border-box}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Instrument Sans','Noto Sans TC',sans-serif;
+  }
+  .font-mono{ font-family:'Space Mono','Noto Sans TC',monospace; }
+  .glow-text{
+    color:var(--glow);
+    text-shadow: 0 0 8px rgba(57,255,20,.55), 0 0 24px rgba(57,255,20,.25);
+  }
+  .glow-dot{
+    box-shadow: 0 0 6px 2px rgba(57,255,20,.7);
+  }
+  .panel{
+    background:var(--panel);
+    border:1px solid var(--line);
+  }
+  .panel-2{
+    background:var(--panel-2);
+    border:1px solid var(--line);
+  }
+  .btn-glow{
+    background:var(--glow);
+    color:#04140a;
+    box-shadow: 0 0 20px rgba(57,255,20,.35);
+    transition: box-shadow .2s ease, transform .15s ease;
+  }
+  .btn-glow:hover{ box-shadow: 0 0 32px rgba(57,255,20,.55); transform: translateY(-1px); }
+  .ring-track{
+    stroke:#232323;
+  }
+  .ring-progress{
+    stroke:var(--glow);
+    filter: drop-shadow(0 0 6px rgba(57,255,20,.6));
+  }
+  ::-webkit-scrollbar{ width:8px; }
+  ::-webkit-scrollbar-thumb{ background:#2a2a2a; border-radius:8px; }
+  @keyframes pulse-soft{
+    0%,100%{ opacity:1; }
+    50%{ opacity:.5; }
+  }
+  .pulse{ animation: pulse-soft 2.2s ease-in-out infinite; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="max-w-6xl mx-auto px-6 py-10">
+
+  <header class="flex items-center justify-between mb-10">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-full glow-dot bg-black border border-[#2a2a2a] flex items-center justify-center">
+        <div class="w-2 h-2 rounded-full" style="background:var(--glow)"></div>
+      </div>
+      <span class="text-lg font-semibold tracking-tight">夜半</span>
+    </div>
+    <nav class="hidden md:flex items-center gap-8 text-sm text-[var(--dim)]">
+      <a href="#" class="hover:text-white transition">總覽</a>
+      <a href="#" class="hover:text-white transition">專注紀錄</a>
+      <a href="#" class="hover:text-white transition">護眼設定</a>
+    </nav>
+    <button class="px-4 py-2 rounded-full panel-2 text-sm font-mono glow-text">● 專注中</button>
+  </header>
+
+  <section class="grid md:grid-cols-3 gap-6 mb-10">
+    <div class="md:col-span-2 panel rounded-2xl p-8">
+      <p class="font-mono text-xs text-[var(--dim)] tracking-widest mb-2">CURRENT SESSION</p>
+      <h1 class="text-3xl md:text-4xl font-semibold leading-tight mb-4">深夜也能<br><span class="glow-text">不傷眼、不失神</span>的專注時間</h1>
+      <p class="text-[var(--dim)] mb-6 leading-relaxed">純黑 OLED 背景，畫面接近全暗省電；只留一點螢光綠標出你現在該看哪裡，其餘全部安靜下來。</p>
+      <div class="flex flex-wrap gap-3">
+        <button class="btn-glow px-6 py-3 rounded-full text-sm font-semibold">開始一輪 25 分鐘</button>
+        <button class="px-6 py-3 rounded-full panel-2 text-sm font-mono text-[var(--dim)] hover:text-white transition">查看昨晚紀錄</button>
+      </div>
+    </div>
+
+    <div class="panel rounded-2xl p-8 flex flex-col items-center justify-center">
+      <svg width="140" height="140" viewBox="0 0 140 140">
+        <circle cx="70" cy="70" r="58" fill="none" stroke-width="10" class="ring-track"/>
+        <circle cx="70" cy="70" r="58" fill="none" stroke-width="10" class="ring-progress"
+          stroke-linecap="round" stroke-dasharray="364" stroke-dashoffset="96"
+          transform="rotate(-90 70 70)"/>
+        <text x="70" y="66" text-anchor="middle" fill="#e4e4e4" font-size="26" font-family="Space Mono, monospace" font-weight="700">74%</text>
+        <text x="70" y="86" text-anchor="middle" fill="#7a7a7a" font-size="11" font-family="Space Mono, monospace">今日目標</text>
+      </svg>
+      <p class="mt-4 text-sm text-[var(--dim)] font-mono">3h 42m / 5h</p>
+    </div>
+  </section>
+
+  <section class="grid md:grid-cols-4 gap-4 mb-10">
+    <div class="panel rounded-2xl p-5">
+      <p class="text-xs text-[var(--dim)] font-mono mb-2">連續專注天數</p>
+      <p class="text-3xl font-semibold font-mono glow-text">18</p>
+      <p class="text-xs text-[var(--dim)] mt-1">天</p>
+    </div>
+    <div class="panel rounded-2xl p-5">
+      <p class="text-xs text-[var(--dim)] font-mono mb-2">螢幕亮度</p>
+      <p class="text-3xl font-semibold font-mono">4%</p>
+      <p class="text-xs text-[var(--dim)] mt-1">護眼模式</p>
+    </div>
+    <div class="panel rounded-2xl p-5">
+      <p class="text-xs text-[var(--dim)] font-mono mb-2">中斷次數</p>
+      <p class="text-3xl font-semibold font-mono">2</p>
+      <p class="text-xs text-[var(--dim)] mt-1">較昨晚 -3</p>
+    </div>
+    <div class="panel rounded-2xl p-5">
+      <p class="text-xs text-[var(--dim)] font-mono mb-2 flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full glow-dot pulse" style="background:var(--glow)"></span>目前狀態</p>
+      <p class="text-lg font-semibold glow-text">深度專注</p>
+      <p class="text-xs text-[var(--dim)] mt-1">已持續 41 分鐘</p>
+    </div>
+  </section>
+
+  <section class="panel rounded-2xl p-8">
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-xl font-semibold">本週深夜時段紀錄</h2>
+      <span class="font-mono text-xs text-[var(--dim)]">22:00 – 02:00</span>
+    </div>
+    <div class="grid grid-cols-7 gap-3">
+      <template x-if="false"></template>
+      <div class="text-center">
+        <div class="h-24 panel-2 rounded-lg flex items-end p-1"><div class="w-full rounded" style="height:40%;background:linear-gradient(180deg,rgba(57,255,20,.7),rgba(57,255,20,.15))"></div></div>
+        <p class="text-xs text-[var(--dim)] mt-2 font-mono">一</p>
+      </div>
+      <div class="text-center">
+        <div class="h-24 panel-2 rounded-lg flex items-end p-1"><div class="w-full rounded" style="height:70%;background:linear-gradient(180deg,rgba(57,255,20,.7),rgba(57,255,20,.15))"></div></div>
+        <p class="text-xs text-[var(--dim)] mt-2 font-mono">二</p>
+      </div>
+      <div class="text-center">
+        <div class="h-24 panel-2 rounded-lg flex items-end p-1"><div class="w-full rounded" style="height:55%;background:linear-gradient(180deg,rgba(57,255,20,.7),rgba(57,255,20,.15))"></div></div>
+        <p class="text-xs text-[var(--dim)] mt-2 font-mono">三</p>
+      </div>
+      <div class="text-center">
+        <div class="h-24 panel-2 rounded-lg flex items-end p-1"><div class="w-full rounded" style="height:90%;background:linear-gradient(180deg,rgba(57,255,20,.85),rgba(57,255,20,.2))"></div></div>
+        <p class="text-xs text-[var(--dim)] mt-2 font-mono">四</p>
+      </div>
+      <div class="text-center">
+        <div class="h-24 panel-2 rounded-lg flex items-end p-1"><div class="w-full rounded" style="height:35%;background:linear-gradient(180deg,rgba(57,255,20,.7),rgba(57,255,20,.15))"></div></div>
+        <p class="text-xs text-[var(--dim)] mt-2 font-mono">五</p>
+      </div>
+      <div class="text-center">
+        <div class="h-24 panel-2 rounded-lg flex items-end p-1"><div class="w-full rounded" style="height:20%;background:linear-gradient(180deg,rgba(57,255,20,.5),rgba(57,255,20,.1))"></div></div>
+        <p class="text-xs text-[var(--dim)] mt-2 font-mono">六</p>
+      </div>
+      <div class="text-center">
+        <div class="h-24 panel-2 rounded-lg flex items-end p-1"><div class="w-full rounded" style="height:74%;background:linear-gradient(180deg,rgba(57,255,20,.9),rgba(57,255,20,.25))"></div></div>
+        <p class="text-xs text-[var(--dim)] mt-2 font-mono glow-text">日</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="mt-10 text-center text-xs text-[var(--dim)] font-mono">夜半 © 2026 — 純黑背景，只留一點光</footer>
+</div>
+
+</body>
+</html>

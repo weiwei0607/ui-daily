@@ -1,0 +1,127 @@
+<!-- style #11 Retro-Futurism -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>電波電台 · 來自未來的類比廣播</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Rajdhani:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1a1a2e;
+    --navy-deep:#0f0f1e;
+    --cyan:#00ffff;
+    --magenta:#ff006e;
+  }
+  *{box-sizing:border-box}
+  body{
+    background: var(--navy);
+    background-image:
+      radial-gradient(circle at 20% -10%, rgba(255,0,110,.25), transparent 45%),
+      radial-gradient(circle at 85% 10%, rgba(0,255,255,.2), transparent 45%);
+    color:#f2f2f7;
+    font-family:'Rajdhani','Noto Sans TC',sans-serif;
+  }
+  .font-display{ font-family:'Michroma','Noto Sans TC',sans-serif; letter-spacing:.02em; }
+  .neon-cyan{ color:var(--cyan); text-shadow:0 0 6px rgba(0,255,255,.8), 0 0 20px rgba(0,255,255,.4); }
+  .neon-magenta{ color:var(--magenta); text-shadow:0 0 6px rgba(255,0,110,.8), 0 0 20px rgba(255,0,110,.4); }
+  .panel{
+    background: rgba(255,255,255,.04);
+    border:1px solid rgba(0,255,255,.3);
+    border-radius:16px;
+    backdrop-filter: blur(6px);
+  }
+  .grid-horizon{
+    background-image:
+      linear-gradient(rgba(255,0,110,.35) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,0,110,.35) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: linear-gradient(to top, black, transparent);
+  }
+  .scanline{
+    position:absolute; inset:0; pointer-events:none;
+    background: repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0px, rgba(255,255,255,.035) 1px, transparent 1px, transparent 3px);
+  }
+  .btn-neon{
+    background:transparent;
+    border:2px solid var(--cyan);
+    color:var(--cyan);
+    text-shadow:0 0 6px rgba(0,255,255,.6);
+    transition: all .2s ease;
+  }
+  .btn-neon:hover{ background:rgba(0,255,255,.12); box-shadow:0 0 24px rgba(0,255,255,.4); }
+  @keyframes sweep{ 0%{ transform:translateX(-100%);} 100%{ transform:translateX(100%);} }
+  .sweep-bar{ animation: sweep 4s linear infinite; }
+  .dial{
+    background: conic-gradient(from 0deg, rgba(255,0,110,.5), rgba(0,255,255,.5), rgba(255,0,110,.5));
+  }
+</style>
+</head>
+<body class="min-h-screen relative overflow-x-hidden">
+<div class="scanline"></div>
+
+<div class="max-w-6xl mx-auto px-6 py-10 relative">
+
+  <header class="flex items-center justify-between mb-14">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-full dial"></div>
+      <span class="font-display text-sm neon-cyan">電波電台</span>
+    </div>
+    <nav class="hidden md:flex items-center gap-8 text-sm font-semibold tracking-wide">
+      <a href="#" class="hover:neon-cyan transition">頻道</a>
+      <a href="#" class="hover:neon-cyan transition">星際排行榜</a>
+      <a href="#" class="hover:neon-cyan transition">收藏</a>
+    </nav>
+    <button class="btn-neon rounded-full px-5 py-2 text-sm font-semibold">立即收聽</button>
+  </header>
+
+  <section class="text-center mb-16">
+    <p class="font-display text-xs neon-magenta mb-4 tracking-widest">FM 2088.5 · BROADCASTING FROM THE FUTURE</p>
+    <h1 class="font-display text-3xl md:text-5xl leading-tight mb-6">
+      <span class="neon-cyan">類比的溫度</span>，<br class="hidden md:block">數位的未來
+    </h1>
+    <p class="text-lg text-gray-300 max-w-xl mx-auto mb-8">收錄合成器音浪與人聲廣播，帶你回到 1988 年想像的 2088 年。每晚 22:00，準時開台。</p>
+    <div class="flex flex-wrap justify-center gap-4">
+      <button class="btn-neon rounded-full px-8 py-3 font-semibold">▶ 開始收聽</button>
+      <button class="rounded-full px-8 py-3 font-semibold border-2 border-[var(--magenta)] neon-magenta">頻道列表</button>
+    </div>
+  </section>
+
+  <section class="panel p-8 mb-12 relative overflow-hidden">
+    <div class="grid-horizon h-32 -mx-8 -mb-8 mt-6"></div>
+    <div class="flex items-center justify-between mb-6">
+      <p class="font-display text-xs neon-cyan">NOW PLAYING</p>
+      <p class="text-sm text-gray-400">02:41 / 04:12</p>
+    </div>
+    <h2 class="text-2xl font-semibold mb-2">〈霓虹地平線〉</h2>
+    <p class="text-gray-400 mb-6">合成器樂團・電波電台原創</p>
+    <div class="h-1.5 rounded-full bg-white/10 overflow-hidden relative">
+      <div class="h-full w-2/3 rounded-full" style="background:linear-gradient(90deg,var(--magenta),var(--cyan))"></div>
+    </div>
+  </section>
+
+  <section class="grid md:grid-cols-3 gap-6">
+    <div class="panel p-6">
+      <p class="font-display text-xs neon-magenta mb-3">CHANNEL 01</p>
+      <h3 class="text-xl font-semibold mb-2">深夜合成波</h3>
+      <p class="text-sm text-gray-400">緩慢節奏，適合星際旅行時收聽</p>
+    </div>
+    <div class="panel p-6">
+      <p class="font-display text-xs neon-cyan mb-3">CHANNEL 02</p>
+      <h3 class="text-xl font-semibold mb-2">未來城市新聞</h3>
+      <p class="text-sm text-gray-400">虛構世界的每日快訊播報</p>
+    </div>
+    <div class="panel p-6">
+      <p class="font-display text-xs neon-magenta mb-3">CHANNEL 03</p>
+      <h3 class="text-xl font-semibold mb-2">霓虹告解室</h3>
+      <p class="text-sm text-gray-400">深夜聽眾投稿點播時段</p>
+    </div>
+  </section>
+
+  <footer class="mt-16 text-center text-xs text-gray-500 font-display">電波電台 © 2088 — 訊號來自未來，內容忠於現在</footer>
+</div>
+
+</body>
+</html>
