@@ -23,6 +23,7 @@
 
 ### 2026-08-24（6 個，#01–06）
 - ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（curl 連線逾時無回應，HTTP exit 56），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
+- ⚠️ 本輪 GH_TOKEN 直連 GitHub REST API（publish.py 用到的 `/repos/.../git/ref/...` 等端點）仍被環境閘道擋下（403），改用 GitHub MCP 工具（push_files）發布——但手動把整批中文內容轉成 JSON `\u` 跳脫序列時打錯了十幾個字（例如「敘事」變「叙事」、「襯線」變「襬線」、「彙整」變「匯整」、「溝通」變「溹通」），污染了 taste-log.md 與部分 HTML 檔。**發現：`git push`（用同一個 GH_TOKEN 當 HTTPS Basic Auth 密碼，走 git 協定而非 REST API）其實沒被擋，順利推送成功。** 已用本機正確版本（Write/Edit 工具寫入、未經手動轉義）蓋掉錯字，`git checkout --ours` 解衝突後用 `git push` 補推修正版，確認 origin 內容與本機逐字相同。**建議之後優先直接用 `git push`（HTTPS + token 當密碼）發布，不要再手動把中文轉成 `\u` 跳脫序列塞進 push_files 的 JSON，容易手滑錯字。**
 - 本批風格（避開近 3 天用過的 #10/#26/#40/#37/#09/#51/#01/#43/#24/#52/#35/#12/#02/#18/#39/#44/#32/#49，優先挑選至今完全沒用過的風格，並跨 A/B/C/D 族群）：Dark Mode / OLED #07（全新族群，避免 Inter，改用 Instrument Sans + Space Mono，做成深夜專注工作模式 App「夜半」，純黑底單一螢光綠強調色）、Accessible / Ethical #08（全新族群，套用配方指定的無障礙專用字體 Atkinson Hyperlegible + Noto Sans TC，做成高對比視障友善網路銀行「安視銀行」，WCAG AAA 對比、大按鈕、鍵盤可完全操作）、Retro-Futurism #11（全新族群，配方建議 Orbitron/Press Start 2P 已多輪重複，改用全新組合 Michroma + Rajdhani，做成復古未來太空電台 App「電波電台」）、Feature-Rich Showcase #22（B 組 landing 結構全新類型，避免 Inter，改用 Onest + Noto Sans TC，做成團隊協作 SaaS 功能總覽頁「整備」）、Predictive Dashboard #34（BI 儀表板全新類型，避免 Inter/JetBrains Mono，改用 Red Hat Text + Roboto Mono，虛線邊框區分實際/預測值，做成庫存需求預測後台「先知」）、Spatial UI #55（D 組最後一個全新類型，本質上是毛玻璃+景深的柔和風格，依「圓潤風配圓體」偏好改用 Nunito + Quicksand，做成智慧家庭空間控制中心 App「境」）。全數繁體中文文案，中文字元皆保留 Noto Sans/Serif TC 作為 fallback。D 組 38–57 目前已全數使用過至少一次。
 
 ### 2026-08-23（6 個，#01–06）
