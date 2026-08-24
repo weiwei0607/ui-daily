@@ -1,0 +1,149 @@
+<!-- style #08 Accessible / Ethical -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>安視銀行 · 看得清楚、點得到的網路銀行</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#003366;
+    --navy-deep:#001f3f;
+    --red:#d32f2f;
+    --bg:#ffffff;
+    --text:#0a0a0a;
+    --line:#0a0a0a;
+  }
+  *{box-sizing:border-box}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Atkinson Hyperlegible','Noto Sans TC',sans-serif;
+    font-size:18px;
+    line-height:1.7;
+  }
+  a, button{ min-height:44px; }
+  .focus-ring:focus-visible{
+    outline: 3px solid var(--red);
+    outline-offset: 3px;
+  }
+  .btn-primary{
+    background:var(--navy);
+    color:#fff;
+    border:2px solid var(--navy);
+  }
+  .btn-primary:hover{ background:var(--navy-deep); }
+  .btn-outline{
+    background:#fff;
+    color:var(--navy);
+    border:2px solid var(--navy);
+  }
+  .card{
+    border:2px solid #111;
+    border-radius:12px;
+  }
+  .badge-danger{
+    background:#fdecea;
+    color:var(--red);
+    border:2px solid var(--red);
+  }
+  .badge-safe{
+    background:#e8f3ec;
+    color:#0f6b3a;
+    border:2px solid #0f6b3a;
+  }
+  .skip-link{
+    position:absolute; left:-9999px; top:0;
+    background:var(--red); color:#fff; padding:12px 20px; z-index:50;
+  }
+  .skip-link:focus{ left:12px; top:12px; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<a href="#main" class="skip-link focus-ring rounded">跳到主要內容</a>
+
+<header class="border-b-4" style="border-color:var(--navy)">
+  <div class="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg" style="background:var(--navy)">安</div>
+      <span class="text-2xl font-bold">安視銀行</span>
+    </div>
+    <nav class="hidden md:flex items-center gap-8 text-base font-bold">
+      <a href="#" class="focus-ring rounded underline decoration-2 underline-offset-4">帳戶總覽</a>
+      <a href="#" class="focus-ring rounded hover:underline decoration-2 underline-offset-4">轉帳</a>
+      <a href="#" class="focus-ring rounded hover:underline decoration-2 underline-offset-4">客服語音</a>
+    </nav>
+    <button class="focus-ring btn-outline rounded-lg px-5 py-2.5 font-bold text-base">文字放大 A+</button>
+  </div>
+</header>
+
+<main id="main" class="max-w-5xl mx-auto px-6 py-10">
+
+  <section class="mb-10">
+    <p class="badge-safe inline-block px-3 py-1 rounded-full text-sm font-bold mb-4">✓ 已通過視障輔助工具測試</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">每一筆錢的流向，<br>都用你看得懂的方式說清楚。</h1>
+    <p class="text-lg max-w-2xl mb-6">高對比色彩、大按鈕、完整螢幕報讀支援。安視銀行相信：金融服務不該因為視力或操作能力而把任何人擋在外面。</p>
+    <div class="flex flex-wrap gap-4">
+      <button class="focus-ring btn-primary rounded-lg px-8 py-4 text-lg font-bold">立即登入</button>
+      <button class="focus-ring btn-outline rounded-lg px-8 py-4 text-lg font-bold">聽語音導覽</button>
+    </div>
+  </section>
+
+  <section class="grid md:grid-cols-3 gap-6 mb-10">
+    <div class="card p-6">
+      <p class="text-base font-bold mb-2">目前餘額</p>
+      <p class="text-4xl font-bold" style="color:var(--navy)">NT$ 128,450</p>
+      <p class="text-base mt-2">帳戶：安心存款 ****2201</p>
+    </div>
+    <div class="card p-6">
+      <p class="text-base font-bold mb-2">本月支出</p>
+      <p class="text-4xl font-bold">NT$ 32,180</p>
+      <span class="badge-danger inline-block text-xs px-2 py-0.5 rounded-full mt-2 font-bold">較上月 +12%</span>
+    </div>
+    <div class="card p-6">
+      <p class="text-base font-bold mb-2">待處理提醒</p>
+      <p class="text-4xl font-bold">2 件</p>
+      <p class="text-base mt-2">信用卡帳單、定期定額提醒</p>
+    </div>
+  </section>
+
+  <section class="card p-8 mb-10">
+    <h2 class="text-2xl font-bold mb-6">快速操作</h2>
+    <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
+      <button class="focus-ring btn-outline rounded-lg py-5 text-base font-bold flex flex-col items-center gap-2">
+        <span class="text-2xl" aria-hidden="true">💸</span>轉帳給親友
+      </button>
+      <button class="focus-ring btn-outline rounded-lg py-5 text-base font-bold flex flex-col items-center gap-2">
+        <span class="text-2xl" aria-hidden="true">🧾</span>繳費繳稅
+      </button>
+      <button class="focus-ring btn-outline rounded-lg py-5 text-base font-bold flex flex-col items-center gap-2">
+        <span class="text-2xl" aria-hidden="true">📞</span>真人客服
+      </button>
+      <button class="focus-ring btn-outline rounded-lg py-5 text-base font-bold flex flex-col items-center gap-2">
+        <span class="text-2xl" aria-hidden="true">🔊</span>切換語音模式
+      </button>
+    </div>
+  </section>
+
+  <section class="card p-8" style="background:#f7f9fb">
+    <h2 class="text-2xl font-bold mb-4">我們的承諾</h2>
+    <ul class="space-y-3 text-lg">
+      <li class="flex gap-3"><span aria-hidden="true">●</span>所有文字對比度均達 WCAG AAA 等級</li>
+      <li class="flex gap-3"><span aria-hidden="true">●</span>全站可完全用鍵盤操作，無需滑鼠</li>
+      <li class="flex gap-3"><span aria-hidden="true">●</span>每項按鈕都有清楚可見的焦點框</li>
+      <li class="flex gap-3"><span aria-hidden="true">●</span>客服提供文字、語音、視訊三種溹通方式</li>
+    </ul>
+  </section>
+
+</main>
+
+<footer class="border-t-4 mt-10 py-8" style="border-color:var(--navy)">
+  <p class="max-w-5xl mx-auto px-6 text-base font-bold">安視銀行 © 2026 — 金融服務，人人都能安心使用</p>
+</footer>
+
+</body>
+</html>
