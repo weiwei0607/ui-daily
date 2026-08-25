@@ -1,0 +1,522 @@
+<!-- style #57 Gen Z Chaos -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>貼貼市集｜Z世代迷因貼圖交易所</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --cream:#faf7f2;
+    --teal:#4ecdc4;
+    --coral:#ff6b6b;
+    --yellow:#ffe66d;
+    --purple:#a388ee;
+    --ink:#1e1b2e;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background-color:var(--cream);
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(30,27,46,0.08) 1px, transparent 0);
+    background-size:22px 22px;
+    color:var(--ink);
+    font-family:'Space Mono','Noto Sans TC',monospace;
+    overflow-x:hidden;
+  }
+  .font-display{font-family:'Unbounded','Noto Sans TC',sans-serif;}
+  .font-mono{font-family:'Space Mono','Noto Sans TC',monospace;}
+
+  /* sticker hard shadow */
+  .sticker-shadow{ box-shadow: 6px 6px 0 0 var(--ink); }
+  .sticker-shadow-sm{ box-shadow: 4px 4px 0 0 var(--ink); }
+  .sticker-shadow-lg{ box-shadow: 9px 9px 0 0 var(--ink); }
+
+  .dashed{ border: 3px dashed var(--ink); }
+  .solidline{ border: 3px solid var(--ink); }
+
+  .tilt-1{ transform: rotate(-3deg); }
+  .tilt-2{ transform: rotate(2.5deg); }
+  .tilt-3{ transform: rotate(-1.5deg); }
+  .tilt-4{ transform: rotate(4deg); }
+  .tilt-5{ transform: rotate(-4deg); }
+  .tilt-6{ transform: rotate(1.5deg); }
+  .tilt-0{ transform: rotate(0deg); }
+
+  .wiggle-hover{ transition: transform .18s ease; }
+  .wiggle-hover:hover{
+    animation: wiggle .5s ease-in-out;
+  }
+  @keyframes wiggle{
+    0%{ transform: rotate(var(--r,0deg)) scale(1); }
+    20%{ transform: rotate(calc(var(--r,0deg) - 4deg)) scale(1.03); }
+    40%{ transform: rotate(calc(var(--r,0deg) + 4deg)) scale(1.03); }
+    60%{ transform: rotate(calc(var(--r,0deg) - 3deg)) scale(1.02); }
+    80%{ transform: rotate(calc(var(--r,0deg) + 2deg)) scale(1.01); }
+    100%{ transform: rotate(var(--r,0deg)) scale(1); }
+  }
+
+  .bounce-hover{ transition: transform .15s ease; }
+  .bounce-hover:hover{ transform: translateY(-6px) rotate(-2deg) scale(1.04); }
+
+  .marquee-track{
+    display:flex;
+    width:max-content;
+    animation: marquee 18s linear infinite;
+  }
+  @keyframes marquee{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(-50%); }
+  }
+
+  .blob-btn{
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .blob-btn:hover{
+    transform: translate(-2px,-2px) rotate(-1deg);
+    box-shadow: 8px 8px 0 0 var(--ink);
+  }
+  .blob-btn:active{
+    transform: translate(2px,2px);
+    box-shadow: 2px 2px 0 0 var(--ink);
+  }
+
+  .scribble-underline{
+    position:relative;
+    display:inline-block;
+  }
+  .scribble-underline::after{
+    content:'';
+    position:absolute;
+    left:-4%;
+    bottom:-6px;
+    width:108%;
+    height:10px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='16' viewBox='0 0 200 16'%3E%3Cpath d='M2 8 Q 20 1, 40 8 T 80 8 T 120 8 T 160 8 T 198 8' stroke='%23ff6b6b' stroke-width='4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+    background-size: 100px 16px;
+  }
+
+  .tape{
+    position:absolute;
+    width:70px;
+    height:26px;
+    background: repeating-linear-gradient(45deg, rgba(255,230,109,0.9), rgba(255,230,109,0.9) 6px, rgba(255,230,109,0.6) 6px, rgba(255,230,109,0.6) 12px);
+    border:1px solid rgba(30,27,46,0.25);
+    opacity:0.9;
+  }
+
+  .badge-pop{
+    animation: pop 2.4s ease-in-out infinite;
+  }
+  @keyframes pop{
+    0%,100%{ transform: rotate(8deg) scale(1); }
+    50%{ transform: rotate(8deg) scale(1.08); }
+  }
+
+  .float-doodle{
+    animation: floaty 3.5s ease-in-out infinite;
+  }
+  @keyframes floaty{
+    0%,100%{ transform: translateY(0) rotate(-6deg); }
+    50%{ transform: translateY(-8px) rotate(-2deg); }
+  }
+
+  .scroll-x-wrap{
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width: thin;
+  }
+  .scroll-x-wrap::-webkit-scrollbar{ height:8px; }
+  .scroll-x-wrap::-webkit-scrollbar-thumb{ background: var(--purple); border-radius:10px; }
+
+  .rank-num{
+    font-family:'Unbounded','Noto Sans TC',sans-serif;
+    -webkit-text-stroke: 2px var(--ink);
+    color: var(--cream);
+  }
+
+  .noise-card{
+    position:relative;
+  }
+
+  .chip-dashed{
+    border: 2.5px dashed var(--ink);
+  }
+</style>
+</head>
+<body class="antialiased">
+
+  <!-- ===== NAV ===== -->
+  <header class="sticky top-0 z-50 bg-[var(--cream)]/90 backdrop-blur border-b-[3px] border-[var(--ink)]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
+      <a href="#top" class="flex items-center gap-2 tilt-2 wiggle-hover" style="--r:2deg">
+        <span class="font-display font-900 text-xl sm:text-2xl bg-[var(--coral)] text-white px-3 py-1 rounded-2xl sticker-shadow-sm dashed" style="border-color:var(--ink);">貼貼市集</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-5 font-mono text-sm font-bold">
+        <a href="#wall" class="hover:text-[var(--coral)]">貼圖牆</a>
+        <a href="#creators" class="hover:text-[var(--purple)]">創作者</a>
+        <a href="#rank" class="hover:text-[var(--teal)]">排行榜</a>
+      </nav>
+      <a href="#cta" class="blob-btn font-display text-sm sm:text-base font-700 bg-[var(--yellow)] text-[var(--ink)] px-4 sm:px-5 py-2 rounded-full solidline sticker-shadow-sm tilt-1">
+        🔥 上架貼圖
+      </a>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section id="top" class="relative max-w-7xl mx-auto px-4 sm:px-6 pt-14 pb-20 overflow-visible">
+    <div class="absolute -top-2 left-8 tape tilt-3 hidden sm:block"></div>
+    <div class="absolute top-10 right-10 float-doodle text-5xl select-none hidden md:block">✏️</div>
+    <div class="absolute bottom-0 right-24 float-doodle text-4xl select-none hidden lg:block" style="animation-delay:1s;">✨</div>
+
+    <div class="grid lg:grid-cols-[1.1fr,0.9fr] gap-10 items-center">
+      <div class="relative tilt-1">
+        <span class="inline-block font-mono text-xs sm:text-sm font-bold bg-[var(--teal)] px-3 py-1 rounded-full solidline sticker-shadow-sm tilt-3 mb-5">
+          ⚡ 全台 Z 世代都在貼
+        </span>
+        <h1 class="font-display font-900 leading-[1.05] text-4xl sm:text-5xl md:text-6xl mb-5">
+          你的表情，<br>
+          <span class="scribble-underline text-[var(--coral)]">用貼的</span>
+          才夠潮
+        </h1>
+        <p class="font-mono text-base sm:text-lg leading-relaxed max-w-md mb-7 tilt-0">
+          迷因貼圖、崩潰語錄、廢到笑動圖，一鍵買、一鍵貼。
+          <br>創作者上架抽成透明，粉絲斗內不囉嗦。
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#wall" class="blob-btn font-display font-700 text-base sm:text-lg bg-[var(--coral)] text-white px-6 sm:px-7 py-3 rounded-2xl solidline sticker-shadow tilt-2">
+            逛逛貼圖牆 →
+          </a>
+          <a href="#creators" class="blob-btn font-display font-700 text-base sm:text-lg bg-white text-[var(--ink)] px-6 sm:px-7 py-3 rounded-2xl solidline sticker-shadow tilt-[-2deg]" style="transform:rotate(-2deg);">
+            我要當創作者
+          </a>
+        </div>
+        <div class="flex items-center gap-4 mt-8 font-mono text-xs sm:text-sm font-bold">
+          <span class="chip-dashed rounded-full px-3 py-1 bg-[var(--yellow)] tilt-2">🎨 3,200+ 創作者</span>
+          <span class="chip-dashed rounded-full px-3 py-1 bg-[var(--purple)]/40 tilt-[-1deg]">💬 每天上架 480 包</span>
+        </div>
+      </div>
+
+      <div class="relative h-[340px] sm:h-[420px]">
+        <div class="absolute top-2 left-6 w-40 sm:w-48 bg-white solidline sticker-shadow-lg rounded-3xl p-4 tilt-4 bounce-hover">
+          <div class="aspect-square w-full rounded-2xl bg-[var(--yellow)] flex items-center justify-center text-6xl solidline">😭</div>
+          <p class="font-display font-700 text-sm mt-2">崩潰系日常</p>
+        </div>
+        <div class="absolute top-24 right-2 w-36 sm:w-44 bg-white solidline sticker-shadow-lg rounded-3xl p-4 tilt-[-5deg] bounce-hover" style="transform:rotate(-5deg);">
+          <div class="aspect-square w-full rounded-2xl bg-[var(--teal)] flex items-center justify-center text-6xl solidline">🫠</div>
+          <p class="font-display font-700 text-sm mt-2">融化語錄包</p>
+        </div>
+        <div class="absolute bottom-0 left-16 w-36 sm:w-44 bg-white solidline sticker-shadow-lg rounded-3xl p-4 tilt-3 bounce-hover">
+          <div class="aspect-square w-full rounded-2xl bg-[var(--coral)] flex items-center justify-center text-6xl solidline">🤡</div>
+          <p class="font-display font-700 text-sm mt-2">廢到笑限定</p>
+        </div>
+        <div class="absolute bottom-6 right-0 w-24 sm:w-28 bg-[var(--purple)] solidline sticker-shadow rounded-full p-4 flex items-center justify-center tilt-2 badge-pop">
+          <span class="font-display font-900 text-white text-xs sm:text-sm text-center leading-tight">NEW<br>DROP</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- marquee strip -->
+  <div class="border-y-[3px] border-[var(--ink)] bg-[var(--ink)] py-2.5 overflow-hidden">
+    <div class="marquee-track font-mono font-bold text-sm sm:text-base text-[var(--cream)]">
+      <span class="px-4">😂 本週新上架 128 包貼圖　★</span>
+      <span class="px-4">🔥「崩潰系」熱銷冠軍　★</span>
+      <span class="px-4">💸 創作者分潤 70% 起　★</span>
+      <span class="px-4">🎉 週末限時免手續費上架　★</span>
+      <span class="px-4">😂 本週新上架 128 包貼圖　★</span>
+      <span class="px-4">🔥「崩潰系」熱銷冠軍　★</span>
+      <span class="px-4">💸 創作者分潤 70% 起　★</span>
+      <span class="px-4">🎉 週末限時免手續費上架　★</span>
+    </div>
+  </div>
+
+  <!-- ===== 熱門貼圖包卡片牆 ===== -->
+  <section id="wall" class="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-20 relative">
+    <div class="mb-10 relative">
+      <span class="font-mono text-xs sm:text-sm font-bold bg-[var(--purple)] text-white px-3 py-1 rounded-full inline-block tilt-[-2deg]" style="transform:rotate(-2deg);">STICKER WALL</span>
+      <h2 class="font-display font-800 text-3xl sm:text-4xl mt-3 tilt-[-1deg]" style="transform:rotate(-1deg);">
+        熱門貼圖包卡片牆 <span class="text-[var(--coral)]">🧷</span>
+      </h2>
+      <p class="font-mono text-sm mt-2 opacity-80">歪歪的排列才是我們的態度，滑一下就能買。</p>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10 sm:gap-x-6 sm:gap-y-12">
+
+      <!-- card 1 -->
+      <div class="wiggle-hover" style="--r:-3deg;">
+        <div class="tilt-3 bg-white solidline sticker-shadow rounded-[26px] p-3 sm:p-4 relative" style="transform:rotate(-3deg);">
+          <span class="absolute -top-3 -left-3 bg-[var(--yellow)] solidline text-[10px] sm:text-xs font-mono font-bold px-2 py-0.5 rounded-full tilt-2 z-10">熱銷 #1</span>
+          <div class="aspect-square rounded-2xl bg-[var(--coral)]/90 flex items-center justify-center text-5xl sm:text-6xl solidline mb-3">🥹</div>
+          <p class="font-display font-700 text-sm sm:text-base leading-tight">《崩潰系日常》</p>
+          <p class="font-mono text-[11px] sm:text-xs opacity-70 mt-1">by 貓比 Maobi・32 張</p>
+          <div class="flex items-center justify-between mt-3">
+            <span class="font-display font-800 text-sm sm:text-base">NT$39</span>
+            <button class="blob-btn font-mono text-[11px] sm:text-xs font-bold bg-[var(--ink)] text-white px-3 py-1.5 rounded-full">加入貼庫</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- card 2 -->
+      <div class="wiggle-hover mt-6" style="--r:2deg;">
+        <div class="tilt-2 bg-white solidline sticker-shadow rounded-[26px] p-3 sm:p-4 relative" style="transform:rotate(2deg);">
+          <span class="absolute -top-3 -right-3 bg-[var(--teal)] solidline text-[10px] sm:text-xs font-mono font-bold px-2 py-0.5 rounded-full tilt-[-2deg] z-10" style="transform:rotate(-8deg);">超新星</span>
+          <div class="aspect-square rounded-2xl bg-[var(--teal)]/80 flex items-center justify-center text-5xl sm:text-6xl solidline mb-3">🫠</div>
+          <p class="font-display font-700 text-sm sm:text-base leading-tight">《融化中請稍後》</p>
+          <p class="font-mono text-[11px] sm:text-xs opacity-70 mt-1">by 阿噗 Apu・24 張</p>
+          <div class="flex items-center justify-between mt-3">
+            <span class="font-display font-800 text-sm sm:text-base">NT$29</span>
+            <button class="blob-btn font-mono text-[11px] sm:text-xs font-bold bg-[var(--ink)] text-white px-3 py-1.5 rounded-full">加入貼庫</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- card 3 -->
+      <div class="wiggle-hover" style="--r:-1.5deg;">
+        <div class="tilt-6 bg-white solidline sticker-shadow rounded-[26px] p-3 sm:p-4 relative" style="transform:rotate(-1.5deg);">
+          <span class="absolute -top-3 -left-2 bg-[var(--purple)] text-white solidline text-[10px] sm:text-xs font-mono font-bold px-2 py-0.5 rounded-full tilt-3 z-10">編輯精選</span>
+          <div class="aspect-square rounded-2xl bg-[var(--purple)]/70 flex items-center justify-center text-5xl sm:text-6xl solidline mb-3">🤡</div>
+          <p class="font-display font-700 text-sm sm:text-base leading-tight">《廢到笑限定版》</p>
+          <p class="font-mono text-[11px] sm:text-xs opacity-70 mt-1">by 廢廢工作室・40 張</p>
+          <div class="flex items-center justify-between mt-3">
+            <span class="font-display font-800 text-sm sm:text-base">NT$49</span>
+            <button class="blob-btn font-mono text-[11px] sm:text-xs font-bold bg-[var(--ink)] text-white px-3 py-1.5 rounded-full">加入貼庫</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- card 4 -->
+      <div class="wiggle-hover mt-8" style="--r:3.5deg;">
+        <div class="tilt-4 bg-white solidline sticker-shadow rounded-[26px] p-3 sm:p-4 relative" style="transform:rotate(3.5deg);">
+          <span class="absolute -top-3 -right-2 bg-[var(--coral)] text-white solidline text-[10px] sm:text-xs font-mono font-bold px-2 py-0.5 rounded-full tilt-[-3deg] z-10" style="transform:rotate(-10deg);">限時7折</span>
+          <div class="aspect-square rounded-2xl bg-[var(--yellow)]/80 flex items-center justify-center text-5xl sm:text-6xl solidline mb-3">😮‍💨</div>
+          <p class="font-display font-700 text-sm sm:text-base leading-tight">《on 慣了系列》</p>
+          <p class="font-mono text-[11px] sm:text-xs opacity-70 mt-1">by 小樹懶散步・28 張</p>
+          <div class="flex items-center justify-between mt-3">
+            <span class="font-display font-800 text-sm sm:text-base">NT$25</span>
+            <button class="blob-btn font-mono text-[11px] sm:text-xs font-bold bg-[var(--ink)] text-white px-3 py-1.5 rounded-full">加入貼庫</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- card 5 -->
+      <div class="wiggle-hover" style="--r:-2.5deg;">
+        <div class="bg-white solidline sticker-shadow rounded-[26px] p-3 sm:p-4 relative" style="transform:rotate(-2.5deg);">
+          <span class="absolute -top-3 -left-3 bg-[var(--teal)] solidline text-[10px] sm:text-xs font-mono font-bold px-2 py-0.5 rounded-full tilt-3 z-10">新上架</span>
+          <div class="aspect-square rounded-2xl bg-[var(--coral)]/60 flex items-center justify-center text-5xl sm:text-6xl solidline mb-3">🙃</div>
+          <p class="font-display font-700 text-sm sm:text-base leading-tight">《嘴硬心軟語錄》</p>
+          <p class="font-mono text-[11px] sm:text-xs opacity-70 mt-1">by 阿柴 Chai・22 張</p>
+          <div class="flex items-center justify-between mt-3">
+            <span class="font-display font-800 text-sm sm:text-base">NT$29</span>
+            <button class="blob-btn font-mono text-[11px] sm:text-xs font-bold bg-[var(--ink)] text-white px-3 py-1.5 rounded-full">加入貼庫</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- card 6 -->
+      <div class="wiggle-hover mt-4" style="--r:1.5deg;">
+        <div class="bg-white solidline sticker-shadow rounded-[26px] p-3 sm:p-4 relative" style="transform:rotate(1.5deg);">
+          <div class="aspect-square rounded-2xl bg-[var(--teal)]/50 flex items-center justify-center text-5xl sm:text-6xl solidline mb-3">🫡</div>
+          <p class="font-display font-700 text-sm sm:text-base leading-tight">《收到馬上做》</p>
+          <p class="font-mono text-[11px] sm:text-xs opacity-70 mt-1">by 打工人日記・30 張</p>
+          <div class="flex items-center justify-between mt-3">
+            <span class="font-display font-800 text-sm sm:text-base">NT$35</span>
+            <button class="blob-btn font-mono text-[11px] sm:text-xs font-bold bg-[var(--ink)] text-white px-3 py-1.5 rounded-full">加入貼庫</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- card 7 -->
+      <div class="wiggle-hover" style="--r:-4deg;">
+        <div class="bg-white solidline sticker-shadow rounded-[26px] p-3 sm:p-4 relative" style="transform:rotate(-4deg);">
+          <span class="absolute -top-3 -right-3 bg-[var(--purple)] text-white solidline text-[10px] sm:text-xs font-mono font-bold px-2 py-0.5 rounded-full tilt-2 z-10">創作者親推</span>
+          <div class="aspect-square rounded-2xl bg-[var(--purple)]/40 flex items-center justify-center text-5xl sm:text-6xl solidline mb-3">😵‍💫</div>
+          <p class="font-display font-700 text-sm sm:text-base leading-tight">《腦袋當機中》</p>
+          <p class="font-mono text-[11px] sm:text-xs opacity-70 mt-1">by 當機少女・26 張</p>
+          <div class="flex items-center justify-between mt-3">
+            <span class="font-display font-800 text-sm sm:text-base">NT$32</span>
+            <button class="blob-btn font-mono text-[11px] sm:text-xs font-bold bg-[var(--ink)] text-white px-3 py-1.5 rounded-full">加入貼庫</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- card 8 -->
+      <div class="wiggle-hover mt-8" style="--r:2deg;">
+        <div class="bg-white solidline sticker-shadow rounded-[26px] p-3 sm:p-4 relative" style="transform:rotate(2deg);">
+          <span class="absolute -top-3 -left-2 bg-[var(--yellow)] solidline text-[10px] sm:text-xs font-mono font-bold px-2 py-0.5 rounded-full tilt-[-2deg] z-10" style="transform:rotate(-6deg);">免費體驗</span>
+          <div class="aspect-square rounded-2xl bg-[var(--yellow)]/60 flex items-center justify-center text-5xl sm:text-6xl solidline mb-3">🐸</div>
+          <p class="font-display font-700 text-sm sm:text-base leading-tight">《躺平蛙精選》</p>
+          <p class="font-mono text-[11px] sm:text-xs opacity-70 mt-1">by 躺平研究社・18 張</p>
+          <div class="flex items-center justify-between mt-3">
+            <span class="font-display font-800 text-sm sm:text-base">免費</span>
+            <button class="blob-btn font-mono text-[11px] sm:text-xs font-bold bg-[var(--ink)] text-white px-3 py-1.5 rounded-full">加入貼庫</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== 創作者上架專區 ===== -->
+  <section id="creators" class="relative border-y-[3px] border-[var(--ink)] bg-[var(--purple)]/15 py-16 sm:py-20 overflow-hidden">
+    <div class="absolute top-8 left-6 float-doodle text-4xl select-none hidden sm:block" style="animation-delay:.5s;">🖍️</div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 relative">
+      <span class="font-mono text-xs sm:text-sm font-bold bg-[var(--yellow)] px-3 py-1 rounded-full inline-block solidline tilt-2">CREATOR ZONE</span>
+      <h2 class="font-display font-800 text-3xl sm:text-4xl mt-3 mb-10 tilt-[-1deg]" style="transform:rotate(-1deg);">
+        創作者上架專區 <span class="text-[var(--purple)]">🎨</span>
+      </h2>
+
+      <div class="grid lg:grid-cols-[0.85fr,1.15fr] gap-8 items-start">
+        <!-- upload card -->
+        <div class="dashed rounded-[28px] bg-white/90 p-6 sm:p-7 tilt-1 sticker-shadow-lg wiggle-hover" style="--r:1deg;">
+          <p class="font-display font-700 text-xl sm:text-2xl mb-2">上架超簡單，三步搞定 🚀</p>
+          <ul class="font-mono text-sm space-y-3 mt-4">
+            <li class="flex gap-2"><span class="font-display font-800 text-[var(--coral)]">01</span> 上傳貼圖圖檔（PNG / GIF 都行）</li>
+            <li class="flex gap-2"><span class="font-display font-800 text-[var(--teal)]">02</span> 幫貼圖包取一個很有梗的名字</li>
+            <li class="flex gap-2"><span class="font-display font-800 text-[var(--purple)]">03</span> 設定價格，等大家瘋狂買單</li>
+          </ul>
+          <a href="#cta" class="blob-btn mt-6 inline-block font-display font-700 text-sm sm:text-base bg-[var(--coral)] text-white px-5 py-2.5 rounded-2xl solidline sticker-shadow-sm tilt-2">
+            立即上架我的貼圖 →
+          </a>
+          <p class="font-mono text-[11px] mt-4 opacity-70">✔️ 分潤最高 70%　✔️ 每週三固定撥款　✔️ 零上架費</p>
+        </div>
+
+        <!-- creator spotlight grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-5">
+          <div class="bg-white solidline rounded-3xl p-4 text-center tilt-2 sticker-shadow-sm bounce-hover">
+            <div class="w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-full bg-[var(--coral)] solidline flex items-center justify-center text-2xl mb-2">🐱</div>
+            <p class="font-display font-700 text-xs sm:text-sm">貓比 Maobi</p>
+            <p class="font-mono text-[10px] sm:text-xs opacity-70 mt-1">累積銷售 12.4K</p>
+          </div>
+          <div class="bg-white solidline rounded-3xl p-4 text-center tilt-[-2deg] sticker-shadow-sm bounce-hover" style="transform:rotate(-2deg);">
+            <div class="w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-full bg-[var(--teal)] solidline flex items-center justify-center text-2xl mb-2">🦥</div>
+            <p class="font-display font-700 text-xs sm:text-sm">小樹懶散步</p>
+            <p class="font-mono text-[10px] sm:text-xs opacity-70 mt-1">累積銷售 9.8K</p>
+          </div>
+          <div class="bg-white solidline rounded-3xl p-4 text-center tilt-3 sticker-shadow-sm bounce-hover">
+            <div class="w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-full bg-[var(--purple)] solidline flex items-center justify-center text-2xl mb-2">🐸</div>
+            <p class="font-display font-700 text-xs sm:text-sm">躺平研究社</p>
+            <p class="font-mono text-[10px] sm:text-xs opacity-70 mt-1">累積銷售 8.1K</p>
+          </div>
+          <div class="bg-white solidline rounded-3xl p-4 text-center tilt-[-1.5deg] sticker-shadow-sm bounce-hover" style="transform:rotate(-1.5deg);">
+            <div class="w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-full bg-[var(--yellow)] solidline flex items-center justify-center text-2xl mb-2">🐶</div>
+            <p class="font-display font-700 text-xs sm:text-sm">阿柴 Chai</p>
+            <p class="font-mono text-[10px] sm:text-xs opacity-70 mt-1">累積銷售 7.6K</p>
+          </div>
+          <div class="bg-white solidline rounded-3xl p-4 text-center tilt-2 sticker-shadow-sm bounce-hover">
+            <div class="w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-full bg-[var(--coral)]/70 solidline flex items-center justify-center text-2xl mb-2">🙋</div>
+            <p class="font-display font-700 text-xs sm:text-sm">打工人日記</p>
+            <p class="font-mono text-[10px] sm:text-xs opacity-70 mt-1">累積銷售 6.9K</p>
+          </div>
+          <div class="bg-white dashed rounded-3xl p-4 text-center tilt-[-3deg] flex flex-col items-center justify-center bounce-hover" style="transform:rotate(-3deg);">
+            <p class="font-display font-800 text-xs sm:text-sm text-[var(--purple)]">+ 下一個<br>就是你</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 排行榜 ===== -->
+  <section id="rank" class="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
+    <span class="font-mono text-xs sm:text-sm font-bold bg-[var(--teal)] px-3 py-1 rounded-full inline-block solidline tilt-[-2deg]" style="transform:rotate(-2deg);">TOP CHART</span>
+    <h2 class="font-display font-800 text-3xl sm:text-4xl mt-3 mb-10 tilt-1">
+      本週貼圖排行榜 <span class="text-[var(--teal)]">📈</span>
+    </h2>
+
+    <div class="scroll-x-wrap">
+      <div class="flex flex-col gap-4 min-w-[560px]">
+
+        <div class="flex items-center gap-4 sm:gap-6 bg-white solidline rounded-3xl p-3 sm:p-4 tilt-1 sticker-shadow-sm wiggle-hover" style="--r:1deg;">
+          <span class="rank-num text-4xl sm:text-5xl font-900 w-12 shrink-0">01</span>
+          <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[var(--coral)] solidline flex items-center justify-center text-3xl shrink-0">🥹</div>
+          <div class="flex-1">
+            <p class="font-display font-700 text-sm sm:text-base">《崩潰系日常》</p>
+            <p class="font-mono text-[11px] sm:text-xs opacity-70">貓比 Maobi</p>
+          </div>
+          <span class="font-mono text-xs sm:text-sm font-bold bg-[var(--yellow)] px-2 py-1 rounded-full solidline hidden sm:inline-block">▲ 連續 3 週冠軍</span>
+          <span class="font-display font-800 text-sm sm:text-base">NT$39</span>
+        </div>
+
+        <div class="flex items-center gap-4 sm:gap-6 bg-white solidline rounded-3xl p-3 sm:p-4 tilt-[-1deg] sticker-shadow-sm wiggle-hover" style="--r:-1deg; transform:rotate(-1deg);">
+          <span class="rank-num text-4xl sm:text-5xl font-900 w-12 shrink-0">02</span>
+          <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[var(--teal)] solidline flex items-center justify-center text-3xl shrink-0">🫠</div>
+          <div class="flex-1">
+            <p class="font-display font-700 text-sm sm:text-base">《融化中請稍後》</p>
+            <p class="font-mono text-[11px] sm:text-xs opacity-70">阿噗 Apu</p>
+          </div>
+          <span class="font-mono text-xs sm:text-sm font-bold bg-[var(--teal)]/60 px-2 py-1 rounded-full solidline hidden sm:inline-block">▲ 上升 2 名</span>
+          <span class="font-display font-800 text-sm sm:text-base">NT$29</span>
+        </div>
+
+        <div class="flex items-center gap-4 sm:gap-6 bg-white solidline rounded-3xl p-3 sm:p-4 tilt-2 sticker-shadow-sm wiggle-hover" style="--r:2deg;">
+          <span class="rank-num text-4xl sm:text-5xl font-900 w-12 shrink-0">03</span>
+          <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[var(--purple)] solidline flex items-center justify-center text-3xl shrink-0">🤡</div>
+          <div class="flex-1">
+            <p class="font-display font-700 text-sm sm:text-base">《廢到笑限定版》</p>
+            <p class="font-mono text-[11px] sm:text-xs opacity-70">廢廢工作室</p>
+          </div>
+          <span class="font-mono text-xs sm:text-sm font-bold bg-white px-2 py-1 rounded-full solidline hidden sm:inline-block">— 持平</span>
+          <span class="font-display font-800 text-sm sm:text-base">NT$49</span>
+        </div>
+
+        <div class="flex items-center gap-4 sm:gap-6 bg-white solidline rounded-3xl p-3 sm:p-4 tilt-[-1.5deg] sticker-shadow-sm wiggle-hover" style="--r:-1.5deg; transform:rotate(-1.5deg);">
+          <span class="rank-num text-4xl sm:text-5xl font-900 w-12 shrink-0">04</span>
+          <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[var(--yellow)] solidline flex items-center justify-center text-3xl shrink-0">🐸</div>
+          <div class="flex-1">
+            <p class="font-display font-700 text-sm sm:text-base">《躺平蛙精選》</p>
+            <p class="font-mono text-[11px] sm:text-xs opacity-70">躺平研究社</p>
+          </div>
+          <span class="font-mono text-xs sm:text-sm font-bold bg-[var(--coral)]/50 px-2 py-1 rounded-full solidline hidden sm:inline-block">▼ 下降 1 名</span>
+          <span class="font-display font-800 text-sm sm:text-base">免費</span>
+        </div>
+
+        <div class="flex items-center gap-4 sm:gap-6 bg-white solidline rounded-3xl p-3 sm:p-4 tilt-1 sticker-shadow-sm wiggle-hover" style="--r:1deg;">
+          <span class="rank-num text-4xl sm:text-5xl font-900 w-12 shrink-0">05</span>
+          <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[var(--coral)]/60 solidline flex items-center justify-center text-3xl shrink-0">😵‍💫</div>
+          <div class="flex-1">
+            <p class="font-display font-700 text-sm sm:text-base">《腦袋當機中》</p>
+            <p class="font-mono text-[11px] sm:text-xs opacity-70">當機少女</p>
+          </div>
+          <span class="font-mono text-xs sm:text-sm font-bold bg-[var(--purple)]/40 px-2 py-1 rounded-full solidline hidden sm:inline-block">🆕 新進榜</span>
+          <span class="font-display font-800 text-sm sm:text-base">NT$32</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section id="cta" class="relative border-t-[3px] border-[var(--ink)] bg-[var(--ink)] text-[var(--cream)] py-16 sm:py-24 overflow-hidden">
+    <div class="absolute -top-6 left-10 text-6xl float-doodle select-none hidden sm:block">💬</div>
+    <div class="absolute bottom-6 right-14 text-6xl float-doodle select-none hidden md:block" style="animation-delay:1.2s;">📌</div>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center relative">
+      <h2 class="font-display font-900 text-3xl sm:text-5xl leading-tight mb-5 tilt-[-1deg]" style="transform:rotate(-1deg);">
+        還在等什麼<br class="sm:hidden">
+        <span class="scribble-underline text-[var(--yellow)]">現在就貼</span>！
+      </h2>
+      <p class="font-mono text-sm sm:text-base opacity-80 mb-9">
+        不管你是想瘋狂囤貼圖的重度使用者，還是想靠梗圖賺零用錢的創作者——貼貼市集都歡迎你。
+      </p>
+      <div class="flex flex-wrap justify-center gap-4 sm:gap-5">
+        <a href="#wall" class="blob-btn font-display font-700 text-base sm:text-lg bg-[var(--coral)] text-white px-7 sm:px-8 py-3.5 rounded-2xl solidline sticker-shadow tilt-2">
+          🛍️ 開始逛貼圖
+        </a>
+        <a href="#creators" class="blob-btn font-display font-700 text-base sm:text-lg bg-[var(--yellow)] text-[var(--ink)] px-7 sm:px-8 py-3.5 rounded-2xl solidline sticker-shadow tilt-[-2deg]" style="transform:rotate(-2deg);">
+          🎨 我要上架賺錢
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-[var(--cream)] py-6 text-center font-mono text-[11px] sm:text-xs opacity-60">
+    貼貼市集 StickerMart © 2026・做梗圖也是一門正經生意
+  </footer>
+
+</body>
+</html>
