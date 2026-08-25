@@ -1,0 +1,491 @@
+<!-- style #16 Micro-interactions -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>順手 · 每日習慣清單</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --blue: #3b82f6;
+    --red: #ef4444;
+    --green: #22c55e;
+  }
+
+  * { font-family: 'Sora', 'Noto Sans TC', sans-serif; }
+
+  body {
+    background: #f3f4f6;
+  }
+
+  /* ---------- Checkbox ---------- */
+  .task-check {
+    width: 26px;
+    height: 26px;
+    border-radius: 9999px;
+    border: 2px solid #d1d5db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    cursor: pointer;
+    background: #fff;
+    transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.15s ease;
+    position: relative;
+  }
+  .task-check:active {
+    transform: scale(0.85);
+  }
+  .task-check svg {
+    width: 14px;
+    height: 14px;
+    stroke: white;
+    fill: none;
+    stroke-width: 3.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 20;
+    stroke-dashoffset: 20;
+    transition: stroke-dashoffset 0.28s ease 0.05s;
+  }
+  .task-check.checked {
+    background: var(--green);
+    border-color: var(--green);
+    animation: pop-bounce 0.42s cubic-bezier(.34,1.56,.64,1);
+  }
+  .task-check.checked svg {
+    stroke-dashoffset: 0;
+  }
+  @keyframes pop-bounce {
+    0%   { transform: scale(1); }
+    35%  { transform: scale(1.28); }
+    60%  { transform: scale(0.92); }
+    100% { transform: scale(1); }
+  }
+
+  .task-row {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  .task-row.completed .task-title {
+    color: #9ca3af;
+    text-decoration: line-through;
+    text-decoration-color: #9ca3af;
+  }
+  .task-title {
+    transition: color 0.3s ease;
+  }
+  .task-row.completed {
+    background-color: #f0fdf4;
+  }
+
+  /* ---------- Ripple buttons ---------- */
+  .btn-ripple {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  }
+  .btn-ripple:active {
+    transform: scale(0.95);
+  }
+  .ripple-dot {
+    position: absolute;
+    border-radius: 9999px;
+    background: rgba(255,255,255,0.55);
+    transform: scale(0);
+    animation: ripple-anim 0.6s ease-out forwards;
+    pointer-events: none;
+  }
+  @keyframes ripple-anim {
+    to {
+      transform: scale(2.6);
+      opacity: 0;
+    }
+  }
+
+  /* ---------- Cards hover ---------- */
+  .lift-card {
+    transition: transform 0.28s cubic-bezier(.22,1,.36,1), box-shadow 0.28s cubic-bezier(.22,1,.36,1), border-color 0.28s ease;
+  }
+  .lift-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 30px -12px rgba(15, 23, 42, 0.16), 0 8px 12px -6px rgba(15,23,42,0.08);
+  }
+
+  /* ---------- Progress ring ---------- */
+  .progress-ring circle {
+    transition: stroke-dashoffset 1.1s cubic-bezier(.22,1,.36,1);
+  }
+
+  /* ---------- Progress bar fill ---------- */
+  .bar-fill {
+    transition: width 1s cubic-bezier(.22,1,.36,1);
+  }
+
+  /* ---------- Toggle switch ---------- */
+  .switch-track {
+    width: 46px;
+    height: 26px;
+    border-radius: 9999px;
+    background: #d1d5db;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    flex-shrink: 0;
+  }
+  .switch-track.on {
+    background: var(--blue);
+  }
+  .switch-thumb {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    border-radius: 9999px;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+    transition: transform 0.32s cubic-bezier(.34,1.56,.64,1);
+  }
+  .switch-track.on .switch-thumb {
+    transform: translateX(20px);
+  }
+
+  /* ---------- FAB ---------- */
+  .fab {
+    transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), box-shadow 0.25s ease;
+  }
+  .fab:hover {
+    transform: scale(1.08) rotate(90deg);
+    box-shadow: 0 14px 24px -6px rgba(59,130,246,0.55);
+  }
+  .fab:active {
+    transform: scale(0.9) rotate(90deg);
+  }
+
+  /* ---------- Streak flame pulse ---------- */
+  @keyframes flame-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+  }
+  .flame-pulse {
+    animation: flame-pulse 1.8s ease-in-out infinite;
+    display: inline-block;
+    transform-origin: center;
+  }
+
+  /* ---------- Fade-in stat numbers ---------- */
+  @keyframes count-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .count-in {
+    animation: count-in 0.6s ease both;
+  }
+
+  /* ---------- Toast ---------- */
+  #toast {
+    transition: transform 0.35s cubic-bezier(.22,1,.36,1), opacity 0.35s ease;
+  }
+  #toast.show {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 9999px; }
+</style>
+</head>
+<body class="min-h-screen text-gray-800">
+
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+
+    <!-- Header -->
+    <header class="flex items-center justify-between mb-8">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-2xl bg-blue-500 flex items-center justify-center text-white text-xl font-bold shadow-lg shadow-blue-200" style="font-family:'Sora',sans-serif;">順</div>
+        <div>
+          <h1 class="text-xl sm:text-2xl font-bold text-gray-900" style="font-family:'Sora','Noto Sans TC',sans-serif;">順手</h1>
+          <p class="text-xs text-gray-400">2026 年 8 月 25 日 · 星期二</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 sm:gap-3">
+        <span class="hidden sm:inline-flex items-center gap-1.5 bg-white border border-gray-200 rounded-full px-3 py-1.5 text-xs text-gray-500 shadow-sm">
+          <span class="flame-pulse">🔥</span> 連續 12 天
+        </span>
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white text-sm font-semibold shadow-md">V</div>
+      </div>
+    </header>
+
+    <!-- Stat summary -->
+    <section class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-8">
+      <div class="lift-card bg-white rounded-2xl border border-gray-100 p-4 shadow-sm count-in" style="animation-delay:.02s;">
+        <p class="text-xs text-gray-400 mb-1">今日完成</p>
+        <p class="text-2xl font-bold text-gray-900" style="font-family:'Sora',sans-serif;">3<span class="text-sm text-gray-400 font-medium"> / 5</span></p>
+      </div>
+      <div class="lift-card bg-white rounded-2xl border border-gray-100 p-4 shadow-sm count-in" style="animation-delay:.08s;">
+        <p class="text-xs text-gray-400 mb-1">本週打卡率</p>
+        <p class="text-2xl font-bold text-green-500" style="font-family:'Sora',sans-serif;">86<span class="text-sm text-gray-400 font-medium">%</span></p>
+      </div>
+      <div class="lift-card bg-white rounded-2xl border border-gray-100 p-4 shadow-sm count-in" style="animation-delay:.14s;">
+        <p class="text-xs text-gray-400 mb-1">最長連續</p>
+        <p class="text-2xl font-bold text-gray-900" style="font-family:'Sora',sans-serif;">21<span class="text-sm text-gray-400 font-medium"> 天</span></p>
+      </div>
+      <div class="lift-card bg-white rounded-2xl border border-gray-100 p-4 shadow-sm count-in" style="animation-delay:.2s;">
+        <p class="text-xs text-gray-400 mb-1">進行中習慣</p>
+        <p class="text-2xl font-bold text-blue-500" style="font-family:'Sora',sans-serif;">4<span class="text-sm text-gray-400 font-medium"> 項</span></p>
+      </div>
+    </section>
+
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+
+      <!-- Today tasks -->
+      <section class="lg:col-span-3 bg-white rounded-2xl border border-gray-100 shadow-sm p-5 sm:p-6">
+        <div class="flex items-center justify-between mb-1">
+          <h2 class="text-base sm:text-lg font-bold text-gray-900" style="font-family:'Sora','Noto Sans TC',sans-serif;">今日任務</h2>
+          <span class="text-xs text-gray-400" id="task-progress-label">3 / 5 已完成</span>
+        </div>
+
+        <!-- progress bar -->
+        <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden mb-5 mt-3">
+          <div id="task-bar" class="bar-fill h-full rounded-full bg-blue-500" style="width:0%;"></div>
+        </div>
+
+        <ul class="space-y-2" id="task-list">
+
+          <li class="task-row completed flex items-center gap-3 rounded-xl px-3 py-3" data-task>
+            <div class="task-check checked" role="checkbox" aria-checked="true" tabindex="0">
+              <svg viewBox="0 0 24 24"><path d="M4 12l6 6L20 6"/></svg>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="task-title text-sm font-medium text-gray-800 truncate">喝一杯 500ml 溫水</p>
+              <p class="text-xs text-gray-400">早晨儀式 · 07:30</p>
+            </div>
+            <span class="text-xs px-2 py-1 rounded-full bg-blue-50 text-blue-500 font-medium shrink-0">日常</span>
+          </li>
+
+          <li class="task-row completed flex items-center gap-3 rounded-xl px-3 py-3" data-task>
+            <div class="task-check checked" role="checkbox" aria-checked="true" tabindex="0">
+              <svg viewBox="0 0 24 24"><path d="M4 12l6 6L20 6"/></svg>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="task-title text-sm font-medium text-gray-800 truncate">閱讀 15 分鐘</p>
+              <p class="text-xs text-gray-400">個人成長 · 08:10</p>
+            </div>
+            <span class="text-xs px-2 py-1 rounded-full bg-green-50 text-green-600 font-medium shrink-0">習慣</span>
+          </li>
+
+          <li class="task-row completed flex items-center gap-3 rounded-xl px-3 py-3" data-task>
+            <div class="task-check checked" role="checkbox" aria-checked="true" tabindex="0">
+              <svg viewBox="0 0 24 24"><path d="M4 12l6 6L20 6"/></svg>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="task-title text-sm font-medium text-gray-800 truncate">回覆客戶信件</p>
+              <p class="text-xs text-gray-400">工作 · 10:00</p>
+            </div>
+            <span class="text-xs px-2 py-1 rounded-full bg-red-50 text-red-500 font-medium shrink-0">重要</span>
+          </li>
+
+          <li class="task-row flex items-center gap-3 rounded-xl px-3 py-3" data-task>
+            <div class="task-check" role="checkbox" aria-checked="false" tabindex="0">
+              <svg viewBox="0 0 24 24"><path d="M4 12l6 6L20 6"/></svg>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="task-title text-sm font-medium text-gray-800 truncate">午休後伸展 10 分鐘</p>
+              <p class="text-xs text-gray-400">健康 · 13:30</p>
+            </div>
+            <span class="text-xs px-2 py-1 rounded-full bg-blue-50 text-blue-500 font-medium shrink-0">日常</span>
+          </li>
+
+          <li class="task-row flex items-center gap-3 rounded-xl px-3 py-3" data-task>
+            <div class="task-check" role="checkbox" aria-checked="false" tabindex="0">
+              <svg viewBox="0 0 24 24"><path d="M4 12l6 6L20 6"/></svg>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="task-title text-sm font-medium text-gray-800 truncate">整理明日待辦清單</p>
+              <p class="text-xs text-gray-400">規劃 · 21:00</p>
+            </div>
+            <span class="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-500 font-medium shrink-0">收尾</span>
+          </li>
+
+        </ul>
+
+        <button id="add-task-btn" class="btn-ripple w-full mt-4 flex items-center justify-center gap-2 rounded-xl border border-dashed border-gray-300 text-gray-400 text-sm py-3 hover:border-blue-400 hover:text-blue-500 hover:bg-blue-50/40">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          新增一項任務
+        </button>
+      </section>
+
+      <!-- Habit check-ins -->
+      <section class="lg:col-span-2 flex flex-col gap-4">
+
+        <div class="lift-card bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <p class="text-sm font-bold text-gray-900">每日運動 30 分鐘</p>
+              <p class="text-xs text-gray-400 mt-0.5">已連續 <span class="text-orange-500 font-semibold">12</span> 天</p>
+            </div>
+            <div class="relative w-16 h-16 shrink-0">
+              <svg class="progress-ring -rotate-90" width="64" height="64" viewBox="0 0 64 64">
+                <circle cx="32" cy="32" r="26" fill="none" stroke="#e5e7eb" stroke-width="6"/>
+                <circle data-ring cx="32" cy="32" r="26" fill="none" stroke="#3b82f6" stroke-width="6" stroke-linecap="round" stroke-dasharray="163.4" stroke-dashoffset="163.4"/>
+              </svg>
+              <span class="absolute inset-0 flex items-center justify-center text-xs font-bold text-blue-500" style="font-family:'Sora',sans-serif;">80%</span>
+            </div>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="flex gap-1.5" aria-hidden="true">
+              <span class="w-2 h-2 rounded-full bg-green-500"></span>
+              <span class="w-2 h-2 rounded-full bg-green-500"></span>
+              <span class="w-2 h-2 rounded-full bg-green-500"></span>
+              <span class="w-2 h-2 rounded-full bg-green-500"></span>
+              <span class="w-2 h-2 rounded-full bg-gray-200"></span>
+            </div>
+            <button class="btn-ripple text-xs font-semibold px-4 py-2 rounded-full bg-blue-500 text-white shadow-sm shadow-blue-200 hover:bg-blue-600">今日打卡</button>
+          </div>
+        </div>
+
+        <div class="lift-card bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <p class="text-sm font-bold text-gray-900">早睡計畫（23:30 前）</p>
+              <p class="text-xs text-gray-400 mt-0.5">已連續 <span class="text-orange-500 font-semibold">5</span> 天</p>
+            </div>
+            <div class="relative w-16 h-16 shrink-0">
+              <svg class="progress-ring -rotate-90" width="64" height="64" viewBox="0 0 64 64">
+                <circle cx="32" cy="32" r="26" fill="none" stroke="#e5e7eb" stroke-width="6"/>
+                <circle data-ring cx="32" cy="32" r="26" fill="none" stroke="#22c55e" stroke-width="6" stroke-linecap="round" stroke-dasharray="163.4" stroke-dashoffset="163.4"/>
+              </svg>
+              <span class="absolute inset-0 flex items-center justify-center text-xs font-bold text-green-500" style="font-family:'Sora',sans-serif;">45%</span>
+            </div>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="flex gap-1.5" aria-hidden="true">
+              <span class="w-2 h-2 rounded-full bg-green-500"></span>
+              <span class="w-2 h-2 rounded-full bg-gray-200"></span>
+              <span class="w-2 h-2 rounded-full bg-green-500"></span>
+              <span class="w-2 h-2 rounded-full bg-gray-200"></span>
+              <span class="w-2 h-2 rounded-full bg-gray-200"></span>
+            </div>
+            <button class="btn-ripple text-xs font-semibold px-4 py-2 rounded-full bg-blue-500 text-white shadow-sm shadow-blue-200 hover:bg-blue-600">今日打卡</button>
+          </div>
+        </div>
+
+        <div class="lift-card bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center text-lg">🔔</span>
+              <div>
+                <p class="text-sm font-semibold text-gray-800">任務完成提醒</p>
+                <p class="text-xs text-gray-400">每天 21:00 推播提醒</p>
+              </div>
+            </div>
+            <div class="switch-track on" id="reminder-switch" role="switch" aria-checked="true" tabindex="0">
+              <div class="switch-thumb"></div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </div>
+  </div>
+
+  <!-- Floating action button -->
+  <button id="fab" class="fab fixed bottom-6 right-6 sm:bottom-8 sm:right-8 w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-blue-500 text-white shadow-xl shadow-blue-300/60 flex items-center justify-center z-30">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+  </button>
+
+  <!-- Toast -->
+  <div id="toast" class="fixed bottom-24 sm:bottom-28 left-1/2 -translate-x-1/2 translate-y-3 opacity-0 bg-gray-900 text-white text-sm font-medium px-4 py-2.5 rounded-full shadow-lg z-40 whitespace-nowrap">
+    已新增任務 ✨
+  </div>
+
+<script>
+  // ---------- ripple effect ----------
+  function attachRipple(el) {
+    el.classList.add('btn-ripple');
+    el.addEventListener('click', function (e) {
+      const rect = el.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      const dot = document.createElement('span');
+      dot.className = 'ripple-dot';
+      dot.style.width = dot.style.height = size + 'px';
+      dot.style.left = (e.clientX - rect.left - size / 2) + 'px';
+      dot.style.top = (e.clientY - rect.top - size / 2) + 'px';
+      el.appendChild(dot);
+      setTimeout(() => dot.remove(), 650);
+    });
+  }
+  document.querySelectorAll('.btn-ripple, .fab').forEach(attachRipple);
+
+  // ---------- toast ----------
+  const toast = document.getElementById('toast');
+  let toastTimer;
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2000);
+  }
+
+  // ---------- task checklist ----------
+  const taskList = document.getElementById('task-list');
+  const taskBar = document.getElementById('task-bar');
+  const taskLabel = document.getElementById('task-progress-label');
+
+  function updateTaskProgress() {
+    const rows = taskList.querySelectorAll('[data-task]');
+    const done = taskList.querySelectorAll('.task-row.completed').length;
+    const pct = Math.round((done / rows.length) * 100);
+    taskBar.style.width = pct + '%';
+    taskLabel.textContent = done + ' / ' + rows.length + ' 已完成';
+  }
+
+  taskList.querySelectorAll('.task-check').forEach(check => {
+    function toggle() {
+      const row = check.closest('.task-row');
+      const isChecked = check.classList.toggle('checked');
+      row.classList.toggle('completed', isChecked);
+      check.setAttribute('aria-checked', isChecked ? 'true' : 'false');
+      updateTaskProgress();
+    }
+    check.addEventListener('click', toggle);
+    check.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+  });
+
+  requestAnimationFrame(() => setTimeout(updateTaskProgress, 120));
+
+  // ---------- progress rings animate on load ----------
+  window.addEventListener('load', () => {
+    document.querySelectorAll('[data-ring]').forEach(ring => {
+      const circumference = 163.4;
+      const targetText = ring.parentElement.parentElement.querySelector('span').textContent.trim();
+      const pct = parseInt(targetText, 10) / 100;
+      const offset = circumference - circumference * pct;
+      setTimeout(() => { ring.style.strokeDashoffset = offset; }, 150);
+    });
+  });
+
+  // ---------- toggle switch ----------
+  const reminderSwitch = document.getElementById('reminder-switch');
+  function toggleSwitch() {
+    const isOn = reminderSwitch.classList.toggle('on');
+    reminderSwitch.setAttribute('aria-checked', isOn ? 'true' : 'false');
+  }
+  reminderSwitch.addEventListener('click', toggleSwitch);
+  reminderSwitch.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleSwitch(); }
+  });
+
+  // ---------- FAB + add task button feedback ----------
+  document.getElementById('fab').addEventListener('click', () => showToast('已新增任務 ✨'));
+  document.getElementById('add-task-btn').addEventListener('click', () => showToast('已新增任務 ✨'));
+</script>
+
+</body>
+</html>

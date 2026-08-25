@@ -1,0 +1,442 @@
+<!-- style #21+#10 Conversion-Optimized × Aurora UI -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>學久 AI 產品經理實戰課</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Grandstander:wght@500;600;700;800&family=Nunito+Sans:wght@400;600;700;800;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --aurora-1:#0080ff;
+    --aurora-2:#8b00ff;
+    --aurora-3:#ff1493;
+    --aurora-4:#00ffff;
+    --bg-deep:#070312;
+    --bg-deep-2:#0c0620;
+  }
+  html,body{
+    background:var(--bg-deep);
+    font-family:'Nunito Sans','Noto Sans TC',sans-serif;
+    color:#f2f0ff;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4,.font-display{
+    font-family:'Grandstander','Noto Sans TC',sans-serif;
+  }
+  /* ===== Aurora background ===== */
+  .aurora-bg{
+    position:fixed;
+    inset:0;
+    z-index:-2;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 15%, rgba(0,128,255,0.55), transparent 60%),
+      radial-gradient(ellipse 70% 55% at 80% 10%, rgba(139,0,255,0.5), transparent 60%),
+      radial-gradient(ellipse 65% 60% at 85% 70%, rgba(255,20,147,0.45), transparent 60%),
+      radial-gradient(ellipse 70% 55% at 10% 80%, rgba(0,255,255,0.4), transparent 60%),
+      linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-deep-2) 50%, var(--bg-deep) 100%);
+    background-size:180% 180%, 180% 180%, 180% 180%, 180% 180%, 100% 100%;
+    animation:auroraShift 22s ease-in-out infinite;
+    filter:blur(60px) saturate(130%);
+  }
+  @keyframes auroraShift{
+    0%{background-position:0% 0%, 100% 0%, 100% 100%, 0% 100%, 0 0;}
+    50%{background-position:30% 20%, 70% 30%, 70% 80%, 30% 70%, 0 0;}
+    100%{background-position:0% 0%, 100% 0%, 100% 100%, 0% 100%, 0 0;}
+  }
+  .aurora-noise{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background-image:radial-gradient(rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size:3px 3px;
+    pointer-events:none;
+  }
+  /* ===== glass card ===== */
+  .glass{
+    background:rgba(255,255,255,0.06);
+    backdrop-filter:blur(18px) saturate(160%);
+    -webkit-backdrop-filter:blur(18px) saturate(160%);
+    border:1px solid rgba(255,255,255,0.16);
+    box-shadow:0 8px 32px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+  .glass-strong{
+    background:rgba(255,255,255,0.09);
+    backdrop-filter:blur(22px) saturate(180%);
+    -webkit-backdrop-filter:blur(22px) saturate(180%);
+    border:1px solid rgba(255,255,255,0.22);
+    box-shadow:0 12px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+  .grad-text{
+    background:linear-gradient(90deg, var(--aurora-1), var(--aurora-2), var(--aurora-3), var(--aurora-4));
+    background-size:300% auto;
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    animation:gradFlow 8s linear infinite;
+  }
+  @keyframes gradFlow{
+    0%{background-position:0% 50%;}
+    100%{background-position:300% 50%;}
+  }
+  .btn-cta{
+    background:linear-gradient(90deg, var(--aurora-1), var(--aurora-2), var(--aurora-3));
+    background-size:200% auto;
+    transition:all .35s ease;
+    box-shadow:0 6px 24px rgba(139,0,255,0.45), 0 2px 8px rgba(0,128,255,0.3);
+  }
+  .btn-cta:hover{
+    background-position:100% 50%;
+    box-shadow:0 10px 32px rgba(255,20,147,0.55), 0 4px 14px rgba(0,255,255,0.35);
+    transform:translateY(-2px);
+  }
+  .btn-ghost{
+    border:1.5px solid rgba(255,255,255,0.35);
+    background:rgba(255,255,255,0.05);
+    transition:all .3s ease;
+  }
+  .btn-ghost:hover{
+    background:rgba(255,255,255,0.14);
+    border-color:rgba(255,255,255,0.6);
+  }
+  .glow-orb{
+    position:absolute;
+    border-radius:9999px;
+    filter:blur(80px);
+    opacity:.5;
+    animation:floaty 9s ease-in-out infinite;
+    pointer-events:none;
+  }
+  @keyframes floaty{
+    0%,100%{transform:translateY(0) translateX(0);}
+    50%{transform:translateY(-24px) translateX(14px);}
+  }
+  .star{
+    animation:twinkle 2.6s ease-in-out infinite;
+  }
+  @keyframes twinkle{
+    0%,100%{opacity:.35;}
+    50%{opacity:1;}
+  }
+  .marquee-track{
+    animation:marquee 26s linear infinite;
+  }
+  @keyframes marquee{
+    0%{transform:translateX(0);}
+    100%{transform:translateX(-50%);}
+  }
+  ::-webkit-scrollbar{width:10px;}
+  ::-webkit-scrollbar-track{background:var(--bg-deep);}
+  ::-webkit-scrollbar-thumb{background:linear-gradient(var(--aurora-1),var(--aurora-2));border-radius:8px;}
+  .divider-fade{
+    height:1px;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  }
+  details summary::-webkit-details-marker{display:none;}
+  details[open] .faq-icon{transform:rotate(45deg);}
+</style>
+</head>
+<body class="antialiased">
+
+<div class="aurora-bg"></div>
+<div class="aurora-noise"></div>
+
+<!-- ============ NAV ============ -->
+<header class="sticky top-0 z-50">
+  <div class="glass mx-3 mt-3 rounded-2xl md:mx-6 md:mt-4">
+    <div class="max-w-7xl mx-auto px-5 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-[var(--aurora-1)] via-[var(--aurora-2)] to-[var(--aurora-3)] flex items-center justify-center font-display font-bold text-lg">學</div>
+        <span class="font-display text-xl font-bold tracking-wide">學久</span>
+        <span class="hidden sm:inline text-xs text-white/50 ml-1">XueJiu Academy</span>
+      </div>
+      <nav class="hidden md:flex items-center gap-7 text-sm font-bold text-white/80">
+        <a href="#highlights" class="hover:text-white transition">課程亮點</a>
+        <a href="#curriculum" class="hover:text-white transition">課程大綱</a>
+        <a href="#mentor" class="hover:text-white transition">講師介紹</a>
+        <a href="#reviews" class="hover:text-white transition">學員見證</a>
+        <a href="#faq" class="hover:text-white transition">常見問題</a>
+      </nav>
+      <a href="#pricing" class="btn-cta text-sm font-bold px-5 py-2.5 rounded-full text-white whitespace-nowrap">立即報名</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="relative max-w-7xl mx-auto px-5 md:px-6 pt-14 pb-20 md:pt-20 md:pb-28">
+  <div class="glow-orb w-72 h-72 bg-[var(--aurora-4)] top-0 -left-10"></div>
+  <div class="glow-orb w-96 h-96 bg-[var(--aurora-3)] top-20 right-0" style="animation-delay:2s;"></div>
+
+  <div class="relative text-center max-w-4xl mx-auto">
+    <div class="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs font-bold text-white/85 mb-6">
+      <span class="w-2 h-2 rounded-full bg-[var(--aurora-4)] star"></span>
+      2026 秋季班 · 累積 3,214 位學員好評推薦
+    </div>
+    <h1 class="font-display text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-5">
+      成為公司裡<br class="sm:hidden"> <span class="grad-text">第一個懂 AI 的 PM</span>
+    </h1>
+    <p class="text-base md:text-lg text-white/75 leading-relaxed mb-9 max-w-2xl mx-auto">
+      「AI 產品經理實戰課」帶你從 0 到 1 打造真正上線的 AI 產品：需求拆解、模型選型、Prompt 系統設計到成效追蹤，一次補齊。不只是懂概念，而是能主導專案、寫進履歷的真本事。
+    </p>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
+      <a href="#pricing" class="btn-cta w-full sm:w-auto text-center font-bold px-8 py-4 rounded-full text-white text-base">免費搶佔早鳥名額 →</a>
+      <a href="#curriculum" class="btn-ghost w-full sm:w-auto text-center font-bold px-8 py-4 rounded-full text-white text-base">看完整課程大綱</a>
+    </div>
+    <p class="text-sm text-white/55">早鳥優惠倒數中，已有 <span class="text-white font-bold">87%</span> 名額售出，不綁約、7 天不滿意全額退費</p>
+  </div>
+
+  <!-- trust badges -->
+  <div class="relative mt-14 glass rounded-2xl px-6 py-5 max-w-4xl mx-auto">
+    <p class="text-center text-xs text-white/50 font-bold mb-4 tracking-wider">學員任職於這些團隊</p>
+    <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-white/70 font-display text-sm md:text-base">
+      <span>雲芯科技</span><span>晨曦數位</span><span>方舟金融</span><span>綠洲電商</span><span>星海遊戲</span><span>橙point設計</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ URGENCY STRIP ============ -->
+<section class="max-w-5xl mx-auto px-5 md:px-6 -mt-6 mb-16">
+  <div class="glass-strong rounded-2xl px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <span class="text-2xl">⏳</span>
+      <div>
+        <p class="font-bold text-white">早鳥優惠倒數中，名額有限</p>
+        <p class="text-xs text-white/60">現在報名再送「AI Prompt 工作表模板包」，價值 NT$1,980</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <div class="glass rounded-xl px-3 py-2 text-center min-w-[56px]"><div class="font-display font-bold text-xl">03</div><div class="text-[10px] text-white/55">天</div></div>
+      <div class="glass rounded-xl px-3 py-2 text-center min-w-[56px]"><div class="font-display font-bold text-xl">14</div><div class="text-[10px] text-white/55">時</div></div>
+      <div class="glass rounded-xl px-3 py-2 text-center min-w-[56px]"><div class="font-display font-bold text-xl">52</div><div class="text-[10px] text-white/55">分</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HIGHLIGHTS ============ -->
+<section id="highlights" class="max-w-7xl mx-auto px-5 md:px-6 py-10 md:py-16">
+  <div class="text-center max-w-2xl mx-auto mb-12">
+    <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">為什麼選擇<span class="grad-text">學久</span>？</h2>
+    <p class="text-white/70">不是另一堂「介紹 AI 趨勢」的課，而是真正教你把 AI 產品做出來、做上線。</p>
+  </div>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+    <div class="glass rounded-2xl p-6 hover:-translate-y-1 transition duration-300">
+      <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--aurora-1)] to-[var(--aurora-4)] flex items-center justify-center text-xl mb-4">🎯</div>
+      <h3 class="font-display font-bold text-lg mb-2">實戰導向</h3>
+      <p class="text-sm text-white/65 leading-relaxed">全程以真實產品案例拆解，畢業前完成一份可上台簡報的完整 PRD。</p>
+    </div>
+    <div class="glass rounded-2xl p-6 hover:-translate-y-1 transition duration-300">
+      <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--aurora-2)] to-[var(--aurora-3)] flex items-center justify-center text-xl mb-4">🧠</div>
+      <h3 class="font-display font-bold text-lg mb-2">業師親自帶班</h3>
+      <p class="text-sm text-white/65 leading-relaxed">來自一線 AI 產品團隊的講師，每週直播答疑，作業逐份批改。</p>
+    </div>
+    <div class="glass rounded-2xl p-6 hover:-translate-y-1 transition duration-300">
+      <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--aurora-3)] to-[var(--aurora-4)] flex items-center justify-center text-xl mb-4">🤝</div>
+      <h3 class="font-display font-bold text-lg mb-2">職涯支援</h3>
+      <p class="text-sm text-white/65 leading-relaxed">履歷健診、模擬面試、企業內推名單，幫你把課程轉換成 offer。</p>
+    </div>
+    <div class="glass rounded-2xl p-6 hover:-translate-y-1 transition duration-300">
+      <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--aurora-4)] to-[var(--aurora-1)] flex items-center justify-center text-xl mb-4">♾️</div>
+      <h3 class="font-display font-bold text-lg mb-2">終身回看</h3>
+      <p class="text-sm text-white/65 leading-relaxed">課程影片與教材永久觀看，日後改版內容持續同步更新。</p>
+    </div>
+  </div>
+  <div class="text-center mt-10">
+    <a href="#pricing" class="btn-cta inline-block font-bold px-8 py-3.5 rounded-full text-white">我要報名 AI 產品經理實戰課</a>
+  </div>
+</section>
+
+<!-- ============ CURRICULUM ============ -->
+<section id="curriculum" class="max-w-6xl mx-auto px-5 md:px-6 py-10 md:py-16">
+  <div class="text-center max-w-2xl mx-auto mb-12">
+    <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">課程大綱</h2>
+    <p class="text-white/70">共 8 週，每週 3 小時直播 + 自主練習，循序漸進打造完整能力地圖。</p>
+  </div>
+  <div class="space-y-4">
+    <div class="glass rounded-2xl p-5 md:p-6 flex flex-col md:flex-row md:items-center gap-4">
+      <div class="font-display font-bold text-2xl grad-text w-full md:w-24 shrink-0">W1–2</div>
+      <div class="flex-1">
+        <h3 class="font-bold text-lg mb-1">AI 產品思維與需求拆解</h3>
+        <p class="text-sm text-white/65">從使用者痛點出發，判斷什麼問題值得用 AI 解決，建立可行性評估框架。</p>
+      </div>
+    </div>
+    <div class="glass rounded-2xl p-5 md:p-6 flex flex-col md:flex-row md:items-center gap-4">
+      <div class="font-display font-bold text-2xl grad-text w-full md:w-24 shrink-0">W3–4</div>
+      <div class="flex-1">
+        <h3 class="font-bold text-lg mb-1">模型選型與 Prompt 系統設計</h3>
+        <p class="text-sm text-white/65">理解各類模型的成本與能力取捨，設計可維護、可迭代的 Prompt 架構。</p>
+      </div>
+    </div>
+    <div class="glass rounded-2xl p-5 md:p-6 flex flex-col md:flex-row md:items-center gap-4">
+      <div class="font-display font-bold text-2xl grad-text w-full md:w-24 shrink-0">W5–6</div>
+      <div class="flex-1">
+        <h3 class="font-bold text-lg mb-1">原型製作與跨團隊溝通</h3>
+        <p class="text-sm text-white/65">用低程式碼工具做出可測試原型，學會與工程、設計團隊高效協作。</p>
+      </div>
+    </div>
+    <div class="glass rounded-2xl p-5 md:p-6 flex flex-col md:flex-row md:items-center gap-4">
+      <div class="font-display font-bold text-2xl grad-text w-full md:w-24 shrink-0">W7–8</div>
+      <div class="flex-1">
+        <h3 class="font-bold text-lg mb-1">成效追蹤與正式上線</h3>
+        <p class="text-sm text-white/65">建立資料監控指標，規劃迭代路線圖，完成畢業專案上台發表。</p>
+      </div>
+    </div>
+  </div>
+  <div class="text-center mt-10">
+    <a href="#pricing" class="btn-ghost inline-block font-bold px-8 py-3.5 rounded-full text-white">下載完整課綱 PDF</a>
+  </div>
+</section>
+
+<!-- ============ MENTOR ============ -->
+<section id="mentor" class="max-w-6xl mx-auto px-5 md:px-6 py-10 md:py-16">
+  <div class="glass-strong rounded-3xl p-7 md:p-12 grid md:grid-cols-[auto,1fr] gap-8 items-center">
+    <div class="mx-auto md:mx-0 w-40 h-40 md:w-48 md:h-48 rounded-3xl bg-gradient-to-br from-[var(--aurora-1)] via-[var(--aurora-2)] to-[var(--aurora-3)] flex items-center justify-center font-display text-6xl font-bold shrink-0">
+      蔡
+    </div>
+    <div>
+      <p class="text-xs font-bold text-[var(--aurora-4)] tracking-wider mb-2">主理講師</p>
+      <h3 class="font-display text-2xl md:text-3xl font-bold mb-2">蔡宇軒 Ethan Tsai</h3>
+      <p class="text-sm text-white/60 mb-4">前雲芯科技 AI 產品資深經理・曾主導三款 AI 應用從 0 到上線・累計帶領超過 600 位學員轉職與升遷</p>
+      <p class="text-white/75 leading-relaxed mb-5">「我希望這堂課教的不是名詞，而是方法。每一個章節都對應到我自己在業界踩過的坑，讓你少走三年彎路。」</p>
+      <div class="flex flex-wrap gap-2">
+        <span class="glass rounded-full px-3 py-1 text-xs font-bold">8 年 PM 資歷</span>
+        <span class="glass rounded-full px-3 py-1 text-xs font-bold">主導 3 款 AI 產品上線</span>
+        <span class="glass rounded-full px-3 py-1 text-xs font-bold">企業內訓講師</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<section id="reviews" class="max-w-7xl mx-auto px-5 md:px-6 py-10 md:py-16">
+  <div class="text-center max-w-2xl mx-auto mb-12">
+    <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">學員怎麼說</h2>
+    <div class="flex items-center justify-center gap-2 text-lg">
+      <span class="text-[var(--aurora-4)]">★★★★★</span>
+      <span class="font-bold">4.9 / 5.0</span>
+      <span class="text-white/55 text-sm">(1,286 則評價)</span>
+    </div>
+  </div>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    <div class="glass rounded-2xl p-6">
+      <div class="text-[var(--aurora-4)] mb-3">★★★★★</div>
+      <p class="text-sm text-white/80 leading-relaxed mb-5">「原本只是傳產轉職的行銷人員，上完課後直接被獵頭挖角到新創擔任 AI 產品專員，薪水漲了 30%。」</p>
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[var(--aurora-2)] to-[var(--aurora-4)]"></div>
+        <div><p class="font-bold text-sm">陳映蓁</p><p class="text-xs text-white/50">第 4 期學員・行銷轉職 PM</p></div>
+      </div>
+    </div>
+    <div class="glass rounded-2xl p-6">
+      <div class="text-[var(--aurora-4)] mb-3">★★★★★</div>
+      <p class="text-sm text-white/80 leading-relaxed mb-5">「講師會逐份改作業給回饋，這在其他線上課很少見。畢業專案直接變成我升遷簡報的素材。」</p>
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[var(--aurora-1)] to-[var(--aurora-3)]"></div>
+        <div><p class="font-bold text-sm">林柏宇</p><p class="text-xs text-white/50">第 5 期學員・資深產品專員</p></div>
+      </div>
+    </div>
+    <div class="glass rounded-2xl p-6">
+      <div class="text-[var(--aurora-4)] mb-3">★★★★★</div>
+      <p class="text-sm text-white/80 leading-relaxed mb-5">「終於有一堂課把 AI 產品開發講得很落地，不是空泛的趨勢分享，作業練習量剛好又扎實。」</p>
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[var(--aurora-3)] to-[var(--aurora-1)]"></div>
+        <div><p class="font-bold text-sm">黃詩涵</p><p class="text-xs text-white/50">第 6 期學員・軟體工程師轉 PM</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- marquee logos -->
+  <div class="mt-10 overflow-hidden glass rounded-2xl py-4">
+    <div class="flex gap-14 whitespace-nowrap marquee-track text-white/45 font-display text-sm">
+      <span>雲芯科技</span><span>晨曦數位</span><span>方舟金融</span><span>綠洲電商</span><span>星海遊戲</span><span>橙point設計</span><span>青禾生技</span><span>飛揚物流</span>
+      <span>雲芯科技</span><span>晨曦數位</span><span>方舟金融</span><span>綠洲電商</span><span>星海遊戲</span><span>橙point設計</span><span>青禾生技</span><span>飛揚物流</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING / CTA ============ -->
+<section id="pricing" class="max-w-5xl mx-auto px-5 md:px-6 py-10 md:py-16">
+  <div class="glass-strong rounded-3xl p-8 md:p-12 text-center relative overflow-hidden">
+    <div class="glow-orb w-80 h-80 bg-[var(--aurora-2)] -top-20 -right-20"></div>
+    <div class="relative">
+      <span class="inline-block glass rounded-full px-4 py-1 text-xs font-bold text-[var(--aurora-4)] mb-4">早鳥優惠・僅剩 13 個名額</span>
+      <h2 class="font-display text-3xl md:text-4xl font-bold mb-3">現在加入，少走三年彎路</h2>
+      <p class="text-white/70 mb-6">2026 秋季班即將開課，名額有限，額滿即止</p>
+      <div class="flex items-end justify-center gap-3 mb-7">
+        <span class="text-white/45 line-through text-lg">NT$ 24,800</span>
+        <span class="font-display text-4xl md:text-5xl font-bold grad-text">NT$ 17,800</span>
+      </div>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#" class="btn-cta w-full sm:w-auto text-center font-bold px-10 py-4 rounded-full text-white text-base">立即搶佔早鳥名額 →</a>
+        <a href="#" class="btn-ghost w-full sm:w-auto text-center font-bold px-10 py-4 rounded-full text-white text-base">預約課程說明會</a>
+      </div>
+      <p class="text-xs text-white/50 mt-5">7 天不滿意，全額退費・分期零利率可選</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq" class="max-w-3xl mx-auto px-5 md:px-6 py-10 md:py-16">
+  <div class="text-center mb-10">
+    <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">常見問題</h2>
+  </div>
+  <div class="space-y-3">
+    <details class="glass rounded-2xl p-5 group" open>
+      <summary class="flex items-center justify-between cursor-pointer font-bold text-white/90">
+        我完全沒有 AI 或工程背景，可以上這堂課嗎？
+        <span class="faq-icon text-xl transition-transform duration-300 text-[var(--aurora-4)]">+</span>
+      </summary>
+      <p class="text-sm text-white/65 mt-3 leading-relaxed">可以。課程設計以產品經理視角出發，不需要寫程式，重點在於理解與判斷力，講師會用白話拆解所有技術概念。</p>
+    </details>
+    <details class="glass rounded-2xl p-5 group">
+      <summary class="flex items-center justify-between cursor-pointer font-bold text-white/90">
+        上課時間是怎麼安排的？錯過直播怎麼辦？
+        <span class="faq-icon text-xl transition-transform duration-300 text-[var(--aurora-4)]">+</span>
+      </summary>
+      <p class="text-sm text-white/65 mt-3 leading-relaxed">每週六晚上 7:00–10:00 直播，所有課程皆錄影上架，可依自己步調回看，並保留永久觀看權限。</p>
+    </details>
+    <details class="glass rounded-2xl p-5 group">
+      <summary class="flex items-center justify-between cursor-pointer font-bold text-white/90">
+        報名後可以退費嗎？
+        <span class="faq-icon text-xl transition-transform duration-300 text-[var(--aurora-4)]">+</span>
+      </summary>
+      <p class="text-sm text-white/65 mt-3 leading-relaxed">開課後 7 天內，若完成第一週作業仍覺得不適合，可申請全額退費，無需任何理由。</p>
+    </details>
+    <details class="glass rounded-2xl p-5 group">
+      <summary class="flex items-center justify-between cursor-pointer font-bold text-white/90">
+        有提供分期付款嗎？
+        <span class="faq-icon text-xl transition-transform duration-300 text-[var(--aurora-4)]">+</span>
+      </summary>
+      <p class="text-sm text-white/65 mt-3 leading-relaxed">提供信用卡零利率 3 期／6 期分期，結帳時選擇分期方案即可，不需額外手續費。</p>
+    </details>
+  </div>
+</section>
+
+<!-- ============ FOOTER CTA ============ -->
+<footer class="relative mt-10">
+  <div class="max-w-5xl mx-auto px-5 md:px-6 pb-10">
+    <div class="glass-strong rounded-3xl p-8 md:p-12 text-center">
+      <h2 class="font-display text-2xl md:text-3xl font-bold mb-3">別讓猶豫，變成明年的後悔</h2>
+      <p class="text-white/70 mb-7 max-w-xl mx-auto">2026 秋季班早鳥優惠即將截止，把握這一次，成為團隊裡最懂 AI 產品的人。</p>
+      <a href="#" class="btn-cta inline-block font-bold px-10 py-4 rounded-full text-white text-base">立即報名 AI 產品經理實戰課 →</a>
+    </div>
+  </div>
+  <div class="border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-5 md:px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/45">
+      <div class="flex items-center gap-2">
+        <div class="w-6 h-6 rounded-lg bg-gradient-to-br from-[var(--aurora-1)] to-[var(--aurora-3)] flex items-center justify-center font-display font-bold text-xs">學</div>
+        <span class="font-display font-bold text-white/70">學久 XueJiu Academy</span>
+      </div>
+      <p>© 2026 學久線上課程平台．保留所有權利</p>
+      <div class="flex items-center gap-4">
+        <a href="#" class="hover:text-white transition">服務條款</a>
+        <a href="#" class="hover:text-white transition">隱私權政策</a>
+        <a href="#" class="hover:text-white transition">聯絡我們</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

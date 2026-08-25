@@ -1,0 +1,649 @@
+<!-- style #05 3D / Hyperrealism -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>臻萃 ZHENCUI｜臻萃臻萃，高端保養與香氛</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,500&family=Manrope:wght@300;400;500;600;700;800&family=Noto+Serif+TC:wght@400;500;600;700;900&family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --gold: #ffd700;
+    --gold-deep: #a8860f;
+    --silver: #c0c0c0;
+    --silver-deep: #6f6f78;
+    --bg-void: #0f0f14;
+    --bg-purple: #17111f;
+    --violet: #6a4bd6;
+    --violet-deep: #2c1a52;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body{
+    background-color: var(--bg-void);
+    color: #ece8e2;
+    font-family: 'Manrope', 'Noto Sans TC', sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-display{
+    font-family: 'Fraunces', 'Noto Serif TC', serif;
+  }
+
+  .font-body{
+    font-family: 'Manrope', 'Noto Sans TC', sans-serif;
+  }
+
+  /* ---------- Background: deep purple-violet gradient with subtle noise-like glow ---------- */
+  .bg-hyperreal{
+    background:
+      radial-gradient(ellipse 80% 50% at 15% -10%, rgba(106,75,214,0.35), transparent 60%),
+      radial-gradient(ellipse 70% 50% at 90% 10%, rgba(255,215,0,0.10), transparent 55%),
+      radial-gradient(ellipse 60% 40% at 50% 100%, rgba(192,192,192,0.08), transparent 60%),
+      linear-gradient(180deg, #0f0f14 0%, #17111f 45%, #120c1c 100%);
+  }
+
+  /* ---------- Metallic gold text ---------- */
+  .text-gold-metal{
+    background: linear-gradient(180deg, #fff6c9 0%, #ffd700 22%, #b8860b 48%, #ffe985 62%, #a8730c 82%, #ffd700 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 8px rgba(255,215,0,0.25));
+  }
+
+  .text-silver-metal{
+    background: linear-gradient(180deg, #ffffff 0%, #d9d9de 25%, #8f8f98 50%, #e8e8ec 65%, #6f6f78 85%, #c0c0c0 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* ---------- Glass card w/ metallic edge ---------- */
+  .glass-card{
+    position: relative;
+    background: linear-gradient(155deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 35%, rgba(106,75,214,0.06) 70%, rgba(255,255,255,0.03) 100%);
+    border: 1px solid rgba(255,215,0,0.18);
+    border-radius: 28px;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.08) inset,
+      0 -1px 0 rgba(0,0,0,0.4) inset,
+      0 30px 60px -20px rgba(0,0,0,0.65),
+      0 10px 30px -10px rgba(106,75,214,0.25);
+  }
+
+  .glass-card::before{
+    content:"";
+    position:absolute; inset:0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(255,215,0,0.55), rgba(192,192,192,0.15) 30%, rgba(255,215,0,0.05) 55%, rgba(192,192,192,0.4) 100%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* ---------- Metallic frame button ---------- */
+  .btn-metal{
+    position: relative;
+    background: linear-gradient(180deg, #fff2b8 0%, #ffd700 18%, #caa310 46%, #ffe985 55%, #9c7509 85%, #ffd700 100%);
+    color: #241a02;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.6) inset,
+      0 -3px 6px rgba(0,0,0,0.35) inset,
+      0 14px 28px -10px rgba(255,215,0,0.45),
+      0 4px 10px rgba(0,0,0,0.5);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .btn-metal:hover{
+    transform: translateY(-2px);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.7) inset,
+      0 -3px 6px rgba(0,0,0,0.3) inset,
+      0 18px 34px -8px rgba(255,215,0,0.55),
+      0 6px 14px rgba(0,0,0,0.55);
+  }
+
+  .btn-ghost-metal{
+    background: linear-gradient(180deg, rgba(192,192,192,0.16), rgba(192,192,192,0.02));
+    border: 1px solid rgba(192,192,192,0.4);
+    color: #e9e9ee;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.12) inset, 0 10px 24px -12px rgba(0,0,0,0.6);
+  }
+
+  /* ---------- Product bottle / jar: layered gradient "glass" with 3D tilt ---------- */
+  .bottle-stage{
+    perspective: 1400px;
+  }
+  .bottle{
+    position: relative;
+    width: 168px;
+    height: 260px;
+    margin: 0 auto;
+    transform-style: preserve-3d;
+    transform: rotateY(-18deg) rotateX(4deg);
+    transition: transform .6s cubic-bezier(.22,1,.36,1);
+  }
+  .bottle-stage:hover .bottle{
+    transform: rotateY(-6deg) rotateX(2deg) translateY(-6px);
+  }
+  .bottle-body{
+    position: absolute;
+    inset: 0;
+    border-radius: 18px 18px 26px 26px;
+    background:
+      linear-gradient(100deg,
+        rgba(255,255,255,0.05) 0%,
+        rgba(255,255,255,0.55) 8%,
+        rgba(150,120,255,0.35) 20%,
+        rgba(40,25,70,0.9) 42%,
+        rgba(20,14,38,0.96) 60%,
+        rgba(150,120,255,0.25) 78%,
+        rgba(255,255,255,0.35) 92%,
+        rgba(255,255,255,0.02) 100%);
+    box-shadow:
+      inset 6px 0 14px rgba(255,255,255,0.15),
+      inset -10px 0 20px rgba(0,0,0,0.55),
+      inset 0 -30px 40px rgba(0,0,0,0.4),
+      0 30px 50px -15px rgba(0,0,0,0.7);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .bottle-cap{
+    position: absolute;
+    top: -22px; left: 50%;
+    transform: translateX(-50%);
+    width: 74px; height: 34px;
+    border-radius: 8px;
+    background: linear-gradient(180deg, #fff6c9, #ffd700 30%, #8a6a08 70%, #ffe985 85%, #a8730c);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 8px 16px rgba(0,0,0,0.5);
+    border: 1px solid rgba(0,0,0,0.2);
+  }
+  .bottle-label{
+    position: absolute;
+    top: 42%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 86%;
+    text-align: center;
+    z-index: 2;
+  }
+  .bottle-sheen{
+    position: absolute;
+    top: 8%; left: 12%;
+    width: 22%; height: 60%;
+    border-radius: 50%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.65), rgba(255,255,255,0) 70%);
+    filter: blur(2px);
+    transform: rotate(8deg);
+    pointer-events: none;
+  }
+
+  /* candle version */
+  .candle-body{
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    background:
+      linear-gradient(100deg,
+        rgba(255,255,255,0.06) 0%,
+        rgba(255,255,255,0.5) 7%,
+        rgba(255,215,0,0.25) 18%,
+        rgba(40,30,15,0.92) 40%,
+        rgba(18,14,10,0.97) 62%,
+        rgba(255,215,0,0.18) 80%,
+        rgba(255,255,255,0.3) 93%,
+        rgba(255,255,255,0.02) 100%);
+    box-shadow:
+      inset 6px 0 14px rgba(255,255,255,0.12),
+      inset -10px 0 20px rgba(0,0,0,0.6),
+      inset 0 20px 30px rgba(255,215,0,0.08),
+      0 30px 50px -15px rgba(0,0,0,0.7);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .flame{
+    position: absolute;
+    top: -30px; left: 50%;
+    transform: translateX(-50%);
+    width: 14px; height: 26px;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    background: radial-gradient(circle at 50% 70%, #fff6c9 0%, #ffd700 35%, #ff8c00 65%, transparent 80%);
+    filter: blur(0.5px) drop-shadow(0 0 10px rgba(255,180,0,0.7));
+    animation: flicker 2.4s ease-in-out infinite;
+  }
+  @keyframes flicker{
+    0%,100%{ transform: translateX(-50%) scaleY(1) scaleX(1); }
+    30%{ transform: translateX(-52%) scaleY(1.08) scaleX(0.94); }
+    55%{ transform: translateX(-48%) scaleY(0.92) scaleX(1.05); }
+    80%{ transform: translateX(-51%) scaleY(1.04) scaleX(0.97); }
+  }
+
+  /* ---------- divider ornament ---------- */
+  .hr-metal{
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,215,0,0.7), rgba(192,192,192,0.5), transparent);
+  }
+
+  /* ---------- ingredient icon disc ---------- */
+  .disc-metal{
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 32% 28%, #fff6c9 0%, #ffd700 22%, #8a6a08 55%, #ffe985 68%, #6a4bd6 100%);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.5) inset,
+      0 -4px 8px rgba(0,0,0,0.4) inset,
+      0 10px 22px -6px rgba(0,0,0,0.6);
+  }
+
+  /* ---------- testimonial star ---------- */
+  .star-gold{
+    background: linear-gradient(180deg, #fff6c9, #ffd700 40%, #a8730c);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* ---------- section number tag ---------- */
+  .tag-line{
+    letter-spacing: 0.32em;
+  }
+
+  /* ---------- floating price chip ---------- */
+  .price-chip{
+    background: linear-gradient(155deg, rgba(255,255,255,0.08), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255,215,0,0.35);
+    box-shadow: 0 8px 20px -8px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.1) inset;
+  }
+
+  /* scrollbar minor polish */
+  ::selection{ background: rgba(255,215,0,0.35); color: #fff; }
+
+  @media (max-width: 640px){
+    .bottle{ width: 128px; height: 210px; }
+  }
+</style>
+</head>
+<body class="bg-hyperreal">
+
+  <!-- NAV -->
+  <header class="fixed top-0 inset-x-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10 py-5 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full disc-metal shrink-0"></div>
+        <span class="font-display text-xl sm:text-2xl tracking-[0.18em] text-gold-metal font-semibold">臻萃 ZHENCUI</span>
+      </div>
+      <nav class="hidden md:flex items-center gap-10 text-sm font-body tracking-wide text-silver-metal">
+        <a href="#products" class="hover:opacity-70 transition">頂級系列</a>
+        <a href="#craft" class="hover:opacity-70 transition">工藝與成分</a>
+        <a href="#testimonials" class="hover:opacity-70 transition">顧客見證</a>
+        <a href="#cta" class="hover:opacity-70 transition">立即選購</a>
+      </nav>
+      <a href="#cta" class="btn-metal hidden sm:inline-flex px-5 py-2.5 rounded-full text-sm font-bold tracking-wide">加入尊榮會員</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="relative min-h-[100svh] flex items-center pt-28 pb-16 overflow-hidden">
+    <div class="absolute -top-40 -right-40 w-[36rem] h-[36rem] rounded-full bg-[radial-gradient(circle,rgba(255,215,0,0.18),transparent_65%)] blur-2xl"></div>
+    <div class="absolute -bottom-32 -left-24 w-[30rem] h-[30rem] rounded-full bg-[radial-gradient(circle,rgba(106,75,214,0.35),transparent_65%)] blur-2xl"></div>
+
+    <div class="relative max-w-7xl mx-auto px-6 sm:px-10 grid lg:grid-cols-2 gap-16 items-center w-full">
+      <div>
+        <p class="tag-line text-xs sm:text-sm text-silver-metal font-semibold mb-6">ZHENCUI · HAUTE SKINCARE &amp; PARFUM</p>
+        <h1 class="font-display text-[2.75rem] leading-[1.1] sm:text-6xl sm:leading-[1.08] font-semibold mb-6">
+          <span class="text-gold-metal">臻萃於形，</span><br>
+          <span class="text-silver-metal">華光自現</span>
+        </h1>
+        <p class="text-base sm:text-lg text-[#c9c4d6] leading-relaxed max-w-lg mb-10 font-body">
+          融合稀有植萃與貴金屬礦物精粹，每一滴、每一縷香氣，皆以工匠之姿反覆淬鍊。
+          臻萃 ZHENCUI 為追求極致質感的你，打造肌膚與空間的雙重奢華體驗。
+        </p>
+        <div class="flex flex-wrap items-center gap-4 mb-14">
+          <a href="#products" class="btn-metal px-8 py-4 rounded-full text-sm font-bold tracking-wide">探索頂級系列</a>
+          <a href="#craft" class="btn-ghost-metal px-8 py-4 rounded-full text-sm font-semibold tracking-wide">了解工藝故事</a>
+        </div>
+        <div class="flex items-center gap-8 text-sm">
+          <div>
+            <p class="font-display text-2xl text-gold-metal font-semibold">18</p>
+            <p class="text-[#9d97ac] mt-1">道萃取工序</p>
+          </div>
+          <div class="w-px h-10 bg-gradient-to-b from-transparent via-[#c0c0c0]/40 to-transparent"></div>
+          <div>
+            <p class="font-display text-2xl text-silver-metal font-semibold">98%</p>
+            <p class="text-[#9d97ac] mt-1">回購推薦率</p>
+          </div>
+          <div class="w-px h-10 bg-gradient-to-b from-transparent via-[#c0c0c0]/40 to-transparent"></div>
+          <div>
+            <p class="font-display text-2xl text-gold-metal font-semibold">2011</p>
+            <p class="text-[#9d97ac] mt-1">品牌創立</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero product visual -->
+      <div class="bottle-stage relative flex items-center justify-center">
+        <div class="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-[radial-gradient(circle,rgba(255,215,0,0.16),transparent_70%)] blur-xl"></div>
+        <div class="bottle">
+          <div class="bottle-cap"></div>
+          <div class="bottle-body"></div>
+          <div class="bottle-sheen"></div>
+          <div class="bottle-label">
+            <p class="font-display text-[#ffe985] text-xs tracking-[0.3em] font-semibold">ZHENCUI</p>
+            <div class="hr-metal my-1.5 mx-6"></div>
+            <p class="text-[#e7e2f5] text-[0.65rem] tracking-[0.2em]">金萃賦活精華液</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products" class="relative py-24 sm:py-32">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10">
+      <div class="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
+        <p class="tag-line text-xs sm:text-sm text-silver-metal font-semibold mb-4">SIGNATURE COLLECTION</p>
+        <h2 class="font-display text-3xl sm:text-5xl font-semibold text-gold-metal mb-5">頂級主打系列</h2>
+        <p class="text-[#b8b2c6] leading-relaxed">三款代表作，凝聚臻萃對質地、香氣與儀式感的極致堅持。</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+
+        <!-- Product 1 -->
+        <div class="glass-card p-8 flex flex-col items-center text-center">
+          <div class="bottle-stage mb-8 mt-2">
+            <div class="bottle" style="width:130px;height:210px;">
+              <div class="bottle-cap" style="width:58px;height:26px;"></div>
+              <div class="bottle-body"></div>
+              <div class="bottle-sheen"></div>
+              <div class="bottle-label">
+                <p class="font-display text-[#ffe985] text-[0.6rem] tracking-[0.25em] font-semibold">ZHENCUI</p>
+                <div class="hr-metal my-1 mx-5"></div>
+                <p class="text-[#e7e2f5] text-[0.55rem] tracking-[0.15em]">金萃賦活精華液</p>
+              </div>
+            </div>
+          </div>
+          <p class="tag-line text-[0.65rem] text-[#c0c0c0] font-semibold mb-2">01 · SÉRUM D'OR</p>
+          <h3 class="font-display text-2xl font-semibold text-gold-metal mb-3">金萃賦活精華液</h3>
+          <p class="text-sm text-[#b8b2c6] leading-relaxed mb-6">
+            添加 24K 金萃與五胜肽複合物，質地如絲綢般細滑，喚醒肌膚深層光澤，緊緻輪廓、撫平細紋一次到位。
+          </p>
+          <div class="flex items-center gap-2 mb-6">
+            <span class="price-chip px-4 py-1.5 rounded-full text-sm font-semibold text-gold-metal">NT$ 3,880</span>
+            <span class="text-xs text-[#8b859c] line-through">NT$ 4,600</span>
+          </div>
+          <a href="#cta" class="btn-metal w-full py-3 rounded-full text-sm font-bold tracking-wide mt-auto">加入購物車</a>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="glass-card p-8 flex flex-col items-center text-center md:-translate-y-4">
+          <div class="bottle-stage mb-8 mt-2">
+            <div class="bottle" style="width:140px;height:225px;">
+              <div class="bottle-cap" style="width:62px;height:28px;background:linear-gradient(180deg,#f4f4f8,#c0c0c0 30%,#6f6f78 70%,#e8e8ec 85%,#8f8f98);"></div>
+              <div class="bottle-body" style="background:
+                linear-gradient(100deg,
+                  rgba(255,255,255,0.06) 0%,
+                  rgba(255,255,255,0.55) 8%,
+                  rgba(192,192,192,0.4) 20%,
+                  rgba(30,20,55,0.92) 42%,
+                  rgba(15,10,28,0.97) 60%,
+                  rgba(192,192,192,0.28) 78%,
+                  rgba(255,255,255,0.35) 92%,
+                  rgba(255,255,255,0.02) 100%);"></div>
+              <div class="bottle-sheen"></div>
+              <div class="bottle-label">
+                <p class="font-display text-[#f2f2f5] text-[0.6rem] tracking-[0.25em] font-semibold">ZHENCUI</p>
+                <div class="hr-metal my-1 mx-5"></div>
+                <p class="text-[#e7e2f5] text-[0.55rem] tracking-[0.15em]">銀燦煥采晚安膜</p>
+              </div>
+            </div>
+          </div>
+          <p class="tag-line text-[0.65rem] text-[#c0c0c0] font-semibold mb-2">02 · MASQUE D'ARGENT</p>
+          <h3 class="font-display text-2xl font-semibold text-silver-metal mb-3">銀燦煥采晚安膜</h3>
+          <p class="text-sm text-[#b8b2c6] leading-relaxed mb-6">
+            以奈米銀萃與冰河礦泥為核心，睡眠中修護屏障、鎮靜泛紅，晨起肌膚透出如絲緞般的柔亮光澤。
+          </p>
+          <div class="flex items-center gap-2 mb-6">
+            <span class="price-chip px-4 py-1.5 rounded-full text-sm font-semibold text-silver-metal">NT$ 2,980</span>
+            <span class="text-xs text-[#8b859c]">熱銷冠軍</span>
+          </div>
+          <a href="#cta" class="btn-metal w-full py-3 rounded-full text-sm font-bold tracking-wide mt-auto">加入購物車</a>
+        </div>
+
+        <!-- Product 3: Candle -->
+        <div class="glass-card p-8 flex flex-col items-center text-center">
+          <div class="bottle-stage mb-8 mt-2">
+            <div class="bottle" style="width:150px;height:170px;">
+              <div class="flame"></div>
+              <div class="candle-body"></div>
+              <div class="bottle-sheen" style="height:45%;"></div>
+              <div class="bottle-label" style="top:60%;">
+                <p class="font-display text-[#ffe985] text-[0.6rem] tracking-[0.25em] font-semibold">ZHENCUI</p>
+                <div class="hr-metal my-1 mx-5"></div>
+                <p class="text-[#e7e2f5] text-[0.55rem] tracking-[0.15em]">紫夜琥珀香氛蠟燭</p>
+              </div>
+            </div>
+          </div>
+          <p class="tag-line text-[0.65rem] text-[#c0c0c0] font-semibold mb-2">03 · BOUGIE NOCTURNE</p>
+          <h3 class="font-display text-2xl font-semibold text-gold-metal mb-3">紫夜琥珀香氛蠟燭</h3>
+          <p class="text-sm text-[#b8b2c6] leading-relaxed mb-6">
+            大馬士革玫瑰、琥珀與檀木調交織，天然大豆蠟緩燃 60 小時，為空間注入靜謐奢華的儀式感。
+          </p>
+          <div class="flex items-center gap-2 mb-6">
+            <span class="price-chip px-4 py-1.5 rounded-full text-sm font-semibold text-gold-metal">NT$ 1,680</span>
+            <span class="text-xs text-[#8b859c]">限量禮盒</span>
+          </div>
+          <a href="#cta" class="btn-metal w-full py-3 rounded-full text-sm font-bold tracking-wide mt-auto">加入購物車</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CRAFT / INGREDIENTS -->
+  <section id="craft" class="relative py-24 sm:py-32">
+    <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#ffd700]/30 to-transparent"></div>
+    <div class="max-w-7xl mx-auto px-6 sm:px-10">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <p class="tag-line text-xs sm:text-sm text-silver-metal font-semibold mb-4">CRAFTSMANSHIP</p>
+          <h2 class="font-display text-3xl sm:text-4xl font-semibold text-gold-metal mb-6 leading-tight">
+            以金屬萃取工藝，<br class="hidden sm:block">封存植萃精純
+          </h2>
+          <p class="text-[#b8b2c6] leading-relaxed mb-10">
+            臻萃實驗室歷經三年反覆試驗，將貴金屬離子導入低溫萃取系統，使珍稀植萃成分得以完整保留活性，
+            並在每件產品的封裝與瓶身工藝上，堅持手工拋光與品質檢驗，成就入手即知的高端質感。
+          </p>
+
+          <div class="space-y-6">
+            <div class="flex gap-5 items-start">
+              <div class="disc-metal shrink-0 flex items-center justify-center font-display text-[#1a1004] font-bold text-lg">金</div>
+              <div>
+                <h3 class="font-display text-lg font-semibold text-[#f3ecd8] mb-1">24K 黃金離子萃取</h3>
+                <p class="text-sm text-[#a8a2ba] leading-relaxed">促進肌膚微循環，賦予由內而外的透亮光澤。</p>
+              </div>
+            </div>
+            <div class="flex gap-5 items-start">
+              <div class="disc-metal shrink-0 flex items-center justify-center font-display text-[#1a1004] font-bold text-lg" style="background:radial-gradient(circle at 32% 28%,#f4f4f8 0%,#c0c0c0 22%,#4d4d54 55%,#e8e8ec 68%,#2c1a52 100%);">銀</div>
+              <div>
+                <h3 class="font-display text-lg font-semibold text-[#f3ecd8] mb-1">奈米銀抑菌屏障</h3>
+                <p class="text-sm text-[#a8a2ba] leading-relaxed">溫和抗菌鎮靜，強化肌膚防禦力與穩定度。</p>
+              </div>
+            </div>
+            <div class="flex gap-5 items-start">
+              <div class="disc-metal shrink-0 flex items-center justify-center font-display text-[#1a1004] font-bold text-lg" style="background:radial-gradient(circle at 32% 28%,#e9defc 0%,#a78bfa 22%,#3c2470 55%,#c9b3ff 68%,#1a1024 100%);">萃</div>
+              <div>
+                <h3 class="font-display text-lg font-semibold text-[#f3ecd8] mb-1">頂級植萃複合精油</h3>
+                <p class="text-sm text-[#a8a2ba] leading-relaxed">法國有機認證原料，低溫冷萃保留完整香氣分子。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card p-10 sm:p-12">
+          <h3 class="font-display text-2xl font-semibold text-silver-metal mb-8">工藝流程 · 五道淬鍊</h3>
+          <ol class="space-y-6">
+            <li class="flex items-center gap-5">
+              <span class="font-display text-xl text-gold-metal font-semibold w-8">01</span>
+              <div class="flex-1">
+                <p class="text-[#e9e5f2] font-semibold text-sm mb-1">原料甄選</p>
+                <div class="hr-metal"></div>
+              </div>
+            </li>
+            <li class="flex items-center gap-5">
+              <span class="font-display text-xl text-gold-metal font-semibold w-8">02</span>
+              <div class="flex-1">
+                <p class="text-[#e9e5f2] font-semibold text-sm mb-1">低溫離子萃取</p>
+                <div class="hr-metal"></div>
+              </div>
+            </li>
+            <li class="flex items-center gap-5">
+              <span class="font-display text-xl text-gold-metal font-semibold w-8">03</span>
+              <div class="flex-1">
+                <p class="text-[#e9e5f2] font-semibold text-sm mb-1">活性複方調和</p>
+                <div class="hr-metal"></div>
+              </div>
+            </li>
+            <li class="flex items-center gap-5">
+              <span class="font-display text-xl text-gold-metal font-semibold w-8">04</span>
+              <div class="flex-1">
+                <p class="text-[#e9e5f2] font-semibold text-sm mb-1">手工瓶身封裝</p>
+                <div class="hr-metal"></div>
+              </div>
+            </li>
+            <li class="flex items-center gap-5">
+              <span class="font-display text-xl text-gold-metal font-semibold w-8">05</span>
+              <div class="flex-1">
+                <p class="text-[#e9e5f2] font-semibold text-sm mb-1">品質終檢出貨</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials" class="relative py-24 sm:py-32">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <p class="tag-line text-xs sm:text-sm text-silver-metal font-semibold mb-4">TESTIMONIALS</p>
+        <h2 class="font-display text-3xl sm:text-5xl font-semibold text-gold-metal mb-5">顧客真實見證</h2>
+        <p class="text-[#b8b2c6] leading-relaxed">來自全台會員的使用回饋，見證臻萃如何融入日常儀式。</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="glass-card p-8">
+          <div class="star-gold text-lg mb-4 tracking-widest">★★★★★</div>
+          <p class="text-sm text-[#c9c4d6] leading-relaxed mb-6">
+            「用了金萃精華液大概三週，朋友都問我最近是不是換了保養品，皮膚真的透亮很多，質地也完全不黏膩。」
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full disc-metal"></div>
+            <div>
+              <p class="text-sm font-semibold text-[#f0ecf8]">陳品瑜</p>
+              <p class="text-xs text-[#8b859c]">台北市 · 尊榮會員</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card p-8">
+          <div class="star-gold text-lg mb-4 tracking-widest">★★★★★</div>
+          <p class="text-sm text-[#c9c4d6] leading-relaxed mb-6">
+            「晚安膜的香氣跟包裝都很有質感，送禮自用兩相宜，隔天起床摸起來真的滑順很多，會回購。」
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full disc-metal" style="background:radial-gradient(circle at 32% 28%,#f4f4f8 0%,#c0c0c0 22%,#4d4d54 55%,#e8e8ec 68%,#2c1a52 100%);"></div>
+            <div>
+              <p class="text-sm font-semibold text-[#f0ecf8]">林俊宏</p>
+              <p class="text-xs text-[#8b859c]">台中市 · 首次購買</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card p-8">
+          <div class="star-gold text-lg mb-4 tracking-widest">★★★★★</div>
+          <p class="text-sm text-[#c9c4d6] leading-relaxed mb-6">
+            「香氛蠟燭點燃後整個客廳氛圍都不一樣了，木質調不會太甜膩，燃燒也很均勻，質感很高級。」
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full disc-metal" style="background:radial-gradient(circle at 32% 28%,#e9defc 0%,#a78bfa 22%,#3c2470 55%,#c9b3ff 68%,#1a1024 100%);"></div>
+            <div>
+              <p class="text-sm font-semibold text-[#f0ecf8]">許雅茵</p>
+              <p class="text-xs text-[#8b859c]">高雄市 · 尊榮會員</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta" class="relative py-24 sm:py-32">
+    <div class="max-w-5xl mx-auto px-6 sm:px-10">
+      <div class="glass-card px-8 py-16 sm:px-16 sm:py-20 text-center relative overflow-hidden">
+        <div class="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-[radial-gradient(circle,rgba(255,215,0,0.18),transparent_65%)] blur-2xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -right-24 w-72 h-72 rounded-full bg-[radial-gradient(circle,rgba(106,75,214,0.35),transparent_65%)] blur-2xl pointer-events-none"></div>
+        <p class="tag-line text-xs sm:text-sm text-silver-metal font-semibold mb-4 relative">JOIN THE ATELIER</p>
+        <h2 class="font-display text-3xl sm:text-5xl font-semibold text-gold-metal mb-6 relative">加入臻萃尊榮會員</h2>
+        <p class="text-[#c9c4d6] leading-relaxed max-w-xl mx-auto mb-10 relative">
+          首購享 9 折優惠，並獲得專屬生日禮、新品優先試用資格，與每季限量工藝特輯。
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-4 relative">
+          <a href="#" class="btn-metal px-10 py-4 rounded-full text-sm font-bold tracking-wide">立即加入會員</a>
+          <a href="#products" class="btn-ghost-metal px-10 py-4 rounded-full text-sm font-semibold tracking-wide">回到頂級系列</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="relative border-t border-white/5 pt-16 pb-10">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-14">
+        <div class="lg:col-span-2">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-8 h-8 rounded-full disc-metal shrink-0"></div>
+            <span class="font-display text-lg tracking-[0.18em] text-gold-metal font-semibold">臻萃 ZHENCUI</span>
+          </div>
+          <p class="text-sm text-[#928caa] leading-relaxed max-w-sm">
+            臻萃 ZHENCUI 成立於 2011 年，專注於高端保養與香氛的工藝研發，
+            以貴金屬萃取科技與稀有植萃，打造屬於當代人的儀式感生活。
+          </p>
+        </div>
+        <div>
+          <h4 class="text-sm font-semibold text-[#e9e5f2] mb-4 tracking-wide">產品系列</h4>
+          <ul class="space-y-3 text-sm text-[#928caa]">
+            <li><a href="#products" class="hover:text-[#ffd700] transition">精華液系列</a></li>
+            <li><a href="#products" class="hover:text-[#ffd700] transition">面膜與修護</a></li>
+            <li><a href="#products" class="hover:text-[#ffd700] transition">香氛蠟燭</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-sm font-semibold text-[#e9e5f2] mb-4 tracking-wide">顧客服務</h4>
+          <ul class="space-y-3 text-sm text-[#928caa]">
+            <li><a href="#" class="hover:text-[#ffd700] transition">會員專區</a></li>
+            <li><a href="#" class="hover:text-[#ffd700] transition">門市據點</a></li>
+            <li><a href="#" class="hover:text-[#ffd700] transition">聯絡臻萃</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="hr-metal mb-8"></div>
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#726c88]">
+        <p>© 2026 ZHENCUI 臻萃股份有限公司．版權所有</p>
+        <p class="tag-line">CRAFTED IN TAIWAN</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
