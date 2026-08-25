@@ -1,0 +1,543 @@
+<!-- style #28 Data-Dense Dashboard -->
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ["'Work Sans'", "'Noto Sans TC'", 'sans-serif'],
+          mono: ["'Fira Code'", "'Noto Sans TC'", 'monospace'],
+        },
+        colors: {
+          base: {
+            bg: '#1e1e24',
+            panel: '#26262f',
+            panel2: '#2c2c37',
+            line: '#38383f',
+            sub: '#8a8a97',
+          },
+          brand: {
+            DEFAULT: '#7c6cf6',
+            light: '#a89bff',
+            dim: '#39335f',
+          },
+          up: '#10b981',
+          down: '#ef4444',
+        },
+      },
+    },
+  };
+</script>
+
+<style>
+  * { box-sizing: border-box; }
+  html, body {
+    background: #1e1e24;
+    font-family: 'Work Sans', 'Noto Sans TC', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .num {
+    font-family: 'Fira Code', 'Noto Sans TC', monospace;
+    font-variant-numeric: tabular-nums;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: #1e1e24; }
+  ::-webkit-scrollbar-thumb { background: #3d3d47; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #4b4b56; }
+
+  .card {
+    background: #26262f;
+    border: 1px solid #38383f;
+    border-radius: 12px;
+  }
+  .kpi-card {
+    background: linear-gradient(180deg, #28283180 0%, #26262f 100%);
+    border: 1px solid #38383f;
+    border-radius: 12px;
+  }
+  .grid-fade {
+    background-image: linear-gradient(#38383f 1px, transparent 1px);
+    background-size: 100% 24px;
+  }
+  .nav-item {
+    color: #9c9ca8;
+    transition: background .15s ease, color .15s ease;
+  }
+  .nav-item:hover {
+    background: #2c2c37;
+    color: #e8e8ec;
+  }
+  .nav-item.active {
+    background: #39335f;
+    color: #cfc6ff;
+  }
+  .badge {
+    font-family: 'Fira Code', 'Noto Sans TC', monospace;
+    font-size: 11px;
+    letter-spacing: .02em;
+    padding: 2px 8px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+  }
+  table.dense th {
+    font-size: 11px;
+    letter-spacing: .04em;
+    color: #767683;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  table.dense td, table.dense th {
+    padding: 10px 14px;
+  }
+  table.dense tbody tr {
+    border-top: 1px solid #33333c;
+  }
+  table.dense tbody tr:hover {
+    background: #2b2b35;
+  }
+  .mini-bar-track {
+    background: #33333c;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  @media (max-width: 767px) {
+    .desktop-sidebar { display: none; }
+  }
+  @media (min-width: 768px) {
+    .mobile-topnav { display: none; }
+  }
+</style>
+
+<body class="bg-base-bg text-slate-200 min-h-screen">
+  <div class="flex min-h-screen">
+
+    <!-- ===== Desktop Sidebar ===== -->
+    <aside class="desktop-sidebar w-60 shrink-0 border-r border-base-line bg-[#1a1a20] flex-col md:flex">
+      <div class="h-16 flex items-center gap-2 px-5 border-b border-base-line">
+        <div class="w-7 h-7 rounded-md bg-brand flex items-center justify-center text-white text-xs font-bold">悅</div>
+        <div>
+          <div class="text-sm font-bold text-slate-100 leading-tight">悅購雲端後台</div>
+          <div class="text-[10px] text-base-sub num tracking-wide">MERCHANT CONSOLE</div>
+        </div>
+      </div>
+
+      <nav class="flex-1 px-3 py-4 space-y-1 text-sm overflow-y-auto">
+        <div class="px-3 pb-1 text-[10px] tracking-widest text-base-sub font-semibold">總覽</div>
+        <a href="#" class="nav-item active flex items-center gap-3 rounded-lg px-3 py-2 font-medium">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+          營運總覽台
+        </a>
+        <a href="#" class="nav-item flex items-center gap-3 rounded-lg px-3 py-2">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          訂單管理
+        </a>
+        <a href="#" class="nav-item flex items-center gap-3 rounded-lg px-3 py-2">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.9 7.5 12 2 3.1 7.5v9L12 22l8.9-5.5z"/><path d="M12 22V12"/><path d="m3.1 7.5 8.9 5 8.9-5"/></svg>
+          商品管理
+        </a>
+        <a href="#" class="nav-item flex items-center gap-3 rounded-lg px-3 py-2">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="4"/><path d="M2 21v-2a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v2"/><circle cx="18" cy="9" r="3"/></svg>
+          顧客關係
+        </a>
+
+        <div class="px-3 pt-4 pb-1 text-[10px] tracking-widest text-base-sub font-semibold">分析</div>
+        <a href="#" class="nav-item flex items-center gap-3 rounded-lg px-3 py-2">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m7 14 4-4 3 3 5-6"/></svg>
+          行銷活動成效
+        </a>
+        <a href="#" class="nav-item flex items-center gap-3 rounded-lg px-3 py-2">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8M8 8h8M8 16h5"/></svg>
+          財務報表
+        </a>
+        <a href="#" class="nav-item flex items-center gap-3 rounded-lg px-3 py-2">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
+          異常與風控
+        </a>
+
+        <div class="px-3 pt-4 pb-1 text-[10px] tracking-widest text-base-sub font-semibold">系統</div>
+        <a href="#" class="nav-item flex items-center gap-3 rounded-lg px-3 py-2">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1 1.55V21a2 2 0 0 1-4 0v-.09a1.7 1.7 0 0 0-1-1.55 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.55-1H3a2 2 0 0 1 0-4h.09a1.7 1.7 0 0 0 1.55-1 1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.87.34H9a1.7 1.7 0 0 0 1-1.55V3a2 2 0 0 1 4 0v.09a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.34 1.87V9a1.7 1.7 0 0 0 1.55 1H21a2 2 0 0 1 0 4h-.09a1.7 1.7 0 0 0-1.55 1Z"/></svg>
+          系統設定
+        </a>
+      </nav>
+
+      <div class="p-3 border-t border-base-line">
+        <div class="flex items-center gap-2 px-2 py-2 rounded-lg hover:bg-base-panel2">
+          <div class="w-8 h-8 rounded-full bg-brand-dim text-brand-light flex items-center justify-center text-xs font-bold num">VC</div>
+          <div class="leading-tight min-w-0">
+            <div class="text-xs font-semibold text-slate-200 truncate">vernessa0607</div>
+            <div class="text-[10px] text-base-sub truncate">營運分析師</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ===== Main ===== -->
+    <div class="flex-1 min-w-0 flex flex-col">
+
+      <!-- Mobile top nav -->
+      <div class="mobile-topnav sticky top-0 z-20 bg-[#1a1a20] border-b border-base-line">
+        <div class="h-14 flex items-center justify-between px-4">
+          <div class="flex items-center gap-2">
+            <div class="w-6 h-6 rounded-md bg-brand flex items-center justify-center text-white text-[11px] font-bold">悅</div>
+            <span class="text-sm font-bold text-slate-100">悅購雲端後台</span>
+          </div>
+          <div class="w-7 h-7 rounded-full bg-brand-dim text-brand-light flex items-center justify-center text-[10px] font-bold num">VC</div>
+        </div>
+        <div class="flex overflow-x-auto gap-1 px-3 pb-2 text-xs">
+          <a href="#" class="nav-item active whitespace-nowrap rounded-full px-3 py-1.5 font-medium">總覽台</a>
+          <a href="#" class="nav-item whitespace-nowrap rounded-full px-3 py-1.5">訂單管理</a>
+          <a href="#" class="nav-item whitespace-nowrap rounded-full px-3 py-1.5">商品管理</a>
+          <a href="#" class="nav-item whitespace-nowrap rounded-full px-3 py-1.5">顧客關係</a>
+          <a href="#" class="nav-item whitespace-nowrap rounded-full px-3 py-1.5">行銷成效</a>
+          <a href="#" class="nav-item whitespace-nowrap rounded-full px-3 py-1.5">財務報表</a>
+          <a href="#" class="nav-item whitespace-nowrap rounded-full px-3 py-1.5">異常風控</a>
+        </div>
+      </div>
+
+      <!-- Header bar -->
+      <header class="hidden md:flex items-center justify-between px-6 h-16 border-b border-base-line bg-[#1e1e24]/95 backdrop-blur sticky top-0 z-10">
+        <div>
+          <h1 class="text-base font-bold text-slate-100">營運總覽台</h1>
+          <p class="text-xs text-base-sub num">2026-08-25 (二) · 資料更新於 14:32:07 · 台北時間 (UTC+8)</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="flex items-center gap-1.5 rounded-full bg-base-panel2 border border-base-line px-3 py-1.5 text-xs text-base-sub">
+            <span class="w-1.5 h-1.5 rounded-full bg-up animate-pulse"></span>
+            即時同步中
+          </div>
+          <button class="text-xs font-medium bg-brand hover:bg-brand-light transition-colors text-white rounded-lg px-3.5 py-1.5">匯出報表</button>
+        </div>
+      </header>
+
+      <main class="flex-1 px-4 md:px-6 py-5 space-y-5">
+
+        <!-- ===== KPI Summary Row ===== -->
+        <section class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+
+          <div class="kpi-card p-4">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-base-sub font-medium">今日營收</span>
+              <span class="badge bg-up/15 text-up"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 19V5M5 12l7-7 7 7"/></svg>+12.4%</span>
+            </div>
+            <div class="num mt-2 text-2xl md:text-3xl font-semibold text-slate-50">NT$ 1,284,650</div>
+            <div class="mt-2 text-[11px] text-base-sub num">昨日同期 NT$ 1,143,200</div>
+          </div>
+
+          <div class="kpi-card p-4">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-base-sub font-medium">訂單數</span>
+              <span class="badge bg-up/15 text-up"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 19V5M5 12l7-7 7 7"/></svg>+5.8%</span>
+            </div>
+            <div class="num mt-2 text-2xl md:text-3xl font-semibold text-slate-50">3,412</div>
+            <div class="mt-2 text-[11px] text-base-sub num">昨日同期 3,225 筆</div>
+          </div>
+
+          <div class="kpi-card p-4">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-base-sub font-medium">轉換率</span>
+              <span class="badge bg-down/15 text-down"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>-0.6%</span>
+            </div>
+            <div class="num mt-2 text-2xl md:text-3xl font-semibold text-slate-50">3.28%</div>
+            <div class="mt-2 text-[11px] text-base-sub num">昨日同期 3.34%</div>
+          </div>
+
+          <div class="kpi-card p-4">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-base-sub font-medium">客單價</span>
+              <span class="badge bg-up/15 text-up"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 19V5M5 12l7-7 7 7"/></svg>+2.1%</span>
+            </div>
+            <div class="num mt-2 text-2xl md:text-3xl font-semibold text-slate-50">NT$ 376</div>
+            <div class="mt-2 text-[11px] text-base-sub num">昨日同期 NT$ 368</div>
+          </div>
+        </section>
+
+        <!-- ===== Chart Cards Row ===== -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+
+          <!-- Bar chart: 近7日訂單量 -->
+          <div class="card p-4">
+            <div class="flex items-center justify-between mb-3">
+              <div>
+                <h2 class="text-sm font-semibold text-slate-100">近 7 日訂單量</h2>
+                <p class="text-[11px] text-base-sub num">單位：筆</p>
+              </div>
+              <span class="badge bg-up/15 text-up">+5.8% WoW</span>
+            </div>
+            <svg viewBox="0 0 280 130" class="w-full h-32">
+              <line x1="0" y1="10" x2="280" y2="10" stroke="#33333c" stroke-width="1"/>
+              <line x1="0" y1="45" x2="280" y2="45" stroke="#33333c" stroke-width="1"/>
+              <line x1="0" y1="80" x2="280" y2="80" stroke="#33333c" stroke-width="1"/>
+              <line x1="0" y1="115" x2="280" y2="115" stroke="#33333c" stroke-width="1"/>
+              <!-- 7 bars -->
+              <g fill="#413a72">
+                <rect x="8"   y="55" width="24" height="60" rx="3"/>
+                <rect x="46"  y="42" width="24" height="73" rx="3"/>
+                <rect x="84"  y="60" width="24" height="55" rx="3"/>
+                <rect x="122" y="48" width="24" height="67" rx="3"/>
+                <rect x="160" y="35" width="24" height="80" rx="3"/>
+                <rect x="198" y="28" width="24" height="87" rx="3"/>
+              </g>
+              <rect x="236" y="14" width="24" height="101" rx="3" fill="#7c6cf6"/>
+              <g class="num" fill="#8a8a97" font-size="9">
+                <text x="20"  y="127" text-anchor="middle">週三</text>
+                <text x="58"  y="127" text-anchor="middle">週四</text>
+                <text x="96"  y="127" text-anchor="middle">週五</text>
+                <text x="134" y="127" text-anchor="middle">週六</text>
+                <text x="172" y="127" text-anchor="middle">週日</text>
+                <text x="210" y="127" text-anchor="middle">週一</text>
+                <text x="248" y="127" text-anchor="middle" fill="#cfc6ff">週二</text>
+              </g>
+            </svg>
+            <div class="mt-2 flex items-center justify-between text-[11px] num text-base-sub">
+              <span>最低 412 筆</span>
+              <span class="text-brand-light font-semibold">今日 512 筆</span>
+            </div>
+          </div>
+
+          <!-- Line chart: 近14日營收走勢 -->
+          <div class="card p-4">
+            <div class="flex items-center justify-between mb-3">
+              <div>
+                <h2 class="text-sm font-semibold text-slate-100">近 14 日營收走勢</h2>
+                <p class="text-[11px] text-base-sub num">單位：千元 NT$</p>
+              </div>
+              <span class="badge bg-up/15 text-up">+8.9% 月均</span>
+            </div>
+            <svg viewBox="0 0 280 130" class="w-full h-32">
+              <defs>
+                <linearGradient id="lineFill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#7c6cf6" stop-opacity="0.35"/>
+                  <stop offset="100%" stop-color="#7c6cf6" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <line x1="0" y1="10" x2="280" y2="10" stroke="#33333c" stroke-width="1"/>
+              <line x1="0" y1="45" x2="280" y2="45" stroke="#33333c" stroke-width="1"/>
+              <line x1="0" y1="80" x2="280" y2="80" stroke="#33333c" stroke-width="1"/>
+              <line x1="0" y1="115" x2="280" y2="115" stroke="#33333c" stroke-width="1"/>
+              <polygon points="0,90 20,85 40,88 60,70 80,75 100,60 120,65 140,50 160,55 180,40 200,45 220,30 240,35 260,20 280,18 280,130 0,130"
+                       fill="url(#lineFill)"/>
+              <polyline points="0,90 20,85 40,88 60,70 80,75 100,60 120,65 140,50 160,55 180,40 200,45 220,30 240,35 260,20 280,18"
+                        fill="none" stroke="#a89bff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="280" cy="18" r="3.5" fill="#7c6cf6" stroke="#1e1e24" stroke-width="1.5"/>
+            </svg>
+            <div class="mt-2 flex items-center justify-between text-[11px] num text-base-sub">
+              <span>08/12</span>
+              <span>08/18</span>
+              <span class="text-brand-light font-semibold">08/25</span>
+            </div>
+          </div>
+
+          <!-- Donut chart: 訂單來源占比 -->
+          <div class="card p-4">
+            <div class="flex items-center justify-between mb-3">
+              <div>
+                <h2 class="text-sm font-semibold text-slate-100">訂單來源占比</h2>
+                <p class="text-[11px] text-base-sub num">近 30 日累計</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <svg viewBox="0 0 120 120" class="w-28 h-28 shrink-0">
+                <g transform="rotate(-90 60 60)">
+                  <circle cx="60" cy="60" r="46" fill="none" stroke="#33333c" stroke-width="16"/>
+                  <!-- 自然搜尋 34% -->
+                  <circle cx="60" cy="60" r="46" fill="none" stroke="#7c6cf6" stroke-width="16"
+                          stroke-dasharray="98.2 289" stroke-dashoffset="0"/>
+                  <!-- 付費廣告 28% -->
+                  <circle cx="60" cy="60" r="46" fill="none" stroke="#a89bff" stroke-width="16"
+                          stroke-dasharray="80.9 289" stroke-dashoffset="-98.2"/>
+                  <!-- 社群導流 19% -->
+                  <circle cx="60" cy="60" r="46" fill="none" stroke="#10b981" stroke-width="16"
+                          stroke-dasharray="54.9 289" stroke-dashoffset="-179.1"/>
+                  <!-- 直接造訪 12% -->
+                  <circle cx="60" cy="60" r="46" fill="none" stroke="#f59e0b" stroke-width="16"
+                          stroke-dasharray="34.7 289" stroke-dashoffset="-234"/>
+                  <!-- EDM 7% -->
+                  <circle cx="60" cy="60" r="46" fill="none" stroke="#4b4b56" stroke-width="16"
+                          stroke-dasharray="20.2 289" stroke-dashoffset="-268.7"/>
+                </g>
+                <text x="60" y="57" text-anchor="middle" class="num" font-size="16" font-weight="700" fill="#f1f1f4">3,412</text>
+                <text x="60" y="72" text-anchor="middle" class="num" font-size="8" fill="#8a8a97">總訂單</text>
+              </svg>
+              <ul class="text-[11px] space-y-1.5 flex-1 min-w-0">
+                <li class="flex items-center justify-between gap-2">
+                  <span class="flex items-center gap-1.5 text-slate-300"><span class="w-2 h-2 rounded-full bg-brand"></span>自然搜尋</span>
+                  <span class="num text-slate-100">34%</span>
+                </li>
+                <li class="flex items-center justify-between gap-2">
+                  <span class="flex items-center gap-1.5 text-slate-300"><span class="w-2 h-2 rounded-full" style="background:#a89bff"></span>付費廣告</span>
+                  <span class="num text-slate-100">28%</span>
+                </li>
+                <li class="flex items-center justify-between gap-2">
+                  <span class="flex items-center gap-1.5 text-slate-300"><span class="w-2 h-2 rounded-full bg-up"></span>社群導流</span>
+                  <span class="num text-slate-100">19%</span>
+                </li>
+                <li class="flex items-center justify-between gap-2">
+                  <span class="flex items-center gap-1.5 text-slate-300"><span class="w-2 h-2 rounded-full" style="background:#f59e0b"></span>直接造訪</span>
+                  <span class="num text-slate-100">12%</span>
+                </li>
+                <li class="flex items-center justify-between gap-2">
+                  <span class="flex items-center gap-1.5 text-slate-300"><span class="w-2 h-2 rounded-full bg-[#4b4b56]"></span>EDM 電子報</span>
+                  <span class="num text-slate-100">7%</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== Secondary metrics strip ===== -->
+        <section class="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div class="card p-3.5">
+            <div class="text-[11px] text-base-sub mb-1.5">商品退貨率</div>
+            <div class="flex items-end justify-between">
+              <span class="num text-lg font-semibold text-slate-100">2.14%</span>
+              <span class="badge bg-down/15 text-down text-[10px]">+0.3%</span>
+            </div>
+            <div class="mini-bar-track h-1.5 mt-2"><div class="h-full bg-down rounded" style="width:21%"></div></div>
+          </div>
+          <div class="card p-3.5">
+            <div class="text-[11px] text-base-sub mb-1.5">購物車放棄率</div>
+            <div class="flex items-end justify-between">
+              <span class="num text-lg font-semibold text-slate-100">61.8%</span>
+              <span class="badge bg-up/15 text-up text-[10px]">-1.2%</span>
+            </div>
+            <div class="mini-bar-track h-1.5 mt-2"><div class="h-full bg-brand rounded" style="width:62%"></div></div>
+          </div>
+          <div class="card p-3.5">
+            <div class="text-[11px] text-base-sub mb-1.5">新客佔比</div>
+            <div class="flex items-end justify-between">
+              <span class="num text-lg font-semibold text-slate-100">38.4%</span>
+              <span class="badge bg-up/15 text-up text-[10px]">+2.7%</span>
+            </div>
+            <div class="mini-bar-track h-1.5 mt-2"><div class="h-full bg-up rounded" style="width:38%"></div></div>
+          </div>
+          <div class="card p-3.5">
+            <div class="text-[11px] text-base-sub mb-1.5">客服平均回應</div>
+            <div class="flex items-end justify-between">
+              <span class="num text-lg font-semibold text-slate-100">4分12秒</span>
+              <span class="badge bg-up/15 text-up text-[10px]">-18秒</span>
+            </div>
+            <div class="mini-bar-track h-1.5 mt-2"><div class="h-full bg-brand rounded" style="width:44%"></div></div>
+          </div>
+        </section>
+
+        <!-- ===== Orders / Alerts Table ===== -->
+        <section class="card overflow-hidden">
+          <div class="flex items-center justify-between px-4 md:px-5 py-3.5 border-b border-base-line">
+            <div>
+              <h2 class="text-sm font-semibold text-slate-100">近期訂單與異常警示</h2>
+              <p class="text-[11px] text-base-sub num">最新 8 筆 · 含系統風控標記</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="badge bg-down/15 text-down">3 筆異常</span>
+              <button class="text-xs text-brand-light hover:text-brand-light/80 font-medium">查看全部 →</button>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="dense w-full text-left text-sm">
+              <thead>
+                <tr class="text-base-sub">
+                  <th>訂單編號</th>
+                  <th>顧客</th>
+                  <th>商品</th>
+                  <th class="text-right">金額</th>
+                  <th>狀態</th>
+                  <th>時間</th>
+                </tr>
+              </thead>
+              <tbody class="text-slate-300">
+                <tr>
+                  <td class="num text-slate-100">#TW20260825-0912</td>
+                  <td>林○芳</td>
+                  <td class="truncate max-w-[160px]">無線降噪耳機 Pro</td>
+                  <td class="num text-right text-slate-100">NT$ 3,980</td>
+                  <td><span class="badge bg-up/15 text-up">已出貨</span></td>
+                  <td class="num text-base-sub">14:28</td>
+                </tr>
+                <tr>
+                  <td class="num text-slate-100">#TW20260825-0911</td>
+                  <td>陳○宏</td>
+                  <td class="truncate max-w-[160px]">保溫杯 2 入組</td>
+                  <td class="num text-right text-slate-100">NT$ 890</td>
+                  <td><span class="badge bg-brand-dim text-brand-light">處理中</span></td>
+                  <td class="num text-base-sub">14:25</td>
+                </tr>
+                <tr class="bg-down/5">
+                  <td class="num text-slate-100">#TW20260825-0910</td>
+                  <td>王○婷</td>
+                  <td class="truncate max-w-[160px]">機能防風外套 L</td>
+                  <td class="num text-right text-slate-100">NT$ 2,480</td>
+                  <td><span class="badge bg-down/15 text-down">⚠ 重複扣款</span></td>
+                  <td class="num text-base-sub">14:19</td>
+                </tr>
+                <tr>
+                  <td class="num text-slate-100">#TW20260825-0909</td>
+                  <td>張○豪</td>
+                  <td class="truncate max-w-[160px]">人體工學辦公椅</td>
+                  <td class="num text-right text-slate-100">NT$ 6,200</td>
+                  <td><span class="badge bg-up/15 text-up">已完成</span></td>
+                  <td class="num text-base-sub">14:11</td>
+                </tr>
+                <tr class="bg-down/5">
+                  <td class="num text-slate-100">#TW20260825-0908</td>
+                  <td>吳○潔</td>
+                  <td class="truncate max-w-[160px]">智慧手錶 GT3</td>
+                  <td class="num text-right text-slate-100">NT$ 5,490</td>
+                  <td><span class="badge bg-down/15 text-down">⚠ 高風險交易</span></td>
+                  <td class="num text-base-sub">14:03</td>
+                </tr>
+                <tr>
+                  <td class="num text-slate-100">#TW20260825-0907</td>
+                  <td>黃○哲</td>
+                  <td class="truncate max-w-[160px]">有機咖啡豆 1kg</td>
+                  <td class="num text-right text-slate-100">NT$ 680</td>
+                  <td><span class="badge bg-yellow-500/15 text-yellow-400">待付款</span></td>
+                  <td class="num text-base-sub">13:57</td>
+                </tr>
+                <tr class="bg-down/5">
+                  <td class="num text-slate-100">#TW20260825-0906</td>
+                  <td>李○君</td>
+                  <td class="truncate max-w-[160px]">兒童安全座椅</td>
+                  <td class="num text-right text-slate-100">NT$ 7,150</td>
+                  <td><span class="badge bg-down/15 text-down">⚠ 物流延遲</span></td>
+                  <td class="num text-base-sub">13:48</td>
+                </tr>
+                <tr>
+                  <td class="num text-slate-100">#TW20260825-0905</td>
+                  <td>周○穎</td>
+                  <td class="truncate max-w-[160px]">植萃洗髮精組</td>
+                  <td class="num text-right text-slate-100">NT$ 1,120</td>
+                  <td><span class="badge bg-up/15 text-up">已完成</span></td>
+                  <td class="num text-base-sub">13:42</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="flex items-center justify-between px-4 md:px-5 py-3 border-t border-base-line text-[11px] text-base-sub num">
+            <span>顯示 8 / 3,412 筆訂單</span>
+            <div class="flex items-center gap-1">
+              <button class="px-2 py-1 rounded hover:bg-base-panel2">上一頁</button>
+              <button class="px-2 py-1 rounded bg-brand-dim text-brand-light">1</button>
+              <button class="px-2 py-1 rounded hover:bg-base-panel2">2</button>
+              <button class="px-2 py-1 rounded hover:bg-base-panel2">3</button>
+              <button class="px-2 py-1 rounded hover:bg-base-panel2">下一頁</button>
+            </div>
+          </div>
+        </section>
+
+        <footer class="text-center text-[11px] text-base-sub num py-4">
+          悅購雲端後台 © 2026 · 資料每 5 分鐘自動更新一次 · 最後同步 2026-08-25 14:32:07
+        </footer>
+      </main>
+    </div>
+  </div>
+</body>
