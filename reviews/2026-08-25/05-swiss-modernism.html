@@ -1,0 +1,372 @@
+<!-- style #50 Swiss Modernism 2.0（報紙體修正版） -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>本刊 THE JOURNAL｜財經週刊</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Noto+Serif+TC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --ink:#000000;
+    --paper:#ffffff;
+    --red:#c8102e;
+    --hair:#000000;
+    --grey:#57534e;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    background:var(--paper);
+    color:var(--ink);
+  }
+  body{
+    font-family:'Spectral','Noto Serif TC',serif;
+    -webkit-font-smoothing:antialiased;
+    font-feature-settings:"lnum" 1;
+  }
+  .font-head{ font-family:'Spectral','Noto Serif TC',serif; }
+  .font-body{ font-family:'Spectral','Noto Serif TC',serif; }
+
+  .hairline{ border-color:var(--ink); }
+  .hairline-thin{ border-color:var(--ink); border-width:1px; }
+
+  .tracking-wide-cn{ letter-spacing:0.08em; }
+  .tracking-widest-cn{ letter-spacing:0.22em; }
+
+  .drop-cap::first-letter{
+    float:left;
+    font-family:'Spectral','Noto Serif TC',serif;
+    font-weight:700;
+    font-size:3.4em;
+    line-height:0.82;
+    padding-right:0.09em;
+    padding-top:0.03em;
+    color:var(--ink);
+  }
+
+  .num-tag{
+    font-variant-numeric:tabular-nums;
+    letter-spacing:0.04em;
+  }
+
+  .avatar-mark{
+    font-family:'Spectral','Noto Serif TC',serif;
+    font-weight:600;
+    letter-spacing:0.02em;
+  }
+
+  ::selection{ background:var(--red); color:var(--paper); }
+
+  .masthead-title{
+    font-weight:800;
+    letter-spacing:0.02em;
+  }
+
+  @media (max-width: 640px){
+    .masthead-title{ letter-spacing:0.01em; }
+  }
+</style>
+</head>
+<body class="font-body text-black">
+
+  <!-- ================= UTILITY BAR ================= -->
+  <div class="w-full border-b hairline-thin text-[11px] sm:text-xs">
+    <div class="max-w-[1180px] mx-auto px-5 sm:px-8 py-2 flex items-center justify-between tracking-wide-cn">
+      <span class="num-tag text-black/70">2026年8月25日．星期二</span>
+      <span class="hidden sm:inline text-black/70">台北・香港・新加坡・紐約</span>
+      <span class="text-black/70">第一八四二期</span>
+    </div>
+  </div>
+
+  <!-- ================= MASTHEAD ================= -->
+  <header class="w-full">
+    <div class="max-w-[1180px] mx-auto px-5 sm:px-8 pt-8 sm:pt-10 pb-6">
+      <div class="flex items-start justify-between gap-6">
+        <div>
+          <div class="text-[10px] sm:text-xs tracking-widest-cn text-black/60 mb-2">ESTABLISHED&nbsp;1988・財經週刊</div>
+          <h1 class="masthead-title text-[44px] leading-none sm:text-[64px] md:text-[78px]">本刊</h1>
+          <div class="mt-1 text-[11px] sm:text-sm tracking-widest-cn text-black/60">THE&nbsp;JOURNAL&nbsp;WEEKLY</div>
+        </div>
+        <nav class="hidden md:flex items-center gap-8 pt-6 text-sm tracking-wide-cn">
+          <a href="#cover" class="hover:text-[--red] border-b border-transparent hover:border-[--red] pb-1 transition-colors">首頁</a>
+          <a href="#featured" class="hover:text-[--red] border-b border-transparent hover:border-[--red] pb-1 transition-colors">精選文章</a>
+          <a href="#subscribe" class="hover:text-[--red] border-b border-transparent hover:border-[--red] pb-1 transition-colors">訂閱方案</a>
+          <a href="#columnists" class="hover:text-[--red] border-b border-transparent hover:border-[--red] pb-1 transition-colors">專欄作者</a>
+        </nav>
+        <button class="md:hidden text-[11px] tracking-widest-cn border hairline-thin px-3 py-2 mt-2">選單</button>
+      </div>
+    </div>
+    <div class="border-t-4 border-black"></div>
+    <div class="border-t hairline-thin mt-[3px]"></div>
+  </header>
+
+  <!-- ================= COVER STORY ================= -->
+  <section id="cover" class="w-full">
+    <div class="max-w-[1180px] mx-auto px-5 sm:px-8 py-10 sm:py-14">
+
+      <div class="flex items-center gap-3 mb-6">
+        <span class="text-[11px] tracking-widest-cn text-white bg-[--red] px-2.5 py-1">封面故事</span>
+        <span class="text-[11px] tracking-widest-cn text-black/60">產業與科技</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10">
+        <div class="md:col-span-8">
+          <h2 class="font-head text-[34px] leading-[1.12] sm:text-[46px] md:text-[54px] font-semibold tracking-tight">
+            護國神山的下一步：<br class="hidden sm:block">台灣半導體如何從代工之王走向規則制定者
+          </h2>
+          <p class="mt-6 text-[13px] sm:text-sm text-black/60 tracking-wide-cn">
+            文．產業組　林岱蓉、周敬平　攝影．資料室
+          </p>
+          <div class="mt-6 border-t hairline-thin"></div>
+          <p class="drop-cap mt-6 text-[17px] sm:text-[19px] leading-[1.95] text-black/85">
+            當先進封裝產能已排到二〇二八年，台灣半導體業者面對的已不再是「接不接得到訂單」，而是「該把話語權留在哪裡」。本刊採訪十餘位供應鏈高層與政策官員後發現，一場關於先進製程、先進封裝與人工智慧晶片標準制定權的角力，正從代工端悄悄轉移到規格與生態系的上游。過去十年，台灣以純代工模式撐起全球晶片供應鏈的信任基礎；未來十年，能否把這份信任轉換為制定規則的位置，將決定護國神山群能否延續其不可取代性。
+          </p>
+          <p class="mt-5 text-[16px] sm:text-[17px] leading-[1.95] text-black/80">
+            美中科技脫鉤進入第五年，設備出口管制、在地化製造要求與各國晶片法案的補貼競賽，正把單一供應鏈重塑為區域化、可信任夥伴優先的多中心架構。台灣廠商一方面加速赴美、赴日設廠以分散地緣風險，另一方面也在思考：當先進製程的物理極限逐漸逼近，真正的護城河，是否已從「良率與微縮」轉向「系統整合與封裝創新」。本刊將於本期專題中，逐一檢視晶圓製造、先進封裝、材料設備三大戰線的最新布局，以及決策者必須正視的三個關鍵風險。
+          </p>
+        </div>
+
+        <div class="md:col-span-4 md:border-l hairline-thin md:pl-8">
+          <div class="text-[11px] tracking-widest-cn text-black/60 mb-4">本期要點</div>
+          <ul class="space-y-4">
+            <li class="border-t hairline-thin pt-3">
+              <p class="text-[13px] leading-relaxed text-black/85">先進封裝產能供不應求，交期已排至二〇二八年第一季。</p>
+            </li>
+            <li class="border-t hairline-thin pt-3">
+              <p class="text-[13px] leading-relaxed text-black/85">日本熊本、美國亞利桑那雙廠陸續量產，海外良率追平台灣本土廠。</p>
+            </li>
+            <li class="border-t hairline-thin pt-3">
+              <p class="text-[13px] leading-relaxed text-black/85">設備零組件在地化比率仍不足三成，供應鏈韌性面臨考驗。</p>
+            </li>
+            <li class="border-t hairline-thin pt-3 border-b pb-3">
+              <p class="text-[13px] leading-relaxed text-black/85">法人估計，二〇二七年前先進製程資本支出將再增逾兩成。</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="border-t-2 border-black"></div>
+
+  <!-- ================= FEATURED GRID ================= -->
+  <section id="featured" class="w-full">
+    <div class="max-w-[1180px] mx-auto px-5 sm:px-8 py-12 sm:py-16">
+
+      <div class="flex items-baseline justify-between mb-8">
+        <h3 class="font-head text-[26px] sm:text-[30px] font-semibold tracking-tight">精選文章</h3>
+        <span class="text-[11px] sm:text-xs tracking-widest-cn text-black/50">SELECTED&nbsp;REPORTS</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 border-t border-l hairline-thin">
+
+        <article class="border-r border-b hairline-thin p-6 sm:p-7 flex flex-col">
+          <span class="text-[11px] tracking-widest-cn text-[--red] mb-3">貨幣政策</span>
+          <h4 class="font-head text-[19px] sm:text-[20px] font-semibold leading-snug mb-3">
+            央行連三季維持利率不動，總裁：通膨降溫但房市壓力未解
+          </h4>
+          <p class="text-[13.5px] leading-relaxed text-black/70 flex-1">
+            中央銀行理監事會議決議維持政策利率不變，總裁會後表示，消費者物價年增率已回落至通膨目標區間，但北北基與桃園房市信用管制成效仍待觀察，不排除視情況延長選擇性信用管制期限。
+          </p>
+          <div class="mt-5 pt-3 border-t hairline-thin text-[11px] text-black/50 tracking-wide-cn">總編室．總體經濟</div>
+        </article>
+
+        <article class="border-r border-b hairline-thin p-6 sm:p-7 flex flex-col">
+          <span class="text-[11px] tracking-widest-cn text-[--red] mb-3">資本市場</span>
+          <h4 class="font-head text-[19px] sm:text-[20px] font-semibold leading-snug mb-3">
+            台股站上歷史新高，法人示警本益比已逼近警戒區
+          </h4>
+          <p class="text-[13.5px] leading-relaxed text-black/70 flex-1">
+            加權指數在權值股領軍下再創收盤新高，成交量連續五個交易日站上四千億元。多家投信法人提醒，大盤本益比已高於近十年平均一個標準差，短線宜留意獲利了結賣壓與美國聯準會利率決議帶來的波動。
+          </p>
+          <div class="mt-5 pt-3 border-t hairline-thin text-[11px] text-black/50 tracking-wide-cn">市場中心．股市</div>
+        </article>
+
+        <article class="border-r border-b hairline-thin p-6 sm:p-7 flex flex-col">
+          <span class="text-[11px] tracking-widest-cn text-[--red] mb-3">人工智慧</span>
+          <h4 class="font-head text-[19px] sm:text-[20px] font-semibold leading-snug mb-3">
+            兩兆美元的賭注：全球資料中心資本支出狂潮下的隱憂
+          </h4>
+          <p class="text-[13.5px] leading-relaxed text-black/70 flex-1">
+            雲端巨頭未來三年資本支出計畫合計已逼近兩兆美元，多數投入人工智慧運算基礎建設。部分分析師憂心，若企業端應用變現速度跟不上硬體折舊速度，這波投資熱潮恐重演過去電信業的產能過剩教訓。
+          </p>
+          <div class="mt-5 pt-3 border-t hairline-thin text-[11px] text-black/50 tracking-wide-cn">科技組．國際</div>
+        </article>
+
+        <article class="border-r border-b hairline-thin p-6 sm:p-7 flex flex-col">
+          <span class="text-[11px] tracking-widest-cn text-[--red] mb-3">人口與勞動</span>
+          <h4 class="font-head text-[19px] sm:text-[20px] font-semibold leading-snug mb-3">
+            少子化衝擊十年後浮現，缺工潮推升企業自動化投資
+          </h4>
+          <p class="text-[13.5px] leading-relaxed text-black/70 flex-1">
+            內政部最新統計顯示，今年新生兒人數再創新低，勞動部推估十年內基層製造與服務業缺工將突破三十萬人。人力銀行調查發現，逾六成中小企業已將自動化與數位轉型列為未來三年首要投資項目。
+          </p>
+          <div class="mt-5 pt-3 border-t hairline-thin text-[11px] text-black/50 tracking-wide-cn">產業組．勞動市場</div>
+        </article>
+
+        <article class="border-r border-b hairline-thin p-6 sm:p-7 flex flex-col">
+          <span class="text-[11px] tracking-widest-cn text-[--red] mb-3">能源轉型</span>
+          <h4 class="font-head text-[19px] sm:text-[20px] font-semibold leading-snug mb-3">
+            綠電缺口未解，科技大廠搶購再生能源憑證維持供應鏈訂單
+          </h4>
+          <p class="text-[13.5px] leading-relaxed text-black/70 flex-1">
+            國際品牌客戶要求供應鏈於二〇三〇年前達成一定比例綠電使用，然而台灣再生能源憑證交易市場供給仍顯吃緊，價格較兩年前上漲逾四成，中小型供應商反映採購成本壓力明顯上升。
+          </p>
+          <div class="mt-5 pt-3 border-t hairline-thin text-[11px] text-black/50 tracking-wide-cn">產業組．能源</div>
+        </article>
+
+        <article class="border-r border-b hairline-thin p-6 sm:p-7 flex flex-col">
+          <span class="text-[11px] tracking-widest-cn text-[--red] mb-3">供應鏈</span>
+          <h4 class="font-head text-[19px] sm:text-[20px] font-semibold leading-snug mb-3">
+            台商外移三年後的成績單：東南亞產能能否真正接棒
+          </h4>
+          <p class="text-[13.5px] leading-relaxed text-black/70 flex-1">
+            越南、馬來西亞與泰國設廠潮已進入第三年，本刊實地走訪多處產業園區發現，基礎設施與中階技術人力仍是最大瓶頸，部分廠商坦言「移出去容易，移得穩很難」，區域供應鏈整合仍需時間。
+          </p>
+          <div class="mt-5 pt-3 border-t hairline-thin text-[11px] text-black/50 tracking-wide-cn">國際組．東南亞</div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="border-t-2 border-black"></div>
+
+  <!-- ================= SUBSCRIBE CTA ================= -->
+  <section id="subscribe" class="w-full bg-black text-white">
+    <div class="max-w-[1180px] mx-auto px-5 sm:px-8 py-14 sm:py-20">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
+        <div class="md:col-span-7">
+          <div class="text-[11px] tracking-widest-cn text-[--red] mb-4">訂閱本刊</div>
+          <h3 class="font-head text-[28px] sm:text-[36px] font-semibold leading-tight">
+            掌握決策者視角，<br class="hidden sm:block">在市場反應之前先看見趨勢
+          </h3>
+          <p class="mt-5 text-[14px] sm:text-[15px] leading-relaxed text-white/70 max-w-xl">
+            本刊每週一發行，提供深度產業調查、獨家專訪與總體經濟解讀。訂閱會員可無限瀏覽全站文章、下載歷年封面故事電子檔，並優先收到本刊記者的即時分析通知。
+          </p>
+        </div>
+        <div class="md:col-span-5">
+          <div class="border border-white/25">
+            <div class="flex items-baseline justify-between px-6 sm:px-7 py-6 border-b border-white/25">
+              <div>
+                <div class="text-[12px] tracking-widest-cn text-white/60">年訂閱方案</div>
+                <div class="font-head text-[30px] sm:text-[34px] font-semibold mt-1">NT$&nbsp;2,880</div>
+              </div>
+              <div class="text-[12px] text-white/50 text-right">
+                每月僅需<br>NT$&nbsp;240
+              </div>
+            </div>
+            <ul class="px-6 sm:px-7 py-6 space-y-2.5 text-[13px] text-white/75">
+              <li>・ 全站文章無限閱讀</li>
+              <li>・ 每週一封總編精選信</li>
+              <li>・ 歷年封面故事電子書庫</li>
+              <li>・ 專欄作者線上問答場次</li>
+            </ul>
+            <div class="px-6 sm:px-7 pb-7">
+              <button class="w-full bg-[--red] hover:bg-white hover:text-black transition-colors text-white text-[13px] tracking-widest-cn py-3.5">
+                立即訂閱
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="border-t hairline-thin"></div>
+
+  <!-- ================= COLUMNISTS ================= -->
+  <section id="columnists" class="w-full">
+    <div class="max-w-[1180px] mx-auto px-5 sm:px-8 py-12 sm:py-16">
+
+      <div class="flex items-baseline justify-between mb-8">
+        <h3 class="font-head text-[26px] sm:text-[30px] font-semibold tracking-tight">專欄作者</h3>
+        <span class="text-[11px] sm:text-xs tracking-widest-cn text-black/50">COLUMNISTS</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-l hairline-thin">
+
+        <div class="border-r border-b hairline-thin p-6 sm:p-7">
+          <div class="w-14 h-14 border-2 border-black flex items-center justify-center avatar-mark text-lg mb-5">林</div>
+          <h4 class="font-head text-[16px] font-semibold mb-1">林岱蓉</h4>
+          <p class="text-[11px] tracking-widest-cn text-black/50 mb-4">產業與供應鏈主筆</p>
+          <p class="text-[12.5px] leading-relaxed text-black/70">
+            長期跑線半導體與精密製造，關注台灣供應鏈在地緣政治下的重新布局。
+          </p>
+        </div>
+
+        <div class="border-r border-b hairline-thin p-6 sm:p-7">
+          <div class="w-14 h-14 border-2 border-black flex items-center justify-center avatar-mark text-lg mb-5">周</div>
+          <h4 class="font-head text-[16px] font-semibold mb-1">周敬平</h4>
+          <p class="text-[11px] tracking-widest-cn text-black/50 mb-4">總體經濟主筆</p>
+          <p class="text-[12.5px] leading-relaxed text-black/70">
+            前央行研究員，專長利率政策與房市金融循環，文字冷靜、數據見骨。
+          </p>
+        </div>
+
+        <div class="border-r border-b hairline-thin p-6 sm:p-7">
+          <div class="w-14 h-14 border-2 border-black flex items-center justify-center avatar-mark text-lg mb-5">陳</div>
+          <h4 class="font-head text-[16px] font-semibold mb-1">陳律安</h4>
+          <p class="text-[11px] tracking-widest-cn text-black/50 mb-4">資本市場主筆</p>
+          <p class="text-[12.5px] leading-relaxed text-black/70">
+            十五年法人研究資歷，擅長從籌碼與資金流向拆解市場情緒與估值泡沫。
+          </p>
+        </div>
+
+        <div class="border-r border-b hairline-thin p-6 sm:p-7">
+          <div class="w-14 h-14 border-2 border-black flex items-center justify-center avatar-mark text-lg mb-5">許</div>
+          <h4 class="font-head text-[16px] font-semibold mb-1">許家瑜</h4>
+          <p class="text-[11px] tracking-widest-cn text-black/50 mb-4">國際財經特派員</p>
+          <p class="text-[12.5px] leading-relaxed text-black/70">
+            常駐新加坡，追蹤東南亞供應鏈重組與跨境資金流動的第一手觀察。
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="border-t-2 border-black"></div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="w-full">
+    <div class="max-w-[1180px] mx-auto px-5 sm:px-8 py-10">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-[12.5px]">
+        <div>
+          <div class="font-head text-[20px] font-semibold mb-3">本刊</div>
+          <p class="text-black/60 leading-relaxed">
+            創刊於一九八八年，以獨立、深入的財經報導為本，每週一發行紙本與數位版。
+          </p>
+        </div>
+        <div>
+          <div class="tracking-widest-cn text-[11px] text-black/50 mb-3">分類</div>
+          <ul class="space-y-1.5 text-black/70">
+            <li>總體經濟</li>
+            <li>資本市場</li>
+            <li>產業與科技</li>
+            <li>國際財經</li>
+          </ul>
+        </div>
+        <div>
+          <div class="tracking-widest-cn text-[11px] text-black/50 mb-3">關於本刊</div>
+          <ul class="space-y-1.5 text-black/70">
+            <li>編輯團隊</li>
+            <li>訂閱服務</li>
+            <li>廣告合作</li>
+            <li>隱私權政策</li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-10 pt-5 border-t hairline-thin flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-[11px] text-black/45 tracking-wide-cn">
+        <span>版權所有．本刊 THE JOURNAL WEEKLY．未經授權禁止轉載</span>
+        <span class="num-tag">ISSN 1988-0825</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
