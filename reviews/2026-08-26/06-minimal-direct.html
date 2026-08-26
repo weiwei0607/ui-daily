@@ -1,0 +1,385 @@
+<!-- style #23 Minimal & Direct -->
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一件事｜極簡待辦</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700;800&family=Familjen+Grotesk:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6f2ec;
+    --paper:#fbf8f3;
+    --ink:#1c1a17;
+    --ink-soft:#615b52;
+    --ink-faint:#9a938a;
+    --accent:#bd5b3a;
+    --accent-ink:#7c3c25;
+    --accent-soft:#f1ded2;
+    --line: rgba(28,26,23,0.10);
+    --line-strong: rgba(28,26,23,0.16);
+    --font-head:'Epilogue','Noto Sans TC',sans-serif;
+    --font-body:'Familjen Grotesk','Noto Sans TC',sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    min-height:100vh;
+    overflow-x:hidden;
+    position:relative;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* grain / noise overlay */
+  .grain{
+    position:fixed;
+    inset:0;
+    z-index:50;
+    pointer-events:none;
+    opacity:0.05;
+    mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.9 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size:180px 180px;
+  }
+
+  .wrap{
+    position:relative;
+    z-index:1;
+    max-width:1180px;
+    margin:0 auto;
+    padding:28px 32px 20px;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+
+  /* top bar */
+  .topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding-bottom:34px;
+  }
+
+  .logo{
+    font-family:var(--font-head);
+    font-weight:700;
+    font-size:20px;
+    letter-spacing:0.01em;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .logo .mark{
+    width:9px;height:9px;border-radius:50%;
+    background:var(--accent);
+    display:inline-block;
+  }
+
+  .ghost-btn{
+    font-family:var(--font-body);
+    font-size:14px;
+    font-weight:500;
+    color:var(--ink);
+    text-decoration:none;
+    border:1px solid var(--line-strong);
+    padding:9px 18px;
+    border-radius:999px;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .ghost-btn:hover{
+    border-color:var(--accent);
+    background:var(--accent-soft);
+  }
+
+  /* hero */
+  .hero{
+    flex:1;
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:56px;
+    align-items:center;
+    padding:12px 0 8px;
+  }
+
+  .copy{max-width:560px;}
+
+  .eyebrow{
+    font-family:var(--font-body);
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:0.06em;
+    color:var(--accent-ink);
+    text-transform:uppercase;
+    margin:0 0 18px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:16px;height:1px;
+    background:var(--accent);
+    display:inline-block;
+  }
+
+  h1{
+    font-family:var(--font-head);
+    font-weight:800;
+    font-size:clamp(40px, 5.6vw, 68px);
+    line-height:1.08;
+    letter-spacing:-0.01em;
+    margin:0 0 22px;
+    color:var(--ink);
+  }
+  h1 .accent{color:var(--accent);}
+
+  .lede{
+    font-family:var(--font-body);
+    font-size:17px;
+    line-height:1.75;
+    color:var(--ink-soft);
+    margin:0 0 34px;
+    max-width:480px;
+  }
+
+  .cta-row{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    flex-wrap:wrap;
+    margin-bottom:26px;
+  }
+
+  .cta{
+    font-family:var(--font-head);
+    font-weight:700;
+    font-size:16px;
+    color:#fff;
+    background:var(--accent);
+    text-decoration:none;
+    padding:15px 30px;
+    border-radius:10px;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    box-shadow:0 10px 24px -12px rgba(189,91,58,0.55);
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .cta:hover{
+    background:var(--accent-ink);
+    transform:translateY(-1px);
+    box-shadow:0 14px 28px -12px rgba(124,60,37,0.55);
+  }
+  .cta svg{width:16px;height:16px;}
+
+  .cta-note{
+    font-size:13px;
+    color:var(--ink-faint);
+  }
+
+  .trust{
+    font-size:14px;
+    color:var(--ink-soft);
+    padding-top:18px;
+    border-top:1px solid var(--line);
+    max-width:440px;
+    line-height:1.6;
+  }
+  .trust strong{color:var(--ink); font-weight:700;}
+
+  /* phone mockup */
+  .mock{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+  }
+
+  .phone{
+    width:296px;
+    background:linear-gradient(180deg,#232019,#17150f);
+    border-radius:40px;
+    padding:14px;
+    box-shadow:
+      0 30px 60px -24px rgba(28,26,23,0.35),
+      0 8px 20px -10px rgba(28,26,23,0.25);
+    position:relative;
+  }
+
+  .phone-notch{
+    position:absolute;
+    top:14px; left:50%;
+    transform:translateX(-50%);
+    width:78px; height:20px;
+    background:#17150f;
+    border-radius:0 0 14px 14px;
+    z-index:2;
+  }
+
+  .phone-screen{
+    background:var(--paper);
+    border-radius:28px;
+    padding:56px 26px 32px;
+    min-height:460px;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    position:relative;
+    overflow:hidden;
+  }
+  .phone-screen::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at 85% 8%, var(--accent-soft), transparent 55%);
+    opacity:0.7;
+    pointer-events:none;
+  }
+
+  .s-label{
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:0.04em;
+    color:var(--ink-faint);
+    text-transform:uppercase;
+    margin:0 0 14px;
+    position:relative;
+  }
+
+  .s-task{
+    font-family:var(--font-head);
+    font-weight:700;
+    font-size:27px;
+    line-height:1.32;
+    color:var(--ink);
+    margin:0 0 22px;
+    position:relative;
+  }
+
+  .s-meta{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    background:#fff;
+    border:1px solid var(--line);
+    padding:7px 12px;
+    border-radius:999px;
+    margin-bottom:auto;
+    position:relative;
+  }
+  .s-meta .dot{
+    width:6px;height:6px;border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 0 3px var(--accent-soft);
+  }
+
+  .s-done{
+    width:100%;
+    font-family:var(--font-head);
+    font-weight:700;
+    font-size:14.5px;
+    color:#fff;
+    background:var(--accent);
+    border:none;
+    padding:15px 0;
+    border-radius:12px;
+    margin-top:26px;
+    cursor:pointer;
+    position:relative;
+  }
+
+  .s-ghost{
+    font-size:12px;
+    color:var(--ink-faint);
+    margin:14px 0 0;
+    position:relative;
+  }
+
+  footer.foot{
+    text-align:center;
+    padding:22px 0 4px;
+    font-size:12.5px;
+    color:var(--ink-faint);
+    letter-spacing:0.02em;
+  }
+
+  @media (max-width: 880px){
+    .hero{
+      grid-template-columns:1fr;
+      gap:40px;
+      padding-top:4px;
+      text-align:left;
+    }
+    .copy{max-width:100%;}
+    .mock{order:-1;}
+    .phone{width:250px;}
+    .phone-screen{min-height:400px;padding:48px 22px 26px;}
+    .wrap{padding:22px 20px 20px;}
+    h1{font-size:clamp(34px,9vw,44px);}
+  }
+
+  @media (max-width: 420px){
+    .topbar .ghost-btn{display:none;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="grain"></div>
+
+  <div class="wrap">
+
+    <header class="topbar">
+      <div class="logo"><span class="mark"></span>一件事</div>
+      <a class="ghost-btn" href="#start">免費開始使用</a>
+    </header>
+
+    <main class="hero">
+      <section class="copy">
+        <p class="eyebrow">極簡待辦・一次一件</p>
+        <h1>一次，只做<br><span class="accent">一件事</span>。</h1>
+        <p class="lede">
+          把待辦清單砍到只剩一件。不用分類、不用排優先順序，
+          也不必盯著滿滿一頁事項發呆——現在，你只要看著眼前這一件，把它做完。
+        </p>
+
+        <div class="cta-row">
+          <a id="start" class="cta" href="#">
+            免費開始使用
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <span class="cta-note">不需要信用卡・30 秒開始</span>
+        </div>
+
+        <p class="trust">已經有 <strong>12,000+</strong> 人的待辦清單上，只剩下一件事。</p>
+      </section>
+
+      <section class="mock" aria-hidden="true">
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <p class="s-label">今天，你只需要</p>
+            <h2 class="s-task">把提案寄給客戶</h2>
+            <div class="s-meta"><span class="dot"></span>專注中・已進行 12 分鐘</div>
+            <button class="s-done" type="button">完成這件事</button>
+            <p class="s-ghost">其餘 46 件事，明天再說。</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">一件事 — 一次只設定一件事的待辦清單</footer>
+
+  </div>
+
+</body>
+</html>

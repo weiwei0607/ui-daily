@@ -1,0 +1,628 @@
+<!-- style #36 Financial Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>資產鏡｜個人投資組合管理後台</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --bg:#0b1220;
+    --bg-2:#0f172a;
+    --card:#151f32;
+    --card-2:#1b2942;
+    --border:#2a3a55;
+    --slate:#334155;
+    --slate-soft:#475569;
+    --muted:#8b9bb4;
+    --muted-2:#64748b;
+    --text:#eef2f8;
+    --text-dim:#c7d2e3;
+    --green:#10b981;
+    --green-bg:rgba(16,185,129,0.12);
+    --red:#ef4444;
+    --red-bg:rgba(239,68,68,0.12);
+    --accent:#6366f1;
+    --accent-2:#22d3ee;
+    --amber:#f59e0b;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    background:
+      radial-gradient(1200px 600px at 10% -10%, rgba(99,102,241,0.10), transparent 60%),
+      radial-gradient(900px 500px at 100% 0%, rgba(34,211,238,0.06), transparent 55%),
+      var(--bg);
+    color:var(--text);
+    font-family:'Space Grotesk','Noto Sans TC',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .font-num{
+    font-family:'Roboto Mono','Noto Sans TC',monospace;
+    font-variant-numeric:tabular-nums;
+    letter-spacing:-0.01em;
+  }
+
+  .card{
+    background:linear-gradient(180deg, var(--card) 0%, var(--card-2) 100%);
+    border:1px solid var(--border);
+    border-radius:14px;
+  }
+
+  .divider{border-color:var(--border);}
+
+  .pill{
+    display:inline-flex; align-items:center; gap:4px;
+    padding:2px 8px; border-radius:999px;
+    font-size:11px; font-weight:600; line-height:1.6;
+  }
+  .pill-up{background:var(--green-bg); color:var(--green);}
+  .pill-down{background:var(--red-bg); color:var(--red);}
+  .pill-flat{background:rgba(148,163,184,0.14); color:var(--muted);}
+
+  .market-tag{
+    font-size:10px; font-weight:700; padding:1px 6px; border-radius:5px;
+    letter-spacing:0.02em;
+  }
+  .tag-tw{background:rgba(99,102,241,0.16); color:#a5b4fc;}
+  .tag-us{background:rgba(34,211,238,0.14); color:#67e8f9;}
+  .tag-etf{background:rgba(245,158,11,0.14); color:#fcd34d;}
+
+  .text-up{color:var(--green);}
+  .text-down{color:var(--red);}
+
+  table{border-collapse:separate; border-spacing:0;}
+  thead th{
+    font-family:'Space Grotesk','Noto Sans TC',sans-serif;
+    font-size:11px; font-weight:600; letter-spacing:0.03em;
+    color:var(--muted); text-transform:uppercase;
+    padding:10px 14px; border-bottom:1px solid var(--border);
+    white-space:nowrap;
+  }
+  tbody td{
+    padding:12px 14px; border-bottom:1px solid rgba(42,58,85,0.55);
+    white-space:nowrap; font-size:13.5px;
+  }
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr{transition:background 0.12s ease;}
+  tbody tr:hover{background:rgba(148,163,184,0.045);}
+
+  .num-cell{text-align:right;}
+
+  .scrollx{overflow-x:auto;}
+  .scrollx::-webkit-scrollbar{height:8px;}
+  .scrollx::-webkit-scrollbar-thumb{background:var(--slate); border-radius:8px;}
+
+  .kpi-value{font-size:26px; font-weight:600; letter-spacing:-0.02em;}
+
+  .donut{
+    width:148px; height:148px; border-radius:50%;
+    background:conic-gradient(
+      var(--accent) 0% 42%,
+      var(--accent-2) 42% 70%,
+      var(--amber) 70% 88%,
+      var(--muted-2) 88% 100%
+    );
+    position:relative;
+    display:flex; align-items:center; justify-content:center;
+    flex:none;
+  }
+  .donut::before{
+    content:"";
+    position:absolute;
+    width:96px; height:96px; border-radius:50%;
+    background:var(--card);
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+  .donut-label{position:relative; text-align:center; z-index:1;}
+
+  .legend-dot{width:9px; height:9px; border-radius:3px; flex:none;}
+
+  .bar-track{
+    width:100%; height:10px; border-radius:999px; overflow:hidden;
+    background:rgba(148,163,184,0.10);
+    display:flex;
+  }
+
+  .section-title{
+    font-size:15px; font-weight:700; letter-spacing:0.01em;
+  }
+
+  .badge-buy{background:var(--green-bg); color:var(--green);}
+  .badge-sell{background:var(--red-bg); color:var(--red);}
+
+  .glow-ring{
+    box-shadow: 0 0 0 1px rgba(99,102,241,0.25), 0 8px 24px -12px rgba(99,102,241,0.35);
+  }
+
+  ::selection{background:rgba(99,102,241,0.35);}
+
+  .scrollbar-none::-webkit-scrollbar{display:none;}
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+  <!-- ===== Header ===== -->
+  <header class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+    <div class="flex items-center gap-3">
+      <div class="w-11 h-11 rounded-xl grid place-items-center glow-ring" style="background:linear-gradient(135deg, var(--accent), var(--accent-2));">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 16.5L9 10.5L13 14.5L21 6.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M15 6.5H21V12.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <h1 class="text-lg font-bold tracking-tight">資產鏡</h1>
+          <span class="pill pill-flat">個人投資組合管理後台</span>
+        </div>
+        <p class="text-xs mt-0.5" style="color:var(--muted);">2026年8月26日（三）・台北時間 13:42・盤中</p>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-2">
+      <div class="card px-3 py-2 flex items-center gap-2">
+        <span class="text-xs" style="color:var(--muted);">加權指數</span>
+        <span class="font-num text-sm font-medium">23,486.12</span>
+        <span class="pill pill-up">▲ 0.42%</span>
+      </div>
+      <div class="card px-3 py-2 flex items-center gap-2">
+        <span class="text-xs" style="color:var(--muted);">櫃買指數</span>
+        <span class="font-num text-sm font-medium">262.35</span>
+        <span class="pill pill-down">▼ 0.18%</span>
+      </div>
+      <div class="card px-3 py-2 flex items-center gap-2">
+        <span class="text-xs" style="color:var(--muted);">那斯達克</span>
+        <span class="font-num text-sm font-medium">19,842.7</span>
+        <span class="pill pill-up">▲ 0.87%</span>
+      </div>
+      <div class="w-9 h-9 rounded-full grid place-items-center text-xs font-bold" style="background:var(--slate); color:var(--text);">投</div>
+    </div>
+  </header>
+
+  <!-- ===== KPI Row ===== -->
+  <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+
+    <!-- 總資產 -->
+    <div class="card p-5">
+      <div class="flex items-start justify-between mb-3">
+        <div>
+          <p class="text-xs" style="color:var(--muted);">總資產</p>
+          <p class="kpi-value font-num mt-1">NT$ 4,286,530</p>
+        </div>
+        <span class="pill pill-up">▲ 2.34%</span>
+      </div>
+      <div class="flex items-end justify-between">
+        <span class="text-xs font-num text-up">＋NT$ 98,120　本月</span>
+        <svg width="92" height="30" viewBox="0 0 92 30" fill="none">
+          <polyline points="0,24 12,22 24,23 36,17 48,18 60,10 72,12 92,4" stroke="#10b981" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <polygon points="0,24 12,22 24,23 36,17 48,18 60,10 72,12 92,4 92,30 0,30" fill="url(#g1)" opacity="0.25"/>
+          <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#10b981"/><stop offset="100%" stop-color="#10b981" stop-opacity="0"/></linearGradient></defs>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 今日損益 -->
+    <div class="card p-5">
+      <div class="flex items-start justify-between mb-3">
+        <div>
+          <p class="text-xs" style="color:var(--muted);">今日損益</p>
+          <p class="kpi-value font-num mt-1 text-up">＋NT$ 12,480</p>
+        </div>
+        <span class="pill pill-up">▲ 0.29%</span>
+      </div>
+      <div class="flex items-end justify-between">
+        <span class="text-xs font-num" style="color:var(--muted);">昨收 NT$ 4,274,050</span>
+        <svg width="92" height="30" viewBox="0 0 92 30" fill="none">
+          <polyline points="0,14 12,18 24,12 36,20 48,9 60,15 72,7 92,10" stroke="#10b981" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 總報酬率 -->
+    <div class="card p-5">
+      <div class="flex items-start justify-between mb-3">
+        <div>
+          <p class="text-xs" style="color:var(--muted);">總報酬率</p>
+          <p class="kpi-value font-num mt-1 text-up">＋18.62%</p>
+        </div>
+        <span class="pill pill-up">▲ 累計</span>
+      </div>
+      <div class="flex items-end justify-between">
+        <span class="text-xs font-num text-up">未實現損益 ＋NT$ 672,940</span>
+        <svg width="92" height="30" viewBox="0 0 92 30" fill="none">
+          <polyline points="0,27 15,25 30,20 45,21 60,13 75,15 92,3" stroke="#10b981" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 現金水位 -->
+    <div class="card p-5">
+      <div class="flex items-start justify-between mb-3">
+        <div>
+          <p class="text-xs" style="color:var(--muted);">現金水位</p>
+          <p class="kpi-value font-num mt-1">NT$ 356,200</p>
+        </div>
+        <span class="pill pill-down">▼ 1.05%</span>
+      </div>
+      <div class="flex items-end justify-between">
+        <span class="text-xs font-num" style="color:var(--muted);">占資產 8.3%</span>
+        <svg width="92" height="30" viewBox="0 0 92 30" fill="none">
+          <polyline points="0,8 15,10 30,9 45,16 60,14 75,22 92,20" stroke="#ef4444" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Allocation + Watchlist ===== -->
+  <section class="grid grid-cols-1 xl:grid-cols-3 gap-4 mb-6">
+
+    <!-- 資產配置 -->
+    <div class="card p-5 xl:col-span-1">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="section-title">資產配置</h2>
+        <span class="text-xs" style="color:var(--muted-2);">依市值計算</span>
+      </div>
+      <div class="flex items-center gap-5">
+        <div class="donut">
+          <div class="donut-label">
+            <div class="text-[10px]" style="color:var(--muted);">總市值</div>
+            <div class="font-num text-sm font-semibold">430.7萬</div>
+          </div>
+        </div>
+        <div class="flex-1 space-y-3">
+          <div class="flex items-center gap-2">
+            <span class="legend-dot" style="background:var(--accent);"></span>
+            <span class="text-xs flex-1">台股</span>
+            <span class="font-num text-xs" style="color:var(--muted);">NT$ 1,800,000</span>
+            <span class="font-num text-xs font-semibold w-10 text-right">42%</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="legend-dot" style="background:var(--accent-2);"></span>
+            <span class="text-xs flex-1">美股</span>
+            <span class="font-num text-xs" style="color:var(--muted);">NT$ 1,200,000</span>
+            <span class="font-num text-xs font-semibold w-10 text-right">28%</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="legend-dot" style="background:var(--amber);"></span>
+            <span class="text-xs flex-1">ETF</span>
+            <span class="font-num text-xs" style="color:var(--muted);">NT$ 770,000</span>
+            <span class="font-num text-xs font-semibold w-10 text-right">18%</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="legend-dot" style="background:var(--muted-2);"></span>
+            <span class="text-xs flex-1">現金</span>
+            <span class="font-num text-xs" style="color:var(--muted);">NT$ 356,200</span>
+            <span class="font-num text-xs font-semibold w-10 text-right">12%</span>
+          </div>
+        </div>
+      </div>
+      <div class="bar-track mt-4">
+        <div style="width:42%; background:var(--accent);"></div>
+        <div style="width:28%; background:var(--accent-2);"></div>
+        <div style="width:18%; background:var(--amber);"></div>
+        <div style="width:12%; background:var(--muted-2);"></div>
+      </div>
+    </div>
+
+    <!-- 觀察清單 -->
+    <div class="card p-5 xl:col-span-2">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="section-title">觀察清單</h2>
+        <span class="text-xs" style="color:var(--muted-2);">5 檔追蹤中</span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1">
+        <div class="flex items-center justify-between py-2 border-b" style="border-color:var(--border);">
+          <div class="flex items-center gap-2">
+            <span class="market-tag tag-tw">台股</span>
+            <div>
+              <div class="text-sm font-medium">2603 長榮</div>
+              <div class="text-[11px]" style="color:var(--muted-2);">貨櫃航運</div>
+            </div>
+          </div>
+          <div class="text-right">
+            <div class="font-num text-sm">198.50</div>
+            <div class="font-num text-[11px] text-up">＋2.85%</div>
+          </div>
+        </div>
+        <div class="flex items-center justify-between py-2 border-b" style="border-color:var(--border);">
+          <div class="flex items-center gap-2">
+            <span class="market-tag tag-us">美股</span>
+            <div>
+              <div class="text-sm font-medium">TSLA 特斯拉</div>
+              <div class="text-[11px]" style="color:var(--muted-2);">電動車</div>
+            </div>
+          </div>
+          <div class="text-right">
+            <div class="font-num text-sm">248.30</div>
+            <div class="font-num text-[11px] text-down">－1.42%</div>
+          </div>
+        </div>
+        <div class="flex items-center justify-between py-2 border-b" style="border-color:var(--border);">
+          <div class="flex items-center gap-2">
+            <span class="market-tag tag-tw">台股</span>
+            <div>
+              <div class="text-sm font-medium">3661 世芯-KY</div>
+              <div class="text-[11px]" style="color:var(--muted-2);">IC設計</div>
+            </div>
+          </div>
+          <div class="text-right">
+            <div class="font-num text-sm">2,635.00</div>
+            <div class="font-num text-[11px] text-up">＋4.12%</div>
+          </div>
+        </div>
+        <div class="flex items-center justify-between py-2 border-b" style="border-color:var(--border);">
+          <div class="flex items-center gap-2">
+            <span class="market-tag tag-etf">ETF</span>
+            <div>
+              <div class="text-sm font-medium">00940 元大台灣價值高息</div>
+              <div class="text-[11px]" style="color:var(--muted-2);">高股息ETF</div>
+            </div>
+          </div>
+          <div class="text-right">
+            <div class="font-num text-sm">9.87</div>
+            <div class="font-num text-[11px] text-up">＋0.61%</div>
+          </div>
+        </div>
+        <div class="flex items-center justify-between py-2 sm:border-b-0 border-b" style="border-color:var(--border);">
+          <div class="flex items-center gap-2">
+            <span class="market-tag tag-us">美股</span>
+            <div>
+              <div class="text-sm font-medium">AMD 超微</div>
+              <div class="text-[11px]" style="color:var(--muted-2);">半導體</div>
+            </div>
+          </div>
+          <div class="text-right">
+            <div class="font-num text-sm">168.92</div>
+            <div class="font-num text-[11px] text-down">－0.35%</div>
+          </div>
+        </div>
+        <div class="flex items-center justify-between py-2">
+          <div class="flex items-center gap-2">
+            <span class="market-tag tag-tw">台股</span>
+            <div>
+              <div class="text-sm font-medium">2412 中華電</div>
+              <div class="text-[11px]" style="color:var(--muted-2);">電信</div>
+            </div>
+          </div>
+          <div class="text-right">
+            <div class="font-num text-sm">128.00</div>
+            <div class="font-num text-[11px]" style="color:var(--muted);">持平</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Holdings Table ===== -->
+  <section class="card p-5 mb-6">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="section-title">持股明細</h2>
+      <div class="flex items-center gap-2 text-xs" style="color:var(--muted-2);">
+        <span class="pill pill-flat">共 8 檔</span>
+        <span>市值以新台幣計，美股已折算匯率 31.62</span>
+      </div>
+    </div>
+    <div class="scrollx">
+      <table class="w-full">
+        <thead>
+          <tr>
+            <th class="text-left">代號 / 名稱</th>
+            <th class="text-left">市場</th>
+            <th class="num-cell">股數</th>
+            <th class="num-cell">均價</th>
+            <th class="num-cell">現價</th>
+            <th class="num-cell">市值 (NT$)</th>
+            <th class="num-cell">損益 (NT$)</th>
+            <th class="num-cell">報酬率</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="font-num text-xs" style="color:var(--muted);">2330</div><div class="font-medium">台積電</div></td>
+            <td><span class="market-tag tag-tw">台股</span></td>
+            <td class="num-cell font-num">500</td>
+            <td class="num-cell font-num">1,060.00</td>
+            <td class="num-cell font-num">1,230.00</td>
+            <td class="num-cell font-num font-medium">615,000</td>
+            <td class="num-cell font-num text-up">＋85,000</td>
+            <td class="num-cell font-num text-up">＋16.03%</td>
+          </tr>
+          <tr>
+            <td><div class="font-num text-xs" style="color:var(--muted);">0050</div><div class="font-medium">元大台灣50</div></td>
+            <td><span class="market-tag tag-etf">ETF</span></td>
+            <td class="num-cell font-num">2,000</td>
+            <td class="num-cell font-num">117.80</td>
+            <td class="num-cell font-num">134.00</td>
+            <td class="num-cell font-num font-medium">268,000</td>
+            <td class="num-cell font-num text-up">＋32,400</td>
+            <td class="num-cell font-num text-up">＋13.75%</td>
+          </tr>
+          <tr>
+            <td><div class="font-num text-xs" style="color:var(--muted);">2317</div><div class="font-medium">鴻海</div></td>
+            <td><span class="market-tag tag-tw">台股</span></td>
+            <td class="num-cell font-num">1,000</td>
+            <td class="num-cell font-num">195.20</td>
+            <td class="num-cell font-num">187.00</td>
+            <td class="num-cell font-num font-medium">187,000</td>
+            <td class="num-cell font-num text-down">－8,200</td>
+            <td class="num-cell font-num text-down">－4.20%</td>
+          </tr>
+          <tr>
+            <td><div class="font-num text-xs" style="color:var(--muted);">00919</div><div class="font-medium">群益台灣精選高息</div></td>
+            <td><span class="market-tag tag-etf">ETF</span></td>
+            <td class="num-cell font-num">3,000</td>
+            <td class="num-cell font-num">22.20</td>
+            <td class="num-cell font-num">23.15</td>
+            <td class="num-cell font-num font-medium">69,450</td>
+            <td class="num-cell font-num text-up">＋2,850</td>
+            <td class="num-cell font-num text-up">＋4.28%</td>
+          </tr>
+          <tr>
+            <td><div class="font-num text-xs" style="color:var(--muted);">AAPL</div><div class="font-medium">蘋果</div></td>
+            <td><span class="market-tag tag-us">美股</span></td>
+            <td class="num-cell font-num">30</td>
+            <td class="font-num num-cell">169.40</td>
+            <td class="num-cell font-num">196.10</td>
+            <td class="num-cell font-num font-medium">186,010</td>
+            <td class="num-cell font-num text-up">＋25,330</td>
+            <td class="num-cell font-num text-up">＋15.76%</td>
+          </tr>
+          <tr>
+            <td><div class="font-num text-xs" style="color:var(--muted);">NVDA</div><div class="font-medium">輝達</div></td>
+            <td><span class="market-tag tag-us">美股</span></td>
+            <td class="num-cell font-num">15</td>
+            <td class="num-cell font-num">86.30</td>
+            <td class="num-cell font-num">140.05</td>
+            <td class="num-cell font-num font-medium">66,410</td>
+            <td class="num-cell font-num text-up">＋25,470</td>
+            <td class="num-cell font-num text-up">＋62.29%</td>
+          </tr>
+          <tr>
+            <td><div class="font-num text-xs" style="color:var(--muted);">2454</div><div class="font-medium">聯發科</div></td>
+            <td><span class="market-tag tag-tw">台股</span></td>
+            <td class="num-cell font-num">200</td>
+            <td class="num-cell font-num">1,163.00</td>
+            <td class="num-cell font-num">1,100.00</td>
+            <td class="num-cell font-num font-medium">220,000</td>
+            <td class="num-cell font-num text-down">－12,600</td>
+            <td class="num-cell font-num text-down">－5.42%</td>
+          </tr>
+          <tr>
+            <td><div class="font-num text-xs" style="color:var(--muted);">006208</div><div class="font-medium">富邦台50</div></td>
+            <td><span class="market-tag tag-etf">ETF</span></td>
+            <td class="num-cell font-num">1,500</td>
+            <td class="num-cell font-num">61.20</td>
+            <td class="num-cell font-num">65.80</td>
+            <td class="num-cell font-num font-medium">98,700</td>
+            <td class="num-cell font-num text-up">＋6,900</td>
+            <td class="num-cell font-num text-up">＋7.52%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== Recent Transactions ===== -->
+  <section class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-8">
+    <div class="card p-5 lg:col-span-2">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="section-title">近期交易紀錄</h2>
+        <span class="text-xs" style="color:var(--muted-2);">最近 6 筆</span>
+      </div>
+      <div class="scrollx">
+        <table class="w-full">
+          <thead>
+            <tr>
+              <th class="text-left">日期</th>
+              <th class="text-left">類型</th>
+              <th class="text-left">代號 / 名稱</th>
+              <th class="num-cell">股數</th>
+              <th class="num-cell">成交價</th>
+              <th class="num-cell">金額 (NT$)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="font-num text-xs" style="color:var(--muted);">08/25</td>
+              <td><span class="pill badge-buy">買進</span></td>
+              <td>2330 台積電</td>
+              <td class="num-cell font-num">100</td>
+              <td class="num-cell font-num">1,215.00</td>
+              <td class="num-cell font-num">121,500</td>
+            </tr>
+            <tr>
+              <td class="font-num text-xs" style="color:var(--muted);">08/24</td>
+              <td><span class="pill badge-sell">賣出</span></td>
+              <td>2454 聯發科</td>
+              <td class="num-cell font-num">50</td>
+              <td class="num-cell font-num">1,108.00</td>
+              <td class="num-cell font-num">55,400</td>
+            </tr>
+            <tr>
+              <td class="font-num text-xs" style="color:var(--muted);">08/22</td>
+              <td><span class="pill badge-buy">買進</span></td>
+              <td>00919 群益台灣精選高息</td>
+              <td class="num-cell font-num">1,000</td>
+              <td class="num-cell font-num">23.00</td>
+              <td class="num-cell font-num">23,000</td>
+            </tr>
+            <tr>
+              <td class="font-num text-xs" style="color:var(--muted);">08/20</td>
+              <td><span class="pill badge-buy">買進</span></td>
+              <td>NVDA 輝達</td>
+              <td class="num-cell font-num">5</td>
+              <td class="num-cell font-num">128.40</td>
+              <td class="num-cell font-num">20,297</td>
+            </tr>
+            <tr>
+              <td class="font-num text-xs" style="color:var(--muted);">08/18</td>
+              <td><span class="pill badge-sell">賣出</span></td>
+              <td>2317 鴻海</td>
+              <td class="num-cell font-num">200</td>
+              <td class="num-cell font-num">198.50</td>
+              <td class="num-cell font-num">39,700</td>
+            </tr>
+            <tr>
+              <td class="font-num text-xs" style="color:var(--muted);">08/15</td>
+              <td><span class="pill badge-buy">買進</span></td>
+              <td>0050 元大台灣50</td>
+              <td class="num-cell font-num">500</td>
+              <td class="num-cell font-num">130.20</td>
+              <td class="num-cell font-num">65,100</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 快速摘要 -->
+    <div class="card p-5 flex flex-col gap-4">
+      <h2 class="section-title">本月摘要</h2>
+      <div class="flex items-center justify-between text-sm">
+        <span style="color:var(--muted);">交易筆數</span>
+        <span class="font-num font-medium">14 筆</span>
+      </div>
+      <div class="flex items-center justify-between text-sm">
+        <span style="color:var(--muted);">買進金額</span>
+        <span class="font-num font-medium">NT$ 386,420</span>
+      </div>
+      <div class="flex items-center justify-between text-sm">
+        <span style="color:var(--muted);">賣出金額</span>
+        <span class="font-num font-medium">NT$ 142,780</span>
+      </div>
+      <div class="flex items-center justify-between text-sm">
+        <span style="color:var(--muted);">股利收入</span>
+        <span class="font-num font-medium text-up">＋NT$ 18,650</span>
+      </div>
+      <div class="flex items-center justify-between text-sm">
+        <span style="color:var(--muted);">手續費支出</span>
+        <span class="font-num font-medium text-down">－NT$ 1,240</span>
+      </div>
+      <div class="pt-3 mt-1 border-t" style="border-color:var(--border);">
+        <div class="flex items-center justify-between">
+          <span class="text-xs" style="color:var(--muted-2);">風險屬性</span>
+          <span class="pill pill-flat">穩健成長型</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pb-4 text-xs" style="color:var(--muted-2);">
+    <p>資料僅供個人紀錄參考，非投資建議。市值與匯率每 15 分鐘更新一次。</p>
+    <p class="font-num">最後更新 2026-08-26 13:42:07</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
