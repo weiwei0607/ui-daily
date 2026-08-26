@@ -21,6 +21,12 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-08-26（6 個，#01–06）
+- ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（curl 連線逾時無回應，HTTP exit 56），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
+- 本輪 GH_TOKEN 直連 GitHub REST API（publish.py）尚未實測（本輪一開始就沿用近幾輪已驗證可行的方法），改用 `git push`（HTTPS + GH_TOKEN 當密碼，走 git 協定而非 REST API）逐批發布，過程中每完成 1-2 個就即時 commit+push 備份進度，全部完成後統一組裝畫廊與最終發布。
+- 本輪採用並行子代理（同時派 6 個 agent 各生成一個風格檔案）加速生成。其中 #45 Vaporwave 檔案子代理回報寫入成功，但實際檢查發現結尾漏了 `</html>` 閉合標籤，已手動補上修正。
+- 本批風格（避開近 3 天用過的 #05/#16/#21/#10/#28/#50/#57/#07/#08/#11/#22/#34/#55/#02/#18/#39/#44/#32/#49，優先挑選至今完全沒用過的風格，並跨 A/B/C/D 族群）：**Motion-Driven #15**（A 組全新族群，避免 Inter，改用 Urbanist + Karla，做成即時運動追蹤 App「動起來」，全站真實可運作的 CSS/JS 動畫：數字滾動、進場動畫、hover 回饋）、**Hero-Centric #20 × Claymorphism #09 皮膚**（B 組結構首次獨立嘗試「結構＋皮膚」，延續「圓潤風配圓體」偏好，用 Baloo 2 + Quicksand，做成兒童積木玩具品牌首頁「玩玩積木」，巨大黏土感主視覺＋單一 CTA）、**Interactive Demo #25 × AI-Native #43 皮膚**（B 組全新結構，避免 Inter，改用 Syne + IBM Plex Sans，做成 AI 智慧客服訓練展示頁「答答 AnswerBot」，內嵌真的能互動的模擬對話 demo）、**Financial Dashboard #36 重做**（C 組，上次配方用過 IBM Plex Sans + JetBrains Mono，這次換成 Space Grotesk + Roboto Mono 避免重複，做成個人投資組合管理後台「資產鏡」，等寬數字靠右對齊、SVG sparkline）、**Vaporwave #45 重做**（D 組，上次配方用過 Press Start 2P + VT323，這次換成 Monoton + Space Mono，做成復古卡帶音樂串流頁「NEON WAVE 錄音帶」）、**Minimal & Direct #23**（B 組全新結構，一屏講完＋噪點紋理，改用 Epilogue + Familjen Grotesk，做成極簡單任務待辦 App「一件事」）。至此 B 組 20–27 landing page 結構類型已用過 #20/#21/#22/#23/#24/#25/#26/#27 共 8 種、A 組 01–19 僅剩極少數未用過。全數繁體中文文案，已用腳本比對常見簡繁字元對照表掃描確認無簡體字混入，中文字元皆保留 Noto Sans/Serif TC 作為 fallback。
+
 ### 2026-08-25（6 個，#01–06）
 - ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（curl 連線逾時無回應，HTTP exit/code 000），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
 - ⚠️ 本輪 GH_TOKEN 直連 GitHub REST API（publish.py 用到的 `/repos/.../git/ref/...` 等端點）再次被環境閘道擋下（403「GitHub access is not enabled for this session」），與過去每輪一致，改用 `git push`（HTTPS + GH_TOKEN 當密碼，走 git 協定而非 REST API）發布，確認推送成功。

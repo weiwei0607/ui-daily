@@ -1,0 +1,613 @@
+<!-- style #45 Vaporwave -->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEON WAVE 錄音帶</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Monoton&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink:#ff71ce;
+    --chrome:#c0c0c0;
+    --cyan:#01cdfe;
+    --navy-deep:#0d0221;
+    --navy-mid:#1a0b3d;
+    --purple:#3d1a63;
+    --paper:#f3e9ff;
+  }
+
+  *{box-sizing:border-box;}
+
+  html,body{
+    margin:0;
+    padding:0;
+    background:var(--navy-deep);
+    color:var(--paper);
+    font-family:'Space Mono','Noto Sans TC',monospace;
+    overflow-x:hidden;
+  }
+
+  .font-display{
+    font-family:'Monoton','Noto Sans TC',cursive;
+    letter-spacing:.04em;
+  }
+
+  /* ---------- scanlines + noise overlay ---------- */
+  .scanlines::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:60;
+    background:repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.035) 0px,
+      rgba(255,255,255,0.035) 1px,
+      transparent 2px,
+      transparent 3px
+    );
+    mix-blend-mode:overlay;
+  }
+
+  /* ---------- glitch text ---------- */
+  .glitch{
+    position:relative;
+    display:inline-block;
+    color:var(--paper);
+    text-shadow:
+      0 0 8px rgba(255,113,206,0.6),
+      0 0 22px rgba(1,205,254,0.35);
+  }
+  .glitch::before,
+  .glitch::after{
+    content:attr(data-text);
+    position:absolute;
+    top:0;left:0;
+    width:100%;
+    overflow:hidden;
+    color:inherit;
+  }
+  .glitch::before{
+    color:var(--cyan);
+    left:3px;
+    text-shadow:-2px 0 var(--cyan);
+    clip-path:inset(0 0 55% 0);
+    animation:glitchTop 3.2s infinite linear alternate-reverse;
+  }
+  .glitch::after{
+    color:var(--pink);
+    left:-3px;
+    text-shadow:2px 0 var(--pink);
+    clip-path:inset(55% 0 0 0);
+    animation:glitchBottom 2.6s infinite linear alternate-reverse;
+  }
+  @keyframes glitchTop{
+    0%{clip-path:inset(0 0 68% 0);transform:translate(-1px,-1px);}
+    20%{clip-path:inset(0 0 42% 0);transform:translate(2px,0);}
+    40%{clip-path:inset(0 0 78% 0);transform:translate(-2px,1px);}
+    60%{clip-path:inset(0 0 20% 0);transform:translate(1px,-1px);}
+    80%{clip-path:inset(0 0 55% 0);transform:translate(-1px,2px);}
+    100%{clip-path:inset(0 0 30% 0);transform:translate(2px,0);}
+  }
+  @keyframes glitchBottom{
+    0%{clip-path:inset(72% 0 0 0);transform:translate(1px,1px);}
+    20%{clip-path:inset(40% 0 0 0);transform:translate(-2px,0);}
+    40%{clip-path:inset(85% 0 0 0);transform:translate(2px,-1px);}
+    60%{clip-path:inset(25% 0 0 0);transform:translate(-1px,1px);}
+    80%{clip-path:inset(60% 0 0 0);transform:translate(1px,-2px);}
+    100%{clip-path:inset(35% 0 0 0);transform:translate(-2px,0);}
+  }
+
+  .glitch-flicker{
+    animation:flicker 5.5s infinite;
+  }
+  @keyframes flicker{
+    0%,93%,100%{opacity:1;}
+    94%{opacity:.4;}
+    95%{opacity:1;}
+    96%{opacity:.55;}
+    97%{opacity:1;}
+  }
+
+  /* ---------- sunset grid ---------- */
+  .grid-scene{
+    position:relative;
+    height:46vh;
+    min-height:320px;
+    overflow:hidden;
+    background:linear-gradient(180deg,#210a3f 0%,#3b1361 35%,#7a2a6e 62%,#c24a7c 78%,#ff8aae 100%);
+  }
+  .sun{
+    position:absolute;
+    left:50%;
+    top:34%;
+    width:min(46vw,420px);
+    height:min(46vw,420px);
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    background:linear-gradient(180deg,#fff6c8 0%,#ffd66b 22%,#ff9a5a 45%,var(--pink) 72%,#b23e7c 100%);
+    background-size:100% 100%;
+    box-shadow:0 0 90px 10px rgba(255,113,206,0.55);
+    -webkit-mask-image:repeating-linear-gradient(to bottom, black 0 6px, transparent 6px 12px);
+    mask-image:repeating-linear-gradient(to bottom, black 0 6px, transparent 6px 12px);
+    -webkit-mask-size:100% 22px;
+    mask-size:100% 22px;
+    -webkit-mask-repeat:repeat;
+    mask-repeat:repeat;
+  }
+  .horizon{
+    position:absolute;
+    left:0;right:0;
+    top:62%;
+    height:1px;
+    background:var(--chrome);
+    box-shadow:0 0 18px 2px rgba(192,192,192,.9), 0 0 40px 6px rgba(255,113,206,.5);
+  }
+  .grid-floor{
+    position:absolute;
+    left:0;right:0;
+    top:62%;
+    bottom:0;
+    background:
+      linear-gradient(to bottom, rgba(1,205,254,0) 0%, rgba(1,205,254,.08) 100%);
+    perspective:220px;
+    perspective-origin:50% 0%;
+    overflow:hidden;
+  }
+  .grid-floor .lines{
+    position:absolute;
+    inset:0;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(255,113,206,.85) 0 2px, transparent 2px 90px),
+      repeating-linear-gradient(0deg, rgba(1,205,254,.7) 0 2px, transparent 2px 46px);
+    transform:rotateX(72deg) scale(2.4);
+    transform-origin:50% 0%;
+    animation:gridMove 4.5s linear infinite;
+  }
+  @keyframes gridMove{
+    from{background-position:0 0, 0 0;}
+    to{background-position:0 0, 0 46px;}
+  }
+
+  /* statue bust */
+  .statue{
+    position:absolute;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:min(20vw,190px);
+    line-height:1;
+    filter:
+      drop-shadow(0 0 18px rgba(192,192,192,.65))
+      drop-shadow(3px 0 0 rgba(1,205,254,.55))
+      drop-shadow(-3px 0 0 rgba(255,113,206,.55))
+      grayscale(1) contrast(1.15) brightness(1.35);
+    opacity:.92;
+    z-index:5;
+    user-select:none;
+  }
+
+  /* katakana / kanji decorative flourishes */
+  .deco-jp{
+    font-family:'Space Mono', monospace;
+    color:rgba(255,255,255,.14);
+    letter-spacing:.5em;
+    writing-mode:vertical-rl;
+    position:absolute;
+    pointer-events:none;
+    user-select:none;
+    font-size:14px;
+    z-index:4;
+  }
+
+  /* ---------- chrome text (silver gradient) ---------- */
+  .chrome-text{
+    background:linear-gradient(180deg,#ffffff 0%,#c0c0c0 35%,#8f8fa0 55%,#e8e8f0 70%,#9a9aac 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+
+  /* ---------- buttons ---------- */
+  .btn-neon{
+    display:inline-block;
+    font-family:'Space Mono',monospace;
+    font-weight:700;
+    letter-spacing:.08em;
+    padding:.85rem 1.9rem;
+    border:2px solid var(--pink);
+    color:var(--pink);
+    background:rgba(255,113,206,.08);
+    box-shadow:0 0 14px rgba(255,113,206,.45), inset 0 0 14px rgba(255,113,206,.08);
+    transition:all .25s ease;
+    text-transform:uppercase;
+  }
+  .btn-neon:hover{
+    background:var(--pink);
+    color:#1a0b3d;
+    box-shadow:0 0 28px rgba(255,113,206,.85), 0 0 55px rgba(1,205,254,.4);
+  }
+  .btn-chrome{
+    display:inline-block;
+    font-family:'Space Mono',monospace;
+    font-weight:700;
+    letter-spacing:.08em;
+    padding:.85rem 1.9rem;
+    border:2px solid var(--chrome);
+    color:var(--chrome);
+    background:rgba(192,192,192,.06);
+    transition:all .25s ease;
+    text-transform:uppercase;
+  }
+  .btn-chrome:hover{
+    background:var(--chrome);
+    color:#1a0b3d;
+    box-shadow:0 0 24px rgba(192,192,192,.6);
+  }
+
+  /* ---------- cassette card ---------- */
+  .cassette{
+    position:relative;
+    border-radius:10px;
+    background:linear-gradient(160deg,#2a1350 0%, #190a35 60%, #10061f 100%);
+    border:1px solid rgba(192,192,192,.35);
+    padding:1.1rem;
+    box-shadow:0 0 0 1px rgba(255,113,206,.08), 0 14px 30px -12px rgba(0,0,0,.7);
+    overflow:hidden;
+  }
+  .cassette::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(115deg, transparent 40%, rgba(255,255,255,.06) 50%, transparent 60%);
+    pointer-events:none;
+  }
+  .cassette .label{
+    background:linear-gradient(180deg,#f3e9ff 0%,#e4d4ff 100%);
+    color:#241040;
+    border-radius:4px;
+    padding:.7rem .8rem .55rem;
+    position:relative;
+  }
+  .reels{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:.85rem .3rem .4rem;
+  }
+  .reel{
+    width:46px;height:46px;
+    border-radius:50%;
+    background:
+      radial-gradient(circle at 50% 50%, #0d0221 0 6px, transparent 7px),
+      repeating-conic-gradient(rgba(192,192,192,.5) 0deg 8deg, transparent 8deg 20deg);
+    border:2px solid rgba(192,192,192,.55);
+    animation:spin 6s linear infinite;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg);} }
+  .tape-window{
+    flex:1;
+    height:14px;
+    margin:0 .6rem;
+    border-radius:3px;
+    background:repeating-linear-gradient(90deg,#3a1f61 0 3px, #241246 3px 6px);
+    border:1px solid rgba(192,192,192,.3);
+  }
+
+  /* card glow on hover */
+  .cassette:hover{
+    border-color:rgba(255,113,206,.7);
+    box-shadow:0 0 26px rgba(255,113,206,.35), 0 14px 30px -12px rgba(0,0,0,.8);
+  }
+
+  .track-tag{
+    font-size:.68rem;
+    letter-spacing:.08em;
+    color:var(--cyan);
+    border:1px solid rgba(1,205,254,.5);
+    padding:.15rem .5rem;
+    border-radius:999px;
+  }
+
+  section{position:relative;}
+
+  .noise-grain{
+    position:fixed;
+    inset:0;
+    z-index:59;
+    pointer-events:none;
+    opacity:.05;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  ::selection{ background:var(--pink); color:#1a0b3d; }
+
+  .divider-grid{
+    height:2px;
+    background:linear-gradient(90deg, transparent, var(--pink), var(--cyan), var(--chrome), transparent);
+    opacity:.6;
+  }
+</style>
+</head>
+<body class="scanlines">
+<div class="noise-grain"></div>
+
+<!-- ================= NAV ================= -->
+<nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur bg-[#0d0221]/70 border-b border-[#c0c0c0]/20">
+  <div class="max-w-6xl mx-auto flex items-center justify-between px-5 py-3">
+    <div class="font-display text-lg md:text-xl chrome-text">NEON WAVE</div>
+    <div class="hidden md:flex items-center gap-8 text-xs tracking-widest text-[#e9def9]/80">
+      <a href="#hero" class="hover:text-[#ff71ce] transition">首頁</a>
+      <a href="#playlist" class="hover:text-[#ff71ce] transition">現正熱播</a>
+      <a href="#about" class="hover:text-[#ff71ce] transition">關於</a>
+      <a href="#subscribe" class="hover:text-[#ff71ce] transition">立即訂閱</a>
+    </div>
+    <a href="#subscribe" class="text-xs border border-[#ff71ce] text-[#ff71ce] px-4 py-2 tracking-widest hover:bg-[#ff71ce] hover:text-[#1a0b3d] transition">開始收聽</a>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header id="hero" class="relative pt-14">
+  <div class="grid-scene">
+    <div class="sun"></div>
+    <div class="grid-floor"><div class="lines"></div></div>
+    <div class="horizon"></div>
+    <div class="deco-jp" style="left:6%; top:12%;">レトロ・シンセ・ウェーブ</div>
+    <div class="deco-jp" style="right:6%; top:10%;">深夜放送 ミュージック</div>
+    <div class="statue">🗿</div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-5 -mt-16 md:-mt-24 relative z-10 text-center pb-20">
+    <p class="text-[11px] md:text-xs tracking-[0.5em] text-[#01cdfe] mb-4 glitch-flicker">TAIPEI CITY POP RADIO ／ 台北城市電波</p>
+    <h1 class="font-display text-4xl md:text-7xl leading-tight glitch" data-text="NEON WAVE">NEON WAVE</h1>
+    <p class="mt-5 text-lg md:text-2xl chrome-text font-bold tracking-wide">霓 虹 錄 音 帶</p>
+    <p class="mt-6 max-w-xl mx-auto text-sm md:text-base text-[#e9def9]/85 leading-relaxed">
+      在賽博黃昏的地平線上，播放屬於你的城市流行。<br class="hidden md:block">
+      復古卡帶質感，蒸氣波電波，陪你度過每一個失眠的深夜。
+    </p>
+    <div class="mt-9 flex flex-wrap items-center justify-center gap-4">
+      <a href="#playlist" class="btn-neon">▶ 立即收聽</a>
+      <a href="#subscribe" class="btn-chrome">免費註冊會員</a>
+    </div>
+    <p class="mt-8 text-[10px] tracking-[0.35em] text-[#c0c0c0]/60">EST. 1989 — RE-BOOTED 2026 · 高保真 · 低傳真心情</p>
+  </div>
+</header>
+
+<div class="divider-grid"></div>
+
+<!-- ================= PLAYLIST ================= -->
+<section id="playlist" class="max-w-6xl mx-auto px-5 py-20 relative">
+  <div class="deco-jp" style="right:2%; top:0;">プレイリスト</div>
+  <div class="text-center mb-12">
+    <p class="text-xs tracking-[0.4em] text-[#ff71ce] mb-3">NOW PLAYING</p>
+    <h2 class="font-display text-3xl md:text-5xl glitch" data-text="現正熱播">現正熱播</h2>
+    <p class="mt-4 text-sm text-[#e9def9]/70">六卷精選卡帶，獻給喜歡復古、Lo-fi 與城市流行的你</p>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+    <!-- card 1 -->
+    <div class="cassette">
+      <div class="label">
+        <div class="flex items-center justify-between">
+          <span class="font-display text-xs tracking-widest">SIDE A</span>
+          <span class="track-tag">CITY POP</span>
+        </div>
+        <p class="mt-1 font-bold text-base leading-snug">深夜資訊台</p>
+        <p class="text-xs text-[#241040]/70">霓虹貓 ｜ 04:12</p>
+      </div>
+      <div class="reels">
+        <div class="reel"></div>
+        <div class="tape-window"></div>
+        <div class="reel"></div>
+      </div>
+      <div class="flex items-center justify-between text-[11px] text-[#e9def9]/70 mt-2">
+        <span>播放次數 128,430</span>
+        <span class="text-[#01cdfe]">收藏 ♥</span>
+      </div>
+    </div>
+
+    <!-- card 2 -->
+    <div class="cassette">
+      <div class="label">
+        <div class="flex items-center justify-between">
+          <span class="font-display text-xs tracking-widest">SIDE B</span>
+          <span class="track-tag">SYNTH POP</span>
+        </div>
+        <p class="mt-1 font-bold text-base leading-snug">夏夜藍調公車</p>
+        <p class="text-xs text-[#241040]/70">遠方電波 ｜ 03:47</p>
+      </div>
+      <div class="reels">
+        <div class="reel"></div>
+        <div class="tape-window"></div>
+        <div class="reel"></div>
+      </div>
+      <div class="flex items-center justify-between text-[11px] text-[#e9def9]/70 mt-2">
+        <span>播放次數 96,210</span>
+        <span class="text-[#01cdfe]">收藏 ♥</span>
+      </div>
+    </div>
+
+    <!-- card 3 -->
+    <div class="cassette">
+      <div class="label">
+        <div class="flex items-center justify-between">
+          <span class="font-display text-xs tracking-widest">SIDE A</span>
+          <span class="track-tag">LO-FI</span>
+        </div>
+        <p class="mt-1 font-bold text-base leading-snug">東京不打烊藥局</p>
+        <p class="text-xs text-[#241040]/70">座標少女 ｜ 05:03</p>
+      </div>
+      <div class="reels">
+        <div class="reel"></div>
+        <div class="tape-window"></div>
+        <div class="reel"></div>
+      </div>
+      <div class="flex items-center justify-between text-[11px] text-[#e9def9]/70 mt-2">
+        <span>播放次數 214,905</span>
+        <span class="text-[#01cdfe]">收藏 ♥</span>
+      </div>
+    </div>
+
+    <!-- card 4 -->
+    <div class="cassette">
+      <div class="label">
+        <div class="flex items-center justify-between">
+          <span class="font-display text-xs tracking-widest">SIDE B</span>
+          <span class="track-tag">DREAM WAVE</span>
+        </div>
+        <p class="mt-1 font-bold text-base leading-snug">玻璃海岸線</p>
+        <p class="text-xs text-[#241040]/70">人造衛星 ｜ 04:29</p>
+      </div>
+      <div class="reels">
+        <div class="reel"></div>
+        <div class="tape-window"></div>
+        <div class="reel"></div>
+      </div>
+      <div class="flex items-center justify-between text-[11px] text-[#e9def9]/70 mt-2">
+        <span>播放次數 77,338</span>
+        <span class="text-[#01cdfe]">收藏 ♥</span>
+      </div>
+    </div>
+
+    <!-- card 5 -->
+    <div class="cassette">
+      <div class="label">
+        <div class="flex items-center justify-between">
+          <span class="font-display text-xs tracking-widest">SIDE A</span>
+          <span class="track-tag">FUTURE FUNK</span>
+        </div>
+        <p class="mt-1 font-bold text-base leading-snug">記憶體漫遊中</p>
+        <p class="text-xs text-[#241040]/70">電子仙女 ｜ 03:58</p>
+      </div>
+      <div class="reels">
+        <div class="reel"></div>
+        <div class="tape-window"></div>
+        <div class="reel"></div>
+      </div>
+      <div class="flex items-center justify-between text-[11px] text-[#e9def9]/70 mt-2">
+        <span>播放次數 150,662</span>
+        <span class="text-[#01cdfe]">收藏 ♥</span>
+      </div>
+    </div>
+
+    <!-- card 6 -->
+    <div class="cassette">
+      <div class="label">
+        <div class="flex items-center justify-between">
+          <span class="font-display text-xs tracking-widest">SIDE B</span>
+          <span class="track-tag">MALL SOFT</span>
+        </div>
+        <p class="mt-1 font-bold text-base leading-snug">霓虹便利店</p>
+        <p class="text-xs text-[#241040]/70">深夜計程車 ｜ 04:44</p>
+      </div>
+      <div class="reels">
+        <div class="reel"></div>
+        <div class="tape-window"></div>
+        <div class="reel"></div>
+      </div>
+      <div class="flex items-center justify-between text-[11px] text-[#e9def9]/70 mt-2">
+        <span>播放次數 63,127</span>
+        <span class="text-[#01cdfe]">收藏 ♥</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider-grid"></div>
+
+<!-- ================= ABOUT ================= -->
+<section id="about" class="relative py-20 overflow-hidden" style="background:linear-gradient(180deg,#10051f 0%,#1a0b3d 100%);">
+  <div class="deco-jp" style="left:3%; top:8%;">サイバー郷愁</div>
+  <div class="max-w-4xl mx-auto px-5 text-center relative z-10">
+    <p class="text-xs tracking-[0.4em] text-[#ff71ce] mb-3">ABOUT NEON WAVE</p>
+    <h2 class="font-display text-3xl md:text-5xl chrome-text mb-8">關 於 我 們</h2>
+    <p class="text-sm md:text-base leading-loose text-[#e9def9]/85">
+      蒸氣波，是一場獻給九〇年代的數位鄉愁。<br class="hidden md:block">
+      NEON WAVE 把老式卡帶隨身聽的溫度，重新裝進你的口袋。<br class="hidden md:block">
+      我們相信，慢速、失真、帶點雜訊的聲音，才最貼近深夜的心情。
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-14 text-left">
+      <div class="border border-[#c0c0c0]/25 p-6 rounded-lg bg-white/5">
+        <p class="font-display text-xl chrome-text mb-3">01</p>
+        <p class="font-bold mb-2">城市流行選曲</p>
+        <p class="text-xs text-[#e9def9]/70 leading-relaxed">從台北到東京，精選跨世代的 City Pop 與合成器音牆，每週更新歌單。</p>
+      </div>
+      <div class="border border-[#c0c0c0]/25 p-6 rounded-lg bg-white/5">
+        <p class="font-display text-xl chrome-text mb-3">02</p>
+        <p class="font-bold mb-2">卡帶介面體驗</p>
+        <p class="text-xs text-[#e9def9]/70 leading-relaxed">播放器模擬真實卡帶轉動與磁帶雜訊，滑動音量像在轉老收音機旋鈕。</p>
+      </div>
+      <div class="border border-[#c0c0c0]/25 p-6 rounded-lg bg-white/5">
+        <p class="font-display text-xl chrome-text mb-3">03</p>
+        <p class="font-bold mb-2">深夜電台陪伴</p>
+        <p class="text-xs text-[#e9def9]/70 leading-relaxed">內建深夜 DJ 語音片段與環境白噪音，陪你加班、失眠、發呆到天亮。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-grid"></div>
+
+<!-- ================= SUBSCRIBE ================= -->
+<section id="subscribe" class="relative py-24" style="background:radial-gradient(ellipse at 50% 20%, rgba(255,113,206,.14), transparent 60%), #0d0221;">
+  <div class="deco-jp" style="right:4%; bottom:6%;">サブスクリプション</div>
+  <div class="max-w-3xl mx-auto px-5 text-center relative z-10">
+    <p class="text-xs tracking-[0.4em] text-[#01cdfe] mb-3">JOIN THE WAVE</p>
+    <h2 class="font-display text-3xl md:text-5xl glitch mb-6" data-text="立即訂閱">立即訂閱</h2>
+    <p class="text-sm md:text-base text-[#e9def9]/80 mb-10 leading-relaxed">
+      解鎖無廣告收聽、離線卡帶下載，以及每月限定的復古封面主題。<br class="hidden md:block">
+      加入 NEON WAVE 會員，讓城市黃昏永遠不打烊。
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 text-left">
+      <div class="border border-[#c0c0c0]/30 rounded-lg p-6 bg-white/5">
+        <p class="font-display text-lg chrome-text mb-2">FREE PASS</p>
+        <p class="text-xs text-[#e9def9]/60 mb-4">免費方案</p>
+        <p class="text-2xl font-bold mb-4">NT$0<span class="text-xs font-normal text-[#e9def9]/60"> ／ 月</span></p>
+        <ul class="text-xs text-[#e9def9]/75 space-y-2 leading-relaxed">
+          <li>· 每日精選歌單</li>
+          <li>· 標準音質串流</li>
+          <li>· 含廣告插播</li>
+        </ul>
+      </div>
+      <div class="border-2 border-[#ff71ce] rounded-lg p-6 bg-[#ff71ce]/10 relative">
+        <span class="absolute -top-3 right-4 text-[10px] tracking-widest bg-[#ff71ce] text-[#1a0b3d] px-2 py-1 rounded-full font-bold">熱門選擇</span>
+        <p class="font-display text-lg text-[#ff71ce] mb-2">VIP CASSETTE</p>
+        <p class="text-xs text-[#e9def9]/60 mb-4">尊爵會員</p>
+        <p class="text-2xl font-bold mb-4">NT$149<span class="text-xs font-normal text-[#e9def9]/60"> ／ 月</span></p>
+        <ul class="text-xs text-[#e9def9]/85 space-y-2 leading-relaxed">
+          <li>· 無廣告高音質串流</li>
+          <li>· 離線卡帶下載</li>
+          <li>· 限定封面主題與濾鏡</li>
+        </ul>
+      </div>
+    </div>
+
+    <form onsubmit="return false;" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+      <input type="email" placeholder="輸入你的電子信箱" class="flex-1 bg-white/5 border border-[#c0c0c0]/40 rounded px-4 py-3 text-sm text-[#f3e9ff] placeholder-[#c0c0c0]/50 focus:outline-none focus:border-[#ff71ce]">
+      <button class="btn-neon whitespace-nowrap">訂閱電子報</button>
+    </form>
+    <p class="text-[10px] text-[#c0c0c0]/50 mt-4 tracking-widest">隨時可取消訂閱，我們絕不濫發垃圾郵件</p>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="border-t border-[#c0c0c0]/20 py-10 relative">
+  <div class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row items-center justify-between gap-4">
+    <div class="font-display text-sm chrome-text">NEON WAVE 錄音帶</div>
+    <div class="flex gap-6 text-xs text-[#e9def9]/60">
+      <a href="#hero" class="hover:text-[#ff71ce]">首頁</a>
+      <a href="#playlist" class="hover:text-[#ff71ce]">熱播歌單</a>
+      <a href="#about" class="hover:text-[#ff71ce]">關於</a>
+      <a href="#subscribe" class="hover:text-[#ff71ce]">訂閱</a>
+    </div>
+    <p class="text-[10px] text-[#c0c0c0]/40 tracking-widest">© 2026 NEON WAVE ／ サイバー台北製作</p>
+  </div>
+</footer>
+
+</body>
+</html>

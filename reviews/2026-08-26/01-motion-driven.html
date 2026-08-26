@@ -1,0 +1,748 @@
+<!-- style #15 Motion-Driven -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>動起來 | 即時運動追蹤 App</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900&family=Karla:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14171a;
+    --ink-soft:#5b6168;
+    --bg:#faf9f6;
+    --bg-alt:#f1efe9;
+    --card:#ffffff;
+    --line:#e7e4dc;
+    --accent:#ff5a3c;
+    --accent-ink:#ffffff;
+    --lime:#c8ff4d;
+    --violet:#6a5cff;
+    --shadow:0 20px 50px -25px rgba(20,23,26,0.35);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Karla','Noto Sans TC',sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4,.font-head{
+    font-family:'Urbanist','Noto Sans TC',sans-serif;
+    letter-spacing:-0.01em;
+  }
+  .tag{
+    font-family:'Karla','Noto Sans TC',sans-serif;
+    letter-spacing:.14em;
+  }
+
+  ::selection{ background:var(--lime); color:var(--ink); }
+
+  /* ---------- scroll reveal base ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(36px);
+    transition:opacity .8s cubic-bezier(.16,.8,.28,1), transform .8s cubic-bezier(.16,.8,.28,1);
+  }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+  .reveal-left{ opacity:0; transform:translateX(-40px); transition:opacity .8s cubic-bezier(.16,.8,.28,1), transform .8s cubic-bezier(.16,.8,.28,1); }
+  .reveal-left.in{ opacity:1; transform:translateX(0); }
+  .reveal-right{ opacity:0; transform:translateX(40px); transition:opacity .8s cubic-bezier(.16,.8,.28,1), transform .8s cubic-bezier(.16,.8,.28,1); }
+  .reveal-right.in{ opacity:1; transform:translateX(0); }
+  .reveal-scale{ opacity:0; transform:scale(.85); transition:opacity .7s cubic-bezier(.16,.8,.28,1), transform .7s cubic-bezier(.16,.8,.28,1); }
+  .reveal-scale.in{ opacity:1; transform:scale(1); }
+
+  .stagger .reveal:nth-child(1),.stagger .reveal-scale:nth-child(1){ transition-delay:.02s; }
+  .stagger .reveal:nth-child(2),.stagger .reveal-scale:nth-child(2){ transition-delay:.12s; }
+  .stagger .reveal:nth-child(3),.stagger .reveal-scale:nth-child(3){ transition-delay:.22s; }
+  .stagger .reveal:nth-child(4),.stagger .reveal-scale:nth-child(4){ transition-delay:.32s; }
+  .stagger .reveal:nth-child(5),.stagger .reveal-scale:nth-child(5){ transition-delay:.42s; }
+
+  /* ---------- nav entrance ---------- */
+  @keyframes navDrop{
+    from{ transform:translateY(-100%); opacity:0; }
+    to{ transform:translateY(0); opacity:1; }
+  }
+  .nav-in{ animation:navDrop .7s cubic-bezier(.16,.8,.28,1) both; }
+
+  /* ---------- hero text entrance ---------- */
+  @keyframes riseIn{
+    from{ opacity:0; transform:translateY(28px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  .rise-1{ animation:riseIn .8s .05s cubic-bezier(.16,.8,.28,1) both; }
+  .rise-2{ animation:riseIn .8s .18s cubic-bezier(.16,.8,.28,1) both; }
+  .rise-3{ animation:riseIn .8s .30s cubic-bezier(.16,.8,.28,1) both; }
+  .rise-4{ animation:riseIn .8s .42s cubic-bezier(.16,.8,.28,1) both; }
+
+  /* ---------- floating chips ---------- */
+  @keyframes floatY{
+    0%,100%{ transform:translateY(0) rotate(var(--r,0deg)); }
+    50%{ transform:translateY(-14px) rotate(var(--r,0deg)); }
+  }
+  .float{ animation:floatY 5.5s ease-in-out infinite; }
+  .float-slow{ animation:floatY 7.5s ease-in-out infinite; }
+
+  /* ---------- pulsing dot ---------- */
+  @keyframes pulseDot{
+    0%{ box-shadow:0 0 0 0 rgba(255,90,60,.55); }
+    70%{ box-shadow:0 0 0 12px rgba(255,90,60,0); }
+    100%{ box-shadow:0 0 0 0 rgba(255,90,60,0); }
+  }
+  .pulse-dot{ animation:pulseDot 1.8s cubic-bezier(.4,0,.6,1) infinite; }
+
+  /* ---------- heartbeat line draw ---------- */
+  .ekg-path{
+    stroke-dasharray:1400;
+    stroke-dashoffset:1400;
+    animation:ekgDraw 3.2s linear infinite;
+  }
+  @keyframes ekgDraw{
+    0%{ stroke-dashoffset:1400; }
+    60%{ stroke-dashoffset:0; }
+    100%{ stroke-dashoffset:-40; }
+  }
+  .ekg-glow{
+    filter:drop-shadow(0 0 6px rgba(255,90,60,.55));
+  }
+
+  /* ---------- progress ring bounce ---------- */
+  .ring-track{ stroke:#e7e4dc; }
+  .ring-fill{
+    stroke-dasharray:565.48;
+    stroke-dashoffset:565.48;
+    transform-origin:50% 50%;
+    animation:ringFill 2.4s 0.4s cubic-bezier(.16,.8,.28,1) forwards, ringSpin 12s linear infinite;
+  }
+  @keyframes ringFill{
+    to{ stroke-dashoffset:110; }
+  }
+  @keyframes ringSpin{
+    from{ transform:rotate(-90deg); }
+    to{ transform:rotate(270deg); }
+  }
+  .ring-wrap{ animation:ringBounce 4.5s ease-in-out infinite; }
+  @keyframes ringBounce{
+    0%,100%{ transform:translateY(0) scale(1); }
+    50%{ transform:translateY(-10px) scale(1.02); }
+  }
+
+  /* ---------- phone bob ---------- */
+  @keyframes bob{
+    0%,100%{ transform:translateY(0) rotate(-2deg); }
+    50%{ transform:translateY(-18px) rotate(1deg); }
+  }
+  .bob{ animation:bob 6s ease-in-out infinite; }
+
+  /* ---------- running figure legs ---------- */
+  @keyframes legSwing{
+    0%,100%{ transform:rotate(18deg); }
+    50%{ transform:rotate(-18deg); }
+  }
+  .leg-a{ transform-origin:top center; animation:legSwing 0.6s ease-in-out infinite; }
+  .leg-b{ transform-origin:top center; animation:legSwing 0.6s ease-in-out infinite .3s; }
+  .arm-a{ transform-origin:top center; animation:legSwing 0.6s ease-in-out infinite .3s; }
+  .arm-b{ transform-origin:top center; animation:legSwing 0.6s ease-in-out infinite; }
+  .runner{ animation:runBounce .3s ease-in-out infinite alternate; }
+  @keyframes runBounce{
+    from{ transform:translateY(0); }
+    to{ transform:translateY(-6px); }
+  }
+
+  /* ---------- gradient blob backgrounds ---------- */
+  @keyframes blobMove{
+    0%,100%{ transform:translate(0,0) scale(1); }
+    33%{ transform:translate(30px,-20px) scale(1.08); }
+    66%{ transform:translate(-20px,20px) scale(0.95); }
+  }
+  .blob{ animation:blobMove 14s ease-in-out infinite; filter:blur(70px); }
+  .blob2{ animation:blobMove 18s ease-in-out infinite reverse; filter:blur(80px); }
+
+  /* ---------- marquee ---------- */
+  @keyframes marquee{
+    from{ transform:translateX(0); }
+    to{ transform:translateX(-50%); }
+  }
+  .marquee-track{ animation:marquee 22s linear infinite; width:max-content; }
+
+  /* ---------- buttons: ripple + scale ---------- */
+  .btn-motion{
+    position:relative;
+    overflow:hidden;
+    transition:transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .35s ease;
+  }
+  .btn-motion:hover{ transform:translateY(-3px) scale(1.035); }
+  .btn-motion:active{ transform:translateY(-1px) scale(.98); }
+  .btn-motion::after{
+    content:"";
+    position:absolute;
+    top:50%; left:50%;
+    width:0; height:0;
+    border-radius:50%;
+    background:rgba(255,255,255,.45);
+    transform:translate(-50%,-50%);
+    transition:width .55s ease, height .55s ease, opacity .55s ease;
+    opacity:0;
+    pointer-events:none;
+  }
+  .btn-motion:hover::after{
+    width:280px; height:280px; opacity:1;
+  }
+  .btn-outline::after{ background:rgba(20,23,26,.08); }
+
+  /* ---------- card hover lift ---------- */
+  .lift{
+    transition:transform .45s cubic-bezier(.16,.8,.28,1), box-shadow .45s ease, border-color .45s ease;
+  }
+  .lift:hover{
+    transform:translateY(-10px);
+    box-shadow:var(--shadow);
+    border-color:transparent;
+  }
+
+  /* ---------- icon wobble on hover ---------- */
+  .icon-wobble{ transition:transform .5s cubic-bezier(.34,1.56,.64,1); }
+  .lift:hover .icon-wobble{ transform:rotate(-8deg) scale(1.12); }
+
+  /* ---------- step number pop ---------- */
+  @keyframes popIn{
+    0%{ transform:scale(0.4); opacity:0; }
+    70%{ transform:scale(1.12); opacity:1; }
+    100%{ transform:scale(1); }
+  }
+  .pop.in{ animation:popIn .6s cubic-bezier(.34,1.56,.64,1) both; }
+
+  /* ---------- shimmer bar ---------- */
+  @keyframes shimmer{
+    0%{ background-position:-200% 0; }
+    100%{ background-position:200% 0; }
+  }
+  .shimmer-bar{
+    background:linear-gradient(90deg,#e7e4dc 0%, #fff 50%, #e7e4dc 100%);
+    background-size:200% 100%;
+    animation:shimmer 2.6s linear infinite;
+  }
+
+  /* ---------- avatar orbit ---------- */
+  @keyframes orbit{
+    from{ transform:rotate(0deg) translateX(120px) rotate(0deg); }
+    to{ transform:rotate(360deg) translateX(120px) rotate(-360deg); }
+  }
+
+  /* ---------- footer CTA button pulse ring ---------- */
+  @keyframes ringPulse{
+    0%{ box-shadow:0 0 0 0 rgba(200,255,77,.5); }
+    100%{ box-shadow:0 0 0 22px rgba(200,255,77,0); }
+  }
+  .cta-pulse{ animation:ringPulse 2s ease-out infinite; }
+
+  /* ---------- scroll cue ---------- */
+  @keyframes scrollCue{
+    0%{ transform:translateY(0); opacity:1; }
+    100%{ transform:translateY(14px); opacity:0; }
+  }
+  .scroll-cue{ animation:scrollCue 1.6s ease-in-out infinite; }
+
+  /* stat number */
+  .stat-num{ font-variant-numeric:tabular-nums; }
+
+  ::-webkit-scrollbar{ width:10px; }
+  ::-webkit-scrollbar-track{ background:var(--bg); }
+  ::-webkit-scrollbar-thumb{ background:#d8d4c8; border-radius:6px; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+  }
+</style>
+</head>
+<body class="antialiased">
+
+<!-- ============ NAV ============ -->
+<header class="nav-in fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#faf9f6]/85 border-b border-[var(--line)]">
+  <div class="max-w-7xl mx-auto px-6 md:px-10 h-20 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-2 group">
+      <span class="w-9 h-9 rounded-full bg-[var(--ink)] flex items-center justify-center relative">
+        <span class="w-2.5 h-2.5 rounded-full bg-[var(--accent)] pulse-dot"></span>
+      </span>
+      <span class="font-head font-800 text-xl tracking-tight" style="font-weight:800;">動起來</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-9 text-[15px]" style="color:var(--ink-soft);">
+      <a href="#features" class="hover:text-[var(--ink)] transition-colors">功能特色</a>
+      <a href="#how" class="hover:text-[var(--ink)] transition-colors">使用流程</a>
+      <a href="#stats" class="hover:text-[var(--ink)] transition-colors">使用者實績</a>
+      <a href="#stories" class="hover:text-[var(--ink)] transition-colors">用戶怎麼說</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <a href="#" class="hidden sm:inline-block text-[15px] font-semibold hover:opacity-60 transition-opacity">登入</a>
+      <a href="#cta" class="btn-motion bg-[var(--ink)] text-white text-[15px] font-semibold px-5 py-2.5 rounded-full">免費下載</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="relative pt-40 pb-28 md:pt-48 md:pb-36 px-6 md:px-10 overflow-hidden">
+  <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-[var(--lime)]/40 blob"></div>
+  <div class="absolute top-40 -right-32 w-[28rem] h-[28rem] rounded-full bg-[var(--accent)]/20 blob2"></div>
+
+  <div class="max-w-7xl mx-auto relative grid md:grid-cols-2 gap-16 items-center">
+    <div>
+      <div class="rise-1 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[var(--line)] text-xs font-semibold tag mb-7" style="color:var(--ink-soft);">
+        <span class="w-1.5 h-1.5 rounded-full bg-[var(--accent)] pulse-dot"></span>
+        即時運動追蹤・全新 3.0 版本上線
+      </div>
+      <h1 class="rise-2 font-head font-900 text-[13vw] leading-[0.98] sm:text-6xl md:text-6xl lg:text-[4.2rem] mb-6" style="font-weight:900;">
+        讓每一次<br>
+        <span class="relative inline-block">
+          心跳
+          <svg class="absolute left-0 -bottom-2 w-full" height="14" viewBox="0 0 220 14" fill="none">
+            <path class="ekg-path" d="M2 8 L40 8 L52 2 L64 13 L76 8 L94 8 L104 2 L114 13 L126 8 L218 8" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        ，都被看見。
+      </h1>
+      <p class="rise-3 text-lg md:text-xl mb-10 max-w-lg" style="color:var(--ink-soft);">
+        「動起來」即時記錄你的心率、配速與路線，用會動的數據陪你完成每一次訓練——不是看報表，是看見自己正在變強。
+      </p>
+      <div class="rise-4 flex flex-wrap items-center gap-4">
+        <a href="#cta" class="btn-motion bg-[var(--accent)] text-white font-bold px-8 py-4 rounded-full text-base shadow-lg shadow-orange-200/60">
+          立即免費下載
+        </a>
+        <a href="#how" class="btn-motion btn-outline bg-white border border-[var(--line)] font-bold px-8 py-4 rounded-full text-base flex items-center gap-2">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7L8 5z" fill="var(--ink)"/></svg>
+          觀看 30 秒介紹
+        </a>
+      </div>
+      <div class="rise-4 flex items-center gap-4 mt-10">
+        <div class="flex -space-x-3">
+          <img class="w-10 h-10 rounded-full border-2 border-[var(--bg)] object-cover" src="https://i.pravatar.cc/80?img=32" alt="使用者頭像">
+          <img class="w-10 h-10 rounded-full border-2 border-[var(--bg)] object-cover" src="https://i.pravatar.cc/80?img=47" alt="使用者頭像">
+          <img class="w-10 h-10 rounded-full border-2 border-[var(--bg)] object-cover" src="https://i.pravatar.cc/80?img=15" alt="使用者頭像">
+        </div>
+        <p class="text-sm" style="color:var(--ink-soft);">超過 <strong class="text-[var(--ink)]">12 萬</strong> 位台灣跑者、車友信賴</p>
+      </div>
+    </div>
+
+    <div class="relative flex justify-center">
+      <div class="absolute w-[22rem] h-[22rem] rounded-full bg-white/70 blur-3xl"></div>
+
+      <!-- phone mock with animated ring + ekg -->
+      <div class="bob relative z-10 w-72 md:w-80 rounded-[2.6rem] bg-[var(--ink)] p-3 shadow-2xl">
+        <div class="rounded-[2.1rem] bg-gradient-to-b from-[#1c2024] to-[#0d0f11] p-6 h-[34rem] flex flex-col">
+          <div class="flex items-center justify-between text-white/70 text-xs mb-6">
+            <span>09:41</span>
+            <span class="tag">即時訓練中</span>
+          </div>
+
+          <div class="ring-wrap relative mx-auto w-48 h-48 mb-6">
+            <svg viewBox="0 0 200 200" class="w-full h-full">
+              <circle cx="100" cy="100" r="90" class="ring-track" stroke-width="14" fill="none"/>
+              <circle cx="100" cy="100" r="90" class="ring-fill" stroke="var(--lime)" stroke-width="14" fill="none" stroke-linecap="round"/>
+            </svg>
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-white">
+              <span class="text-4xl font-head font-800" style="font-weight:800;">146</span>
+              <span class="text-[11px] tracking-widest text-white/50 tag">心率 BPM</span>
+            </div>
+          </div>
+
+          <div class="bg-white/5 rounded-2xl p-4 mb-4">
+            <svg viewBox="0 0 260 50" class="w-full h-10 ekg-glow">
+              <path class="ekg-path" d="M0 25 L40 25 L52 8 L64 42 L76 25 L110 25 L122 8 L134 42 L146 25 L260 25" stroke="var(--accent)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2 mt-auto text-white">
+            <div class="bg-white/5 rounded-xl py-3 text-center">
+              <div class="text-lg font-head font-700" style="font-weight:700;">5.2</div>
+              <div class="text-[10px] text-white/45 tag">公里</div>
+            </div>
+            <div class="bg-white/5 rounded-xl py-3 text-center">
+              <div class="text-lg font-head font-700" style="font-weight:700;">4'32"</div>
+              <div class="text-[10px] text-white/45 tag">平均配速</div>
+            </div>
+            <div class="bg-white/5 rounded-xl py-3 text-center">
+              <div class="text-lg font-head font-700" style="font-weight:700;">312</div>
+              <div class="text-[10px] text-white/45 tag">大卡</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- floating chips -->
+      <div class="float absolute -left-4 top-10 z-20 bg-white rounded-2xl shadow-xl px-4 py-3 flex items-center gap-2 border border-[var(--line)]" style="--r:-6deg;">
+        <span class="w-8 h-8 rounded-full bg-[var(--lime)] flex items-center justify-center text-sm">🔥</span>
+        <div class="text-xs">
+          <div class="font-bold">連續 12 天</div>
+          <div style="color:var(--ink-soft);">運動打卡</div>
+        </div>
+      </div>
+      <div class="float-slow absolute -right-6 bottom-24 z-20 bg-white rounded-2xl shadow-xl px-4 py-3 flex items-center gap-2 border border-[var(--line)]" style="--r:5deg;">
+        <span class="w-8 h-8 rounded-full bg-[var(--accent)]/15 flex items-center justify-center text-sm">🏆</span>
+        <div class="text-xs">
+          <div class="font-bold">超越 87% 跑者</div>
+          <div style="color:var(--ink-soft);">本週配速排名</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hidden md:flex flex-col items-center gap-2 absolute bottom-6 left-1/2 -translate-x-1/2" style="color:var(--ink-soft);">
+    <span class="text-[11px] tag">向下滑動探索</span>
+    <svg class="scroll-cue" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<section class="border-y border-[var(--line)] bg-white py-6 overflow-hidden">
+  <div class="flex marquee-track">
+    <div class="flex items-center gap-14 pr-14 text-lg font-head font-700" style="color:#c9c5b8; font-weight:700;">
+      <span>台北馬拉松 官方推薦</span><span>・</span>
+      <span>Runner's Taiwan 專題報導</span><span>・</span>
+      <span>2026 最佳運動 App</span><span>・</span>
+      <span>健身房教練一致好評</span><span>・</span>
+      <span>單車環島挑戰指定夥伴</span><span>・</span>
+    </div>
+    <div class="flex items-center gap-14 pr-14 text-lg font-head font-700" style="color:#c9c5b8; font-weight:700;" aria-hidden="true">
+      <span>台北馬拉松 官方推薦</span><span>・</span>
+      <span>Runner's Taiwan 專題報導</span><span>・</span>
+      <span>2026 最佳運動 App</span><span>・</span>
+      <span>健身房教練一致好評</span><span>・</span>
+      <span>單車環島挑戰指定夥伴</span><span>・</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<section id="stats" class="py-24 px-6 md:px-10 bg-[var(--bg-alt)]">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal text-center max-w-xl mx-auto mb-16">
+      <p class="tag text-xs font-bold mb-3" style="color:var(--accent);">使用者實績</p>
+      <h2 class="font-head font-800 text-3xl md:text-4xl" style="font-weight:800;">數字，也在動</h2>
+    </div>
+    <div class="stagger grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="reveal-scale bg-white rounded-3xl p-8 text-center border border-[var(--line)] lift">
+        <div class="stat-num font-head font-900 text-4xl md:text-5xl mb-2" style="font-weight:900;" data-count="120000" data-suffix="+">0</div>
+        <p class="text-sm" style="color:var(--ink-soft);">活躍使用者</p>
+      </div>
+      <div class="reveal-scale bg-white rounded-3xl p-8 text-center border border-[var(--line)] lift">
+        <div class="stat-num font-head font-900 text-4xl md:text-5xl mb-2" style="font-weight:900;" data-count="8500000" data-suffix="">0</div>
+        <p class="text-sm" style="color:var(--ink-soft);">累積紀錄公里數</p>
+      </div>
+      <div class="reveal-scale bg-white rounded-3xl p-8 text-center border border-[var(--line)] lift">
+        <div class="stat-num font-head font-900 text-4xl md:text-5xl mb-2" style="font-weight:900;" data-count="49" data-suffix="" data-decimal="10">0</div>
+        <p class="text-sm" style="color:var(--ink-soft);">App Store 平均評分</p>
+      </div>
+      <div class="reveal-scale bg-white rounded-3xl p-8 text-center border border-[var(--line)] lift">
+        <div class="stat-num font-head font-900 text-4xl md:text-5xl mb-2" style="font-weight:900;" data-count="98" data-suffix="%">0</div>
+        <p class="text-sm" style="color:var(--ink-soft);">使用者持續回訪率</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section id="features" class="py-28 px-6 md:px-10">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal max-w-2xl mb-16">
+      <p class="tag text-xs font-bold mb-3" style="color:var(--accent);">功能特色</p>
+      <h2 class="font-head font-800 text-4xl md:text-5xl mb-5" style="font-weight:800;">不只是紀錄，<br>是會回應你的訓練夥伴</h2>
+      <p class="text-lg" style="color:var(--ink-soft);">每個畫面都即時反映你的身體狀態，數據不再是冷冰冰的表格，而是會跳動、會提醒你的教練。</p>
+    </div>
+
+    <div class="stagger grid md:grid-cols-2 gap-6">
+      <!-- feature 1 -->
+      <div class="reveal lift bg-white border border-[var(--line)] rounded-3xl p-8 md:p-10">
+        <div class="icon-wobble w-14 h-14 rounded-2xl bg-[var(--accent)]/10 flex items-center justify-center mb-6">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z" stroke="var(--accent)" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 class="font-head font-700 text-2xl mb-3" style="font-weight:700;">即時心率監測</h3>
+        <p class="mb-5" style="color:var(--ink-soft);">連接穿戴裝置後，心率曲線即時繪製，超出訓練區間立即震動提醒，讓你精準掌握強度。</p>
+        <svg viewBox="0 0 300 60" class="w-full h-12">
+          <path class="ekg-path" d="M0 30 L50 30 L64 10 L78 50 L92 30 L140 30 L154 10 L168 50 L182 30 L300 30" stroke="var(--accent)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <!-- feature 2 -->
+      <div class="reveal lift bg-white border border-[var(--line)] rounded-3xl p-8 md:p-10">
+        <div class="icon-wobble w-14 h-14 rounded-2xl bg-[var(--violet)]/10 flex items-center justify-center mb-6">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-6.2-7-11a7 7 0 1 1 14 0c0 4.8-7 11-7 11z" stroke="var(--violet)" stroke-width="1.6"/><circle cx="12" cy="10" r="2.4" stroke="var(--violet)" stroke-width="1.6"/></svg>
+        </div>
+        <h3 class="font-head font-700 text-2xl mb-3" style="font-weight:700;">智慧路線紀錄</h3>
+        <p class="mb-5" style="color:var(--ink-soft);">GPS 自動描繪路徑，坡度、配速逐段標示，訓練結束後路線動畫回放，重溫每一公里。</p>
+        <div class="relative h-12 w-full">
+          <svg viewBox="0 0 300 60" class="w-full h-12">
+            <path d="M4 50 C 60 10, 100 55, 150 25 S 240 5, 296 20" stroke="var(--violet)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-dasharray="6 6"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- feature 3 -->
+      <div class="reveal lift bg-white border border-[var(--line)] rounded-3xl p-8 md:p-10">
+        <div class="icon-wobble w-14 h-14 rounded-2xl bg-[var(--lime)]/40 flex items-center justify-center mb-6">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M8 21V11M8 11l-4-3.5V4l8 3 8-3v3.5L16 11M16 21V11" stroke="#5a6b12" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 class="font-head font-700 text-2xl mb-3" style="font-weight:700;">好友排行榜與挑戰</h3>
+        <p class="mb-5" style="color:var(--ink-soft);">每週自動生成排行榜，好友互相激勵，發起 30 天挑戰，一起把運動變成日常習慣。</p>
+        <div class="flex items-center gap-3">
+          <div class="flex -space-x-2">
+            <img class="w-8 h-8 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/60?img=5" alt="">
+            <img class="w-8 h-8 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/60?img=8" alt="">
+            <img class="w-8 h-8 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/60?img=12" alt="">
+          </div>
+          <span class="text-sm font-semibold" style="color:var(--ink-soft);">6 位好友正在挑戰「百日連動」</span>
+        </div>
+      </div>
+
+      <!-- feature 4 -->
+      <div class="reveal lift bg-white border border-[var(--line)] rounded-3xl p-8 md:p-10">
+        <div class="icon-wobble w-14 h-14 rounded-2xl bg-[#ffd93d]/25 flex items-center justify-center mb-6">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z" stroke="#8a6d00" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        </div>
+        <h3 class="font-head font-700 text-2xl mb-3" style="font-weight:700;">AI 個人化訓練計畫</h3>
+        <p class="mb-5" style="color:var(--ink-soft);">依照你的體能狀態與目標賽事，自動生成每週訓練菜單，並依恢復狀況即時微調強度。</p>
+        <div class="h-2 rounded-full shimmer-bar w-full"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section id="how" class="py-28 px-6 md:px-10 bg-[var(--ink)] text-white overflow-hidden relative">
+  <div class="absolute top-0 right-0 w-96 h-96 rounded-full bg-[var(--accent)]/20 blob"></div>
+  <div class="max-w-7xl mx-auto relative">
+    <div class="reveal max-w-xl mb-20">
+      <p class="tag text-xs font-bold mb-3" style="color:var(--lime);">使用流程</p>
+      <h2 class="font-head font-800 text-4xl md:text-5xl" style="font-weight:800;">三個步驟，<br>開始被數據推著前進</h2>
+    </div>
+
+    <div class="stagger grid md:grid-cols-3 gap-10 md:gap-8">
+      <div class="reveal relative">
+        <div class="pop w-16 h-16 rounded-full bg-[var(--lime)] text-[var(--ink)] font-head font-900 text-2xl flex items-center justify-center mb-6" style="font-weight:900;">01</div>
+        <h3 class="font-head font-700 text-xl mb-3" style="font-weight:700;">配戴裝置，一鍵開始</h3>
+        <p class="text-white/60">連接智慧手錶或手機 GPS，點下「開始運動」，畫面立即進入即時追蹤模式。</p>
+      </div>
+      <div class="reveal relative">
+        <div class="pop w-16 h-16 rounded-full bg-[var(--accent)] font-head font-900 text-2xl flex items-center justify-center mb-6" style="font-weight:900;">02</div>
+        <h3 class="font-head font-700 text-xl mb-3" style="font-weight:700;">看著數據，跟著律動</h3>
+        <p class="text-white/60">心率曲線、配速、路線同步跳動更新，超標時螢幕震動提醒，隨時掌握身體訊號。</p>
+      </div>
+      <div class="reveal relative">
+        <div class="pop w-16 h-16 rounded-full bg-[var(--violet)] font-head font-900 text-2xl flex items-center justify-center mb-6" style="font-weight:900;">03</div>
+        <h3 class="font-head font-700 text-xl mb-3" style="font-weight:700;">回顧成果，持續進步</h3>
+        <p class="text-white/60">結束後自動生成動態回顧報告，路線重播、心率區間分析，一眼看見自己的成長。</p>
+      </div>
+    </div>
+
+    <!-- running animation strip -->
+    <div class="reveal mt-20 bg-white/5 rounded-3xl p-8 md:p-10 flex items-center gap-8 overflow-hidden">
+      <svg class="runner shrink-0" width="70" height="90" viewBox="0 0 70 90" fill="none">
+        <circle cx="38" cy="12" r="8" fill="var(--lime)"/>
+        <line x1="36" y1="20" x2="32" y2="46" stroke="var(--lime)" stroke-width="5" stroke-linecap="round"/>
+        <line class="arm-a" x1="34" y1="26" x2="20" y2="34" stroke="var(--lime)" stroke-width="4" stroke-linecap="round"/>
+        <line class="arm-b" x1="34" y1="26" x2="46" y2="18" stroke="var(--lime)" stroke-width="4" stroke-linecap="round"/>
+        <line class="leg-a" x1="32" y1="46" x2="18" y2="70" stroke="var(--lime)" stroke-width="5" stroke-linecap="round"/>
+        <line class="leg-b" x1="32" y1="46" x2="48" y2="64" stroke="var(--lime)" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+      <div class="flex-1">
+        <p class="text-white/50 text-sm mb-2 tag">本次訓練即時預覽</p>
+        <div class="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+          <div class="h-full bg-[var(--lime)] rounded-full" style="width:64%; animation:widthGrow 2.4s cubic-bezier(.16,.8,.28,1) both;"></div>
+        </div>
+        <style>@keyframes widthGrow{ from{ width:0%; } to{ width:64%; } }</style>
+      </div>
+      <div class="hidden sm:block text-right shrink-0">
+        <div class="font-head font-800 text-2xl" style="font-weight:800;">6.4 <span class="text-sm font-normal text-white/50">公里</span></div>
+        <div class="text-white/50 text-xs">目標 10 公里</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section id="stories" class="py-28 px-6 md:px-10">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal text-center max-w-xl mx-auto mb-16">
+      <p class="tag text-xs font-bold mb-3" style="color:var(--accent);">用戶怎麼說</p>
+      <h2 class="font-head font-800 text-4xl md:text-5xl" style="font-weight:800;">跑起來、動起來，<br>他們都回不去了</h2>
+    </div>
+
+    <div class="stagger grid md:grid-cols-3 gap-6">
+      <div class="reveal lift bg-white border border-[var(--line)] rounded-3xl p-8">
+        <div class="flex gap-1 mb-4 text-[var(--accent)]">★★★★★</div>
+        <p class="mb-6" style="color:var(--ink-soft);">「心率曲線即時跳動的感覺很上癮，跑到一半看到自己配速穩定在目標區間，成就感直接拉滿。」</p>
+        <div class="flex items-center gap-3">
+          <img class="w-11 h-11 rounded-full object-cover" src="https://i.pravatar.cc/90?img=32" alt="陳雅婷 頭像">
+          <div>
+            <div class="font-bold text-sm">陳雅婷</div>
+            <div class="text-xs" style="color:var(--ink-soft);">台北・全馬跑者</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal lift bg-white border border-[var(--line)] rounded-3xl p-8">
+        <div class="flex gap-1 mb-4 text-[var(--accent)]">★★★★★</div>
+        <p class="mb-6" style="color:var(--ink-soft);">「以前用試算表記錄騎乘紀錄，現在打開 App 就能看到路線動畫重播，跟朋友分享超有面子。」</p>
+        <div class="flex items-center gap-3">
+          <img class="w-11 h-11 rounded-full object-cover" src="https://i.pravatar.cc/90?img=47" alt="林柏宏 頭像">
+          <div>
+            <div class="font-bold text-sm">林柏宏</div>
+            <div class="text-xs" style="color:var(--ink-soft);">台中・單車環島愛好者</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal lift bg-white border border-[var(--line)] rounded-3xl p-8">
+        <div class="flex gap-1 mb-4 text-[var(--accent)]">★★★★★</div>
+        <p class="mb-6" style="color:var(--ink-soft);">「AI 訓練計畫真的會依照我的恢復狀況調整強度，連續三個月都沒有受傷，配速也進步不少。」</p>
+        <div class="flex items-center gap-3">
+          <img class="w-11 h-11 rounded-full object-cover" src="https://i.pravatar.cc/90?img=15" alt="王思穎 頭像">
+          <div>
+            <div class="font-bold text-sm">王思穎</div>
+            <div class="text-xs" style="color:var(--ink-soft);">高雄・鐵人三項選手</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section id="cta" class="py-28 px-6 md:px-10">
+  <div class="reveal-scale max-w-6xl mx-auto rounded-[2.5rem] bg-[var(--ink)] relative overflow-hidden px-8 py-16 md:p-20 text-center">
+    <div class="absolute -top-20 -left-20 w-72 h-72 rounded-full bg-[var(--lime)]/20 blob"></div>
+    <div class="absolute -bottom-24 -right-16 w-80 h-80 rounded-full bg-[var(--accent)]/25 blob2"></div>
+    <div class="relative">
+      <h2 class="font-head font-900 text-white text-4xl md:text-6xl mb-6 leading-tight" style="font-weight:900;">
+        準備好，讓身體<br class="hidden md:block">動起來了嗎？
+      </h2>
+      <p class="text-white/60 text-lg mb-10 max-w-md mx-auto">免費下載「動起來」，第一次訓練就能看見即時跳動的心率曲線與路線動畫。</p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="#" class="cta-pulse btn-motion bg-[var(--lime)] text-[var(--ink)] font-bold px-9 py-4 rounded-full text-base">
+          App Store 下載
+        </a>
+        <a href="#" class="btn-motion btn-outline bg-white/10 text-white border border-white/20 font-bold px-9 py-4 rounded-full text-base">
+          Google Play 下載
+        </a>
+      </div>
+      <p class="text-white/40 text-xs mt-8 tag">免費使用・無需信用卡・iOS 與 Android 皆支援</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="border-t border-[var(--line)] px-6 md:px-10 py-16">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-5 gap-10">
+    <div class="md:col-span-2">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="w-9 h-9 rounded-full bg-[var(--ink)] flex items-center justify-center">
+          <span class="w-2.5 h-2.5 rounded-full bg-[var(--accent)] pulse-dot"></span>
+        </span>
+        <span class="font-head font-800 text-xl" style="font-weight:800;">動起來</span>
+      </div>
+      <p class="text-sm max-w-xs" style="color:var(--ink-soft);">用即時動畫化的數據，陪你完成每一段訓練。讓運動這件事，變得看得見、感覺得到。</p>
+    </div>
+    <div>
+      <h4 class="font-bold text-sm mb-4">產品</h4>
+      <ul class="space-y-3 text-sm" style="color:var(--ink-soft);">
+        <li><a href="#features" class="hover:text-[var(--ink)] transition-colors">功能特色</a></li>
+        <li><a href="#how" class="hover:text-[var(--ink)] transition-colors">使用流程</a></li>
+        <li><a href="#" class="hover:text-[var(--ink)] transition-colors">升級方案</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-bold text-sm mb-4">支援</h4>
+      <ul class="space-y-3 text-sm" style="color:var(--ink-soft);">
+        <li><a href="#" class="hover:text-[var(--ink)] transition-colors">常見問題</a></li>
+        <li><a href="#" class="hover:text-[var(--ink)] transition-colors">聯絡客服</a></li>
+        <li><a href="#" class="hover:text-[var(--ink)] transition-colors">隱私權政策</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-bold text-sm mb-4">關注我們</h4>
+      <div class="flex gap-3">
+        <a href="#" class="btn-motion w-10 h-10 rounded-full bg-[var(--bg-alt)] flex items-center justify-center text-sm">IG</a>
+        <a href="#" class="btn-motion w-10 h-10 rounded-full bg-[var(--bg-alt)] flex items-center justify-center text-sm">FB</a>
+        <a href="#" class="btn-motion w-10 h-10 rounded-full bg-[var(--bg-alt)] flex items-center justify-center text-sm">YT</a>
+      </div>
+    </div>
+  </div>
+  <div class="max-w-7xl mx-auto mt-14 pt-8 border-t border-[var(--line)] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs" style="color:var(--ink-soft);">
+    <span>© 2026 動起來股份有限公司・台灣．保留一切權利</span>
+    <span class="tag">MADE FOR TAIWAN RUNNERS &amp; RIDERS</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // ---------- scroll-triggered reveal ----------
+  var revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .pop');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.18, rootMargin: '0px 0px -60px 0px' });
+  revealEls.forEach(function(el){ io.observe(el); });
+
+  // ---------- count-up stats ----------
+  var counters = document.querySelectorAll('[data-count]');
+  function formatNum(n, decimals){
+    if(decimals){
+      return (n/decimals).toFixed(1);
+    }
+    return Math.floor(n).toLocaleString('zh-Hant-TW');
+  }
+  function animateCount(el){
+    var target = parseFloat(el.getAttribute('data-count'));
+    var suffix = el.getAttribute('data-suffix') || '';
+    var decimal = el.getAttribute('data-decimal');
+    var duration = 1800;
+    var start = null;
+    function step(ts){
+      if(!start) start = ts;
+      var progress = Math.min((ts - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      var current = target * eased;
+      el.textContent = (decimal ? (current/decimal).toFixed(1) : Math.floor(current).toLocaleString('zh-Hant-TW')) + suffix;
+      if(progress < 1){
+        requestAnimationFrame(step);
+      } else {
+        el.textContent = (decimal ? (target/decimal).toFixed(1) : target.toLocaleString('zh-Hant-TW')) + suffix;
+      }
+    }
+    requestAnimationFrame(step);
+  }
+  var countIo = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        animateCount(entry.target);
+        countIo.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(function(el){ countIo.observe(el); });
+
+  // ---------- button ripple position ----------
+  document.querySelectorAll('.btn-motion').forEach(function(btn){
+    btn.addEventListener('mousemove', function(e){
+      var rect = btn.getBoundingClientRect();
+      var x = e.clientX - rect.left;
+      var y = e.clientY - rect.top;
+      btn.style.setProperty('--x', x + 'px');
+      btn.style.setProperty('--y', y + 'px');
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
