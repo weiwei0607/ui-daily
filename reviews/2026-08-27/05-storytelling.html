@@ -1,0 +1,86 @@
+<!-- style #27 Storytelling -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>手作誌｜職人紀實</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,500&family=Noto+Serif+TC:wght@400;600;900&family=Noto+Sans+TC:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Lora','Noto Serif TC',serif; background:#f7f4ee; color:#2b2620; }
+  .sans{ font-family:'Noto Sans TC',sans-serif; }
+  .chapter-num{ font-family:'Lora','Noto Serif TC',serif; font-style:italic; color:#a9825a; }
+  .rule{ border-color:#d9d0bd; }
+  .drop-cap::first-letter{
+    font-size: 3.2rem; float:left; line-height:.8; padding-right:.5rem; padding-top:.3rem;
+    font-weight:700; color:#a9825a;
+  }
+  section{ scroll-margin-top: 2rem; }
+  .reveal{ opacity:0; transform: translateY(24px); transition: opacity .8s ease, transform .8s ease; }
+  .reveal.show{ opacity:1; transform: translateY(0); }
+  .photo-frame{ border:10px solid #fff; box-shadow: 0 12px 30px rgba(0,0,0,.12); }
+</style>
+</head>
+<body>
+
+  <header class="text-center py-10 border-b-2 rule">
+    <p class="chapter-num text-sm mb-2">Vol. 14・職人系列</p>
+    <h1 class="text-4xl md:text-5xl font-black tracking-wide">手作誌</h1>
+    <p class="sans text-sm text-[#6b6152] mt-3">走進台灣手作職人的日常，記錄一雙手能留下的溫度</p>
+  </header>
+
+  <section class="max-w-3xl mx-auto px-6 py-16 reveal" id="s1">
+    <p class="chapter-num text-lg mb-3">第一章</p>
+    <h2 class="text-3xl font-bold mb-6 leading-snug">竹編五十年，林進益的手沒有停過</h2>
+    <div class="photo-frame w-full h-64 mb-8 bg-gradient-to-br from-[#e6dcc3] to-[#c9b083] flex items-center justify-center text-6xl">🧺</div>
+    <p class="drop-cap leading-loose text-lg">
+      清晨五點，竹山鎮的工作室已經亮著燈。七十二歲的林進益師傅坐在矮凳上，手裡的竹篾隨著手指來回穿梭，發出規律的聲響。這是他做竹編的第五十個年頭，從學徒到現在被稱為「竹編師傅」，他說自己從沒想過退休這件事。
+    </p>
+    <p class="leading-loose text-lg mt-4">
+      「竹子有脾氣，你急它就斷。」他這樣說著，手上動作卻不曾放慢。每一個提籃要花上三天，從選竹、剖篾到編織，全部靠雙手完成，沒有一台機器能取代這個節奏。
+    </p>
+  </section>
+
+  <div class="max-w-3xl mx-auto px-6"><div class="border-t rule"></div></div>
+
+  <section class="max-w-3xl mx-auto px-6 py-16 reveal" id="s2">
+    <p class="chapter-num text-lg mb-3">第二章</p>
+    <h2 class="text-3xl font-bold mb-6 leading-snug">傳承給誰？這是他最常被問的問題</h2>
+    <p class="leading-loose text-lg">
+      林師傅的女兒原本在台北工作，三年前辭職回鄉，跟著父親從頭學起。「一開始手指全是傷，現在總算能編出一個像樣的籃子。」她笑著說，這門手藝比想像中更需要耐性，也更需要對材料的尊重。
+    </p>
+    <blockquote class="sans border-l-4 pl-6 my-8 text-xl italic text-[#6b6152]" style="border-color:#a9825a">
+      「機器編得再快，也編不出竹子被人手撫過的那種光澤。」
+    </blockquote>
+    <p class="leading-loose text-lg">
+      如今工作室裡多了年輕人的身影，訂單也從傳統市場走進了設計選物店。林師傅說，只要還有人願意學，這門手藝就不會消失。
+    </p>
+  </section>
+
+  <section class="max-w-3xl mx-auto px-6 py-16 reveal" id="s3">
+    <p class="chapter-num text-lg mb-3">後記</p>
+    <p class="leading-loose text-lg text-[#6b6152]">
+      下一期，我們將前往鶯歌，記錄一位堅持柴燒的陶藝家如何與窯火共處三十年。手作誌會持續走進台灣各地的工作室，把這些不曾被寫下的故事留下來。
+    </p>
+    <div class="mt-10 text-center">
+      <button class="sans bg-[#2b2620] text-[#f7f4ee] px-8 py-3 rounded-none font-semibold tracking-widest text-sm">訂閱手作誌 →</button>
+    </div>
+  </section>
+
+  <footer class="sans text-center py-8 text-xs text-[#8a8069] border-t rule">
+    手作誌 THE CRAFT JOURNAL · 每月出刊一次
+  </footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('show'); }
+    });
+  }, { threshold: 0.15 });
+  reveals.forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

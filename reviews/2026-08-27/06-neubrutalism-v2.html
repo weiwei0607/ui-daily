@@ -1,0 +1,130 @@
+<!-- style #54 Neubrutalism v2 -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>撞色 STORE｜潮流球鞋快閃店</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@500;600;700&family=Noto+Sans+TC:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Space Grotesk','Noto Sans TC',sans-serif; background:#fff9ec; color:#151515; }
+  .font-display{ font-family:'Archivo Black','Noto Sans TC',sans-serif; }
+  .hard-border{ border:3px solid #151515; }
+  .hard-shadow{ box-shadow: 7px 7px 0 #151515; transition: transform .15s ease, box-shadow .15s ease; }
+  .hard-shadow:hover{ transform: translate(-3px,-3px); box-shadow: 10px 10px 0 #151515; }
+  .hard-shadow:active{ transform: translate(2px,2px); box-shadow: 3px 3px 0 #151515; }
+  .chip{ border:3px solid #151515; border-radius:9999px; }
+  .marquee{ white-space:nowrap; overflow:hidden; }
+  .marquee-track{ display:inline-block; animation: scroll 14s linear infinite; }
+  @keyframes scroll{ from{ transform: translateX(0);} to{ transform: translateX(-50%);} }
+  .qty-btn:active{ transform: scale(.9); }
+  .size-btn.selected{ background:#151515; color:#fff9ec; }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <div class="bg-[#151515] text-[#fff9ec] py-2 marquee">
+    <div class="marquee-track font-display text-sm tracking-wide">
+      ★ 限量發售中 ★ 全台 3 小時快閃 ★ 限量發售中 ★ 全台 3 小時快閃 ★ 限量發售中 ★ 全台 3 小時快閃 ★
+    </div>
+  </div>
+
+  <header class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+    <h1 class="font-display text-3xl md:text-4xl">撞色<span class="text-pink-500">STORE</span></h1>
+    <button class="chip px-5 py-2 font-bold bg-yellow-300 hard-shadow">購物車 (0)</button>
+  </header>
+
+  <section class="max-w-6xl mx-auto px-6 py-10 grid md:grid-cols-2 gap-10 items-center">
+    <div class="hard-border hard-shadow bg-cyan-300 rounded-2xl p-10 text-center">
+      <div class="text-8xl mb-4">👟</div>
+      <p class="font-display text-xl">RUSH 系列 · 撞色版</p>
+    </div>
+    <div>
+      <span class="chip inline-block bg-lime-300 px-4 py-1 font-bold text-sm mb-4">全球限量 500 雙</span>
+      <h2 class="font-display text-4xl md:text-5xl leading-tight mb-6">
+        搶眼到<br>不需要理由
+      </h2>
+      <p class="font-semibold text-lg mb-6">高回彈中底 × 撞色拼接鞋面，設計靈感來自 90 年代街頭滑板文化，一雙讓你在人群裡直接被看見。</p>
+      <p class="font-display text-3xl mb-6">NT$ 4,280</p>
+      <p class="font-bold mb-2">選尺寸</p>
+      <div class="flex flex-wrap gap-2 mb-6" id="sizeGrid"></div>
+      <button id="addCartBtn" class="hard-border hard-shadow bg-pink-500 text-white font-display text-xl px-8 py-4 rounded-xl">
+        加入購物車
+      </button>
+      <p id="cartMsg" class="font-bold mt-3 hidden">已加入購物車，手刀結帳去！🔥</p>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-6 py-16">
+    <h2 class="font-display text-3xl mb-8 text-center">其他撞色配色</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="hard-border hard-shadow bg-yellow-300 rounded-2xl p-6 text-center">
+        <div class="text-6xl mb-3">👟</div>
+        <p class="font-display text-lg mb-1">電光黃 × 紫</p>
+        <p class="font-bold">NT$ 4,280</p>
+      </div>
+      <div class="hard-border hard-shadow bg-lime-300 rounded-2xl p-6 text-center">
+        <div class="text-6xl mb-3">👟</div>
+        <p class="font-display text-lg mb-1">酸性綠 × 黑</p>
+        <p class="font-bold">NT$ 4,280</p>
+      </div>
+      <div class="hard-border hard-shadow bg-orange-300 rounded-2xl p-6 text-center">
+        <div class="text-6xl mb-3">👟</div>
+        <p class="font-display text-lg mb-1">焰橘 × 白</p>
+        <p class="font-bold">NT$ 4,480</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-6 py-10">
+    <div class="hard-border hard-shadow bg-white rounded-2xl p-8 grid md:grid-cols-3 gap-6 text-center">
+      <div>
+        <p class="font-display text-2xl">3 小時</p>
+        <p class="font-semibold text-sm mt-1">快閃倒數限時</p>
+      </div>
+      <div>
+        <p class="font-display text-2xl">7 天</p>
+        <p class="font-semibold text-sm mt-1">鞋況不滿意可退</p>
+      </div>
+      <div>
+        <p class="font-display text-2xl">全台免運</p>
+        <p class="font-semibold text-sm mt-1">滿 NT$ 1,000 起</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="text-center py-8 font-bold text-sm border-t-3 hard-border">
+    © 2026 撞色 STORE · 只做敢穿的鞋
+  </footer>
+
+<script>
+  const sizes = ['24.5','25','25.5','26','26.5','27'];
+  const sizeGrid = document.getElementById('sizeGrid');
+  let selectedSize = null;
+  sizes.forEach(s=>{
+    const btn = document.createElement('button');
+    btn.textContent = s;
+    btn.className = 'size-btn hard-border px-4 py-2 font-bold rounded-lg bg-white';
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.size-btn').forEach(b=>b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedSize = s;
+    });
+    sizeGrid.appendChild(btn);
+  });
+
+  document.getElementById('addCartBtn').addEventListener('click', ()=>{
+    const msg = document.getElementById('cartMsg');
+    if(!selectedSize){
+      msg.textContent = '請先選擇尺寸唷！';
+      msg.classList.remove('hidden');
+      return;
+    }
+    msg.textContent = `已將尺寸 ${selectedSize} 加入購物車，手刀結帳去！🔥`;
+    msg.classList.remove('hidden');
+  });
+</script>
+</body>
+</html>

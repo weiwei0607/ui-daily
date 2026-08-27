@@ -1,0 +1,174 @@
+<!-- style #31 Real-Time Monitoring -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>脈動 Pulse｜設備即時監控</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Rajdhani','Noto Sans TC',sans-serif;
+    background:#0b1220;
+    color:#dbe6ff;
+  }
+  .font-mono{ font-family:'Roboto Mono','Noto Sans TC',monospace; }
+  .panel{
+    background: linear-gradient(180deg, rgba(20,32,56,.9), rgba(11,18,32,.9));
+    border:1px solid rgba(59,130,246,.25);
+  }
+  .status-dot{ box-shadow: 0 0 8px currentColor; animation: pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse{
+    0%,100%{ opacity:1; transform:scale(1); }
+    50%{ opacity:.4; transform:scale(.7); }
+  }
+  .glow-text{ text-shadow: 0 0 12px rgba(56,189,248,.6); }
+  .bar-fill{ transition: width .8s ease; }
+  .tick{
+    animation: flicker .05s;
+  }
+  @keyframes flicker{ 0%{opacity:.3;} 100%{opacity:1;} }
+  .scanline::after{
+    content:'';
+    position:absolute; inset:0;
+    background: repeating-linear-gradient(0deg, rgba(255,255,255,.02) 0px, rgba(255,255,255,.02) 1px, transparent 1px, transparent 3px);
+    pointer-events:none;
+  }
+  .alert-flash{ animation: alertBg 1s ease-in-out infinite; }
+  @keyframes alertBg{ 0%,100%{ background-color: rgba(239,68,68,.12);} 50%{ background-color: rgba(239,68,68,.28);} }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <header class="border-b border-blue-900/40 px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <span class="w-3 h-3 rounded-full bg-emerald-400 status-dot text-emerald-400"></span>
+      <h1 class="text-2xl font-bold tracking-widest glow-text">脈動 <span class="font-mono text-sky-400">PULSE</span></h1>
+    </div>
+    <div class="font-mono text-sm text-sky-300" id="clock">--:--:--</div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6 py-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      <div class="panel rounded-xl p-4">
+        <p class="text-xs text-sky-400 font-semibold tracking-wider mb-1">在線設備</p>
+        <p class="font-mono text-3xl font-bold" id="kpiOnline">128</p>
+        <p class="text-xs text-slate-400 mt-1">／ 132 台</p>
+      </div>
+      <div class="panel rounded-xl p-4">
+        <p class="text-xs text-sky-400 font-semibold tracking-wider mb-1">平均產線效率</p>
+        <p class="font-mono text-3xl font-bold" id="kpiOee">91.4%</p>
+        <p class="text-xs text-emerald-400 mt-1">▲ 1.2% 較昨日</p>
+      </div>
+      <div class="panel rounded-xl p-4">
+        <p class="text-xs text-sky-400 font-semibold tracking-wider mb-1">今日異常事件</p>
+        <p class="font-mono text-3xl font-bold text-amber-400" id="kpiAlerts">3</p>
+        <p class="text-xs text-slate-400 mt-1">已處理 2 / 待處理 1</p>
+      </div>
+      <div class="panel rounded-xl p-4">
+        <p class="text-xs text-sky-400 font-semibold tracking-wider mb-1">平均溫度</p>
+        <p class="font-mono text-3xl font-bold" id="kpiTemp">42.6°C</p>
+        <p class="text-xs text-slate-400 mt-1">正常範圍內</p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="md:col-span-2 panel rounded-xl p-6 relative scanline">
+        <h2 class="font-semibold tracking-wide mb-4 text-sky-300">產線即時吞吐量</h2>
+        <svg viewBox="0 0 400 140" class="w-full h-40">
+          <polyline id="liveLine" fill="none" stroke="#38bdf8" stroke-width="2" points=""></polyline>
+        </svg>
+        <p class="font-mono text-xs text-slate-400 mt-2">單位：件 / 分鐘・每 2 秒更新</p>
+      </div>
+      <div class="panel rounded-xl p-6">
+        <h2 class="font-semibold tracking-wide mb-4 text-sky-300">設備狀態</h2>
+        <div class="space-y-3" id="deviceList"></div>
+      </div>
+    </div>
+
+    <div class="mt-6 panel rounded-xl p-6" id="alertPanel">
+      <h2 class="font-semibold tracking-wide mb-4 text-sky-300">異常告警</h2>
+      <div id="alertList" class="space-y-2 font-mono text-sm"></div>
+    </div>
+  </main>
+
+<script>
+  function pad(n){ return n.toString().padStart(2,'0'); }
+  function tickClock(){
+    const d = new Date(2026,7,27, 14, 32, 0);
+    d.setSeconds(d.getSeconds());
+    const el = document.getElementById('clock');
+    let s = 0;
+    setInterval(()=>{
+      s++;
+      const t = new Date(2026,7,27,14,32,s);
+      el.textContent = `${pad(t.getHours())}:${pad(t.getMinutes())}:${pad(t.getSeconds())}`;
+    }, 1000);
+  }
+  tickClock();
+
+  const devices = [
+    { name:'A 棟・射出機 01', status:'運轉中', color:'emerald' },
+    { name:'A 棟・射出機 02', status:'運轉中', color:'emerald' },
+    { name:'B 棟・包裝線 03', status:'待機', color:'amber' },
+    { name:'B 棟・檢測站 04', status:'異常', color:'red' },
+    { name:'C 棟・輸送帶 05', status:'運轉中', color:'emerald' },
+  ];
+  const deviceList = document.getElementById('deviceList');
+  devices.forEach(d=>{
+    const row = document.createElement('div');
+    row.className = 'flex items-center justify-between text-sm';
+    row.innerHTML = `
+      <span class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full status-dot bg-${d.color}-400 text-${d.color}-400"></span>
+        ${d.name}
+      </span>
+      <span class="font-mono text-${d.color}-400">${d.status}</span>
+    `;
+    deviceList.appendChild(row);
+  });
+
+  const alerts = [
+    { time:'14:18:02', msg:'B 棟・檢測站 04 溫度超標 (68.2°C)', level:'高' },
+    { time:'13:52:47', msg:'A 棟・射出機 02 壓力異常波動（已恢復）', level:'中' },
+    { time:'11:05:10', msg:'C 棟・輸送帶 05 短暫斷線（已恢復）', level:'低' },
+  ];
+  const alertList = document.getElementById('alertList');
+  alerts.forEach(a=>{
+    const row = document.createElement('div');
+    const color = a.level==='高' ? 'text-red-400' : a.level==='中' ? 'text-amber-400' : 'text-slate-400';
+    row.className = `flex justify-between ${color}`;
+    row.innerHTML = `<span>[${a.time}] ${a.msg}</span><span>優先度：${a.level}</span>`;
+    alertList.appendChild(row);
+  });
+  document.getElementById('alertPanel').classList.add('alert-flash');
+
+  // live throughput line
+  const pointsCount = 40;
+  let data = Array.from({length:pointsCount}, ()=> 60 + Math.floor((Math.random()*30)));
+  function seededRandom(seed){
+    let x = Math.sin(seed) * 10000;
+    return x - Math.floor(x);
+  }
+  let seed = 1;
+  function render(){
+    const w = 400, h = 140;
+    const step = w / (pointsCount-1);
+    const pts = data.map((v,i)=> `${(i*step).toFixed(1)},${(h - (v/100*h)).toFixed(1)}`).join(' ');
+    document.getElementById('liveLine').setAttribute('points', pts);
+  }
+  render();
+  setInterval(()=>{
+    seed += 1;
+    data.shift();
+    const last = data[data.length-1];
+    const next = Math.max(40, Math.min(100, last + (seededRandom(seed)-0.5)*20));
+    data.push(next);
+    render();
+    document.getElementById('kpiOee').textContent = (88 + seededRandom(seed*2)*6).toFixed(1) + '%';
+  }, 2000);
+</script>
+</body>
+</html>

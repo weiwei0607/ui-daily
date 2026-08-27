@@ -1,0 +1,156 @@
+<!-- style #30 Executive Summary Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一目了然｜營運長儀表板</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Hanken Grotesk','Noto Sans TC',sans-serif; background:#fafaf9; color:#1c1c1a; }
+  .font-mono{ font-family:'IBM Plex Mono','Noto Sans TC',monospace; }
+  .kpi-card{ border:1px solid #e7e5e0; transition: box-shadow .25s ease; }
+  .kpi-card:hover{ box-shadow: 0 10px 24px rgba(0,0,0,.06); }
+  .trend-up{ color:#0f7b4e; }
+  .trend-down{ color:#b3261e; }
+  .divider{ border-color:#e7e5e0; }
+  .bar{ transition: height .8s ease; }
+  .tab-btn.active{ background:#1c1c1a; color:#fff; }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <header class="max-w-6xl mx-auto px-6 pt-8 pb-4 flex items-center justify-between border-b divider">
+    <div>
+      <p class="text-xs font-semibold tracking-widest text-neutral-500 mb-1">EXECUTIVE OVERVIEW</p>
+      <h1 class="text-2xl font-extrabold">一目了然</h1>
+    </div>
+    <div class="text-right font-mono text-sm text-neutral-500">
+      <p>2026 年 8 月 27 日</p>
+      <p>資料更新：14:30</p>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6 py-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-5 mb-10">
+      <div class="kpi-card rounded-2xl p-6">
+        <p class="text-sm text-neutral-500 font-medium mb-2">本月營收</p>
+        <p class="font-mono text-3xl font-semibold">$8.94M</p>
+        <p class="trend-up text-sm font-semibold mt-2">▲ 12.3% 較上月</p>
+      </div>
+      <div class="kpi-card rounded-2xl p-6">
+        <p class="text-sm text-neutral-500 font-medium mb-2">毛利率</p>
+        <p class="font-mono text-3xl font-semibold">41.6%</p>
+        <p class="trend-up text-sm font-semibold mt-2">▲ 0.8 pt</p>
+      </div>
+      <div class="kpi-card rounded-2xl p-6">
+        <p class="text-sm text-neutral-500 font-medium mb-2">訂單數</p>
+        <p class="font-mono text-3xl font-semibold">24,180</p>
+        <p class="trend-down text-sm font-semibold mt-2">▼ 2.1% 較上月</p>
+      </div>
+      <div class="kpi-card rounded-2xl p-6">
+        <p class="text-sm text-neutral-500 font-medium mb-2">客戶留存率</p>
+        <p class="font-mono text-3xl font-semibold">86.2%</p>
+        <p class="trend-up text-sm font-semibold mt-2">▲ 1.4 pt</p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 mb-10">
+      <div class="md:col-span-2 kpi-card rounded-2xl p-6">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="font-bold text-lg">近六個月營收趨勢</h2>
+          <div class="flex gap-2 text-xs font-semibold">
+            <button class="tab-btn active px-3 py-1 rounded-full border divider" data-range="6m">6 個月</button>
+            <button class="tab-btn px-3 py-1 rounded-full border divider" data-range="12m">12 個月</button>
+          </div>
+        </div>
+        <div class="flex items-end gap-4 h-48" id="barChart"></div>
+      </div>
+      <div class="kpi-card rounded-2xl p-6">
+        <h2 class="font-bold text-lg mb-4">重點事項</h2>
+        <ul class="space-y-4 text-sm">
+          <li class="flex gap-3">
+            <span class="font-mono text-neutral-400">01</span>
+            <span>北區倉儲出貨延遲已於本週改善，平均出貨天數降至 1.8 天。</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="font-mono text-neutral-400">02</span>
+            <span>新客戶獲取成本較上季下降 9%，行銷投放效率提升。</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="font-mono text-neutral-400">03</span>
+            <span>訂單量下滑主因為淡季，客單價同期上升 6.5% 部分抵銷。</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="kpi-card rounded-2xl p-6">
+      <h2 class="font-bold text-lg mb-5">各事業部表現</h2>
+      <div class="grid md:grid-cols-4 gap-4 text-sm" id="deptGrid"></div>
+    </div>
+  </main>
+
+  <footer class="text-center py-8 text-xs text-neutral-400 font-mono">一目了然 · 董事會週報自動彙整</footer>
+
+<script>
+  const chartData = {
+    '6m': [62,58,71,69,80,89],
+    '12m': [40,44,51,49,55,58,62,58,71,69,80,89],
+  };
+  const labels6m = ['3月','4月','5月','6月','7月','8月'];
+  const labels12m = ['9月','10月','11月','12月','1月','2月','3月','4月','5月','6月','7月','8月'];
+
+  function renderBars(range){
+    const data = chartData[range];
+    const labels = range === '6m' ? labels6m : labels12m;
+    const max = Math.max(...data);
+    const container = document.getElementById('barChart');
+    container.innerHTML = '';
+    data.forEach((v, i)=>{
+      const wrap = document.createElement('div');
+      wrap.className = 'flex-1 flex flex-col items-center justify-end h-full gap-2';
+      const barHeight = (v/max*100);
+      wrap.innerHTML = `
+        <span class="font-mono text-xs text-neutral-500">${v}</span>
+        <div class="w-full bg-neutral-900 rounded-t-md bar" style="height:0%"></div>
+        <span class="text-xs text-neutral-400">${labels[i]}</span>
+      `;
+      container.appendChild(wrap);
+      requestAnimationFrame(()=>{
+        wrap.querySelector('.bar').style.height = barHeight + '%';
+      });
+    });
+  }
+  renderBars('6m');
+
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      renderBars(btn.dataset.range);
+    });
+  });
+
+  const depts = [
+    { name:'服飾配件', rev:'$3.2M', change:'+15%', up:true },
+    { name:'居家生活', rev:'$2.6M', change:'+8%', up:true },
+    { name:'美妝保養', rev:'$1.9M', change:'-3%', up:false },
+    { name:'數位訂閱', rev:'$1.2M', change:'+22%', up:true },
+  ];
+  const deptGrid = document.getElementById('deptGrid');
+  depts.forEach(d=>{
+    const cell = document.createElement('div');
+    cell.className = 'border divider rounded-xl p-4';
+    cell.innerHTML = `
+      <p class="font-semibold mb-1">${d.name}</p>
+      <p class="font-mono text-xl font-semibold">${d.rev}</p>
+      <p class="font-mono text-xs font-semibold ${d.up?'trend-up':'trend-down'} mt-1">${d.change}</p>
+    `;
+    deptGrid.appendChild(cell);
+  });
+</script>
+</body>
+</html>

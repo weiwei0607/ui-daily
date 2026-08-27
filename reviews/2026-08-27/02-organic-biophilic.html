@@ -1,0 +1,164 @@
+<!-- style #42 Organic Biophilic -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>土地日記｜居家植物照護</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,500&family=Noto+Serif+TC:wght@500;700;900&family=Nunito+Sans:wght@400;600;800&family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Nunito Sans','Noto Sans TC',sans-serif;
+    background: #f5f1e8;
+    color:#3e4a32;
+  }
+  .font-display{ font-family:'Fraunces','Noto Serif TC',serif; }
+  .leaf-divider{
+    height:2px;
+    background: repeating-linear-gradient(90deg, #8fbc8f 0 10px, transparent 10px 16px);
+  }
+  .card{
+    background:#fbfaf5;
+    border:1px solid #d8dcc8;
+    transition: transform .3s ease, box-shadow .3s ease;
+  }
+  .card:hover{ transform: translateY(-6px); box-shadow: 0 16px 30px rgba(62,74,50,.12); }
+  .organic-blob{
+    border-radius: 62% 38% 55% 45% / 48% 45% 55% 52%;
+  }
+  .water-btn{ transition: all .25s ease; }
+  .water-btn:active{ transform: scale(.94); }
+  .drop{
+    position:absolute; font-size:1.1rem; opacity:0; pointer-events:none;
+    animation: dropFall 1s ease forwards;
+  }
+  @keyframes dropFall{
+    0%{ opacity:1; transform: translateY(0); }
+    100%{ opacity:0; transform: translateY(40px); }
+  }
+  .progress-track{ background:#e3e6d6; }
+  .progress-fill{ background: linear-gradient(90deg,#8fbc8f,#3e4a32); transition: width 1s ease; }
+</style>
+</head>
+<body class="relative">
+
+  <header class="max-w-5xl mx-auto px-6 pt-10 pb-6 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="text-2xl">🌿</span>
+      <span class="font-display font-bold text-2xl">土地日記</span>
+    </div>
+    <nav class="hidden md:flex gap-8 text-sm font-semibold text-[#5a6650]">
+      <a href="#plants">我的植物</a>
+      <a href="#guide">照護指南</a>
+      <a href="#shop">植物商店</a>
+    </nav>
+    <button class="bg-[#3e4a32] text-[#f5f1e8] px-5 py-2 rounded-full text-sm font-bold organic-blob">開始記錄</button>
+  </header>
+
+  <section class="max-w-5xl mx-auto px-6 py-12 grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <p class="font-display italic text-[#8fbc8f] text-lg mb-3">為每一株植物，寫一頁日記</p>
+      <h1 class="font-display font-bold text-4xl md:text-5xl leading-snug mb-6">
+        澆水、換盆、曬太陽<br>都值得被記住
+      </h1>
+      <p class="text-[#5a6650] leading-relaxed mb-8">
+        土地日記幫你追蹤每一盆植物的澆水週期、光照需求與生長狀態，用溫柔的提醒，陪你把植物養得健康又茂盛。
+      </p>
+      <div class="flex gap-4">
+        <button class="bg-[#3e4a32] text-[#f5f1e8] px-7 py-3 rounded-full font-bold organic-blob">下載 App</button>
+        <button class="border-2 border-[#8fbc8f] text-[#3e4a32] px-7 py-3 rounded-full font-bold organic-blob">看看示範</button>
+      </div>
+    </div>
+    <div class="card organic-blob p-8">
+      <p class="font-display font-bold text-xl mb-4">今日待照護</p>
+      <div id="plantList" class="space-y-4"></div>
+    </div>
+  </section>
+
+  <div class="leaf-divider max-w-5xl mx-auto"></div>
+
+  <section id="plants" class="max-w-5xl mx-auto px-6 py-16">
+    <h2 class="font-display font-bold text-3xl text-center mb-10">你的植物家族</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="card organic-blob p-6 text-center">
+        <div class="text-5xl mb-3">🪴</div>
+        <p class="font-display font-bold text-lg">龜背芋</p>
+        <p class="text-sm text-[#5a6650] mb-3">陽台・南向</p>
+        <div class="progress-track h-2 rounded-full overflow-hidden mb-2">
+          <div class="progress-fill h-full rounded-full" style="width:82%"></div>
+        </div>
+        <p class="text-xs text-[#5a6650]">濕度良好，3 天後澆水</p>
+      </div>
+      <div class="card organic-blob p-6 text-center">
+        <div class="text-5xl mb-3">🌵</div>
+        <p class="font-display font-bold text-lg">量天尺</p>
+        <p class="text-sm text-[#5a6650] mb-3">書桌・散射光</p>
+        <div class="progress-track h-2 rounded-full overflow-hidden mb-2">
+          <div class="progress-fill h-full rounded-full" style="width:45%"></div>
+        </div>
+        <p class="text-xs text-[#5a6650]">偏乾，建議今天澆水</p>
+      </div>
+      <div class="card organic-blob p-6 text-center">
+        <div class="text-5xl mb-3">🌱</div>
+        <p class="font-display font-bold text-lg">薄荷</p>
+        <p class="text-sm text-[#5a6650] mb-3">廚房窗邊</p>
+        <div class="progress-track h-2 rounded-full overflow-hidden mb-2">
+          <div class="progress-fill h-full rounded-full" style="width:68%"></div>
+        </div>
+        <p class="text-xs text-[#5a6650]">狀態穩定，明天澆水</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="guide" class="max-w-5xl mx-auto px-6 pb-20">
+    <div class="card organic-blob p-10 text-center">
+      <p class="font-display italic text-xl text-[#8fbc8f] mb-2">本週小知識</p>
+      <h3 class="font-display font-bold text-2xl mb-4">為什麼葉子邊緣會焦黃？</h3>
+      <p class="text-[#5a6650] max-w-xl mx-auto leading-relaxed">
+        常見原因是空氣濕度太低或水中礦物質累積。可以每週用噴霧器補濕，並每季換一次新的介質水，多數植物都會慢慢恢復。
+      </p>
+    </div>
+  </section>
+
+  <footer class="text-center pb-10 text-sm text-[#5a6650] font-semibold">
+    © 2026 土地日記．陪你把植物養好的每一天
+  </footer>
+
+<script>
+  const plants = [
+    { name:'龜背芋', icon:'🪴', task:'澆水' },
+    { name:'量天尺', icon:'🌵', task:'轉盆曬光' },
+    { name:'薄荷', icon:'🌱', task:'修剪徒長枝' },
+  ];
+  const list = document.getElementById('plantList');
+  plants.forEach((p, i)=>{
+    const row = document.createElement('div');
+    row.className = 'relative flex items-center justify-between bg-[#f5f1e8] rounded-2xl px-4 py-3';
+    row.innerHTML = `
+      <span class="flex items-center gap-2 font-semibold text-sm">${p.icon} ${p.name}<span class="text-[#8fbc8f]">・${p.task}</span></span>
+      <button data-i="${i}" class="water-btn bg-[#8fbc8f] text-white text-xs font-bold px-4 py-2 rounded-full">完成 ✓</button>
+    `;
+    list.appendChild(row);
+  });
+
+  list.addEventListener('click', (e)=>{
+    const btn = e.target.closest('.water-btn');
+    if(!btn) return;
+    btn.textContent = '已完成 🌿';
+    btn.classList.remove('bg-[#8fbc8f]');
+    btn.classList.add('bg-[#3e4a32]');
+    btn.disabled = true;
+    const drop = document.createElement('span');
+    drop.className = 'drop';
+    drop.textContent = '💧';
+    drop.style.left = (btn.offsetLeft) + 'px';
+    drop.style.top = '0px';
+    btn.parentElement.style.position = 'relative';
+    btn.parentElement.appendChild(drop);
+    setTimeout(()=>drop.remove(), 1000);
+  });
+</script>
+</body>
+</html>

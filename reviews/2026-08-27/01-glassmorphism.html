@@ -1,0 +1,204 @@
+<!-- style #03 Glassmorphism -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>薰光 Spa｜線上預約</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --glass-bg: rgba(255,255,255,0.28);
+    --glass-border: rgba(255,255,255,0.55);
+  }
+  body{
+    font-family:'Nunito','Zen Maru Gothic','Noto Sans TC',sans-serif;
+    background: linear-gradient(135deg,#a78bfa 0%, #f0abfc 35%, #fbcfe8 65%, #93c5fd 100%);
+    background-attachment: fixed;
+    min-height:100vh;
+  }
+  .font-heading{ font-family:'Zen Maru Gothic','Nunito','Noto Sans TC',sans-serif; }
+  .glass{
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    box-shadow: 0 8px 32px rgba(90,50,140,0.18);
+  }
+  .glass-strong{
+    background: rgba(255,255,255,0.42);
+    border: 1px solid rgba(255,255,255,0.65);
+    backdrop-filter: blur(24px) saturate(150%);
+    -webkit-backdrop-filter: blur(24px) saturate(150%);
+  }
+  .blob{
+    position:absolute; border-radius:9999px; filter: blur(50px); opacity:.55; z-index:0;
+    animation: float 10s ease-in-out infinite;
+  }
+  @keyframes float{
+    0%,100%{ transform: translateY(0) translateX(0); }
+    50%{ transform: translateY(-24px) translateX(18px); }
+  }
+  .btn-glass{
+    transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+  }
+  .btn-glass:hover{ transform: translateY(-3px); box-shadow: 0 12px 28px rgba(124,58,237,.35); }
+  .btn-glass:active{ transform: translateY(0) scale(.97); }
+  .slot-btn.selected{
+    background: rgba(124,58,237,.85) !important;
+    color:#fff;
+    border-color: rgba(255,255,255,.8) !important;
+  }
+  .fade-in{ animation: fadeIn .6s ease both; }
+  @keyframes fadeIn{ from{ opacity:0; transform: translateY(10px);} to{opacity:1; transform:translateY(0);} }
+</style>
+</head>
+<body class="text-slate-800 relative overflow-x-hidden">
+
+  <div class="blob w-72 h-72 bg-fuchsia-300 top-[-4rem] left-[-3rem]"></div>
+  <div class="blob w-96 h-96 bg-indigo-300 top-40 right-[-5rem]" style="animation-delay:2s"></div>
+  <div class="blob w-64 h-64 bg-pink-200 bottom-10 left-1/3" style="animation-delay:4s"></div>
+
+  <header class="relative z-10 max-w-6xl mx-auto px-6 pt-8 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <div class="w-10 h-10 rounded-full glass-strong flex items-center justify-center text-lg">🌸</div>
+      <span class="font-heading font-black text-xl tracking-wide">薰光 Spa</span>
+    </div>
+    <nav class="hidden md:flex gap-6 text-sm font-bold glass-strong px-6 py-2 rounded-full">
+      <a href="#services" class="hover:text-fuchsia-600">療程</a>
+      <a href="#booking" class="hover:text-fuchsia-600">預約</a>
+      <a href="#reviews" class="hover:text-fuchsia-600">評價</a>
+    </nav>
+    <button class="btn-glass glass-strong font-heading font-bold px-5 py-2 rounded-full text-sm">會員登入</button>
+  </header>
+
+  <section class="relative z-10 max-w-6xl mx-auto px-6 pt-16 pb-20 text-center">
+    <div class="glass-strong inline-block px-4 py-1 rounded-full text-xs font-bold mb-6 tracking-widest">✨ 本週新開放｜礦石熱石療程</div>
+    <h1 class="font-heading text-4xl md:text-6xl font-black leading-tight mb-6">
+      把緊繃留在門外<br class="hidden md:block">讓身體，浮在雲霧裡
+    </h1>
+    <p class="text-lg md:text-xl font-semibold text-slate-700 max-w-xl mx-auto mb-10">
+      六位主理療癒師、全預約制、香氛與光線都為你調整過。找回鬆軟的自己，從今天的三十分鐘開始。
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="#booking" class="btn-glass glass-strong font-heading font-black px-8 py-4 rounded-2xl text-lg">立即預約 →</a>
+      <a href="#services" class="btn-glass glass px-8 py-4 rounded-2xl text-lg font-bold">看看療程</a>
+    </div>
+  </section>
+
+  <section id="services" class="relative z-10 max-w-6xl mx-auto px-6 py-10">
+    <h2 class="font-heading text-3xl font-black text-center mb-10">熱門療程</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="glass rounded-3xl p-7 fade-in">
+        <div class="text-4xl mb-4">🪷</div>
+        <h3 class="font-heading font-black text-xl mb-2">舒壓精油全身按摩</h3>
+        <p class="text-sm text-slate-700 mb-4">90 分鐘・依當日狀態調配精油配方，釋放肩頸與下背的長期緊繃。</p>
+        <div class="flex items-center justify-between">
+          <span class="font-heading font-black text-fuchsia-700 text-lg">NT$ 2,280</span>
+          <span class="text-xs font-bold bg-white/50 px-3 py-1 rounded-full">最多人選</span>
+        </div>
+      </div>
+      <div class="glass rounded-3xl p-7 fade-in" style="animation-delay:.1s">
+        <div class="text-4xl mb-4">🔥</div>
+        <h3 class="font-heading font-black text-xl mb-2">火山熱石療法</h3>
+        <p class="text-sm text-slate-700 mb-4">75 分鐘・溫熱礦石沿著經絡滑動，深層放鬆核心肌群與循環。</p>
+        <div class="flex items-center justify-between">
+          <span class="font-heading font-black text-fuchsia-700 text-lg">NT$ 2,680</span>
+          <span class="text-xs font-bold bg-white/50 px-3 py-1 rounded-full">本週新品</span>
+        </div>
+      </div>
+      <div class="glass rounded-3xl p-7 fade-in" style="animation-delay:.2s">
+        <div class="text-4xl mb-4">🌙</div>
+        <h3 class="font-heading font-black text-xl mb-2">深眠頭皮 SPA</h3>
+        <p class="text-sm text-slate-700 mb-4">50 分鐘・頭皮穴位按摩搭配助眠香氛，特別推薦給睡不好的你。</p>
+        <div class="flex items-center justify-between">
+          <span class="font-heading font-black text-fuchsia-700 text-lg">NT$ 1,680</span>
+          <span class="text-xs font-bold bg-white/50 px-3 py-1 rounded-full">下班首選</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="booking" class="relative z-10 max-w-3xl mx-auto px-6 py-16">
+    <div class="glass-strong rounded-3xl p-8 md:p-10">
+      <h2 class="font-heading text-2xl md:text-3xl font-black mb-6 text-center">選一個放鬆的時段</h2>
+      <div class="mb-6">
+        <p class="font-bold text-sm mb-3 text-slate-600">日期</p>
+        <div class="grid grid-cols-4 gap-3" id="dateGrid"></div>
+      </div>
+      <div class="mb-8">
+        <p class="font-bold text-sm mb-3 text-slate-600">時段</p>
+        <div class="grid grid-cols-3 gap-3" id="timeGrid"></div>
+      </div>
+      <button id="confirmBtn" class="btn-glass w-full glass font-heading font-black py-4 rounded-2xl text-lg disabled:opacity-40" disabled>
+        確認預約
+      </button>
+      <p id="confirmMsg" class="text-center font-bold text-fuchsia-700 mt-4 hidden"></p>
+    </div>
+  </section>
+
+  <section id="reviews" class="relative z-10 max-w-6xl mx-auto px-6 py-10 pb-24">
+    <h2 class="font-heading text-3xl font-black text-center mb-10">她們這樣說</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="glass rounded-3xl p-6">
+        <p class="text-sm mb-4">「按完隔天肩頸真的鬆了，環境也很安靜舒服，很適合一個人來放空。」</p>
+        <p class="font-heading font-black text-sm">— 品妤・行銷企劃</p>
+      </div>
+      <div class="glass rounded-3xl p-6">
+        <p class="text-sm mb-4">「熱石療程很值得，療癒師手法很細，睡眠品質有明顯變好。」</p>
+        <p class="font-heading font-black text-sm">— 詠翔・工程師</p>
+      </div>
+      <div class="glass rounded-3xl p-6">
+        <p class="text-sm mb-4">「線上預約很方便，時段一目了然，客服回覆也很快。」</p>
+        <p class="font-heading font-black text-sm">— 芷萱・自由工作者</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="relative z-10 text-center pb-10 text-sm font-bold text-slate-700">
+    © 2026 薰光 Spa．台北市大安區療癒巷 8 號
+  </footer>
+
+<script>
+  const dates = ['8/28 五','8/29 六','8/30 日','8/31 一'];
+  const times = ['11:00','13:30','15:00','16:30','18:00','19:30'];
+  const dateGrid = document.getElementById('dateGrid');
+  const timeGrid = document.getElementById('timeGrid');
+  let selectedDate = null, selectedTime = null;
+
+  function renderChoices(container, items, onPick){
+    container.innerHTML = '';
+    items.forEach(item=>{
+      const btn = document.createElement('button');
+      btn.textContent = item;
+      btn.className = 'slot-btn glass rounded-xl py-2 text-sm font-bold transition';
+      btn.addEventListener('click', ()=>{
+        [...container.children].forEach(c=>c.classList.remove('selected'));
+        btn.classList.add('selected');
+        onPick(item);
+      });
+      container.appendChild(btn);
+    });
+  }
+
+  renderChoices(dateGrid, dates, (v)=>{ selectedDate = v; checkReady(); });
+  renderChoices(timeGrid, times, (v)=>{ selectedTime = v; checkReady(); });
+
+  const confirmBtn = document.getElementById('confirmBtn');
+  const confirmMsg = document.getElementById('confirmMsg');
+
+  function checkReady(){
+    confirmBtn.disabled = !(selectedDate && selectedTime);
+  }
+
+  confirmBtn.addEventListener('click', ()=>{
+    confirmMsg.textContent = `已為你保留 ${selectedDate} ${selectedTime} 的位置，稍後會收到簡訊確認 🌿`;
+    confirmMsg.classList.remove('hidden');
+    confirmBtn.textContent = '預約成功 ✓';
+    confirmBtn.disabled = true;
+  });
+</script>
+</body>
+</html>
