@@ -23,6 +23,8 @@
 
 ### 2026-08-27（6 個，#01–06）
 - ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（curl 連線逾時無回應，HTTP exit 56），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
+- ⚠️ 本輪 GH_TOKEN 直連 GitHub REST API（publish.py）再次被環境閘道擋下（403），改用 `git push`（HTTPS + GH_TOKEN 當密碼）發布，過程中發現本機 `origin/master` 快取其實停留在 08-23（後續三天的 commit 從未真正送達遠端），這次 fetch 確認 push 後 `origin/master` 已與本機一致到 df9dd58（含今天的 6 個 + 畫廊 + taste-log），之後每輪建議發布完都 `git fetch` 驗證一次，避免默默沒推上去。
+- ⚠️ 本輪 Telegram 通知（步驟 8）也被環境網路政策擋下（`api.telegram.org` 連線逾時無回應，HTTP exit 56），與 Firebase 同一機制擋下，非帳號或 bot token 問題。畫廊已正常生成並發布到 GitHub，只是這次沒有 Telegram 訊息推播，請直接看連結：https://raw.githack.com/weiwei0607/ui-daily/master/reviews/2026-08-27/index.html
 - 本批風格（避開近 3 天 08-24/25/26 用過的 #05/#07/#08/#09/#10/#11/#15/#16/#20/#21/#22/#23/#25/#28/#34/#36/#43/#45/#50/#55/#57，優先挑選最久沒出現過的風格編號，並跨 A/B/C/D 族群）：**Glassmorphism #03**（她 08-17 第一批曾嫌棄這個風格「字體不好看，要圓一點」，這次改用 Zen Maru Gothic + Nunito 徹底套用「玻璃風配圓體」的已確認偏好，做成毛玻璃質感按摩美容預約頁「薰光 Spa」，彩色漸層底＋毛玻璃卡片＋可互動預約時段選擇）、**Organic Biophilic #42**（A 組，08-17 第 2 批用過 Cormorant Garamond+Nunito 這次換成 Fraunces + Noto Serif TC／Nunito Sans 的新組合，做成居家植物照護 App「土地日記」，含真的能點擊完成澆水的互動清單）、**Real-Time Monitoring #31**（她 08-17 第一批明確嫌棄「太有 AI 風」，這次刻意避開 Inter，改用 Rajdhani + Roboto Mono 做出扎實的 HUD 監控質感，做成工廠設備即時監控台「脈動 Pulse」，含每 2 秒真的會跳動更新的 SVG 折線圖與脈動狀態燈）、**Executive Summary Dashboard #30**（C 組，08-18 用過 Manrope+JetBrains Mono 這次換成 Hanken Grotesk + IBM Plex Mono，做成電商營運長儀表板「一目了然」，含可切換 6 個月／12 個月的長條圖）、**Storytelling #27**（延續「敘事配報紙體」偏好，避開已用過的 Newsreader/Playfair/Bitter/Spectral，改用全新組合 Lora + Noto Serif TC，做成台灣職人紀實故事頁「手作誌」，含捲動淡入效果與首字放大）、**Neubrutalism v2 #54**（D 組最久沒出現的風格之一，沿用她明確稱讚過的 #38 配方 Archivo Black + Space Grotesk，做成潮流球鞋快閃店「撞色 STORE」，含硬陰影按鈕、尺寸選擇與跑馬燈公告）。全數繁體中文文案，中文字元皆保留 Noto Sans/Serif TC 作為 fallback，人工檢查過無簡體字混入。
 
 ### 2026-08-26（6 個，#01–06）
