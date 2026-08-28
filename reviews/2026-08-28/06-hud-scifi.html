@@ -1,0 +1,375 @@
+<!-- style #51 HUD / Sci-Fi -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800&family=Share+Tech+Mono&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<title>鷹眼作戰中心</title>
+<style>
+  :root{
+    --bg:#020a08;
+    --panel:#03110f;
+    --cyan:#00fff2;
+    --cyan-dim:#0a5f5a;
+    --cyan-faint:rgba(0,255,242,0.12);
+    --amber:#ffb020;
+    --red:#ff3b3b;
+    --line:rgba(0,255,242,0.35);
+    --text-dim:#6fd8cf;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    background:var(--bg);
+    color:var(--cyan);
+    font-family:'Exo 2','Noto Sans TC',sans-serif;
+    margin:0;
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  .mono{ font-family:'Share Tech Mono', monospace; }
+
+  /* Background grid + scanlines */
+  .bg-grid{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      linear-gradient(rgba(0,255,242,0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,242,0.045) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 85%);
+  }
+  .scanline-overlay{
+    position:fixed; inset:0; z-index:1; pointer-events:none;
+    background:repeating-linear-gradient(
+      to bottom,
+      rgba(0,255,242,0.035) 0px,
+      rgba(0,255,242,0.035) 1px,
+      transparent 2px,
+      transparent 4px
+    );
+  }
+  @keyframes flicker{
+    0%,100%{opacity:1;}
+    92%{opacity:1;}
+    93%{opacity:0.82;}
+    94%{opacity:1;}
+    96%{opacity:0.9;}
+  }
+  .flicker{ animation: flicker 6s infinite; }
+
+  /* corner-cut HUD frame */
+  .hud-frame{
+    position:relative;
+    border:1px solid var(--line);
+    background:linear-gradient(180deg, rgba(0,255,242,0.05), rgba(0,255,242,0.01));
+    clip-path: polygon(
+      14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%,
+      0 100%, 0 14px
+    );
+  }
+  .hud-frame::before, .hud-frame::after{
+    content:"";
+    position:absolute;
+    width:18px; height:18px;
+    border-color:var(--cyan);
+    pointer-events:none;
+  }
+  .hud-frame::before{
+    top:-1px; left:-1px;
+    border-top:2px solid var(--cyan);
+    border-left:2px solid var(--cyan);
+  }
+  .hud-frame::after{
+    bottom:-1px; right:-1px;
+    border-bottom:2px solid var(--cyan);
+    border-right:2px solid var(--cyan);
+  }
+
+  .ticks{
+    background-image: repeating-linear-gradient(
+      90deg, var(--cyan-dim) 0, var(--cyan-dim) 1px, transparent 1px, transparent 10px
+    );
+    height:8px;
+    opacity:0.6;
+  }
+
+  .glow-text{ text-shadow:0 0 6px rgba(0,255,242,0.85), 0 0 16px rgba(0,255,242,0.35); }
+  .glow-text-amber{ text-shadow:0 0 6px rgba(255,176,32,0.85), 0 0 16px rgba(255,176,32,0.35); }
+  .glow-text-red{ text-shadow:0 0 6px rgba(255,59,59,0.9), 0 0 16px rgba(255,59,59,0.4); }
+
+  .panel-title{
+    letter-spacing:0.12em;
+    font-size:0.68rem;
+    color:var(--text-dim);
+  }
+
+  /* status dots */
+  .dot{
+    width:9px; height:9px; border-radius:50%;
+    display:inline-block;
+    box-shadow:0 0 6px currentColor;
+  }
+  @keyframes pulse-dot{
+    0%,100%{ opacity:1; transform:scale(1); }
+    50%{ opacity:0.45; transform:scale(0.82); }
+  }
+  .dot-pulse{ animation: pulse-dot 1.6s ease-in-out infinite; }
+  .dot-online{ color:#2bffb0; background:#2bffb0; }
+  .dot-warn{ color:var(--amber); background:var(--amber); }
+  .dot-offline{ color:var(--red); background:var(--red); }
+
+  /* radar */
+  .radar-wrap{
+    position:relative;
+    width:100%;
+    max-width:360px;
+    aspect-ratio:1/1;
+    margin:0 auto;
+  }
+  @keyframes spin-radar{ to{ transform:rotate(360deg); } }
+  .radar-sweep{
+    transform-origin:50% 50%;
+    animation: spin-radar 4s linear infinite;
+  }
+  @keyframes ping-blip{
+    0%{ opacity:0; r:1; }
+    30%{ opacity:1; }
+    100%{ opacity:0; r:14; }
+  }
+  .blip-ping{ animation: ping-blip 2.4s ease-out infinite; }
+
+  @keyframes barpulse{
+    0%,100%{ opacity:1; }
+    50%{ opacity:0.55; }
+  }
+  .bar-pulse{ animation: barpulse 1.8s ease-in-out infinite; }
+
+  .scrollbar-thin::-webkit-scrollbar{ width:6px; height:6px; }
+  .scrollbar-thin::-webkit-scrollbar-thumb{ background:var(--cyan-dim); }
+  .scrollbar-thin::-webkit-scrollbar-track{ background:transparent; }
+
+  @keyframes blinkcursor{
+    0%,49%{ opacity:1; } 50%,100%{ opacity:0; }
+  }
+  .cursor-blink{ animation: blinkcursor 1s step-end infinite; }
+
+  @media (max-width: 640px){
+    .panel-title{ font-size:0.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="scanline-overlay"></div>
+
+<div class="relative z-10 min-h-screen px-3 md:px-8 py-5 md:py-7 max-w-[1400px] mx-auto">
+
+  <!-- top ticks bar -->
+  <div class="ticks mb-3 rounded-sm"></div>
+
+  <!-- header -->
+  <header class="hud-frame px-4 md:px-6 py-4 mb-5 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+    <div class="flex items-center gap-4">
+      <div class="w-11 h-11 md:w-14 md:h-14 rounded-full border-2 border-cyan-300/70 flex items-center justify-center relative flicker" style="border-color:var(--cyan)">
+        <span class="mono text-lg md:text-2xl glow-text">◎</span>
+      </div>
+      <div>
+        <h1 class="text-xl md:text-3xl font-extrabold tracking-widest glow-text">鷹眼 <span class="text-sm md:text-lg font-semibold">EAGLE-EYE</span></h1>
+        <p class="panel-title mono">無人機艦隊即時調度作戰中心 // FLEET COMMAND OS v4.2.1</p>
+      </div>
+    </div>
+    <div class="mono text-right text-xs md:text-sm space-y-0.5" style="color:var(--text-dim)">
+      <div>座標 GRID <span class="text-cyan-200 glow-text">24.1477° N, 120.6736° E</span></div>
+      <div id="clock" class="glow-text text-cyan-200 text-sm md:text-base">00:00:00</div>
+      <div class="flex items-center gap-2 justify-end">
+        <span class="dot dot-online dot-pulse"></span> 系統連線正常 · LINK OK
+      </div>
+    </div>
+  </header>
+
+  <!-- data panels row -->
+  <section class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-5">
+
+    <div class="hud-frame px-4 py-3">
+      <div class="panel-title mono flex justify-between"><span>在線機體數</span><span class="text-[10px] opacity-70">UNITS</span></div>
+      <div class="mono text-3xl md:text-4xl font-bold mt-1 glow-text">37<span class="text-base md:text-lg opacity-60">/42</span></div>
+      <div class="mt-2 h-1.5 w-full bg-cyan-900/40 rounded overflow-hidden">
+        <div class="h-full bg-cyan-300 bar-pulse" style="width:88%; background:var(--cyan); box-shadow:0 0 8px var(--cyan);"></div>
+      </div>
+    </div>
+
+    <div class="hud-frame px-4 py-3">
+      <div class="panel-title mono flex justify-between"><span>任務進度</span><span class="text-[10px] opacity-70">MISSION</span></div>
+      <div class="mono text-3xl md:text-4xl font-bold mt-1 glow-text">64<span class="text-base md:text-lg opacity-60">%</span></div>
+      <div class="mt-2 h-1.5 w-full bg-cyan-900/40 rounded overflow-hidden">
+        <div class="h-full bar-pulse" style="width:64%; background:var(--cyan); box-shadow:0 0 8px var(--cyan);"></div>
+      </div>
+    </div>
+
+    <div class="hud-frame px-4 py-3">
+      <div class="panel-title mono flex justify-between"><span>訊號強度</span><span class="text-[10px] opacity-70">SIGNAL</span></div>
+      <div class="mono text-3xl md:text-4xl font-bold mt-1 glow-text-amber" style="color:var(--amber)">72<span class="text-base md:text-lg opacity-60">dBm</span></div>
+      <div class="mt-2 h-1.5 w-full bg-cyan-900/40 rounded overflow-hidden">
+        <div class="h-full bar-pulse" style="width:72%; background:var(--amber); box-shadow:0 0 8px var(--amber);"></div>
+      </div>
+    </div>
+
+    <div class="hud-frame px-4 py-3">
+      <div class="panel-title mono flex justify-between"><span>電力狀態</span><span class="text-[10px] opacity-70">POWER</span></div>
+      <div class="mono text-3xl md:text-4xl font-bold mt-1 glow-text-red" style="color:var(--red)">19<span class="text-base md:text-lg opacity-60">%</span></div>
+      <div class="mt-2 h-1.5 w-full bg-cyan-900/40 rounded overflow-hidden">
+        <div class="h-full bar-pulse" style="width:19%; background:var(--red); box-shadow:0 0 8px var(--red);"></div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- main grid: radar + list -->
+  <section class="grid grid-cols-1 lg:grid-cols-[1fr_1.3fr] gap-4 md:gap-5">
+
+    <!-- radar -->
+    <div class="hud-frame p-4 md:p-6 flex flex-col items-center">
+      <div class="panel-title mono self-start mb-2">戰術雷達掃描 // TACTICAL RADAR SWEEP</div>
+      <div class="radar-wrap">
+        <svg viewBox="0 0 200 200" class="w-full h-full">
+          <defs>
+            <radialGradient id="sweepGrad" cx="0%" cy="0%" r="100%">
+              <stop offset="0%" stop-color="#00fff2" stop-opacity="0.55"/>
+              <stop offset="100%" stop-color="#00fff2" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <circle cx="100" cy="100" r="94" fill="none" stroke="#0a5f5a" stroke-width="1"/>
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#0a5f5a" stroke-width="1"/>
+          <circle cx="100" cy="100" r="46" fill="none" stroke="#0a5f5a" stroke-width="1"/>
+          <circle cx="100" cy="100" r="22" fill="none" stroke="#0a5f5a" stroke-width="1"/>
+          <line x1="100" y1="6" x2="100" y2="194" stroke="#0a5f5a" stroke-width="1"/>
+          <line x1="6" y1="100" x2="194" y2="100" stroke="#0a5f5a" stroke-width="1"/>
+
+          <g class="radar-sweep">
+            <path d="M100,100 L100,6 A94,94 0 0,1 166.5,33.5 Z" fill="url(#sweepGrad)"/>
+            <line x1="100" y1="100" x2="100" y2="6" stroke="#00fff2" stroke-width="1.5" opacity="0.9"/>
+          </g>
+
+          <circle cx="132" cy="64" r="3" fill="#2bffb0"/>
+          <circle class="blip-ping" cx="132" cy="64" r="1" fill="none" stroke="#2bffb0" stroke-width="1"/>
+          <circle cx="70" cy="128" r="3" fill="#2bffb0"/>
+          <circle class="blip-ping" cx="70" cy="128" r="1" fill="none" stroke="#2bffb0" stroke-width="1" style="animation-delay:0.8s"/>
+          <circle cx="150" cy="140" r="3" fill="#ffb020"/>
+          <circle class="blip-ping" cx="150" cy="140" r="1" fill="none" stroke="#ffb020" stroke-width="1" style="animation-delay:1.4s"/>
+
+          <circle cx="100" cy="100" r="3" fill="#00fff2"/>
+        </svg>
+      </div>
+      <div class="mono text-[11px] mt-3 grid grid-cols-3 gap-2 w-full text-center" style="color:var(--text-dim)">
+        <div>掃描半徑<br><span class="text-cyan-200 glow-text">12km</span></div>
+        <div>偵測目標<br><span class="text-cyan-200 glow-text">3</span></div>
+        <div>更新頻率<br><span class="text-cyan-200 glow-text">1.2s</span></div>
+      </div>
+    </div>
+
+    <!-- fleet list -->
+    <div class="hud-frame p-4 md:p-5 flex flex-col">
+      <div class="flex items-center justify-between mb-3">
+        <div class="panel-title mono">機體 / 任務清單 // FLEET & MISSION LOG</div>
+        <div class="mono text-[10px] flex items-center gap-1" style="color:var(--text-dim)">
+          <span class="cursor-blink">▌</span>即時更新中
+        </div>
+      </div>
+
+      <div class="overflow-x-auto scrollbar-thin">
+        <table class="w-full mono text-xs md:text-sm min-w-[560px]">
+          <thead>
+            <tr class="text-left" style="color:var(--text-dim)">
+              <th class="pb-2 font-normal">狀態</th>
+              <th class="pb-2 font-normal">編號</th>
+              <th class="pb-2 font-normal">任務代號</th>
+              <th class="pb-2 font-normal">區域</th>
+              <th class="pb-2 font-normal text-right">電力</th>
+            </tr>
+          </thead>
+          <tbody class="align-top">
+            <tr class="border-t" style="border-color:rgba(0,255,242,0.15)">
+              <td class="py-2"><span class="dot dot-online dot-pulse"></span></td>
+              <td class="py-2 text-cyan-200">EH-01</td>
+              <td class="py-2">獵鷹巡弋 · 北區警戒</td>
+              <td class="py-2">A3 空域</td>
+              <td class="py-2 text-right glow-text">86%</td>
+            </tr>
+            <tr class="border-t" style="border-color:rgba(0,255,242,0.15)">
+              <td class="py-2"><span class="dot dot-online dot-pulse"></span></td>
+              <td class="py-2 text-cyan-200">EH-04</td>
+              <td class="py-2">物資空投 · 山區補給</td>
+              <td class="py-2">C1 空域</td>
+              <td class="py-2 text-right glow-text">73%</td>
+            </tr>
+            <tr class="border-t" style="border-color:rgba(0,255,242,0.15)">
+              <td class="py-2"><span class="dot dot-warn dot-pulse" style="color:var(--amber)"></span></td>
+              <td class="py-2" style="color:var(--amber)">EH-07</td>
+              <td class="py-2">訊號中繼 · 海岸偵蒐</td>
+              <td class="py-2">B2 空域</td>
+              <td class="py-2 text-right glow-text-amber" style="color:var(--amber)">41%</td>
+            </tr>
+            <tr class="border-t" style="border-color:rgba(0,255,242,0.15)">
+              <td class="py-2"><span class="dot dot-online dot-pulse"></span></td>
+              <td class="py-2 text-cyan-200">EH-09</td>
+              <td class="py-2">邊境巡邏 · 例行任務</td>
+              <td class="py-2">A1 空域</td>
+              <td class="py-2 text-right glow-text">91%</td>
+            </tr>
+            <tr class="border-t" style="border-color:rgba(0,255,242,0.15)">
+              <td class="py-2"><span class="dot dot-offline" style="color:var(--red)"></span></td>
+              <td class="py-2" style="color:var(--red)">EH-12</td>
+              <td class="py-2">失聯 · 待重新連線</td>
+              <td class="py-2">D4 空域</td>
+              <td class="py-2 text-right glow-text-red" style="color:var(--red)">--%</td>
+            </tr>
+            <tr class="border-t" style="border-color:rgba(0,255,242,0.15)">
+              <td class="py-2"><span class="dot dot-warn dot-pulse" style="color:var(--amber)"></span></td>
+              <td class="py-2" style="color:var(--amber)">EH-15</td>
+              <td class="py-2">電力偏低 · 返航中</td>
+              <td class="py-2">A2 空域</td>
+              <td class="py-2 text-right glow-text-amber" style="color:var(--amber)">18%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-4 pt-3 border-t flex flex-wrap gap-x-5 gap-y-1 mono text-[11px]" style="border-color:rgba(0,255,242,0.15); color:var(--text-dim)">
+        <div><span class="dot dot-online"></span> 在線正常</div>
+        <div><span class="dot dot-warn" style="color:var(--amber)"></span> 警示中</div>
+        <div><span class="dot dot-offline" style="color:var(--red)"></span> 離線失聯</div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- footer strip -->
+  <footer class="mt-5 hud-frame px-4 py-2 flex flex-col md:flex-row md:items-center md:justify-between gap-1 mono text-[11px]" style="color:var(--text-dim)">
+    <div>鷹眼作戰指揮系統 · 授權操作員專用 · 資料每 1.2 秒同步一次</div>
+    <div class="flex items-center gap-2">
+      <span class="dot dot-online dot-pulse"></span>
+      <span>ALL SYSTEMS NOMINAL</span>
+    </div>
+  </footer>
+
+  <div class="ticks mt-3 rounded-sm"></div>
+
+</div>
+
+<script>
+  function tick(){
+    const now = new Date();
+    const pad = n => String(n).padStart(2,'0');
+    const el = document.getElementById('clock');
+    if(el){
+      el.textContent = pad(now.getHours())+':'+pad(now.getMinutes())+':'+pad(now.getSeconds());
+    }
+  }
+  tick();
+  setInterval(tick, 1000);
+</script>
+</body>
+</html>

@@ -1,0 +1,489 @@
+<!-- style #12 Flat Design 2.0 -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>格窩 GeWo｜共享辦公空間預約平台</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --gw-blue: #3a7bfd;
+    --gw-blue-dark: #2c5fd6;
+    --gw-coral: #ff6b5e;
+    --gw-green: #14b88a;
+    --gw-orange: #ffb238;
+    --gw-yellow: #ffd23f;
+    --gw-ink: #1c2233;
+    --gw-paper: #f6f5f1;
+    --gw-card-line: rgba(28, 34, 51, 0.08);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--gw-paper);
+    color: var(--gw-ink);
+    font-family: 'Jost', 'Noto Sans TC', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, .brand {
+    font-family: 'Jost', 'Noto Sans TC', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+
+  .flat-shadow {
+    box-shadow: 0 4px 0 rgba(28, 34, 51, 0.08);
+  }
+
+  .flat-shadow-sm {
+    box-shadow: 0 2px 0 rgba(28, 34, 51, 0.08);
+  }
+
+  .card-hover {
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 0 rgba(28, 34, 51, 0.12);
+  }
+
+  .btn-pop {
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+  }
+
+  .btn-pop:hover {
+    transform: translateY(-3px);
+  }
+
+  .btn-pop:active {
+    transform: translateY(0px);
+    box-shadow: 0 1px 0 rgba(28, 34, 51, 0.25) !important;
+  }
+
+  .dot-badge {
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    display: inline-block;
+  }
+
+  /* toggle switch */
+  .toggle-track {
+    width: 56px;
+    height: 30px;
+    border-radius: 9999px;
+    background: var(--gw-ink);
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    flex-shrink: 0;
+  }
+  .toggle-track.is-annual {
+    background: var(--gw-blue);
+  }
+  .toggle-knob {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 24px;
+    height: 24px;
+    border-radius: 9999px;
+    background: #fff;
+    transition: transform 0.2s ease;
+  }
+  .toggle-track.is-annual .toggle-knob {
+    transform: translateX(26px);
+  }
+
+  .price-value {
+    font-family: 'Jost', 'Noto Sans TC', sans-serif;
+    font-weight: 700;
+  }
+
+  section { scroll-margin-top: 80px; }
+</style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="sticky top-0 z-50 bg-[#f6f5f1]/95 backdrop-blur-0 border-b-2 border-[#1c2233]">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#top" class="brand flex items-center gap-2 text-xl md:text-2xl">
+        <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-[var(--gw-blue)] text-white text-base flat-shadow-sm">格</span>
+        <span>格窩 <span class="text-[var(--gw-blue)]">GeWo</span></span>
+      </a>
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <a href="#features" class="hover:text-[var(--gw-blue)] transition-colors">功能特色</a>
+        <a href="#pricing" class="hover:text-[var(--gw-blue)] transition-colors">價格方案</a>
+        <a href="#faq" class="hover:text-[var(--gw-blue)] transition-colors">常見問題</a>
+      </nav>
+      <a href="#pricing" class="btn-pop hidden sm:inline-flex items-center rounded-full bg-[var(--gw-ink)] text-white text-sm font-medium px-5 py-2.5 flat-shadow-sm">
+        免費試用 14 天
+      </a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="top" class="relative overflow-hidden">
+    <div class="max-w-6xl mx-auto px-6 pt-16 pb-20 md:pt-24 md:pb-28 grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <span class="inline-flex items-center gap-2 rounded-full bg-white border-2 border-[var(--gw-ink)] px-4 py-1.5 text-xs font-medium mb-6">
+          <span class="dot-badge bg-[var(--gw-green)]"></span>
+          全台 82 個共享空間，即時可訂
+        </span>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl leading-tight mb-6">
+          找到一張<br>
+          <span class="text-[var(--gw-blue)]">好好工作</span>的桌子
+        </h1>
+        <p class="text-base md:text-lg text-[#3f4658] mb-8 leading-relaxed max-w-md">
+          格窩讓你用一支手機，隨時預約會議室、開放座位與電話亭，付款、發票、進出權限一次搞定，不用再跟管理員傳訊息喬時間。
+        </p>
+        <div class="flex flex-wrap items-center gap-4">
+          <a href="#pricing" class="btn-pop inline-flex items-center justify-center rounded-full bg-[var(--gw-blue)] text-white font-semibold px-8 py-4 flat-shadow hover:bg-[var(--gw-blue-dark)]">
+            立即免費試用
+          </a>
+          <a href="#features" class="inline-flex items-center gap-2 font-medium text-[var(--gw-ink)] hover:text-[var(--gw-blue)] transition-colors">
+            看看怎麼用
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+        <div class="mt-10 flex items-center gap-6 text-sm text-[#5a6178]">
+          <div><span class="text-2xl font-bold text-[var(--gw-ink)]">1,200+</span> 間企業使用</div>
+          <div class="w-px h-8 bg-[var(--gw-card-line)]"></div>
+          <div><span class="text-2xl font-bold text-[var(--gw-ink)]">4.8</span> / 5 用戶評價</div>
+        </div>
+      </div>
+
+      <div class="relative">
+        <div class="absolute -top-6 -left-6 w-24 h-24 rounded-2xl bg-[var(--gw-yellow)] flat-shadow-sm hidden md:block"></div>
+        <div class="absolute -bottom-8 -right-4 w-28 h-28 rounded-full bg-[var(--gw-coral)] flat-shadow-sm hidden md:block"></div>
+        <div class="relative bg-white border-2 border-[var(--gw-ink)] rounded-3xl p-6 flat-shadow">
+          <div class="flex items-center justify-between mb-5">
+            <h3 class="text-lg">今日預約</h3>
+            <span class="text-xs font-medium px-3 py-1 rounded-full bg-[var(--gw-green)] text-white">已確認</span>
+          </div>
+          <div class="space-y-3">
+            <div class="flex items-center gap-4 rounded-2xl bg-[#eef2ff] p-4">
+              <div class="w-12 h-12 rounded-xl bg-[var(--gw-blue)] flex items-center justify-center text-white text-xl">🪑</div>
+              <div class="flex-1">
+                <p class="font-medium">信義共享座位區・A12</p>
+                <p class="text-sm text-[#5a6178]">09:00 – 18:00</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 rounded-2xl bg-[#fff1ee] p-4">
+              <div class="w-12 h-12 rounded-xl bg-[var(--gw-coral)] flex items-center justify-center text-white text-xl">🗣️</div>
+              <div class="flex-1">
+                <p class="font-medium">3 樓小會議室・雨林</p>
+                <p class="text-sm text-[#5a6178]">14:00 – 15:00 ・ 4 人</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 rounded-2xl bg-[#fff8e6] p-4">
+              <div class="w-12 h-12 rounded-xl bg-[var(--gw-orange)] flex items-center justify-center text-white text-xl">📞</div>
+              <div class="flex-1">
+                <p class="font-medium">電話亭・02 號</p>
+                <p class="text-sm text-[#5a6178]">16:30 – 17:00</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGOS / TRUST STRIP -->
+  <section class="border-y-2 border-[var(--gw-ink)] bg-white">
+    <div class="max-w-6xl mx-auto px-6 py-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-sm font-medium text-[#5a6178]">
+      <span>新創團隊愛用</span>
+      <span class="hidden sm:inline">・</span>
+      <span>遠距工作族推薦</span>
+      <span class="hidden sm:inline">・</span>
+      <span>企業差旅首選</span>
+      <span class="hidden sm:inline">・</span>
+      <span>自由接案者天堂</span>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="max-w-6xl mx-auto px-6 py-20 md:py-28">
+    <div class="max-w-xl mb-14">
+      <span class="text-sm font-semibold text-[var(--gw-blue)] uppercase tracking-wide">功能特色</span>
+      <h2 class="text-3xl md:text-4xl mt-3 mb-4">把訂空間這件事，變得像叫車一樣簡單</h2>
+      <p class="text-[#5a6178] leading-relaxed">從搜尋空位、預約、進出門禁到請款開發票，格窩把散落在不同群組跟表單裡的流程，收進同一個介面。</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="card-hover rounded-3xl p-7 bg-[var(--gw-blue)] text-white flat-shadow">
+        <div class="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center text-2xl mb-6">⚡</div>
+        <h3 class="text-lg mb-2">即時空位地圖</h3>
+        <p class="text-sm text-white/85 leading-relaxed">全台據點座位、會議室、電話亭空缺一目了然，10 秒內完成預約，不用打電話問管理員。</p>
+      </div>
+
+      <div class="card-hover rounded-3xl p-7 bg-[var(--gw-coral)] text-white flat-shadow">
+        <div class="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center text-2xl mb-6">🔑</div>
+        <h3 class="text-lg mb-2">手機感應門禁</h3>
+        <p class="text-sm text-white/85 leading-relaxed">預約成功自動開通當日門禁權限，用手機 NFC 感應即可進出，不用再跟櫃檯拿磁卡。</p>
+      </div>
+
+      <div class="card-hover rounded-3xl p-7 bg-[var(--gw-green)] text-white flat-shadow">
+        <div class="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center text-2xl mb-6">🧾</div>
+        <h3 class="text-lg mb-2">自動請款開票</h3>
+        <p class="text-sm text-white/85 leading-relaxed">每月用量自動彙整成單一帳單，一鍵開立電子發票，財務對帳時間直接省一半。</p>
+      </div>
+
+      <div class="card-hover rounded-3xl p-7 bg-[var(--gw-orange)] text-white flat-shadow">
+        <div class="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center text-2xl mb-6">👥</div>
+        <h3 class="text-lg mb-2">團隊排程管理</h3>
+        <p class="text-sm text-white/85 leading-relaxed">主管可設定部門預算與人員權限，團隊出差或協作時，座位一次幫大家排好。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="bg-white border-y-2 border-[var(--gw-ink)]">
+    <div class="max-w-6xl mx-auto px-6 py-20 md:py-24">
+      <div class="max-w-xl mb-14">
+        <span class="text-sm font-semibold text-[var(--gw-blue)] uppercase tracking-wide">使用流程</span>
+        <h2 class="text-3xl md:text-4xl mt-3">三個步驟，開始工作</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="flex gap-4">
+          <div class="shrink-0 w-11 h-11 rounded-full bg-[var(--gw-ink)] text-white flex items-center justify-center font-bold">1</div>
+          <div>
+            <h3 class="font-semibold mb-1.5">選地點與時段</h3>
+            <p class="text-sm text-[#5a6178] leading-relaxed">在地圖上挑選離你最近或客戶所在的據點，選好日期與時段。</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="shrink-0 w-11 h-11 rounded-full bg-[var(--gw-ink)] text-white flex items-center justify-center font-bold">2</div>
+          <div>
+            <h3 class="font-semibold mb-1.5">線上確認付款</h3>
+            <p class="text-sm text-[#5a6178] leading-relaxed">信用卡或企業帳戶一鍵扣款，預約立即確認，行事曆自動同步。</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="shrink-0 w-11 h-11 rounded-full bg-[var(--gw-ink)] text-white flex items-center justify-center font-bold">3</div>
+          <div>
+            <h3 class="font-semibold mb-1.5">手機感應入場</h3>
+            <p class="text-sm text-[#5a6178] leading-relaxed">抵達現場出示手機 QR code 或感應進門，直接找到座位開始工作。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="max-w-6xl mx-auto px-6 py-20 md:py-28">
+    <div class="text-center max-w-xl mx-auto mb-10">
+      <span class="text-sm font-semibold text-[var(--gw-blue)] uppercase tracking-wide">價格方案</span>
+      <h2 class="text-3xl md:text-4xl mt-3 mb-4">彈性方案，個人到團隊都適用</h2>
+      <p class="text-[#5a6178] leading-relaxed">先試用 14 天，不滿意隨時取消，不綁約不囉唆。</p>
+    </div>
+
+    <div class="flex items-center justify-center gap-4 mb-12">
+      <span id="label-monthly" class="font-medium">月繳</span>
+      <div id="billing-toggle" class="toggle-track" role="switch" aria-checked="false" tabindex="0">
+        <div class="toggle-knob"></div>
+      </div>
+      <span id="label-annual" class="font-medium text-[#5a6178]">年繳 <span class="text-[var(--gw-green)] font-semibold">省 20%</span></span>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <!-- Plan 1 -->
+      <div class="card-hover rounded-3xl p-8 bg-white border-2 border-[var(--gw-ink)] flat-shadow-sm">
+        <h3 class="text-xl mb-1">個人方案</h3>
+        <p class="text-sm text-[#5a6178] mb-6">適合自由工作者與個人接案者</p>
+        <div class="flex items-end gap-1 mb-6">
+          <span class="price-value text-4xl" data-monthly="590" data-annual="472">NT$590</span>
+          <span class="text-sm text-[#5a6178] mb-1.5">/ 月</span>
+        </div>
+        <ul class="space-y-3 text-sm mb-8">
+          <li class="flex items-start gap-2"><span class="text-[var(--gw-green)] font-bold">✓</span>每月 40 小時開放座位</li>
+          <li class="flex items-start gap-2"><span class="text-[var(--gw-green)] font-bold">✓</span>全台據點通用</li>
+          <li class="flex items-start gap-2"><span class="text-[var(--gw-green)] font-bold">✓</span>手機門禁感應</li>
+          <li class="flex items-start gap-2"><span class="text-[var(--gw-green)] font-bold">✓</span>電子發票自動開立</li>
+        </ul>
+        <a href="#top" class="btn-pop block text-center rounded-full border-2 border-[var(--gw-ink)] font-semibold py-3 hover:bg-[var(--gw-ink)] hover:text-white">
+          開始試用
+        </a>
+      </div>
+
+      <!-- Plan 2 (highlighted) -->
+      <div class="card-hover rounded-3xl p-8 bg-[var(--gw-blue)] text-white flat-shadow relative">
+        <span class="absolute -top-3 left-8 bg-[var(--gw-yellow)] text-[var(--gw-ink)] text-xs font-bold px-4 py-1 rounded-full">最多人選擇</span>
+        <h3 class="text-xl mb-1">團隊方案</h3>
+        <p class="text-sm text-white/80 mb-6">適合 5-30 人的成長中團隊</p>
+        <div class="flex items-end gap-1 mb-6">
+          <span class="price-value text-4xl" data-monthly="1490" data-annual="1192">NT$1,490</span>
+          <span class="text-sm text-white/80 mb-1.5">/ 人 / 月</span>
+        </div>
+        <ul class="space-y-3 text-sm mb-8">
+          <li class="flex items-start gap-2"><span class="font-bold">✓</span>無限開放座位使用</li>
+          <li class="flex items-start gap-2"><span class="font-bold">✓</span>每月 10 小時會議室額度</li>
+          <li class="flex items-start gap-2"><span class="font-bold">✓</span>團隊管理後台與權限設定</li>
+          <li class="flex items-start gap-2"><span class="font-bold">✓</span>部門預算與統一請款</li>
+        </ul>
+        <a href="#top" class="btn-pop block text-center rounded-full bg-white text-[var(--gw-blue)] font-semibold py-3 hover:bg-[var(--gw-yellow)] hover:text-[var(--gw-ink)]">
+          預約產品導覽
+        </a>
+      </div>
+
+      <!-- Plan 3 -->
+      <div class="card-hover rounded-3xl p-8 bg-white border-2 border-[var(--gw-ink)] flat-shadow-sm">
+        <h3 class="text-xl mb-1">企業方案</h3>
+        <p class="text-sm text-[#5a6178] mb-6">適合 30 人以上的分公司與集團</p>
+        <div class="flex items-end gap-1 mb-6">
+          <span class="price-value text-4xl">客製報價</span>
+        </div>
+        <ul class="space-y-3 text-sm mb-8">
+          <li class="flex items-start gap-2"><span class="text-[var(--gw-green)] font-bold">✓</span>專屬客戶經理</li>
+          <li class="flex items-start gap-2"><span class="text-[var(--gw-green)] font-bold">✓</span>API 串接與單一登入</li>
+          <li class="flex items-start gap-2"><span class="text-[var(--gw-green)] font-bold">✓</span>客製化門禁與安控整合</li>
+          <li class="flex items-start gap-2"><span class="text-[var(--gw-green)] font-bold">✓</span>季度使用報告分析</li>
+        </ul>
+        <a href="#top" class="btn-pop block text-center rounded-full border-2 border-[var(--gw-ink)] font-semibold py-3 hover:bg-[var(--gw-ink)] hover:text-white">
+          聯絡業務團隊
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="bg-white border-y-2 border-[var(--gw-ink)]">
+    <div class="max-w-4xl mx-auto px-6 py-20 md:py-24">
+      <div class="text-center mb-12">
+        <span class="text-sm font-semibold text-[var(--gw-blue)] uppercase tracking-wide">常見問題</span>
+        <h2 class="text-3xl md:text-4xl mt-3">大家都想知道</h2>
+      </div>
+      <div class="space-y-4">
+        <details class="group rounded-2xl border-2 border-[var(--gw-ink)] p-5 bg-[var(--gw-paper)]">
+          <summary class="cursor-pointer font-semibold flex items-center justify-between">
+            試用期結束後會自動扣款嗎？
+            <span class="text-[var(--gw-blue)] group-open:rotate-45 transition-transform">＋</span>
+          </summary>
+          <p class="mt-3 text-sm text-[#5a6178] leading-relaxed">不會，14 天試用結束前我們會提前通知，你需要主動選擇方案才會開始計費，不綁約也可以隨時取消。</p>
+        </details>
+        <details class="group rounded-2xl border-2 border-[var(--gw-ink)] p-5 bg-[var(--gw-paper)]">
+          <summary class="cursor-pointer font-semibold flex items-center justify-between">
+            可以跨據點使用同一個帳號嗎？
+            <span class="text-[var(--gw-blue)] group-open:rotate-45 transition-transform">＋</span>
+          </summary>
+          <p class="mt-3 text-sm text-[#5a6178] leading-relaxed">可以，個人方案與團隊方案皆可在全台合作據點通用，出差到外縣市也能直接預約當地空間。</p>
+        </details>
+        <details class="group rounded-2xl border-2 border-[var(--gw-ink)] p-5 bg-[var(--gw-paper)]">
+          <summary class="cursor-pointer font-semibold flex items-center justify-between">
+            團隊方案的人數可以中途調整嗎？
+            <span class="text-[var(--gw-blue)] group-open:rotate-45 transition-transform">＋</span>
+          </summary>
+          <p class="mt-3 text-sm text-[#5a6178] leading-relaxed">可以，在後台隨時新增或移除成員，費用會依當月實際使用人數自動試算，不會多收錢。</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="max-w-6xl mx-auto px-6 py-16">
+    <div class="rounded-3xl bg-[var(--gw-ink)] text-white px-8 py-14 md:py-16 text-center flat-shadow relative overflow-hidden">
+      <div class="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-[var(--gw-coral)] opacity-90"></div>
+      <div class="absolute -bottom-14 -left-10 w-48 h-48 rounded-full bg-[var(--gw-blue)] opacity-90"></div>
+      <div class="relative">
+        <h2 class="text-3xl md:text-4xl mb-4">今天就找到你的工作角落</h2>
+        <p class="text-white/80 mb-8 max-w-lg mx-auto">加入格窩，14 天免費試用所有功能，不需要信用卡即可開始。</p>
+        <a href="#pricing" class="btn-pop inline-flex items-center justify-center rounded-full bg-[var(--gw-yellow)] text-[var(--gw-ink)] font-semibold px-8 py-4">
+          免費開始使用
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t-2 border-[var(--gw-ink)] bg-white">
+    <div class="max-w-6xl mx-auto px-6 py-12 grid sm:grid-cols-2 md:grid-cols-4 gap-8">
+      <div>
+        <div class="brand flex items-center gap-2 text-lg mb-3">
+          <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-[var(--gw-blue)] text-white text-sm">格</span>
+          <span>格窩 GeWo</span>
+        </div>
+        <p class="text-sm text-[#5a6178] leading-relaxed">讓每一次工作，都能找到剛剛好的空間。</p>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-3 text-sm">產品</h4>
+        <ul class="space-y-2 text-sm text-[#5a6178]">
+          <li><a href="#features" class="hover:text-[var(--gw-blue)]">功能特色</a></li>
+          <li><a href="#pricing" class="hover:text-[var(--gw-blue)]">價格方案</a></li>
+          <li><a href="#faq" class="hover:text-[var(--gw-blue)]">常見問題</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-3 text-sm">公司</h4>
+        <ul class="space-y-2 text-sm text-[#5a6178]">
+          <li><a href="#" class="hover:text-[var(--gw-blue)]">關於格窩</a></li>
+          <li><a href="#" class="hover:text-[var(--gw-blue)]">合作據點招募</a></li>
+          <li><a href="#" class="hover:text-[var(--gw-blue)]">加入我們</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-3 text-sm">聯絡我們</h4>
+        <ul class="space-y-2 text-sm text-[#5a6178]">
+          <li>台北市信義區松仁路 88 號</li>
+          <li>hello@gewo.example.com</li>
+          <li>0800-123-456</li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-[var(--gw-card-line)]">
+      <div class="max-w-6xl mx-auto px-6 py-5 text-xs text-[#5a6178] flex flex-col sm:flex-row items-center justify-between gap-2">
+        <span>© 2026 格窩 GeWo 版權所有</span>
+        <span>用心打造每一個共享工作角落</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var toggle = document.getElementById('billing-toggle');
+      var labelMonthly = document.getElementById('label-monthly');
+      var labelAnnual = document.getElementById('label-annual');
+      var priceEls = document.querySelectorAll('.price-value[data-monthly]');
+
+      function formatPrice(n) {
+        return 'NT$' + Number(n).toLocaleString('zh-TW');
+      }
+
+      function setAnnual(isAnnual) {
+        toggle.classList.toggle('is-annual', isAnnual);
+        toggle.setAttribute('aria-checked', isAnnual ? 'true' : 'false');
+        labelMonthly.classList.toggle('text-[#5a6178]', isAnnual);
+        labelAnnual.classList.toggle('text-[#5a6178]', !isAnnual);
+
+        priceEls.forEach(function (el) {
+          var value = isAnnual ? el.getAttribute('data-annual') : el.getAttribute('data-monthly');
+          var suffixSpan = el.parentElement.querySelector('span:not(.price-value)');
+          el.textContent = formatPrice(value);
+        });
+      }
+
+      toggle.addEventListener('click', function () {
+        setAnnual(!toggle.classList.contains('is-annual'));
+      });
+
+      toggle.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          setAnnual(!toggle.classList.contains('is-annual'));
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>

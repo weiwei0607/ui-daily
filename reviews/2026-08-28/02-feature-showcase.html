@@ -1,0 +1,558 @@
+<!-- style #22 Feature-Rich Showcase -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ["Manrope", "Noto Sans TC", "sans-serif"],
+        },
+        colors: {
+          brand: {
+            50: "#eff6ff",
+            100: "#dbeafe",
+            200: "#bfdbfe",
+            300: "#93c5fd",
+            400: "#5b9df9",
+            500: "#2f6fed",
+            600: "#1e54c9",
+            700: "#1a45a3",
+            800: "#173a86",
+            900: "#15316d",
+          },
+          ink: {
+            900: "#0f172a",
+            800: "#1e293b",
+            700: "#334155",
+            600: "#475569",
+            500: "#64748b",
+            400: "#94a3b8",
+          },
+        },
+      },
+    },
+  };
+</script>
+<style>
+  :root {
+    --bg: #fafafb;
+    --bg-alt: #f2f4f8;
+    --surface: #ffffff;
+    --border: #e5e8ef;
+    --text: #0f172a;
+    --text-muted: #5b6472;
+    --accent: #2f6fed;
+    --accent-soft: #e8f0ff;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Manrope", "Noto Sans TC", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .font-display {
+    font-family: "Manrope", "Noto Sans TC", sans-serif;
+    letter-spacing: -0.01em;
+  }
+
+  /* scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.08s; }
+  .reveal-delay-2 { transition-delay: 0.16s; }
+
+  .feature-card {
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+  }
+  .feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 45px -25px rgba(15, 23, 42, 0.25);
+    border-color: var(--accent);
+  }
+
+  .visual-panel {
+    background: linear-gradient(155deg, var(--bg-alt) 0%, #ffffff 100%);
+    border: 1px solid var(--border);
+  }
+
+  .dot-grid {
+    background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+    background-size: 18px 18px;
+  }
+
+  .badge-pulse {
+    animation: pulse-soft 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse-soft {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.55; }
+  }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 26s linear infinite;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .marquee-wrap:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  .sync-line {
+    stroke-dasharray: 6 6;
+    animation: dash-move 2s linear infinite;
+  }
+  @keyframes dash-move {
+    to { stroke-dashoffset: -24; }
+  }
+
+  ::selection {
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  .stat-num {
+    font-variant-numeric: tabular-nums;
+  }
+</style>
+
+<div class="min-h-screen" style="background: var(--bg);">
+
+  <!-- NAV -->
+  <header class="sticky top-0 z-50 backdrop-blur bg-white/80 border-b" style="border-color: var(--border);">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background: var(--accent);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M4 7h11a5 5 0 0 1 5 5" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <path d="M17 4l3 3-3 3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M20 17H9a5 5 0 0 1-5-5" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <path d="M7 20l-3-3 3-3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="font-display font-extrabold text-lg tracking-tight" style="color: var(--text);">同步倉 <span style="color: var(--accent);">SyncHub</span></span>
+      </div>
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium" style="color: var(--text-muted);">
+        <a href="#features" class="hover:text-[--accent] transition-colors" style="color: inherit;">功能總覽</a>
+        <a href="#integrations" class="hover:text-[--accent] transition-colors" style="color: inherit;">串接平台</a>
+        <a href="#pricing-cta" class="hover:text-[--accent] transition-colors" style="color: inherit;">方案</a>
+      </nav>
+      <a href="#pricing-cta" class="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold px-4 py-2 rounded-full text-white transition-transform hover:-translate-y-0.5" style="background: var(--accent);">
+        免費試用 14 天
+      </a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="relative overflow-hidden">
+    <div class="dot-grid absolute inset-0 opacity-60" style="mask-image: radial-gradient(ellipse 60% 50% at 50% 0%, black, transparent);"></div>
+    <div class="max-w-6xl mx-auto px-6 pt-20 pb-24 relative">
+      <div class="max-w-3xl mx-auto text-center">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold mb-6" style="background: var(--accent-soft); color: var(--accent-700, var(--accent));">
+          <span class="w-1.5 h-1.5 rounded-full badge-pulse" style="background: var(--accent);"></span>
+          專為台灣跨境賣家打造
+        </div>
+        <h1 class="font-display font-extrabold text-4xl sm:text-5xl leading-[1.15] tracking-tight" style="color: var(--text);">
+          一個後台，同步管理<br class="hidden sm:block" />
+          所有電商平台的庫存
+        </h1>
+        <p class="mt-6 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto" style="color: var(--text-muted);">
+          同步倉 SyncHub 串接蝦皮、PChome、momo、Yahoo奇摩超級商城等主流通路，即時同步庫存、彙整訂單、自動補貨提醒，讓多平台營運不再靠人工對帳。
+        </p>
+        <div class="mt-9 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <a href="#pricing-cta" class="w-full sm:w-auto text-center px-7 py-3.5 rounded-xl text-white font-semibold text-sm shadow-lg shadow-blue-600/20 transition-transform hover:-translate-y-0.5" style="background: var(--accent);">
+            立即免費試用
+          </a>
+          <a href="#features" class="w-full sm:w-auto text-center px-7 py-3.5 rounded-xl font-semibold text-sm border transition-colors hover:bg-white" style="border-color: var(--border); color: var(--text);">
+            觀看功能介紹 ↓
+          </a>
+        </div>
+        <p class="mt-4 text-xs" style="color: var(--text-muted);">免信用卡・5 分鐘完成串接・隨時可取消</p>
+      </div>
+
+      <!-- hero stat strip -->
+      <div class="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto">
+        <div class="reveal rounded-2xl border p-5 text-center bg-white" style="border-color: var(--border);">
+          <div class="font-display font-extrabold text-2xl stat-num" style="color: var(--accent);">12+</div>
+          <div class="text-xs mt-1" style="color: var(--text-muted);">支援電商平台</div>
+        </div>
+        <div class="reveal reveal-delay-1 rounded-2xl border p-5 text-center bg-white" style="border-color: var(--border);">
+          <div class="font-display font-extrabold text-2xl stat-num" style="color: var(--accent);">99.9%</div>
+          <div class="text-xs mt-1" style="color: var(--text-muted);">庫存同步準確率</div>
+        </div>
+        <div class="reveal reveal-delay-2 rounded-2xl border p-5 text-center bg-white" style="border-color: var(--border);">
+          <div class="font-display font-extrabold text-2xl stat-num" style="color: var(--accent);">3 秒</div>
+          <div class="text-xs mt-1" style="color: var(--text-muted);">跨平台同步延遲</div>
+        </div>
+        <div class="reveal rounded-2xl border p-5 text-center bg-white" style="border-color: var(--border);">
+          <div class="font-display font-extrabold text-2xl stat-num" style="color: var(--accent);">1,800+</div>
+          <div class="text-xs mt-1" style="color: var(--text-muted);">使用中的賣家團隊</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="max-w-6xl mx-auto px-6 py-8">
+    <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+      <div class="text-xs font-bold tracking-widest uppercase mb-3" style="color: var(--accent);">核心功能</div>
+      <h2 class="font-display font-extrabold text-3xl sm:text-4xl tracking-tight" style="color: var(--text);">從庫存到訂單，一次管好每個環節</h2>
+      <p class="mt-4 text-sm sm:text-base" style="color: var(--text-muted);">五大模組互相搭配，涵蓋跨境電商日常營運中最耗時的重複性工作。</p>
+    </div>
+
+    <div class="space-y-20 sm:space-y-28">
+
+      <!-- Feature 1 -->
+      <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+        <div class="reveal order-2 md:order-1">
+          <div class="inline-flex items-center justify-center w-11 h-11 rounded-xl mb-5" style="background: var(--accent-soft);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 7h11a5 5 0 0 1 5 5" stroke="#2f6fed" stroke-width="2" stroke-linecap="round"/><path d="M17 4l3 3-3 3" stroke="#2f6fed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 17H9a5 5 0 0 1-5-5" stroke="#2f6fed" stroke-width="2" stroke-linecap="round"/><path d="M7 20l-3-3 3-3" stroke="#2f6fed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3 class="font-display font-bold text-2xl mb-3" style="color: var(--text);">多平台庫存即時同步</h3>
+          <p class="text-sm sm:text-base leading-relaxed mb-5" style="color: var(--text-muted);">
+            當任一平台售出商品，系統會在數秒內自動扣減其他所有通路的庫存數字，徹底解決「這邊賣完了那邊還在賣」的超賣問題。
+          </p>
+          <ul class="space-y-2.5 text-sm" style="color: var(--text);">
+            <li class="flex items-start gap-2.5"><span class="mt-1 w-1.5 h-1.5 rounded-full shrink-0" style="background: var(--accent);"></span>雙向同步，平台端與後台庫存永遠一致</li>
+            <li class="flex items-start gap-2.5"><span class="mt-1 w-1.5 h-1.5 rounded-full shrink-0" style="background: var(--accent);"></span>支援 SKU、規格、組合商品的複雜對應</li>
+            <li class="flex items-start gap-2.5"><span class="mt-1 w-1.5 h-1.5 rounded-full shrink-0" style="background: var(--accent);"></span>同步失敗自動重試並發送警示通知</li>
+          </ul>
+        </div>
+        <div class="reveal order-1 md:order-2">
+          <div class="visual-panel rounded-2xl p-8 h-72 flex items-center justify-center feature-card">
+            <svg viewBox="0 0 320 200" class="w-full h-full">
+              <rect x="10" y="70" width="80" height="60" rx="10" fill="#ffffff" stroke="#dbe3f0" stroke-width="1.5"/>
+              <text x="50" y="105" text-anchor="middle" font-size="11" fill="#334155" font-family="Manrope, sans-serif" font-weight="700">蝦皮</text>
+              <rect x="120" y="20" width="80" height="60" rx="10" fill="#ffffff" stroke="#dbe3f0" stroke-width="1.5"/>
+              <text x="160" y="55" text-anchor="middle" font-size="11" fill="#334155" font-family="Manrope, sans-serif" font-weight="700">momo</text>
+              <rect x="230" y="70" width="80" height="60" rx="10" fill="#ffffff" stroke="#dbe3f0" stroke-width="1.5"/>
+              <text x="270" y="105" text-anchor="middle" font-size="11" fill="#334155" font-family="Manrope, sans-serif" font-weight="700">PChome</text>
+              <rect x="120" y="130" width="80" height="55" rx="10" fill="#2f6fed"/>
+              <text x="160" y="163" text-anchor="middle" font-size="11" fill="white" font-family="Manrope, sans-serif" font-weight="700">SyncHub 中控</text>
+              <path class="sync-line" d="M90 100 L120 145" stroke="#93c5fd" stroke-width="2" fill="none"/>
+              <path class="sync-line" d="M160 80 L160 130" stroke="#93c5fd" stroke-width="2" fill="none"/>
+              <path class="sync-line" d="M230 100 L200 145" stroke="#93c5fd" stroke-width="2" fill="none"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+        <div class="reveal">
+          <div class="visual-panel rounded-2xl p-8 h-72 feature-card overflow-hidden">
+            <svg viewBox="0 0 320 200" class="w-full h-full">
+              <rect x="14" y="18" width="292" height="34" rx="8" fill="white" stroke="#dbe3f0"/>
+              <circle cx="32" cy="35" r="4" fill="#2f6fed"/>
+              <rect x="46" y="29" width="90" height="6" rx="3" fill="#94a3b8"/>
+              <rect x="230" y="27" width="60" height="16" rx="8" fill="#e8f0ff"/>
+              <text x="260" y="39" text-anchor="middle" font-size="9" fill="#2f6fed" font-family="Manrope, sans-serif" font-weight="700">待出貨</text>
+              <rect x="14" y="60" width="292" height="34" rx="8" fill="white" stroke="#dbe3f0"/>
+              <circle cx="32" cy="77" r="4" fill="#34d399"/>
+              <rect x="46" y="71" width="120" height="6" rx="3" fill="#94a3b8"/>
+              <rect x="240" y="69" width="50" height="16" rx="8" fill="#dcfce7"/>
+              <text x="265" y="81" text-anchor="middle" font-size="9" fill="#16a34a" font-family="Manrope, sans-serif" font-weight="700">已出貨</text>
+              <rect x="14" y="102" width="292" height="34" rx="8" fill="white" stroke="#dbe3f0"/>
+              <circle cx="32" cy="119" r="4" fill="#f59e0b"/>
+              <rect x="46" y="113" width="100" height="6" rx="3" fill="#94a3b8"/>
+              <rect x="228" y="111" width="62" height="16" rx="8" fill="#fef3c7"/>
+              <text x="259" y="123" text-anchor="middle" font-size="9" fill="#b45309" font-family="Manrope, sans-serif" font-weight="700">處理中</text>
+              <rect x="14" y="144" width="292" height="34" rx="8" fill="white" stroke="#dbe3f0"/>
+              <circle cx="32" cy="161" r="4" fill="#94a3b8"/>
+              <rect x="46" y="155" width="80" height="6" rx="3" fill="#cbd5e1"/>
+            </svg>
+          </div>
+        </div>
+        <div class="reveal">
+          <div class="inline-flex items-center justify-center w-11 h-11 rounded-xl mb-5" style="background: var(--accent-soft);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="15" rx="2" stroke="#2f6fed" stroke-width="2"/><path d="M8 3v4M16 3v4M4 10h16" stroke="#2f6fed" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <h3 class="font-display font-bold text-2xl mb-3" style="color: var(--text);">跨平台訂單自動彙整</h3>
+          <p class="text-sm sm:text-base leading-relaxed mb-5" style="color: var(--text-muted);">
+            所有平台訂單自動匯入單一工作台，依出貨狀態分類排序，出貨單、撿貨單一鍵列印，不用再切換好幾個賣家後台視窗。
+          </p>
+          <ul class="space-y-2.5 text-sm" style="color: var(--text);">
+            <li class="flex items-start gap-2.5"><span class="mt-1 w-1.5 h-1.5 rounded-full shrink-0" style="background: var(--accent);"></span>訂單狀態即時更新，跨平台一致顯示</li>
+            <li class="flex items-start gap-2.5"><span class="mt-1 w-1.5 h-1.5 rounded-full shrink-0" style="background: var(--accent);"></span>批次列印出貨單、託運單與撿貨清單</li>
+            <li class="flex items-start gap-2.5"><span class="mt-1 w-1.5 h-1.5 rounded-full shrink-0" style="background: var(--accent);"></span>可依倉別、貨態、平台自訂篩選檢視</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+        <div class="reveal order-2 md:order-1">
+          <div class="inline-flex items-center justify-center w-11 h-11 rounded-xl mb-5" style="background: var(--accent-soft);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3l1.8 4.9L19 9l-4.9 1.8L12 16l-1.8-5.2L5 9l5.2-1.1L12 3z" stroke="#2f6fed" stroke-width="2" stroke-linejoin="round"/><path d="M19 15l.9 2.4L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.6L19 15z" stroke="#2f6fed" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          </div>
+          <h3 class="font-display font-bold text-2xl mb-3" style="color: var(--text);">智慧補貨提醒與缺貨預警</h3>
+          <p class="text-sm sm:text-base leading-relaxed mb-5" style="color: var(--text-muted);">
+            系統依據歷史銷售速度與安全庫存門檻，提前計算每項商品的預估斷貨日，讓採購與生產排程可以提前準備，不再手忙腳亂。
+          </p>
+          <ul class="space-y-2.5 text-sm" style="color: var(--text);">
+            <li class="flex items-start gap-2.5"><span class="mt-1 w-1.5 h-1.5 rounded-full shrink-0" style="background: var(--accent);"></span>依銷售速度自動估算斷貨倒數天數</li>
+            <li class="flex items-start gap-2.5"><span class="mt-1 w-1.5 h-1.5 rounded-full shrink-0" style="background: var(--accent);"></span>可自訂每個 SKU 的安全庫存門檻</li>
+            <li class="flex items-start gap-2.5"><span class="mt-1 w-1.5 h-1.5 rounded-full shrink-0" style="background: var(--accent);"></span>Email／LINE 通知採購與倉管人員</li>
+          </ul>
+        </div>
+        <div class="reveal order-1 md:order-2">
+          <div class="visual-panel rounded-2xl p-8 h-72 flex items-center justify-center feature-card">
+            <svg viewBox="0 0 320 200" class="w-full h-full">
+              <line x1="30" y1="20" x2="30" y2="170" stroke="#cbd5e1" stroke-width="1.5"/>
+              <line x1="30" y1="170" x2="300" y2="170" stroke="#cbd5e1" stroke-width="1.5"/>
+              <rect x="55" y="110" width="30" height="60" rx="4" fill="#93c5fd"/>
+              <rect x="105" y="90" width="30" height="80" rx="4" fill="#93c5fd"/>
+              <rect x="155" y="60" width="30" height="110" rx="4" fill="#5b9df9"/>
+              <rect x="205" y="40" width="30" height="130" rx="4" fill="#2f6fed"/>
+              <rect x="255" y="25" width="30" height="145" rx="4" fill="#f59e0b"/>
+              <line x1="45" y1="95" x2="290" y2="45" stroke="#ef4444" stroke-width="2" stroke-dasharray="5 5"/>
+              <text x="290" y="40" text-anchor="end" font-size="9" fill="#ef4444" font-family="Manrope, sans-serif" font-weight="700">安全庫存線</text>
+              <text x="270" y="188" text-anchor="middle" font-size="9" fill="#b45309" font-family="Manrope, sans-serif" font-weight="700">建議補貨</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature 4 -->
+      <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+        <div class="reveal">
+          <div class="visual-panel rounded-2xl p-8 h-72 flex items-center justify-center feature-card">
+            <svg viewBox="0 0 320 200" class="w-full h-full">
+              <rect x="30" y="30" width="90" height="70" rx="10" fill="white" stroke="#dbe3f0" stroke-width="1.5"/>
+              <text x="75" y="60" text-anchor="middle" font-size="10" fill="#334155" font-family="Manrope, sans-serif" font-weight="700">桃園倉</text>
+              <text x="75" y="78" text-anchor="middle" font-size="9" fill="#94a3b8" font-family="Manrope, sans-serif">主倉・現貨</text>
+              <rect x="200" y="20" width="90" height="70" rx="10" fill="white" stroke="#dbe3f0" stroke-width="1.5"/>
+              <text x="245" y="50" text-anchor="middle" font-size="10" fill="#334155" font-family="Manrope, sans-serif" font-weight="700">台中倉</text>
+              <text x="245" y="68" text-anchor="middle" font-size="9" fill="#94a3b8" font-family="Manrope, sans-serif">區域倉</text>
+              <rect x="115" y="120" width="90" height="70" rx="10" fill="#2f6fed"/>
+              <text x="160" y="150" text-anchor="middle" font-size="10" fill="white" font-family="Manrope, sans-serif" font-weight="700">海外集運倉</text>
+              <text x="160" y="168" text-anchor="middle" font-size="9" fill="#dbe8ff" font-family="Manrope, sans-serif">跨境備援</text>
+              <path class="sync-line" d="M100 90 L140 122" stroke="#93c5fd" stroke-width="2" fill="none"/>
+              <path class="sync-line" d="M245 90 L195 122" stroke="#93c5fd" stroke-width="2" fill="none"/>
+            </svg>
+          </div>
+        </div>
+        <div class="reveal">
+          <div class="inline-flex items-center justify-center w-11 h-11 rounded-xl mb-5" style="background: var(--accent-soft);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 10.5L12 4l9 6.5" stroke="#2f6fed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 9v10h14V9" stroke="#2f6fed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3 class="font-display font-bold text-2xl mb-3" style="color: var(--text);">多倉配銷邏輯設定</h3>
+          <p class="text-sm sm:text-base leading-relaxed mb-5" style="color: var(--text-muted);">
+            支援主倉、區域倉、海外集運倉並存的多倉架構，依訂單地區、庫存深度自動決定出貨倉別，兼顧出貨速度與運費成本。
+          </p>
+          <ul class="space-y-2.5 text-sm" style="color: var(--text);">
+            <li class="flex items-start gap-2.5"><span class="mt-1 w-1.5 h-1.5 rounded-full shrink-0" style="background: var(--accent);"></span>自訂出貨倉優先順序與分倉規則</li>
+            <li class="flex items-start gap-2.5"><span class="mt-1 w-1.5 h-1.5 rounded-full shrink-0" style="background: var(--accent);"></span>跨倉調撥建議，降低單倉缺貨風險</li>
+            <li class="flex items-start gap-2.5"><span class="mt-1 w-1.5 h-1.5 rounded-full shrink-0" style="background: var(--accent);"></span>支援第三方物流倉與海外倉串接</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Feature 5 -->
+      <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+        <div class="reveal order-2 md:order-1">
+          <div class="inline-flex items-center justify-center w-11 h-11 rounded-xl mb-5" style="background: var(--accent-soft);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 20V10M12 20V4M20 20v-7" stroke="#2f6fed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3 class="font-display font-bold text-2xl mb-3" style="color: var(--text);">跨平台數據報表與銷售分析</h3>
+          <p class="text-sm sm:text-base leading-relaxed mb-5" style="color: var(--text-muted);">
+            將各平台的銷售、退換貨、客單價數據整合成單一儀表板，一眼看出哪個通路、哪個商品最賺，決策不再靠感覺。
+          </p>
+          <ul class="space-y-2.5 text-sm" style="color: var(--text);">
+            <li class="flex items-start gap-2.5"><span class="mt-1 w-1.5 h-1.5 rounded-full shrink-0" style="background: var(--accent);"></span>跨平台銷售、毛利、退貨率一站彙總</li>
+            <li class="flex items-start gap-2.5"><span class="mt-1 w-1.5 h-1.5 rounded-full shrink-0" style="background: var(--accent);"></span>商品、通路、時段多維度篩選比較</li>
+            <li class="flex items-start gap-2.5"><span class="mt-1 w-1.5 h-1.5 rounded-full shrink-0" style="background: var(--accent);"></span>報表可排程自動寄送至團隊信箱</li>
+          </ul>
+        </div>
+        <div class="reveal order-1 md:order-2">
+          <div class="visual-panel rounded-2xl p-8 h-72 flex items-center justify-center feature-card">
+            <svg viewBox="0 0 320 200" class="w-full h-full">
+              <polyline points="20,150 70,120 120,135 170,80 220,95 270,50 300,60" fill="none" stroke="#2f6fed" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <polyline points="20,150 70,120 120,135 170,80 220,95 270,50 300,60 300,175 20,175" fill="#e8f0ff" opacity="0.7" stroke="none"/>
+              <circle cx="170" cy="80" r="4.5" fill="#2f6fed"/>
+              <circle cx="270" cy="50" r="4.5" fill="#2f6fed"/>
+              <line x1="20" y1="175" x2="300" y2="175" stroke="#cbd5e1" stroke-width="1.5"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- INTEGRATIONS -->
+  <section id="integrations" class="max-w-6xl mx-auto px-6 py-24">
+    <div class="text-center max-w-2xl mx-auto mb-12 reveal">
+      <div class="text-xs font-bold tracking-widest uppercase mb-3" style="color: var(--accent);">平台串接</div>
+      <h2 class="font-display font-extrabold text-3xl sm:text-4xl tracking-tight" style="color: var(--text);">一鍵串接台灣主流電商通路</h2>
+      <p class="mt-4 text-sm sm:text-base" style="color: var(--text-muted);">授權登入即可完成串接，無需工程資源，平均 5 分鐘上線。</p>
+    </div>
+
+    <div class="reveal marquee-wrap overflow-hidden relative rounded-2xl border bg-white py-8" style="border-color: var(--border);">
+      <div class="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent z-10"></div>
+      <div class="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent z-10"></div>
+      <div class="marquee-track gap-4 px-4">
+        <!-- set 1 -->
+        <div class="flex gap-4">
+          <span class="whitespace-nowrap px-6 py-3 rounded-full border text-sm font-bold" style="border-color: var(--border); color: var(--text);">蝦皮購物 Shopee</span>
+          <span class="whitespace-nowrap px-6 py-3 rounded-full border text-sm font-bold" style="border-color: var(--border); color: var(--text);">momo 購物網</span>
+          <span class="whitespace-nowrap px-6 py-3 rounded-full border text-sm font-bold" style="border-color: var(--border); color: var(--text);">PChome 24h</span>
+          <span class="whitespace-nowrap px-6 py-3 rounded-full border text-sm font-bold" style="border-color: var(--border); color: var(--text);">Yahoo奇摩超級商城</span>
+          <span class="whitespace-nowrap px-6 py-3 rounded-full border text-sm font-bold" style="border-color: var(--border); color: var(--text);">樂天市場</span>
+          <span class="whitespace-nowrap px-6 py-3 rounded-full border text-sm font-bold" style="border-color: var(--border); color: var(--text);">森森購物網</span>
+          <span class="whitespace-nowrap px-6 py-3 rounded-full border text-sm font-bold" style="border-color: var(--border); color: var(--text);">生活市集</span>
+          <span class="whitespace-nowrap px-6 py-3 rounded-full border text-sm font-bold" style="border-color: var(--border); color: var(--text);">露天拍賣</span>
+        </div>
+        <!-- set 2 (duplicate for seamless loop) -->
+        <div class="flex gap-4">
+          <span class="whitespace-nowrap px-6 py-3 rounded-full border text-sm font-bold" style="border-color: var(--border); color: var(--text);">蝦皮購物 Shopee</span>
+          <span class="whitespace-nowrap px-6 py-3 rounded-full border text-sm font-bold" style="border-color: var(--border); color: var(--text);">momo 購物網</span>
+          <span class="whitespace-nowrap px-6 py-3 rounded-full border text-sm font-bold" style="border-color: var(--border); color: var(--text);">PChome 24h</span>
+          <span class="whitespace-nowrap px-6 py-3 rounded-full border text-sm font-bold" style="border-color: var(--border); color: var(--text);">Yahoo奇摩超級商城</span>
+          <span class="whitespace-nowrap px-6 py-3 rounded-full border text-sm font-bold" style="border-color: var(--border); color: var(--text);">樂天市場</span>
+          <span class="whitespace-nowrap px-6 py-3 rounded-full border text-sm font-bold" style="border-color: var(--border); color: var(--text);">森森購物網</span>
+          <span class="whitespace-nowrap px-6 py-3 rounded-full border text-sm font-bold" style="border-color: var(--border); color: var(--text);">生活市集</span>
+          <span class="whitespace-nowrap px-6 py-3 rounded-full border text-sm font-bold" style="border-color: var(--border); color: var(--text);">露天拍賣</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6 grid sm:grid-cols-3 gap-4 reveal">
+      <div class="rounded-xl border bg-white p-5 flex items-start gap-3" style="border-color: var(--border);">
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style="background: var(--accent-soft);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#2f6fed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="#2f6fed" stroke-width="2"/></svg>
+        </div>
+        <div>
+          <div class="text-sm font-bold" style="color: var(--text);">官方授權串接</div>
+          <div class="text-xs mt-1" style="color: var(--text-muted);">透過各平台官方 API 授權，資料存取安全合規。</div>
+        </div>
+      </div>
+      <div class="rounded-xl border bg-white p-5 flex items-start gap-3" style="border-color: var(--border);">
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style="background: var(--accent-soft);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" stroke="#2f6fed" stroke-width="2" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="text-sm font-bold" style="color: var(--text);">免工程即可上線</div>
+          <div class="text-xs mt-1" style="color: var(--text-muted);">圖形化介面設定，無需串接技術背景也能完成。</div>
+        </div>
+      </div>
+      <div class="rounded-xl border bg-white p-5 flex items-start gap-3" style="border-color: var(--border);">
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style="background: var(--accent-soft);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z" stroke="#2f6fed" stroke-width="2" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="text-sm font-bold" style="color: var(--text);">持續維護更新</div>
+          <div class="text-xs mt-1" style="color: var(--text-muted);">隨平台規則異動即時調整，串接穩定不中斷。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="pricing-cta" class="max-w-6xl mx-auto px-6 pb-24">
+    <div class="reveal rounded-3xl px-8 py-14 sm:py-16 text-center relative overflow-hidden" style="background: linear-gradient(135deg, var(--accent) 0%, #1e54c9 100%);">
+      <div class="absolute inset-0 dot-grid opacity-10" style="filter: invert(1);"></div>
+      <div class="relative">
+        <h2 class="font-display font-extrabold text-2xl sm:text-3xl text-white tracking-tight">準備好讓多平台庫存管理變簡單了嗎？</h2>
+        <p class="mt-3 text-sm sm:text-base text-blue-100 max-w-xl mx-auto">加入 1,800 多個跨境賣家團隊的行列，即刻起 14 天免費試用所有功能。</p>
+        <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <a href="#" class="w-full sm:w-auto px-7 py-3.5 rounded-xl font-semibold text-sm bg-white transition-transform hover:-translate-y-0.5" style="color: var(--accent);">
+            開始免費試用
+          </a>
+          <a href="#" class="w-full sm:w-auto px-7 py-3.5 rounded-xl font-semibold text-sm border border-white/50 text-white transition-colors hover:bg-white/10">
+            預約產品導覽
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t" style="border-color: var(--border);">
+    <div class="max-w-6xl mx-auto px-6 py-14">
+      <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-10">
+        <div>
+          <div class="flex items-center gap-2.5 mb-4">
+            <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: var(--accent);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 7h11a5 5 0 0 1 5 5" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M17 4l3 3-3 3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 17H9a5 5 0 0 1-5-5" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M7 20l-3-3 3-3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <span class="font-display font-extrabold" style="color: var(--text);">同步倉 SyncHub</span>
+          </div>
+          <p class="text-sm leading-relaxed" style="color: var(--text-muted);">為跨境電商賣家打造的多平台庫存與訂單同步管理系統。</p>
+        </div>
+        <div>
+          <div class="text-xs font-bold tracking-widest uppercase mb-4" style="color: var(--text-muted);">產品</div>
+          <ul class="space-y-2.5 text-sm" style="color: var(--text-muted);">
+            <li><a href="#features" class="hover:text-[--accent]" style="color: inherit;">功能總覽</a></li>
+            <li><a href="#integrations" class="hover:text-[--accent]" style="color: inherit;">支援平台</a></li>
+            <li><a href="#" class="hover:text-[--accent]" style="color: inherit;">價格方案</a></li>
+            <li><a href="#" class="hover:text-[--accent]" style="color: inherit;">更新日誌</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-xs font-bold tracking-widest uppercase mb-4" style="color: var(--text-muted);">資源</div>
+          <ul class="space-y-2.5 text-sm" style="color: var(--text-muted);">
+            <li><a href="#" class="hover:text-[--accent]" style="color: inherit;">使用教學</a></li>
+            <li><a href="#" class="hover:text-[--accent]" style="color: inherit;">API 文件</a></li>
+            <li><a href="#" class="hover:text-[--accent]" style="color: inherit;">常見問題</a></li>
+            <li><a href="#" class="hover:text-[--accent]" style="color: inherit;">系統狀態</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-xs font-bold tracking-widest uppercase mb-4" style="color: var(--text-muted);">聯絡我們</div>
+          <ul class="space-y-2.5 text-sm" style="color: var(--text-muted);">
+            <li>service@synchub.example.com</li>
+            <li>02-2345-6789</li>
+            <li>台北市信義區松高路 1 號</li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-12 pt-8 border-t flex flex-col sm:flex-row items-center justify-between gap-4 text-xs" style="border-color: var(--border); color: var(--text-muted);">
+        <span>© 2026 同步倉 SyncHub. 版權所有，翻印必究。</span>
+        <div class="flex gap-5">
+          <a href="#" class="hover:text-[--accent]" style="color: inherit;">服務條款</a>
+          <a href="#" class="hover:text-[--accent]" style="color: inherit;">隱私權政策</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('is-visible'); });
+      return;
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(function (el) { observer.observe(el); });
+  })();
+</script>
