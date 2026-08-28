@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>韡寧的 UI 待審 · 2026-08-28</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Noto Sans TC',sans-serif; background:#f5f3ee; color:#1c1a17;}
+  .frame-wrap{
+    position:relative;
+    width:100%;
+    padding-top:65%;
+    overflow:hidden;
+    border-radius:14px;
+    background:#e9e6dd;
+  }
+  .frame-wrap iframe{
+    position:absolute;
+    top:0; left:0;
+    width:200%;
+    height:200%;
+    transform:scale(.5);
+    transform-origin:top left;
+    border:0;
+  }
+  .card{
+    background:#fff;
+    border:1px solid #e6e2d8;
+    border-radius:20px;
+    transition:box-shadow .2s ease, transform .2s ease;
+  }
+  .card:hover{ box-shadow:0 12px 30px -10px rgba(28,26,23,.15); transform:translateY(-2px); }
+  .heart-btn{
+    transition: transform .15s ease;
+    cursor:pointer;
+    user-select:none;
+  }
+  .heart-btn:active{ transform:scale(1.3); }
+  .heart-btn.liked{ filter:none; }
+</style>
+</head>
+<body class="min-h-screen px-5 py-8 md:px-12 md:py-12">
+<div class="max-w-5xl mx-auto">
+
+  <header class="mb-8">
+    <h1 class="text-2xl md:text-3xl font-black mb-1">韡寧的 UI 待審 · 2026-08-28</h1>
+    <p class="text-sm text-[#7a7568]">今天 6 個風格方向，點卡片開啟預覽，喜歡的按 ❤️ 我會學起來。</p>
+  </header>
+
+  <div id="gallery" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+    <div class="card p-4" data-id="01">
+      <div class="frame-wrap"><iframe src="01-flat-design.html" loading="lazy"></iframe></div>
+      <div class="flex items-center justify-between mt-4">
+        <div>
+          <div class="font-bold">#12 Flat Design 2.0</div>
+          <div class="text-xs text-[#8a8579]">格窩 GeWo · 共享辦公空間預約</div>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="01-flat-design.html" target="_blank" class="text-sm font-semibold text-[#3b5bfd]">開啟 ↗</a>
+          <span class="heart-btn text-2xl" data-id="01">🤍</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-4" data-id="02">
+      <div class="frame-wrap"><iframe src="02-feature-showcase.html" loading="lazy"></iframe></div>
+      <div class="flex items-center justify-between mt-4">
+        <div>
+          <div class="font-bold">#22 Feature-Rich Showcase</div>
+          <div class="text-xs text-[#8a8579]">同步倉 SyncHub · 跨境電商庫存同步 SaaS</div>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="02-feature-showcase.html" target="_blank" class="text-sm font-semibold text-[#3b5bfd]">開啟 ↗</a>
+          <span class="heart-btn text-2xl" data-id="02">🤍</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-4" data-id="03">
+      <div class="frame-wrap"><iframe src="03-heatmap-dashboard.html" loading="lazy"></iframe></div>
+      <div class="flex items-center justify-between mt-4">
+        <div>
+          <div class="font-bold">#29 Heatmap & Density Dashboard</div>
+          <div class="text-xs text-[#8a8579]">熱域 HeatZone · 連鎖門市客流密度監控中心</div>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="03-heatmap-dashboard.html" target="_blank" class="text-sm font-semibold text-[#3b5bfd]">開啟 ↗</a>
+          <span class="heart-btn text-2xl" data-id="03">🤍</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-4" data-id="04">
+      <div class="frame-wrap"><iframe src="04-parallax-story.html" loading="lazy"></iframe></div>
+      <div class="flex items-center justify-between mt-4">
+        <div>
+          <div class="font-bold">#49 Parallax Storytelling</div>
+          <div class="text-xs text-[#8a8579]">市聲 · 台灣傳統市場世代交棒紀事</div>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="04-parallax-story.html" target="_blank" class="text-sm font-semibold text-[#3b5bfd]">開啟 ↗</a>
+          <span class="heart-btn text-2xl" data-id="04">🤍</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-4" data-id="05">
+      <div class="frame-wrap"><iframe src="05-exaggerated-minimalism.html" loading="lazy"></iframe></div>
+      <div class="flex items-center justify-between mt-4">
+        <div>
+          <div class="font-bold">#47 Exaggerated Minimalism</div>
+          <div class="text-xs text-[#8a8579]">見 KEN · 手工眼鏡新品發表</div>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="05-exaggerated-minimalism.html" target="_blank" class="text-sm font-semibold text-[#3b5bfd]">開啟 ↗</a>
+          <span class="heart-btn text-2xl" data-id="05">🤍</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-4" data-id="06">
+      <div class="frame-wrap"><iframe src="06-hud-scifi.html" loading="lazy"></iframe></div>
+      <div class="flex items-center justify-between mt-4">
+        <div>
+          <div class="font-bold">#51 HUD / Sci-Fi</div>
+          <div class="text-xs text-[#8a8579]">鷹眼 EAGLE-EYE · 無人機艦隊調度作戰中心</div>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="06-hud-scifi.html" target="_blank" class="text-sm font-semibold text-[#3b5bfd]">開啟 ↗</a>
+          <span class="heart-btn text-2xl" data-id="06">🤍</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="mt-10 text-center text-xs text-[#a39d8c]">
+    韡寧的每日 UI 待審 · 2026-08-28
+  </footer>
+</div>
+
+<script>
+  const DATE = "2026-08-28";
+  const DB = "https://b-battle-580b5-default-rtdb.firebaseio.com/uigallery";
+
+  function setHeart(el, liked){
+    el.textContent = liked ? "❤️" : "🤍";
+    el.classList.toggle("liked", liked);
+  }
+
+  document.querySelectorAll(".heart-btn").forEach(el=>{
+    el.addEventListener("click", async ()=>{
+      const id = el.dataset.id;
+      const liked = el.textContent.trim() !== "❤️";
+      setHeart(el, liked);
+      try{
+        await fetch(`${DB}/${DATE}_${id}.json`, {
+          method: "PUT",
+          body: JSON.stringify(liked)
+        });
+      }catch(e){
+        console.error("儲存喜歡狀態失敗", e);
+      }
+    });
+  });
+
+  (async ()=>{
+    try{
+      const res = await fetch(`${DB}.json`);
+      const data = await res.json();
+      if(!data) return;
+      document.querySelectorAll(".heart-btn").forEach(el=>{
+        const id = el.dataset.id;
+        const key = `${DATE}_${id}`;
+        if(data[key] === true){
+          setHeart(el, true);
+        }
+      });
+    }catch(e){
+      console.error("讀取喜歡狀態失敗", e);
+    }
+  })();
+</script>
+
+</body>
+</html>

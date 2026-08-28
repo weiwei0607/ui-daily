@@ -1,0 +1,585 @@
+<!-- style #49 Parallax Storytelling -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>市聲｜一個菜市場攤位的交棒紀事</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Serif+TC:wght@400;500;700&family=Karla:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --paper: #f3ede1;
+    --paper-2: #ece2d0;
+    --ink: #2b2420;
+    --ink-soft: #4a4038;
+    --rust: #a8532f;
+    --rust-deep: #7e3c22;
+    --teal: #435c4c;
+    --line: rgba(43,36,32,0.16);
+    --gold: #b98a3e;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Petrona','Noto Serif TC',serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .ui-font{ font-family: 'Karla','Noto Sans TC',sans-serif; }
+
+  h1, h2, h3, .headline{
+    font-family: 'Petrona','Noto Serif TC',serif;
+    letter-spacing: 0.01em;
+  }
+
+  /* ---------- masthead / nav ---------- */
+  .masthead{
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 1.5rem;
+    background: rgba(243,237,225,0.86);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+    transition: transform 0.4s ease;
+  }
+  .masthead.hide{ transform: translateY(-100%); }
+  .masthead .brand{
+    font-family: 'Petrona','Noto Serif TC',serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 0.08em;
+  }
+  .masthead .meta{
+    font-family: 'Karla','Noto Sans TC',sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  /* progress rule */
+  .progress-rule{
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: var(--rust);
+    z-index: 60;
+    width: 0%;
+  }
+
+  /* ---------- sections ---------- */
+  section{
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero{
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(180deg, #e9e2d3 0%, #dcd0b8 100%);
+  }
+
+  /* parallax decorative layers */
+  .layer{
+    position: absolute;
+    inset: 0;
+    will-change: transform;
+    pointer-events: none;
+  }
+  .layer svg{ width: 100%; height: 100%; display:block; }
+
+  .hero .layer-back{ opacity: 0.5; }
+  .hero .layer-mid{ opacity: 0.8; }
+
+  .kicker{
+    font-family: 'Karla','Noto Sans TC',sans-serif;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    color: var(--rust-deep);
+    margin-bottom: 1.4rem;
+  }
+
+  .hero h1{
+    font-size: clamp(3.2rem, 11vw, 8.5rem);
+    font-weight: 700;
+    line-height: 0.95;
+    color: var(--ink);
+    text-shadow: 0 2px 24px rgba(255,255,255,0.4);
+  }
+
+  .hero .subtitle{
+    margin-top: 1.6rem;
+    font-size: clamp(1.05rem, 2vw, 1.4rem);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink-soft);
+    max-width: 30rem;
+    padding: 0 1.5rem;
+  }
+
+  .scroll-cue{
+    position: absolute;
+    bottom: 2.6rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: 'Karla','Noto Sans TC',sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .scroll-cue .stick{
+    width: 1px; height: 40px;
+    background: var(--ink-soft);
+    position: relative;
+    overflow: hidden;
+  }
+  .scroll-cue .stick::after{
+    content: "";
+    position: absolute;
+    top: -100%; left: 0; right: 0; height: 100%;
+    background: var(--rust);
+    animation: dripline 1.8s infinite ease-in-out;
+  }
+  @keyframes dripline{
+    0%{ top: -100%; }
+    60%{ top: 100%; }
+    100%{ top: 100%; }
+  }
+
+  /* chapter shared */
+  .chapter{
+    padding: 9rem 1.5rem 8rem;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+  .chapter-inner{
+    max-width: 46rem;
+    margin: 0 auto;
+    position: relative;
+    z-index: 5;
+  }
+  .chapter-index{
+    font-family: 'Karla','Noto Sans TC',sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--rust-deep);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .chapter-index::after{
+    content: "";
+    height: 1px; width: 3.2rem;
+    background: var(--rust-deep);
+    opacity: 0.6;
+  }
+  .chapter h2{
+    font-size: clamp(2.1rem, 5vw, 3.4rem);
+    font-weight: 600;
+    line-height: 1.15;
+    margin-bottom: 2rem;
+  }
+  .chapter p{
+    font-size: clamp(1.02rem, 1.6vw, 1.18rem);
+    line-height: 2;
+    color: var(--ink-soft);
+    margin-bottom: 1.4rem;
+  }
+  .chapter p strong{
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* drop cap */
+  .dropcap::first-letter{
+    font-family: 'Petrona','Noto Serif TC',serif;
+    font-weight: 700;
+    font-size: 5.2rem;
+    line-height: 0.75;
+    float: left;
+    padding: 0.06em 0.12em 0 0;
+    color: var(--rust);
+  }
+
+  /* fade-up reveal */
+  .reveal{
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .reveal.is-visible{
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1.is-visible{ transition-delay: 0.12s; }
+  .reveal-delay-2.is-visible{ transition-delay: 0.24s; }
+
+  /* chapter background tones — narrative color shift */
+  #ch1{ background: linear-gradient(180deg, #dcd0b8 0%, #e6d9bd 100%); }
+  #ch2{ background: linear-gradient(180deg, #e6d9bd 0%, #e8ceb0 100%); }
+  #ch3{ background: linear-gradient(180deg, #e8ceb0 0%, #dfc1a0 100%); }
+  #ch4{ background: linear-gradient(180deg, #dfc1a0 0%, #cdb08a 100%); }
+
+  .divider-rule{
+    width: 100%; max-width: 46rem; margin: 0 auto;
+    border: none; border-top: 1px solid var(--line);
+  }
+
+  /* pull quote */
+  .pull-quote{
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-style: italic;
+    font-weight: 500;
+    line-height: 1.6;
+    color: var(--rust-deep);
+    border-left: 3px solid var(--rust);
+    padding-left: 1.6rem;
+    margin: 2.2rem 0;
+  }
+
+  .caption{
+    font-family: 'Karla','Noto Sans TC',sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    opacity: 0.75;
+  }
+
+  /* price-tag chip motif */
+  .tag-chip{
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'Karla','Noto Sans TC',sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: var(--ink);
+    padding: 0.28rem 0.7rem;
+    border-radius: 999px;
+  }
+
+  /* closing */
+  .finale{
+    background: var(--ink);
+    color: var(--paper);
+    padding: 8rem 1.5rem 6rem;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+  .finale h2{
+    color: var(--paper);
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-weight: 700;
+    margin-bottom: 1.6rem;
+  }
+  .finale p{
+    color: #cfc6b8;
+    font-size: clamp(1rem, 1.6vw, 1.15rem);
+    line-height: 2;
+    margin-bottom: 1.4rem;
+  }
+  .finale .contact-card{
+    margin-top: 3rem;
+    border: 1px solid rgba(243,237,225,0.25);
+    border-radius: 0.5rem;
+    padding: 2rem;
+    background: rgba(243,237,225,0.04);
+  }
+  .finale .contact-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid rgba(243,237,225,0.14);
+    font-family: 'Karla','Noto Sans TC',sans-serif;
+    font-size: 0.9rem;
+  }
+  .finale .contact-row:last-child{ border-bottom: none; }
+  .finale .contact-row span:first-child{
+    color: #9a8f7c;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+  }
+  .cta-btn{
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 2.4rem;
+    padding: 0.9rem 1.8rem;
+    background: var(--rust);
+    color: var(--paper);
+    font-family: 'Karla','Noto Sans TC',sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 999px;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+  .cta-btn:hover{ background: var(--rust-deep); transform: translateY(-2px); }
+
+  footer.colophon{
+    background: var(--ink);
+    color: #9a8f7c;
+    font-family: 'Karla','Noto Sans TC',sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-align: center;
+    padding: 2rem 1.5rem 3rem;
+    border-top: 1px solid rgba(243,237,225,0.12);
+  }
+
+  /* decorative parallax svgs sizing per section */
+  .stall-motif{
+    position: absolute;
+    right: -4rem;
+    bottom: -3rem;
+    width: 22rem;
+    max-width: 60vw;
+    opacity: 0.18;
+  }
+  .veg-motif{
+    position: absolute;
+    left: -3rem;
+    top: 2rem;
+    width: 16rem;
+    max-width: 50vw;
+    opacity: 0.16;
+  }
+
+  @media (max-width: 640px){
+    .chapter{ padding: 6.5rem 1.25rem 5rem; }
+    .dropcap::first-letter{ font-size: 3.6rem; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="progress-rule" id="progressRule"></div>
+
+  <header class="masthead ui-font" id="masthead">
+    <span class="brand">市聲</span>
+    <span class="meta">一個菜市場攤位的交棒紀事・連載</span>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="hero">
+    <div class="layer layer-back" data-speed="0.15">
+      <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+        <circle cx="640" cy="120" r="180" fill="var(--gold)" opacity="0.14"/>
+        <circle cx="120" cy="480" r="220" fill="var(--rust)" opacity="0.10"/>
+      </svg>
+    </div>
+    <div class="layer layer-mid" data-speed="0.35">
+      <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+        <g opacity="0.22" fill="none" stroke="var(--ink)" stroke-width="1.4">
+          <line x1="60" y1="500" x2="60" y2="360"/>
+          <line x1="60" y1="360" x2="740" y2="360"/>
+          <line x1="740" y1="360" x2="740" y2="500"/>
+          <line x1="0" y1="500" x2="800" y2="500"/>
+        </g>
+      </svg>
+    </div>
+    <p class="kicker ui-font">紀實・世代交接</p>
+    <h1>市聲</h1>
+    <p class="subtitle">秤子還沒放下，天就要亮了——一個菜市場攤位，兩代人的交棒。</p>
+    <div class="scroll-cue">
+      <span>向下捲動</span>
+      <span class="stick"></span>
+      <span>聽市場甦醒</span>
+    </div>
+  </section>
+
+  <!-- ============ CHAPTER 1 ============ -->
+  <section class="chapter" id="ch1">
+    <div class="layer" data-speed="0.2">
+      <svg class="veg-motif" viewBox="0 0 200 200"><g stroke="var(--teal)" stroke-width="2" fill="none"><path d="M40 160 C40 100 70 60 100 40 C130 60 160 100 160 160" /><path d="M100 40 L100 160" /></g></svg>
+    </div>
+    <div class="chapter-inner">
+      <p class="chapter-index reveal">第一章</p>
+      <h2 class="reveal reveal-delay-1">清晨四點半的批發市場</h2>
+      <p class="dropcap reveal reveal-delay-2">車子開進南屯果菜批發市場的時候，路燈還亮著，空氣裡有一股柴油混著爛葉子的味道。陳曉薇跟在阿爸後面，手裡拎著昨晚就摺好的塑膠籃，腳步得跨得比平常大，才跟得上一個做了三十二年菜販的人。阿爸不太說話，只在經過某個攤位時停下腳，捏一捏空心菜的葉尾，聞一聞高麗菜心，就知道今天該進哪一批。</p>
+      <p class="reveal">「這攤的菜脯是自己曬的，你聞，跟外面買的不一樣。」阿爸說這句話的時候，語氣像在介紹老朋友。曉薇這才發現，原來每天清晨在她眼裡只是「進貨」的兩個字，背後其實是三十年累積出來的人情——誰家的菜新鮮不灌水、誰會偷偷多塞兩把蔥、誰的地瓜葉在雨後特別甜，全部寫在阿爸的腦子裡，沒有一張紙記得下來。</p>
+      <p class="reveal">她原本在台北做了六年的行銷企劃，會用試算表算轉換率，卻算不出一把地瓜葉該進多少斤才不會爛在攤子上。回家的第一個月，她連磅秤的歸零鈕在哪裡都要問兩次。阿爸看她笨手笨腳，只丟下一句：「菜市仔沒有教科書，你自己去聞、去摸、去記。」</p>
+    </div>
+  </section>
+
+  <hr class="divider-rule">
+
+  <!-- ============ CHAPTER 2 ============ -->
+  <section class="chapter" id="ch2">
+    <div class="layer" data-speed="0.28">
+      <svg class="stall-motif" viewBox="0 0 300 300"><g fill="none" stroke="var(--rust)" stroke-width="2"><rect x="40" y="120" width="220" height="140" rx="4"/><line x1="40" y1="120" x2="40" y2="60"/><line x1="260" y1="120" x2="260" y2="60"/><path d="M20 60 L280 60 L260 100 L40 100 Z"/></g></svg>
+    </div>
+    <div class="chapter-inner">
+      <p class="chapter-index reveal">第二章</p>
+      <h2 class="reveal reveal-delay-1">交棒的猶豫</h2>
+      <p class="reveal">阿母是最早提「退休」兩個字的人，卻也是最捨不得放手的人。她守著「金龍蔬果行」這五個手寫招牌字二十八年，攤子上那本被翻到書角捲起的帳本，記的不只是進出貨的數字，還有誰家小孩今年考上大學、誰家老先生上個月中風住院所以改吃軟一點的菜。曉薇提議把帳目搬到手機的記帳App裡，阿母沉默了三天，才點頭說：「你要弄可以，但價目表不能拿掉，客人習慣看那個。」</p>
+      <p class="pull-quote">「這攤子不是店面，是我們家跟這條街三十年的交情，你要接，先接得住這份交情，才輪得到你接生意。」</p>
+      <p class="reveal">最激烈的一次爭執，是曉薇想把收銀方式改成行動支付。阿爸一口回絕：「菜市仔的客人多是阿公阿嬤，他們連LINE都不太會用，你搞這個是要嚇跑老主顧嗎？」曉薇沒有反駁，只是隔天悄悄印了一張A4紙，貼在磅秤旁邊，寫著「會用手機付錢的，我教你」，底下畫了一個笑臉。三個星期後，阿爸自己拿著手機來問她：「隔壁魚販那個LINE Pay是怎麼弄的，我也想弄一個。」</p>
+    </div>
+  </section>
+
+  <hr class="divider-rule">
+
+  <!-- ============ CHAPTER 3 ============ -->
+  <section class="chapter" id="ch3">
+    <div class="layer" data-speed="0.22">
+      <svg class="veg-motif" viewBox="0 0 200 200" style="left:auto; right:-3rem;"><g stroke="var(--rust-deep)" stroke-width="2" fill="none"><circle cx="100" cy="100" r="60"/><circle cx="100" cy="100" r="40"/></g></svg>
+    </div>
+    <div class="chapter-inner">
+      <p class="chapter-index reveal">第三章</p>
+      <h2 class="reveal reveal-delay-1">學著喊價</h2>
+      <p class="reveal">第一次獨自顧攤那天，曉薇喊不出聲音。市場裡的喊價像一種需要童子功的技藝，隔壁攤的水果伯扯著嗓子喊「甜柿三粒一百」，聲音穿過整條走道；曉薇張了張嘴，只吐出氣音般的「高麗菜要不要」，連自己都聽不清楚。一位常來的阿嬤走過，笑她：「你這樣喊，鬼都聽不到，你阿爸以前喊到隔壁市場都聽得到。」</p>
+      <p class="reveal">她花了整整兩個月，才找到自己的聲音和節奏——不是模仿阿爸那種豪邁的中氣，而是用比較平穩、帶點台北腔的語氣介紹菜色：「這批絲瓜是今早剛到的，摸起來還有點刺，很新鮮。」有些老顧客一開始不習慣，甚至故意繞去別攤，但也有人開始喜歡她會耐心解釋「地瓜葉要怎麼挑才不苦」、「這個品種的白蘿蔔燉湯比較甜」。</p>
+      <p class="reveal">真正讓她被這條街接受的，是某次颱風過後菜價飆漲，她堅持沒有跟著漲，還把快壞掉的菜用<span class="tag-chip">出清價</span>優先讓給熟識的獨居阿伯。那天收攤，隔壁賣豬肉的阿姨塞給她一包還冒著熱氣的滷豬腳：「你這個囡仔，做人做得不錯，會讓人放心。」曉薇說，那一刻她才真正覺得自己不是「阿爸的女兒在顧攤」，而是「金龍蔬果行的第二代」。</p>
+    </div>
+  </section>
+
+  <hr class="divider-rule">
+
+  <!-- ============ CHAPTER 4 ============ -->
+  <section class="chapter" id="ch4">
+    <div class="layer" data-speed="0.3">
+      <svg class="stall-motif" viewBox="0 0 300 300" style="right:auto; left:-4rem;"><g fill="none" stroke="var(--teal)" stroke-width="2"><path d="M60 240 L60 100 L240 100 L240 240"/><line x1="40" y1="240" x2="260" y2="240"/><line x1="60" y1="140" x2="240" y2="140"/><line x1="60" y1="180" x2="240" y2="180"/></g></svg>
+    </div>
+    <div class="chapter-inner">
+      <p class="chapter-index reveal">第四章</p>
+      <h2 class="reveal reveal-delay-1">新舊之間，找到自己的秤</h2>
+      <p class="reveal">曉薇沒有把攤子改頭換面成網美打卡的樣子，招牌上那五個手寫毛筆字始終沒換，磅秤也留著阿爸那把用了二十年、秤桿被磨得發亮的老式磅秤，旁邊才多放一台電子秤——「怕客人算不清楚，兩個一起秤，讓大家自己核對，這樣才安心。」她說。</p>
+      <p class="reveal">她開了一個帳號，每天收攤前拍一段短短的限時動態：今天的地瓜葉多鮮綠、阿母教她認的哪一種蔥最香、颱風前後菜價為什麼會波動。一開始只有二十幾個人看，半年後，開始有年輕人下班特地繞過來，說「在網路上看你們家講怎麼挑菜，就想來看看本人」。老顧客和新客人，開始在同一個攤位前排隊，聽著同一句「今天的絲瓜很讚，要不要試試看」。</p>
+      <p class="reveal">阿爸現在多半坐在攤子後面的塑膠椅上，偶爾插一句話糾正她菜名念錯的音，更多時候只是看著。有一次曉薇問他，會不會覺得攤子變得不像以前了。阿爸想了很久，才說：<strong>「秤還是那把秤，只是換了個人拿。菜市仔本來就是這樣，一代一代換手，只要秤子公道，客人就不會走。」</strong></p>
+    </div>
+  </section>
+
+  <!-- ============ FINALE ============ -->
+  <section class="finale" id="finale">
+    <div class="layer" data-speed="0.12">
+      <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice"><circle cx="700" cy="80" r="200" fill="var(--rust)" opacity="0.12"/></svg>
+    </div>
+    <div class="chapter-inner">
+      <p class="chapter-index reveal" style="color:#c9a06a;">終章</p>
+      <h2 class="reveal reveal-delay-1">收攤之後，市聲不會停</h2>
+      <p class="reveal">每天下午一點半，曉薇捲起帆布、疊好塑膠籃，把剩下的葉菜分裝成小袋，留給市場後巷幾戶行動不便的老鄰居。這條街上的攤位，這幾年一個一個掛出「頂讓」的紙牌，年輕人不願意接、老一輩做不動，很多招牌就這樣悄悄熄了燈。金龍蔬果行還亮著，不是因為它特別幸運，而是因為有人願意蹲下來，重新學一次喊價、學一次認菜、學一次和客人搏感情。</p>
+      <p class="reveal">如果你也走過傳統市場，卻總是匆匆帶過——不妨放慢腳步，跟一個顧攤三十年的阿姨聊兩句，問問她今天哪把菜最新鮮。市聲聽起來吵雜，仔細聽，裡面全是人跟人之間，最直接、最不怕麻煩的照顧。</p>
+      <a href="#hero" class="cta-btn ui-font">回到市場入口 ↑</a>
+      <div class="contact-card">
+        <div class="contact-row"><span>攤位</span><span>金龍蔬果行・和平市場 C 區 17 號</span></div>
+        <div class="contact-row"><span>營業時間</span><span>週二至週日｜05:30–13:30</span></div>
+        <div class="contact-row"><span>日常紀錄</span><span>IG @jinlong.market</span></div>
+        <div class="contact-row"><span>訂菜聯絡</span><span>LINE ID：jinlong_market</span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="colophon">
+    市聲・傳統市場世代紀實系列　| 第 04 篇　|　文字與影像記錄・2026
+  </footer>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---------- parallax layers ----------
+  var layers = Array.prototype.slice.call(document.querySelectorAll('.layer[data-speed]'));
+
+  function updateParallax(){
+    var scrollY = window.pageYOffset || document.documentElement.scrollTop;
+    for (var i = 0; i < layers.length; i++){
+      var el = layers[i];
+      var speed = parseFloat(el.getAttribute('data-speed')) || 0.2;
+      var rect = el.parentElement.getBoundingClientRect();
+      var sectionTop = rect.top + scrollY;
+      var offset = (scrollY - sectionTop) * speed;
+      el.style.transform = 'translate3d(0,' + offset.toFixed(1) + 'px,0)';
+    }
+  }
+
+  // ---------- scroll progress + masthead hide/show ----------
+  var progressRule = document.getElementById('progressRule');
+  var masthead = document.getElementById('masthead');
+  var lastY = 0;
+
+  function updateProgress(){
+    var doc = document.documentElement;
+    var scrollTop = doc.scrollTop || document.body.scrollTop;
+    var scrollHeight = (doc.scrollHeight - doc.clientHeight) || 1;
+    var pct = (scrollTop / scrollHeight) * 100;
+    progressRule.style.width = pct + '%';
+
+    if (scrollTop > lastY && scrollTop > 140){
+      masthead.classList.add('hide');
+    } else {
+      masthead.classList.remove('hide');
+    }
+    lastY = scrollTop;
+  }
+
+  var ticking = false;
+  function onScroll(){
+    if (!ticking){
+      window.requestAnimationFrame(function(){
+        updateParallax();
+        updateProgress();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+
+  // initial paint
+  updateParallax();
+  updateProgress();
+
+  // ---------- reveal-on-scroll via IntersectionObserver ----------
+  var revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('is-visible'); });
+  }
+})();
+</script>
+</body>
+</html>
