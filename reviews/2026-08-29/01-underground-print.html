@@ -1,0 +1,482 @@
+<!-- style #04 Brutalism -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>地下藝廊 Underground Print Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&family=Noto+Sans+TC:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --red:#ff0000;
+    --blue:#0000ff;
+    --yellow:#ffff00;
+    --black:#000000;
+    --white:#ffffff;
+  }
+
+  *{ border-radius:0 !important; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--white);
+    color:var(--black);
+    font-family:'Noto Sans TC','IBM Plex Mono',sans-serif;
+    overflow-x:hidden;
+  }
+
+  .font-display{
+    font-family:'Rubik Mono One','Noto Sans TC',sans-serif;
+    line-height:1.3;
+  }
+
+  .font-mono{
+    font-family:'IBM Plex Mono',monospace;
+  }
+
+  /* ---- 招牌技法：粗黑邊框 + 硬陰影 ---- */
+  .hard-border{ border:4px solid var(--black); }
+  .hard-border-thin{ border:3px solid var(--black); }
+
+  .hard-shadow{ box-shadow:8px 8px 0 0 var(--black); }
+  .hard-shadow-sm{ box-shadow:4px 4px 0 0 var(--black); }
+  .hard-shadow-yellow{ box-shadow:8px 8px 0 0 var(--yellow); }
+  .hard-shadow-red{ box-shadow:8px 8px 0 0 var(--red); }
+  .hard-shadow-blue{ box-shadow:8px 8px 0 0 var(--blue); }
+
+  .press-hover{ transition:transform .12s ease, box-shadow .12s ease; }
+  .press-hover:hover{ transform:translate(4px,4px); box-shadow:4px 4px 0 0 var(--black); }
+  .press-hover:active{ transform:translate(8px,8px); box-shadow:0 0 0 0 var(--black); }
+
+  /* ---- 故意錯位排版 ---- */
+  .tilt-l1{ transform:rotate(-2.2deg); }
+  .tilt-l2{ transform:rotate(-1.1deg); }
+  .tilt-r1{ transform:rotate(1.8deg); }
+  .tilt-r2{ transform:rotate(2.6deg); }
+  .tilt-r3{ transform:rotate(1deg); }
+  .tilt-hover:hover{ transform:rotate(0deg) scale(1.02); }
+
+  /* ---- 膠帶貼紙效果 ---- */
+  .tape{
+    position:absolute;
+    width:70px;
+    height:22px;
+    background:rgba(255,255,0,.85);
+    border:2px solid var(--black);
+    top:-14px;
+    left:50%;
+    margin-left:-35px;
+    transform:rotate(-4deg);
+    z-index:10;
+  }
+  .tape::after{
+    content:"";
+  }
+
+  /* ---- 跑馬燈 ---- */
+  .marquee-track{
+    display:flex;
+    width:max-content;
+    animation:marquee 18s linear infinite;
+  }
+  @keyframes marquee{
+    from{ transform:translateX(0); }
+    to{ transform:translateX(-50%); }
+  }
+
+  /* ---- 噪點紋理疊層（純 CSS，不用圖檔） ---- */
+  .noise-block{
+    background-image:
+      repeating-linear-gradient(45deg, rgba(0,0,0,.08) 0, rgba(0,0,0,.08) 2px, transparent 2px, transparent 8px);
+  }
+
+  .stripe-yellow-black{
+    background-image:repeating-linear-gradient(135deg, var(--yellow) 0 18px, var(--black) 18px 36px);
+  }
+
+  /* ---- 標籤貼紙 ---- */
+  .stamp{
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:700;
+    letter-spacing:.05em;
+  }
+
+  .btn-brutal{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Rubik Mono One','Noto Sans TC',sans-serif;
+    border:4px solid var(--black);
+    padding:.9rem 1.6rem;
+    text-transform:uppercase;
+    letter-spacing:.02em;
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+
+  .marker-underline{
+    background-image:linear-gradient(var(--yellow) 45%, transparent 45%);
+    padding:0 .1em;
+  }
+
+  ::selection{ background:var(--yellow); color:var(--black); }
+
+  /* 手機選單 */
+  #mobileMenu{ display:none; }
+  #mobileMenu.open{ display:flex; }
+
+  .scanline{
+    background-image:repeating-linear-gradient(0deg, rgba(255,255,255,.06) 0 2px, transparent 2px 4px);
+  }
+</style>
+</head>
+<body class="antialiased">
+
+  <!-- ============ NAV ============ -->
+  <header class="sticky top-0 z-50 bg-black text-white border-b-4 border-black">
+    <div class="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between h-16 md:h-20">
+      <a href="#top" class="font-display text-sm md:text-lg tracking-tight flex items-center gap-2">
+        <span class="bg-[var(--yellow)] text-black px-2 py-1 inline-block hard-border rotate-[-2deg]">地下</span>
+        <span class="hidden sm:inline">UNDERGROUND&nbsp;PRINT</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-8 font-mono text-sm uppercase tracking-widest">
+        <a href="#works" class="hover:text-[var(--yellow)]">作品商品</a>
+        <a href="#workshop" class="hover:text-[var(--yellow)]">工作坊</a>
+        <a href="#about" class="hover:text-[var(--yellow)]">關於我們</a>
+        <a href="#contact" class="hover:text-[var(--yellow)]">聯絡方式</a>
+      </nav>
+      <a href="#contact" class="hidden md:inline-flex btn-brutal bg-[var(--red)] text-white text-xs hard-shadow press-hover">
+        立即預約
+      </a>
+      <button id="menuBtn" class="md:hidden font-mono border-2 border-white px-3 py-1 text-xs uppercase">選單</button>
+    </div>
+    <div id="mobileMenu" class="md:hidden flex-col border-t-4 border-[var(--yellow)] bg-black font-mono text-sm uppercase tracking-widest">
+      <a href="#works" class="px-4 py-3 border-b border-white/20">作品商品</a>
+      <a href="#workshop" class="px-4 py-3 border-b border-white/20">工作坊</a>
+      <a href="#about" class="px-4 py-3 border-b border-white/20">關於我們</a>
+      <a href="#contact" class="px-4 py-3">聯絡方式</a>
+    </div>
+  </header>
+
+  <!-- 跑馬燈 -->
+  <div class="bg-[var(--yellow)] border-b-4 border-black overflow-hidden py-2">
+    <div class="marquee-track font-mono font-bold text-sm md:text-base whitespace-nowrap">
+      <span class="px-4">★ 手工絹印，一版一版親手刷</span>
+      <span class="px-4">★ 龐克樂團週邊限量出品</span>
+      <span class="px-4">★ 台北地下室基地・週三至週日營業</span>
+      <span class="px-4">★ 拒絕印刷廠的完美</span>
+      <span class="px-4">★ 手工絹印，一版一版親手刷</span>
+      <span class="px-4">★ 龐克樂團週邊限量出品</span>
+      <span class="px-4">★ 台北地下室基地・週三至週日營業</span>
+      <span class="px-4">★ 拒絕印刷廠的完美</span>
+    </div>
+  </div>
+
+  <!-- ============ HERO ============ -->
+  <section id="top" class="relative bg-white border-b-4 border-black overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-24 grid md:grid-cols-12 gap-8 items-center relative">
+
+      <div class="md:col-span-7 relative z-10">
+        <span class="stamp inline-block bg-black text-[var(--yellow)] px-3 py-1 text-xs tilt-r1 hard-shadow-sm mb-6">
+          EST. 2019 ・ 台北地下室
+        </span>
+
+        <h1 class="font-display text-[2.4rem] leading-[1.15] sm:text-5xl md:text-6xl uppercase mb-6">
+          手刷<br>
+          <span class="marker-underline">每一張</span><br>
+          都獨一無二
+        </h1>
+
+        <p class="font-medium text-base md:text-lg max-w-md mb-8 leading-relaxed">
+          沒有印刷廠的完美，只有職人手感的溫度。
+          一版一版親手刷，顏色深淺、油墨厚薄，
+          都是我們留下的簽名——不是瑕疵，是真跡。
+        </p>
+
+        <div class="flex flex-wrap gap-4 mb-10">
+          <a href="#works" class="btn-brutal bg-[var(--red)] text-white hard-shadow press-hover">
+            看作品 →
+          </a>
+          <a href="#workshop" class="btn-brutal bg-white text-black hard-shadow-yellow press-hover">
+            報名工作坊
+          </a>
+        </div>
+
+        <div class="flex flex-wrap gap-6 font-mono text-xs uppercase">
+          <div class="border-2 border-black px-3 py-2 hard-shadow-sm bg-[var(--yellow)]">
+            累計刷製 <span class="font-bold">3,200+</span> 張
+          </div>
+          <div class="border-2 border-black px-3 py-2 hard-shadow-sm bg-[var(--blue)] text-white">
+            合作樂團 <span class="font-bold">47</span> 組
+          </div>
+          <div class="border-2 border-black px-3 py-2 hard-shadow-sm bg-white">
+            絹印經驗 <span class="font-bold">8</span> 年
+          </div>
+        </div>
+      </div>
+
+      <div class="md:col-span-5 relative z-10 flex justify-center">
+        <div class="relative w-full max-w-xs">
+          <div class="tape"></div>
+          <div class="hard-border hard-shadow bg-[var(--blue)] p-6 tilt-r2 relative">
+            <div class="stripe-yellow-black h-40 border-4 border-black mb-4"></div>
+            <p class="font-display text-white text-lg uppercase leading-tight">噪音<br>抵抗</p>
+            <p class="font-mono text-white text-xs mt-2">A2・三色手工絹印</p>
+          </div>
+          <div class="hard-border hard-shadow-red bg-[var(--red)] px-4 py-2 absolute -bottom-6 -left-6 tilt-l1 z-20">
+            <p class="font-display text-white text-xs">限量出品</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 作品／商品展示 ============ -->
+  <section id="works" class="bg-white py-16 md:py-24 border-b-4 border-black">
+    <div class="max-w-7xl mx-auto px-4 md:px-8">
+      <div class="mb-12 md:mb-16">
+        <span class="stamp inline-block bg-[var(--red)] text-white px-3 py-1 text-xs tilt-l1 mb-4">SHOP／WORKS</span>
+        <h2 class="font-display text-3xl md:text-5xl uppercase mb-4">商品與作品展示</h2>
+        <p class="font-medium max-w-xl">
+          每件都是限量手工絹印，非機器量產。色差、疊印的些微偏移，
+          都是真人手作留下的痕跡，收到請不要嚇到。
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+
+        <!-- 商品 1 -->
+        <article class="hard-border hard-shadow bg-white p-5 tilt-l1 press-hover">
+          <div class="stripe-yellow-black h-44 border-4 border-black mb-4 flex items-center justify-center">
+            <span class="font-display text-white text-2xl drop-shadow-[2px_2px_0_#000]">A2</span>
+          </div>
+          <span class="stamp bg-black text-[var(--yellow)] text-[10px] px-2 py-1 inline-block mb-2">限量・手工</span>
+          <h3 class="font-display text-lg uppercase mb-2 leading-snug">《噪音抵抗》<br>演唱會海報</h3>
+          <p class="font-medium text-sm mb-4">A2 尺寸，三色手工絹印，向 90 年代地下場刊致敬。</p>
+          <div class="flex items-center justify-between">
+            <span class="font-mono font-bold text-xl">NT$680</span>
+            <span class="font-mono text-xs">剩 12 張</span>
+          </div>
+        </article>
+
+        <!-- 商品 2 -->
+        <article class="hard-border hard-shadow-blue bg-white p-5 tilt-r1 press-hover">
+          <div class="bg-[var(--blue)] h-44 border-4 border-black mb-4 flex items-center justify-center">
+            <span class="font-display text-white text-3xl">T</span>
+          </div>
+          <span class="stamp bg-[var(--red)] text-white text-[10px] px-2 py-1 inline-block mb-2">純棉厚磅</span>
+          <h3 class="font-display text-lg uppercase mb-2 leading-snug">腐蝕之聲<br>樂團 T 恤</h3>
+          <p class="font-medium text-sm mb-4">400 磅純棉黑 T，正面手工單色絹印，尺寸 S–XL。</p>
+          <div class="flex items-center justify-between">
+            <span class="font-mono font-bold text-xl">NT$980</span>
+            <span class="font-mono text-xs">現貨</span>
+          </div>
+        </article>
+
+        <!-- 商品 3 -->
+        <article class="hard-border hard-shadow-yellow bg-[var(--yellow)] p-5 tilt-l2 press-hover">
+          <div class="bg-black h-44 border-4 border-black mb-4 flex items-center justify-center noise-block">
+            <span class="font-display text-[var(--yellow)] text-xl">10 入</span>
+          </div>
+          <span class="stamp bg-black text-white text-[10px] px-2 py-1 inline-block mb-2">防水耐曬</span>
+          <h3 class="font-display text-lg uppercase mb-2 leading-snug">地下電台<br>貼紙包</h3>
+          <p class="font-medium text-sm mb-4">防水耐曬絹印貼紙十入組，機車安全帽貼好貼滿。</p>
+          <div class="flex items-center justify-between">
+            <span class="font-mono font-bold text-xl">NT$150</span>
+            <span class="font-mono text-xs">熱銷</span>
+          </div>
+        </article>
+
+        <!-- 商品 4 -->
+        <article class="hard-border hard-shadow bg-white p-5 tilt-r2 press-hover">
+          <div class="bg-[var(--red)] h-44 border-4 border-black mb-4 flex items-center justify-center">
+            <span class="font-display text-white text-lg text-center px-2">編號版</span>
+          </div>
+          <span class="stamp bg-[var(--yellow)] text-black text-[10px] px-2 py-1 inline-block mb-2">全球限量 100</span>
+          <h3 class="font-display text-lg uppercase mb-2 leading-snug">《暴動年代》<br>限量海報</h3>
+          <p class="font-medium text-sm mb-4">螢光雙色印刷，全球限量一百張，附親筆編號。</p>
+          <div class="flex items-center justify-between">
+            <span class="font-mono font-bold text-xl">NT$1,200</span>
+            <span class="font-mono text-xs">剩 3 張</span>
+          </div>
+        </article>
+
+        <!-- 商品 5 -->
+        <article class="hard-border hard-shadow-blue bg-white p-5 tilt-l1 press-hover">
+          <div class="bg-[var(--yellow)] h-44 border-4 border-black mb-4 flex items-center justify-center">
+            <span class="font-display text-black text-lg text-center px-2">16 OZ</span>
+          </div>
+          <span class="stamp bg-[var(--blue)] text-white text-[10px] px-2 py-1 inline-block mb-2">帆布手作</span>
+          <h3 class="font-display text-lg uppercase mb-2 leading-snug">龐克教條<br>帆布提袋</h3>
+          <p class="font-medium text-sm mb-4">16 盎司厚磅帆布，手工單色印製，能扛能裝能戰鬥。</p>
+          <div class="flex items-center justify-between">
+            <span class="font-mono font-bold text-xl">NT$450</span>
+            <span class="font-mono text-xs">現貨</span>
+          </div>
+        </article>
+
+        <!-- 商品 6 -->
+        <article class="hard-border hard-shadow bg-black text-white p-5 tilt-r1 press-hover">
+          <div class="bg-white h-44 border-4 border-black mb-4 flex items-center justify-center">
+            <span class="font-display text-black text-lg text-center px-2">刺繡＋絹印</span>
+          </div>
+          <span class="stamp bg-[var(--red)] text-white text-[10px] px-2 py-1 inline-block mb-2">聯名款</span>
+          <h3 class="font-display text-lg uppercase mb-2 leading-snug">反骨<br>棒球帽</h3>
+          <p class="font-medium text-sm mb-4 text-white/90">刺繡 LOGO 加上帽側手工絹印字樣，一頂只有一頂。</p>
+          <div class="flex items-center justify-between">
+            <span class="font-mono font-bold text-xl">NT$780</span>
+            <span class="font-mono text-xs">剩 6 頂</span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 工作坊 ============ -->
+  <section id="workshop" class="bg-[var(--blue)] border-b-4 border-black py-16 md:py-24 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 md:px-8 grid md:grid-cols-12 gap-10 items-start relative z-10">
+
+      <div class="md:col-span-5">
+        <span class="stamp inline-block bg-[var(--yellow)] text-black px-3 py-1 text-xs tilt-r1 mb-4">WORKSHOP</span>
+        <h2 class="font-display text-white text-3xl md:text-5xl uppercase mb-6 leading-tight">
+          絹印工作坊<br>招生中
+        </h2>
+        <p class="text-white font-medium mb-8 leading-relaxed">
+          想自己動手刷海報嗎？基礎絹印課程從調墨、對版、上刷到出刷，
+          三小時讓你帶著自己親手印的作品回家，零基礎也能上手。
+        </p>
+        <a href="#contact" class="btn-brutal bg-[var(--yellow)] text-black hard-shadow press-hover">
+          私訊 IG 報名
+        </a>
+      </div>
+
+      <div class="md:col-span-7">
+        <div class="hard-border hard-shadow bg-white p-6 md:p-8 tilt-l1">
+          <dl class="grid sm:grid-cols-2 gap-6 font-mono text-sm">
+            <div class="border-b-2 border-black pb-3">
+              <dt class="uppercase text-xs opacity-60 mb-1">課程內容</dt>
+              <dd class="font-bold text-base">一版一色基礎絹印</dd>
+            </div>
+            <div class="border-b-2 border-black pb-3">
+              <dt class="uppercase text-xs opacity-60 mb-1">上課時間</dt>
+              <dd class="font-bold text-base">每週六 14:00–17:00</dd>
+            </div>
+            <div class="border-b-2 border-black pb-3">
+              <dt class="uppercase text-xs opacity-60 mb-1">開放名額</dt>
+              <dd class="font-bold text-base">每場 8 人，額滿為止</dd>
+            </div>
+            <div class="border-b-2 border-black pb-3">
+              <dt class="uppercase text-xs opacity-60 mb-1">課程費用</dt>
+              <dd class="font-bold text-base">NT$1,500（含材料）</dd>
+            </div>
+            <div class="sm:col-span-2">
+              <dt class="uppercase text-xs opacity-60 mb-1">上課地點</dt>
+              <dd class="font-bold text-base">地下藝廊本工作室（詳見下方地址）</dd>
+            </div>
+          </dl>
+          <p class="font-mono text-xs mt-6 bg-[var(--yellow)] inline-block px-3 py-2 hard-border-thin">
+            ※ 其他時段可自行揪團，滿 4 人即可開班
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 關於我們 ============ -->
+  <section id="about" class="bg-white border-b-4 border-black py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-4 md:px-8 grid md:grid-cols-12 gap-10">
+      <div class="md:col-span-4">
+        <span class="stamp inline-block bg-black text-[var(--yellow)] px-3 py-1 text-xs tilt-l1 mb-4">ABOUT US</span>
+        <h2 class="font-display text-3xl md:text-4xl uppercase leading-tight">關於<br>地下藝廊</h2>
+      </div>
+      <div class="md:col-span-8 space-y-4 font-medium leading-relaxed">
+        <p>
+          地下藝廊創立於 2019 年，一開始只是幾個喜歡龐克樂團和獨立海報的朋友，
+          在租來的地下室裡擺了一台二手絹印機開始亂刷。八年過去，
+          我們仍然堅持每一張海報、每一件週邊都用雙手親自印製，
+          不上機器量產線，也不做「差不多就好」的東西。
+        </p>
+        <p>
+          我們合作過近 50 組獨立樂團與藝術家，從場刊、海報到演唱會週邊，
+          只要你想要的東西帶有手感、帶有態度，我們就有辦法幫你刷出來。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 聯絡資訊 ============ -->
+  <section id="contact" class="bg-black text-white py-16 md:py-24 scanline">
+    <div class="max-w-7xl mx-auto px-4 md:px-8">
+      <div class="mb-12">
+        <span class="stamp inline-block bg-[var(--red)] text-white px-3 py-1 text-xs tilt-r1 mb-4">CONTACT</span>
+        <h2 class="font-display text-3xl md:text-5xl uppercase">找到我們</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="hard-border bg-[var(--yellow)] text-black p-6 tilt-l1 hard-shadow">
+          <h3 class="font-display text-sm uppercase mb-3">地址</h3>
+          <p class="font-mono text-sm leading-relaxed">
+            台北市大同區迪化街一段 32 巷 4 號 B1<br>
+            （近大稻埕碼頭，地下室無電梯，敲門進來就對了）
+          </p>
+        </div>
+
+        <div class="hard-border bg-[var(--red)] text-white p-6 tilt-r1 hard-shadow">
+          <h3 class="font-display text-sm uppercase mb-3">聯絡方式</h3>
+          <p class="font-mono text-sm leading-relaxed">
+            電話：(02) 2555-8891<br>
+            Instagram：@underground.print.tpe<br>
+            Email：hello@undergroundprint.tw
+          </p>
+        </div>
+
+        <div class="hard-border bg-[var(--blue)] text-white p-6 tilt-l2 hard-shadow">
+          <h3 class="font-display text-sm uppercase mb-3">營業時間</h3>
+          <p class="font-mono text-sm leading-relaxed">
+            週三至週日 13:00–20:00<br>
+            週一、週二公休（樂團跟我們一樣需要休息）
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-14 flex flex-wrap gap-4">
+        <a href="#works" class="btn-brutal bg-[var(--yellow)] text-black hard-shadow press-hover">
+          回到作品區
+        </a>
+        <a href="#top" class="btn-brutal bg-white text-black hard-shadow-red press-hover">
+          回到頂端 ↑
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="bg-white border-t-4 border-black py-8">
+    <div class="max-w-7xl mx-auto px-4 md:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs uppercase tracking-widest">
+      <p>地下藝廊 UNDERGROUND PRINT STUDIO</p>
+      <p>© 2026 版權所有・未經同意禁止翻印（我們是說真的）</p>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      var btn = document.getElementById('menuBtn');
+      var menu = document.getElementById('mobileMenu');
+      if(!btn || !menu) return;
+      btn.addEventListener('click', function(){
+        menu.classList.toggle('open');
+      });
+      menu.querySelectorAll('a').forEach(function(a){
+        a.addEventListener('click', function(){
+          menu.classList.remove('open');
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>

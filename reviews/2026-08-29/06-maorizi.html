@@ -1,0 +1,403 @@
+<!-- style #19 Soft UI Evolution -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>毛日子｜寵物健康照護 App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --sky:#87ceeb;
+    --pink:#ffb6c1;
+    --green:#90ee90;
+    --cream:#faf7f2;
+    --ink:#4a4258;
+    --ink-soft:#7a7288;
+    --shadow-light:#ffffff;
+    --shadow-dark:#d9d3c8;
+    --card-bg:#faf7f2;
+  }
+
+  html,body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:"Zen Maru Gothic","Baloo 2",-apple-system,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3,.font-display{
+    font-family:"Baloo 2","Zen Maru Gothic",sans-serif;
+  }
+
+  /* ===== 招牌技法：柔和雙向陰影 (Soft UI / Neumorphism 進化版) ===== */
+  .soft-raised{
+    background:var(--card-bg);
+    border-radius:28px;
+    box-shadow:
+      8px 8px 20px var(--shadow-dark),
+      -8px -8px 20px var(--shadow-light),
+      inset 0 0 0 rgba(0,0,0,0);
+    border:1px solid rgba(255,255,255,0.6);
+  }
+
+  .soft-raised-sm{
+    background:var(--card-bg);
+    border-radius:20px;
+    box-shadow:
+      5px 5px 12px var(--shadow-dark),
+      -5px -5px 12px var(--shadow-light);
+    border:1px solid rgba(255,255,255,0.6);
+  }
+
+  .soft-pressed{
+    background:var(--card-bg);
+    border-radius:20px;
+    box-shadow:
+      inset 4px 4px 10px var(--shadow-dark),
+      inset -4px -4px 10px var(--shadow-light);
+  }
+
+  .soft-btn{
+    background:linear-gradient(135deg,#ffd7e2 0%, #b8ecff 100%);
+    border-radius:9999px;
+    box-shadow:
+      6px 6px 16px rgba(180,150,180,0.35),
+      -6px -6px 16px #ffffff;
+    border:1px solid rgba(255,255,255,0.7);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .soft-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:
+      8px 8px 20px rgba(180,150,180,0.4),
+      -8px -8px 20px #ffffff;
+  }
+  .soft-btn:active{
+    transform:translateY(0);
+    box-shadow:
+      inset 4px 4px 10px rgba(180,150,180,0.35),
+      inset -4px -4px 10px #ffffff;
+  }
+
+  .soft-btn-outline{
+    background:var(--cream);
+    border-radius:9999px;
+    box-shadow:
+      6px 6px 16px var(--shadow-dark),
+      -6px -6px 16px var(--shadow-light);
+    border:1px solid rgba(255,255,255,0.7);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .soft-btn-outline:hover{
+    transform:translateY(-3px);
+  }
+
+  .icon-blob{
+    width:72px;height:72px;
+    border-radius:28px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:34px;
+    box-shadow:
+      5px 5px 12px var(--shadow-dark),
+      -5px -5px 12px var(--shadow-light);
+  }
+
+  .gradient-sky{background:linear-gradient(135deg,#c9ecfa,#87ceeb);}
+  .gradient-pink{background:linear-gradient(135deg,#ffe3ea,#ffb6c1);}
+  .gradient-green{background:linear-gradient(135deg,#e2f8d9,#90ee90);}
+  .gradient-mix{background:linear-gradient(135deg,#87ceeb 0%, #ffb6c1 55%, #90ee90 100%);}
+
+  .hero-bg{
+    background:
+      radial-gradient(circle at 15% 20%, rgba(135,206,235,0.35), transparent 45%),
+      radial-gradient(circle at 85% 15%, rgba(255,182,193,0.4), transparent 45%),
+      radial-gradient(circle at 50% 90%, rgba(144,238,144,0.3), transparent 50%),
+      var(--cream);
+  }
+
+  .tag-pill{
+    border-radius:9999px;
+    padding:6px 16px;
+    font-size:13px;
+    font-weight:700;
+    box-shadow:
+      3px 3px 8px var(--shadow-dark),
+      -3px -3px 8px var(--shadow-light);
+  }
+
+  .float-anim{ animation: floaty 5s ease-in-out infinite; }
+  @keyframes floaty{
+    0%,100%{ transform: translateY(0px) rotate(0deg); }
+    50%{ transform: translateY(-12px) rotate(3deg); }
+  }
+  .float-anim-rev{ animation: floaty-rev 6s ease-in-out infinite; }
+  @keyframes floaty-rev{
+    0%,100%{ transform: translateY(0px) rotate(0deg); }
+    50%{ transform: translateY(10px) rotate(-4deg); }
+  }
+
+  .star-rating{ letter-spacing:2px; color:#ffb64d; }
+
+  .price-toggle-track{
+    background:var(--cream);
+    border-radius:9999px;
+    box-shadow: inset 3px 3px 8px var(--shadow-dark), inset -3px -3px 8px var(--shadow-light);
+  }
+  .price-toggle-thumb{
+    background:linear-gradient(135deg,#87ceeb,#ffb6c1);
+    border-radius:9999px;
+    box-shadow:3px 3px 8px rgba(180,150,180,0.4);
+    transition:left .25s ease;
+  }
+
+  .divider-blob{
+    width:10px;height:10px;border-radius:50%;
+  }
+
+  ::selection{ background:#ffd7e2; }
+
+  @media (max-width:640px){
+    .soft-raised, .soft-raised-sm{ border-radius:22px; }
+  }
+</style>
+</head>
+<body class="hero-bg">
+
+<!-- ===== Nav ===== -->
+<nav class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+  <div class="flex items-center gap-2">
+    <div class="icon-blob gradient-mix" style="width:44px;height:44px;font-size:20px;border-radius:16px;">🐾</div>
+    <span class="font-display text-xl font-bold text-[--ink]">毛日子</span>
+  </div>
+  <div class="hidden md:flex items-center gap-8 text-sm font-bold text-[--ink-soft]">
+    <a href="#features" class="hover:text-[--ink] transition">功能特色</a>
+    <a href="#reviews" class="hover:text-[--ink] transition">飼主評價</a>
+    <a href="#pricing" class="hover:text-[--ink] transition">訂閱方案</a>
+  </div>
+  <button class="soft-btn-outline font-display font-bold text-sm px-5 py-2.5">登入</button>
+</nav>
+
+<!-- ===== Hero ===== -->
+<header class="max-w-6xl mx-auto px-6 pt-10 pb-20 grid md:grid-cols-2 gap-10 items-center">
+  <div>
+    <div class="tag-pill inline-block gradient-pink font-display font-bold text-[--ink] mb-6">
+      🐶🐱 全台超過 12 萬位毛孩家長使用中
+    </div>
+    <h1 class="font-display text-4xl sm:text-5xl font-extrabold leading-tight text-[--ink] mb-6">
+      毛孩的每一天，<br>
+      都值得被好好記錄
+    </h1>
+    <p class="text-lg text-[--ink-soft] leading-relaxed mb-8">
+      「毛日子」陪你記錄貓狗的健康點滴，一鍵預約美容與獸醫，還能在社群裡跟其他毛孩家長聊天交流。讓照顧毛孩這件事，變得輕鬆又安心。
+    </p>
+    <div class="flex flex-wrap gap-4 mb-8">
+      <button class="soft-btn font-display font-bold text-[--ink] px-8 py-4 flex items-center gap-2">
+        <span class="text-xl">📱</span> 免費下載 App
+      </button>
+      <button class="soft-btn-outline font-display font-bold text-[--ink] px-8 py-4 flex items-center gap-2">
+        <span class="text-xl">▶️</span> 看看功能介紹
+      </button>
+    </div>
+    <div class="flex items-center gap-4 text-sm text-[--ink-soft] font-bold">
+      <span class="star-rating">★★★★★</span>
+      <span>4.9 分・App Store 寵物類 TOP 1</span>
+    </div>
+  </div>
+
+  <div class="relative flex items-center justify-center">
+    <div class="soft-raised p-8 w-full max-w-sm mx-auto relative z-10">
+      <div class="soft-pressed p-5 mb-5">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="icon-blob gradient-sky" style="width:48px;height:48px;font-size:22px;border-radius:16px;">🐕</div>
+          <div>
+            <p class="font-display font-bold text-[--ink]">豆花（柴犬・3 歲）</p>
+            <p class="text-xs text-[--ink-soft]">上次健檢：8 月 12 日</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-2 text-center">
+          <div class="soft-raised-sm py-2">
+            <p class="text-xs text-[--ink-soft]">體重</p>
+            <p class="font-display font-bold text-[--ink]">9.8kg</p>
+          </div>
+          <div class="soft-raised-sm py-2">
+            <p class="text-xs text-[--ink-soft]">疫苗</p>
+            <p class="font-display font-bold text-green-600">已完成</p>
+          </div>
+          <div class="soft-raised-sm py-2">
+            <p class="text-xs text-[--ink-soft]">下次美容</p>
+            <p class="font-display font-bold text-[--ink]">9/03</p>
+          </div>
+        </div>
+      </div>
+      <div class="soft-raised-sm p-4 flex items-center justify-between">
+        <span class="font-display font-bold text-sm text-[--ink]">🛁 預約美容洗澡</span>
+        <span class="text-[--ink-soft]">›</span>
+      </div>
+    </div>
+
+    <div class="icon-blob gradient-pink absolute -top-4 -left-4 float-anim" style="width:64px;height:64px;font-size:28px;">🐱</div>
+    <div class="icon-blob gradient-green absolute -bottom-6 -right-2 float-anim-rev" style="width:56px;height:56px;font-size:24px;">🦴</div>
+  </div>
+</header>
+
+<!-- ===== Features ===== -->
+<section id="features" class="max-w-6xl mx-auto px-6 py-16">
+  <div class="text-center mb-12">
+    <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-[--ink] mb-3">為什麼飼主都愛用毛日子</h2>
+    <p class="text-[--ink-soft]">四大核心功能，讓照顧毛孩不再手忙腳亂</p>
+  </div>
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="soft-raised p-7">
+      <div class="icon-blob gradient-sky mb-5">📋</div>
+      <h3 class="font-display font-bold text-lg text-[--ink] mb-2">健康紀錄手帳</h3>
+      <p class="text-sm text-[--ink-soft] leading-relaxed">體重、疫苗、驅蟲、看診紀錄通通自動整理成時間軸，健檢報告也能拍照存檔，帶毛孩看醫生再也不用翻包包找病歷。</p>
+    </div>
+
+    <div class="soft-raised p-7">
+      <div class="icon-blob gradient-pink mb-5">✂️</div>
+      <h3 class="font-display font-bold text-lg text-[--ink] mb-2">美容 / 獸醫預約</h3>
+      <p class="text-sm text-[--ink-soft] leading-relaxed">在地優質美容院與動物醫院即時查空檔，線上一鍵預約、自動提醒回診，還能看到其他毛孩家長的真實評價。</p>
+    </div>
+
+    <div class="soft-raised p-7">
+      <div class="icon-blob gradient-green mb-5">💬</div>
+      <h3 class="font-display font-bold text-lg text-[--ink] mb-2">毛孩社群交流</h3>
+      <p class="text-sm text-[--ink-soft] leading-relaxed">加入同社區、同品種的毛孩家長社團，分享日常趣事、交換照顧心得，走失協尋也能第一時間發送到附近的飼主。</p>
+    </div>
+
+    <div class="soft-raised p-7">
+      <div class="icon-blob gradient-mix mb-5">⏰</div>
+      <h3 class="font-display font-bold text-lg text-[--ink] mb-2">貼心提醒通知</h3>
+      <p class="text-sm text-[--ink-soft] leading-relaxed">餵食時間、吃藥提醒、疫苗到期通通不漏接，還會依照毛孩年齡和品種，主動推送專屬的健康小提醒。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Reviews ===== -->
+<section id="reviews" class="max-w-6xl mx-auto px-6 py-16">
+  <div class="text-center mb-12">
+    <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-[--ink] mb-3">毛孩家長怎麼說</h2>
+    <p class="text-[--ink-soft]">來看看使用毛日子後，大家的真實心得</p>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="soft-raised p-7">
+      <div class="star-rating mb-3">★★★★★</div>
+      <p class="text-[--ink] leading-relaxed mb-5">「家裡養了兩貓一狗，以前疫苗時間都要靠便利貼提醒，現在全部交給毛日子，連下次驅蟲日期都幫我算好，超級安心！」</p>
+      <div class="flex items-center gap-3">
+        <div class="icon-blob gradient-pink" style="width:44px;height:44px;font-size:20px;border-radius:14px;">👩</div>
+        <div>
+          <p class="font-display font-bold text-sm text-[--ink]">陳小姐</p>
+          <p class="text-xs text-[--ink-soft]">台北・貓奴兼狗奴</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="soft-raised p-7">
+      <div class="star-rating mb-3">★★★★★</div>
+      <p class="text-[--ink] leading-relaxed mb-5">「預約美容真的方便到爆炸，不用打電話喬時間，滑一滑就訂好了，還能看到附近其他人給店家的評價，選店不再踩雷。」</p>
+      <div class="flex items-center gap-3">
+        <div class="icon-blob gradient-sky" style="width:44px;height:44px;font-size:20px;border-radius:14px;">👨</div>
+        <div>
+          <p class="font-display font-bold text-sm text-[--ink]">林先生</p>
+          <p class="text-xs text-[--ink-soft]">台中・柴犬把拔</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="soft-raised p-7">
+      <div class="star-rating mb-3">★★★★★</div>
+      <p class="text-[--ink] leading-relaxed mb-5">「社群功能意外地實用，我家貓咪走失那次靠社群幾小時內就找回來了，鄰居飼主真的很熱心，現在每天都會上去逛逛。」</p>
+      <div class="flex items-center gap-3">
+        <div class="icon-blob gradient-green" style="width:44px;height:44px;font-size:20px;border-radius:14px;">👩‍🦰</div>
+        <div>
+          <p class="font-display font-bold text-sm text-[--ink]">黃小姐</p>
+          <p class="text-xs text-[--ink-soft]">高雄・橘貓貓奴</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Pricing ===== -->
+<section id="pricing" class="max-w-6xl mx-auto px-6 py-16">
+  <div class="text-center mb-12">
+    <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-[--ink] mb-3">選擇適合你的方案</h2>
+    <p class="text-[--ink-soft]">先免費用用看，喜歡再升級也不遲</p>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+    <!-- 免費版 -->
+    <div class="soft-raised p-8">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="divider-blob gradient-sky"></span>
+        <h3 class="font-display font-bold text-xl text-[--ink]">免費版</h3>
+      </div>
+      <p class="font-display text-3xl font-extrabold text-[--ink] mb-1">NT$0</p>
+      <p class="text-sm text-[--ink-soft] mb-6">永久免費・適合新手飼主</p>
+      <ul class="space-y-3 text-sm text-[--ink] mb-8">
+        <li class="flex items-start gap-2"><span>✅</span> 最多可建立 2 隻毛孩檔案</li>
+        <li class="flex items-start gap-2"><span>✅</span> 基本健康紀錄與提醒</li>
+        <li class="flex items-start gap-2"><span>✅</span> 美容 / 獸醫線上預約</li>
+        <li class="flex items-start gap-2"><span>✅</span> 加入在地社群交流</li>
+        <li class="flex items-start gap-2 text-[--ink-soft]"><span>➖</span> 健檢報告雲端保存 30 天</li>
+      </ul>
+      <button class="soft-btn-outline font-display font-bold text-[--ink] w-full py-3">立即免費使用</button>
+    </div>
+
+    <!-- 進階版 -->
+    <div class="soft-raised p-8 relative overflow-hidden">
+      <div class="tag-pill gradient-mix absolute top-6 right-6 text-[--ink]">最多人選擇</div>
+      <div class="flex items-center gap-2 mb-4">
+        <span class="divider-blob gradient-pink"></span>
+        <h3 class="font-display font-bold text-xl text-[--ink]">進階版</h3>
+      </div>
+      <p class="font-display text-3xl font-extrabold text-[--ink] mb-1">NT$149<span class="text-base font-bold text-[--ink-soft]">／月</span></p>
+      <p class="text-sm text-[--ink-soft] mb-6">多毛孩家庭・全方位照護首選</p>
+      <ul class="space-y-3 text-sm text-[--ink] mb-8">
+        <li class="flex items-start gap-2"><span>💛</span> 毛孩檔案數量無上限</li>
+        <li class="flex items-start gap-2"><span>💛</span> 健檢報告雲端永久保存</li>
+        <li class="flex items-start gap-2"><span>💛</span> 優先預約人氣美容院 / 醫院</li>
+        <li class="flex items-start gap-2"><span>💛</span> 專屬獸醫線上諮詢每月 2 次</li>
+        <li class="flex items-start gap-2"><span>💛</span> 走失協尋優先推播鄰近飼主</li>
+      </ul>
+      <button class="soft-btn font-display font-bold text-[--ink] w-full py-3">升級進階版</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Footer CTA ===== -->
+<footer class="max-w-6xl mx-auto px-6 pb-16">
+  <div class="soft-raised gradient-mix p-10 sm:p-14 text-center">
+    <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-[--ink] mb-4">今天就開始，記錄毛孩的每一天</h2>
+    <p class="text-[--ink] text-opacity-80 mb-8">下載毛日子，讓照顧貓狗這件事更有溫度</p>
+    <div class="flex flex-wrap justify-center gap-4">
+      <button class="soft-btn font-display font-bold text-[--ink] px-8 py-4">📲 App Store 下載</button>
+      <button class="soft-btn font-display font-bold text-[--ink] px-8 py-4">🤖 Google Play 下載</button>
+    </div>
+  </div>
+  <p class="text-center text-xs text-[--ink-soft] mt-8">© 2026 毛日子 MaoRiZi・用心陪伴每一位毛孩的日常</p>
+</footer>
+
+<script>
+  // 輕微互動：卡片滑鼠移動時的柔和傾斜效果
+  document.querySelectorAll('.soft-raised').forEach(function(card){
+    card.addEventListener('mousemove', function(e){
+      var rect = card.getBoundingClientRect();
+      var x = (e.clientX - rect.left) / rect.width - 0.5;
+      var y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = 'perspective(600px) rotateX(' + (y * -3) + 'deg) rotateY(' + (x * 3) + 'deg)';
+    });
+    card.addEventListener('mouseleave', function(){
+      card.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg)';
+    });
+  });
+</script>
+
+</body>
+</html>

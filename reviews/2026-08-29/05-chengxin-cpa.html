@@ -1,0 +1,432 @@
+<!-- style #26 Trust & Authority -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>誠信聯合會計師事務所｜稅務規劃．財報簽證．企業顧問</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Noto+Serif+TC:wght@400;500;600;700;900&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1a2b4a;
+    --navy-deep:#101d35;
+    --cream:#f8f6f0;
+    --cream-dim:#efebe0;
+    --gold:#b8935f;
+    --gold-light:#d4b483;
+    --ink:#26314a;
+  }
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--cream);
+    color:var(--navy);
+    font-family:'Noto Serif TC', serif;
+  }
+
+  .font-display{
+    font-family:'Libre Caslon Text', 'Noto Serif TC', serif;
+  }
+
+  .font-label{
+    font-family:'Public Sans', 'Noto Serif TC', sans-serif;
+  }
+
+  /* ---- 招牌技法：金色分隔線 ---- */
+  .divider-gold{
+    width:64px;
+    height:2px;
+    background:linear-gradient(90deg, transparent, var(--gold) 15%, var(--gold) 85%, transparent);
+    margin:1.75rem auto;
+  }
+  .divider-gold.left{
+    margin-left:0;
+    background:linear-gradient(90deg, var(--gold), transparent);
+  }
+
+  .rule-thin{
+    height:1px;
+    background:linear-gradient(90deg, transparent, rgba(184,147,95,.55), transparent);
+  }
+
+  /* ---- 招牌技法：角落紋飾線 ---- */
+  .ornate-corners{
+    position:relative;
+  }
+  .ornate-corners::before,
+  .ornate-corners::after{
+    content:'';
+    position:absolute;
+    width:34px;
+    height:34px;
+    border:1px solid var(--gold);
+    opacity:.65;
+  }
+  .ornate-corners::before{
+    top:-14px;
+    left:-14px;
+    border-right:none;
+    border-bottom:none;
+  }
+  .ornate-corners::after{
+    bottom:-14px;
+    right:-14px;
+    border-left:none;
+    border-top:none;
+  }
+
+  /* ---- 印刷體字距 & 大小寫節奏 ---- */
+  .tracking-label{
+    letter-spacing:.28em;
+  }
+
+  .eyebrow{
+    font-family:'Public Sans', sans-serif;
+    letter-spacing:.32em;
+    font-size:.7rem;
+    font-weight:600;
+    color:var(--gold);
+  }
+
+  /* ---- Hero 背景：深藏青 + 極細紋理 ---- */
+  .hero-navy{
+    background:
+      radial-gradient(circle at 20% -10%, rgba(212,180,131,.08), transparent 45%),
+      radial-gradient(circle at 85% 110%, rgba(212,180,131,.06), transparent 45%),
+      linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+  }
+
+  .hero-frame{
+    border:1px solid rgba(212,180,131,.35);
+  }
+
+  /* ---- 服務卡片 ---- */
+  .service-card{
+    background:#fff;
+    border:1px solid rgba(26,43,74,.09);
+    transition:border-color .25s ease, transform .25s ease, box-shadow .25s ease;
+  }
+  .service-card:hover{
+    border-color:var(--gold);
+    transform:translateY(-3px);
+    box-shadow:0 18px 34px -22px rgba(26,43,74,.35);
+  }
+  .service-num{
+    font-family:'Libre Caslon Text', serif;
+    color:var(--gold);
+  }
+
+  /* ---- 團隊卡 ---- */
+  .team-photo{
+    background:linear-gradient(155deg, var(--navy) 0%, #2a3f66 60%, var(--navy-deep) 100%);
+    position:relative;
+    overflow:hidden;
+  }
+  .team-photo::after{
+    content:'';
+    position:absolute;
+    inset:10px;
+    border:1px solid rgba(212,180,131,.4);
+  }
+  .team-initial{
+    font-family:'Libre Caslon Text', serif;
+    color:var(--gold-light);
+  }
+
+  /* ---- 數據標章 ---- */
+  .stat-figure{
+    font-family:'Libre Caslon Text', serif;
+    color:var(--gold);
+  }
+
+  /* ---- 見證引文 ---- */
+  .quote-mark{
+    font-family:'Libre Caslon Text', serif;
+    color:var(--gold);
+    line-height:1;
+  }
+
+  .btn-gold{
+    background:var(--gold);
+    color:var(--navy-deep);
+    letter-spacing:.18em;
+    transition:background .25s ease, color .25s ease;
+  }
+  .btn-gold:hover{
+    background:var(--gold-light);
+  }
+
+  .btn-outline{
+    border:1px solid rgba(248,246,240,.55);
+    color:var(--cream);
+    letter-spacing:.18em;
+    transition:border-color .25s ease, background .25s ease;
+  }
+  .btn-outline:hover{
+    border-color:var(--gold);
+    background:rgba(212,180,131,.08);
+  }
+
+  .section-title{
+    font-family:'Libre Caslon Text', serif;
+    font-weight:700;
+  }
+
+  footer a{
+    transition:color .2s ease;
+  }
+  footer a:hover{
+    color:var(--gold-light);
+  }
+</style>
+</head>
+<body class="antialiased">
+
+  <!-- ============ Header ============ -->
+  <header class="bg-[var(--cream)] border-b border-[rgba(26,43,74,.12)]">
+    <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+      <div class="flex items-baseline gap-3">
+        <span class="font-display text-xl md:text-2xl font-bold tracking-wide">誠信聯合會計師事務所</span>
+        <span class="font-label hidden md:inline text-[10px] tracking-[.3em] text-[var(--gold)]">CHENG&nbsp;HSIN&nbsp;&amp;&nbsp;ASSOCIATES</span>
+      </div>
+      <nav class="hidden md:flex items-center gap-8 font-label text-sm tracking-wide">
+        <a href="#services" class="hover:text-[var(--gold)] transition-colors">服務項目</a>
+        <a href="#team" class="hover:text-[var(--gold)] transition-colors">合夥團隊</a>
+        <a href="#trust" class="hover:text-[var(--gold)] transition-colors">客戶信賴</a>
+        <a href="#contact" class="hover:text-[var(--gold)] transition-colors">聯絡我們</a>
+      </nav>
+      <a href="#contact" class="font-label text-xs tracking-[.2em] border border-[var(--navy)] px-4 py-2 hover:bg-[var(--navy)] hover:text-[var(--cream)] transition-colors">預約諮詢</a>
+    </div>
+  </header>
+
+  <!-- ============ Hero ============ -->
+  <section class="hero-navy text-[var(--cream)] px-6 py-24 md:py-36">
+    <div class="max-w-4xl mx-auto text-center">
+      <p class="eyebrow">ESTABLISHED&nbsp;1998&nbsp;·&nbsp;TAIPEI</p>
+      <div class="hero-frame ornate-corners inline-block px-8 py-12 md:px-16 md:py-16 mt-8">
+        <h1 class="font-display text-3xl md:text-5xl leading-snug md:leading-snug font-normal">
+          誠信立業，專業為本<br class="hidden md:block">
+          是我們對每一位客戶的承諾
+        </h1>
+        <div class="divider-gold"></div>
+        <p class="font-label text-sm md:text-base text-[rgba(248,246,240,.78)] leading-relaxed max-w-xl mx-auto">
+          誠信聯合會計師事務所深耕稅務規劃、財報簽證與企業顧問領域逾二十五年，
+          以嚴謹查核精神與務實稅務策略，陪伴企業穩健成長、行穩致遠。
+        </p>
+      </div>
+      <div class="mt-12 flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#contact" class="btn-gold font-label text-xs px-8 py-4 text-center">預約免費諮詢</a>
+        <a href="#services" class="btn-outline font-label text-xs px-8 py-4 text-center">了解服務項目</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Services ============ -->
+  <section id="services" class="px-6 py-24 md:py-28">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <p class="eyebrow">OUR&nbsp;SERVICES</p>
+        <h2 class="section-title text-3xl md:text-4xl mt-3">服務項目</h2>
+        <div class="divider-gold"></div>
+        <p class="font-label text-sm text-[rgba(26,43,74,.65)] max-w-xl mx-auto leading-relaxed">
+          從稅務規劃到企業診斷，我們提供一站式專業服務，為每一位客戶量身擬定最適方案。
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+        <div class="service-card p-8 md:p-10">
+          <span class="service-num text-4xl">01</span>
+          <h3 class="font-display text-xl md:text-2xl mt-4 mb-3">稅務規劃與申報</h3>
+          <p class="font-label text-sm text-[rgba(26,43,74,.7)] leading-relaxed">
+            提供營利事業所得稅、營業稅、個人綜合所得稅之申報規劃，並依產業特性研擬合法節稅策略，降低稅務風險、提升資金運用效率。
+          </p>
+        </div>
+
+        <div class="service-card p-8 md:p-10">
+          <span class="service-num text-4xl">02</span>
+          <h3 class="font-display text-xl md:text-2xl mt-4 mb-3">財務報表簽證</h3>
+          <p class="font-label text-sm text-[rgba(26,43,74,.7)] leading-relaxed">
+            依循一般公認會計原則與法令規範，執行財務報表查核與簽證作業，協助企業取得金融機構授信、上市櫃輔導所需之公信力文件。
+          </p>
+        </div>
+
+        <div class="service-card p-8 md:p-10">
+          <span class="service-num text-4xl">03</span>
+          <h3 class="font-display text-xl md:text-2xl mt-4 mb-3">企業經營顧問</h3>
+          <p class="font-label text-sm text-[rgba(26,43,74,.7)] leading-relaxed">
+            從公司設立登記、組織架構調整、併購重組到內控制度建置，提供全方位顧問諮詢，協助經營者做出更具前瞻性的決策。
+          </p>
+        </div>
+
+        <div class="service-card p-8 md:p-10">
+          <span class="service-num text-4xl">04</span>
+          <h3 class="font-display text-xl md:text-2xl mt-4 mb-3">傳承與遺產規劃</h3>
+          <p class="font-label text-sm text-[rgba(26,43,74,.7)] leading-relaxed">
+            結合遺產贈與稅法與家族信託架構，協助企業主及高資產客戶進行資產傳承規劃，兼顧稅負優化與家族企業永續經營。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Team ============ -->
+  <section id="team" class="px-6 py-24 md:py-28 bg-[var(--cream-dim)]">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <p class="eyebrow">OUR&nbsp;PARTNERS</p>
+        <h2 class="section-title text-3xl md:text-4xl mt-3">合夥團隊</h2>
+        <div class="divider-gold"></div>
+        <p class="font-label text-sm text-[rgba(26,43,74,.65)] max-w-xl mx-auto leading-relaxed">
+          三位主持會計師合計擁有逾六十年執業經驗，橫跨稅務、審計與顧問領域。
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+        <div class="text-center">
+          <div class="team-photo aspect-[4/5] flex items-center justify-center">
+            <span class="team-initial text-5xl">林</span>
+          </div>
+          <h3 class="font-display text-xl mt-6">林志誠 會計師</h3>
+          <p class="font-label text-xs tracking-[.2em] text-[var(--gold)] mt-1">主持會計師．所長</p>
+          <div class="rule-thin w-12 mx-auto my-4"></div>
+          <p class="font-label text-sm text-[rgba(26,43,74,.65)] leading-relaxed">
+            專長稅務規劃與企業併購顧問，曾任四大會計師事務所審計部經理，執業逾二十八年。
+          </p>
+        </div>
+
+        <div class="text-center">
+          <div class="team-photo aspect-[4/5] flex items-center justify-center">
+            <span class="team-initial text-5xl">陳</span>
+          </div>
+          <h3 class="font-display text-xl mt-6">陳雅慧 會計師</h3>
+          <p class="font-label text-xs tracking-[.2em] text-[var(--gold)] mt-1">審計部門主持會計師</p>
+          <div class="rule-thin w-12 mx-auto my-4"></div>
+          <p class="font-label text-sm text-[rgba(26,43,74,.65)] leading-relaxed">
+            專長財務報表查核與上市櫃輔導，具國際會計師執照，深耕財簽領域逾二十年。
+          </p>
+        </div>
+
+        <div class="text-center">
+          <div class="team-photo aspect-[4/5] flex items-center justify-center">
+            <span class="team-initial text-5xl">王</span>
+          </div>
+          <h3 class="font-display text-xl mt-6">王建宏 會計師</h3>
+          <p class="font-label text-xs tracking-[.2em] text-[var(--gold)] mt-1">稅務諮詢部門主持會計師</p>
+          <div class="rule-thin w-12 mx-auto my-4"></div>
+          <p class="font-label text-sm text-[rgba(26,43,74,.65)] leading-relaxed">
+            專長跨境租稅規劃與遺產贈與稅務，長年擔任中小企業主稅務顧問，執業逾十六年。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Trust / Stats ============ -->
+  <section id="trust" class="hero-navy text-[var(--cream)] px-6 py-24 md:py-28">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <p class="eyebrow">WHY&nbsp;TRUST&nbsp;US</p>
+        <h2 class="section-title text-3xl md:text-4xl mt-3">客戶信賴，我們的堅持</h2>
+        <div class="divider-gold"></div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-6 text-center mb-20">
+        <div>
+          <p class="stat-figure text-4xl md:text-5xl">27</p>
+          <p class="font-label text-xs tracking-[.2em] mt-3 text-[rgba(248,246,240,.7)]">年執業經驗</p>
+        </div>
+        <div>
+          <p class="stat-figure text-4xl md:text-5xl">860+</p>
+          <p class="font-label text-xs tracking-[.2em] mt-3 text-[rgba(248,246,240,.7)]">服務企業客戶</p>
+        </div>
+        <div>
+          <p class="stat-figure text-4xl md:text-5xl">3</p>
+          <p class="font-label text-xs tracking-[.2em] mt-3 text-[rgba(248,246,240,.7)]">主持會計師</p>
+        </div>
+        <div>
+          <p class="stat-figure text-4xl md:text-5xl">98%</p>
+          <p class="font-label text-xs tracking-[.2em] mt-3 text-[rgba(248,246,240,.7)]">客戶續約比率</p>
+        </div>
+      </div>
+
+      <div class="rule-thin mb-16"></div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
+        <div class="text-center md:text-left">
+          <p class="quote-mark text-5xl">"</p>
+          <p class="font-label text-base leading-relaxed text-[rgba(248,246,240,.85)] -mt-6">
+            誠信聯合團隊在公司併購過程中，協助我們完成完整的財稅盡職調查，
+            專業度與細膩度都遠超預期，讓交易得以如期完成。
+          </p>
+          <p class="font-label text-xs tracking-[.15em] text-[var(--gold-light)] mt-6">－ 精密機械製造業　財務長</p>
+        </div>
+        <div class="text-center md:text-left">
+          <p class="quote-mark text-5xl">"</p>
+          <p class="font-label text-base leading-relaxed text-[rgba(248,246,240,.85)] -mt-6">
+            從公司設立到每年財簽，十年來始終如一的專業與細心，
+            是我們最信賴的財稅夥伴。
+          </p>
+          <p class="font-label text-xs tracking-[.15em] text-[var(--gold-light)] mt-6">－ 電子零組件貿易商　負責人</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Contact ============ -->
+  <section id="contact" class="px-6 py-24 md:py-28">
+    <div class="max-w-3xl mx-auto text-center">
+      <p class="eyebrow">GET&nbsp;IN&nbsp;TOUCH</p>
+      <h2 class="section-title text-3xl md:text-4xl mt-3">聯絡我們</h2>
+      <div class="divider-gold"></div>
+      <p class="font-label text-sm text-[rgba(26,43,74,.65)] leading-relaxed mb-12">
+        歡迎來電或email與我們聯繫，我們將於一個工作日內安排初次諮詢時間。
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-left">
+        <div>
+          <p class="font-label text-xs tracking-[.2em] text-[var(--gold)] mb-2">地址</p>
+          <p class="font-label text-sm text-[rgba(26,43,74,.75)] leading-relaxed">
+            台北市大安區敦化南路二段99號12樓
+          </p>
+        </div>
+        <div>
+          <p class="font-label text-xs tracking-[.2em] text-[var(--gold)] mb-2">電話 ／ 傳真</p>
+          <p class="font-label text-sm text-[rgba(26,43,74,.75)] leading-relaxed">
+            (02) 2758-6600<br>
+            (02) 2758-6601
+          </p>
+        </div>
+        <div>
+          <p class="font-label text-xs tracking-[.2em] text-[var(--gold)] mb-2">Email ／ 服務時間</p>
+          <p class="font-label text-sm text-[rgba(26,43,74,.75)] leading-relaxed">
+            service@chengxin-cpa.com.tw<br>
+            週一至週五 09:00－18:00
+          </p>
+        </div>
+      </div>
+
+      <a href="#contact" class="btn-gold font-label text-xs inline-block px-10 py-4 mt-14">立即預約諮詢</a>
+    </div>
+  </section>
+
+  <!-- ============ Footer ============ -->
+  <footer class="bg-[var(--navy-deep)] text-[rgba(248,246,240,.6)] px-6 py-10">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="font-display text-sm text-[var(--cream)]">誠信聯合會計師事務所</p>
+      <p class="font-label text-xs tracking-wide">
+        &copy; 2026 Cheng Hsin &amp; Associates CPA Firm. All Rights Reserved.
+      </p>
+      <div class="font-label text-xs flex gap-6">
+        <a href="#services">服務項目</a>
+        <a href="#team">合夥團隊</a>
+        <a href="#contact">聯絡我們</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
