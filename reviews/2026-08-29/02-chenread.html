@@ -1,0 +1,407 @@
+<!-- style #56 E-Ink / Paper -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>晨讀 CHENREAD ｜ 深度閱讀電子報</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Noto+Serif+TC:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --ink:#1a1a1a;
+    --ink-soft:#3a3634;
+    --paper:#f5f1eb;
+    --paper-raised:#efe9e0;
+    --accent:#8b3a3a;
+    --line:#1a1a1a;
+    --line-soft:rgba(26,26,26,0.18);
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{
+    background:var(--paper);
+    color:var(--ink);
+  }
+
+  body{
+    font-family:'Newsreader','Noto Serif TC', serif;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
+  }
+
+  .font-serif-en{ font-family:'Newsreader','Noto Serif TC', serif; }
+  .font-serif-tc{ font-family:'Noto Serif TC','Newsreader', serif; }
+  .font-mono{ font-family:'JetBrains Mono', monospace; letter-spacing:0.02em; }
+
+  /* 紙紋噪點背景，疊在紙白色之上 */
+  .paper-grain{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:0;
+    opacity:0.5;
+    mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  .content-layer{ position:relative; z-index:1; }
+
+  .hairline{ border-color: var(--line-soft) !important; }
+  .hairline-strong{ border-color: var(--ink) !important; }
+
+  .no-shadow, *{ box-shadow:none !important; }
+
+  .accent{ color: var(--accent); }
+  .bg-accent{ background-color: var(--accent); }
+
+  .drop-cap::first-letter{
+    font-size:3.4rem;
+    line-height:0.8;
+    float:left;
+    padding-right:0.35rem;
+    padding-top:0.35rem;
+    font-weight:600;
+    color:var(--accent);
+  }
+
+  .masthead-title{
+    font-family:'Noto Serif TC','Newsreader', serif;
+    letter-spacing:0.14em;
+  }
+
+  .kicker{
+    font-family:'JetBrains Mono', monospace;
+    letter-spacing:0.16em;
+  }
+
+  .article-row{
+    transition: background-color 0.15s ease;
+  }
+  .article-row:hover{
+    background-color: var(--paper-raised);
+  }
+
+  .btn-primary{
+    background:var(--ink);
+    color:var(--paper);
+    border:1px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    letter-spacing:0.08em;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+  .btn-primary:hover{
+    background:var(--paper);
+    color:var(--ink);
+  }
+
+  .btn-outline{
+    background:transparent;
+    color:var(--ink);
+    border:1px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    letter-spacing:0.08em;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+  .btn-outline:hover{
+    background:var(--ink);
+    color:var(--paper);
+  }
+
+  .plan-card{
+    border:1px solid var(--ink);
+    background:transparent;
+  }
+  .plan-card.featured{
+    background:var(--ink);
+    color:var(--paper);
+  }
+  .plan-card.featured .hairline{
+    border-color: rgba(245,241,235,0.3) !important;
+  }
+  .plan-card.featured .plan-desc{
+    color: rgba(245,241,235,0.72);
+  }
+
+  ::selection{
+    background: var(--accent);
+    color: var(--paper);
+  }
+
+  .num-badge{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.05em;
+  }
+
+  .quote-mark{
+    font-family:'Newsreader', serif;
+    font-style:italic;
+    color: var(--accent);
+    opacity:0.5;
+  }
+
+  @media (max-width: 767px){
+    .drop-cap::first-letter{ font-size:2.6rem; }
+  }
+</style>
+</head>
+<body>
+<div class="paper-grain"></div>
+
+<div class="content-layer max-w-6xl mx-auto px-6 md:px-10">
+
+  <!-- 頂部固定資訊列 -->
+  <div class="flex items-center justify-between py-3 border-b hairline text-xs font-mono">
+    <span>2026 年 8 月 29 日・星期六</span>
+    <span class="hidden sm:inline">創刊於 2019 年・第 2,447 期</span>
+    <span>台北，晴</span>
+  </div>
+
+  <!-- Masthead -->
+  <header class="pt-10 pb-8 border-b-2 hairline-strong text-center">
+    <p class="kicker text-xs uppercase mb-3" style="color:var(--accent);">每日一篇，讀懂一件事</p>
+    <h1 class="masthead-title text-5xl sm:text-6xl md:text-7xl font-black">晨讀 CHENREAD</h1>
+    <p class="font-serif-tc text-base md:text-lg mt-4 text-[color:var(--ink-soft)] italic">
+      「給忙碌的人一份不將就的閱讀。」
+    </p>
+    <div class="flex flex-wrap items-center justify-center gap-2 mt-6">
+      <a href="#subscribe" class="btn-primary px-6 py-2.5 text-xs no-underline inline-block">立即訂閱・NT$ 149 / 月起</a>
+      <a href="#articles" class="btn-outline px-6 py-2.5 text-xs no-underline inline-block">先看今日精選</a>
+    </div>
+  </header>
+
+  <!-- 引言 / 刊物理念 -->
+  <section class="py-8 border-b hairline">
+    <p class="font-serif-tc drop-cap text-lg md:text-xl leading-relaxed max-w-3xl mx-auto text-center">
+      在資訊爆炸的年代，我們選擇做減法。晨讀 CHENREAD 每天只挑五篇文章，每篇都經過主編逐字校閱，
+      橫跨財經、社會、科技與人文，讓你用一杯咖啡的時間，換一整天的思考深度。
+    </p>
+  </section>
+
+  <!-- 今日精選 -->
+  <section id="articles" class="py-10">
+    <div class="flex items-baseline justify-between mb-6 border-b hairline-strong pb-2">
+      <h2 class="masthead-title text-2xl md:text-3xl font-bold">今日精選</h2>
+      <span class="font-mono text-xs text-[color:var(--ink-soft)]">05 篇・約 62 分鐘</span>
+    </div>
+
+    <div class="divide-y hairline">
+
+      <!-- 文章 1 -->
+      <article class="article-row grid grid-cols-1 md:grid-cols-[3rem_1fr_auto] gap-x-5 gap-y-2 py-6 px-2 -mx-2">
+        <div class="num-badge text-[color:var(--ink-soft)]">NO.01</div>
+        <div>
+          <p class="kicker text-[11px] mb-1" style="color:var(--accent);">財經・深度</p>
+          <h3 class="font-serif-tc text-xl md:text-2xl font-semibold leading-snug mb-2">
+            當央行升息不再有效：台灣中小企業的資金求生筆記
+          </h3>
+          <p class="font-serif-tc text-sm leading-relaxed text-[color:var(--ink-soft)] max-w-2xl">
+            從南部一間傳產工廠的帳本說起，追蹤三年來利率變動如何一步步改寫老闆的經營決策，
+            也訪問了兩位轉型成功與失敗的業者，拼出一份寫給中小企業主的現實指南。
+          </p>
+        </div>
+        <div class="font-mono text-xs text-[color:var(--ink-soft)] md:text-right flex md:flex-col gap-x-3 md:gap-x-0 md:gap-y-1 self-start">
+          <span>陳映之</span>
+          <span>閱讀 14 分鐘</span>
+        </div>
+      </article>
+
+      <!-- 文章 2 -->
+      <article class="article-row grid grid-cols-1 md:grid-cols-[3rem_1fr_auto] gap-x-5 gap-y-2 py-6 px-2 -mx-2">
+        <div class="num-badge text-[color:var(--ink-soft)]">NO.02</div>
+        <div>
+          <p class="kicker text-[11px] mb-1" style="color:var(--accent);">社會・觀察</p>
+          <h3 class="font-serif-tc text-xl md:text-2xl font-semibold leading-snug mb-2">
+            夜市的最後一代：從士林到逢甲，攤商二代的去留抉擇
+          </h3>
+          <p class="font-serif-tc text-sm leading-relaxed text-[color:var(--ink-soft)] max-w-2xl">
+            走訪六個夜市、十二個攤位，記錄下一代接班人面對租金、外送平台與觀光轉型時的猶豫與選擇，
+            也是一則關於台灣街頭飲食文化如何存續的田野報告。
+          </p>
+        </div>
+        <div class="font-mono text-xs text-[color:var(--ink-soft)] md:text-right flex md:flex-col gap-x-3 md:gap-x-0 md:gap-y-1 self-start">
+          <span>林家羽</span>
+          <span>閱讀 11 分鐘</span>
+        </div>
+      </article>
+
+      <!-- 文章 3 -->
+      <article class="article-row grid grid-cols-1 md:grid-cols-[3rem_1fr_auto] gap-x-5 gap-y-2 py-6 px-2 -mx-2">
+        <div class="num-badge text-[color:var(--ink-soft)]">NO.03</div>
+        <div>
+          <p class="kicker text-[11px] mb-1" style="color:var(--accent);">科技・專題</p>
+          <h3 class="font-serif-tc text-xl md:text-2xl font-semibold leading-snug mb-2">
+            半導體之後：台灣新創如何在 AI 供應鏈裡找到自己的位置
+          </h3>
+          <p class="font-serif-tc text-sm leading-relaxed text-[color:var(--ink-soft)] max-w-2xl">
+            專訪三組新竹與台南的新創團隊，從散熱材料到封裝檢測，看見台灣硬體實力如何在 AI 熱潮中
+            轉譯成新的商業模式，也直面資金與人才外流的真實壓力。
+          </p>
+        </div>
+        <div class="font-mono text-xs text-[color:var(--ink-soft)] md:text-right flex md:flex-col gap-x-3 md:gap-x-0 md:gap-y-1 self-start">
+          <span>周廷宇</span>
+          <span>閱讀 16 分鐘</span>
+        </div>
+      </article>
+
+      <!-- 文章 4 -->
+      <article class="article-row grid grid-cols-1 md:grid-cols-[3rem_1fr_auto] gap-x-5 gap-y-2 py-6 px-2 -mx-2">
+        <div class="num-badge text-[color:var(--ink-soft)]">NO.04</div>
+        <div>
+          <p class="kicker text-[11px] mb-1" style="color:var(--accent);">人文・隨筆</p>
+          <h3 class="font-serif-tc text-xl md:text-2xl font-semibold leading-snug mb-2">
+            我在圖書館關門後留下：一位夜班館員的十年紀事
+          </h3>
+          <p class="font-serif-tc text-sm leading-relaxed text-[color:var(--ink-soft)] max-w-2xl">
+            以第一人稱書寫，記下十年來在閉館後獨自巡視書架、整理歸還書籍的日常，
+            從一本本被翻爛的舊書裡，看見這座城市讀者不曾被看見的另一面。
+          </p>
+        </div>
+        <div class="font-mono text-xs text-[color:var(--ink-soft)] md:text-right flex md:flex-col gap-x-3 md:gap-x-0 md:gap-y-1 self-start">
+          <span>許 靖</span>
+          <span>閱讀 9 分鐘</span>
+        </div>
+      </article>
+
+      <!-- 文章 5 -->
+      <article class="article-row grid grid-cols-1 md:grid-cols-[3rem_1fr_auto] gap-x-5 gap-y-2 py-6 px-2 -mx-2">
+        <div class="num-badge text-[color:var(--ink-soft)]">NO.05</div>
+        <div>
+          <p class="kicker text-[11px] mb-1" style="color:var(--accent);">國際・時事</p>
+          <h3 class="font-serif-tc text-xl md:text-2xl font-semibold leading-snug mb-2">
+            小國的生存策略：從芬蘭到紐西蘭，台灣能借鏡什麼
+          </h3>
+          <p class="font-serif-tc text-sm leading-relaxed text-[color:var(--ink-soft)] max-w-2xl">
+            比較三個人口規模相近的國家如何在強鄰環伺或地緣孤立中，發展出各自的外交與經濟韌性，
+            並回頭思考台灣自身的位置與選項。
+          </p>
+        </div>
+        <div class="font-mono text-xs text-[color:var(--ink-soft)] md:text-right flex md:flex-col gap-x-3 md:gap-x-0 md:gap-y-1 self-start">
+          <span>蔡念祖</span>
+          <span>閱讀 12 分鐘</span>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- 訂閱方案 -->
+  <section id="subscribe" class="py-10 border-t hairline-strong">
+    <div class="text-center mb-8">
+      <p class="kicker text-xs uppercase mb-2" style="color:var(--accent);">Subscription</p>
+      <h2 class="masthead-title text-2xl md:text-3xl font-bold">訂閱方案</h2>
+      <p class="font-serif-tc text-sm mt-2 text-[color:var(--ink-soft)]">
+        每一期都值得慢慢讀，隨時可取消，不綁約。
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-6">
+
+      <!-- 免費方案 -->
+      <div class="plan-card p-7 flex flex-col">
+        <p class="kicker text-xs mb-1 text-[color:var(--ink-soft)]">FREE</p>
+        <h3 class="font-serif-tc text-xl font-semibold mb-3">免費會員</h3>
+        <p class="font-mono text-3xl mb-1">NT$ 0</p>
+        <p class="font-mono text-xs text-[color:var(--ink-soft)] mb-5">永久免費</p>
+        <ul class="font-serif-tc text-sm space-y-2 mb-6 flex-1 text-[color:var(--ink-soft)]">
+          <li class="border-t hairline pt-2">每週精選 1 篇完整文章</li>
+          <li class="border-t hairline pt-2">電子報週報摘要</li>
+          <li class="border-t hairline pt-2">讀者留言區瀏覽</li>
+        </ul>
+        <a href="#" class="btn-outline text-center py-2.5 text-xs no-underline">開始免費閱讀</a>
+      </div>
+
+      <!-- 年費方案（主推） -->
+      <div class="plan-card featured p-7 flex flex-col relative">
+        <span class="absolute -top-3 left-7 font-mono text-[10px] px-2 py-1 bg-accent text-[color:var(--paper)]">最多人選擇</span>
+        <p class="kicker text-xs mb-1" style="color:#c98a8a;">YEARLY</p>
+        <h3 class="font-serif-tc text-xl font-semibold mb-3">年訂閱</h3>
+        <p class="font-mono text-3xl mb-1">NT$ 1,490</p>
+        <p class="font-mono text-xs plan-desc mb-5">／年，相當於每月 NT$ 124</p>
+        <ul class="font-serif-tc text-sm space-y-2 mb-6 flex-1 plan-desc">
+          <li class="border-t hairline pt-2">每日精選文章，無限閱讀</li>
+          <li class="border-t hairline pt-2">全站文章庫與主題合輯</li>
+          <li class="border-t hairline pt-2">作者專欄留言互動</li>
+          <li class="border-t hairline pt-2">年度精選紙本合訂本一冊</li>
+        </ul>
+        <a href="#" class="btn-primary text-center py-2.5 text-xs no-underline" style="background:var(--paper); color:var(--ink); border-color:var(--paper);">立即訂閱年方案</a>
+      </div>
+
+      <!-- 月費方案 -->
+      <div class="plan-card p-7 flex flex-col">
+        <p class="kicker text-xs mb-1 text-[color:var(--ink-soft)]">MONTHLY</p>
+        <h3 class="font-serif-tc text-xl font-semibold mb-3">月訂閱</h3>
+        <p class="font-mono text-3xl mb-1">NT$ 149</p>
+        <p class="font-mono text-xs text-[color:var(--ink-soft)] mb-5">／月，隨時可取消</p>
+        <ul class="font-serif-tc text-sm space-y-2 mb-6 flex-1 text-[color:var(--ink-soft)]">
+          <li class="border-t hairline pt-2">每日精選文章，無限閱讀</li>
+          <li class="border-t hairline pt-2">全站文章庫與主題合輯</li>
+          <li class="border-t hairline pt-2">作者專欄留言互動</li>
+        </ul>
+        <a href="#" class="btn-outline text-center py-2.5 text-xs no-underline">立即訂閱月方案</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 讀者評價 -->
+  <section class="py-10 border-t hairline-strong">
+    <div class="text-center mb-8">
+      <p class="kicker text-xs uppercase mb-2" style="color:var(--accent);">Testimonials</p>
+      <h2 class="masthead-title text-2xl md:text-3xl font-bold">讀者怎麼說</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+      <div class="border-t hairline-strong pt-4">
+        <p class="quote-mark text-4xl leading-none">「</p>
+        <p class="font-serif-tc text-sm leading-relaxed mb-4">
+          每天早上通勤時讀一篇，比滑十次社群平台踏實多了。選題很少讓我失望，
+          排版也乾淨，不會被廣告打斷閱讀節奏。
+        </p>
+        <p class="font-mono text-xs text-[color:var(--ink-soft)]">— 陳先生，年訂閱讀者・軟體工程師</p>
+      </div>
+
+      <div class="border-t hairline-strong pt-4">
+        <p class="quote-mark text-4xl leading-none">「</p>
+        <p class="font-serif-tc text-sm leading-relaxed mb-4">
+          做為一個沒什麼時間看新聞的媽媽，晨讀幫我把重要的事情濃縮成十分鐘。
+          最喜歡人文類的文章，常常看到哭。
+        </p>
+        <p class="font-mono text-xs text-[color:var(--ink-soft)]">— 黃小姐，月訂閱讀者・自由接案者</p>
+      </div>
+
+      <div class="border-t hairline-strong pt-4">
+        <p class="quote-mark text-4xl leading-none">「</p>
+        <p class="font-serif-tc text-sm leading-relaxed mb-4">
+          訂閱快兩年了，最大的收穫是重新學會慢慢讀完一篇長文章。
+          客服回覆也很快，退訂流程完全沒有為難我。
+        </p>
+        <p class="font-mono text-xs text-[color:var(--ink-soft)]">— 蘇同學，年訂閱讀者・研究生</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-8 border-t hairline-strong text-center">
+    <p class="masthead-title text-lg font-bold mb-2">晨讀 CHENREAD</p>
+    <p class="font-mono text-xs text-[color:var(--ink-soft)] mb-4">
+      台北市大安區・每日上午 6:00 準時發刊
+    </p>
+    <div class="font-mono text-xs flex flex-wrap justify-center gap-x-6 gap-y-2 text-[color:var(--ink-soft)]">
+      <span>關於我們</span>
+      <span>投稿須知</span>
+      <span>隱私權政策</span>
+      <span>聯絡編輯部</span>
+    </div>
+    <p class="font-mono text-[11px] mt-6 text-[color:var(--ink-soft)]">© 2026 晨讀 CHENREAD．版權所有</p>
+  </footer>
+
+</div>
+</body>
+</html>
