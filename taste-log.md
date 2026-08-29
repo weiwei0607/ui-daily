@@ -21,6 +21,11 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-08-29（6 個，#01–06）
+- ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（curl 連線逾時無回應，HTTP exit 56），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
+- 本輪採用並行子代理（同時派 6 個 agent 各生成一個風格檔案，prompt 中明確指定字體配方、內容主題、技術要求），每個 agent 完成後皆自行用 Read/Python 腳本檢查無簡體字、字體正確、HTML 標籤完整閉合；主流程完成後再用 Python 腳本對全部 6 個檔案做一次簡體字比對表掃描，確認無混入。過程中每完成 2-3 個就即時 `git add`+`commit`+`git push origin HEAD:master` 備份進度（發現本機分支曾處於 detached HEAD，push `master` 一度被拒絕，改用 `git push origin HEAD:master` 明確指定推送目標後成功，之後 `git checkout master` + `git pull` 讓本機分支追上遠端），避免中途遺失工作。
+- 本批風格（避開近 3 天 08-26/27/28 用過的 #03/#09(皮膚)/#12/#15/#20/#22/#23/#25/#27/#29/#30/#31/#36/#42/#43/#45/#47/#49/#51/#54，優先挑跨 A/B/C/D 族群的方向）：**Brutalism #04**（A 組，避免用過度重複的 Archivo Black/Anton，改用 Rubik Mono One + Noto Sans TC + IBM Plex Mono，做成地下絹印工作室「地下藝廊 Underground Print Studio」，粗黑邊框＋硬陰影＋歪斜排版＋商品卡含 NT$ 價格）、**E-Ink / Paper #56 重做**（D 組，上次配方用過 Noto Serif TC+Space Mono，這次換成 Newsreader + Noto Serif TC + JetBrains Mono，延續「編輯配報紙體」偏好，做成深度閱讀電子報訂閱站「晨讀 CHENREAD」，無陰影＋SVG 噪點紙紋＋細分隔線）、**Cyberpunk #41 重做**（D 組，上次配方用過 Orbitron+Share Tech Mono，這次刻意避開 Orbitron 改用 Zen Dots + Noto Sans TC + Share Tech Mono，做成深夜外送 App「夜城快遞 NIGHT CITY EXPRESS」，含霓虹發光文字、glitch 故障動畫、掃描線、雷達脈衝地圖）、**Comparative Dashboard #33 重做**（C 組，上次配方用過 Sora+Roboto Mono，這次換成 Plus Jakarta Sans + Noto Sans TC + IBM Plex Mono，做成電商多通路業績比較後台「通路鏡 Channel Mirror」，官網／蝦皮／momo 三通路並排比較＋差異高亮＋SVG 長條圖折線圖，數字皆等寬靠右對齊）、**Trust & Authority #26 重做**（B 組，避開已用過的 Playfair/Source Serif 4/Newsreader，這次換成全新組合 Libre Caslon Text + Noto Serif TC + Public Sans，延續「權威風配報紙體」偏好，做成會計師事務所官網「誠信聯合會計師事務所」）、**Soft UI Evolution #19 重做**（A 組，避開已用過的 Baloo 2+Quicksand/Zen Maru Gothic+Nunito/Fredoka+M PLUS Rounded 1c 組合，改用 Baloo 2 + Zen Maru Gothic 新配對，延續「圓潤風配圓體」偏好，做成寵物照護 App「毛日子」，柔和雙向陰影＋大圓角＋粉彩漸層）。全數繁體中文文案，中文字元皆保留 Noto Sans/Serif TC 作為 fallback，已用腳本掃描確認無簡體字混入。
+
 ### 2026-08-28（6 個，#01–06）
 - ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（curl 連線逾時無回應，HTTP exit 56），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
 - ⚠️ 本輪 GH_TOKEN 直連 GitHub REST API（publish.py）仍被環境閘道擋下（403），與過去每輪一致，改用 `git push`（HTTPS + GH_TOKEN 當密碼）發布，已用 `git fetch` 驗證 origin/master 與本機一致到 c8314c7（含今天的 6 個 + 畫廊 + taste-log）。
