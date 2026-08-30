@@ -21,6 +21,11 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-08-30（6 個，#01–06）
+- ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（curl 連線逾時無回應，HTTP exit 56），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
+- 本輪先用 opencc（s2t 轉換）針對全部 6 個檔案做逐字元簡繁比對（比人工比對表更準確），確認無簡體字混入；僅「台」被 opencc 標記為與「臺」不同，但「台」本身是正體字、也是台灣通用寫法（台北/台灣/台中），非簡體污染，予以保留。另用 Python 腳本確認每個檔案 `<html>`/`</html>`/`<body>`/`</body>` 標籤數量皆為 1 且結尾正確閉合。
+- 本批風格（避開近 3 天 08-27/28/29 用過的 #03/#04/#12/#19/#22/#26/#27/#29/#30/#31/#33/#41/#42/#47/#49/#51/#54/#56，優先挑選歷史使用次數較少的風格編號，跨 A/B/C/D 族群）：**Neumorphism #02**（A 組，避免預設 Comfortaa，改用 Varela Round + Noto Sans TC，做成智慧恆溫器控制 App「溫感」，柔和同色系浮雕圓角面板＋可切換的房間恆溫開關）、**Vibrant Block #06**（A 組，避免配方預設與前幾輪重複的 Space Grotesk/Unbounded/Bricolage Grotesque，改用全新的 Chivo + Noto Sans TC，做成兒童創意美術課程 landing page「跳色 JumpColor」，高飽和色塊拼貼＋硬陰影卡片）、**Social Proof-Focused #24 重做**（B 組結構，上次配方用過 Geologica，這次改用權威報紙體 Domine + Noto Serif TC 呼應「編輯/權威風配報紙體」偏好，做成企業資安服務見證頁「資安鏡 SecMirror」，客戶 logo 牆＋數據成果＋三則見證引言）、**Predictive Dashboard #34 重做**（C 組，上次配方用過 Red Hat Text + Roboto Mono，這次換成 Schibsted Grotesk + Space Mono + Noto Sans TC，做成零售補貨需求預測看板「潮汐 TIDE」，虛線邊框區分實際/預測值、SVG 長條圖含今日分隔線）、**Y2K Revival #40 重做**（D 組，上次配方用過 Audiowide + Rajdhani，這次換成全新組合 Wallpoet + Rajdhani + Noto Sans TC，做成千禧金屬感科技配件電商「晶亮 CHROME」，鉻銀漸層文字＋星芒裝飾＋霓虹光暈卡片）、**Spatial UI #55 重做**（D 組，上次配方用過 Nunito + Quicksand，這次換成全新配對 Varela Round + M PLUS Rounded 1c + Noto Sans TC 延續「圓潤風配圓體」偏好，做成 AR/VR 混合實境會議 App「境會 SpatialMeet」，毛玻璃卡片＋3D perspective 浮動層次）。全數繁體中文文案，中文字元皆保留 Noto Sans/Serif TC 作為 fallback，已用 opencc 掃描確認無簡體字混入。
+
 ### 2026-08-29（6 個，#01–06）
 - ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（curl 連線逾時無回應，HTTP exit 56），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
 - ⚠️ 本輪 GH_TOKEN 直連 GitHub REST API（publish.py）仍被環境閘道擋下（403），與過去每輪一致，改用 `git push`（HTTPS + GH_TOKEN 當密碼）發布，已用 `git fetch` 驗證 origin/master 與本機一致到 fed32ce（含今天的 6 個 + 畫廊 + taste-log）。

@@ -1,0 +1,168 @@
+<!-- style #02 Neumorphism -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>溫感 · 智慧恆溫器控制</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Varela+Round&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#e6e7ee;
+    --shadow-light:#ffffff;
+    --shadow-dark:#c7c9d4;
+    --accent:#ff8a5c;
+    --accent2:#5c9eff;
+  }
+  body{
+    background:var(--bg);
+    font-family:'Noto Sans TC','Varela Round',sans-serif;
+  }
+  .display{font-family:'Varela Round','Noto Sans TC',sans-serif;}
+  .neu-out{
+    background:var(--bg);
+    box-shadow: 9px 9px 18px var(--shadow-dark), -9px -9px 18px var(--shadow-light);
+    border-radius: 28px;
+  }
+  .neu-in{
+    background:var(--bg);
+    box-shadow: inset 6px 6px 12px var(--shadow-dark), inset -6px -6px 12px var(--shadow-light);
+    border-radius: 24px;
+  }
+  .neu-btn{
+    background:var(--bg);
+    box-shadow: 5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light);
+    border-radius: 16px;
+    transition: box-shadow .15s ease, transform .15s ease;
+  }
+  .neu-btn:active, .neu-btn.active{
+    box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+    transform: scale(0.98);
+  }
+  .dial{
+    width:220px;height:220px;border-radius:50%;
+    background:var(--bg);
+    box-shadow: 14px 14px 28px var(--shadow-dark), -14px -14px 28px var(--shadow-light);
+    display:flex;align-items:center;justify-content:center;position:relative;
+  }
+  .dial-inner{
+    width:160px;height:160px;border-radius:50%;
+    background:var(--bg);
+    box-shadow: inset 8px 8px 16px var(--shadow-dark), inset -8px -8px 16px var(--shadow-light);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+  }
+  .toggle{
+    width:56px;height:30px;border-radius:999px;
+    background:var(--bg);
+    box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+    position:relative; cursor:pointer;
+  }
+  .toggle .knob{
+    position:absolute; top:3px; left:3px; width:24px; height:24px; border-radius:50%;
+    background:var(--bg);
+    box-shadow: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
+    transition: left .2s ease, background .2s ease;
+  }
+  .toggle.on .knob{ left:29px; background:var(--accent2); box-shadow:3px 3px 6px var(--shadow-dark),-2px -2px 5px rgba(255,255,255,.6);}
+</style>
+</head>
+<body class="min-h-screen text-[#3a3d4a]">
+
+  <div class="max-w-6xl mx-auto px-6 py-10">
+    <header class="flex items-center justify-between mb-10">
+      <div class="flex items-center gap-3">
+        <div class="neu-btn w-12 h-12 flex items-center justify-center">
+          <span class="text-xl">🌡️</span>
+        </div>
+        <h1 class="display text-2xl font-bold tracking-wide">溫感 <span class="text-sm font-normal text-[#8a8d9c] display">Thermo</span></h1>
+      </div>
+      <nav class="hidden md:flex items-center gap-2 neu-in px-2 py-2">
+        <button class="neu-btn active px-4 py-2 text-sm display">總覽</button>
+        <button class="neu-btn px-4 py-2 text-sm display text-[#8a8d9c]">房間</button>
+        <button class="neu-btn px-4 py-2 text-sm display text-[#8a8d9c]">排程</button>
+        <button class="neu-btn px-4 py-2 text-sm display text-[#8a8d9c]">用電紀錄</button>
+      </nav>
+      <div class="neu-btn w-12 h-12 flex items-center justify-center text-sm display">韡</div>
+    </header>
+
+    <main class="grid md:grid-cols-3 gap-8">
+      <!-- main dial card -->
+      <section class="neu-out p-10 md:col-span-2 flex flex-col items-center justify-center">
+        <p class="display text-sm text-[#8a8d9c] mb-6 tracking-widest">客廳 · 目前溫度</p>
+        <div class="dial mb-8">
+          <div class="dial-inner">
+            <span class="display text-5xl font-bold">24.5<span class="text-2xl align-top">°</span></span>
+            <span class="text-xs text-[#8a8d9c] mt-1">體感 25°C · 濕度 58%</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-6">
+          <button class="neu-btn w-14 h-14 flex items-center justify-center text-xl display">－</button>
+          <div class="text-center">
+            <p class="display text-xs text-[#8a8d9c]">設定溫度</p>
+            <p class="display text-lg font-bold">24.5°C</p>
+          </div>
+          <button class="neu-btn w-14 h-14 flex items-center justify-center text-xl display">＋</button>
+        </div>
+
+        <div class="grid grid-cols-3 gap-4 mt-10 w-full">
+          <button class="neu-btn active py-3 text-sm display">🌙 舒眠</button>
+          <button class="neu-btn py-3 text-sm display text-[#8a8d9c]">🏠 在家</button>
+          <button class="neu-btn py-3 text-sm display text-[#8a8d9c]">🌿 節能</button>
+        </div>
+      </section>
+
+      <!-- side stats -->
+      <aside class="flex flex-col gap-6">
+        <div class="neu-out p-6">
+          <p class="display text-sm text-[#8a8d9c] mb-4">各房間狀態</p>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between neu-in px-4 py-3">
+              <div>
+                <p class="text-sm font-medium">主臥室</p>
+                <p class="text-xs text-[#8a8d9c]">22.0°C · 睡眠模式</p>
+              </div>
+              <div class="toggle on"><div class="knob"></div></div>
+            </div>
+            <div class="flex items-center justify-between neu-in px-4 py-3">
+              <div>
+                <p class="text-sm font-medium">書房</p>
+                <p class="text-xs text-[#8a8d9c]">未開啟</p>
+              </div>
+              <div class="toggle"><div class="knob"></div></div>
+            </div>
+            <div class="flex items-center justify-between neu-in px-4 py-3">
+              <div>
+                <p class="text-sm font-medium">兒童房</p>
+                <p class="text-xs text-[#8a8d9c]">23.5°C · 恆溫中</p>
+              </div>
+              <div class="toggle on"><div class="knob"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="neu-out p-6">
+          <p class="display text-sm text-[#8a8d9c] mb-3">本月用電</p>
+          <p class="display text-3xl font-bold" style="color:var(--accent)">312<span class="text-base font-normal text-[#8a8d9c]"> 度</span></p>
+          <p class="text-xs text-[#8a8d9c] mt-1">比上月省下 <span class="font-semibold" style="color:var(--accent2)">18%</span>，繼續保持</p>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="mt-12 text-center text-xs text-[#9a9dab]">溫感智慧家居 · 讓每個房間都在最舒服的溫度</footer>
+  </div>
+
+<script>
+  document.querySelectorAll('.toggle').forEach(t=>{
+    t.addEventListener('click', ()=> t.classList.toggle('on'));
+  });
+  document.querySelectorAll('nav .neu-btn').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      document.querySelectorAll('nav .neu-btn').forEach(x=>{x.classList.remove('active');x.classList.add('text-[#8a8d9c]');});
+      b.classList.add('active'); b.classList.remove('text-[#8a8d9c]');
+    });
+  });
+</script>
+</body>
+</html>
