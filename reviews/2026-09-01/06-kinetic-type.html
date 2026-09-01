@@ -1,0 +1,353 @@
+<!-- style #48 Kinetic Typography -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>動字 KineticType｜台灣獨立字體鑄造所</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --ink:#f4f1e8;
+    --void:#0a0a0a;
+    --void-2:#111111;
+    --accent:#d7ff3f;
+    --accent-2:#ff5b3d;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--void);
+    color:var(--ink);
+    font-family:'Noto Sans TC', sans-serif;
+    overflow-x:hidden;
+  }
+  .font-bebas{font-family:'Bebas Neue', 'Noto Sans TC', sans-serif;}
+  .font-noto-black{font-family:'Noto Sans TC', sans-serif; font-weight:900;}
+
+  /* ---------- 逐字進場 ---------- */
+  .char{
+    display:inline-block;
+    opacity:0;
+    transform:translateY(0.6em) rotate(4deg);
+    animation:charIn 0.7s cubic-bezier(.2,.8,.2,1) forwards;
+    will-change:transform,opacity;
+  }
+  .char.space{width:0.3em;}
+  @keyframes charIn{
+    0%{opacity:0; transform:translateY(0.6em) rotate(4deg);}
+    60%{opacity:1;}
+    100%{opacity:1; transform:translateY(0) rotate(0deg);}
+  }
+
+  /* ---------- kicker 進場 ---------- */
+  .kicker{
+    opacity:0;
+    animation:kickerIn 0.8s ease forwards;
+  }
+  @keyframes kickerIn{
+    from{opacity:0; transform:translateY(-10px); letter-spacing:0.6em;}
+    to{opacity:1; transform:translateY(0); letter-spacing:0.35em;}
+  }
+
+  /* ---------- 動態漸層文字 ---------- */
+  .gradient-text{
+    background:linear-gradient(90deg, var(--ink) 0%, var(--accent) 25%, var(--accent-2) 50%, var(--ink) 75%, var(--accent) 100%);
+    background-size:300% 100%;
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    animation:gradientMove 6s linear infinite;
+  }
+  @keyframes gradientMove{
+    0%{background-position:0% 50%;}
+    100%{background-position:300% 50%;}
+  }
+
+  /* ---------- 捲動提示 ---------- */
+  .scroll-cue{animation:bounceDown 1.8s ease-in-out infinite;}
+  @keyframes bounceDown{
+    0%,100%{transform:translateY(0); opacity:0.6;}
+    50%{transform:translateY(10px); opacity:1;}
+  }
+
+  /* ---------- 跑馬燈 ---------- */
+  .marquee-track{
+    display:flex;
+    width:max-content;
+    animation:marqueeScroll 22s linear infinite;
+    transition:transform 0.25s ease-out;
+  }
+  .marquee-track.reverse{animation-direction:reverse; animation-duration:28s;}
+  @keyframes marqueeScroll{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+
+  /* ---------- 捲動觸發淡入 ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(40px);
+    transition:opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.is-visible{opacity:1; transform:translateY(0);}
+
+  /* ---------- 作品卡片 hover 變形 ---------- */
+  .specimen-card{transition:transform 0.4s cubic-bezier(.2,.8,.2,1), border-color 0.4s ease, background 0.4s ease;}
+  .specimen-card:hover{transform:translateY(-6px) scale(1.02); border-color:var(--accent);}
+  .specimen-glyph{transition:transform 0.5s cubic-bezier(.2,.8,.2,1), color 0.5s ease;}
+  .specimen-card:hover .specimen-glyph{transform:skewX(-8deg) scale(1.06); color:var(--accent);}
+
+  /* ---------- CTA 按鈕呼吸感 ---------- */
+  .cta-btn{position:relative; overflow:hidden;}
+  .cta-btn::after{
+    content:"";
+    position:absolute; inset:0;
+    background:var(--accent);
+    transform:translateX(-101%);
+    transition:transform 0.4s cubic-bezier(.2,.8,.2,1);
+    z-index:0;
+  }
+  .cta-btn:hover::after{transform:translateX(0);}
+  .cta-btn span{position:relative; z-index:1;}
+
+  .hairline{border-color:rgba(244,241,232,0.15);}
+
+  .kinetic-headline{
+    font-weight:900;
+    line-height:1.05;
+    letter-spacing:0.01em;
+  }
+
+  ::selection{background:var(--accent); color:var(--void);}
+</style>
+</head>
+<body class="antialiased">
+
+  <!-- ================= NAV ================= -->
+  <header class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 md:px-10 py-4 mix-blend-difference">
+    <a href="#top" class="font-bebas text-xl tracking-[0.15em] text-[var(--ink)]">動字 <span class="text-[var(--accent)]">KineticType</span></a>
+    <nav class="hidden sm:flex items-center gap-8 text-xs tracking-[0.25em] uppercase">
+      <a href="#works" class="hover:text-[var(--accent)] transition-colors">作品</a>
+      <a href="#commission" class="hover:text-[var(--accent)] transition-colors">委託製字</a>
+      <a href="#contact" class="hover:text-[var(--accent)] transition-colors">聯絡</a>
+    </nav>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <section id="top" class="relative min-h-screen flex flex-col items-center justify-center text-center px-6 pt-24 pb-16">
+    <p class="kicker font-bebas text-[var(--accent)] text-sm md:text-base tracking-[0.35em] uppercase mb-6" style="animation-delay:0.1s;">
+      Taiwan Independent Type Foundry・台灣獨立字體鑄造所
+    </p>
+
+    <h1 id="hero-headline" class="kinetic-headline font-noto-black text-[13vw] md:text-[8vw] leading-[1.05] px-2">
+      文字不該只是站著
+    </h1>
+
+    <p class="font-bebas gradient-text text-[10vw] md:text-[5.5vw] tracking-wide mt-2 mb-8">
+      LETTERS THAT MOVE
+    </p>
+
+    <p class="max-w-xl text-sm md:text-base text-[var(--ink)]/70 leading-relaxed mb-16">
+      動字 KineticType 是一間位於台北的獨立字體工作室。我們相信每一個筆畫都該有自己的節奏——從現成的展示字體到量身打造的品牌用字，我們讓文字動起來，也讓文字自己說話。
+    </p>
+
+    <div class="scroll-cue flex flex-col items-center gap-2 text-[var(--ink)]/50">
+      <span class="text-[10px] tracking-[0.4em] uppercase font-bebas">Scroll</span>
+      <svg width="16" height="24" viewBox="0 0 16 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L8 22L15 1" stroke="currentColor" stroke-width="1.5"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ================= MARQUEE ================= -->
+  <section class="border-y hairline py-6 md:py-10 bg-[var(--void-2)] overflow-hidden">
+    <div class="marquee-track font-bebas text-[10vw] md:text-[6vw] whitespace-nowrap uppercase leading-none">
+      <span class="px-6">破浪體</span><span class="px-6 text-[var(--accent)]">★</span>
+      <span class="px-6">電光黑</span><span class="px-6 text-[var(--accent-2)]">★</span>
+      <span class="px-6">浮空體</span><span class="px-6 text-[var(--accent)]">★</span>
+      <span class="px-6">躍動明朝</span><span class="px-6 text-[var(--accent-2)]">★</span>
+      <span class="px-6">破浪體</span><span class="px-6 text-[var(--accent)]">★</span>
+      <span class="px-6">電光黑</span><span class="px-6 text-[var(--accent-2)]">★</span>
+      <span class="px-6">浮空體</span><span class="px-6 text-[var(--accent)]">★</span>
+      <span class="px-6">躍動明朝</span><span class="px-6 text-[var(--accent-2)]">★</span>
+    </div>
+  </section>
+
+  <!-- ================= 作品 SHOWCASE ================= -->
+  <section id="works" class="px-6 md:px-10 py-24 md:py-32 max-w-6xl mx-auto">
+    <div class="reveal mb-16 md:mb-24 flex items-end justify-between flex-wrap gap-4">
+      <div>
+        <p class="font-bebas text-[var(--accent)] text-sm tracking-[0.3em] uppercase mb-3">Specimens</p>
+        <h2 class="font-noto-black text-5xl md:text-7xl">作品</h2>
+      </div>
+      <p class="max-w-xs text-sm text-[var(--ink)]/60 leading-relaxed">四款正在販售的展示字體，每一款都從不同的台灣街頭場景長出來的筆畫個性。</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Card 1 -->
+      <div class="specimen-card reveal border hairline rounded-2xl p-8 md:p-10 bg-[var(--void-2)]">
+        <div class="specimen-glyph font-noto-black text-[7rem] md:text-[8rem] leading-none mb-6">浪</div>
+        <h3 class="font-bebas text-2xl tracking-wide mb-1">破浪體 <span class="text-[var(--ink)]/40 text-base">BreakWave</span></h3>
+        <p class="text-sm text-[var(--ink)]/70 leading-relaxed mb-4">厚重筆畫、收尾帶弧，靈感來自東北角海岸的浪型。適合音樂祭主視覺與街頭運動品牌的大字報。</p>
+        <div class="flex gap-4 text-xs uppercase tracking-widest text-[var(--ink)]/40">
+          <span>字重｜Black</span><span>用途｜看板・大字報</span>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="specimen-card reveal border hairline rounded-2xl p-8 md:p-10 bg-[var(--void-2)]">
+        <div class="specimen-glyph font-noto-black text-[7rem] md:text-[8rem] leading-none mb-6">電</div>
+        <h3 class="font-bebas text-2xl tracking-wide mb-1">電光黑 <span class="text-[var(--ink)]/40 text-base">ElectricBlack</span></h3>
+        <p class="text-sm text-[var(--ink)]/70 leading-relaxed mb-4">高飽和的黑體，筆畫收筆如霓虹燈管的圓潤反光，最適合夜市攤位招牌與電子音樂場刊。</p>
+        <div class="flex gap-4 text-xs uppercase tracking-widest text-[var(--ink)]/40">
+          <span>字重｜Heavy</span><span>用途｜招牌・海報</span>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="specimen-card reveal border hairline rounded-2xl p-8 md:p-10 bg-[var(--void-2)]">
+        <div class="specimen-glyph font-noto-black text-[7rem] md:text-[8rem] leading-none mb-6">浮</div>
+        <h3 class="font-bebas text-2xl tracking-wide mb-1">浮空體 <span class="text-[var(--ink)]/40 text-base">Floatline</span></h3>
+        <p class="text-sm text-[var(--ink)]/70 leading-relaxed mb-4">筆畫刻意脫離基線，像字要飄走一樣，用在文學雜誌的內頁標題與展覽主視覺特別有呼吸感。</p>
+        <div class="flex gap-4 text-xs uppercase tracking-widest text-[var(--ink)]/40">
+          <span>字重｜Regular–Bold</span><span>用途｜編輯排版</span>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="specimen-card reveal border hairline rounded-2xl p-8 md:p-10 bg-[var(--void-2)]">
+        <div class="specimen-glyph font-noto-black text-[7rem] md:text-[8rem] leading-none mb-6">躍</div>
+        <h3 class="font-bebas text-2xl tracking-wide mb-1">躍動明朝 <span class="text-[var(--ink)]/40 text-base">LeapMincho</span></h3>
+        <p class="text-sm text-[var(--ink)]/70 leading-relaxed mb-4">明朝結構混合跳動的基線，傳統襯線的骨架加上一點動態呼吸感，適合老字號品牌重塑與文化場館識別。</p>
+        <div class="flex gap-4 text-xs uppercase tracking-widest text-[var(--ink)]/40">
+          <span>字重｜Medium</span><span>用途｜品牌識別</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 委託 CTA ================= -->
+  <section id="commission" class="relative px-6 md:px-10 py-24 md:py-32 bg-[var(--void-2)] border-y hairline overflow-hidden">
+    <div class="max-w-4xl mx-auto text-center reveal">
+      <p class="font-bebas text-[var(--accent-2)] text-sm tracking-[0.3em] uppercase mb-4">Commission Your Own Type</p>
+      <h2 class="font-noto-black text-4xl md:text-6xl leading-tight mb-8">字，是可以量身訂做的。</h2>
+      <p class="max-w-2xl mx-auto text-sm md:text-base text-[var(--ink)]/70 leading-relaxed mb-14">
+        除了現成的展示字體，動字也接受品牌識別、店家招牌、活動主視覺的客製化字體委託。從手寫草稿到向量化、擴充字符集，我們陪你把一個品牌名、一句話，變成獨一無二、只屬於你的筆畫。
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-14 text-left">
+        <div class="border hairline rounded-xl p-6">
+          <span class="font-bebas text-[var(--accent)] text-3xl">01</span>
+          <p class="mt-2 text-sm text-[var(--ink)]/80">提案討論，聊清楚品牌調性與使用場景</p>
+        </div>
+        <div class="border hairline rounded-xl p-6">
+          <span class="font-bebas text-[var(--accent)] text-3xl">02</span>
+          <p class="mt-2 text-sm text-[var(--ink)]/80">手繪草稿與數位試作，反覆調整筆畫節奏</p>
+        </div>
+        <div class="border hairline rounded-xl p-6">
+          <span class="font-bebas text-[var(--accent)] text-3xl">03</span>
+          <p class="mt-2 text-sm text-[var(--ink)]/80">定稿、字符擴充與檔案交付，含使用授權</p>
+        </div>
+      </div>
+
+      <a href="#contact" class="cta-btn inline-block border border-[var(--ink)] rounded-full px-10 py-4 font-bebas text-lg tracking-[0.15em] uppercase">
+        <span>開始你的委託</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section id="contact" class="px-6 md:px-10 py-24 md:py-28 text-center">
+    <p class="font-bebas text-[var(--accent)] text-sm tracking-[0.3em] uppercase mb-4 reveal">Get In Touch</p>
+    <h2 class="font-noto-black text-4xl md:text-6xl mb-8 reveal">讓我們聊聊你的字</h2>
+    <div class="reveal flex flex-col items-center gap-2 text-sm md:text-base text-[var(--ink)]/70">
+      <a href="mailto:hello@kinetictype.tw" class="hover:text-[var(--accent)] transition-colors text-lg md:text-xl font-bebas tracking-wide">hello@kinetictype.tw</a>
+      <p>台北市大同區・迪化街周邊工作室</p>
+      <p class="text-[var(--ink)]/40">週一至週五 11:00–19:00，歡迎預約參觀樣字牆</p>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="border-t hairline px-6 md:px-10 py-10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[var(--ink)]/40 tracking-wide">
+    <p>動字 KineticType © 2026・台北，台灣</p>
+    <div class="flex gap-6">
+      <a href="#" class="hover:text-[var(--ink)] transition-colors">Instagram</a>
+      <a href="#" class="hover:text-[var(--ink)] transition-colors">Behance</a>
+      <a href="#" class="hover:text-[var(--ink)] transition-colors">Threads</a>
+    </div>
+    <p>版權所有，字體樣本僅供瀏覽，授權購買請另洽詢</p>
+  </footer>
+
+  <script>
+    (function () {
+      "use strict";
+
+      // ---------- 1. 主標題逐字拆解進場 ----------
+      var headline = document.getElementById("hero-headline");
+      if (headline) {
+        var text = headline.textContent.trim();
+        var chars = Array.from(text);
+        headline.textContent = "";
+        var baseDelay = 0.5;
+        chars.forEach(function (ch, i) {
+          var span = document.createElement("span");
+          span.className = "char";
+          if (ch === " ") {
+            span.classList.add("space");
+            span.innerHTML = "&nbsp;";
+          } else {
+            span.textContent = ch;
+          }
+          span.style.animationDelay = (baseDelay + i * 0.06) + "s";
+          headline.appendChild(span);
+        });
+      }
+
+      // ---------- 2. 捲動觸發淡入 ----------
+      var revealEls = document.querySelectorAll(".reveal");
+      if ("IntersectionObserver" in window) {
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
+        );
+        revealEls.forEach(function (el) {
+          io.observe(el);
+        });
+      } else {
+        revealEls.forEach(function (el) {
+          el.classList.add("is-visible");
+        });
+      }
+
+      // ---------- 3. 捲動時跑馬燈輕微 skew ----------
+      var track = document.querySelector(".marquee-track");
+      var lastY = window.scrollY;
+      var skewTimeout = null;
+      window.addEventListener(
+        "scroll",
+        function () {
+          if (!track) return;
+          var currentY = window.scrollY;
+          var delta = currentY - lastY;
+          lastY = currentY;
+          var skew = Math.max(-12, Math.min(12, delta * 0.6));
+          track.style.transform = "skewX(" + skew + "deg)";
+          if (skewTimeout) clearTimeout(skewTimeout);
+          skewTimeout = setTimeout(function () {
+            track.style.transform = "skewX(0deg)";
+          }, 150);
+        },
+        { passive: true }
+      );
+    })();
+  </script>
+</body>
+</html>
