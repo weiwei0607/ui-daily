@@ -1,0 +1,558 @@
+<!-- style #46 Dimensional Layering -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>疊層 Layered｜把思考，分層收好</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=Noto+Sans+TC:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --bg: #f6f5f3;
+    --bg-alt: #efeeea;
+    --ink: #232227;
+    --ink-soft: #5a5860;
+    --ink-faint: #8b8890;
+    --card: #fffefc;
+    --line: #e4e1da;
+    --accent: #3d3a72;
+    --accent-soft: #6b67a8;
+    --accent-tint: #ecebf6;
+  }
+
+  *{box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'DM Sans','Noto Sans TC',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  .zh{font-family:'Noto Sans TC','DM Sans',sans-serif;}
+
+  .font-display{
+    font-family:'DM Sans','Noto Sans TC',sans-serif;
+    letter-spacing:-0.01em;
+  }
+
+  /* ---- layered shadow system ---- */
+  .shadow-l1{
+    box-shadow:
+      0 1px 2px rgba(35,34,39,0.04),
+      0 3px 6px rgba(35,34,39,0.05),
+      0 8px 16px -4px rgba(35,34,39,0.06);
+  }
+  .shadow-l2{
+    box-shadow:
+      0 2px 4px rgba(35,34,39,0.05),
+      0 8px 14px -2px rgba(35,34,39,0.08),
+      0 20px 32px -8px rgba(35,34,39,0.10),
+      0 36px 60px -16px rgba(35,34,39,0.12);
+  }
+  .shadow-l3{
+    box-shadow:
+      0 3px 6px rgba(35,34,39,0.06),
+      0 12px 20px -4px rgba(35,34,39,0.09),
+      0 28px 44px -10px rgba(35,34,39,0.13),
+      0 56px 84px -20px rgba(35,34,39,0.16),
+      0 0 0 1px rgba(35,34,39,0.02);
+  }
+  .shadow-l4{
+    box-shadow:
+      0 4px 8px rgba(35,34,39,0.07),
+      0 16px 28px -4px rgba(35,34,39,0.11),
+      0 36px 56px -12px rgba(35,34,39,0.16),
+      0 72px 110px -24px rgba(35,34,39,0.22),
+      0 0 0 1px rgba(35,34,39,0.03);
+  }
+  .shadow-accent{
+    box-shadow:
+      0 3px 6px rgba(61,58,114,0.10),
+      0 14px 24px -6px rgba(61,58,114,0.16),
+      0 32px 48px -12px rgba(61,58,114,0.18),
+      0 0 0 1px rgba(61,58,114,0.06);
+  }
+
+  .lift{
+    transition: transform .45s cubic-bezier(.16,1,.3,1), box-shadow .45s cubic-bezier(.16,1,.3,1);
+    will-change: transform, box-shadow;
+  }
+  .lift:hover{
+    transform: translateY(-10px);
+  }
+  .lift-sm:hover{ transform: translateY(-6px); }
+
+  .card-base{
+    background:var(--card);
+    border-radius:1.25rem;
+    border:1px solid var(--line);
+  }
+
+  /* staggered showcase stack */
+  .stack-wrap{ position:relative; }
+  .stack-card{ position:absolute; }
+
+  @media (max-width: 900px){
+    .stack-card{ position:relative !important; inset:auto !important; margin:0 auto 2rem auto !important; transform:none !important; width:min(420px,90%) !important; }
+  }
+
+  .divider-fade{
+    height:1px;
+    background:linear-gradient(90deg, transparent, var(--line) 20%, var(--line) 80%, transparent);
+  }
+
+  .pill{
+    display:inline-flex; align-items:center; gap:.4rem;
+    font-size:.75rem; letter-spacing:.06em;
+    padding:.35rem .8rem; border-radius:999px;
+    background:var(--accent-tint); color:var(--accent);
+    border:1px solid rgba(61,58,114,0.14);
+  }
+
+  .noise::after{
+    content:"";
+    position:absolute; inset:0; pointer-events:none;
+    background-image:radial-gradient(rgba(35,34,39,0.025) 1px, transparent 1px);
+    background-size:3px 3px;
+    border-radius:inherit;
+  }
+
+  .glow-orb{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(70px);
+    opacity:.35;
+    pointer-events:none;
+  }
+
+  ::selection{ background:var(--accent); color:#fff; }
+
+  .price-toggle-track{
+    background:var(--bg-alt);
+    border:1px solid var(--line);
+  }
+  .price-toggle-dot{
+    transition: transform .3s cubic-bezier(.16,1,.3,1);
+  }
+
+  .num-tabular{ font-variant-numeric: tabular-nums; }
+
+  [data-parallax]{ transition: transform .1s linear; }
+</style>
+</head>
+<body class="antialiased">
+
+<!-- ================= NAV ================= -->
+<header class="fixed top-0 inset-x-0 z-50 px-5 sm:px-10 pt-5">
+  <div class="max-w-6xl mx-auto card-base shadow-l2 rounded-2xl px-5 sm:px-7 py-3.5 flex items-center justify-between backdrop-blur"
+       style="background:rgba(255,254,252,0.86);">
+    <div class="flex items-center gap-2.5">
+      <div class="w-8 h-8 rounded-lg relative" style="background:var(--accent);">
+        <span class="absolute inset-0 rounded-lg" style="background:var(--accent-soft); transform:translate(3px,3px); z-index:-1;"></span>
+      </div>
+      <span class="font-display font-semibold text-[1.05rem] tracking-tight">疊層 <span class="zh font-medium text-[var(--ink-soft)]">Layered</span></span>
+    </div>
+    <nav class="hidden md:flex items-center gap-8 text-sm zh text-[var(--ink-soft)]">
+      <a href="#feature" class="hover:text-[var(--ink)] transition-colors">功能</a>
+      <a href="#story" class="hover:text-[var(--ink)] transition-colors">使用情境</a>
+      <a href="#pricing" class="hover:text-[var(--ink)] transition-colors">方案價格</a>
+      <a href="#faq" class="hover:text-[var(--ink)] transition-colors">常見問題</a>
+    </nav>
+    <a href="#pricing" class="lift-sm shadow-l1 text-sm font-medium zh px-4 py-2 rounded-xl text-white" style="background:var(--accent);">
+      免費開始使用
+    </a>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="relative pt-40 pb-32 px-5 sm:px-10 overflow-hidden">
+  <div class="glow-orb w-[520px] h-[520px] -top-40 -left-40" style="background:var(--accent-soft);"></div>
+  <div class="glow-orb w-[420px] h-[420px] top-20 right-[-160px]" style="background:#b9b6e8;"></div>
+
+  <div class="max-w-6xl mx-auto relative">
+    <div class="max-w-2xl">
+      <span class="pill zh">全新 3.0 版本 · 巢狀結構重新設計</span>
+      <h1 class="font-display font-semibold text-[2.6rem] sm:text-[3.4rem] leading-[1.12] tracking-tight mt-6">
+        <span class="zh">你的知識，</span><br>
+        <span class="zh">本來就不是</span>
+        <span class="relative inline-block px-1">
+          <span class="relative z-10 zh">扁平的</span>
+          <span class="absolute inset-x-0 bottom-1 h-3 -z-0" style="background:var(--accent-tint);"></span>
+        </span>
+        <span class="zh">。</span>
+      </h1>
+      <p class="zh text-[var(--ink-soft)] text-lg leading-relaxed mt-6 max-w-xl">
+        「疊層」讓筆記、資料夾與版本像卡片一樣層層堆疊——你可以往下鑽進細節，也能一眼retreat回全局。專為研究者、顧問與長期累積型知識工作者設計的分層筆記系統。
+      </p>
+      <div class="flex flex-wrap items-center gap-4 mt-9">
+        <a href="#pricing" class="shadow-accent lift-sm zh font-medium text-white px-7 py-3.5 rounded-2xl" style="background:var(--accent);">
+          開始建立你的第一層筆記
+        </a>
+        <a href="#story" class="shadow-l1 lift-sm zh font-medium text-[var(--ink)] px-7 py-3.5 rounded-2xl card-base">
+          看看別人怎麼用
+        </a>
+      </div>
+      <div class="flex items-center gap-6 mt-8 text-sm zh text-[var(--ink-faint)]">
+        <span>14 天全功能試用</span>
+        <span class="w-1 h-1 rounded-full" style="background:var(--ink-faint);"></span>
+        <span>不需要信用卡</span>
+        <span class="w-1 h-1 rounded-full" style="background:var(--ink-faint);"></span>
+        <span>支援 macOS / Windows / iOS</span>
+      </div>
+    </div>
+
+    <!-- floating mock stack illustrating the metaphor -->
+    <div class="hidden lg:block absolute right-0 top-8 w-[380px] h-[360px]" data-parallax data-depth="0.05">
+      <div class="absolute w-[300px] rounded-2xl card-base shadow-l1 p-5 opacity-70" style="top:70px; left:70px; transform:rotate(-4deg);">
+        <div class="h-2.5 w-16 rounded-full mb-3" style="background:var(--line);"></div>
+        <div class="h-2 w-full rounded-full mb-2" style="background:var(--line);"></div>
+        <div class="h-2 w-4/5 rounded-full" style="background:var(--line);"></div>
+      </div>
+      <div class="absolute w-[300px] rounded-2xl card-base shadow-l2 p-5" style="top:36px; left:36px; transform:rotate(-2deg);">
+        <div class="h-2.5 w-20 rounded-full mb-3" style="background:var(--accent-tint);"></div>
+        <div class="h-2 w-full rounded-full mb-2" style="background:var(--line);"></div>
+        <div class="h-2 w-3/5 rounded-full" style="background:var(--line);"></div>
+      </div>
+      <div class="absolute w-[300px] rounded-2xl card-base shadow-l3 p-5" style="top:0; left:0;">
+        <div class="flex items-center justify-between mb-4">
+          <div class="h-2.5 w-24 rounded-full" style="background:var(--accent);"></div>
+          <div class="text-[10px] zh pill py-1 px-2">最新</div>
+        </div>
+        <div class="h-2 w-full rounded-full mb-2" style="background:var(--line);"></div>
+        <div class="h-2 w-full rounded-full mb-2" style="background:var(--line);"></div>
+        <div class="h-2 w-2/3 rounded-full" style="background:var(--line);"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LOGO / TRUST STRIP ================= -->
+<section class="px-5 sm:px-10 pb-20">
+  <div class="max-w-6xl mx-auto card-base shadow-l1 rounded-2xl py-6 px-8 flex flex-wrap items-center justify-between gap-6">
+    <p class="zh text-sm text-[var(--ink-faint)] tracking-wide">超過 12,000 位研究者、顧問與創作者，把知識疊在「疊層」裡</p>
+    <div class="flex items-center gap-8 text-sm zh text-[var(--ink-soft)] font-medium flex-wrap">
+      <span>國立台灣大學 研究團隊</span>
+      <span>安侯建業顧問部門</span>
+      <span>自由譯者聯盟</span>
+      <span>新創加速器 InnoVest</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FEATURE SHOWCASE (overlapping cards) ================= -->
+<section id="feature" class="px-5 sm:px-10 pb-40">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center max-w-xl mx-auto mb-16">
+      <span class="pill zh">核心功能</span>
+      <h2 class="font-display font-semibold text-3xl sm:text-4xl tracking-tight mt-5 zh">四層堆疊，缺一不可</h2>
+      <p class="zh text-[var(--ink-soft)] mt-4 leading-relaxed">
+        每一張卡片都是一種思考方式的容器，疊起來，就是你完整的知識體系。
+      </p>
+    </div>
+
+    <!-- staggered stack container -->
+    <div class="stack-wrap mx-auto" style="max-width:920px; height:900px;">
+
+      <!-- Card 1: 巢狀筆記 -->
+      <div class="stack-card lift card-base shadow-l3 noise relative overflow-hidden"
+           style="top:0; left:0; width:78%; padding:2.25rem; z-index:10;">
+        <div class="flex items-start justify-between mb-6">
+          <div class="w-11 h-11 rounded-xl flex items-center justify-center text-lg" style="background:var(--accent-tint); color:var(--accent);">📂</div>
+          <span class="pill zh text-xs">01 · 結構</span>
+        </div>
+        <h3 class="font-display font-semibold text-xl zh mb-2">巢狀筆記，想開幾層就開幾層</h3>
+        <p class="zh text-[var(--ink-soft)] leading-relaxed text-sm">
+          從「專案」到「章節」到「段落草稿」，資料夾與筆記可以無限往下巢狀展開，但介面永遠只顯示你正在看的那一層，不會因為疊太深而迷路。
+        </p>
+        <div class="mt-6 grid grid-cols-3 gap-3">
+          <div class="h-16 rounded-xl card-base shadow-l1 flex items-center justify-center text-xs zh text-[var(--ink-faint)]">研究主題</div>
+          <div class="h-16 rounded-xl card-base shadow-l1 flex items-center justify-center text-xs zh text-[var(--ink-faint)]">文獻摘要</div>
+          <div class="h-16 rounded-xl card-base shadow-l1 flex items-center justify-center text-xs zh text-[var(--ink-faint)]">個人註解</div>
+        </div>
+      </div>
+
+      <!-- Card 2: 版本疊層回溯 -->
+      <div class="stack-card lift card-base shadow-l3 noise relative overflow-hidden"
+           style="top:230px; left:22%; width:72%; padding:2.25rem; z-index:20;">
+        <div class="flex items-start justify-between mb-6">
+          <div class="w-11 h-11 rounded-xl flex items-center justify-center text-lg" style="background:var(--accent-tint); color:var(--accent);">🕰️</div>
+          <span class="pill zh text-xs">02 · 版本</span>
+        </div>
+        <h3 class="font-display font-semibold text-xl zh mb-2">版本疊層回溯，改壞了也能找回來</h3>
+        <p class="zh text-[var(--ink-soft)] leading-relaxed text-sm">
+          每一次重大編修都會自動存成獨立的一層，用時間軸把版本疊起來，拖曳滑桿就能穿梭回任何一個時間點，比對前後差異一目了然。
+        </p>
+        <div class="mt-6 flex items-center gap-2">
+          <div class="flex-1 h-2 rounded-full" style="background:var(--line);"></div>
+          <span class="text-xs zh text-[var(--ink-faint)] whitespace-nowrap">3 週前 → 現在</span>
+        </div>
+      </div>
+
+      <!-- Card 3: 多層標籤系統 -->
+      <div class="stack-card lift card-base shadow-l3 noise relative overflow-hidden"
+           style="top:460px; left:2%; width:70%; padding:2.25rem; z-index:30;">
+        <div class="flex items-start justify-between mb-6">
+          <div class="w-11 h-11 rounded-xl flex items-center justify-center text-lg" style="background:var(--accent-tint); color:var(--accent);">🏷️</div>
+          <span class="pill zh text-xs">03 · 索引</span>
+        </div>
+        <h3 class="font-display font-semibold text-xl zh mb-2">多層標籤系統，橫向串起所有筆記</h3>
+        <p class="zh text-[var(--ink-soft)] leading-relaxed text-sm">
+          除了樹狀資料夾，你還能疊加「主題層」「專案層」「狀態層」三種標籤，同一則筆記可以同時屬於好幾個知識脈絡，搜尋時交叉篩選秒速定位。
+        </p>
+        <div class="mt-6 flex flex-wrap gap-2">
+          <span class="pill zh text-xs">#品牌策略</span>
+          <span class="pill zh text-xs">#進行中</span>
+          <span class="pill zh text-xs">#客戶：晴野設計</span>
+          <span class="pill zh text-xs">#待覆核</span>
+        </div>
+      </div>
+
+      <!-- Card 4: 跨裝置同步 -->
+      <div class="stack-card lift card-base shadow-l4 noise relative overflow-hidden"
+           style="top:690px; left:26%; width:74%; padding:2.25rem; z-index:40; border:1px solid rgba(61,58,114,0.16);">
+        <div class="flex items-start justify-between mb-6">
+          <div class="w-11 h-11 rounded-xl flex items-center justify-center text-lg text-white" style="background:var(--accent);">☁️</div>
+          <span class="pill zh text-xs">04 · 同步</span>
+        </div>
+        <h3 class="font-display font-semibold text-xl zh mb-2">跨裝置同步，層與層之間毫秒級對齊</h3>
+        <p class="zh text-[var(--ink-soft)] leading-relaxed text-sm">
+          筆電上調整完資料夾結構，手機打開立刻是同一層深度、同一個捲動位置。離線編輯也會排隊同步，不會因為疊層太多而衝突或遺失。
+        </p>
+        <div class="mt-6 flex items-center gap-3 text-xs zh text-[var(--ink-faint)]">
+          <span class="px-3 py-1.5 rounded-lg card-base shadow-l1">MacBook Pro</span>
+          <span>↔</span>
+          <span class="px-3 py-1.5 rounded-lg card-base shadow-l1">iPhone 16</span>
+          <span>↔</span>
+          <span class="px-3 py-1.5 rounded-lg card-base shadow-l1">iPad Air</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="max-w-6xl mx-auto px-5 sm:px-10"><div class="divider-fade"></div></div>
+
+<!-- ================= STORY / TESTIMONIAL ================= -->
+<section id="story" class="px-5 sm:px-10 py-28">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center max-w-xl mx-auto mb-14">
+      <span class="pill zh">真實使用情境</span>
+      <h2 class="font-display font-semibold text-3xl sm:text-4xl tracking-tight mt-5 zh">當研究和專案疊到第五層，還能不亂</h2>
+    </div>
+
+    <div class="relative" style="min-height:380px;">
+      <div class="lift card-base shadow-l2 p-7 md:absolute md:w-[30%]" style="top:0; left:0; z-index:10;">
+        <p class="zh text-[var(--ink)] leading-relaxed text-[0.95rem]">
+          「以前用資料夾管理田野調查資料，超過三層深就再也記不住路徑。現在每一層都是一張看得到內容摘要的卡片，切換速度反而變快了。」
+        </p>
+        <div class="mt-6 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-semibold" style="background:var(--accent);">陳</div>
+          <div>
+            <p class="zh text-sm font-medium">陳品妤</p>
+            <p class="zh text-xs text-[var(--ink-faint)]">社會學研究生・國立政治大學</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="lift card-base shadow-l3 p-7 md:absolute md:w-[34%]" style="top:120px; left:32%; z-index:20;">
+        <p class="zh text-[var(--ink)] leading-relaxed text-[0.95rem]">
+          「我們顧問案常常一個客戶疊三個子專案、每個子專案再疊訪談紀錄與簡報草稿。疊層的版本回溯救過我們好幾次——客戶臨時要看上一輪的提案版本，30 秒內就找回來。」
+        </p>
+        <div class="mt-6 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-semibold" style="background:var(--accent-soft);">林</div>
+          <div>
+            <p class="zh text-sm font-medium">林彥廷</p>
+            <p class="zh text-xs text-[var(--ink-faint)]">資深策略顧問・安侯建業</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="lift card-base shadow-l2 p-7 md:absolute md:w-[30%]" style="top:20px; left:70%; z-index:15;">
+        <p class="zh text-[var(--ink)] leading-relaxed text-[0.95rem]">
+          「身為接案譯者，同時處理五、六本書的術語表跟修訂稿。多層標籤讓我可以同時用『書名』跟『交稿階段』篩選，不用再開一堆分頁對照。」
+        </p>
+        <div class="mt-6 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-semibold" style="background:#8b88b8;">黃</div>
+          <div>
+            <p class="zh text-sm font-medium">黃思穎</p>
+            <p class="zh text-xs text-[var(--ink-faint)]">自由譯者・自由譯者聯盟</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="max-w-6xl mx-auto px-5 sm:px-10"><div class="divider-fade"></div></div>
+
+<!-- ================= PRICING ================= -->
+<section id="pricing" class="px-5 sm:px-10 py-28">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center max-w-xl mx-auto mb-14">
+      <span class="pill zh">方案價格</span>
+      <h2 class="font-display font-semibold text-3xl sm:text-4xl tracking-tight mt-5 zh">選一個適合你疊多深的方案</h2>
+      <p class="zh text-[var(--ink-soft)] mt-4 leading-relaxed">年繳可省下相當於 2 個月的費用，隨時可以升級或降級。</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8 items-start max-w-5xl mx-auto">
+
+      <!-- Free -->
+      <div class="lift card-base shadow-l1 p-8 rounded-2xl">
+        <h3 class="font-display font-semibold text-lg zh">輕量層</h3>
+        <p class="zh text-sm text-[var(--ink-faint)] mt-1">給剛開始整理筆記的你</p>
+        <div class="mt-6 flex items-baseline gap-1">
+          <span class="font-display font-semibold text-4xl num-tabular">NT$0</span>
+          <span class="zh text-sm text-[var(--ink-faint)]">/ 月</span>
+        </div>
+        <ul class="zh text-sm text-[var(--ink-soft)] mt-6 space-y-3">
+          <li class="flex gap-2"><span style="color:var(--accent-soft);">✓</span>最多三層巢狀資料夾</li>
+          <li class="flex gap-2"><span style="color:var(--accent-soft);">✓</span>7 天版本回溯</li>
+          <li class="flex gap-2"><span style="color:var(--accent-soft);">✓</span>2 台裝置同步</li>
+          <li class="flex gap-2"><span style="color:var(--accent-soft);">✓</span>基礎標籤系統</li>
+        </ul>
+        <a href="#" class="lift-sm mt-8 block text-center zh font-medium py-3 rounded-xl card-base shadow-l1">免費使用</a>
+      </div>
+
+      <!-- Pro (highlighted, most layered) -->
+      <div class="lift card-base shadow-l4 p-8 rounded-2xl relative md:-translate-y-4" style="border:1px solid rgba(61,58,114,0.22);">
+        <span class="absolute -top-3 left-8 pill zh text-xs" style="background:var(--accent); color:#fff; border-color:var(--accent);">最多人選擇</span>
+        <h3 class="font-display font-semibold text-lg zh">專業層</h3>
+        <p class="zh text-sm text-[var(--ink-faint)] mt-1">給每天在多個專案間切換的知識工作者</p>
+        <div class="mt-6 flex items-baseline gap-1">
+          <span class="font-display font-semibold text-4xl num-tabular">NT$360</span>
+          <span class="zh text-sm text-[var(--ink-faint)]">/ 月，年繳 NT$3,600</span>
+        </div>
+        <ul class="zh text-sm text-[var(--ink-soft)] mt-6 space-y-3">
+          <li class="flex gap-2"><span style="color:var(--accent);">✓</span>無限層巢狀資料夾</li>
+          <li class="flex gap-2"><span style="color:var(--accent);">✓</span>無限期版本疊層回溯</li>
+          <li class="flex gap-2"><span style="color:var(--accent);">✓</span>無限裝置同步</li>
+          <li class="flex gap-2"><span style="color:var(--accent);">✓</span>多層標籤 + 交叉篩選</li>
+          <li class="flex gap-2"><span style="color:var(--accent);">✓</span>團隊共享空間（3 席）</li>
+        </ul>
+        <a href="#" class="lift-sm mt-8 block text-center zh font-medium py-3 rounded-xl text-white shadow-accent" style="background:var(--accent);">開始 14 天試用</a>
+      </div>
+
+      <!-- Team -->
+      <div class="lift card-base shadow-l1 p-8 rounded-2xl">
+        <h3 class="font-display font-semibold text-lg zh">團隊層</h3>
+        <p class="zh text-sm text-[var(--ink-faint)] mt-1">給整個研究室或顧問團隊</p>
+        <div class="mt-6 flex items-baseline gap-1">
+          <span class="font-display font-semibold text-4xl num-tabular">NT$880</span>
+          <span class="zh text-sm text-[var(--ink-faint)]">/ 席 / 月，年繳 NT$8,800</span>
+        </div>
+        <ul class="zh text-sm text-[var(--ink-soft)] mt-6 space-y-3">
+          <li class="flex gap-2"><span style="color:var(--accent-soft);">✓</span>包含專業層所有功能</li>
+          <li class="flex gap-2"><span style="color:var(--accent-soft);">✓</span>不限席次的共享空間</li>
+          <li class="flex gap-2"><span style="color:var(--accent-soft);">✓</span>權限分層管理</li>
+          <li class="flex gap-2"><span style="color:var(--accent-soft);">✓</span>單一登入（SSO）</li>
+          <li class="flex gap-2"><span style="color:var(--accent-soft);">✓</span>專屬客戶成功經理</li>
+        </ul>
+        <a href="#" class="lift-sm mt-8 block text-center zh font-medium py-3 rounded-xl card-base shadow-l1">聯絡業務</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section id="faq" class="px-5 sm:px-10 py-24">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="font-display font-semibold text-3xl tracking-tight text-center mb-12 zh">常見問題</h2>
+    <div class="space-y-5">
+      <div class="card-base shadow-l1 p-6">
+        <p class="zh font-medium mb-2">疊層跟一般的巢狀資料夾有什麼不一樣？</p>
+        <p class="zh text-sm text-[var(--ink-soft)] leading-relaxed">一般資料夾只是路徑，疊層是把每一層都做成一張可以預覽內容、可以版本回溯的卡片，往下鑽的同時不會失去上一層的脈絡。</p>
+      </div>
+      <div class="card-base shadow-l1 p-6">
+        <p class="zh font-medium mb-2">舊筆記可以匯入嗎？</p>
+        <p class="zh text-sm text-[var(--ink-soft)] leading-relaxed">支援從 Notion、Evernote 及一般 Markdown 資料夾匯入，系統會自動依原本的資料夾結構重建疊層關係。</p>
+      </div>
+      <div class="card-base shadow-l1 p-6">
+        <p class="zh font-medium mb-2">資料存放在哪裡？可以本機備份嗎？</p>
+        <p class="zh text-sm text-[var(--ink-soft)] leading-relaxed">資料加密後存放於台灣資料中心，專業層以上皆可設定每日自動匯出本機備份，離線也能存取最近一次同步的內容。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA BAND ================= -->
+<section class="px-5 sm:px-10 pb-28">
+  <div class="max-w-6xl mx-auto rounded-3xl shadow-l3 relative overflow-hidden p-12 sm:p-16 text-center" style="background:var(--accent);">
+    <div class="absolute -top-24 -right-24 w-72 h-72 rounded-full opacity-20" style="background:#fff; filter:blur(40px);"></div>
+    <h2 class="font-display font-semibold text-3xl sm:text-4xl text-white tracking-tight zh">別再讓知識散落各處，開始疊層吧</h2>
+    <p class="zh text-white/75 mt-4 max-w-lg mx-auto">今天建立的第一層，會是你未來三年最常回頭查閱的地方。</p>
+    <a href="#pricing" class="lift-sm inline-block mt-8 zh font-medium px-8 py-3.5 rounded-2xl shadow-l2" style="background:var(--card); color:var(--accent);">
+      免費建立我的第一層
+    </a>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="px-5 sm:px-10 pb-12">
+  <div class="max-w-6xl mx-auto">
+    <div class="divider-fade mb-10"></div>
+    <div class="flex flex-col md:flex-row justify-between gap-10">
+      <div class="max-w-xs">
+        <div class="flex items-center gap-2.5 mb-4">
+          <div class="w-7 h-7 rounded-lg" style="background:var(--accent);"></div>
+          <span class="font-display font-semibold zh">疊層 Layered</span>
+        </div>
+        <p class="zh text-sm text-[var(--ink-faint)] leading-relaxed">為知識工作者打造的分層筆記與知識庫工具，讓思考像卡片一樣可以層層堆疊、隨時回溯。</p>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-10 text-sm zh">
+        <div>
+          <p class="font-medium mb-3 text-[var(--ink)]">產品</p>
+          <ul class="space-y-2 text-[var(--ink-faint)]">
+            <li><a href="#feature" class="hover:text-[var(--ink)]">功能總覽</a></li>
+            <li><a href="#pricing" class="hover:text-[var(--ink)]">價格方案</a></li>
+            <li><a href="#" class="hover:text-[var(--ink)]">更新日誌</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-medium mb-3 text-[var(--ink)]">資源</p>
+          <ul class="space-y-2 text-[var(--ink-faint)]">
+            <li><a href="#" class="hover:text-[var(--ink)]">使用教學</a></li>
+            <li><a href="#" class="hover:text-[var(--ink)]">範本庫</a></li>
+            <li><a href="#" class="hover:text-[var(--ink)]">開發者文件</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-medium mb-3 text-[var(--ink)]">公司</p>
+          <ul class="space-y-2 text-[var(--ink-faint)]">
+            <li><a href="#" class="hover:text-[var(--ink)]">關於我們</a></li>
+            <li><a href="#" class="hover:text-[var(--ink)]">服務條款</a></li>
+            <li><a href="#" class="hover:text-[var(--ink)]">隱私權政策</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="divider-fade my-8"></div>
+    <p class="zh text-xs text-[var(--ink-faint)] text-center">© 2026 疊層 Layered．版權所有，保留一切權利。</p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    // subtle parallax on the hero mock stack, based on scroll position
+    var el = document.querySelector('[data-parallax]');
+    if(!el) return;
+    var depth = parseFloat(el.getAttribute('data-depth')) || 0.05;
+    function onScroll(){
+      var y = window.scrollY || 0;
+      el.style.transform = 'translateY(' + Math.min(y * depth, 40) + 'px)';
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
+
+</body>
+</html>

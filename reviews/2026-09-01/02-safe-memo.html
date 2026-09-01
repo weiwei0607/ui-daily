@@ -1,0 +1,510 @@
+<!-- style #17 Inclusive Design -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>安心手記｜長輩每日健康提醒 App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --navy:#003366;
+    --navy-deep:#001f3f;
+    --orange:#9A3412;
+    --orange-bright:#C2410C;
+    --cream:#FFFBF5;
+    --paper:#FFFFFF;
+    --line:#D9C6B4;
+  }
+
+  html{
+    font-size: 112.5%; /* ~18px base so ordinary body copy already reads large */
+    scroll-behavior: smooth;
+    transition: font-size 0.2s ease;
+  }
+  html[data-largetext="on"]{
+    font-size: 150%; /* one-tap "大字模式" boost for low-vision / elderly users */
+  }
+
+  body{
+    background: var(--cream);
+    color: var(--navy-deep);
+    font-family: "Atkinson Hyperlegible", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    font-weight: 500;
+    line-height: 1.7;
+  }
+
+  h1, h2, h3, .font-heading{
+    font-family: "Atkinson Hyperlegible", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    font-weight: 700;
+  }
+
+  /* AAA-friendly, unmistakable focus state on every interactive element */
+  a:focus-visible,
+  button:focus-visible,
+  [tabindex]:focus-visible,
+  input:focus-visible{
+    outline: 4px solid var(--orange-bright);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  .skip-link{
+    position: absolute;
+    left: 1rem;
+    top: -4rem;
+    background: var(--orange);
+    color: #fff;
+    padding: 0.85rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 700;
+    z-index: 100;
+    transition: top 0.15s ease;
+  }
+  .skip-link:focus{
+    top: 1rem;
+  }
+
+  .btn-primary{
+    background: var(--orange);
+    color: #ffffff;
+    min-height: 48px;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+  }
+  .btn-primary:hover{ background: #7c2d0f; transform: translateY(-1px); }
+  .btn-primary:active{ transform: translateY(0); }
+
+  .btn-secondary{
+    background: #ffffff;
+    color: var(--navy);
+    border: 3px solid var(--navy);
+    min-height: 48px;
+    transition: background-color 0.15s ease;
+  }
+  .btn-secondary:hover{ background: #EAF1F8; }
+
+  .card{
+    background: var(--paper);
+    border: 2px solid var(--line);
+    border-radius: 1.25rem;
+    box-shadow: 0 6px 0 rgba(0,51,102,0.08);
+  }
+
+  .reminder-item{
+    border: 2px solid var(--line);
+    border-left: 8px solid var(--orange);
+    border-radius: 1rem;
+    background: #ffffff;
+    transition: background-color 0.15s ease, opacity 0.15s ease;
+  }
+  .reminder-item[data-done="true"]{
+    border-left-color: #2f6b3a;
+    background: #F3F8F3;
+    opacity: 0.75;
+  }
+  .reminder-item[data-done="true"] .reminder-title{
+    text-decoration: line-through;
+    text-decoration-thickness: 3px;
+  }
+
+  .reminder-check{
+    min-width: 48px;
+    min-height: 48px;
+    border: 3px solid var(--navy);
+    border-radius: 9999px;
+    background: #fff;
+    color: var(--navy);
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+  .reminder-check[aria-pressed="true"]{
+    background: #2f6b3a;
+    border-color: #2f6b3a;
+    color: #fff;
+  }
+
+  .icon-badge{
+    min-width: 56px;
+    min-height: 56px;
+    background: #EAF1F8;
+    color: var(--navy);
+    border-radius: 1rem;
+  }
+
+  .feature-icon{
+    min-width: 64px;
+    min-height: 64px;
+    background: var(--navy);
+    color: #FFE7D6;
+    border-radius: 1.25rem;
+  }
+
+  .toggle-btn{
+    min-height: 48px;
+    background: #ffffff;
+    color: var(--navy);
+    border: 3px solid var(--navy);
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+  .toggle-btn[aria-pressed="true"]{
+    background: var(--navy);
+    color: #fff;
+  }
+</style>
+</head>
+<body class="min-h-screen">
+<a href="#main" class="skip-link">跳到主要內容</a>
+
+<header class="bg-white border-b-4" style="border-color:var(--navy);">
+  <div class="max-w-5xl mx-auto px-6 py-5 flex flex-wrap items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 rounded-2xl flex items-center justify-center" style="background:var(--navy);">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#FFE7D6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+        </svg>
+      </div>
+      <span class="text-2xl font-heading" style="color:var(--navy);">安心手記</span>
+    </div>
+    <nav aria-label="主要導覽" class="flex flex-wrap items-center gap-2 text-lg">
+      <a href="#reminders" class="px-3 py-2 rounded-lg hover:bg-orange-50 font-bold" style="color:var(--navy);">今日提醒</a>
+      <a href="#accessibility" class="px-3 py-2 rounded-lg hover:bg-orange-50 font-bold" style="color:var(--navy);">無障礙設計</a>
+      <a href="#contact" class="px-3 py-2 rounded-lg hover:bg-orange-50 font-bold" style="color:var(--navy);">聯絡我們</a>
+      <button id="toggleLargeText" type="button" class="toggle-btn rounded-full px-5 py-2 text-lg font-bold" aria-pressed="false">大字模式</button>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="max-w-5xl mx-auto px-6 pt-14 pb-16">
+    <div class="grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <p class="inline-block px-4 py-1.5 rounded-full text-base font-bold mb-5" style="background:#FFE7D6;color:var(--orange);">為長輩與家人設計</p>
+        <h1 class="text-4xl md:text-5xl leading-tight mb-6" style="color:var(--navy);">
+          陪伴長輩，<br>安心過好每一天
+        </h1>
+        <p class="text-xl md:text-2xl mb-8" style="color:#26405e;">
+          「安心手記」用清楚的大字、溫暖的語音，提醒爸爸媽媽準時吃藥、記得回診，也讓在外地工作的您，隨時都能安心掌握家人的健康狀況。
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <button type="button" class="btn-primary rounded-2xl px-8 py-4 text-xl font-bold">
+            立即免費下載
+          </button>
+          <button type="button" class="btn-secondary rounded-2xl px-8 py-4 text-xl font-bold">
+            觀看操作教學
+          </button>
+        </div>
+        <p class="mt-6 text-lg" style="color:#4a5f78;">已有超過 3,600 個家庭，透過安心手記一起照顧長輩。</p>
+      </div>
+
+      <div class="card p-6">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="icon-badge flex items-center justify-center">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4.93 19.07a5 5 0 0 1 0-7.07l7.07-7.07a5 5 0 0 1 7.07 7.07l-7.07 7.07a5 5 0 0 1-7.07 0z"></path>
+              <line x1="9" y1="15" x2="15" y2="9"></line>
+            </svg>
+          </div>
+          <div>
+            <p class="text-2xl font-bold" style="color:var(--navy);">陳美玉 奶奶</p>
+            <p class="text-lg" style="color:#4a5f78;">今天已完成 2 / 6 項提醒</p>
+          </div>
+        </div>
+        <div class="w-full h-4 rounded-full overflow-hidden" style="background:#EAF1F8;">
+          <div class="h-full rounded-full" style="width:33%;background:var(--orange);"></div>
+        </div>
+        <p class="mt-4 text-lg" style="color:#26405e;">下一項提醒：<span class="font-bold">中午 12:30　飯後藥　降血壓藥</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TODAY'S REMINDERS -->
+  <section id="reminders" class="max-w-5xl mx-auto px-6 py-16">
+    <div class="mb-10">
+      <h2 class="text-3xl md:text-4xl mb-3" style="color:var(--navy);">今天的提醒</h2>
+      <p class="text-xl" style="color:#26405e;">大大的文字、清楚的時間，一眼就看懂，點一下就能標記完成。</p>
+    </div>
+
+    <ul class="space-y-5" role="list">
+
+      <li class="reminder-item p-5 flex items-center gap-5" data-done="true">
+        <div class="icon-badge flex items-center justify-center flex-shrink-0">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4.93 19.07a5 5 0 0 1 0-7.07l7.07-7.07a5 5 0 0 1 7.07 7.07l-7.07 7.07a5 5 0 0 1-7.07 0z"></path>
+            <line x1="9" y1="15" x2="15" y2="9"></line>
+          </svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-2xl font-bold" style="color:var(--navy);">08:00　早上藥</p>
+          <p class="reminder-title text-xl" style="color:#26405e;">血壓藥一顆、維他命 D 一顆，配一杯溫開水服用</p>
+        </div>
+        <button type="button" class="reminder-check flex items-center justify-center flex-shrink-0" aria-pressed="true" aria-label="標記「早上藥」為已完成">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </button>
+      </li>
+
+      <li class="reminder-item p-5 flex items-center gap-5" data-done="true">
+        <div class="icon-badge flex items-center justify-center flex-shrink-0">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+            <line x1="16" y1="3" x2="16" y2="7"></line>
+            <line x1="8" y1="3" x2="8" y2="7"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-2xl font-bold" style="color:var(--navy);">09:30　回診提醒</p>
+          <p class="reminder-title text-xl" style="color:#26405e;">林醫師．心臟內科門診，記得帶健保卡與藥袋</p>
+        </div>
+        <button type="button" class="reminder-check flex items-center justify-center flex-shrink-0" aria-pressed="true" aria-label="標記「回診提醒」為已完成">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </button>
+      </li>
+
+      <li class="reminder-item p-5 flex items-center gap-5" data-done="false">
+        <div class="icon-badge flex items-center justify-center flex-shrink-0">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4.93 19.07a5 5 0 0 1 0-7.07l7.07-7.07a5 5 0 0 1 7.07 7.07l-7.07 7.07a5 5 0 0 1-7.07 0z"></path>
+            <line x1="9" y1="15" x2="15" y2="9"></line>
+          </svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-2xl font-bold" style="color:var(--navy);">12:30　中午藥（下一項）</p>
+          <p class="reminder-title text-xl" style="color:#26405e;">飯後藥，降血壓藥一顆，記得先吃飽飯再吃藥</p>
+        </div>
+        <button type="button" class="reminder-check flex items-center justify-center flex-shrink-0" aria-pressed="false" aria-label="標記「中午藥」為已完成">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </button>
+      </li>
+
+      <li class="reminder-item p-5 flex items-center gap-5" data-done="false">
+        <div class="icon-badge flex items-center justify-center flex-shrink-0">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+          </svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-2xl font-bold" style="color:var(--navy);">15:00　每日健康檢查</p>
+          <p class="reminder-title text-xl" style="color:#26405e;">量血壓、量血糖，並把數字記錄在本子上</p>
+        </div>
+        <button type="button" class="reminder-check flex items-center justify-center flex-shrink-0" aria-pressed="false" aria-label="標記「每日健康檢查」為已完成">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </button>
+      </li>
+
+      <li class="reminder-item p-5 flex items-center gap-5" data-done="false">
+        <div class="icon-badge flex items-center justify-center flex-shrink-0">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4.93 19.07a5 5 0 0 1 0-7.07l7.07-7.07a5 5 0 0 1 7.07 7.07l-7.07 7.07a5 5 0 0 1-7.07 0z"></path>
+            <line x1="9" y1="15" x2="15" y2="9"></line>
+          </svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-2xl font-bold" style="color:var(--navy);">18:00　晚上藥</p>
+          <p class="reminder-title text-xl" style="color:#26405e;">飯後藥，血糖藥一顆，配溫開水服用</p>
+        </div>
+        <button type="button" class="reminder-check flex items-center justify-center flex-shrink-0" aria-pressed="false" aria-label="標記「晚上藥」為已完成">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </button>
+      </li>
+
+      <li class="reminder-item p-5 flex items-center gap-5" data-done="false">
+        <div class="icon-badge flex items-center justify-center flex-shrink-0">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-2xl font-bold" style="color:var(--navy);">20:30　睡前提醒</p>
+          <p class="reminder-title text-xl" style="color:#26405e;">喝一杯溫水、關好門窗，準備好好休息</p>
+        </div>
+        <button type="button" class="reminder-check flex items-center justify-center flex-shrink-0" aria-pressed="false" aria-label="標記「睡前提醒」為已完成">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </button>
+      </li>
+
+    </ul>
+  </section>
+
+  <!-- ACCESSIBILITY FEATURES -->
+  <section id="accessibility" class="py-16" style="background:var(--navy);">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="mb-12 max-w-2xl">
+        <h2 class="text-3xl md:text-4xl mb-4" style="color:#ffffff;">為每一位使用者，用心設計</h2>
+        <p class="text-xl" style="color:#CFE0F0;">我們相信，好用的 App 不該讓長輩感到吃力。以下是安心手記在無障礙上的堅持。</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+
+        <div class="card p-6">
+          <div class="feature-icon flex items-center justify-center mb-4">
+            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 7V5a1 1 0 0 1 1-1h4"></path>
+              <path d="M20 7V5a1 1 0 0 0-1-1h-4"></path>
+              <path d="M4 17v2a1 1 0 0 0 1 1h4"></path>
+              <path d="M20 17v2a1 1 0 0 1-1 1h-4"></path>
+              <line x1="8" y1="16" x2="12" y2="8"></line>
+              <line x1="16" y1="16" x2="12" y2="8"></line>
+              <line x1="9.3" y1="13" x2="14.7" y2="13"></line>
+            </svg>
+          </div>
+          <h3 class="text-2xl mb-2" style="color:var(--navy);">大字體模式</h3>
+          <p class="text-lg" style="color:#26405e;">點一下右上角按鈕，全站文字立刻放大，不用瞇眼睛也能看得清清楚楚。</p>
+        </div>
+
+        <div class="card p-6">
+          <div class="feature-icon flex items-center justify-center mb-4">
+            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+            </svg>
+          </div>
+          <h3 class="text-2xl mb-2" style="color:var(--navy);">語音播報</h3>
+          <p class="text-lg" style="color:#26405e;">每一項提醒都能用溫暖清楚的語音念出來，就算不方便閱讀，也能聽得明白。</p>
+        </div>
+
+        <div class="card p-6">
+          <div class="feature-icon flex items-center justify-center mb-4">
+            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"></circle>
+              <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"></path>
+            </svg>
+          </div>
+          <h3 class="text-2xl mb-2" style="color:var(--navy);">高對比配色</h3>
+          <p class="text-lg" style="color:#26405e;">深藍與亮橙的搭配，通過最高等級的對比標準，就算在陽光下也看得一清二楚。</p>
+        </div>
+
+        <div class="card p-6">
+          <div class="feature-icon flex items-center justify-center mb-4">
+            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"></circle>
+              <circle cx="12" cy="12" r="3" fill="currentColor" stroke="none"></circle>
+            </svg>
+          </div>
+          <h3 class="text-2xl mb-2" style="color:var(--navy);">大按鈕好點擊</h3>
+          <p class="text-lg" style="color:#26405e;">所有按鈕都做得夠大，手指不太靈活也能輕鬆點到，不怕按錯、按不到。</p>
+        </div>
+
+        <div class="card p-6">
+          <div class="feature-icon flex items-center justify-center mb-4">
+            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+              <line x1="6" y1="10" x2="6.01" y2="10"></line>
+              <line x1="10" y1="10" x2="10.01" y2="10"></line>
+              <line x1="14" y1="10" x2="14.01" y2="10"></line>
+              <line x1="18" y1="10" x2="18.01" y2="10"></line>
+              <line x1="7" y1="14" x2="17" y2="14"></line>
+            </svg>
+          </div>
+          <h3 class="text-2xl mb-2" style="color:var(--navy);">鍵盤與輔助科技支援</h3>
+          <p class="text-lg" style="color:#26405e;">完整支援螢幕報讀軟體與鍵盤操作，每個欄位、每個按鈕都清楚標示。</p>
+        </div>
+
+        <div class="card p-6">
+          <div class="feature-icon flex items-center justify-center mb-4">
+            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+          </div>
+          <h3 class="text-2xl mb-2" style="color:var(--navy);">簡單好懂，不怕操作</h3>
+          <p class="text-lg" style="color:#26405e;">沒有複雜的選單與艱澀的術語，長輩自己就能上手，家人在遠方也能安心。</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="contact" class="py-14" style="background:var(--navy-deep);">
+  <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-3 gap-10">
+    <div>
+      <p class="text-2xl font-bold mb-3" style="color:#fff;">安心手記</p>
+      <p class="text-lg" style="color:#B9CBDD;">陪伴長輩，安心過好每一天。我們持續依照最高等級的無障礙標準打造這個 App，讓每一位使用者都能自在使用。</p>
+    </div>
+    <div>
+      <p class="text-xl font-bold mb-3" style="color:#fff;">客服與聯絡方式</p>
+      <ul class="space-y-2 text-lg" style="color:#B9CBDD;">
+        <li>客服專線：0800-123-456（免付費）</li>
+        <li>服務時間：週一至週五 09:00–18:00</li>
+        <li>電子郵件：support@anxin-note.tw</li>
+      </ul>
+    </div>
+    <div>
+      <p class="text-xl font-bold mb-3" style="color:#fff;">貼心提醒</p>
+      <p class="text-lg" style="color:#B9CBDD;">使用上有任何不方便的地方，歡迎隨時與我們聯繫，我們會盡快為您調整，讓長輩用得更安心。</p>
+    </div>
+  </div>
+  <div class="max-w-5xl mx-auto px-6 mt-10 pt-6 border-t text-base" style="border-color:#274b6e;color:#8FA6BE;">
+    © 2026 安心手記．版權所有
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  var btn = document.getElementById('toggleLargeText');
+  var STORAGE_KEY = 'anxin-note-large-text';
+
+  function applyLargeText(isOn){
+    root.setAttribute('data-largetext', isOn ? 'on' : 'off');
+    if (btn){
+      btn.setAttribute('aria-pressed', isOn ? 'true' : 'false');
+      btn.textContent = isOn ? '恢復標準字體' : '大字模式';
+    }
+  }
+
+  var savedOn = false;
+  try {
+    savedOn = window.localStorage.getItem(STORAGE_KEY) === 'on';
+  } catch (err) {
+    savedOn = false;
+  }
+  applyLargeText(savedOn);
+
+  if (btn){
+    btn.addEventListener('click', function(){
+      var currentlyOn = root.getAttribute('data-largetext') === 'on';
+      var nextOn = !currentlyOn;
+      applyLargeText(nextOn);
+      try {
+        window.localStorage.setItem(STORAGE_KEY, nextOn ? 'on' : 'off');
+      } catch (err) {
+        /* private browsing or storage disabled: ignore, still works this visit */
+      }
+    });
+  }
+
+  var checkButtons = document.querySelectorAll('.reminder-check');
+  for (var i = 0; i < checkButtons.length; i++){
+    checkButtons[i].addEventListener('click', function(){
+      var item = this.closest('.reminder-item');
+      var isDone = this.getAttribute('aria-pressed') === 'true';
+      var nextDone = !isDone;
+      this.setAttribute('aria-pressed', nextDone ? 'true' : 'false');
+      if (item){
+        item.setAttribute('data-done', nextDone ? 'true' : 'false');
+      }
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
