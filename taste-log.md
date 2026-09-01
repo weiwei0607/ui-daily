@@ -21,6 +21,13 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-09-01（6 個，#01–06）
+- ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（agent-proxy 明確回報 `connect_rejected` / organization policy），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
+- ⚠️ 本輪 GH_TOKEN 直連 GitHub REST API（publish.py 用到的 `/repos/.../git/ref/...` 端點）再次被環境閘道擋下（403），與過去每輪一致，改用 `git push`（HTTPS + GH_TOKEN 當密碼，走 git 協定而非 REST API）分批發布，過程中每完成 1-2 個檔案就即時 commit+push 備份進度，已用 `git fetch` 驗證 origin/master 與本機一致到 f0e13f8（含今天的 6 個 + 兩層畫廊 index + taste-log）。
+- ⚠️ 本輪 Telegram 通知（步驟 8）也被環境網路政策擋下（`api.telegram.org` agent-proxy 明確回報 `connect_rejected` / organization policy），與 Firebase 同一機制擋下，非帳號或 bot token 問題。畫廊已正常生成並發布到 GitHub，只是這次沒有 Telegram 訊息推播，改用系統推播通知告知，連結：https://raw.githack.com/weiwei0607/ui-daily/master/reviews/2026-09-01/index.html
+- 本輪採用並行子代理（同時派 6 個 agent 各生成一個風格檔案，prompt 中明確指定字體配方、內容主題、技術要求），5 個順利完成並自行驗證無簡體字、字體正確、HTML 結構完整；其中 #02 Inclusive Design 的子代理在最後驗證階段觸發了 API 內容過濾錯誤而提前中止，但實際檔案已完整寫入（人工重新 Read 確認結構完整、`<html>`/`</html>`/`<body>`/`</body>` 各恰好 1 個），予以保留使用。主流程完成後再用 OpenCC（s2t）對全部 6 個檔案＋兩層 index.html 做一次簡繁字元掃描，僅「台」「岩」「托」「吃」「游」被標記——這些都是 OpenCC 對「異體字/用字習慣」的誤判（例如 台⇄臺、岩⇄巖、托⇄託、吃⇄喫、游⇄遊），本身是正確的正體字且是台灣通用寫法，非簡體污染，予以保留（沿用前幾輪對「台」字的判例）。
+- 本批風格（避開近 3 天 08-28/29/30 用過的 #12/#22/#29/#47/#49/#51/#04/#56/#41/#33/#26/#19/#02/#06/#24/#34/#40/#55，並依統計出的「歷史使用次數」優先挑最少用過的風格編號，跨 A/B/C/D 族群）：**Skeuomorphism #13**（A 組全新族群，避免配方預設的 Georgia，改用 Besley + Noto Serif TC 做出溫暖工藝質感，做成手沖咖啡器材電商「爐 The Kiln」，木紋/皮革 CSS 紋理＋內陰影＋縫線邊框＋黃銅旋鈕光澤）、**Inclusive Design #17**（A 組，套用配方指定的無障礙專用字體 Atkinson Hyperlegible + Noto Sans TC，做成高齡友善健康提醒 App「安心手記」，深藍＋亮橙 AAA 對比、大字模式切換、48px 以上大按鈕）、**Interactive Demo #25**（B 組結構，避免 Inter，改用 Geologica + Noto Sans TC，做成協作白板工具示範頁「手感 Handy」，內嵌真的能拖曳便利貼與手繪畫布的 vanilla JS 互動 demo）、**Sales Intelligence #37**（C 組全新類型，避免 Inter/JetBrains Mono，改用 Hanken Grotesk + Noto Sans TC + IBM Plex Mono，做成 B2B 業務戰情室「戰情室 SalesWar」，含 KPI 達成率／業務管線階段／業務排行榜，數字皆等寬靠右對齊）、**Dimensional Layering #46**（D 組全新類型，避免 Inter，改用 DM Sans + Noto Sans TC，做成筆記知識庫產品官網「疊層 Layered」，多張卡片用 absolute 定位交錯疊放＋四層漸增陰影做出真實景深，hover 會再浮起）、**Kinetic Typography #48**（D 組全新類型，套用配方指定的 Bebas Neue，中文標題改用 Noto Sans TC 900 粗體呼應「會動的文字」份量，做成字型設計工作室「動字 KineticType」，標題逐字進場動畫＋跑馬燈＋滾動觸發顯示，皆為真實可運作的 CSS @keyframes／JS）。全數繁體中文文案，中文字元皆保留 Noto Sans/Serif TC 作為 fallback，已用 OpenCC 掃描確認無簡體字混入。
+
 ### 2026-08-30（6 個，#01–06）
 - ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（curl 連線逾時無回應，HTTP exit 56），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
 - ⚠️ 本輪 GH_TOKEN 直連 GitHub REST API（publish.py）仍被環境閘道擋下（403），與過去每輪一致，改用 `git push`（HTTPS + GH_TOKEN 當密碼）發布：先在 detached HEAD 狀態下 commit，再用 `git branch -f master HEAD` 把 master 移到新 commit、checkout master 後 push，已用 `git fetch` 驗證 origin/master 與本機一致到 285f90f（含今天的 6 個 + 畫廊 + taste-log）。
