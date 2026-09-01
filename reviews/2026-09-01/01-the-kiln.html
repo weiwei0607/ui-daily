@@ -1,0 +1,491 @@
+<!-- style #13 Skeuomorphism -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>爐 The Kiln｜手沖器具工房</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=Noto+Serif+TC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --wood-light:#deb887;
+    --wood-mid:#c8935f;
+    --wood-dark:#8a5a34;
+    --walnut:#4a2f1c;
+    --walnut-dark:#2e1c10;
+    --leather:#5c3a24;
+    --brass:#c98f4a;
+    --brass-light:#f0cf8e;
+    --brass-dark:#7a5220;
+    --cream:#f3e6d0;
+    --paper:#efe1c7;
+    --ink:#3a2a1a;
+  }
+
+  html,body{
+    background:var(--walnut-dark);
+    color:var(--ink);
+    font-family:"Noto Serif TC","Besley",serif;
+  }
+
+  h1,h2,h3,.brand-font{
+    font-family:"Besley","Noto Serif TC",serif;
+  }
+
+  /* ===== wood grain texture ===== */
+  .wood-panel{
+    background-color:var(--wood-mid);
+    background-image:
+      repeating-linear-gradient(90deg, rgba(74,47,28,0.10) 0px, rgba(74,47,28,0.10) 1px, transparent 2px, transparent 7px),
+      repeating-linear-gradient(90deg, rgba(255,235,200,0.08) 0px, transparent 3px, transparent 14px),
+      linear-gradient(180deg, #d9a565 0%, #c8935f 35%, #b57e4c 70%, #a06e40 100%);
+    box-shadow: inset 0 3px 8px rgba(255,240,210,0.35), inset 0 -6px 18px rgba(46,28,16,0.45);
+  }
+
+  .wood-dark-panel{
+    background-color:var(--walnut);
+    background-image:
+      repeating-linear-gradient(90deg, rgba(0,0,0,0.18) 0px, rgba(0,0,0,0.18) 1px, transparent 2px, transparent 9px),
+      repeating-linear-gradient(88deg, rgba(255,220,170,0.05) 0px, transparent 2px, transparent 20px),
+      linear-gradient(180deg, #5a3a24 0%, #4a2f1c 45%, #3a2515 100%);
+    box-shadow: inset 0 4px 10px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,220,170,0.08);
+  }
+
+  /* ===== leather texture ===== */
+  .leather-panel{
+    background-color:var(--leather);
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(255,220,180,0.10) 0%, transparent 45%),
+      radial-gradient(circle at 80% 70%, rgba(0,0,0,0.25) 0%, transparent 50%),
+      repeating-linear-gradient(45deg, rgba(0,0,0,0.05) 0px, rgba(0,0,0,0.05) 2px, transparent 2px, transparent 6px),
+      linear-gradient(160deg,#6b4529,#4a2f1c 60%,#3a2515);
+    box-shadow: inset 0 2px 6px rgba(255,220,180,0.15), inset 0 -4px 14px rgba(0,0,0,0.5);
+  }
+
+  /* ===== stitching (dashed border mimicking stitches) ===== */
+  .stitch{
+    position:relative;
+  }
+  .stitch::before{
+    content:"";
+    position:absolute;
+    inset:10px;
+    border:2px dashed rgba(240,207,142,0.55);
+    border-radius:inherit;
+    pointer-events:none;
+  }
+
+  /* ===== brass knob / button ===== */
+  .brass-knob{
+    background: radial-gradient(circle at 32% 28%, #fdeec2 0%, #f0cf8e 18%, #c98f4a 55%, #8a5f2a 85%, #5e3f1c 100%);
+    box-shadow:
+      0 3px 0 #3d2810,
+      0 6px 10px rgba(0,0,0,0.5),
+      inset 0 1px 2px rgba(255,255,255,0.6),
+      inset 0 -3px 5px rgba(60,35,10,0.6);
+    border:1px solid #6b4a1f;
+  }
+  .brass-knob:active{
+    box-shadow:
+      0 1px 0 #3d2810,
+      0 2px 4px rgba(0,0,0,0.5),
+      inset 0 2px 4px rgba(60,35,10,0.7);
+    transform:translateY(2px);
+  }
+
+  .brass-ring{
+    background: conic-gradient(from 220deg, #f0cf8e, #8a5f2a, #f0cf8e, #c98f4a, #f0cf8e);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 0 0 3px rgba(46,28,16,0.6);
+  }
+
+  .brass-text{
+    background:linear-gradient(180deg,#fdeec2 0%,#e3ba75 40%,#a9762f 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    filter: drop-shadow(0 1px 0 rgba(0,0,0,0.5));
+  }
+
+  /* ===== carved / engraved panel edges ===== */
+  .carved-frame{
+    box-shadow:
+      0 1px 0 rgba(255,235,205,0.15),
+      0 10px 24px rgba(0,0,0,0.55),
+      inset 0 0 0 2px rgba(46,28,16,0.5),
+      inset 0 0 0 6px rgba(200,147,95,0.15);
+  }
+
+  /* ===== product card ===== */
+  .product-card{
+    background:
+      linear-gradient(180deg, rgba(255,240,215,0.10), transparent 12%),
+      var(--cream);
+    background-image:
+      repeating-linear-gradient(4deg, rgba(120,80,40,0.045) 0px, transparent 2px, transparent 9px),
+      linear-gradient(180deg,#f6e9d2,#ecd9b6 70%,#e2c99e 100%);
+    box-shadow:
+      0 10px 22px rgba(0,0,0,0.45),
+      0 2px 0 rgba(255,255,255,0.4) inset,
+      inset 0 0 0 1px rgba(138,90,52,0.3);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .product-card:hover{
+    transform: translateY(-6px);
+    box-shadow:
+      0 20px 34px rgba(0,0,0,0.55),
+      0 2px 0 rgba(255,255,255,0.5) inset,
+      inset 0 0 0 1px rgba(138,90,52,0.35);
+  }
+
+  .price-tag{
+    background: radial-gradient(circle at 30% 25%, #fdeec2, #c98f4a 65%, #7a5220 100%);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.45), inset 0 1px 1px rgba(255,255,255,0.5), inset 0 -2px 4px rgba(60,35,10,0.5);
+  }
+
+  .nail-head{
+    width:9px;height:9px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #fdeec2, #b5813f 55%, #5e3f1c 100%);
+    box-shadow:0 1px 2px rgba(0,0,0,0.6), inset 0 0 1px rgba(255,255,255,0.5);
+  }
+
+  .divider-rope{
+    height:6px;border-radius:999px;
+    background:repeating-linear-gradient(115deg,#8a5a34 0 6px,#6b4529 6px 12px);
+    box-shadow: inset 0 2px 3px rgba(0,0,0,0.4), inset 0 -1px 1px rgba(255,220,180,0.25);
+  }
+
+  ::selection{ background:var(--brass); color:#2e1c10; }
+
+  .tape-corner::before, .tape-corner::after{
+    content:"";
+    position:absolute;
+    width:56px;height:20px;
+    background:rgba(240,207,142,0.28);
+    box-shadow:0 1px 2px rgba(0,0,0,0.2);
+    transform:rotate(-8deg);
+  }
+
+  @media (max-width:640px){
+    .hide-on-mobile{display:none;}
+  }
+</style>
+</head>
+<body class="wood-dark-panel">
+
+<header class="sticky top-0 z-30 wood-dark-panel border-b-4" style="border-color:#2e1c10;">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="brass-ring w-11 h-11 rounded-full flex items-center justify-center">
+        <div class="w-8 h-8 rounded-full brass-knob flex items-center justify-center">
+          <span class="brass-text text-lg font-bold" style="font-family:'Besley',serif;">爐</span>
+        </div>
+      </div>
+      <div>
+        <p class="brass-text text-xl tracking-widest" style="font-family:'Besley',serif; font-weight:700;">The Kiln</p>
+        <p class="text-[11px] tracking-[0.3em]" style="color:#d9bd8c;">爐．手沖器具工房</p>
+      </div>
+    </div>
+    <nav class="hidden md:flex items-center gap-8 text-sm" style="color:#e8d3ab;">
+      <a href="#products" class="hover:text-white transition">器具選物</a>
+      <a href="#craft" class="hover:text-white transition">工藝與選材</a>
+      <a href="#story" class="hover:text-white transition">品牌故事</a>
+      <a href="#footer" class="hover:text-white transition">聯絡我們</a>
+    </nav>
+    <button class="brass-knob px-5 py-2 rounded-full text-sm font-semibold" style="color:#3a2515;">前往選購</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="story" class="relative overflow-hidden">
+  <div class="wood-panel">
+    <div class="max-w-6xl mx-auto px-6 py-20 md:py-28 grid md:grid-cols-2 gap-12 items-center relative">
+      <div class="absolute -top-6 -left-4 w-24 h-24 rounded-full brass-ring opacity-30 hidden md:block"></div>
+      <div>
+        <p class="inline-block px-4 py-1 rounded-full text-xs tracking-[0.25em] mb-5 leather-panel" style="color:#f0cf8e;">職人手作．台灣製造</p>
+        <h1 class="text-4xl md:text-5xl leading-tight mb-6" style="color:#3a2515; font-weight:700; font-family:'Besley',serif;">
+          把一爐炭火的溫度，<br>沖進每一次晨光裡。
+        </h1>
+        <p class="text-base md:text-lg leading-relaxed mb-8 max-w-md" style="color:#4a2f1c;">
+          「爐 The Kiln」成立於南投竹山，前身是三代人的打鐵舖。我們相信一壺好咖啡，始於一件經得起十年使用的器具——手工敲製的銅壺、實木削製的托盤、陶土燒成的濾杯，每一件都帶著匠人手心的溫度與歲月的包漿。
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#products" class="brass-knob px-7 py-3 rounded-lg font-semibold text-base" style="color:#3a2515;">選購手沖器具</a>
+          <a href="#craft" class="px-7 py-3 rounded-lg font-semibold text-base leather-panel" style="color:#f0cf8e;">了解我們的選材</a>
+        </div>
+        <div class="flex gap-8 mt-10 text-sm" style="color:#4a2f1c;">
+          <div><p class="text-2xl font-bold brass-text" style="font-family:'Besley',serif;">18</p><p>年打鐵工藝傳承</p></div>
+          <div><p class="text-2xl font-bold brass-text" style="font-family:'Besley',serif;">100%</p><p>南投在地手工製作</p></div>
+          <div><p class="text-2xl font-bold brass-text" style="font-family:'Besley',serif;">3,600+</p><p>愛用者好評回饋</p></div>
+        </div>
+      </div>
+
+      <div class="relative">
+        <div class="carved-frame rounded-2xl p-8 leather-panel stitch relative">
+          <div class="tape-corner" style="top:-10px; left:20px;"></div>
+          <svg viewBox="0 0 280 320" class="w-full h-auto max-w-sm mx-auto" aria-hidden="true">
+            <defs>
+              <radialGradient id="potBody" cx="35%" cy="25%" r="80%">
+                <stop offset="0%" stop-color="#f2c98a"/>
+                <stop offset="45%" stop-color="#c98f4a"/>
+                <stop offset="80%" stop-color="#8a5a34"/>
+                <stop offset="100%" stop-color="#5e3f1c"/>
+              </radialGradient>
+              <linearGradient id="handleGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#5c3a24"/>
+                <stop offset="100%" stop-color="#2e1c10"/>
+              </linearGradient>
+              <radialGradient id="lidGrad" cx="40%" cy="30%" r="70%">
+                <stop offset="0%" stop-color="#fdeec2"/>
+                <stop offset="60%" stop-color="#c98f4a"/>
+                <stop offset="100%" stop-color="#6b4529"/>
+              </radialGradient>
+            </defs>
+            <ellipse cx="140" cy="290" rx="86" ry="14" fill="#1a1008" opacity="0.5"/>
+            <path d="M60 150 Q60 250 100 280 Q140 300 180 280 Q220 250 220 150 Q220 100 140 95 Q60 100 60 150 Z" fill="url(#potBody)" stroke="#3a2515" stroke-width="2"/>
+            <ellipse cx="140" cy="98" rx="80" ry="18" fill="url(#lidGrad)" stroke="#3a2515" stroke-width="2"/>
+            <ellipse cx="140" cy="94" rx="52" ry="9" fill="#a06e40" opacity="0.6"/>
+            <circle cx="140" cy="78" r="10" fill="url(#lidGrad)" stroke="#3a2515" stroke-width="1.5"/>
+            <path d="M215 150 Q255 130 250 90 Q246 60 205 65" fill="none" stroke="url(#handleGrad)" stroke-width="14" stroke-linecap="round"/>
+            <path d="M60 170 Q10 150 15 190 Q18 215 55 210" fill="none" stroke="url(#handleGrad)" stroke-width="12" stroke-linecap="round"/>
+            <ellipse cx="115" cy="150" rx="22" ry="55" fill="#fdeec2" opacity="0.18"/>
+          </svg>
+          <p class="text-center mt-4 text-sm" style="color:#e8d3ab;">手工銅製鶴嘴壺・匠人逐件敲製</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products" class="wood-dark-panel py-20">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center mb-14">
+      <p class="text-xs tracking-[0.35em] mb-3" style="color:#c98f4a;">SELECTED WARES</p>
+      <h2 class="text-3xl md:text-4xl font-bold" style="color:#f3e6d0;">爐．器具選物</h2>
+      <p class="mt-3" style="color:#c9ac82;">每一件皆經手工打磨、逐件檢驗，附贈保養手冊與終身諮詢服務</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-7">
+
+      <!-- product 1 -->
+      <div class="product-card carved-frame rounded-2xl p-5 relative">
+        <span class="nail-head absolute top-3 left-3"></span>
+        <span class="nail-head absolute top-3 right-3"></span>
+        <div class="rounded-xl leather-panel h-40 flex items-center justify-center mb-4 stitch">
+          <svg viewBox="0 0 120 100" class="w-24 h-20" aria-hidden="true">
+            <defs><radialGradient id="p1" cx="35%" cy="25%" r="80%"><stop offset="0%" stop-color="#f2c98a"/><stop offset="60%" stop-color="#b5813f"/><stop offset="100%" stop-color="#5e3f1c"/></radialGradient></defs>
+            <ellipse cx="60" cy="85" rx="40" ry="8" fill="#1a1008" opacity="0.4"/>
+            <path d="M25 40 Q25 75 60 80 Q95 75 95 40 Q95 20 60 18 Q25 20 25 40 Z" fill="url(#p1)" stroke="#3a2515" stroke-width="1.5"/>
+            <path d="M92 45 Q112 40 110 25" fill="none" stroke="#5c3a24" stroke-width="7" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold mb-1" style="color:#3a2515; font-family:'Besley',serif;">竹山銅製手沖壺</h3>
+        <p class="text-xs leading-relaxed mb-4" style="color:#5c3a24;">0.9L 鶴嘴出水，手工敲花紋路，導熱均勻好控水，握把為胡桃木包覆。</p>
+        <div class="flex items-center justify-between">
+          <span class="price-tag inline-block px-3 py-1.5 rounded-lg text-sm font-bold" style="color:#2e1c10;">NT$ 2,480</span>
+          <button class="brass-knob w-9 h-9 rounded-full text-sm font-bold" style="color:#3a2515;">＋</button>
+        </div>
+      </div>
+
+      <!-- product 2 -->
+      <div class="product-card carved-frame rounded-2xl p-5 relative">
+        <span class="nail-head absolute top-3 left-3"></span>
+        <span class="nail-head absolute top-3 right-3"></span>
+        <div class="rounded-xl leather-panel h-40 flex items-center justify-center mb-4 stitch">
+          <svg viewBox="0 0 120 100" class="w-24 h-20" aria-hidden="true">
+            <defs><linearGradient id="p2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e3c193"/><stop offset="100%" stop-color="#8a5a34"/></linearGradient></defs>
+            <rect x="30" y="25" width="60" height="55" rx="8" fill="url(#p2)" stroke="#3a2515" stroke-width="1.5"/>
+            <circle cx="60" cy="20" r="9" fill="#5c3a24" stroke="#2e1c10" stroke-width="1.5"/>
+            <rect x="38" y="35" width="44" height="6" rx="3" fill="#5e3f1c" opacity="0.5"/>
+            <rect x="38" y="48" width="44" height="6" rx="3" fill="#5e3f1c" opacity="0.5"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold mb-1" style="color:#3a2515; font-family:'Besley',serif;">花崗岩手搖磨豆機</h3>
+        <p class="text-xs leading-relaxed mb-4" style="color:#5c3a24;">六角實木機身，錐形花崗岩刀盤，四十段刻度可調，研磨聲沉穩不擾人。</p>
+        <div class="flex items-center justify-between">
+          <span class="price-tag inline-block px-3 py-1.5 rounded-lg text-sm font-bold" style="color:#2e1c10;">NT$ 3,280</span>
+          <button class="brass-knob w-9 h-9 rounded-full text-sm font-bold" style="color:#3a2515;">＋</button>
+        </div>
+      </div>
+
+      <!-- product 3 -->
+      <div class="product-card carved-frame rounded-2xl p-5 relative">
+        <span class="nail-head absolute top-3 left-3"></span>
+        <span class="nail-head absolute top-3 right-3"></span>
+        <div class="rounded-xl leather-panel h-40 flex items-center justify-center mb-4 stitch">
+          <svg viewBox="0 0 120 100" class="w-24 h-20" aria-hidden="true">
+            <defs><radialGradient id="p3" cx="45%" cy="30%" r="75%"><stop offset="0%" stop-color="#fbead0"/><stop offset="55%" stop-color="#dcb37f"/><stop offset="100%" stop-color="#8a5a34"/></radialGradient></defs>
+            <path d="M35 30 L85 30 L70 78 L50 78 Z" fill="url(#p3)" stroke="#3a2515" stroke-width="1.5"/>
+            <ellipse cx="60" cy="30" rx="25" ry="6" fill="#f2ddb8" opacity="0.7"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold mb-1" style="color:#3a2515; font-family:'Besley',serif;">柴燒陶土濾杯</h3>
+        <p class="text-xs leading-relaxed mb-4" style="color:#5c3a24;">鶯歌柴窯燒製，梯形肋骨導流設計，厚實陶土蓄溫，沖煮風味更圓潤。</p>
+        <div class="flex items-center justify-between">
+          <span class="price-tag inline-block px-3 py-1.5 rounded-lg text-sm font-bold" style="color:#2e1c10;">NT$ 1,280</span>
+          <button class="brass-knob w-9 h-9 rounded-full text-sm font-bold" style="color:#3a2515;">＋</button>
+        </div>
+      </div>
+
+      <!-- product 4 -->
+      <div class="product-card carved-frame rounded-2xl p-5 relative">
+        <span class="nail-head absolute top-3 left-3"></span>
+        <span class="nail-head absolute top-3 right-3"></span>
+        <div class="rounded-xl leather-panel h-40 flex items-center justify-center mb-4 stitch">
+          <svg viewBox="0 0 120 100" class="w-24 h-20" aria-hidden="true">
+            <defs><linearGradient id="p4" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#e3c193"/><stop offset="100%" stop-color="#6b4529"/></linearGradient></defs>
+            <rect x="18" y="55" width="84" height="10" rx="3" fill="url(#p4)" stroke="#3a2515" stroke-width="1.5"/>
+            <rect x="28" y="30" width="64" height="26" rx="4" fill="url(#p4)" stroke="#3a2515" stroke-width="1.5"/>
+            <circle cx="45" cy="43" r="4" fill="#3a2515" opacity="0.4"/>
+            <circle cx="75" cy="43" r="4" fill="#3a2515" opacity="0.4"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold mb-1" style="color:#3a2515; font-family:'Besley',serif;">胡桃木沖煮托盤組</h3>
+        <p class="text-xs leading-relaxed mb-4" style="color:#5c3a24;">整塊黑胡桃木刨製，內嵌排水溝槽，附濾杯與分享壺專屬凹槽，越用越油亮。</p>
+        <div class="flex items-center justify-between">
+          <span class="price-tag inline-block px-3 py-1.5 rounded-lg text-sm font-bold" style="color:#2e1c10;">NT$ 1,880</span>
+          <button class="brass-knob w-9 h-9 rounded-full text-sm font-bold" style="color:#3a2515;">＋</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CRAFT -->
+<section id="craft" class="wood-panel py-20 relative">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="grid md:grid-cols-2 gap-14 items-center">
+      <div class="carved-frame rounded-2xl leather-panel stitch p-8">
+        <h3 class="text-2xl font-bold mb-4" style="color:#f0cf8e; font-family:'Besley',serif;">選材，是我們唯一不妥協的事</h3>
+        <div class="space-y-5" style="color:#e8d3ab;">
+          <div class="flex gap-4 items-start">
+            <div class="brass-knob w-10 h-10 rounded-full flex items-center justify-center shrink-0 text-sm font-bold" style="color:#3a2515;">銅</div>
+            <p class="text-sm leading-relaxed">紅銅需經七道退火與敲花工序，導熱快、控溫穩，是老師傅公認最適合手沖的材質。</p>
+          </div>
+          <div class="flex gap-4 items-start">
+            <div class="brass-knob w-10 h-10 rounded-full flex items-center justify-center shrink-0 text-sm font-bold" style="color:#3a2515;">木</div>
+            <p class="text-sm leading-relaxed">選用南投在地風乾三年以上的黑胡桃與台灣檜木，紋理天然不做染色，觸感溫潤。</p>
+          </div>
+          <div class="flex gap-4 items-start">
+            <div class="brass-knob w-10 h-10 rounded-full flex items-center justify-center shrink-0 text-sm font-bold" style="color:#3a2515;">陶</div>
+            <p class="text-sm leading-relaxed">鶯歌柴窯以相思木燒製超過十二小時，落灰自然形成的釉色，每件皆獨一無二。</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="text-xs tracking-[0.35em] mb-3" style="color:#5c3a24;">CRAFTSMANSHIP</p>
+        <h2 class="text-3xl md:text-4xl font-bold mb-6" style="color:#3a2515; font-family:'Besley',serif;">從打鐵舖走到咖啡桌上</h2>
+        <p class="leading-relaxed mb-6" style="color:#4a2f1c;">
+          三十年前，爐的前身是一間打鐵舖，專為茶行敲製茶罐與火爐配件。第二代接手後，將這份對金屬與火候的理解，轉往手沖咖啡器具的鍛造。我們仍堅持每件器具由師傅逐件手工敲打、削整、上油，不假機器量產，因為真正耐用的東西，需要時間與手感去成就。
+        </p>
+        <div class="divider-rope mb-6"></div>
+        <div class="grid grid-cols-3 gap-4 text-center">
+          <div class="carved-frame leather-panel rounded-xl py-4">
+            <p class="text-2xl font-bold brass-text" style="font-family:'Besley',serif;">7</p>
+            <p class="text-xs mt-1" style="color:#e8d3ab;">道銅壺退火工序</p>
+          </div>
+          <div class="carved-frame leather-panel rounded-xl py-4">
+            <p class="text-2xl font-bold brass-text" style="font-family:'Besley',serif;">12hr</p>
+            <p class="text-xs mt-1" style="color:#e8d3ab;">柴窯燒製時間</p>
+          </div>
+          <div class="carved-frame leather-panel rounded-xl py-4">
+            <p class="text-2xl font-bold brass-text" style="font-family:'Besley',serif;">終身</p>
+            <p class="text-xs mt-1" style="color:#e8d3ab;">保養諮詢服務</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL STRIP -->
+<section class="wood-dark-panel py-14">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    <svg class="w-8 h-8 mx-auto mb-4 opacity-70" viewBox="0 0 24 24" fill="none" stroke="#c98f4a" stroke-width="1.5" aria-hidden="true"><path d="M7 8c-2 1-3 3-3 5.5S6 18 8.5 18 13 16 13 13.5 11 9 9 9c0 0 0-1 2-2M17 8c-2 1-3 3-3 5.5S16 18 18.5 18 23 16 23 13.5 21 9 19 9c0 0 0-1 2-2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <p class="text-lg md:text-xl leading-relaxed mb-4" style="color:#f3e6d0; font-family:'Besley',serif; font-style:italic;">
+      「用了三年的銅壺，把手木頭的顏色越磨越深，反而更好看。這才是值得傳下去的器具。」
+    </p>
+    <p class="text-sm" style="color:#c9ac82;">— 陳先生，台北．自家烘焙咖啡館主理人</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer" class="leather-panel pt-16 pb-8 relative">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="grid md:grid-cols-4 gap-10 mb-12">
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <div class="brass-knob w-9 h-9 rounded-full flex items-center justify-center">
+            <span class="brass-text text-sm font-bold" style="font-family:'Besley',serif;">爐</span>
+          </div>
+          <p class="brass-text text-lg font-bold" style="font-family:'Besley',serif;">The Kiln</p>
+        </div>
+        <p class="text-sm leading-relaxed" style="color:#d9bd8c;">南投竹山手作工房，將打鐵與燒陶的老手藝，鍛造成每天早晨的第一杯咖啡。</p>
+      </div>
+      <div>
+        <h4 class="text-sm font-bold mb-4 tracking-wider" style="color:#f0cf8e;">選物分類</h4>
+        <ul class="space-y-2 text-sm" style="color:#d9bd8c;">
+          <li>手沖壺具</li>
+          <li>磨豆機</li>
+          <li>濾杯與濾紙</li>
+          <li>木製托盤與收納</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-sm font-bold mb-4 tracking-wider" style="color:#f0cf8e;">服務與保固</h4>
+        <ul class="space-y-2 text-sm" style="color:#d9bd8c;">
+          <li>保養手冊下載</li>
+          <li>器具終身諮詢</li>
+          <li>竹山工房預約參觀</li>
+          <li>常見問題</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-sm font-bold mb-4 tracking-wider" style="color:#f0cf8e;">聯絡工房</h4>
+        <ul class="space-y-2 text-sm" style="color:#d9bd8c;">
+          <li>南投縣竹山鎮延平路 88 號</li>
+          <li>週二至週日 10:00–18:00</li>
+          <li>hello@thekiln.tw</li>
+          <li>(049) 262-1188</li>
+        </ul>
+      </div>
+    </div>
+    <div class="divider-rope mb-6"></div>
+    <div class="flex flex-col md:flex-row justify-between items-center gap-3 text-xs" style="color:#c9ac82;">
+      <p>© 2026 爐 The Kiln．版權所有，未經同意請勿轉載內容與圖片。</p>
+      <p>手工鍛造・南投竹山出品</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.product-card button').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      btn.style.transform = 'scale(0.85)';
+      btn.style.boxShadow = '0 1px 0 #3d2810, 0 2px 4px rgba(0,0,0,0.5), inset 0 2px 4px rgba(60,35,10,0.7)';
+      setTimeout(function(){
+        btn.style.transform = '';
+        btn.style.boxShadow = '';
+      }, 180);
+    });
+  });
+
+  document.querySelectorAll('.product-card').forEach(function(card){
+    card.addEventListener('touchstart', function(){
+      card.classList.add('touch-active');
+      card.style.transform = 'translateY(-4px)';
+    }, {passive:true});
+    card.addEventListener('touchend', function(){
+      card.style.transform = '';
+    }, {passive:true});
+  });
+</script>
+
+</body>
+</html>
