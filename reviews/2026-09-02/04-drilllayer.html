@@ -1,0 +1,171 @@
+<!-- style #32 Drill-Down Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>鑽層 DrillLayer｜電商銷售下鑽分析</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Red Hat Text','Noto Sans TC',sans-serif; background:#0f1420; color:#e6e9f2; }
+  .mono{ font-family:'Space Mono',monospace; }
+  .panel{ background:#161c2c; border:1px solid #232b40; }
+  .breadcrumb-item{ cursor:pointer; }
+  .breadcrumb-item:hover{ color:#60a5fa; }
+  .drill-row{ cursor:pointer; transition: background .15s; }
+  .drill-row:hover{ background:#1d2438; }
+  .drill-row.expanded{ background:#1a2035; }
+  .chevron{ transition: transform .2s ease; display:inline-block; }
+  .chevron.open{ transform: rotate(90deg); }
+  .bar-fill{ transition: width .5s ease; }
+  .sub-row{ animation: slide-in .2s ease both; }
+  @keyframes slide-in{ from{ opacity:0; transform: translateY(-4px);} to{ opacity:1; transform: translateY(0);} }
+  ::-webkit-scrollbar{ width:8px; height:8px; }
+  ::-webkit-scrollbar-thumb{ background:#2c3550; border-radius:4px; }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <div class="flex">
+    <aside class="w-56 shrink-0 min-h-screen panel border-r p-5 hidden md:block">
+      <div class="font-bold text-lg mb-8">鑽層 <span class="mono text-[#60a5fa] text-sm">DrillLayer</span></div>
+      <nav class="space-y-1 text-sm">
+        <a class="block px-3 py-2 rounded-lg bg-[#1d2438] text-white font-medium">銷售下鑽</a>
+        <a class="block px-3 py-2 rounded-lg text-[#9aa4c0] hover:bg-[#1d2438]">商品分析</a>
+        <a class="block px-3 py-2 rounded-lg text-[#9aa4c0] hover:bg-[#1d2438]">客群輪廓</a>
+        <a class="block px-3 py-2 rounded-lg text-[#9aa4c0] hover:bg-[#1d2438]">通路比較</a>
+        <a class="block px-3 py-2 rounded-lg text-[#9aa4c0] hover:bg-[#1d2438]">報表匯出</a>
+      </nav>
+    </aside>
+
+    <main class="flex-1 p-6 md:p-8">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <div class="flex items-center gap-2 text-sm text-[#9aa4c0] mb-2" id="breadcrumb">
+            <span class="breadcrumb-item text-white font-medium" onclick="resetDrill()">全站銷售</span>
+          </div>
+          <h1 class="text-2xl font-bold">銷售下鑽分析</h1>
+        </div>
+        <div class="text-right">
+          <p class="text-xs text-[#9aa4c0] mb-1">2026 年 9 月 1 日</p>
+          <p class="mono text-2xl font-bold text-[#4ade80]">NT$ 3,842,600</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="panel rounded-xl p-4">
+          <p class="text-xs text-[#9aa4c0] mb-1">訂單數</p>
+          <p class="mono text-xl font-bold">2,184</p>
+          <p class="text-xs text-[#4ade80] mt-1">▲ 8.2%</p>
+        </div>
+        <div class="panel rounded-xl p-4">
+          <p class="text-xs text-[#9aa4c0] mb-1">客單價</p>
+          <p class="mono text-xl font-bold">NT$ 1,759</p>
+          <p class="text-xs text-[#f87171] mt-1">▼ 1.4%</p>
+        </div>
+        <div class="panel rounded-xl p-4">
+          <p class="text-xs text-[#9aa4c0] mb-1">轉換率</p>
+          <p class="mono text-xl font-bold">3.62%</p>
+          <p class="text-xs text-[#4ade80] mt-1">▲ 0.3pt</p>
+        </div>
+        <div class="panel rounded-xl p-4">
+          <p class="text-xs text-[#9aa4c0] mb-1">退貨率</p>
+          <p class="mono text-xl font-bold">2.1%</p>
+          <p class="text-xs text-[#4ade80] mt-1">▼ 0.2pt</p>
+        </div>
+      </div>
+
+      <div class="panel rounded-xl overflow-hidden">
+        <div class="px-5 py-4 border-b border-[#232b40] flex items-center justify-between">
+          <p class="font-semibold text-sm">依分類下鑽（點列展開子項）</p>
+          <p class="text-xs text-[#9aa4c0]">共 5 個大分類</p>
+        </div>
+        <div id="drill-table"></div>
+      </div>
+    </main>
+  </div>
+
+<script>
+const DATA = [
+  { name:'女裝服飾', rev: 1284000, orders: 612, share: 33, children: [
+    { name:'洋裝', rev: 512000, orders: 240, share: 40 },
+    { name:'上衣', rev: 386000, orders: 198, share: 30 },
+    { name:'外套', rev: 386000, orders: 174, share: 30 },
+  ]},
+  { name:'男裝服飾', rev: 862000, orders: 401, share: 22, children: [
+    { name:'襯衫', rev: 340000, orders: 160, share: 39 },
+    { name:'長褲', rev: 298000, orders: 138, share: 35 },
+    { name:'配件', rev: 224000, orders: 103, share: 26 },
+  ]},
+  { name:'居家生活', rev: 690000, orders: 355, share: 18, children: [
+    { name:'寢具', rev: 310000, orders: 150, share: 45 },
+    { name:'收納', rev: 220000, orders: 118, share: 32 },
+    { name:'廚房小物', rev: 160000, orders: 87, share: 23 },
+  ]},
+  { name:'美妝保養', rev: 604000, orders: 498, share: 16, children: [
+    { name:'臉部保養', rev: 320000, orders: 260, share: 53 },
+    { name:'彩妝', rev: 284000, orders: 238, share: 47 },
+  ]},
+  { name:'3C 配件', rev: 402600, orders: 318, share: 11, children: [
+    { name:'手機殼', rev: 210000, orders: 190, share: 52 },
+    { name:'充電線材', rev: 192600, orders: 128, share: 48 },
+  ]},
+];
+
+let expanded = {};
+let history = ['全站銷售'];
+
+function render(){
+  const el = document.getElementById('drill-table');
+  el.innerHTML = '';
+  DATA.forEach((row, i) => {
+    el.innerHTML += rowHTML(row, i, false);
+    if(expanded[i]){
+      row.children.forEach((c, j) => {
+        el.innerHTML += rowHTML(c, i+'-'+j, true);
+      });
+    }
+  });
+  document.getElementById('breadcrumb').innerHTML = history.map((h,idx) =>
+    `<span class="breadcrumb-item ${idx===history.length-1?'text-white font-medium':''}" onclick="jumpTo(${idx})">${h}</span>` +
+    (idx < history.length-1 ? '<span class="text-[#4b5570]">›</span>' : '')
+  ).join('');
+}
+
+function rowHTML(row, key, isChild){
+  const hasChildren = row.children && !isChild;
+  const trendUp = row.share % 2 === 0;
+  return `
+    <div class="drill-row ${isChild?'sub-row bg-[#12172400]':''} ${expanded[key]?'expanded':''} px-5 py-3.5 flex items-center gap-4 border-b border-[#232b40] last:border-0 ${isChild?'pl-12':''}"
+         ${hasChildren?`onclick="toggle(${key})"`:''}>
+      <span class="chevron ${expanded[key]?'open':''} text-[#60a5fa] text-xs w-3">${hasChildren?'▸':''}</span>
+      <span class="flex-1 text-sm ${isChild?'text-[#c3cae0]':'font-medium'}">${row.name}</span>
+      <div class="w-32 h-1.5 bg-[#232b40] rounded-full overflow-hidden hidden sm:block">
+        <div class="bar-fill h-full ${trendUp?'bg-[#4ade80]':'bg-[#60a5fa]'} rounded-full" style="width:${row.share}%"></div>
+      </div>
+      <span class="mono text-xs text-[#9aa4c0] w-12 text-right">${row.share}%</span>
+      <span class="mono text-sm w-20 text-right">${row.orders}</span>
+      <span class="mono text-sm font-semibold w-28 text-right">NT$ ${row.rev.toLocaleString()}</span>
+    </div>`;
+}
+
+function toggle(i){
+  expanded[i] = !expanded[i];
+  render();
+}
+function jumpTo(idx){
+  history = history.slice(0, idx+1);
+  render();
+}
+function resetDrill(){
+  expanded = {};
+  history = ['全站銷售'];
+  render();
+}
+
+render();
+</script>
+</body>
+</html>

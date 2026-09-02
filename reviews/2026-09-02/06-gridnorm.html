@@ -1,0 +1,134 @@
+<!-- style #53 Bento Grids -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>格範 GridNorm｜產品設計師作品集</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;900&family=Noto+Sans+TC:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'DM Sans','Noto Sans TC',sans-serif; background:#f4f3ef; color:#1c1b1a; }
+  .mono{ font-family:'DM Mono',monospace; }
+  .bento{ border-radius: 28px; }
+  .bento-card{ transition: transform .25s ease, box-shadow .25s ease; }
+  .bento-card:hover{ transform: translateY(-4px); box-shadow: 0 20px 40px -12px rgba(0,0,0,.12); }
+  .grain{
+    position:relative;
+  }
+  .grain::before{
+    content:""; position:absolute; inset:0; opacity:.04; pointer-events:none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    border-radius: inherit;
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <header class="max-w-6xl mx-auto px-6 py-8 flex items-center justify-between">
+    <div class="font-bold text-lg">格範<span class="mono text-sm text-[#8a8680] ml-1">GridNorm</span></div>
+    <nav class="hidden md:flex gap-8 text-sm font-medium text-[#5b5852]">
+      <a href="#work" class="hover:text-[#1c1b1a]">作品</a>
+      <a href="#about" class="hover:text-[#1c1b1a]">關於</a>
+      <a href="#contact" class="hover:text-[#1c1b1a]">聯絡</a>
+    </nav>
+    <a href="#contact" class="text-sm font-semibold bg-[#1c1b1a] text-[#f4f3ef] px-4 py-2 rounded-full">合作邀約</a>
+  </header>
+
+  <section class="max-w-6xl mx-auto px-6 pt-6 pb-16">
+    <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4 max-w-2xl">
+      把複雜的產品，<br>設計成一眼就懂的介面。
+    </h1>
+    <p class="text-[#5b5852] max-w-xl">周以樂・產品設計師，專注 SaaS 與金融科技介面，8 年經驗，作品服務超過 40 萬名使用者。</p>
+  </section>
+
+  <section id="work" class="max-w-6xl mx-auto px-6 pb-24">
+    <div class="grid grid-cols-4 md:grid-cols-6 gap-4 auto-rows-[110px]">
+
+      <div class="bento-card grain bento col-span-4 md:col-span-4 row-span-2 bg-[#dbe4d8] p-7 flex flex-col justify-between">
+        <div class="flex items-center justify-between">
+          <span class="mono text-xs bg-white/60 px-2.5 py-1 rounded-full">2025 · 金融科技</span>
+          <span class="mono text-xs text-[#4b5b46]">01</span>
+        </div>
+        <div>
+          <h3 class="text-2xl font-bold mb-1">錢包合作社 App 重新設計</h3>
+          <p class="text-sm text-[#3f4a3c]">讓 60 萬用戶的記帳完成率提升 34%</p>
+        </div>
+      </div>
+
+      <div class="bento-card grain bento col-span-2 md:col-span-2 row-span-2 bg-[#e3ddf0] p-6 flex flex-col justify-between">
+        <span class="mono text-xs text-[#5a4e82]">02</span>
+        <div>
+          <h3 class="font-bold mb-1">企業內部工具設計系統</h3>
+          <p class="text-xs text-[#5a4e82]">120+ 元件，跨 6 個產品團隊共用</p>
+        </div>
+      </div>
+
+      <div class="bento-card grain bento col-span-2 md:col-span-2 row-span-1 bg-[#1c1b1a] text-[#f4f3ef] p-6 flex flex-col justify-center">
+        <p class="mono text-3xl font-bold">40萬+</p>
+        <p class="text-xs text-[#a9a49c] mt-1">產品服務使用者</p>
+      </div>
+
+      <div class="bento-card grain bento col-span-2 md:col-span-2 row-span-1 bg-[#f0d9c8] p-6 flex flex-col justify-center">
+        <p class="mono text-3xl font-bold">8 年</p>
+        <p class="text-xs text-[#6b5340] mt-1">產品設計經驗</p>
+      </div>
+
+      <div class="bento-card grain bento col-span-4 md:col-span-2 row-span-2 bg-[#f4f3ef] border border-[#dedad2] p-6 flex flex-col justify-between">
+        <span class="mono text-xs text-[#8a8680]">03</span>
+        <div>
+          <h3 class="font-bold mb-1">農產電商行動端優化</h3>
+          <p class="text-xs text-[#5b5852]">結帳流程從 6 步縮短為 3 步，轉換率 +19%</p>
+        </div>
+      </div>
+
+      <div class="bento-card grain bento col-span-2 md:col-span-3 row-span-2 bg-[#d8e6ee] p-7 flex flex-col justify-between">
+        <span class="mono text-xs text-[#3d5566]">04</span>
+        <div>
+          <h3 class="text-xl font-bold mb-1">物流追蹤儀表板</h3>
+          <p class="text-sm text-[#3d5566]">即時可視化 12 個轉運站狀態，客服工單降 41%</p>
+        </div>
+      </div>
+
+      <div class="bento-card grain bento col-span-2 md:col-span-1 row-span-2 bg-[#f0d9c8] p-5 flex flex-col items-center justify-center text-center">
+        <p class="mono text-2xl font-bold">4.9</p>
+        <p class="text-xs text-[#6b5340] mt-1">客戶滿意度</p>
+      </div>
+
+      <div class="bento-card grain bento col-span-4 md:col-span-6 row-span-1 bg-[#e3ddf0] px-8 flex items-center justify-between">
+        <p class="font-semibold">想看更多完整案例研究？</p>
+        <a href="#contact" class="text-sm font-bold underline underline-offset-4">寄信索取作品集 PDF →</a>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="about" class="max-w-6xl mx-auto px-6 pb-24 grid md:grid-cols-3 gap-8">
+    <div class="md:col-span-2">
+      <h2 class="text-2xl font-bold mb-4">設計方法</h2>
+      <p class="text-[#5b5852] leading-relaxed">
+        我相信好的介面設計不是「看起來厲害」，而是「用起來安心」。
+        每個專案都從真實使用情境出發，搭配可用性測試反覆驗證，
+        再交給工程團隊落地——設計稿只是過程，能穩定運作的產品才是目標。
+      </p>
+    </div>
+    <div class="bg-white rounded-2xl border border-[#dedad2] p-6">
+      <p class="text-sm font-semibold mb-3">合作過的團隊</p>
+      <ul class="text-sm text-[#5b5852] space-y-1.5">
+        <li>錢包合作社</li>
+        <li>田間直送農產電商</li>
+        <li>捷運物流科技</li>
+        <li>雲端會計 SaaS</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer id="contact" class="max-w-6xl mx-auto px-6 py-16 text-center border-t border-[#dedad2]">
+    <h2 class="text-2xl font-bold mb-4">有專案想聊聊嗎？</h2>
+    <a href="mailto:hello@gridnorm.tw" class="mono text-lg underline underline-offset-4">hello@gridnorm.tw</a>
+    <p class="text-xs text-[#8a8680] mt-8">© 2026 周以樂 GridNorm．台北</p>
+  </footer>
+
+</body>
+</html>

@@ -21,6 +21,11 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-09-02（6 個，#01–06）
+- ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（curl 逾時無回應，HTTP code 000），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
+- 本輪先用 `pip install opencc-python-reimplemented` 補裝 opencc，對全部 6 個檔案做逐字元簡繁比對，確認無簡體字混入；僅「群」被 opencc 標記為與「羣」不同，但「群」本身是正體字、也是台灣通用寫法（人群/社群/羊群），「羣」反而是罕用異體字，非簡體污染，予以保留（沿用前幾輪對「台」字的判例）。另用 Python 腳本確認每個檔案 `<html>`/`</html>`/`<body>`/`</body>` 標籤數量皆為 1。
+- 本批風格（避開近 3 天 08-29/08-30/09-01 用過的 #04/#56/#41/#33/#26/#19/#02/#06/#24/#34/#40/#55/#13/#17/#25/#37/#46/#48，並用 `grep -oE '#[0-9]+' taste-log.md | sort | uniq -c` 統計出的「歷史提及次數」優先挑最少的風格編號，跨 A/B/C/D 族群）：**3D / Hyperrealism #05**（A 組，配方預設 Inter，避免掉改用 Marcellus + Jost + Noto Serif TC 做出奢華質感，做成手工機械腕錶電商「昀彩 LUMÉ」，金／銀圓錶面漸層光澤＋真的會轉動指向不同角度的 CSS 錶針）、**Micro-interactions #16**（A 組，避免 Inter，改用 Hanken Grotesk + Noto Sans TC，做成每日習慣打卡 App「打勾勾」，勾選會有彈跳動畫＋按鈕漣漪效果＋打勾時真的會噴出 canvas 彩帶粒子，皆為可運作的 JS）、**Conversion-Optimized #21**（B 組結構，全頁為轉換服務、多處 CTA＋社會證明，避免 Inter，改用 Familjen Grotesk + Noto Sans TC，做成日語口說課程招生 landing page「開口說」，含真的會倒數的 JS 計時器與底部 sticky CTA）、**Drill-Down Dashboard #32 重做**（C 組，上次配方用過 Albert Sans + IBM Plex Mono，這次換成 Red Hat Text + Space Mono，做成電商銷售下鑽分析後台「鑽層 DrillLayer」，麵包屑導覽＋點列可展開子分類，皆為可運作的 JS 互動）、**Memphis Revival #44**（D 組，上次配方用過 Righteous + Poppins，這次換成 Fredoka + Poppins，做成手作貼紙文具電商「趣物 QUWU」，clip-path 幾何碎片＋波點紋理＋歪斜硬陰影卡片＋跑馬燈公告）、**Bento Grids #53**（D 組，避免 Inter，改用 DM Sans + Noto Sans TC，做成產品設計師作品集網站「格範 GridNorm」，大小不一圓角便當格卡片＋SVG 噪點紋理疊加）。全數繁體中文文案，中文字元皆保留 Noto Sans/Serif TC 作為 fallback，已用 opencc 掃描確認無簡體字混入。
+
 ### 2026-09-01（6 個，#01–06）
 - ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（agent-proxy 明確回報 `connect_rejected` / organization policy），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
 - ⚠️ 本輪 GH_TOKEN 直連 GitHub REST API（publish.py 用到的 `/repos/.../git/ref/...` 端點）再次被環境閘道擋下（403），與過去每輪一致，改用 `git push`（HTTPS + GH_TOKEN 當密碼，走 git 協定而非 REST API）分批發布，過程中每完成 1-2 個檔案就即時 commit+push 備份進度，已用 `git fetch` 驗證 origin/master 與本機一致到 f0e13f8（含今天的 6 個 + 兩層畫廊 index + taste-log）。

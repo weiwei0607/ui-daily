@@ -1,0 +1,161 @@
+<!-- style #05 3D / Hyperrealism -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>昀彩 LUMÉ｜手工機械腕錶</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Jost:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold: #d4af37;
+    --gold-light: #f4e5b2;
+    --silver: #c0c0c0;
+    --deep: #0e0b16;
+    --violet: #4a2f7a;
+  }
+  html,body{ background:var(--deep); }
+  body{ font-family:'Jost','Noto Serif TC',serif; color:#f5f0e6; }
+  h1,h2,h3,.display{ font-family:'Marcellus','Noto Serif TC',serif; }
+  .stage{
+    background:
+      radial-gradient(circle at 20% 10%, rgba(212,175,55,.25), transparent 45%),
+      radial-gradient(circle at 80% 0%, rgba(74,47,122,.55), transparent 50%),
+      radial-gradient(circle at 50% 100%, rgba(192,192,192,.12), transparent 55%),
+      linear-gradient(180deg, #0e0b16 0%, #1a1225 55%, #0e0b16 100%);
+  }
+  .watch-face{
+    width: 320px; height: 320px; border-radius: 9999px;
+    background:
+      conic-gradient(from 210deg, #f4e5b2, #d4af37 25%, #8a6d1f 45%, #d4af37 60%, #f4e5b2 75%, #d4af37 100%);
+    box-shadow:
+      0 30px 60px -15px rgba(0,0,0,.7),
+      inset 0 4px 8px rgba(255,255,255,.5),
+      inset 0 -6px 14px rgba(0,0,0,.6);
+    position:relative;
+    padding: 14px;
+  }
+  .watch-inner{
+    width:100%; height:100%; border-radius:9999px;
+    background: radial-gradient(circle at 35% 25%, #2a2438, #100c1a 70%);
+    box-shadow: inset 0 6px 20px rgba(0,0,0,.8), inset 0 -2px 6px rgba(255,255,255,.08);
+    position:relative;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .watch-inner::before{
+    content:"";
+    position:absolute; inset:14px; border-radius:9999px;
+    border: 1px solid rgba(212,175,55,.35);
+  }
+  .hand{
+    position:absolute; bottom:50%; left:50%; transform-origin:bottom center;
+    background:linear-gradient(180deg,#f4e5b2,#d4af37);
+    border-radius:4px;
+  }
+  .hand-hour{ width:6px; height:70px; transform:translateX(-50%) rotate(48deg); box-shadow:0 0 8px rgba(212,175,55,.6); }
+  .hand-min{ width:4px; height:100px; transform:translateX(-50%) rotate(160deg); box-shadow:0 0 8px rgba(212,175,55,.5); }
+  .hand-sec{ width:2px; height:110px; background:#e0546b; transform:translateX(-50%) rotate(20deg); }
+  .glass-card{
+    background: linear-gradient(145deg, rgba(255,255,255,.06), rgba(255,255,255,.015));
+    border: 1px solid rgba(212,175,55,.25);
+    backdrop-filter: blur(6px);
+  }
+  .metal-btn{
+    background: linear-gradient(160deg, #f4e5b2, #b8912c 55%, #d4af37);
+    color:#1a1225; box-shadow: 0 10px 25px -8px rgba(212,175,55,.6), inset 0 1px 1px rgba(255,255,255,.6);
+  }
+  .metal-btn:hover{ filter:brightness(1.08); transform:translateY(-2px); transition:.25s; }
+  .spec-num{ font-family:'Marcellus',serif; }
+</style>
+</head>
+<body class="stage min-h-screen">
+
+  <header class="max-w-7xl mx-auto px-6 py-8 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-full metal-btn flex items-center justify-center font-bold text-sm">昀</div>
+      <span class="display text-xl tracking-widest">LUMÉ 昀彩</span>
+    </div>
+    <nav class="hidden md:flex gap-10 text-sm text-[#c9bfa8]">
+      <a href="#" class="hover:text-[var(--gold)] transition">系列</a>
+      <a href="#" class="hover:text-[var(--gold)] transition">工藝</a>
+      <a href="#" class="hover:text-[var(--gold)] transition">門市</a>
+      <a href="#" class="hover:text-[var(--gold)] transition">保固</a>
+    </nav>
+    <button class="metal-btn px-5 py-2 rounded-full text-sm font-medium">預約試戴</button>
+  </header>
+
+  <section class="max-w-7xl mx-auto px-6 pt-10 pb-24 grid md:grid-cols-2 gap-16 items-center">
+    <div>
+      <p class="text-sm tracking-[0.3em] text-[var(--gold)] mb-6">瑞士機芯 · 台灣打磨</p>
+      <h1 class="display text-5xl md:text-6xl leading-[1.15] mb-6">
+        每一道光澤，<br>都是時間磨出來的。
+      </h1>
+      <p class="text-[#c9bfa8] text-lg leading-relaxed mb-10 max-w-md">
+        「曙光系列」以 18K 金與藍寶石水晶鏡面手工組裝，錶殼經 214 道拋光工序，
+        讓機械之美不只走時精準，更值得被凝視。
+      </p>
+      <div class="flex gap-4">
+        <button class="metal-btn px-8 py-4 rounded-full font-medium">選購曙光系列</button>
+        <button class="px-8 py-4 rounded-full font-medium border border-[var(--gold)]/40 text-[var(--gold-light)] hover:bg-white/5 transition">觀看工藝影片</button>
+      </div>
+      <div class="flex gap-10 mt-14 text-sm">
+        <div><p class="spec-num text-2xl text-[var(--gold-light)]">42mm</p><p class="text-[#8f8570] mt-1">錶徑</p></div>
+        <div><p class="spec-num text-2xl text-[var(--gold-light)]">100m</p><p class="text-[#8f8570] mt-1">防水</p></div>
+        <div><p class="spec-num text-2xl text-[var(--gold-light)]">72hr</p><p class="text-[#8f8570] mt-1">動力儲存</p></div>
+      </div>
+    </div>
+
+    <div class="flex justify-center relative">
+      <div class="absolute w-[420px] h-[420px] rounded-full bg-[var(--violet)]/30 blur-3xl"></div>
+      <div class="watch-face relative">
+        <div class="watch-inner">
+          <div class="hand hand-hour"></div>
+          <div class="hand hand-min"></div>
+          <div class="hand hand-sec"></div>
+          <div class="absolute w-3 h-3 rounded-full bg-[var(--gold-light)] shadow-lg"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-6 py-20">
+    <h2 class="display text-3xl text-center mb-14">材質的重量，肉眼看得見</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="glass-card rounded-3xl p-8">
+        <div class="w-14 h-14 rounded-full mb-6" style="background:conic-gradient(from 180deg,#f4e5b2,#d4af37,#8a6d1f,#d4af37,#f4e5b2); box-shadow:inset 0 2px 4px rgba(255,255,255,.5), inset 0 -2px 4px rgba(0,0,0,.4);"></div>
+        <h3 class="display text-xl mb-3">18K 金錶殼</h3>
+        <p class="text-[#c9bfa8] text-sm leading-relaxed">實心澆鑄，非電鍍，十年不掉色，觸感沉甸甸的踏實。</p>
+      </div>
+      <div class="glass-card rounded-3xl p-8">
+        <div class="w-14 h-14 rounded-full mb-6" style="background:radial-gradient(circle at 30% 30%, #e8e8e8, #999 60%, #555); box-shadow:inset 0 2px 4px rgba(255,255,255,.6), inset 0 -2px 4px rgba(0,0,0,.5);"></div>
+        <h3 class="display text-xl mb-3">藍寶石鏡面</h3>
+        <p class="text-[#c9bfa8] text-sm leading-relaxed">硬度僅次於鑽石，抗刮更抗歲月，光線下折射出細膩層次。</p>
+      </div>
+      <div class="glass-card rounded-3xl p-8">
+        <div class="w-14 h-14 rounded-full mb-6" style="background:radial-gradient(circle at 30% 30%, #b79bd8, #4a2f7a 70%); box-shadow:inset 0 2px 4px rgba(255,255,255,.3), inset 0 -2px 4px rgba(0,0,0,.5);"></div>
+        <h3 class="display text-xl mb-3">義大利小牛皮錶帶</h3>
+        <p class="text-[#c9bfa8] text-sm leading-relaxed">植鞣工藝手工縫製，隨配戴時間越磨越有光澤。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-6 py-24 text-center">
+    <h2 class="display text-3xl mb-6">曙光系列・限量 300 只</h2>
+    <p class="text-[#c9bfa8] mb-10">每只錶背皆刻有專屬編號，附原廠鑑定證書與終身保養方案。</p>
+    <div class="inline-flex items-baseline gap-2 mb-10">
+      <span class="text-[#8f8570] line-through text-lg">NT$ 168,000</span>
+      <span class="spec-num text-4xl text-[var(--gold-light)]">NT$ 128,000</span>
+    </div>
+    <div>
+      <button class="metal-btn px-12 py-4 rounded-full font-medium text-lg">立即預訂</button>
+    </div>
+  </section>
+
+  <footer class="border-t border-[var(--gold)]/15 py-10 text-center text-sm text-[#8f8570]">
+    © 2026 LUMÉ 昀彩鐘錶工坊．台北市大安區精工路 88 號
+  </footer>
+
+</body>
+</html>

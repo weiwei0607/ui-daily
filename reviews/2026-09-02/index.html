@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>韡寧的 UI 待審 · 2026-09-02</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Noto Sans TC',sans-serif; background:#f4f2ec; color:#1f2226;}
+  .frame-wrap{
+    width:100%; height:260px; overflow:hidden; position:relative;
+    background:#fff; border-radius:12px;
+  }
+  .frame-wrap iframe{
+    width:200%; height:200%;
+    transform: scale(.5);
+    transform-origin: top left;
+    border:0;
+  }
+  .card{
+    background:#fff; border:1px solid #e5e2d8; border-radius:16px;
+    box-shadow:0 4px 14px rgba(30,30,20,.05);
+    transition: box-shadow .15s ease, transform .15s ease;
+  }
+  .card:hover{ box-shadow:0 10px 26px rgba(30,30,20,.1); transform: translateY(-2px); }
+  .heart{
+    cursor:pointer; user-select:none; font-size:22px;
+    filter: grayscale(1); opacity:.55; transition: all .15s ease;
+  }
+  .heart:hover{ opacity:.85; }
+  .heart.liked{ filter:none; opacity:1; transform: scale(1.15); }
+</style>
+</head>
+<body>
+
+  <header class="max-w-5xl mx-auto px-6 pt-10 pb-6">
+    <p class="text-xs tracking-[0.25em] text-[#9a9484] mb-2">UI / UX DAILY REVIEW</p>
+    <h1 class="text-2xl md:text-3xl font-bold">韡寧的 UI 待審 · 2026-09-02</h1>
+    <p class="text-sm text-[#7a756a] mt-2">今天 6 個風格方向，喜歡的按 ❤️，我會學起來（偏好會累積進 taste-log.md）。</p>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6 pb-16 grid grid-cols-1 md:grid-cols-2 gap-6">
+
+    <div class="card overflow-hidden" data-id="2026-09-02_01">
+      <div class="frame-wrap"><iframe src="01-lume-watch.html" loading="lazy"></iframe></div>
+      <div class="p-4 flex items-center justify-between">
+        <div>
+          <p class="font-bold">#01 · 3D / Hyperrealism 立體擬真</p>
+          <p class="text-xs text-[#8a8570]">昀彩 LUMÉ · 手工機械腕錶電商</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="01-lume-watch.html" target="_blank" class="text-sm font-semibold text-[#3b4a6b] hover:underline">開啟 ↗</a>
+          <span class="heart" data-id="2026-09-02_01">❤️</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card overflow-hidden" data-id="2026-09-02_02">
+      <div class="frame-wrap"><iframe src="02-dagouou.html" loading="lazy"></iframe></div>
+      <div class="p-4 flex items-center justify-between">
+        <div>
+          <p class="font-bold">#02 · Micro-interactions 微互動</p>
+          <p class="text-xs text-[#8a8570]">打勾勾 · 每日習慣打卡 App</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="02-dagouou.html" target="_blank" class="text-sm font-semibold text-[#3b4a6b] hover:underline">開啟 ↗</a>
+          <span class="heart" data-id="2026-09-02_02">❤️</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card overflow-hidden" data-id="2026-09-02_03">
+      <div class="frame-wrap"><iframe src="03-kaikoushuo.html" loading="lazy"></iframe></div>
+      <div class="p-4 flex items-center justify-between">
+        <div>
+          <p class="font-bold">#03 · Conversion-Optimized 高轉換結構</p>
+          <p class="text-xs text-[#8a8570]">開口說 · 日語口說課程招生頁</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="03-kaikoushuo.html" target="_blank" class="text-sm font-semibold text-[#3b4a6b] hover:underline">開啟 ↗</a>
+          <span class="heart" data-id="2026-09-02_03">❤️</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card overflow-hidden" data-id="2026-09-02_04">
+      <div class="frame-wrap"><iframe src="04-drilllayer.html" loading="lazy"></iframe></div>
+      <div class="p-4 flex items-center justify-between">
+        <div>
+          <p class="font-bold">#04 · Drill-Down Dashboard 下鑽分析</p>
+          <p class="text-xs text-[#8a8570]">鑽層 DrillLayer · 電商銷售後台</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="04-drilllayer.html" target="_blank" class="text-sm font-semibold text-[#3b4a6b] hover:underline">開啟 ↗</a>
+          <span class="heart" data-id="2026-09-02_04">❤️</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card overflow-hidden" data-id="2026-09-02_05">
+      <div class="frame-wrap"><iframe src="05-quwu.html" loading="lazy"></iframe></div>
+      <div class="p-4 flex items-center justify-between">
+        <div>
+          <p class="font-bold">#05 · Memphis Revival 孟菲斯塗鴉</p>
+          <p class="text-xs text-[#8a8570]">趣物 QUWU · 手作貼紙文具電商</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="05-quwu.html" target="_blank" class="text-sm font-semibold text-[#3b4a6b] hover:underline">開啟 ↗</a>
+          <span class="heart" data-id="2026-09-02_05">❤️</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card overflow-hidden" data-id="2026-09-02_06">
+      <div class="frame-wrap"><iframe src="06-gridnorm.html" loading="lazy"></iframe></div>
+      <div class="p-4 flex items-center justify-between">
+        <div>
+          <p class="font-bold">#06 · Bento Grids 便當格進階</p>
+          <p class="text-xs text-[#8a8570]">格範 GridNorm · 產品設計師作品集</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="06-gridnorm.html" target="_blank" class="text-sm font-semibold text-[#3b4a6b] hover:underline">開啟 ↗</a>
+          <span class="heart" data-id="2026-09-02_06">❤️</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="max-w-5xl mx-auto px-6 pb-10 text-center text-xs text-[#a19c8c]">UI Daily · 2026-09-02 · 共 6 個風格</footer>
+
+<script>
+  const DATE = "2026-09-02";
+  const DB = "https://b-battle-580b5-default-rtdb.firebaseio.com/uigallery";
+
+  function setLiked(el, liked){
+    if(liked){ el.classList.add('liked'); } else { el.classList.remove('liked'); }
+  }
+
+  // restore state on load
+  fetch(DB + ".json").then(r => r.json()).then(data => {
+    if(!data) return;
+    document.querySelectorAll('.heart').forEach(h => {
+      const id = h.getAttribute('data-id');
+      if(data[id] === true) setLiked(h, true);
+    });
+  }).catch(() => { /* 網路政策可能擋下 firebase，靜默失敗即可 */ });
+
+  document.querySelectorAll('.heart').forEach(h => {
+    h.addEventListener('click', () => {
+      const id = h.getAttribute('data-id');
+      const nowLiked = !h.classList.contains('liked');
+      setLiked(h, nowLiked);
+      fetch(DB + "/" + id + ".json", {
+        method: "PUT",
+        body: JSON.stringify(nowLiked)
+      }).catch(() => { /* 網路政策可能擋下，UI 狀態仍先切換 */ });
+    });
+  });
+</script>
+
+</body>
+</html>

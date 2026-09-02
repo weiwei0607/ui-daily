@@ -1,0 +1,134 @@
+<!-- style #44 Memphis Revival -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>趣物 QUWU｜手作貼紙與文具</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Poppins','Noto Sans TC',sans-serif; background:#fff4e0; color:#241f1a; overflow-x:hidden; }
+  h1,h2,h3,.display{ font-family:'Fredoka','Noto Sans TC',sans-serif; }
+  .zigzag{
+    background-image: repeating-linear-gradient(135deg, #241f1a 0 2px, transparent 2px 14px);
+  }
+  .dots{
+    background-image: radial-gradient(#ff5c8a 2.5px, transparent 2.5px);
+    background-size: 16px 16px;
+  }
+  .shape{ position:absolute; }
+  .tri{ width:0; height:0; border-left:22px solid transparent; border-right:22px solid transparent; }
+  .clip-blob{ clip-path: polygon(20% 0%, 80% 5%, 100% 35%, 90% 80%, 60% 100%, 15% 95%, 0% 60%); }
+  .clip-star{ clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); }
+  .wobble{ animation: wobble 3.5s ease-in-out infinite; }
+  @keyframes wobble{ 0%,100%{ transform: rotate(-4deg);} 50%{ transform: rotate(4deg);} }
+  .card{ border:3px solid #241f1a; box-shadow: 6px 6px 0 #241f1a; transition: transform .15s, box-shadow .15s; }
+  .card:hover{ transform: translate(-3px,-3px); box-shadow: 9px 9px 0 #241f1a; }
+  .btn-memphis{ border:3px solid #241f1a; box-shadow: 5px 5px 0 #241f1a; transition: transform .15s, box-shadow .15s; }
+  .btn-memphis:hover{ transform: translate(-2px,-2px); box-shadow: 7px 7px 0 #241f1a; }
+  .btn-memphis:active{ transform: translate(2px,2px); box-shadow: 2px 2px 0 #241f1a; }
+  .marquee-track{ animation: marquee 18s linear infinite; white-space: nowrap; }
+  @keyframes marquee{ from{ transform: translateX(0);} to{ transform: translateX(-50%);} }
+  .squiggle{ text-decoration: underline wavy #ff5c8a 3px; text-underline-offset:6px; }
+</style>
+</head>
+<body class="relative">
+
+  <div class="bg-[#241f1a] text-[#fff4e0] py-2 overflow-hidden">
+    <div class="marquee-track font-bold text-sm">
+      ✦ 新品到貨 ✦ 全館滿 NT$500 免運 ✦ 手繪限量款只剩最後 30 組 ✦ 新品到貨 ✦ 全館滿 NT$500 免運 ✦ 手繪限量款只剩最後 30 組 ✦
+    </div>
+  </div>
+
+  <header class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between relative z-10">
+    <div class="display text-2xl font-bold flex items-center gap-2">
+      <span class="w-9 h-9 bg-[#ffe156] clip-star inline-block wobble"></span>
+      趣物 QUWU
+    </div>
+    <div class="hidden md:flex gap-8 font-semibold text-sm">
+      <a href="#" class="squiggle">貼紙</a>
+      <a href="#">文具</a>
+      <a href="#">收納</a>
+      <a href="#">關於我們</a>
+    </div>
+    <button class="btn-memphis bg-[#7fd8be] px-5 py-2 rounded-full font-bold text-sm">購物車 (3)</button>
+  </header>
+
+  <section class="relative max-w-6xl mx-auto px-6 pt-10 pb-24 overflow-hidden">
+    <div class="shape w-16 h-16 bg-[#ff5c8a] rounded-full top-4 right-16 wobble" style="animation-delay:.3s"></div>
+    <div class="shape w-20 h-20 bg-[#a388ee] clip-blob top-40 right-4"></div>
+    <div class="shape tri border-b-[38px] border-b-[#ffe156] bottom-0 left-10 wobble" style="animation-delay:.6s"></div>
+    <div class="shape w-10 h-10 border-4 border-[#241f1a] rounded-full top-24 left-1/3"></div>
+
+    <div class="relative z-10 text-center max-w-2xl mx-auto">
+      <span class="inline-block bg-[#ffe156] border-3 border-[#241f1a] px-4 py-1.5 rounded-full font-bold text-sm mb-6" style="border-width:3px;">🎨 手繪風格文具品牌</span>
+      <h1 class="display text-5xl md:text-6xl font-bold leading-[1.1] mb-6">
+        讓你的筆記本<br>
+        <span class="relative inline-block">
+          亂中有<span class="text-[#ff5c8a]">趣</span>
+        </span>
+      </h1>
+      <p class="text-lg font-medium mb-10">
+        每一張貼紙都是手繪原稿掃描印製，撞色但不刺眼，
+        歪一點才夠可愛。
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <button class="btn-memphis bg-[#ff5c8a] text-white px-8 py-4 rounded-full font-bold text-lg">逛逛新品</button>
+        <button class="btn-memphis bg-white px-8 py-4 rounded-full font-bold text-lg">看手繪過程</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="dots py-16">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="display text-3xl font-bold text-center mb-2 bg-[#fff4e0] inline-block px-6 py-2 mx-auto block w-fit">本週熱賣</h2>
+      <div class="grid md:grid-cols-3 gap-8 mt-10">
+        <div class="card bg-white rounded-3xl p-6 rotate-[-2deg]">
+          <div class="w-full h-40 rounded-2xl mb-4 flex items-center justify-center text-5xl" style="background:linear-gradient(135deg,#ffe156,#ff5c8a);">🐱</div>
+          <h3 class="display font-bold text-xl mb-1">貓咪隨手貼組</h3>
+          <p class="text-sm text-[#5c5248] mb-3">30 枚入・防水耐曬</p>
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-lg">NT$ 180</span>
+            <button class="btn-memphis bg-[#ffe156] px-4 py-1.5 rounded-full text-sm font-bold">加入</button>
+          </div>
+        </div>
+        <div class="card bg-white rounded-3xl p-6 rotate-[1.5deg]">
+          <div class="w-full h-40 rounded-2xl mb-4 flex items-center justify-center text-5xl" style="background:linear-gradient(135deg,#7fd8be,#a388ee);">📓</div>
+          <h3 class="display font-bold text-xl mb-1">拼貼手帳本</h3>
+          <p class="text-sm text-[#5c5248] mb-3">附贈 12 頁美術紙</p>
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-lg">NT$ 420</span>
+            <button class="btn-memphis bg-[#ffe156] px-4 py-1.5 rounded-full text-sm font-bold">加入</button>
+          </div>
+        </div>
+        <div class="card bg-white rounded-3xl p-6 rotate-[-1deg]">
+          <div class="w-full h-40 rounded-2xl mb-4 flex items-center justify-center text-5xl" style="background:linear-gradient(135deg,#ff5c8a,#ffe156);">✏️</div>
+          <h3 class="display font-bold text-xl mb-1">撞色筆袋</h3>
+          <p class="text-sm text-[#5c5248] mb-3">帆布材質・可機洗</p>
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-lg">NT$ 350</span>
+            <button class="btn-memphis bg-[#ffe156] px-4 py-1.5 rounded-full text-sm font-bold">加入</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-6 py-20 text-center relative">
+    <div class="shape w-14 h-14 bg-[#7fd8be] rounded-full -top-2 left-8 wobble"></div>
+    <h2 class="display text-3xl font-bold mb-4">訂閱電子報，搶先看新圖稿</h2>
+    <p class="mb-8 font-medium">每月手繪新圖 + 限定折扣碼，不寄垃圾信</p>
+    <form class="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto">
+      <input type="email" placeholder="你的 email" class="flex-1 border-3 border-[#241f1a] rounded-full px-5 py-3 font-medium" style="border-width:3px;">
+      <button type="submit" class="btn-memphis bg-[#a388ee] text-white px-8 py-3 rounded-full font-bold">訂閱</button>
+    </form>
+  </section>
+
+  <footer class="zigzag border-t-[3px] border-[#241f1a] py-10 text-center text-sm font-medium">
+    <p class="mt-4">© 2026 趣物 QUWU 手作工作室．台南市中西區彩繪巷 12 號</p>
+  </footer>
+
+</body>
+</html>
