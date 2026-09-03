@@ -1,0 +1,502 @@
+<!-- style #35 User Behavior Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>留存誌 RetainLog｜使用者行為分析後台</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --bg-0:#0b0e14;
+    --bg-1:#11151d;
+    --bg-2:#161b26;
+    --bg-3:#1c2230;
+    --line-1:#262e3f;
+    --line-2:#323c50;
+    --text-0:#f3f5f9;
+    --text-1:#c3c9d6;
+    --text-2:#8a92a6;
+    --text-3:#5c6478;
+    --brand:#7c6cff;
+    --brand-soft:#7c6cff26;
+    --good:#34d399;
+    --good-soft:#34d39920;
+    --bad:#f66e6e;
+    --bad-soft:#f66e6e20;
+    --warn:#f6b64e;
+  }
+  *{font-family:'Figtree','Noto Sans TC',sans-serif;}
+  body{background:var(--bg-0); color:var(--text-0);}
+  .mono{font-family:'JetBrains Mono','Noto Sans TC',monospace; font-variant-numeric: tabular-nums;}
+  .card{
+    background:linear-gradient(180deg, var(--bg-2), var(--bg-1));
+    border:1px solid var(--line-1);
+    border-radius:14px;
+  }
+  .card-inset{ background:var(--bg-3); border:1px solid var(--line-1); border-radius:10px; }
+  .grain{
+    background-image: radial-gradient(var(--line-1) 1px, transparent 1px);
+    background-size: 14px 14px;
+    opacity:0.35;
+  }
+  .scrollbar-thin::-webkit-scrollbar{ height:6px; width:6px; }
+  .scrollbar-thin::-webkit-scrollbar-thumb{ background:var(--line-2); border-radius:99px; }
+  .tag-good{ color:var(--good); background:var(--good-soft); border:1px solid #34d39940; }
+  .tag-bad{ color:var(--bad); background:var(--bad-soft); border:1px solid #f66e6e40; }
+  .tag-brand{ color:var(--brand); background:var(--brand-soft); border:1px solid #7c6cff40; }
+  .funnel-step{ transition: filter .2s ease; }
+  .funnel-step:hover{ filter:brightness(1.12); }
+  .kpi-spark path{ vector-effect: non-scaling-stroke; }
+  ::selection{ background:#7c6cff55; }
+</style>
+</head>
+<body class="min-h-screen">
+<div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
+
+  <!-- Header -->
+  <header class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-6 lg:mb-8">
+    <div class="flex items-center gap-3">
+      <div class="w-11 h-11 rounded-xl flex items-center justify-center shrink-0" style="background:linear-gradient(135deg,#7c6cff,#4f3ff0); box-shadow:0 0 0 1px #7c6cff40, 0 8px 24px -8px #7c6cff80;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 18L9 9L14 14L20 5" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 5H20V10" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <h1 class="text-lg sm:text-xl font-extrabold tracking-tight text-[var(--text-0)]">留存誌 <span class="text-[var(--text-2)] font-semibold">RetainLog</span></h1>
+        <p class="text-xs text-[var(--text-2)] mt-0.5">使用者行為分析後台　·　App 產品：<span class="text-[var(--text-1)]">好食光外送</span></p>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-2">
+      <div class="card-inset px-3 py-2 flex items-center gap-2">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" class="text-[var(--text-3)]"><path d="M12 8v4l3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/></svg>
+        <span class="text-xs text-[var(--text-1)]">更新於 2026/09/03 09:15</span>
+      </div>
+      <div class="flex items-center gap-1 card-inset px-1 py-1">
+        <button class="px-3 py-1.5 text-xs rounded-md text-[var(--text-2)] hover:text-[var(--text-0)] transition">近 7 天</button>
+        <button class="px-3 py-1.5 text-xs rounded-md bg-[var(--brand)] text-white font-semibold">近 30 天</button>
+        <button class="px-3 py-1.5 text-xs rounded-md text-[var(--text-2)] hover:text-[var(--text-0)] transition">近 90 天</button>
+      </div>
+      <button class="px-3.5 py-2 rounded-lg text-xs font-semibold text-white flex items-center gap-1.5" style="background:linear-gradient(135deg,#7c6cff,#5b4bff);">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        匯出報表
+      </button>
+    </div>
+  </header>
+
+  <!-- KPI Row -->
+  <section class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3 mb-5">
+
+    <!-- KPI 1 -->
+    <div class="card p-4 flex flex-col gap-3">
+      <div class="flex items-center justify-between">
+        <span class="text-xs text-[var(--text-2)]">次日留存率 D1</span>
+        <span class="tag-good text-[10px] px-1.5 py-0.5 rounded-full font-semibold mono">▲ 1.4%</span>
+      </div>
+      <div class="mono text-2xl font-bold text-[var(--text-0)]">42.8<span class="text-sm text-[var(--text-3)]">%</span></div>
+      <svg viewBox="0 0 100 28" class="w-full h-7 kpi-spark" preserveAspectRatio="none">
+        <path d="M0,20 L15,17 L30,19 L45,12 L60,14 L75,8 L100,6" fill="none" stroke="#34d399" stroke-width="2"/>
+      </svg>
+    </div>
+
+    <!-- KPI 2 -->
+    <div class="card p-4 flex flex-col gap-3">
+      <div class="flex items-center justify-between">
+        <span class="text-xs text-[var(--text-2)]">7 日留存率 D7</span>
+        <span class="tag-bad text-[10px] px-1.5 py-0.5 rounded-full font-semibold mono">▼ 0.6%</span>
+      </div>
+      <div class="mono text-2xl font-bold text-[var(--text-0)]">21.3<span class="text-sm text-[var(--text-3)]">%</span></div>
+      <svg viewBox="0 0 100 28" class="w-full h-7 kpi-spark" preserveAspectRatio="none">
+        <path d="M0,10 L15,12 L30,9 L45,15 L60,13 L75,18 L100,20" fill="none" stroke="#f66e6e" stroke-width="2"/>
+      </svg>
+    </div>
+
+    <!-- KPI 3 -->
+    <div class="card p-4 flex flex-col gap-3">
+      <div class="flex items-center justify-between">
+        <span class="text-xs text-[var(--text-2)]">30 日留存率 D30</span>
+        <span class="tag-good text-[10px] px-1.5 py-0.5 rounded-full font-semibold mono">▲ 0.3%</span>
+      </div>
+      <div class="mono text-2xl font-bold text-[var(--text-0)]">9.6<span class="text-sm text-[var(--text-3)]">%</span></div>
+      <svg viewBox="0 0 100 28" class="w-full h-7 kpi-spark" preserveAspectRatio="none">
+        <path d="M0,18 L15,19 L30,16 L45,17 L60,14 L75,15 L100,12" fill="none" stroke="#34d399" stroke-width="2"/>
+      </svg>
+    </div>
+
+    <!-- KPI 4 -->
+    <div class="card p-4 flex flex-col gap-3">
+      <div class="flex items-center justify-between">
+        <span class="text-xs text-[var(--text-2)]">平均使用時長</span>
+        <span class="tag-good text-[10px] px-1.5 py-0.5 rounded-full font-semibold mono">▲ 8.9%</span>
+      </div>
+      <div class="mono text-2xl font-bold text-[var(--text-0)]">8<span class="text-sm text-[var(--text-3)]">分</span>42<span class="text-sm text-[var(--text-3)]">秒</span></div>
+      <svg viewBox="0 0 100 28" class="w-full h-7 kpi-spark" preserveAspectRatio="none">
+        <path d="M0,22 L15,18 L30,19 L45,13 L60,15 L75,9 L100,7" fill="none" stroke="#34d399" stroke-width="2"/>
+      </svg>
+    </div>
+
+    <!-- KPI 5 -->
+    <div class="card p-4 flex flex-col gap-3">
+      <div class="flex items-center justify-between">
+        <span class="text-xs text-[var(--text-2)]">日活躍用戶 DAU</span>
+        <span class="tag-good text-[10px] px-1.5 py-0.5 rounded-full font-semibold mono">▲ 3.2%</span>
+      </div>
+      <div class="mono text-2xl font-bold text-[var(--text-0)]">128,450</div>
+      <svg viewBox="0 0 100 28" class="w-full h-7 kpi-spark" preserveAspectRatio="none">
+        <path d="M0,16 L15,17 L30,13 L45,14 L60,10 L75,11 L100,6" fill="none" stroke="#34d399" stroke-width="2"/>
+      </svg>
+    </div>
+
+    <!-- KPI 6 -->
+    <div class="card p-4 flex flex-col gap-3">
+      <div class="flex items-center justify-between">
+        <span class="text-xs text-[var(--text-2)]">月流失率</span>
+        <span class="tag-bad text-[10px] px-1.5 py-0.5 rounded-full font-semibold mono">▲ 0.8%</span>
+      </div>
+      <div class="mono text-2xl font-bold text-[var(--text-0)]">6.2<span class="text-sm text-[var(--text-3)]">%</span></div>
+      <svg viewBox="0 0 100 28" class="w-full h-7 kpi-spark" preserveAspectRatio="none">
+        <path d="M0,10 L15,11 L30,9 L45,13 L60,12 L75,16 L100,19" fill="none" stroke="#f66e6e" stroke-width="2"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Main Grid -->
+  <section class="grid grid-cols-1 xl:grid-cols-5 gap-5 mb-5">
+
+    <!-- Funnel -->
+    <div class="card p-5 xl:col-span-2 flex flex-col">
+      <div class="flex items-center justify-between mb-1">
+        <h2 class="text-sm font-bold text-[var(--text-0)]">轉換漏斗　·　新用戶啟動流程</h2>
+        <span class="tag-brand text-[10px] px-2 py-1 rounded-full font-semibold">近 30 天世代</span>
+      </div>
+      <p class="text-xs text-[var(--text-3)] mb-5">追蹤自「註冊」起，用戶完成關鍵行為的遞減比例</p>
+
+      <div class="flex flex-col gap-1 flex-1 justify-center">
+
+        <!-- Step 1 -->
+        <div class="funnel-step">
+          <div class="flex items-center justify-between text-xs mb-1.5">
+            <span class="text-[var(--text-1)] font-medium">① 完成註冊</span>
+            <span class="mono text-[var(--text-0)] font-semibold">100.0% <span class="text-[var(--text-3)] font-normal">／ 46,820 人</span></span>
+          </div>
+          <div class="h-9 rounded-lg" style="width:100%; background:linear-gradient(90deg,#7c6cff,#6656f2);"></div>
+        </div>
+
+        <div class="flex items-center gap-2 py-1 pl-2">
+          <svg width="12" height="16" viewBox="0 0 12 16" fill="none"><path d="M6 0v14M6 14l-4-4M6 14l4-4" stroke="#5c6478" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <span class="text-[10px] text-[var(--text-3)] mono">流失 34.1%</span>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="funnel-step">
+          <div class="flex items-center justify-between text-xs mb-1.5">
+            <span class="text-[var(--text-1)] font-medium">② 完成新手引導</span>
+            <span class="mono text-[var(--text-0)] font-semibold">65.9% <span class="text-[var(--text-3)] font-normal">／ 30,858 人</span></span>
+          </div>
+          <div class="h-9 rounded-lg" style="width:65.9%; background:linear-gradient(90deg,#7c6cff,#6656f2);"></div>
+        </div>
+
+        <div class="flex items-center gap-2 py-1 pl-2">
+          <svg width="12" height="16" viewBox="0 0 12 16" fill="none"><path d="M6 0v14M6 14l-4-4M6 14l4-4" stroke="#5c6478" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <span class="text-[10px] text-[var(--text-3)] mono">流失 38.2%</span>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="funnel-step">
+          <div class="flex items-center justify-between text-xs mb-1.5">
+            <span class="text-[var(--text-1)] font-medium">③ 首次下單</span>
+            <span class="mono text-[var(--text-0)] font-semibold">40.7% <span class="text-[var(--text-3)] font-normal">／ 19,057 人</span></span>
+          </div>
+          <div class="h-9 rounded-lg" style="width:40.7%; background:linear-gradient(90deg,#8b7dff,#7264f5);"></div>
+        </div>
+
+        <div class="flex items-center gap-2 py-1 pl-2">
+          <svg width="12" height="16" viewBox="0 0 12 16" fill="none"><path d="M6 0v14M6 14l-4-4M6 14l4-4" stroke="#5c6478" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <span class="text-[10px] text-[var(--text-3)] mono">流失 53.5%</span>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="funnel-step">
+          <div class="flex items-center justify-between text-xs mb-1.5">
+            <span class="text-[var(--text-1)] font-medium">④ 30 日內回購</span>
+            <span class="mono text-[var(--text-0)] font-semibold">18.9% <span class="text-[var(--text-3)] font-normal">／ 8,859 人</span></span>
+          </div>
+          <div class="h-9 rounded-lg" style="width:18.9%; background:linear-gradient(90deg,#34d399,#22b385);"></div>
+        </div>
+      </div>
+
+      <div class="mt-5 pt-4 border-t border-[var(--line-1)] flex items-center justify-between">
+        <span class="text-[11px] text-[var(--text-3)]">整體轉換率（註冊 → 回購）</span>
+        <span class="mono text-sm font-bold" style="color:var(--good);">18.9%</span>
+      </div>
+    </div>
+
+    <!-- Retention Curve -->
+    <div class="card p-5 xl:col-span-3 flex flex-col">
+      <div class="flex items-center justify-between mb-1">
+        <h2 class="text-sm font-bold text-[var(--text-0)]">留存曲線　·　Cohort Retention Curve</h2>
+        <div class="flex items-center gap-3 text-[10px]">
+          <span class="flex items-center gap-1.5 text-[var(--text-2)]"><span class="w-2 h-2 rounded-full inline-block" style="background:#7c6cff;"></span>本期世代</span>
+          <span class="flex items-center gap-1.5 text-[var(--text-2)]"><span class="w-2 h-2 rounded-full inline-block" style="background:#5c6478;"></span>上期世代</span>
+        </div>
+      </div>
+      <p class="text-xs text-[var(--text-3)] mb-4">以「首日活躍」為基準（100%），追蹤第 0～30 天留存比例</p>
+
+      <div class="relative flex-1 min-h-[220px]">
+        <svg viewBox="0 0 620 240" class="w-full h-full" preserveAspectRatio="none">
+          <!-- gridlines -->
+          <g stroke="#232b3a" stroke-width="1">
+            <line x1="40" y1="10" x2="40" y2="200"/>
+            <line x1="40" y1="200" x2="610" y2="200"/>
+            <line x1="40" y1="150" x2="610" y2="150" stroke-dasharray="3 4"/>
+            <line x1="40" y1="100" x2="610" y2="100" stroke-dasharray="3 4"/>
+            <line x1="40" y1="50" x2="610" y2="50" stroke-dasharray="3 4"/>
+          </g>
+          <!-- y labels -->
+          <g class="mono" font-size="10" fill="#5c6478">
+            <text x="30" y="204" text-anchor="end">0%</text>
+            <text x="30" y="154" text-anchor="end">25%</text>
+            <text x="30" y="104" text-anchor="end">50%</text>
+            <text x="30" y="54" text-anchor="end">75%</text>
+            <text x="30" y="14" text-anchor="end">100%</text>
+          </g>
+
+          <!-- previous cohort (grey) -->
+          <polyline fill="none" stroke="#4a5266" stroke-width="2" stroke-dasharray="4 4"
+            points="40,10 105,88 170,118 235,138 300,150 365,159 430,166 495,172 560,177 610,181" />
+
+          <!-- current cohort area -->
+          <defs>
+            <linearGradient id="retFill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#7c6cff" stop-opacity="0.35"/>
+              <stop offset="100%" stop-color="#7c6cff" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <polygon fill="url(#retFill)" points="40,10 105,72 170,100 235,118 300,128 365,136 430,142 495,146 560,150 610,153 610,200 40,200"/>
+          <polyline fill="none" stroke="#8b7dff" stroke-width="2.5"
+            points="40,10 105,72 170,100 235,118 300,128 365,136 430,142 495,146 560,150 610,153" />
+
+          <!-- points -->
+          <g fill="#8b7dff" stroke="#11151d" stroke-width="2">
+            <circle cx="40" cy="10" r="3.5"/>
+            <circle cx="105" cy="72" r="3.5"/>
+            <circle cx="170" cy="100" r="3.5"/>
+            <circle cx="235" cy="118" r="3.5"/>
+            <circle cx="300" cy="128" r="3.5"/>
+            <circle cx="365" cy="136" r="3.5"/>
+            <circle cx="430" cy="142" r="3.5"/>
+            <circle cx="495" cy="146" r="3.5"/>
+            <circle cx="560" cy="150" r="3.5"/>
+            <circle cx="610" cy="153" r="3.5"/>
+          </g>
+
+          <!-- x labels -->
+          <g class="mono" font-size="10" fill="#5c6478">
+            <text x="40" y="218" text-anchor="middle">D0</text>
+            <text x="105" y="218" text-anchor="middle">D1</text>
+            <text x="170" y="218" text-anchor="middle">D3</text>
+            <text x="235" y="218" text-anchor="middle">D7</text>
+            <text x="300" y="218" text-anchor="middle">D10</text>
+            <text x="365" y="218" text-anchor="middle">D14</text>
+            <text x="430" y="218" text-anchor="middle">D18</text>
+            <text x="495" y="218" text-anchor="middle">D22</text>
+            <text x="560" y="218" text-anchor="middle">D26</text>
+            <text x="610" y="218" text-anchor="middle">D30</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="grid grid-cols-4 gap-2 mt-4 pt-4 border-t border-[var(--line-1)]">
+        <div class="text-center">
+          <div class="text-[10px] text-[var(--text-3)] mb-1">D1 留存</div>
+          <div class="mono text-sm font-bold text-[var(--text-0)]">42.8%</div>
+        </div>
+        <div class="text-center">
+          <div class="text-[10px] text-[var(--text-3)] mb-1">D7 留存</div>
+          <div class="mono text-sm font-bold text-[var(--text-0)]">21.3%</div>
+        </div>
+        <div class="text-center">
+          <div class="text-[10px] text-[var(--text-3)] mb-1">D14 留存</div>
+          <div class="mono text-sm font-bold text-[var(--text-0)]">14.7%</div>
+        </div>
+        <div class="text-center">
+          <div class="text-[10px] text-[var(--text-3)] mb-1">D30 留存</div>
+          <div class="mono text-sm font-bold text-[var(--text-0)]">9.6%</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Path Analysis -->
+  <section class="grid grid-cols-1 xl:grid-cols-5 gap-5">
+
+    <div class="card p-5 xl:col-span-3">
+      <div class="flex items-center justify-between mb-1">
+        <h2 class="text-sm font-bold text-[var(--text-0)]">路徑分析　·　常見操作路徑 Top 5</h2>
+        <span class="text-[10px] text-[var(--text-3)]">依出現頻率排序</span>
+      </div>
+      <p class="text-xs text-[var(--text-3)] mb-4">單一工作階段內，使用者最常出現的頁面轉跳序列</p>
+
+      <div class="flex flex-col divide-y divide-[var(--line-1)]">
+
+        <!-- Path 1 -->
+        <div class="py-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+          <span class="mono text-xs text-[var(--text-3)] w-6 shrink-0">01</span>
+          <div class="flex items-center flex-wrap gap-1.5 flex-1 text-xs">
+            <span class="card-inset px-2 py-1 rounded-md text-[var(--text-1)]">首頁</span>
+            <span class="text-[var(--text-3)]">→</span>
+            <span class="card-inset px-2 py-1 rounded-md text-[var(--text-1)]">商品列表</span>
+            <span class="text-[var(--text-3)]">→</span>
+            <span class="card-inset px-2 py-1 rounded-md text-[var(--text-1)]">商品詳情</span>
+            <span class="text-[var(--text-3)]">→</span>
+            <span class="card-inset px-2 py-1 rounded-md text-[var(--text-1)]">加入購物車</span>
+            <span class="text-[var(--text-3)]">→</span>
+            <span class="px-2 py-1 rounded-md tag-good font-medium">結帳完成</span>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <div class="w-24 h-1.5 rounded-full bg-[var(--bg-3)] overflow-hidden"><div class="h-full rounded-full" style="width:32%; background:#7c6cff;"></div></div>
+            <span class="mono text-xs font-semibold text-[var(--text-0)] w-10 text-right">32.4%</span>
+          </div>
+        </div>
+
+        <!-- Path 2 -->
+        <div class="py-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+          <span class="mono text-xs text-[var(--text-3)] w-6 shrink-0">02</span>
+          <div class="flex items-center flex-wrap gap-1.5 flex-1 text-xs">
+            <span class="card-inset px-2 py-1 rounded-md text-[var(--text-1)]">首頁</span>
+            <span class="text-[var(--text-3)]">→</span>
+            <span class="card-inset px-2 py-1 rounded-md text-[var(--text-1)]">搜尋</span>
+            <span class="text-[var(--text-3)]">→</span>
+            <span class="card-inset px-2 py-1 rounded-md text-[var(--text-1)]">商品詳情</span>
+            <span class="text-[var(--text-3)]">→</span>
+            <span class="px-2 py-1 rounded-md tag-bad font-medium">離開 App</span>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <div class="w-24 h-1.5 rounded-full bg-[var(--bg-3)] overflow-hidden"><div class="h-full rounded-full" style="width:18.7%; background:#7c6cff;"></div></div>
+            <span class="mono text-xs font-semibold text-[var(--text-0)] w-10 text-right">18.7%</span>
+          </div>
+        </div>
+
+        <!-- Path 3 -->
+        <div class="py-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+          <span class="mono text-xs text-[var(--text-3)] w-6 shrink-0">03</span>
+          <div class="flex items-center flex-wrap gap-1.5 flex-1 text-xs">
+            <span class="card-inset px-2 py-1 rounded-md text-[var(--text-1)]">推播通知</span>
+            <span class="text-[var(--text-3)]">→</span>
+            <span class="card-inset px-2 py-1 rounded-md text-[var(--text-1)]">商品詳情</span>
+            <span class="text-[var(--text-3)]">→</span>
+            <span class="card-inset px-2 py-1 rounded-md text-[var(--text-1)]">加入我的最愛</span>
+            <span class="text-[var(--text-3)]">→</span>
+            <span class="px-2 py-1 rounded-md tag-bad font-medium">離開 App</span>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <div class="w-24 h-1.5 rounded-full bg-[var(--bg-3)] overflow-hidden"><div class="h-full rounded-full" style="width:12.1%; background:#7c6cff;"></div></div>
+            <span class="mono text-xs font-semibold text-[var(--text-0)] w-10 text-right">12.1%</span>
+          </div>
+        </div>
+
+        <!-- Path 4 -->
+        <div class="py-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+          <span class="mono text-xs text-[var(--text-3)] w-6 shrink-0">04</span>
+          <div class="flex items-center flex-wrap gap-1.5 flex-1 text-xs">
+            <span class="card-inset px-2 py-1 rounded-md text-[var(--text-1)]">首頁</span>
+            <span class="text-[var(--text-3)]">→</span>
+            <span class="card-inset px-2 py-1 rounded-md text-[var(--text-1)]">我的最愛</span>
+            <span class="text-[var(--text-3)]">→</span>
+            <span class="card-inset px-2 py-1 rounded-md text-[var(--text-1)]">商品詳情</span>
+            <span class="text-[var(--text-3)]">→</span>
+            <span class="px-2 py-1 rounded-md tag-good font-medium">結帳完成</span>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <div class="w-24 h-1.5 rounded-full bg-[var(--bg-3)] overflow-hidden"><div class="h-full rounded-full" style="width:9.8%; background:#7c6cff;"></div></div>
+            <span class="mono text-xs font-semibold text-[var(--text-0)] w-10 text-right">9.8%</span>
+          </div>
+        </div>
+
+        <!-- Path 5 -->
+        <div class="pt-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+          <span class="mono text-xs text-[var(--text-3)] w-6 shrink-0">05</span>
+          <div class="flex items-center flex-wrap gap-1.5 flex-1 text-xs">
+            <span class="card-inset px-2 py-1 rounded-md text-[var(--text-1)]">首頁</span>
+            <span class="text-[var(--text-3)]">→</span>
+            <span class="card-inset px-2 py-1 rounded-md text-[var(--text-1)]">優惠券中心</span>
+            <span class="text-[var(--text-3)]">→</span>
+            <span class="card-inset px-2 py-1 rounded-md text-[var(--text-1)]">商品列表</span>
+            <span class="text-[var(--text-3)]">→</span>
+            <span class="px-2 py-1 rounded-md tag-good font-medium">結帳完成</span>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <div class="w-24 h-1.5 rounded-full bg-[var(--bg-3)] overflow-hidden"><div class="h-full rounded-full" style="width:7.4%; background:#7c6cff;"></div></div>
+            <span class="mono text-xs font-semibold text-[var(--text-0)] w-10 text-right">7.4%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Side panel: churn signals -->
+    <div class="card p-5 xl:col-span-2 flex flex-col">
+      <h2 class="text-sm font-bold text-[var(--text-0)] mb-1">流失風險指標</h2>
+      <p class="text-xs text-[var(--text-3)] mb-4">依用戶分群偵測的異常訊號</p>
+
+      <div class="flex flex-col gap-3">
+        <div class="card-inset p-3 flex items-center justify-between">
+          <div>
+            <div class="text-xs text-[var(--text-1)] font-medium">7 日未開啟 App</div>
+            <div class="text-[10px] text-[var(--text-3)] mt-0.5">占付費會員總數</div>
+          </div>
+          <div class="text-right">
+            <div class="mono text-base font-bold" style="color:var(--bad);">14.6%</div>
+            <div class="tag-bad text-[10px] px-1.5 py-0.5 rounded-full font-semibold mono inline-block mt-1">▲ 2.1%</div>
+          </div>
+        </div>
+
+        <div class="card-inset p-3 flex items-center justify-between">
+          <div>
+            <div class="text-xs text-[var(--text-1)] font-medium">結帳中途放棄</div>
+            <div class="text-[10px] text-[var(--text-3)] mt-0.5">進入付款頁後未完成</div>
+          </div>
+          <div class="text-right">
+            <div class="mono text-base font-bold" style="color:var(--bad);">27.3%</div>
+            <div class="tag-bad text-[10px] px-1.5 py-0.5 rounded-full font-semibold mono inline-block mt-1">▲ 0.9%</div>
+          </div>
+        </div>
+
+        <div class="card-inset p-3 flex items-center justify-between">
+          <div>
+            <div class="text-xs text-[var(--text-1)] font-medium">推播通知點擊率</div>
+            <div class="text-[10px] text-[var(--text-3)] mt-0.5">近 7 日平均</div>
+          </div>
+          <div class="text-right">
+            <div class="mono text-base font-bold" style="color:var(--good);">11.8%</div>
+            <div class="tag-good text-[10px] px-1.5 py-0.5 rounded-full font-semibold mono inline-block mt-1">▲ 1.6%</div>
+          </div>
+        </div>
+
+        <div class="card-inset p-3 flex items-center justify-between">
+          <div>
+            <div class="text-xs text-[var(--text-1)] font-medium">客服申訴工單量</div>
+            <div class="text-[10px] text-[var(--text-3)] mt-0.5">每千次訂單</div>
+          </div>
+          <div class="text-right">
+            <div class="mono text-base font-bold" style="color:var(--good);">3.2</div>
+            <div class="tag-good text-[10px] px-1.5 py-0.5 rounded-full font-semibold mono inline-block mt-1">▼ 0.4</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 pt-4 border-t border-[var(--line-1)] flex items-start gap-2">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" class="mt-0.5 shrink-0" style="color:var(--warn);"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <p class="text-[11px] text-[var(--text-2)] leading-relaxed">結帳放棄率連續 3 週上升，建議檢查付款流程是否有跳轉延遲或第三方金流異常。</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="mt-6 text-center text-[10px] text-[var(--text-3)]">
+    留存誌 RetainLog　·　僅供內部視覺設計參考，所有數據為模擬示意
+  </footer>
+
+</div>
+</body>
+</html>
