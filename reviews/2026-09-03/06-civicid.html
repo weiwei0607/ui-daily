@@ -1,0 +1,667 @@
+<!-- style #08 Accessible / Ethical -->
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>全民登記 CivicID｜政府數位服務申請平台</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --blue:#0066cc;
+    --blue-dark:#00458f;
+    --red:#d32f2f;
+    --black:#0a0a0a;
+    --white:#ffffff;
+    --gray-bg:#f4f5f7;
+    --gray-line:#c9cdd4;
+    --focus-ring:#ffb400;
+  }
+
+  /* 高對比模式（由 JS 切換於 <html data-contrast="high">） */
+  html[data-contrast="high"]{
+    --blue:#003a80;
+    --blue-dark:#00285c;
+    --red:#a80000;
+    --gray-bg:#000000;
+    --gray-line:#ffffff;
+  }
+  html[data-contrast="high"] body{
+    background:#000000;
+    color:#ffffff;
+  }
+  html[data-contrast="high"] .surface{
+    background:#000000 !important;
+    color:#ffffff !important;
+    border-color:#ffffff !important;
+  }
+  html[data-contrast="high"] .surface-alt{
+    background:#101010 !important;
+    color:#ffffff !important;
+    border-color:#ffffff !important;
+  }
+  html[data-contrast="high"] .text-muted{
+    color:#e6e6e6 !important;
+  }
+  html[data-contrast="high"] a{
+    color:#8ec2ff !important;
+  }
+  html[data-contrast="high"] .btn-primary{
+    background:#ffffff !important;
+    color:#000000 !important;
+    border:3px solid #ffffff !important;
+  }
+  html[data-contrast="high"] .btn-outline{
+    background:#000000 !important;
+    color:#ffffff !important;
+    border-color:#ffffff !important;
+  }
+  html[data-contrast="high"] .icon-badge{
+    background:#ffffff !important;
+    color:#000000 !important;
+  }
+  html[data-contrast="high"] header.site-header{
+    background:#000000 !important;
+    border-color:#ffffff !important;
+  }
+  html[data-contrast="high"] .chip{
+    background:#101010 !important;
+    color:#ffffff !important;
+    border-color:#ffffff !important;
+  }
+  html[data-contrast="high"] .hero-band{
+    background:#000000 !important;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    font-family:'Lexend','Noto Sans TC',-apple-system,BlinkMacSystemFont,sans-serif;
+    background:var(--white);
+    color:var(--black);
+    font-size:17px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3,h4{
+    font-family:'Lexend','Noto Sans TC',sans-serif;
+    font-weight:700;
+    line-height:1.35;
+  }
+
+  /* 全站字級放大模式 */
+  body.text-scale-up{ font-size:20px; }
+  body.text-scale-up h1{ font-size:2.6em; }
+  body.text-scale-up h2{ font-size:1.9em; }
+
+  /* 清楚可見的鍵盤 focus 樣式：AAA 對比 */
+  *:focus{ outline:none; }
+  *:focus-visible{
+    outline:4px solid var(--focus-ring);
+    outline-offset:3px;
+    border-radius:4px;
+    box-shadow:0 0 0 2px #000;
+  }
+
+  a{
+    color:var(--blue);
+    text-decoration:underline;
+    text-underline-offset:3px;
+    font-weight:500;
+  }
+  a:hover{ color:var(--blue-dark); }
+
+  .surface{ background:var(--white); border:2px solid var(--black); }
+  .surface-alt{ background:var(--gray-bg); border:2px solid var(--black); }
+
+  .btn{
+    min-height:44px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:0.5rem;
+    padding:0.85rem 1.6rem;
+    font-weight:700;
+    font-size:1.05rem;
+    border-radius:8px;
+    border:3px solid transparent;
+    cursor:pointer;
+    text-decoration:none;
+    transition:background-color .15s ease, color .15s ease, transform .05s ease;
+  }
+  .btn:active{ transform:translateY(1px); }
+
+  .btn-primary{
+    background:var(--blue);
+    color:#ffffff;
+    border-color:var(--blue);
+  }
+  .btn-primary:hover{ background:var(--blue-dark); border-color:var(--blue-dark); color:#fff; text-decoration:none; }
+
+  .btn-outline{
+    background:#ffffff;
+    color:var(--blue);
+    border-color:var(--blue);
+  }
+  .btn-outline:hover{ background:#eaf2fc; text-decoration:none; }
+
+  .btn-toggle{
+    background:#ffffff;
+    color:var(--black);
+    border-color:var(--black);
+    border-width:3px;
+  }
+  .btn-toggle[aria-pressed="true"]{
+    background:var(--black);
+    color:#ffffff;
+  }
+
+  .icon-badge{
+    width:56px;
+    height:56px;
+    min-width:56px;
+    border-radius:12px;
+    background:var(--blue);
+    color:#ffffff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+  }
+
+  .icon-badge svg{ width:30px; height:30px; }
+
+  .chip{
+    display:inline-flex;
+    align-items:center;
+    gap:0.4rem;
+    padding:0.4rem 0.9rem;
+    border-radius:999px;
+    background:#eaf2fc;
+    border:2px solid var(--blue);
+    color:var(--blue-dark);
+    font-weight:600;
+    font-size:0.9rem;
+  }
+
+  .skip-link{
+    position:absolute;
+    left:-9999px;
+    top:0;
+    background:#000;
+    color:#fff;
+    padding:1rem 1.5rem;
+    z-index:100;
+    font-weight:700;
+    border-radius:0 0 8px 0;
+  }
+  .skip-link:focus{ left:0; }
+
+  .alert-box{
+    background:#fdecec;
+    border:3px solid var(--red);
+    color:#5a0000;
+    border-radius:10px;
+  }
+  html[data-contrast="high"] .alert-box{
+    background:#1a0000 !important;
+    color:#ffdede !important;
+    border-color:#ff6b6b !important;
+  }
+
+  .hero-band{
+    background:linear-gradient(180deg,#f2f7ff 0%, #ffffff 100%);
+    border-bottom:2px solid var(--black);
+  }
+
+  .step-num{
+    width:2.6rem;
+    height:2.6rem;
+    border-radius:50%;
+    background:var(--black);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    flex-shrink:0;
+  }
+
+  details.faq summary{
+    cursor:pointer;
+    list-style:none;
+    min-height:44px;
+  }
+  details.faq summary::-webkit-details-marker{ display:none; }
+  details.faq[open] summary .chevron{ transform:rotate(180deg); }
+  .chevron{ transition:transform .2s ease; }
+
+  .visually-hidden{
+    position:absolute;
+    width:1px;height:1px;
+    padding:0;margin:-1px;
+    overflow:hidden;
+    clip:rect(0,0,0,0);
+    white-space:nowrap;
+    border:0;
+  }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">跳到主要內容</a>
+
+<!-- 頂端公告：字級與對比切換都放在最顯眼位置，方便所有使用者第一時間找到 -->
+<div class="surface-alt" style="border-top:0;border-left:0;border-right:0;">
+  <div class="max-w-6xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-2 text-sm">
+    <p class="font-medium flex items-center gap-2">
+      <span aria-hidden="true">🏛️</span>
+      中華民國政府服務網站・本頁為設計展示頁面
+    </p>
+    <div class="flex items-center gap-2">
+      <span class="chip"><span aria-hidden="true">☎</span>免費客服專線 0800-000-123</span>
+    </div>
+  </div>
+</div>
+
+<header class="site-header surface" style="border-top:0;border-left:0;border-right:0;">
+  <div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-4">
+    <a href="#main" class="flex items-center gap-3 no-underline" style="text-decoration:none;">
+      <span class="icon-badge" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 6v6c0 5 3.8 9.4 9 10 5.2-.6 9-5 9-10V6l-9-4Z"/><path d="m9 12 2 2 4-4"/></svg>
+      </span>
+      <span>
+        <span class="block text-2xl font-extrabold text-black">全民登記 CivicID</span>
+        <span class="block text-sm text-muted" style="color:#3a3a3a;">人人都能輕鬆申辦・政府數位服務平台</span>
+      </span>
+    </a>
+
+    <nav aria-label="無障礙設定" class="flex flex-wrap items-center gap-3">
+      <button id="fontToggleBtn" type="button" class="btn btn-toggle" aria-pressed="false">
+        <span aria-hidden="true" style="font-size:1.2em;">Aa</span>
+        <span id="fontToggleLabel">放大字級</span>
+      </button>
+      <button id="contrastToggleBtn" type="button" class="btn btn-toggle" aria-pressed="false">
+        <span aria-hidden="true">◐</span>
+        <span id="contrastToggleLabel">切換高對比模式</span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- Hero -->
+  <section class="hero-band">
+    <div class="max-w-6xl mx-auto px-4 py-16 md:py-20 grid md:grid-cols-[1.3fr_1fr] gap-10 items-center">
+      <div>
+        <p class="chip mb-5">
+          <span aria-hidden="true">✓</span> 符合 WCAG AAA 無障礙標準
+        </p>
+        <h1 class="text-4xl md:text-5xl font-extrabold text-black mb-5">
+          證件申辦、福利申請，<br>一個網站就能完成。
+        </h1>
+        <p class="text-lg md:text-xl mb-8" style="max-width:38rem;color:#1a1a1a;">
+          全民登記 CivicID 是政府打造的線上申辦服務，介面清楚、步驟簡單，
+          特別為年長者與身心障礙朋友優化操作體驗。不論在家或在外，
+          都能安心完成申請，不必再跑一趟公家機關排隊等候。
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#services" class="btn btn-primary text-lg">
+            開始申請
+            <span aria-hidden="true">→</span>
+          </a>
+          <a href="#accessibility" class="btn btn-outline text-lg">
+            了解無障礙功能
+          </a>
+        </div>
+        <p class="mt-6 text-base flex items-center gap-2" style="color:#333;">
+          <span aria-hidden="true">👥</span>
+          已服務超過 <strong>320 萬</strong>位民眾・平均申請時間僅需 <strong>8 分鐘</strong>
+        </p>
+      </div>
+
+      <div class="surface rounded-2xl p-6 md:p-8" role="group" aria-label="今日申辦快速入口">
+        <h2 class="text-xl font-bold mb-4">今日申辦快速入口</h2>
+        <ul class="space-y-3">
+          <li>
+            <a href="#services" class="flex items-center justify-between gap-3 p-3 rounded-lg border-2 border-black hover:bg-[#eaf2fc]" style="text-decoration:none;">
+              <span class="flex items-center gap-3 text-black font-semibold">
+                <span aria-hidden="true">🪪</span> 身分證換發
+              </span>
+              <span aria-hidden="true" class="text-xl">→</span>
+            </a>
+          </li>
+          <li>
+            <a href="#services" class="flex items-center justify-between gap-3 p-3 rounded-lg border-2 border-black hover:bg-[#eaf2fc]" style="text-decoration:none;">
+              <span class="flex items-center gap-3 text-black font-semibold">
+                <span aria-hidden="true">💰</span> 福利津貼申請
+              </span>
+              <span aria-hidden="true" class="text-xl">→</span>
+            </a>
+          </li>
+          <li>
+            <a href="#services" class="flex items-center justify-between gap-3 p-3 rounded-lg border-2 border-black hover:bg-[#eaf2fc]" style="text-decoration:none;">
+              <span class="flex items-center gap-3 text-black font-semibold">
+                <span aria-hidden="true">📄</span> 戶籍謄本申請
+              </span>
+              <span aria-hidden="true" class="text-xl">→</span>
+            </a>
+          </li>
+        </ul>
+        <div class="alert-box p-3 mt-5 text-sm font-medium flex items-start gap-2">
+          <span aria-hidden="true">⚠</span>
+          <span>系統將於 9 月 10 日（四）凌晨 2 時至 4 時進行維護，期間暫停服務。</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 服務項目 -->
+  <section id="services" class="max-w-6xl mx-auto px-4 py-16 md:py-20">
+    <div class="max-w-2xl mb-10">
+      <h2 class="text-3xl md:text-4xl font-extrabold text-black mb-3">熱門申辦服務</h2>
+      <p class="text-lg" style="color:#333;">四項最常使用的服務，皆可全程線上完成，並提供進度查詢與紙本郵寄選項。</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6">
+
+      <article class="surface rounded-2xl p-6 flex gap-5">
+        <span class="icon-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="12" r="2"/><path d="M15 10h3M15 14h3"/></svg>
+        </span>
+        <div>
+          <h3 class="text-xl font-bold mb-2">身分證換發</h3>
+          <p class="mb-3" style="color:#333;">遺失、毀損或資料異動皆可線上申請，上傳證件照後約 5 個工作天完成寄送，可選擇郵寄到府或臨櫃取件。</p>
+          <a href="#" class="font-semibold">立即申請身分證換發 →</a>
+        </div>
+      </article>
+
+      <article class="surface rounded-2xl p-6 flex gap-5">
+        <span class="icon-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4.5-3-8-6.5-8-10.5A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 8 4.5C20 14.5 16.5 18 12 21Z"/></svg>
+        </span>
+        <div>
+          <h3 class="text-xl font-bold mb-2">福利津貼申請</h3>
+          <p class="mb-3" style="color:#333;">涵蓋中低收入戶補助、老人生活津貼、身心障礙者生活補助等，系統會依您填寫的資料自動試算可能符合的項目。</p>
+          <a href="#" class="font-semibold">查詢並申請福利津貼 →</a>
+        </div>
+      </article>
+
+      <article class="surface rounded-2xl p-6 flex gap-5">
+        <span class="icon-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h8l4 4v14H7z"/><path d="M15 3v4h4M9 12h6M9 16h6"/></svg>
+        </span>
+        <div>
+          <h3 class="text-xl font-bold mb-2">戶籍謄本申請</h3>
+          <p class="mb-3" style="color:#333;">申辦房貸、就學、就業常需要的證明文件，線上申請後可即時下載電子謄本，或選擇郵寄正本到府。</p>
+          <a href="#" class="font-semibold">申請戶籍謄本 →</a>
+        </div>
+      </article>
+
+      <article class="surface rounded-2xl p-6 flex gap-5">
+        <span class="icon-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h16M6 19V9l6-4 6 4v10M10 19v-6h4v6"/></svg>
+        </span>
+        <div>
+          <h3 class="text-xl font-bold mb-2">地址遷入遷出登記</h3>
+          <p class="mb-3" style="color:#333;">搬家後 30 天內完成遷徙登記，避免影響投票資格與各項通知送達，全程免出門即可辦理。</p>
+          <a href="#" class="font-semibold">辦理地址遷徙登記 →</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- 無障礙功能說明 -->
+  <section id="accessibility" class="surface-alt" style="border-left:0;border-right:0;">
+    <div class="max-w-6xl mx-auto px-4 py-16 md:py-20">
+      <div class="max-w-2xl mb-10">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-black mb-3">為每一位公民設計</h2>
+        <p class="text-lg" style="color:#333;">
+          我們相信政府服務不該讓任何人被排除在外。以下功能可立即在本頁試用，
+          無需登入、無需下載額外程式。
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+
+        <div class="surface rounded-2xl p-6">
+          <span class="icon-badge mb-4" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 10 4h1l6 16M6.5 14h6"/></svg>
+          </span>
+          <h3 class="text-xl font-bold mb-2">一鍵放大字級</h3>
+          <p class="mb-4" style="color:#333;">點擊右上角「放大字級」，全站文字立即放大約 18%，適合視力較弱的使用者閱讀，設定會保留至您下次造訪。</p>
+          <button type="button" class="btn btn-toggle w-full" data-mirror-font aria-pressed="false">
+            試試放大字級
+          </button>
+        </div>
+
+        <div class="surface rounded-2xl p-6">
+          <span class="icon-badge mb-4" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18Z" fill="currentColor" stroke="none"/></svg>
+          </span>
+          <h3 class="text-xl font-bold mb-2">高對比模式</h3>
+          <p class="mb-4" style="color:#333;">切換為純黑底、純白字的高對比配色，符合 WCAG AAA 對比標準，適合低視能或色弱使用者，也適合強光環境下閱讀。</p>
+          <button type="button" class="btn btn-toggle w-full" data-mirror-contrast aria-pressed="false">
+            試試高對比模式
+          </button>
+        </div>
+
+        <div class="surface rounded-2xl p-6">
+          <span class="icon-badge mb-4" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h.01M9 15h6M9 12h6"/></svg>
+          </span>
+          <h3 class="text-xl font-bold mb-2">清楚的鍵盤操作</h3>
+          <p class="mb-4" style="color:#333;">不使用滑鼠也能完整操作。用 Tab 鍵切換項目時，目前所在的按鈕或連結會出現明顯的黃色外框，絕不會迷失方向。</p>
+          <span class="chip">試按 Tab 鍵看看本頁的外框效果</span>
+        </div>
+
+      </div>
+
+      <div class="surface rounded-2xl p-6 mt-6">
+        <h3 class="text-xl font-bold mb-3">其他無障礙承諾</h3>
+        <ul class="grid sm:grid-cols-2 gap-x-8 gap-y-2" style="color:#222;">
+          <li class="flex gap-2"><span aria-hidden="true">✓</span>所有按鈕與連結最小點擊區域達 44×44 像素，方便手部不便者操作</li>
+          <li class="flex gap-2"><span aria-hidden="true">✓</span>全站支援螢幕報讀軟體，圖示均附有替代文字說明</li>
+          <li class="flex gap-2"><span aria-hidden="true">✓</span>不使用純顏色作為唯一提示，重要訊息一律搭配文字與圖示</li>
+          <li class="flex gap-2"><span aria-hidden="true">✓</span>提供手語視訊客服與電話語音服務，滿足不同溝通需求</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 申辦流程 -->
+  <section class="max-w-6xl mx-auto px-4 py-16 md:py-20">
+    <h2 class="text-3xl md:text-4xl font-extrabold text-black mb-10">三步驟完成申辦</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="flex gap-4">
+        <span class="step-num" aria-hidden="true">1</span>
+        <div>
+          <h3 class="text-lg font-bold mb-1">身分驗證</h3>
+          <p style="color:#333;">使用自然人憑證、健保卡或戶口名簿完成身分確認，全程約 2 分鐘。</p>
+        </div>
+      </div>
+      <div class="flex gap-4">
+        <span class="step-num" aria-hidden="true">2</span>
+        <div>
+          <h3 class="text-lg font-bold mb-1">填寫申請表</h3>
+          <p style="color:#333;">系統會依您先前資料自動帶入常用欄位，減少重複輸入的麻煩。</p>
+        </div>
+      </div>
+      <div class="flex gap-4">
+        <span class="step-num" aria-hidden="true">3</span>
+        <div>
+          <h3 class="text-lg font-bold mb-1">送出並追蹤進度</h3>
+          <p style="color:#333;">送出後可隨時上網查詢辦理進度，完成時會另以簡訊或郵件通知您。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 常見問題 -->
+  <section class="surface-alt" style="border-left:0;border-right:0;">
+    <div class="max-w-4xl mx-auto px-4 py-16 md:py-20">
+      <h2 class="text-3xl md:text-4xl font-extrabold text-black mb-10">常見問題</h2>
+
+      <div class="space-y-4">
+        <details class="faq surface rounded-xl p-5" open>
+          <summary class="flex items-center justify-between font-bold text-lg">
+            <span>沒有自然人憑證，還能申請嗎？</span>
+            <span class="chevron" aria-hidden="true">⌄</span>
+          </summary>
+          <p class="mt-3" style="color:#333;">可以。您可以改用健保卡搭配戶號驗證，或攜帶雙證件親自至就近的區公所臨櫃辦理，客服人員也能協助您完成線上申請。</p>
+        </details>
+
+        <details class="faq surface rounded-xl p-5">
+          <summary class="flex items-center justify-between font-bold text-lg">
+            <span>年長者不熟悉操作，可以請人代辦嗎？</span>
+            <span class="chevron" aria-hidden="true">⌄</span>
+          </summary>
+          <p class="mt-3" style="color:#333;">可以委託直系親屬或法定代理人協助操作，代辦時須攜帶雙方身分證件與委託書。您也可以撥打客服專線，由專人以電話一步步引導完成申請。</p>
+        </details>
+
+        <details class="faq surface rounded-xl p-5">
+          <summary class="flex items-center justify-between font-bold text-lg">
+            <span>申請後多久會收到結果？</span>
+            <span class="chevron" aria-hidden="true">⌄</span>
+          </summary>
+          <p class="mt-3" style="color:#333;">多數證件申辦於送出後 3 至 7 個工作天內完成，福利津貼類申請則依審核情形約需 14 個工作天，您可隨時登入查詢即時進度。</p>
+        </details>
+
+        <details class="faq surface rounded-xl p-5">
+          <summary class="flex items-center justify-between font-bold text-lg">
+            <span>個人資料在網站上安全嗎？</span>
+            <span class="chevron" aria-hidden="true">⌄</span>
+          </summary>
+          <p class="mt-3" style="color:#333;">本網站採用政府核可之加密傳輸與儲存機制，所有資料僅用於受理與核發您所申請的項目，不會作為其他用途，您可隨時申請調閱個人使用紀錄。</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 客服聯絡 -->
+  <section class="max-w-6xl mx-auto px-4 py-16 md:py-20">
+    <div class="surface rounded-2xl p-8 md:p-10 grid md:grid-cols-2 gap-8">
+      <div>
+        <h2 class="text-3xl font-extrabold text-black mb-3">需要協助嗎？</h2>
+        <p class="text-lg mb-6" style="color:#333;">
+          客服團隊每天為您提供服務，若操作上有任何疑問，歡迎透過以下方式聯繫我們，
+          我們會耐心協助您完成申請。
+        </p>
+        <div class="space-y-3">
+          <p class="flex items-center gap-3 text-lg font-semibold"><span aria-hidden="true">☎</span>0800-000-123（免付費，週一至週日 08:00–22:00）</p>
+          <p class="flex items-center gap-3 text-lg font-semibold"><span aria-hidden="true">✉</span>service@civicid.example.gov.tw</p>
+          <p class="flex items-center gap-3 text-lg font-semibold"><span aria-hidden="true">🤟</span>手語視訊客服（週一至週五 09:00–17:00）</p>
+        </div>
+      </div>
+      <div class="surface-alt rounded-xl p-6 flex flex-col justify-center">
+        <h3 class="text-xl font-bold mb-3">親自到場辦理</h3>
+        <p class="mb-4" style="color:#333;">您也可以攜帶身分證明文件，前往住家附近的區公所或鄉鎮市公所服務台，由現場人員協助完成申請。</p>
+        <a href="#" class="btn btn-primary w-full">查詢最近的服務據點</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="surface" style="border-left:0;border-right:0;border-bottom:0;">
+  <div class="max-w-6xl mx-auto px-4 py-10 grid md:grid-cols-3 gap-8">
+    <div>
+      <p class="text-xl font-extrabold mb-2">全民登記 CivicID</p>
+      <p style="color:#333;">政府數位服務申請平台・讓每一位公民都能輕鬆完成申辦。</p>
+    </div>
+    <div>
+      <h2 class="font-bold mb-2">快速連結</h2>
+      <ul class="space-y-1">
+        <li><a href="#services">服務項目</a></li>
+        <li><a href="#accessibility">無障礙功能</a></li>
+        <li><a href="#">隱私權政策</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="font-bold mb-2">聯絡我們</h2>
+      <p style="color:#333;">客服專線 0800-000-123</p>
+      <p style="color:#333;">service@civicid.example.gov.tw</p>
+    </div>
+  </div>
+  <div class="text-center text-sm py-4 border-t-2 border-black" style="color:#333;">
+    本頁為每日 UI 風格畫廊之視覺設計展示稿，非真實政府網站。
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+  var html = document.documentElement;
+  var body = document.body;
+
+  var fontBtn = document.getElementById('fontToggleBtn');
+  var fontLabel = document.getElementById('fontToggleLabel');
+  var contrastBtn = document.getElementById('contrastToggleBtn');
+  var contrastLabel = document.getElementById('contrastToggleLabel');
+  var mirrorFontBtns = document.querySelectorAll('[data-mirror-font]');
+  var mirrorContrastBtns = document.querySelectorAll('[data-mirror-contrast]');
+
+  var FONT_KEY = 'civicid-font-scale';
+  var CONTRAST_KEY = 'civicid-contrast';
+
+  function safeGet(key){
+    try { return localStorage.getItem(key); } catch(e){ return null; }
+  }
+  function safeSet(key, val){
+    try { localStorage.setItem(key, val); } catch(e){ /* 忽略無法儲存的情況 */ }
+  }
+
+  function applyFontState(isOn){
+    body.classList.toggle('text-scale-up', isOn);
+    fontBtn.setAttribute('aria-pressed', String(isOn));
+    fontLabel.textContent = isOn ? '恢復預設字級' : '放大字級';
+    mirrorFontBtns.forEach(function(btn){
+      btn.setAttribute('aria-pressed', String(isOn));
+      btn.textContent = isOn ? '已放大，點此恢復預設' : '試試放大字級';
+    });
+    safeSet(FONT_KEY, isOn ? '1' : '0');
+  }
+
+  function applyContrastState(isOn){
+    if(isOn){
+      html.setAttribute('data-contrast', 'high');
+    } else {
+      html.removeAttribute('data-contrast');
+    }
+    contrastBtn.setAttribute('aria-pressed', String(isOn));
+    contrastLabel.textContent = isOn ? '恢復標準配色' : '切換高對比模式';
+    mirrorContrastBtns.forEach(function(btn){
+      btn.setAttribute('aria-pressed', String(isOn));
+      btn.textContent = isOn ? '已開啟，點此恢復標準配色' : '試試高對比模式';
+    });
+    safeSet(CONTRAST_KEY, isOn ? '1' : '0');
+  }
+
+  function toggleFont(){
+    applyFontState(!body.classList.contains('text-scale-up'));
+  }
+  function toggleContrast(){
+    applyContrastState(html.getAttribute('data-contrast') !== 'high');
+  }
+
+  fontBtn.addEventListener('click', toggleFont);
+  contrastBtn.addEventListener('click', toggleContrast);
+  mirrorFontBtns.forEach(function(btn){ btn.addEventListener('click', toggleFont); });
+  mirrorContrastBtns.forEach(function(btn){ btn.addEventListener('click', toggleContrast); });
+
+  // 還原使用者上次的設定
+  applyFontState(safeGet(FONT_KEY) === '1');
+  applyContrastState(safeGet(CONTRAST_KEY) === '1');
+})();
+</script>
+
+</body>
+</html>
