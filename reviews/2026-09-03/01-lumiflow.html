@@ -1,0 +1,369 @@
+<!-- style #14 Liquid Glass -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>光河 LumiFlow｜每日十分鐘，找回內在的平靜</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Nunito:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --glass-bg: rgba(255,255,255,0.16);
+    --glass-bg-strong: rgba(255,255,255,0.24);
+    --glass-border: rgba(255,255,255,0.45);
+    --text-main: #2b1f4a;
+    --text-soft: #4a3b6b;
+    --text-invert: #ffffff;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+    background: #764ba2;
+    font-family: 'Nunito','Noto Sans TC',sans-serif;
+    color: var(--text-main);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, .font-display{
+    font-family: 'Comfortaa','Noto Sans TC',sans-serif;
+  }
+
+  /* ---------- 流動漸層背景 ---------- */
+  .bg-flow{
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+    background: linear-gradient(120deg, #667eea 0%, #764ba2 45%, #f093fb 100%);
+    background-size: 300% 300%;
+    animation: flowMove 22s ease-in-out infinite;
+  }
+  @keyframes flowMove{
+    0%   { background-position: 0% 30%; }
+    25%  { background-position: 60% 0%; }
+    50%  { background-position: 100% 70%; }
+    75%  { background-position: 40% 100%; }
+    100% { background-position: 0% 30%; }
+  }
+
+  /* 漂浮光暈 */
+  .orb{
+    position: fixed;
+    z-index: -2;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+  .orb1{
+    width: 42vw; height: 42vw;
+    top: -10vw; left: -10vw;
+    background: radial-gradient(circle at 30% 30%, #ffffff, #a78bfa 60%, transparent 75%);
+    animation: floatA 18s ease-in-out infinite;
+  }
+  .orb2{
+    width: 36vw; height: 36vw;
+    bottom: -8vw; right: -6vw;
+    background: radial-gradient(circle at 60% 40%, #ffe6fb, #f093fb 55%, transparent 75%);
+    animation: floatB 24s ease-in-out infinite;
+  }
+  .orb3{
+    width: 26vw; height: 26vw;
+    top: 40%; left: 60%;
+    background: radial-gradient(circle at 50% 50%, #d9e6ff, #667eea 60%, transparent 75%);
+    animation: floatC 20s ease-in-out infinite;
+  }
+  @keyframes floatA{
+    0%,100%{ transform: translate(0,0) scale(1); }
+    50%{ transform: translate(6vw, 8vw) scale(1.1); }
+  }
+  @keyframes floatB{
+    0%,100%{ transform: translate(0,0) scale(1); }
+    50%{ transform: translate(-5vw, -7vw) scale(1.15); }
+  }
+  @keyframes floatC{
+    0%,100%{ transform: translate(0,0) scale(1); }
+    50%{ transform: translate(-8vw, 5vw) scale(0.9); }
+  }
+
+  /* ---------- 玻璃卡片核心 ---------- */
+  .glass{
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid var(--glass-border);
+    border-radius: 28px;
+    box-shadow:
+      0 8px 32px rgba(31, 20, 60, 0.18),
+      inset 0 1px 0 rgba(255,255,255,0.5);
+  }
+  .glass-strong{
+    background: var(--glass-bg-strong);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid var(--glass-border);
+    border-radius: 32px;
+    box-shadow:
+      0 12px 40px rgba(31, 20, 60, 0.22),
+      inset 0 1px 0 rgba(255,255,255,0.55);
+  }
+
+  /* 懸浮飄動感 */
+  .float-card{
+    animation: floatCard 6s ease-in-out infinite;
+  }
+  .float-card.delay-1{ animation-delay: 0.6s; }
+  .float-card.delay-2{ animation-delay: 1.2s; }
+  .float-card.delay-3{ animation-delay: 1.8s; }
+  @keyframes floatCard{
+    0%,100%{ transform: translateY(0px); }
+    50%{ transform: translateY(-10px); }
+  }
+
+  .float-card:hover{
+    transform: translateY(-6px) scale(1.015);
+    transition: transform 0.4s ease;
+  }
+
+  /* 玻璃卡片上的流光掃過 */
+  .glass::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius: inherit;
+    background: linear-gradient(115deg, transparent 20%, rgba(255,255,255,0.35) 40%, transparent 60%);
+    background-size: 250% 250%;
+    animation: sheen 8s ease-in-out infinite;
+    pointer-events:none;
+  }
+  .glass{ position: relative; overflow: hidden; }
+  @keyframes sheen{
+    0%{ background-position: 200% 0%; }
+    50%{ background-position: -50% 100%; }
+    100%{ background-position: 200% 0%; }
+  }
+
+  .btn-primary{
+    background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.65));
+    color: #5b3aa0;
+    border: 1px solid rgba(255,255,255,0.8);
+    box-shadow: 0 10px 30px rgba(91,58,160,0.35), inset 0 1px 0 rgba(255,255,255,0.9);
+    transition: transform .3s ease, box-shadow .3s ease;
+  }
+  .btn-primary:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 16px 36px rgba(91,58,160,0.45), inset 0 1px 0 rgba(255,255,255,0.9);
+  }
+  .btn-outline{
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.6);
+    backdrop-filter: blur(10px);
+    transition: transform .3s ease, background .3s ease;
+  }
+  .btn-outline:hover{
+    background: rgba(255,255,255,0.2);
+    transform: translateY(-3px);
+  }
+
+  .text-invert{ color: var(--text-invert); }
+  .text-soft-invert{ color: rgba(255,255,255,0.86); }
+
+  .pill{
+    background: rgba(255,255,255,0.25);
+    border: 1px solid rgba(255,255,255,0.5);
+    backdrop-filter: blur(10px);
+  }
+
+  .stat-number{
+    font-family: 'Comfortaa','Noto Sans TC',sans-serif;
+    font-weight: 700;
+    background: linear-gradient(135deg,#ffffff,#ffe1fb);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .icon-circle{
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    display:flex; align-items:center; justify-content:center;
+    background: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(255,255,255,0.4));
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 6px 16px rgba(91,58,160,0.25);
+    font-size: 28px;
+  }
+
+  .section-title{
+    font-family:'Comfortaa','Noto Sans TC',sans-serif;
+  }
+
+  @media (max-width: 640px){
+    .glass-strong{ border-radius: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-flow"></div>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+
+<div class="relative min-h-screen w-full px-5 md:px-10 lg:px-20 py-10">
+
+  <!-- Nav -->
+  <nav class="max-w-6xl mx-auto flex items-center justify-between mb-16 md:mb-24">
+    <div class="flex items-center gap-2">
+      <span class="text-2xl">🌊</span>
+      <span class="font-display text-xl font-bold text-invert tracking-wide">光河 LumiFlow</span>
+    </div>
+    <div class="hidden md:flex items-center gap-8 text-soft-invert font-semibold">
+      <a href="#features" class="hover:text-white transition">功能特色</a>
+      <a href="#stats" class="hover:text-white transition">使用者怎麼說</a>
+      <a href="#cta" class="hover:text-white transition">立即開始</a>
+    </div>
+    <button class="btn-outline px-5 py-2 rounded-full text-sm font-bold">下載 App</button>
+  </nav>
+
+  <!-- Hero -->
+  <section class="max-w-6xl mx-auto text-center mb-24 md:mb-32">
+    <div class="pill inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold text-invert mb-6">
+      <span>✨</span><span>本週新上線：情緒紀錄 2.0</span>
+    </div>
+    <h1 class="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-invert leading-tight mb-6">
+      像河流一樣，<br class="hidden sm:block">讓思緒慢慢沉靜下來
+    </h1>
+    <p class="text-lg md:text-xl text-soft-invert max-w-2xl mx-auto mb-10 leading-relaxed">
+      光河 LumiFlow 是一款陪你練習正念與呼吸的冥想 App，每天只要十分鐘，
+      在忙碌的生活縫隙裡，找回屬於自己的安靜時刻。
+    </p>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <button class="btn-primary px-8 py-4 rounded-full font-bold text-base font-display">
+        免費開始練習
+      </button>
+      <button class="btn-outline px-8 py-4 rounded-full font-bold text-base">
+        觀看一分鐘介紹 ▶
+      </button>
+    </div>
+
+    <!-- Hero glass showcase -->
+    <div class="glass-strong float-card max-w-3xl mx-auto mt-16 p-6 md:p-10 text-left">
+      <div class="flex items-center gap-4 mb-6">
+        <div class="icon-circle">🌙</div>
+        <div>
+          <p class="font-display font-bold text-invert text-lg">今晚的睡前冥想</p>
+          <p class="text-soft-invert text-sm">深層放鬆・12 分鐘</p>
+        </div>
+      </div>
+      <div class="w-full h-2 rounded-full bg-white/25 overflow-hidden mb-4">
+        <div class="h-full w-2/3 rounded-full bg-white/80"></div>
+      </div>
+      <div class="flex items-center justify-between text-soft-invert text-sm font-semibold">
+        <span>08:14</span>
+        <span>剩餘 3:46</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="max-w-6xl mx-auto mb-24 md:mb-32">
+    <div class="text-center mb-12 md:mb-16">
+      <h2 class="section-title text-3xl md:text-4xl font-bold text-invert mb-4">為你的每一種心情，準備一段練習</h2>
+      <p class="text-soft-invert text-lg max-w-xl mx-auto">從入睡困難到工作焦慮，光河陪你找到最適合當下的節奏</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <div class="glass float-card p-7">
+        <div class="icon-circle mb-5">🌙</div>
+        <h3 class="font-display font-bold text-invert text-lg mb-2">睡前冥想</h3>
+        <p class="text-soft-invert text-sm leading-relaxed">超過 120 段助眠引導與白噪音，陪你放下一整天的思緒，自然滑入夢鄉。</p>
+      </div>
+
+      <div class="glass float-card delay-1 p-7">
+        <div class="icon-circle mb-5">🌬️</div>
+        <h3 class="font-display font-bold text-invert text-lg mb-2">專注呼吸練習</h3>
+        <p class="text-soft-invert text-sm leading-relaxed">3 分鐘箱式呼吸、4-7-8 呼吸法，會議前、報告前，快速把心穩定下來。</p>
+      </div>
+
+      <div class="glass float-card delay-2 p-7">
+        <div class="icon-circle mb-5">📝</div>
+        <h3 class="font-display font-bold text-invert text-lg mb-2">情緒紀錄</h3>
+        <p class="text-soft-invert text-sm leading-relaxed">每天花 30 秒記錄心情，累積屬於自己的情緒地圖，看見成長的軌跡。</p>
+      </div>
+
+      <div class="glass float-card delay-3 p-7">
+        <div class="icon-circle mb-5">🤝</div>
+        <h3 class="font-display font-bold text-invert text-lg mb-2">社群共修</h3>
+        <p class="text-soft-invert text-sm leading-relaxed">加入每週線上共修時段，與上千位夥伴同步靜心，一個人練習不孤單。</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Stats / Testimonials -->
+  <section id="stats" class="max-w-6xl mx-auto mb-24 md:mb-32">
+    <div class="glass-strong p-8 md:p-14">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center mb-14">
+        <div>
+          <p class="stat-number text-3xl md:text-4xl mb-1">86 萬+</p>
+          <p class="text-soft-invert text-sm font-semibold">累積下載次數</p>
+        </div>
+        <div>
+          <p class="stat-number text-3xl md:text-4xl mb-1">4.8 ★</p>
+          <p class="text-soft-invert text-sm font-semibold">App 商店評分</p>
+        </div>
+        <div>
+          <p class="stat-number text-3xl md:text-4xl mb-1">92%</p>
+          <p class="text-soft-invert text-sm font-semibold">使用者睡眠品質改善</p>
+        </div>
+        <div>
+          <p class="stat-number text-3xl md:text-4xl mb-1">10 分鐘</p>
+          <p class="text-soft-invert text-sm font-semibold">平均每日練習時間</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="glass p-6">
+          <p class="text-invert text-sm leading-relaxed mb-4">「原本失眠困擾我快兩年，用光河的睡前冥想大概兩週後，終於可以不吃藥自然入睡了。」</p>
+          <p class="font-display text-invert font-bold text-sm">— 雨潔，行銷企劃</p>
+        </div>
+        <div class="glass p-6">
+          <p class="text-invert text-sm leading-relaxed mb-4">「工作壓力大到常常胸悶，呼吸練習變成我開會前的固定儀式，五分鐘就能把自己拉回來。」</p>
+          <p class="font-display text-invert font-bold text-sm">— 志豪，新創工程師</p>
+        </div>
+        <div class="glass p-6">
+          <p class="text-invert text-sm leading-relaxed mb-4">「情緒紀錄功能讓我第一次看清楚自己的情緒週期，介面也做得好療癒，每天打開都很放鬆。」</p>
+          <p class="font-display text-invert font-bold text-sm">— 若晴，研究所學生</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom CTA -->
+  <section id="cta" class="max-w-4xl mx-auto text-center mb-10">
+    <div class="glass-strong float-card p-10 md:p-16">
+      <h2 class="section-title text-3xl md:text-4xl font-bold text-invert mb-4">從今晚開始，給自己十分鐘</h2>
+      <p class="text-soft-invert text-lg mb-8 max-w-xl mx-auto">免費註冊即可解鎖 7 天完整練習計畫，不需要信用卡，隨時可以取消。</p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button class="btn-primary px-9 py-4 rounded-full font-bold text-base font-display">免費建立帳號</button>
+        <button class="btn-outline px-9 py-4 rounded-full font-bold text-base">先逛逛功能介紹</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="max-w-6xl mx-auto text-center text-soft-invert text-sm pb-6">
+    <p>© 2026 光河 LumiFlow・本頁面為每日 UI 風格畫廊之視覺設計稿，非真實產品</p>
+  </footer>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!-- style #23 Minimal & Direct -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>只有一頁 OnePage｜一個頁面就夠了</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --bg: #f6f3ee;
+    --bg-2: #efeae1;
+    --ink: #23211d;
+    --ink-soft: #5c584f;
+    --line: #dcd5c7;
+    --accent: #7a5230; /* 赭橘 / 沉穩土色 */
+    --accent-ink: #f6f3ee;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Instrument Sans","Noto Sans TC",sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  /* ---- 噪點紋理層 ---- */
+  .noise-layer{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:50;
+    opacity:0.045;
+    mix-blend-mode:multiply;
+  }
+
+  /* ---- 版面骨架：一屏內容 ---- */
+  .stage{
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+  }
+
+  .frame{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    max-width:920px;
+    width:100%;
+    margin:0 auto;
+    padding:6vh 6vw 5vh;
+  }
+
+  .brand-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:1rem;
+  }
+
+  .mark{
+    display:flex;
+    align-items:center;
+    gap:.6rem;
+  }
+
+  .mark-dot{
+    width:.65rem;
+    height:.65rem;
+    border-radius:2px;
+    background:var(--accent);
+    flex-shrink:0;
+  }
+
+  .brand-name{
+    font-weight:700;
+    font-size:1.05rem;
+    letter-spacing:.01em;
+  }
+
+  .brand-tag{
+    font-size:.78rem;
+    color:var(--ink-soft);
+    letter-spacing:.03em;
+    border:1px solid var(--line);
+    padding:.3rem .7rem;
+    border-radius:999px;
+  }
+
+  .hero{
+    margin-top:clamp(2.2rem, 6vh, 4rem);
+  }
+
+  .eyebrow{
+    font-size:.8rem;
+    letter-spacing:.14em;
+    color:var(--accent);
+    font-weight:600;
+    margin-bottom:1rem;
+    display:flex;
+    align-items:center;
+    gap:.55rem;
+  }
+  .eyebrow::before{
+    content:"";
+    width:1.6rem;
+    height:1px;
+    background:var(--accent);
+    display:inline-block;
+  }
+
+  h1{
+    font-weight:700;
+    line-height:1.18;
+    letter-spacing:-0.01em;
+    font-size:clamp(2.1rem, 5.4vw, 3.6rem);
+    margin:0 0 1.1rem;
+    max-width:16ch;
+  }
+  h1 em{
+    font-style:normal;
+    color:var(--accent);
+  }
+
+  .lede{
+    font-size:clamp(1rem, 1.6vw, 1.15rem);
+    color:var(--ink-soft);
+    line-height:1.75;
+    max-width:46ch;
+    margin:0 0 2.1rem;
+  }
+
+  .cta-row{
+    display:flex;
+    align-items:center;
+    gap:1.2rem;
+    flex-wrap:wrap;
+    margin-bottom:clamp(2.4rem, 6vh, 3.4rem);
+  }
+
+  .cta{
+    background:var(--accent);
+    color:var(--accent-ink);
+    font-weight:600;
+    font-size:.98rem;
+    padding:.95rem 1.9rem;
+    border-radius:.4rem;
+    border:1px solid var(--accent);
+    cursor:pointer;
+    letter-spacing:.01em;
+    transition:opacity .15s ease, transform .15s ease;
+  }
+  .cta:hover{ opacity:.88; transform:translateY(-1px); }
+
+  .cta-note{
+    font-size:.85rem;
+    color:var(--ink-soft);
+  }
+
+  .features{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:.5rem;
+    overflow:hidden;
+  }
+
+  .feature{
+    background:var(--bg);
+    padding:1.4rem 1.5rem;
+    display:flex;
+    flex-direction:column;
+    gap:.5rem;
+  }
+
+  .feature-num{
+    font-size:.75rem;
+    color:var(--accent);
+    font-weight:700;
+    letter-spacing:.05em;
+  }
+
+  .feature-title{
+    font-weight:600;
+    font-size:.98rem;
+  }
+
+  .feature-desc{
+    font-size:.85rem;
+    color:var(--ink-soft);
+    line-height:1.6;
+  }
+
+  footer{
+    max-width:920px;
+    width:100%;
+    margin:0 auto;
+    padding:0 6vw 3.4vh;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:.78rem;
+    color:var(--ink-soft);
+    border-top:1px solid var(--line);
+    padding-top:1.1rem;
+    margin-top:0;
+  }
+
+  @media (max-width: 720px){
+    .features{ grid-template-columns:1fr; }
+    .brand-tag{ display:none; }
+    footer{ flex-direction:column; gap:.4rem; align-items:flex-start; }
+  }
+
+  @media (max-width: 480px){
+    .frame{ padding:5.5vh 5.5vw 4vh; }
+    h1{ max-width:none; }
+  }
+</style>
+</head>
+<body>
+
+<svg class="noise-layer" xmlns="http://www.w3.org/2000/svg">
+  <filter id="noiseFilter">
+    <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" result="noise"/>
+    <feColorMatrix in="noise" type="matrix"
+      values="0 0 0 0 0
+              0 0 0 0 0
+              0 0 0 0 0
+              0 0 0 0.9 0"/>
+  </filter>
+  <rect width="100%" height="100%" filter="url(#noiseFilter)"/>
+</svg>
+
+<div class="stage">
+  <div class="frame">
+
+    <div class="brand-row">
+      <div class="mark">
+        <span class="mark-dot" aria-hidden="true"></span>
+        <span class="brand-name">只有一頁 OnePage</span>
+      </div>
+      <span class="brand-tag">極簡記事 · 單頁應用</span>
+    </div>
+
+    <div class="hero">
+      <p class="eyebrow">一個頁面，裝下今天</p>
+
+      <h1>不用分頁、不用分類，<em>一頁</em>就把事情記完。</h1>
+
+      <p class="lede">
+        「只有一頁」拿掉了資料夾、標籤、多層清單這些你從沒用完的功能，只留下一張隨時能寫、隨時能劃掉的紙。打開就是今天，寫完就能放下。
+      </p>
+
+      <div class="cta-row">
+        <button class="cta" type="button">立即開始寫下第一件事</button>
+        <span class="cta-note">免費使用，不需註冊信箱</span>
+      </div>
+
+      <div class="features">
+        <div class="feature">
+          <span class="feature-num">01</span>
+          <span class="feature-title">只有一頁，沒有分頁</span>
+          <span class="feature-desc">所有待辦都在同一個畫面，不用在分類之間切換分心。</span>
+        </div>
+        <div class="feature">
+          <span class="feature-num">02</span>
+          <span class="feature-title">打開即寫，秒速記下</span>
+          <span class="feature-desc">沒有設定精靈、沒有教學彈窗，開啟後直接輸入。</span>
+        </div>
+        <div class="feature">
+          <span class="feature-num">03</span>
+          <span class="feature-title">今天做完，明天歸零</span>
+          <span class="feature-desc">每天自動清空版面，只留下今天真正該做的事。</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <span>© 2026 只有一頁 OnePage</span>
+    <span>一頁，足夠了</span>
+  </footer>
+</div>
+
+</body>
+</html>
