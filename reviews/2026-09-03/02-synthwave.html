@@ -1,0 +1,554 @@
+<!-- style #11 Retro-Futurism -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>電幻 SynthWave</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Chakra+Petch:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --cyan:#00ffff;
+    --magenta:#ff006e;
+    --bg-deep:#1a1a2e;
+    --bg-deeper:#12121f;
+    --panel:#20203a;
+    --text:#e8f9ff;
+  }
+
+  *{box-sizing:border-box;}
+
+  html,body{
+    background:var(--bg-deep);
+    color:var(--text);
+    margin:0;
+    overflow-x:hidden;
+  }
+
+  body{
+    font-family:'Chakra Petch','Noto Sans TC',sans-serif;
+    position:relative;
+  }
+
+  h1,h2,h3,.font-head{
+    font-family:'Orbitron','Noto Sans TC',sans-serif;
+  }
+
+  /* ---------- 霓虹發光文字 ---------- */
+  .neon-cyan{
+    color:#eafffe;
+    text-shadow:
+      0 0 4px #fff,
+      0 0 10px var(--cyan),
+      0 0 20px var(--cyan),
+      0 0 40px var(--cyan),
+      0 0 80px var(--cyan);
+  }
+  .neon-magenta{
+    color:#fff0f8;
+    text-shadow:
+      0 0 4px #fff,
+      0 0 10px var(--magenta),
+      0 0 20px var(--magenta),
+      0 0 40px var(--magenta),
+      0 0 80px var(--magenta);
+  }
+  .neon-outline{
+    -webkit-text-stroke:1px rgba(255,255,255,.35);
+  }
+
+  /* ---------- 整體 VHS 掃描線疊層 ---------- */
+  .scanlines::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:60;
+    background:repeating-linear-gradient(
+      to bottom,
+      rgba(0,0,0,0) 0px,
+      rgba(0,0,0,0) 2px,
+      rgba(0,0,0,.18) 3px,
+      rgba(0,0,0,0) 4px
+    );
+    mix-blend-mode:overlay;
+  }
+  .scanlines::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:61;
+    background:linear-gradient(180deg, rgba(0,255,255,.03), rgba(255,0,110,.04));
+    animation:flicker 6s infinite;
+  }
+  @keyframes flicker{
+    0%,19%,21%,50%,52%,100%{opacity:1;}
+    20%,51%{opacity:.82;}
+  }
+
+  .scan-sweep{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    overflow:hidden;
+    z-index:5;
+  }
+  .scan-sweep::after{
+    content:"";
+    position:absolute;
+    left:0;right:0;
+    height:120px;
+    top:-120px;
+    background:linear-gradient(180deg, rgba(0,255,255,0) 0%, rgba(0,255,255,.10) 50%, rgba(0,255,255,0) 100%);
+    animation:sweep 5s linear infinite;
+  }
+  @keyframes sweep{
+    0%{top:-120px;}
+    100%{top:100%;}
+  }
+
+  /* ---------- 網格地平線 ---------- */
+  .horizon{
+    position:relative;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse at 50% 38%, rgba(255,0,110,.35) 0%, rgba(26,26,46,0) 55%),
+      linear-gradient(180deg, #0c0c1c 0%, #1a1a2e 40%, #2a0f3d 62%, #1a1a2e 100%);
+  }
+  .horizon .sun{
+    position:absolute;
+    left:50%;
+    top:20%;
+    width:min(60vw,460px);
+    height:min(60vw,460px);
+    transform:translate(-50%,-30%);
+    border-radius:50%;
+    background:linear-gradient(180deg,#fff06a 0%, var(--magenta) 55%, var(--cyan) 100%);
+    box-shadow:0 0 90px 10px rgba(255,0,110,.55);
+    z-index:1;
+  }
+  .horizon .sun-lines{
+    position:absolute;
+    inset:0;
+    z-index:2;
+    background:repeating-linear-gradient(
+      180deg,
+      transparent 0px,
+      transparent 10px,
+      var(--bg-deep) 10px,
+      var(--bg-deep) 16px
+    );
+    -webkit-mask-image:radial-gradient(ellipse at 50% 20%, black 30%, transparent 55%);
+    mask-image:radial-gradient(ellipse at 50% 20%, black 30%, transparent 55%);
+    opacity:.9;
+  }
+  .horizon .grid-floor{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    height:56%;
+    z-index:3;
+    background-image:
+      linear-gradient(rgba(0,255,255,.85) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,255,.85) 1px, transparent 1px);
+    background-size:60px 60px;
+    transform:perspective(280px) rotateX(62deg);
+    transform-origin:bottom;
+    -webkit-mask-image:linear-gradient(180deg, transparent, black 12%);
+    mask-image:linear-gradient(180deg, transparent, black 12%);
+    animation:grid-move 2.2s linear infinite;
+  }
+  @keyframes grid-move{
+    from{background-position:0 0, 0 0;}
+    to{background-position:0 60px, 0 0;}
+  }
+  .horizon .haze{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    height:46%;
+    z-index:4;
+    background:linear-gradient(180deg, rgba(26,26,46,0) 0%, rgba(26,26,46,.9) 85%);
+  }
+  .horizon-content{
+    position:relative;
+    z-index:10;
+  }
+
+  /* ---------- 按鈕 ---------- */
+  .btn-neon{
+    font-family:'Orbitron','Noto Sans TC',sans-serif;
+    letter-spacing:.05em;
+    background:linear-gradient(90deg, var(--magenta), var(--cyan));
+    color:#0c0c1c;
+    border:none;
+    box-shadow:0 0 15px rgba(0,255,255,.6), 0 0 30px rgba(255,0,110,.4);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .btn-neon:hover{
+    transform:translateY(-2px) scale(1.02);
+    box-shadow:0 0 25px rgba(0,255,255,.9), 0 0 50px rgba(255,0,110,.7);
+  }
+  .btn-outline-neon{
+    font-family:'Orbitron','Noto Sans TC',sans-serif;
+    letter-spacing:.05em;
+    color:var(--cyan);
+    border:1.5px solid var(--cyan);
+    box-shadow:0 0 10px rgba(0,255,255,.4) inset, 0 0 12px rgba(0,255,255,.35);
+    transition:all .2s ease;
+  }
+  .btn-outline-neon:hover{
+    background:rgba(0,255,255,.1);
+    box-shadow:0 0 18px rgba(0,255,255,.7) inset, 0 0 24px rgba(0,255,255,.6);
+  }
+
+  /* ---------- 卡片 ---------- */
+  .card-neon{
+    background:linear-gradient(180deg, rgba(32,32,58,.9), rgba(18,18,31,.9));
+    border:1px solid rgba(0,255,255,.25);
+    position:relative;
+    overflow:hidden;
+  }
+  .card-neon::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    padding:1px;
+    border-radius:inherit;
+    background:linear-gradient(135deg, var(--cyan), transparent 40%, var(--magenta));
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+    opacity:.5;
+    pointer-events:none;
+  }
+  .card-neon:hover{
+    border-color:rgba(255,0,110,.6);
+    box-shadow:0 0 24px rgba(255,0,110,.25), 0 0 24px rgba(0,255,255,.15);
+    transform:translateY(-4px);
+  }
+  .card-icon{
+    width:56px;height:56px;
+    border-radius:14px;
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg, rgba(0,255,255,.15), rgba(255,0,110,.15));
+    border:1px solid rgba(0,255,255,.4);
+  }
+
+  /* ---------- 產品截圖示意 ---------- */
+  .synth-mock{
+    background:linear-gradient(180deg, #14142a, #0c0c1c);
+    border:1px solid rgba(0,255,255,.35);
+    box-shadow:0 0 40px rgba(0,255,255,.15), 0 0 80px rgba(255,0,110,.1);
+    position:relative;
+  }
+  .synth-topbar{
+    background:linear-gradient(90deg, rgba(255,0,110,.18), rgba(0,255,255,.12));
+    border-bottom:1px solid rgba(0,255,255,.3);
+  }
+  .dot{width:10px;height:10px;border-radius:50%;}
+  .waveform{
+    display:flex;
+    align-items:flex-end;
+    gap:3px;
+    height:90px;
+  }
+  .waveform span{
+    display:block;
+    width:4px;
+    border-radius:2px;
+    background:linear-gradient(180deg, var(--cyan), var(--magenta));
+    animation:bounce 1.4s ease-in-out infinite;
+  }
+  @keyframes bounce{
+    0%,100%{transform:scaleY(.35);}
+    50%{transform:scaleY(1);}
+  }
+  .knob{
+    width:46px;height:46px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #2a2a4a, #0c0c1c 70%);
+    border:1px solid rgba(0,255,255,.5);
+    position:relative;
+    box-shadow:0 0 10px rgba(0,255,255,.35);
+  }
+  .knob::after{
+    content:"";
+    position:absolute;
+    top:5px;left:50%;
+    width:2px;height:12px;
+    background:var(--magenta);
+    box-shadow:0 0 6px var(--magenta);
+    transform:translateX(-50%) rotate(var(--rot,0deg));
+    transform-origin:50% 18px;
+  }
+  .fader-track{
+    width:6px;height:120px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(0,255,255,.35);
+    border-radius:3px;
+    position:relative;
+    margin:0 auto;
+  }
+  .fader-cap{
+    position:absolute;
+    left:50%;
+    width:22px;height:12px;
+    background:linear-gradient(90deg, var(--cyan), var(--magenta));
+    border-radius:3px;
+    transform:translateX(-50%);
+    box-shadow:0 0 8px rgba(0,255,255,.6);
+  }
+  .step{
+    width:16px;height:16px;border-radius:3px;
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(0,255,255,.25);
+  }
+  .step.on{
+    background:linear-gradient(135deg, var(--cyan), var(--magenta));
+    box-shadow:0 0 8px rgba(255,0,110,.7);
+  }
+
+  .grid-bg-fine{
+    background-image:
+      linear-gradient(rgba(0,255,255,.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,255,.06) 1px, transparent 1px);
+    background-size:34px 34px;
+  }
+
+  ::selection{
+    background:var(--magenta);
+    color:#fff;
+  }
+</style>
+</head>
+<body class="scanlines" style="background:var(--bg-deep);">
+
+  <!-- ============ NAV ============ -->
+  <nav class="fixed top-0 inset-x-0 z-50 backdrop-blur-md" style="background:rgba(18,18,31,.65);border-bottom:1px solid rgba(0,255,255,.2);">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
+      <div class="font-head text-xl tracking-widest neon-cyan">電幻 <span class="neon-magenta">SynthWave</span></div>
+      <div class="hidden md:flex items-center gap-8 text-sm font-head tracking-wider" style="color:#b9f5ff;">
+        <a href="#features" class="hover:text-white transition">功能特色</a>
+        <a href="#preview" class="hover:text-white transition">介面預覽</a>
+        <a href="#cta" class="hover:text-white transition">立即體驗</a>
+      </div>
+      <button class="btn-outline-neon px-4 py-2 text-xs rounded">免費下載</button>
+    </div>
+  </nav>
+
+  <!-- ============ HERO ============ -->
+  <header class="horizon pt-32 pb-28 px-6">
+    <div class="sun"></div>
+    <div class="sun-lines"></div>
+    <div class="grid-floor"></div>
+    <div class="scan-sweep"></div>
+    <div class="haze"></div>
+
+    <div class="horizon-content max-w-4xl mx-auto text-center">
+      <p class="font-head tracking-[0.4em] text-xs md:text-sm mb-6" style="color:var(--cyan);text-shadow:0 0 10px var(--cyan);">
+        ANALOG SOUND · DIGITAL FUTURE
+      </p>
+      <h1 class="font-head font-black text-4xl md:text-6xl lg:text-7xl leading-tight neon-outline">
+        <span class="neon-cyan">電幻</span>
+        <span class="neon-magenta">SynthWave</span>
+      </h1>
+      <p class="mt-6 text-lg md:text-2xl font-medium" style="color:#f2fbff;">
+        把八零年代的類比魂，裝進你的口袋合成器。
+      </p>
+      <p class="mt-4 text-sm md:text-base max-w-2xl mx-auto" style="color:#9fd9e6;">
+        一套為電子音樂人打造的類比合成器與音樂製作工具，從暖厚的類比音色到俐落的節奏編曲，
+        讓你在錄音室、舞台或臥室，都能秒速捕捉靈感、做出屬於自己的復古未來感聲音。
+      </p>
+      <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button class="btn-neon px-8 py-3 rounded font-bold tracking-wide">立即體驗</button>
+        <button class="btn-outline-neon px-8 py-3 rounded font-bold tracking-wide">觀看示範影片</button>
+      </div>
+      <div class="mt-10 flex items-center justify-center gap-8 text-xs font-head tracking-widest" style="color:#7fd8e6;">
+        <span>iOS / Android</span>
+        <span>·</span>
+        <span>macOS / Windows</span>
+        <span>·</span>
+        <span>VST3 / AU</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ FEATURES ============ -->
+  <section id="features" class="grid-bg-fine px-6 py-24" style="background-color:var(--bg-deeper);">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-14">
+        <p class="font-head text-xs tracking-[0.35em] mb-3" style="color:var(--magenta);text-shadow:0 0 8px var(--magenta);">FEATURES</p>
+        <h2 class="font-head font-bold text-3xl md:text-4xl neon-cyan">四大核心功能</h2>
+        <p class="mt-4 text-sm md:text-base" style="color:#9fb8c9;">從音色引擎到雲端同步，一次滿足你對聲音的所有想像</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <div class="card-neon rounded-2xl p-6">
+          <div class="card-icon mb-5">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-8 4 16 2-8h6"/></svg>
+          </div>
+          <h3 class="font-head font-bold text-lg mb-2" style="color:#eafffe;">類比音色引擎</h3>
+          <p class="text-sm leading-relaxed" style="color:#9fb8c9;">
+            採用虛擬類比電路建模，重現經典震盪器與濾波器的溫潤質感，讓每個音符都帶有真實電路的呼吸感。
+          </p>
+        </div>
+
+        <div class="card-neon rounded-2xl p-6">
+          <div class="card-icon mb-5">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--magenta)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-7M4 10V3M12 21v-11M12 6V3M20 21v-5M20 12V3"/><circle cx="4" cy="13" r="2"/><circle cx="12" cy="9" r="2"/><circle cx="20" cy="14" r="2"/></svg>
+          </div>
+          <h3 class="font-head font-bold text-lg mb-2" style="color:#eafffe;">即時混音台</h3>
+          <p class="text-sm leading-relaxed" style="color:#9fb8c9;">
+            內建多軌推桿與效果器鏈，錄音同時即時監聽，延遲趨近於零，讓你邊彈邊調就能定案混音。
+          </p>
+        </div>
+
+        <div class="card-neon rounded-2xl p-6">
+          <div class="card-icon mb-5">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          </div>
+          <h3 class="font-head font-bold text-lg mb-2" style="color:#eafffe;">預設音色庫</h3>
+          <p class="text-sm leading-relaxed" style="color:#9fb8c9;">
+            超過六百組職人調校的預設音色，涵蓋復古電子、合成器流行與未來貝斯，一鍵套用立即開工。
+          </p>
+        </div>
+
+        <div class="card-neon rounded-2xl p-6">
+          <div class="card-icon mb-5">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--magenta)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8a5 5 0 0 0-9.9-1A4.5 4.5 0 0 0 6 16h11a4 4 0 0 0 0-8h-.1"/></svg>
+          </div>
+          <h3 class="font-head font-bold text-lg mb-2" style="color:#eafffe;">跨平台雲端同步</h3>
+          <p class="text-sm leading-relaxed" style="color:#9fb8c9;">
+            專案自動雲端備份，手機草稿、電腦混音無縫接軌，走到哪、想到哪，靈感都不斷線。
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRODUCT PREVIEW ============ -->
+  <section id="preview" class="px-6 py-24 relative" style="background:linear-gradient(180deg, var(--bg-deeper), var(--bg-deep));">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-12">
+        <p class="font-head text-xs tracking-[0.35em] mb-3" style="color:var(--cyan);text-shadow:0 0 8px var(--cyan);">INTERFACE PREVIEW</p>
+        <h2 class="font-head font-bold text-3xl md:text-4xl neon-magenta">介面預覽</h2>
+        <p class="mt-4 text-sm md:text-base" style="color:#9fb8c9;">復古霓虹介面，操作邏輯卻是現代化的直覺體驗</p>
+      </div>
+
+      <div class="synth-mock rounded-2xl overflow-hidden">
+        <div class="synth-topbar flex items-center justify-between px-5 py-3">
+          <div class="flex items-center gap-2">
+            <span class="dot" style="background:var(--magenta);box-shadow:0 0 6px var(--magenta);"></span>
+            <span class="dot" style="background:#ffd166;box-shadow:0 0 6px #ffd166;"></span>
+            <span class="dot" style="background:var(--cyan);box-shadow:0 0 6px var(--cyan);"></span>
+          </div>
+          <span class="font-head text-xs tracking-widest" style="color:#b9f5ff;">SYNTHWAVE · PATCH 07 — 霓虹夜巡</span>
+          <span class="font-head text-xs" style="color:var(--cyan);">● REC</span>
+        </div>
+
+        <div class="p-6 md:p-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+          <!-- 波形顯示 -->
+          <div class="lg:col-span-2">
+            <p class="font-head text-xs tracking-widest mb-3" style="color:#7fd8e6;">OSCILLATOR OUTPUT</p>
+            <div class="waveform">
+              <span style="height:40%;animation-delay:.0s"></span>
+              <span style="height:70%;animation-delay:.1s"></span>
+              <span style="height:55%;animation-delay:.2s"></span>
+              <span style="height:90%;animation-delay:.3s"></span>
+              <span style="height:35%;animation-delay:.4s"></span>
+              <span style="height:80%;animation-delay:.5s"></span>
+              <span style="height:60%;animation-delay:.6s"></span>
+              <span style="height:95%;animation-delay:.7s"></span>
+              <span style="height:45%;animation-delay:.8s"></span>
+              <span style="height:75%;animation-delay:.9s"></span>
+              <span style="height:50%;animation-delay:1.0s"></span>
+              <span style="height:85%;animation-delay:1.1s"></span>
+              <span style="height:65%;animation-delay:.2s"></span>
+              <span style="height:30%;animation-delay:.4s"></span>
+              <span style="height:78%;animation-delay:.6s"></span>
+              <span style="height:55%;animation-delay:.8s"></span>
+            </div>
+
+            <p class="font-head text-xs tracking-widest mt-8 mb-3" style="color:#7fd8e6;">STEP SEQUENCER</p>
+            <div class="grid grid-cols-8 gap-2">
+              <div class="step on"></div><div class="step"></div><div class="step on"></div><div class="step"></div>
+              <div class="step on"></div><div class="step on"></div><div class="step"></div><div class="step"></div>
+              <div class="step"></div><div class="step on"></div><div class="step"></div><div class="step on"></div>
+              <div class="step on"></div><div class="step"></div><div class="step on"></div><div class="step"></div>
+            </div>
+          </div>
+
+          <!-- 旋鈕與推桿 -->
+          <div class="flex flex-col gap-6">
+            <div>
+              <p class="font-head text-xs tracking-widest mb-3" style="color:#7fd8e6;">TONE CONTROL</p>
+              <div class="flex items-center justify-between">
+                <div class="text-center">
+                  <div class="knob mx-auto" style="--rot:-40deg"></div>
+                  <p class="text-[10px] mt-2" style="color:#8fb0bf;">CUTOFF</p>
+                </div>
+                <div class="text-center">
+                  <div class="knob mx-auto" style="--rot:20deg"></div>
+                  <p class="text-[10px] mt-2" style="color:#8fb0bf;">RESO</p>
+                </div>
+                <div class="text-center">
+                  <div class="knob mx-auto" style="--rot:60deg"></div>
+                  <p class="text-[10px] mt-2" style="color:#8fb0bf;">DRIVE</p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <p class="font-head text-xs tracking-widest mb-3" style="color:#7fd8e6;">MIX LEVEL</p>
+              <div class="flex items-end justify-center gap-6">
+                <div class="text-center">
+                  <div class="fader-track"><div class="fader-cap" style="bottom:30%;"></div></div>
+                  <p class="text-[10px] mt-2" style="color:#8fb0bf;">SYNTH</p>
+                </div>
+                <div class="text-center">
+                  <div class="fader-track"><div class="fader-cap" style="bottom:60%;"></div></div>
+                  <p class="text-[10px] mt-2" style="color:#8fb0bf;">DRUM</p>
+                </div>
+                <div class="text-center">
+                  <div class="fader-track"><div class="fader-cap" style="bottom:45%;"></div></div>
+                  <p class="text-[10px] mt-2" style="color:#8fb0bf;">FX</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BOTTOM CTA ============ -->
+  <section id="cta" class="horizon px-6 py-28">
+    <div class="grid-floor" style="opacity:.7;"></div>
+    <div class="haze"></div>
+    <div class="horizon-content max-w-2xl mx-auto text-center">
+      <h2 class="font-head font-black text-3xl md:text-5xl neon-cyan mb-6">
+        打開時光機，<br class="md:hidden">開始你的電幻旅程
+      </h2>
+      <p class="text-sm md:text-base mb-10" style="color:#c9f2ff;">
+        現在下載電幻 SynthWave，即可解鎖全部預設音色庫與雲端同步功能，七天免費體驗、隨時取消。
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button class="btn-neon px-10 py-4 rounded font-bold tracking-wide text-base">立即體驗</button>
+        <button class="btn-outline-neon px-10 py-4 rounded font-bold tracking-wide text-base">查看方案價格</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="px-6 py-10 text-center" style="background:var(--bg-deeper);border-top:1px solid rgba(0,255,255,.15);">
+    <p class="font-head tracking-widest text-sm neon-cyan mb-2">電幻 SynthWave</p>
+    <p class="text-xs" style="color:#5f7f8c;">本頁面為每日 UI 風格畫廊之視覺設計稿，非真實產品或服務。</p>
+  </footer>
+
+</body>
+</html>
