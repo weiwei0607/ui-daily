@@ -1,0 +1,480 @@
+<!-- style #52 Pixel Art / Retro Gaming -->
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>像素工坊 PixelForge｜獨立遊戲工作室</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Pixelify+Sans:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --gb-1:#9bbc0f; /* 最亮 */
+    --gb-2:#8bac0f; /* 亮綠 */
+    --gb-3:#306230; /* 中綠 */
+    --gb-4:#0f380f; /* 暗綠 */
+    --px-black:#000000;
+    --px-white:#f4fbe8;
+  }
+
+  *{ box-sizing:border-box; border-radius:0 !important; }
+
+  html,body{
+    background:var(--gb-4);
+    color:var(--px-white);
+    font-family:'Pixelify Sans','Noto Sans TC',sans-serif;
+    -webkit-font-smoothing:none;
+  }
+
+  body{
+    background-color:var(--gb-4);
+    background-image:
+      repeating-linear-gradient(0deg, rgba(155,188,15,0.10) 0 2px, transparent 2px 10px),
+      repeating-linear-gradient(90deg, rgba(155,188,15,0.10) 0 2px, transparent 2px 10px);
+    position:relative;
+    overflow-x:hidden;
+  }
+
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    pointer-events:none;
+    background:repeating-linear-gradient(0deg, rgba(0,0,0,0.16) 0 2px, transparent 2px 4px);
+    z-index:60;
+    mix-blend-mode:multiply;
+  }
+
+  h1,h2,h3,.px-title{
+    font-family:'Press Start 2P','Noto Sans TC',cursive;
+    line-height:1.6;
+    letter-spacing:0.5px;
+  }
+
+  ::selection{ background:var(--gb-1); color:var(--px-black); }
+
+  img,.pixelated{ image-rendering:pixelated; image-rendering:-moz-crisp-edges; image-rendering:crisp-edges; }
+
+  /* ---------- pixel notch border (8-bit dialogue box shape) ---------- */
+  .pixel-frame{
+    --n:8px;
+    position:relative;
+    background:var(--px-black);
+    padding:4px;
+    clip-path: polygon(
+      0 var(--n), var(--n) var(--n), var(--n) 0,
+      calc(100% - var(--n)) 0, calc(100% - var(--n)) var(--n), 100% var(--n),
+      100% calc(100% - var(--n)), calc(100% - var(--n)) calc(100% - var(--n)), calc(100% - var(--n)) 100%,
+      var(--n) 100%, var(--n) calc(100% - var(--n)), 0 calc(100% - var(--n))
+    );
+  }
+  .pixel-frame > .pixel-frame-inner{
+    --n:6px;
+    background:var(--gb-3);
+    height:100%;
+    clip-path: polygon(
+      0 var(--n), var(--n) var(--n), var(--n) 0,
+      calc(100% - var(--n)) 0, calc(100% - var(--n)) var(--n), 100% var(--n),
+      100% calc(100% - var(--n)), calc(100% - var(--n)) calc(100% - var(--n)), calc(100% - var(--n)) 100%,
+      var(--n) 100%, var(--n) calc(100% - var(--n)), 0 calc(100% - var(--n))
+    );
+  }
+  .pixel-frame.light > .pixel-frame-inner{ background:var(--gb-4); }
+  .pixel-frame.card > .pixel-frame-inner{ background:var(--gb-3); }
+
+  /* thick stepped square border used for nav / small chips */
+  .pixel-box{
+    border:4px solid var(--px-black);
+    box-shadow: 0 0 0 3px var(--gb-1);
+  }
+
+  /* ---------- pixel button with press effect ---------- */
+  .pixel-btn{
+    font-family:'Press Start 2P','Noto Sans TC',cursive;
+    display:inline-flex;
+    align-items:center;
+    gap:.6em;
+    background:var(--gb-1);
+    color:var(--px-black);
+    border:4px solid var(--px-black);
+    box-shadow:5px 5px 0 0 var(--px-black);
+    padding:14px 20px;
+    font-size:11px;
+    cursor:pointer;
+    user-select:none;
+    transition:transform .05s linear, box-shadow .05s linear;
+    text-decoration:none;
+  }
+  .pixel-btn:hover{ background:var(--px-white); }
+  .pixel-btn:active{
+    transform:translate(5px,5px);
+    box-shadow:0 0 0 0 var(--px-black);
+  }
+  .pixel-btn.secondary{
+    background:var(--gb-4);
+    color:var(--gb-1);
+    box-shadow:5px 5px 0 0 var(--gb-1);
+    border-color:var(--gb-1);
+  }
+  .pixel-btn.secondary:active{ box-shadow:0 0 0 0 var(--gb-1); }
+  .pixel-btn.small{ padding:10px 14px; font-size:9px; }
+
+  /* dot-grid panel background (screen texture) */
+  .crt-grid{
+    background-color:var(--gb-1);
+    background-image:
+      repeating-linear-gradient(0deg, rgba(15,56,15,0.18) 0 1px, transparent 1px 6px),
+      repeating-linear-gradient(90deg, rgba(15,56,15,0.18) 0 1px, transparent 1px 6px);
+  }
+
+  .tag-chip{
+    font-family:'Press Start 2P','Noto Sans TC',cursive;
+    font-size:9px;
+    padding:6px 10px;
+    background:var(--gb-4);
+    color:var(--gb-1);
+    border:3px solid var(--px-black);
+    display:inline-block;
+  }
+
+  /* blinking cursor */
+  .blink{ animation:blink 1s steps(1) infinite; }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  .float-y{ animation:floaty 2.4s ease-in-out infinite; }
+  @keyframes floaty{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-6px);} }
+
+  /* scanline shimmer on game scenes */
+  .scene-shell{ position:relative; overflow:hidden; }
+  .scene-shell::after{
+    content:"";
+    position:absolute; inset:0;
+    background:repeating-linear-gradient(0deg, rgba(15,56,15,0.22) 0 1px, transparent 1px 3px);
+    pointer-events:none;
+  }
+
+  .pxscene{
+    display:grid;
+    grid-template-columns:repeat(16,1fr);
+    grid-template-rows:repeat(10,1fr);
+    aspect-ratio:16/10;
+    width:100%;
+    background:var(--gb-1);
+  }
+  .pxscene > div{ min-width:0; min-height:0; }
+
+  .starbg{
+    background-image: radial-gradient(circle, var(--px-white) 1px, transparent 1.4px);
+    background-size: 10px 10px;
+  }
+
+  .stat-num{ font-family:'Press Start 2P','Noto Sans TC',cursive; }
+
+  nav a{ font-family:'Press Start 2P','Noto Sans TC',cursive; }
+
+  .section-heading{
+    display:inline-block;
+    background:var(--gb-4);
+    color:var(--gb-1);
+    padding:8px 14px;
+    border:3px solid var(--px-black);
+    box-shadow:4px 4px 0 0 var(--px-black);
+  }
+
+  a{ color:inherit; }
+
+  .marquee-track{
+    display:flex;
+    width:max-content;
+    animation:marquee 18s linear infinite;
+  }
+  @keyframes marquee{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+
+  @media (max-width:640px){
+    .pixel-btn{ font-size:9px; padding:12px 14px; }
+  }
+</style>
+</head>
+<body class="text-[var(--px-white)]">
+
+  <!-- ============ NAV ============ -->
+  <header class="sticky top-0 z-50 bg-[var(--gb-4)] border-b-4 border-black">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+      <a href="#top" class="flex items-center gap-3">
+        <span class="pixel-box bg-[var(--gb-1)] w-9 h-9 flex items-center justify-center">
+          <span class="text-black text-base leading-none">🎮</span>
+        </span>
+        <span class="px-title text-[11px] sm:text-sm text-[var(--gb-1)]">PixelForge</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-6 text-[9px] text-[var(--gb-1)]">
+        <a href="#games" class="hover:text-white">作品</a>
+        <a href="#belief" class="hover:text-white">理念</a>
+        <a href="#awards" class="hover:text-white">榮譽</a>
+        <a href="#contact" class="hover:text-white">聯絡</a>
+      </nav>
+      <a href="#contact" class="pixel-btn small">開始冒險</a>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section id="top" class="relative px-4 sm:px-6 pt-14 pb-16 sm:pt-20 sm:pb-24 overflow-hidden">
+    <div class="max-w-6xl mx-auto grid lg:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
+      <div>
+        <div class="tag-chip mb-6 float-y">★ TAIPEI INDIE STUDIO ★</div>
+        <h1 class="text-[20px] sm:text-[28px] lg:text-[34px] text-[var(--gb-1)] mb-6">
+          像素工坊<br class="hidden sm:block" />
+          <span class="text-white">PixelForge</span>
+        </h1>
+        <p class="text-base sm:text-lg leading-relaxed text-[var(--px-white)]/90 mb-2">
+          我們用一格一格的像素,刻畫屬於這個世代的復古冒險。
+        </p>
+        <p class="text-sm sm:text-base leading-relaxed text-[var(--gb-1)]/80 mb-8">
+          從台北的一間小工作室出發,像素工坊專注打造有溫度、有靈魂的 8-bit 獨立遊戲。沒有大型引擎的華麗特效,只有紮實的關卡設計與會讓你熬夜的劇情。
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#games" class="pixel-btn">▶ 立即體驗 DEMO</a>
+          <a href="#belief" class="pixel-btn secondary">了解工作室</a>
+        </div>
+
+        <div class="mt-10 flex flex-wrap gap-4">
+          <div class="pixel-box bg-[var(--gb-4)] px-4 py-3">
+            <div class="stat-num text-[16px] text-[var(--gb-1)]">3</div>
+            <div class="text-[10px] mt-1 text-[var(--gb-1)]/80">上線作品</div>
+          </div>
+          <div class="pixel-box bg-[var(--gb-4)] px-4 py-3">
+            <div class="stat-num text-[16px] text-[var(--gb-1)]">96%</div>
+            <div class="text-[10px] mt-1 text-[var(--gb-1)]/80">Steam 好評</div>
+          </div>
+          <div class="pixel-box bg-[var(--gb-4)] px-4 py-3">
+            <div class="stat-num text-[16px] text-[var(--gb-1)]">5</div>
+            <div class="text-[10px] mt-1 text-[var(--gb-1)]/80">獎項提名</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- hero pixel scene -->
+      <div class="pixel-frame">
+        <div class="pixel-frame-inner p-3">
+          <div class="scene-shell pxscene">
+            <div style="grid-column:1/17;grid-row:1/6;background:var(--gb-1)"></div>
+            <div style="grid-column:1/17;grid-row:6/11;background:var(--gb-3)"></div>
+            <div style="grid-column:1/17;grid-row:6/7;background:var(--gb-2)"></div>
+            <div style="grid-column:12/15;grid-row:1/3;background:var(--gb-4)"></div>
+            <div style="grid-column:2/5;grid-row:6/8;background:var(--gb-4)"></div>
+            <div style="grid-column:5/6;grid-row:5/6;background:var(--gb-4)"></div>
+            <div style="grid-column:9/10;grid-row:3/4;background:var(--gb-4)"></div>
+            <div style="grid-column:9/10;grid-row:4/5;background:var(--gb-3)"></div>
+            <div style="grid-column:9/10;grid-row:5/6;background:var(--gb-3)"></div>
+            <div style="grid-column:9/10;grid-row:6/7;background:var(--gb-4)"></div>
+            <div style="grid-column:8/11;grid-row:7/9;background:var(--gb-4)"></div>
+            <div style="grid-column:8/11;grid-row:9/10;background:var(--gb-1)"></div>
+            <div style="grid-column:13/15;grid-row:7/9;background:var(--gb-4)"></div>
+            <div style="grid-column:6/7;grid-row:9/10;background:var(--gb-4)"></div>
+            <div style="grid-column:11/12;grid-row:9/10;background:var(--gb-4)"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- marquee strip -->
+  <div class="bg-[var(--gb-1)] text-black border-y-4 border-black overflow-hidden">
+    <div class="marquee-track py-2">
+      <span class="px-title text-[10px] px-6 whitespace-nowrap">★ 手把在手 冒險就走 ★ 台灣製造的像素遊戲 ★ 熱血 · 溫馨 · 硬派 ★ PIXELFORGE STUDIO ★</span>
+      <span class="px-title text-[10px] px-6 whitespace-nowrap">★ 手把在手 冒險就走 ★ 台灣製造的像素遊戲 ★ 熱血 · 溫馨 · 硬派 ★ PIXELFORGE STUDIO ★</span>
+    </div>
+  </div>
+
+  <!-- ============ GAMES ============ -->
+  <section id="games" class="px-4 sm:px-6 py-16 sm:py-24">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-14">
+        <span class="section-heading px-title text-[11px] sm:text-sm">旗下作品</span>
+        <p class="mt-5 text-sm sm:text-base text-[var(--gb-1)]/80 max-w-2xl mx-auto">
+          三款風格迥異的獨立作品,一樣的像素靈魂。點一份 Demo,回到那個沒有全螢幕特效、卻讓人捨不得關機的年代。
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+
+        <!-- GAME 1 -->
+        <div class="pixel-frame card">
+          <div class="pixel-frame-inner p-4 flex flex-col h-full">
+            <div class="scene-shell pxscene mb-4">
+              <div style="grid-column:1/17;grid-row:1/10;background:var(--gb-4)"></div>
+              <div style="grid-column:1/17;grid-row:1/10;background-image:repeating-linear-gradient(45deg, rgba(155,188,15,0.10) 0 4px, transparent 4px 8px)"></div>
+              <div style="grid-column:1/17;grid-row:8/10;background:var(--gb-3)"></div>
+              <div style="grid-column:6/9;grid-row:5/8;background:var(--gb-1)"></div>
+              <div style="grid-column:6/9;grid-row:4/5;background:var(--gb-2)"></div>
+              <div style="grid-column:9/11;grid-row:6/8;background:var(--gb-2)"></div>
+              <div style="grid-column:10/12;grid-row:4/6;background:var(--px-white)"></div>
+              <div style="grid-column:2/3;grid-row:7/8;background:var(--gb-1)"></div>
+              <div style="grid-column:14/15;grid-row:3/4;background:var(--gb-1)"></div>
+            </div>
+            <span class="tag-chip mb-3 self-start">動作 · 地城探索</span>
+            <h3 class="text-[13px] text-[var(--gb-1)] mb-3">《勇者史萊姆》</h3>
+            <p class="text-sm leading-relaxed text-[var(--px-white)]/85 flex-1">
+              一位被詛咒變成史萊姆的勇者,要在隨機生成的地牢裡一路彈跳打怪,邊玩邊笑邊罵髒話的roguelike動作遊戲。每次死亡都是新的笑點。
+            </p>
+            <a href="#contact" class="pixel-btn small mt-5 self-start">查看更多 →</a>
+          </div>
+        </div>
+
+        <!-- GAME 2 -->
+        <div class="pixel-frame card">
+          <div class="pixel-frame-inner p-4 flex flex-col h-full">
+            <div class="scene-shell pxscene starbg mb-4" style="background-color:var(--gb-4)">
+              <div style="grid-column:1/17;grid-row:1/10"></div>
+              <div style="grid-column:12/16;grid-row:2/6;background:var(--gb-3)"></div>
+              <div style="grid-column:13/15;grid-row:2/3;background:var(--gb-1)"></div>
+              <div style="grid-column:3/9;grid-row:6/7;background:var(--gb-1)"></div>
+              <div style="grid-column:4/8;grid-row:5/6;background:var(--gb-1)"></div>
+              <div style="grid-column:5/7;grid-row:4/5;background:var(--gb-1)"></div>
+              <div style="grid-column:2/4;grid-row:6/7;background:var(--gb-2)"></div>
+              <div style="grid-column:2/3;grid-row:7/8;background:var(--gb-2)"></div>
+              <div style="grid-column:8/9;grid-row:7/8;background:var(--gb-2)"></div>
+            </div>
+            <span class="tag-chip mb-3 self-start">太空 · 橫向捲軸</span>
+            <h3 class="text-[13px] text-[var(--gb-1)] mb-3">《星塵漂流者》</h3>
+            <p class="text-sm leading-relaxed text-[var(--px-white)]/85 flex-1">
+              孤身一人的採礦飛行員,在廢棄太空站之間拾荒求生。低重力平台跳躍搭配一鏡到底的手繪像素星圖,安靜卻很燃。
+            </p>
+            <a href="#contact" class="pixel-btn small mt-5 self-start">查看更多 →</a>
+          </div>
+        </div>
+
+        <!-- GAME 3 -->
+        <div class="pixel-frame card">
+          <div class="pixel-frame-inner p-4 flex flex-col h-full">
+            <div class="scene-shell pxscene mb-4">
+              <div style="grid-column:1/17;grid-row:1/5;background:var(--gb-1)"></div>
+              <div style="grid-column:1/17;grid-row:5/10;background:var(--gb-2)"></div>
+              <div style="grid-column:1/17;grid-row:5/10;background-image:repeating-linear-gradient(0deg, rgba(15,56,15,0.14) 0 2px, transparent 2px 8px), repeating-linear-gradient(90deg, rgba(15,56,15,0.14) 0 2px, transparent 2px 8px)"></div>
+              <div style="grid-column:13/15;grid-row:1/3;background:var(--gb-4)"></div>
+              <div style="grid-column:13/15;grid-row:1/2;background:var(--gb-3)"></div>
+              <div style="grid-column:12/16;grid-row:2/3;background:var(--gb-3)"></div>
+              <div style="grid-column:3/6;grid-row:4/9;background:var(--gb-4)"></div>
+              <div style="grid-column:3/6;grid-row:3/4;background:var(--gb-3)"></div>
+              <div style="grid-column:4/5;grid-row:6/8;background:var(--gb-1)"></div>
+              <div style="grid-column:9/10;grid-row:6/7;background:var(--gb-4)"></div>
+              <div style="grid-column:8/11;grid-row:5/6;background:var(--gb-3)"></div>
+            </div>
+            <span class="tag-chip mb-3 self-start">生活模擬 · 農場</span>
+            <h3 class="text-[13px] text-[var(--gb-1)] mb-3">《小鎮農場日記》</h3>
+            <p class="text-sm leading-relaxed text-[var(--px-white)]/85 flex-1">
+              辭掉都市的工作,搬到海邊小鎮種田、釣魚、跟鄰居搏感情。步調很慢,但存檔紀錄會告訴你,原來自己已經住了三年。
+            </p>
+            <a href="#contact" class="pixel-btn small mt-5 self-start">查看更多 →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BELIEF ============ -->
+  <section id="belief" class="px-4 sm:px-6 py-16 sm:py-24 crt-grid text-[var(--gb-4)] border-y-4 border-black">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-14">
+        <span class="section-heading px-title text-[11px] sm:text-sm">我們的信念</span>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="pixel-box bg-[var(--gb-1)] p-6">
+          <div class="text-2xl mb-4">🕹️</div>
+          <h3 class="px-title text-[11px] mb-3">手感優先</h3>
+          <p class="text-sm leading-relaxed">
+            像素風不是偷懶,是選擇。我們相信一個扎實的跳躍手感,比一千個粒子特效更能留住玩家。
+          </p>
+        </div>
+        <div class="pixel-box bg-[var(--gb-1)] p-6">
+          <div class="text-2xl mb-4">💾</div>
+          <h3 class="px-title text-[11px] mb-3">小而完整</h3>
+          <p class="text-sm leading-relaxed">
+            我們不追求開放世界的規模,只追求每一款作品都能讓玩家從頭玩到通關,還想玩第二輪。
+          </p>
+        </div>
+        <div class="pixel-box bg-[var(--gb-1)] p-6">
+          <div class="text-2xl mb-4">🤝</div>
+          <h3 class="px-title text-[11px] mb-3">陪玩家長大</h3>
+          <p class="text-sm leading-relaxed">
+            從 Demo 到上線,我們把每一則玩家留言都當回事。工作室的下一步,永遠有玩家的一票。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AWARDS ============ -->
+  <section id="awards" class="px-4 sm:px-6 py-16 sm:py-24">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-14">
+        <span class="section-heading px-title text-[11px] sm:text-sm">得獎紀錄</span>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="pixel-frame">
+          <div class="pixel-frame-inner p-5 text-center">
+            <div class="text-3xl mb-3">🏆</div>
+            <div class="px-title text-[10px] text-[var(--gb-1)] mb-2">2025</div>
+            <p class="text-sm leading-relaxed">台灣獨立遊戲大賞<br />最佳美術獎</p>
+          </div>
+        </div>
+        <div class="pixel-frame">
+          <div class="pixel-frame-inner p-5 text-center">
+            <div class="text-3xl mb-3">🥈</div>
+            <div class="px-title text-[10px] text-[var(--gb-1)] mb-2">2024</div>
+            <p class="text-sm leading-relaxed">IGF 台灣賽區<br />決選入圍</p>
+          </div>
+        </div>
+        <div class="pixel-frame">
+          <div class="pixel-frame-inner p-5 text-center">
+            <div class="text-3xl mb-3">⭐</div>
+            <div class="px-title text-[10px] text-[var(--gb-1)] mb-2">2024</div>
+            <p class="text-sm leading-relaxed">Steam 玩家評論<br />壓倒性好評 96%</p>
+          </div>
+        </div>
+        <div class="pixel-frame">
+          <div class="pixel-frame-inner p-5 text-center">
+            <div class="text-3xl mb-3">🎖️</div>
+            <div class="px-title text-[10px] text-[var(--gb-1)] mb-2">2023</div>
+            <p class="text-sm leading-relaxed">文化內容策進院<br />遊戲開發補助計畫</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER / CTA ============ -->
+  <section id="contact" class="px-4 sm:px-6 pb-20">
+    <div class="max-w-5xl mx-auto pixel-frame light">
+      <div class="pixel-frame-inner p-8 sm:p-12 text-center">
+        <h2 class="text-[16px] sm:text-[20px] text-[var(--gb-1)] mb-5">跟我們一起冒險吧<span class="blink">_</span></h2>
+        <p class="text-sm sm:text-base text-[var(--px-white)]/85 mb-8 max-w-xl mx-auto">
+          搶先體驗最新 Demo、加入玩家社群一起抓蟲抓 Bug,或者單純想跟我們聊聊像素美術,都歡迎按下面的按鈕。
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 mb-10">
+          <a href="#" class="pixel-btn">▶ 立即體驗 DEMO</a>
+          <a href="#" class="pixel-btn secondary">加入 Discord</a>
+        </div>
+        <div class="flex flex-wrap justify-center gap-3 text-[9px]">
+          <span class="tag-chip">itch.io</span>
+          <span class="tag-chip">Steam</span>
+          <span class="tag-chip">Discord</span>
+          <span class="tag-chip">X（Twitter）</span>
+          <span class="tag-chip">YouTube</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="border-t-4 border-black bg-black/40 px-4 sm:px-6 py-6">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-[9px] text-[var(--gb-1)]/70">
+      <span>© 2026 像素工坊 PixelForge Studio．All Rights Reserved.</span>
+      <span>Made with ♥ in Taiwan · 8-BIT FOREVER</span>
+    </div>
+  </footer>
+
+</body>
+</html>
