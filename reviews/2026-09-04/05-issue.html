@@ -1,0 +1,248 @@
+<!-- style #01 Minimalism/Swiss -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>議題 ISSUE — 產業趨勢雙週刊</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=Noto+Serif+TC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --paper:#f5f1e8;
+    --ink:#111111;
+    --gray:#8a8578;
+    --line:#111111;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{
+    background:var(--paper);
+    color:var(--ink);
+  }
+
+  body{
+    font-family:'Newsreader','Noto Serif TC',Georgia,'Times New Roman',serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* Force serif everywhere — no sans-serif fallback anywhere on this page */
+  h1,h2,h3,h4,h5,h6,p,span,a,li,ul,ol,label,button,small,em,strong,div{
+    font-family:'Newsreader','Noto Serif TC',Georgia,'Times New Roman',serif;
+  }
+
+  .tnum{ font-variant-numeric: tabular-nums oldstyle-nums; }
+
+  .tracking-swiss{ letter-spacing:0.18em; }
+  .tracking-swiss-lg{ letter-spacing:0.28em; }
+
+  .rule{ border-color:var(--line); }
+  .rule-thin{ border-color:var(--line); border-width:1px; }
+  .rule-thick{ border-color:var(--line); border-width:3px; }
+
+  .grid-12{
+    display:grid;
+    grid-template-columns:repeat(12,1fr);
+    column-gap:1.25rem;
+  }
+  @media (min-width:768px){
+    .grid-12{ column-gap:2rem; }
+  }
+
+  .headline{
+    font-weight:600;
+    letter-spacing:-0.01em;
+    line-height:0.98;
+  }
+
+  .masthead{
+    font-weight:700;
+    letter-spacing:0.02em;
+  }
+
+  .cat-tag{
+    font-size:0.7rem;
+    letter-spacing:0.22em;
+    font-weight:600;
+    text-transform:uppercase;
+  }
+
+  .article-row{ position:relative; }
+  .article-row + .article-row{
+    border-top:1px solid var(--line);
+  }
+
+  .drop-cap::first-letter{
+    float:left;
+    font-size:3.6em;
+    line-height:0.82;
+    padding-right:0.09em;
+    padding-top:0.03em;
+    font-weight:600;
+  }
+
+  ::selection{ background:var(--ink); color:var(--paper); }
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="max-w-[1180px] mx-auto px-6 md:px-10 pb-24">
+
+  <!-- ============ 刊頭 MASTHEAD ============ -->
+  <header class="pt-10 md:pt-16">
+    <div class="grid-12 items-end pb-5">
+      <div class="col-span-12 md:col-span-9">
+        <div class="masthead text-[3.4rem] leading-[0.9] md:text-[6.2rem] tracking-tight">
+          議題<span class="align-top text-[0.32em] ml-3 font-normal tracking-swiss">ISSUE</span>
+        </div>
+      </div>
+      <div class="col-span-12 md:col-span-3 mt-4 md:mt-0 md:text-right">
+        <p class="text-[0.72rem] tracking-swiss text-[var(--gray)] leading-relaxed">
+          產業趨勢雙週刊<br>NO.156 · 2026 年 9 月 4 日
+        </p>
+      </div>
+    </div>
+
+    <div class="border-t-[3px] rule-thick"></div>
+    <div class="grid-12 py-2 text-[0.68rem] md:text-[0.74rem] tracking-swiss text-[var(--gray)]">
+      <div class="col-span-6 md:col-span-4">創刊第八年 · 第一五六期</div>
+      <div class="col-span-6 md:col-span-4 text-center hidden md:block">觀察 · 判斷 · 不妥協</div>
+      <div class="col-span-12 md:col-span-4 md:text-right tnum">定價 新台幣 180 元</div>
+    </div>
+    <div class="border-t rule-thin"></div>
+  </header>
+
+  <!-- ============ 本期焦點 ============ -->
+  <section class="pt-14 md:pt-20">
+    <div class="grid-12">
+      <div class="col-span-12 md:col-span-2">
+        <p class="cat-tag text-[var(--gray)]">本期焦點 · 產業</p>
+      </div>
+
+      <div class="col-span-12 md:col-span-10">
+        <h1 class="headline text-[2.6rem] md:text-[4.4rem] mb-8 md:mb-10 max-w-[16ch]">
+          電力,不是晶片,<br class="hidden md:block">才是下一輪成長的天花板
+        </h1>
+
+        <div class="grid-12">
+          <div class="col-span-12 md:col-span-5">
+            <p class="text-[1.15rem] md:text-[1.3rem] leading-snug font-medium">
+              台灣半導體業的擴產競賽,正撞上電網容量與土地取得的現實邊界——訂單可以等,變電所不能。
+            </p>
+          </div>
+          <div class="col-span-12 md:col-span-1 hidden md:block"></div>
+          <div class="col-span-12 md:col-span-6 mt-6 md:mt-0">
+            <p class="drop-cap text-[0.98rem] md:text-[1.05rem] leading-[1.85] text-[var(--ink)]">
+              新竹以南的科學園區,今年最搶手的不是先進製程的產能,而是一張穩定的併網許可。三座新建晶圓廠已完成廠房主體,卻因區域供電裕度不足,量產時程被迫延後逾半年。台電內部評估顯示,若南部科學園區既有擴產計畫全數落地,尖峰用電需求將在兩年內逼近區域供電上限,綠能併網與新增機組的時程,反而成為決定投片時間表的關鍵變數。業界人士坦言,過去比的是誰先拿到高階曝光機,現在比的是誰先簽下長期購電合約。這場競賽的勝負,或許不再寫在資本支出的報表上,而是寫在一紙電力調度協議裡。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="border-t rule-thin mt-14 md:mt-20"></div>
+
+  <!-- ============ 本期其他文章 ============ -->
+  <section class="pt-10 md:pt-14">
+    <div class="grid-12 mb-8">
+      <div class="col-span-12 md:col-span-2">
+        <p class="cat-tag text-[var(--gray)]">本期其他文章</p>
+      </div>
+    </div>
+
+    <div>
+
+      <!-- 文章 1 -->
+      <article class="article-row grid-12 py-8 md:py-10">
+        <div class="col-span-12 md:col-span-2">
+          <span class="cat-tag inline-block border rule-thin px-2 py-1">科技</span>
+        </div>
+        <div class="col-span-12 md:col-span-7 mt-4 md:mt-0">
+          <h2 class="headline text-[1.5rem] md:text-[1.9rem] mb-2">
+            先進封裝產能全數售罄,委外訂單已排到後年
+          </h2>
+          <p class="text-[0.98rem] leading-relaxed text-[var(--ink)]/80 max-w-[52ch]">
+            人工智慧晶片需求持續加溫,委外封裝測試廠的先進封裝產線滿載,大型客戶為確保產能一位難求,開始以預付訂金鎖定兩年後的排程。
+          </p>
+        </div>
+        <div class="col-span-12 md:col-span-3 mt-4 md:mt-0 md:text-right">
+          <p class="text-[0.72rem] tracking-swiss text-[var(--gray)] tnum">01 / 產業觀察</p>
+        </div>
+      </article>
+
+      <!-- 文章 2 -->
+      <article class="article-row grid-12 py-8 md:py-10">
+        <div class="col-span-12 md:col-span-2">
+          <span class="cat-tag inline-block border rule-thin px-2 py-1">消費</span>
+        </div>
+        <div class="col-span-12 md:col-span-7 mt-4 md:mt-0">
+          <h2 class="headline text-[1.5rem] md:text-[1.9rem] mb-2">
+            外食通膨連兩年跑贏薪資,家庭餐桌正在悄悄改變
+          </h2>
+          <p class="text-[0.98rem] leading-relaxed text-[var(--ink)]/80 max-w-[52ch]">
+            平價自助餐一份便當漲破百元已成常態,雙薪家庭轉向自煮與團購,超市生鮮周轉率創下五年新高,消費行為的轉向比物價數字更值得留意。
+          </p>
+        </div>
+        <div class="col-span-12 md:col-span-3 mt-4 md:mt-0 md:text-right">
+          <p class="text-[0.72rem] tracking-swiss text-[var(--gray)] tnum">02 / 民生數據</p>
+        </div>
+      </article>
+
+      <!-- 文章 3 -->
+      <article class="article-row grid-12 py-8 md:py-10">
+        <div class="col-span-12 md:col-span-2">
+          <span class="cat-tag inline-block border rule-thin px-2 py-1">政策</span>
+        </div>
+        <div class="col-span-12 md:col-span-7 mt-4 md:mt-0">
+          <h2 class="headline text-[1.5rem] md:text-[1.9rem] mb-2">
+            碳費上路週年,出口導向產業的帳該怎麼算
+          </h2>
+          <p class="text-[0.98rem] leading-relaxed text-[var(--ink)]/80 max-w-[52ch]">
+            首波碳費徵收對象陸續申報實績,鋼鐵與石化業者反映成本轉嫁空間有限,而歐盟碳邊境調整機制即將接軌,雙重壓力下,產業界正重新盤點減碳路徑的優先順序。
+          </p>
+        </div>
+        <div class="col-span-12 md:col-span-3 mt-4 md:mt-0 md:text-right">
+          <p class="text-[0.72rem] tracking-swiss text-[var(--gray)] tnum">03 / 政策解讀</p>
+        </div>
+      </article>
+
+      <!-- 文章 4 -->
+      <article class="article-row grid-12 py-8 md:py-10">
+        <div class="col-span-12 md:col-span-2">
+          <span class="cat-tag inline-block border rule-thin px-2 py-1">金融</span>
+        </div>
+        <div class="col-span-12 md:col-span-7 mt-4 md:mt-0">
+          <h2 class="headline text-[1.5rem] md:text-[1.9rem] mb-2">
+            壽險業避險成本吃掉獲利,資金悄悄轉向台股
+          </h2>
+          <p class="text-[0.98rem] leading-relaxed text-[var(--ink)]/80 max-w-[52ch]">
+            新台幣升值壓力未解,海外投資避險成本連季墊高,大型壽險公司開始調整資產配置,將部分海外部位收斂回台股高股息標的,牽動下半年資金流向。
+          </p>
+        </div>
+        <div class="col-span-12 md:col-span-3 mt-4 md:mt-0 md:text-right">
+          <p class="text-[0.72rem] tracking-swiss text-[var(--gray)] tnum">04 / 資本市場</p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <div class="border-t-[3px] rule-thick mt-6"></div>
+
+  <!-- ============ 頁尾 ============ -->
+  <footer class="pt-8">
+    <div class="grid-12 text-[0.68rem] tracking-swiss text-[var(--gray)]">
+      <div class="col-span-12 md:col-span-4">議題 ISSUE 編輯室</div>
+      <div class="col-span-12 md:col-span-4 mt-2 md:mt-0 md:text-center">每兩週三發行 · 台北</div>
+      <div class="col-span-12 md:col-span-4 mt-2 md:mt-0 md:text-right tnum">ISSN 2960-0156</div>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>
