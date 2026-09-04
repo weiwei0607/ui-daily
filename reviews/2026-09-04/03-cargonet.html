@@ -1,0 +1,603 @@
+<!-- style #28 Data-Dense Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>集貨網 CargoNet｜即時營運後台</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --bg:#f3f4f6;
+    --panel:#ffffff;
+    --panel-alt:#fafafa;
+    --border:#e3e5e9;
+    --border-strong:#d3d6dc;
+    --ink:#15181e;
+    --ink-soft:#565c68;
+    --ink-faint:#8a8f9a;
+    --brand:#1f4fd6;
+    --brand-soft:#eaf0ff;
+    --brand-dark:#15328f;
+    --up:#0f8a4b;
+    --up-bg:#e7f7ee;
+    --up-border:#bfe8cf;
+    --down:#d1293d;
+    --down-bg:#fdecee;
+    --down-border:#f5c3ca;
+    --warn:#b8860b;
+    --warn-bg:#fff6e0;
+    --warn-border:#f0dca3;
+    --danger:#c81e3a;
+    --danger-bg:#fdeaed;
+    --danger-border:#f4bcc4;
+    --neutral-bg:#eef0f3;
+  }
+  *{box-sizing:border-box;}
+  html,body{background:var(--bg);}
+  body{
+    font-family:'Public Sans','Noto Sans TC',system-ui,sans-serif;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  .font-ui{font-family:'Public Sans','Noto Sans TC',system-ui,sans-serif;}
+  .mono{
+    font-family:'Space Mono','Noto Sans TC',monospace;
+    font-variant-numeric:tabular-nums;
+    letter-spacing:-0.01em;
+  }
+  .num-right{
+    font-family:'Space Mono','Noto Sans TC',monospace;
+    font-variant-numeric:tabular-nums;
+    text-align:right;
+    display:inline-block;
+  }
+  ::-webkit-scrollbar{height:8px;width:8px;}
+  ::-webkit-scrollbar-thumb{background:#c7cad1;border-radius:4px;}
+  ::-webkit-scrollbar-track{background:transparent;}
+
+  .card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:10px;
+  }
+
+  .kpi-card{position:relative;overflow:hidden;}
+  .kpi-card .spark{opacity:.9;}
+
+  .tag{
+    display:inline-flex;align-items:center;gap:5px;
+    padding:2px 9px;border-radius:999px;
+    font-size:11.5px;font-weight:700;letter-spacing:.02em;
+    white-space:nowrap;
+    border:1px solid transparent;
+  }
+  .tag-dot{width:6px;height:6px;border-radius:999px;flex:none;}
+  .tag-normal{background:var(--up-bg);color:var(--up);border-color:var(--up-border);}
+  .tag-normal .tag-dot{background:var(--up);}
+  .tag-delay{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border);}
+  .tag-delay .tag-dot{background:var(--warn);}
+  .tag-alert{background:var(--danger-bg);color:var(--danger);border-color:var(--danger-border);}
+  .tag-alert .tag-dot{background:var(--danger);}
+
+  table{border-collapse:separate;border-spacing:0;}
+  thead th{
+    position:sticky;top:0;z-index:5;
+    background:var(--panel-alt);
+    font-size:11px;font-weight:700;color:var(--ink-faint);
+    letter-spacing:.04em;text-transform:uppercase;
+    padding:9px 12px;border-bottom:1px solid var(--border-strong);
+    white-space:nowrap;
+  }
+  tbody td{
+    padding:10px 12px;
+    border-bottom:1px solid var(--border);
+    font-size:13px;
+    vertical-align:middle;
+  }
+  tbody tr{transition:background .12s ease;}
+  tbody tr:hover{background:#f5f7fb;}
+  tbody tr.row-alert:hover{background:var(--danger-bg);}
+  tbody tr:last-child td{border-bottom:none;}
+
+  .chip-filter{
+    padding:6px 12px;border-radius:8px;font-size:12.5px;font-weight:600;
+    border:1px solid var(--border-strong);color:var(--ink-soft);
+    background:var(--panel);cursor:default;white-space:nowrap;
+  }
+  .chip-filter.active{
+    background:var(--brand);border-color:var(--brand);color:#fff;
+  }
+
+  .side-link{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:8px 10px;border-radius:7px;font-size:13px;font-weight:600;
+    color:var(--ink-soft);cursor:default;
+  }
+  .side-link.active{background:var(--brand-soft);color:var(--brand-dark);}
+  .side-link:hover:not(.active){background:var(--neutral-bg);}
+  .side-count{
+    font-family:'Space Mono',monospace;font-size:11px;
+    background:var(--neutral-bg);color:var(--ink-soft);
+    padding:1px 6px;border-radius:999px;
+  }
+  .side-link.active .side-count{background:#dbe6ff;color:var(--brand-dark);}
+
+  .trend-up{color:var(--up);}
+  .trend-down{color:var(--down);}
+
+  .diff-tick{animation:tickIn .5s ease-out;}
+  @keyframes tickIn{
+    0%{opacity:0;transform:translateY(3px);}
+    100%{opacity:1;transform:translateY(0);}
+  }
+
+  .progress-track{height:5px;border-radius:999px;background:var(--neutral-bg);overflow:hidden;}
+  .progress-fill{height:100%;border-radius:999px;}
+
+  .divider-v{width:1px;background:var(--border);}
+
+  @media (max-width:768px){
+    .hide-mobile{display:none;}
+    thead th, tbody td{padding:8px 8px;font-size:12px;}
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- Top App Bar -->
+<header class="sticky top-0 z-30 bg-white border-b" style="border-color:var(--border);">
+  <div class="max-w-[1440px] mx-auto px-4 md:px-6 h-14 flex items-center justify-between gap-4">
+    <div class="flex items-center gap-3 min-w-0">
+      <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-none" style="background:var(--brand);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 7L12 3L21 7V17L12 21L3 17V7Z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M3 7L12 11L21 7" stroke="white" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M12 11V21" stroke="white" stroke-width="1.8"/>
+        </svg>
+      </div>
+      <div class="min-w-0">
+        <div class="font-ui font-extrabold text-[15px] leading-tight tracking-tight truncate">集貨網 <span style="color:var(--brand);">CargoNet</span></div>
+        <div class="text-[11px] leading-tight" style="color:var(--ink-faint);">調度指揮中心 · 即時營運看板</div>
+      </div>
+    </div>
+    <div class="hidden md:flex items-center gap-2 text-[12.5px]" style="color:var(--ink-soft);">
+      <span class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full" style="background:var(--up);box-shadow:0 0 0 3px var(--up-bg);"></span>
+        資料即時同步中
+      </span>
+      <span class="mono" style="color:var(--ink-faint);">最後更新 <span id="clock">14:26:08</span></span>
+    </div>
+    <div class="flex items-center gap-2 flex-none">
+      <button class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12.5px] font-semibold border" style="border-color:var(--border-strong);color:var(--ink-soft);">
+        匯出報表
+      </button>
+      <button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12.5px] font-semibold text-white" style="background:var(--brand);">
+        + 建立派車單
+      </button>
+      <div class="w-8 h-8 rounded-full flex items-center justify-center text-[12px] font-bold text-white flex-none" style="background:var(--ink-soft);">陳</div>
+    </div>
+  </div>
+</header>
+
+<div class="max-w-[1440px] mx-auto px-4 md:px-6 py-5 flex gap-5">
+
+  <!-- Sidebar -->
+  <aside class="hidden lg:block w-[190px] flex-none">
+    <div class="sticky top-[76px] space-y-5">
+      <div class="card p-2">
+        <div class="side-link active">
+          <span>營運總覽</span><span class="side-count">12</span>
+        </div>
+        <div class="side-link">
+          <span>配送區域</span><span class="side-count">8</span>
+        </div>
+        <div class="side-link">
+          <span>車隊管理</span><span class="side-count">146</span>
+        </div>
+        <div class="side-link">
+          <span>異常件追蹤</span><span class="side-count">7</span>
+        </div>
+        <div class="side-link">
+          <span>司機排班</span>
+        </div>
+        <div class="side-link">
+          <span>客訴工單</span><span class="side-count">3</span>
+        </div>
+      </div>
+      <div class="card p-3.5">
+        <div class="text-[11px] font-bold mb-2.5" style="color:var(--ink-faint);">今日班別</div>
+        <div class="space-y-2 text-[12.5px]">
+          <div class="flex items-center justify-between">
+            <span style="color:var(--ink-soft);">早班 06:00–14:00</span>
+            <span class="tag tag-normal"><span class="tag-dot"></span>已收班</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span style="color:var(--ink-soft);">午班 14:00–22:00</span>
+            <span class="tag tag-normal"><span class="tag-dot"></span>執勤中</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span style="color:var(--ink-soft);">夜班 22:00–06:00</span>
+            <span class="tag" style="background:var(--neutral-bg);color:var(--ink-faint);border-color:var(--border);">待命</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="flex-1 min-w-0 space-y-5">
+
+    <!-- Filter bar -->
+    <div class="flex flex-wrap items-center gap-2">
+      <span class="chip-filter active">全部區域</span>
+      <span class="chip-filter">北區</span>
+      <span class="chip-filter">中區</span>
+      <span class="chip-filter">南區</span>
+      <span class="chip-filter">東區</span>
+      <span class="chip-filter">離島</span>
+      <span class="divider-v h-5 mx-1"></span>
+      <span class="chip-filter">僅顯示異常</span>
+      <div class="ml-auto flex items-center gap-2">
+        <span class="text-[12px]" style="color:var(--ink-faint);">2026/09/04（五）</span>
+        <button class="chip-filter">今日</button>
+      </div>
+    </div>
+
+    <!-- KPI Row -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
+
+      <div class="card kpi-card p-4">
+        <div class="flex items-start justify-between">
+          <div class="text-[12px] font-semibold" style="color:var(--ink-soft);">今日出貨量</div>
+          <span class="tag tag-normal"><span class="tag-dot"></span>正常</span>
+        </div>
+        <div class="mt-2 flex items-baseline gap-2">
+          <span class="mono text-[26px] font-bold" id="kpi-shipment">18,342</span>
+          <span class="text-[12px]" style="color:var(--ink-faint);">件</span>
+        </div>
+        <div class="mt-1.5 flex items-center gap-1.5 text-[12px]">
+          <span class="trend-up font-bold mono">▲ 6.4%</span>
+          <span style="color:var(--ink-faint);">較昨日同時段</span>
+        </div>
+      </div>
+
+      <div class="card kpi-card p-4">
+        <div class="flex items-start justify-between">
+          <div class="text-[12px] font-semibold" style="color:var(--ink-soft);">準時送達率</div>
+          <span class="tag tag-normal"><span class="tag-dot"></span>達標</span>
+        </div>
+        <div class="mt-2 flex items-baseline gap-2">
+          <span class="mono text-[26px] font-bold" id="kpi-ontime">96.8</span>
+          <span class="text-[12px]" style="color:var(--ink-faint);">%</span>
+        </div>
+        <div class="progress-track mt-2.5">
+          <div class="progress-fill" style="width:96.8%;background:var(--up);"></div>
+        </div>
+        <div class="mt-1.5 text-[11.5px]" style="color:var(--ink-faint);">目標值 95.0%</div>
+      </div>
+
+      <div class="card kpi-card p-4">
+        <div class="flex items-start justify-between">
+          <div class="text-[12px] font-semibold" style="color:var(--ink-soft);">異常件數</div>
+          <span class="tag tag-alert"><span class="tag-dot"></span>需關注</span>
+        </div>
+        <div class="mt-2 flex items-baseline gap-2">
+          <span class="mono text-[26px] font-bold" style="color:var(--danger);" id="kpi-exception">37</span>
+          <span class="text-[12px]" style="color:var(--ink-faint);">件</span>
+        </div>
+        <div class="mt-1.5 flex items-center gap-1.5 text-[12px]">
+          <span class="trend-down font-bold mono">▲ 12 件</span>
+          <span style="color:var(--ink-faint);">較昨日同時段</span>
+        </div>
+      </div>
+
+      <div class="card kpi-card p-4">
+        <div class="flex items-start justify-between">
+          <div class="text-[12px] font-semibold" style="color:var(--ink-soft);">平均配送時效</div>
+          <span class="tag tag-delay"><span class="tag-dot"></span>略有延遲</span>
+        </div>
+        <div class="mt-2 flex items-baseline gap-2">
+          <span class="mono text-[26px] font-bold">5.4</span>
+          <span class="text-[12px]" style="color:var(--ink-faint);">小時</span>
+        </div>
+        <div class="mt-1.5 flex items-center gap-1.5 text-[12px]">
+          <span class="trend-down font-bold mono" style="color:var(--warn);">▲ 0.3 小時</span>
+          <span style="color:var(--ink-faint);">較目標 5.0 小時</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Secondary KPI strip -->
+    <div class="card p-0 overflow-x-auto">
+      <div class="flex divide-x min-w-max" style="border-color:var(--border);">
+        <div class="px-5 py-3 flex-1 min-w-[150px]">
+          <div class="text-[11px] font-semibold" style="color:var(--ink-faint);">在途車輛</div>
+          <div class="mono text-[18px] font-bold mt-0.5">146<span class="text-[12px] font-normal" style="color:var(--ink-faint);"> 台</span></div>
+        </div>
+        <div class="px-5 py-3 flex-1 min-w-[150px]">
+          <div class="text-[11px] font-semibold" style="color:var(--ink-faint);">待派件數</div>
+          <div class="mono text-[18px] font-bold mt-0.5">2,108<span class="text-[12px] font-normal" style="color:var(--ink-faint);"> 件</span></div>
+        </div>
+        <div class="px-5 py-3 flex-1 min-w-[150px]">
+          <div class="text-[11px] font-semibold" style="color:var(--ink-faint);">今日已完成</div>
+          <div class="mono text-[18px] font-bold mt-0.5" style="color:var(--up);">15,904<span class="text-[12px] font-normal" style="color:var(--ink-faint);"> 件</span></div>
+        </div>
+        <div class="px-5 py-3 flex-1 min-w-[150px]">
+          <div class="text-[11px] font-semibold" style="color:var(--ink-faint);">今日退件</div>
+          <div class="mono text-[18px] font-bold mt-0.5" style="color:var(--down);">297<span class="text-[12px] font-normal" style="color:var(--ink-faint);"> 件</span></div>
+        </div>
+        <div class="px-5 py-3 flex-1 min-w-[150px]">
+          <div class="text-[11px] font-semibold" style="color:var(--ink-faint);">客服未結工單</div>
+          <div class="mono text-[18px] font-bold mt-0.5" style="color:var(--warn);">3<span class="text-[12px] font-normal" style="color:var(--ink-faint);"> 件</span></div>
+        </div>
+        <div class="px-5 py-3 flex-1 min-w-[150px]">
+          <div class="text-[11px] font-semibold" style="color:var(--ink-faint);">預估今日總量</div>
+          <div class="mono text-[18px] font-bold mt-0.5">19,850<span class="text-[12px] font-normal" style="color:var(--ink-faint);"> 件</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Region / Fleet status table -->
+    <div class="card">
+      <div class="flex items-center justify-between px-4 pt-4 pb-1">
+        <div>
+          <h2 class="font-ui font-bold text-[15px]">各區域車隊即時狀態</h2>
+          <p class="text-[12px] mt-0.5" style="color:var(--ink-faint);">依異常優先排序，每 30 秒自動更新一次</p>
+        </div>
+        <div class="hidden sm:flex items-center gap-3 text-[11.5px]" style="color:var(--ink-faint);">
+          <span class="flex items-center gap-1"><span class="tag-dot" style="background:var(--up);display:inline-block;width:6px;height:6px;border-radius:999px;"></span>正常</span>
+          <span class="flex items-center gap-1"><span class="tag-dot" style="background:var(--warn);display:inline-block;width:6px;height:6px;border-radius:999px;"></span>延遲</span>
+          <span class="flex items-center gap-1"><span class="tag-dot" style="background:var(--danger);display:inline-block;width:6px;height:6px;border-radius:999px;"></span>異常</span>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto mt-2">
+        <table class="w-full">
+          <thead>
+            <tr>
+              <th class="text-left">配送區域</th>
+              <th class="text-left hide-mobile">負責站所</th>
+              <th class="text-right">在途車輛</th>
+              <th class="text-right">今日件量</th>
+              <th class="text-right hide-mobile">準時率</th>
+              <th class="text-right">預計完成</th>
+              <th class="text-left">狀態</th>
+              <th class="text-left hide-mobile">備註</th>
+            </tr>
+          </thead>
+          <tbody id="fleet-body">
+            <tr class="row-alert">
+              <td class="font-semibold">內湖科技園區</td>
+              <td class="hide-mobile" style="color:var(--ink-soft);">內湖轉運站</td>
+              <td class="num-right w-full">9</td>
+              <td class="num-right w-full">1,204</td>
+              <td class="num-right w-full hide-mobile" style="color:var(--danger);">82.1%</td>
+              <td class="num-right w-full">18:40</td>
+              <td><span class="tag tag-alert"><span class="tag-dot"></span>異常</span></td>
+              <td class="hide-mobile text-[12px]" style="color:var(--ink-faint);">3 車冷鏈異常，已通報</td>
+            </tr>
+            <tr>
+              <td class="font-semibold">板橋 / 新莊</td>
+              <td class="hide-mobile" style="color:var(--ink-soft);">板橋轉運站</td>
+              <td class="num-right w-full">14</td>
+              <td class="num-right w-full">2,033</td>
+              <td class="num-right w-full hide-mobile" style="color:var(--warn);">89.4%</td>
+              <td class="num-right w-full">19:10</td>
+              <td><span class="tag tag-delay"><span class="tag-dot"></span>延遲</span></td>
+              <td class="hide-mobile text-[12px]" style="color:var(--ink-faint);">重慶北路壅塞影響 4 車</td>
+            </tr>
+            <tr>
+              <td class="font-semibold">桃園 / 中壢</td>
+              <td class="hide-mobile" style="color:var(--ink-soft);">桃園轉運站</td>
+              <td class="num-right w-full">21</td>
+              <td class="num-right w-full">2,876</td>
+              <td class="num-right w-full hide-mobile">97.2%</td>
+              <td class="num-right w-full">18:05</td>
+              <td><span class="tag tag-normal"><span class="tag-dot"></span>正常</span></td>
+              <td class="hide-mobile text-[12px]" style="color:var(--ink-faint);">—</td>
+            </tr>
+            <tr>
+              <td class="font-semibold">台中 / 大里</td>
+              <td class="hide-mobile" style="color:var(--ink-soft);">台中轉運站</td>
+              <td class="num-right w-full">19</td>
+              <td class="num-right w-full">2,451</td>
+              <td class="num-right w-full hide-mobile">95.8%</td>
+              <td class="num-right w-full">18:30</td>
+              <td><span class="tag tag-normal"><span class="tag-dot"></span>正常</span></td>
+              <td class="hide-mobile text-[12px]" style="color:var(--ink-faint);">—</td>
+            </tr>
+            <tr class="row-alert">
+              <td class="font-semibold">台南 / 永康</td>
+              <td class="hide-mobile" style="color:var(--ink-soft);">台南轉運站</td>
+              <td class="num-right w-full">11</td>
+              <td class="num-right w-full">1,588</td>
+              <td class="num-right w-full hide-mobile" style="color:var(--danger);">78.6%</td>
+              <td class="num-right w-full">20:15</td>
+              <td><span class="tag tag-alert"><span class="tag-dot"></span>異常</span></td>
+              <td class="hide-mobile text-[12px]" style="color:var(--ink-faint);">分揀機故障，人工分揀中</td>
+            </tr>
+            <tr>
+              <td class="font-semibold">高雄 / 鳳山</td>
+              <td class="hide-mobile" style="color:var(--ink-soft);">高雄轉運站</td>
+              <td class="num-right w-full">23</td>
+              <td class="num-right w-full">3,102</td>
+              <td class="num-right w-full hide-mobile">98.1%</td>
+              <td class="num-right w-full">17:50</td>
+              <td><span class="tag tag-normal"><span class="tag-dot"></span>正常</span></td>
+              <td class="hide-mobile text-[12px]" style="color:var(--ink-faint);">—</td>
+            </tr>
+            <tr>
+              <td class="font-semibold">新竹 / 竹北</td>
+              <td class="hide-mobile" style="color:var(--ink-soft);">新竹轉運站</td>
+              <td class="num-right w-full">16</td>
+              <td class="num-right w-full">1,977</td>
+              <td class="num-right w-full hide-mobile" style="color:var(--warn);">90.3%</td>
+              <td class="num-right w-full">19:25</td>
+              <td><span class="tag tag-delay"><span class="tag-dot"></span>延遲</span></td>
+              <td class="hide-mobile text-[12px]" style="color:var(--ink-faint);">午後陣雨，車速受限</td>
+            </tr>
+            <tr>
+              <td class="font-semibold">花蓮 / 宜蘭</td>
+              <td class="hide-mobile" style="color:var(--ink-soft);">花蓮轉運站</td>
+              <td class="num-right w-full">7</td>
+              <td class="num-right w-full">892</td>
+              <td class="num-right w-full hide-mobile">96.0%</td>
+              <td class="num-right w-full">20:40</td>
+              <td><span class="tag tag-normal"><span class="tag-dot"></span>正常</span></td>
+              <td class="hide-mobile text-[12px]" style="color:var(--ink-faint);">山區路段行駛較慢</td>
+            </tr>
+            <tr>
+              <td class="font-semibold">澎湖 / 離島</td>
+              <td class="hide-mobile" style="color:var(--ink-soft);">馬公轉運站</td>
+              <td class="num-right w-full">4</td>
+              <td class="num-right w-full">219</td>
+              <td class="num-right w-full hide-mobile">94.5%</td>
+              <td class="num-right w-full">21:00</td>
+              <td><span class="tag tag-normal"><span class="tag-dot"></span>正常</span></td>
+              <td class="hide-mobile text-[12px]" style="color:var(--ink-faint);">今日僅一班船運</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="flex items-center justify-between px-4 py-3 border-t text-[12px]" style="border-color:var(--border);color:var(--ink-faint);">
+        <span>共 <span class="mono">9</span> 個區域，顯示第 <span class="mono">1–9</span> 筆</span>
+        <div class="flex items-center gap-1.5">
+          <button class="px-2.5 py-1 rounded-md border" style="border-color:var(--border-strong);color:var(--ink-faint);">上一頁</button>
+          <button class="px-2.5 py-1 rounded-md text-white" style="background:var(--brand);">1</button>
+          <button class="px-2.5 py-1 rounded-md border" style="border-color:var(--border-strong);color:var(--ink-soft);">2</button>
+          <button class="px-2.5 py-1 rounded-md border" style="border-color:var(--border-strong);color:var(--ink-soft);">下一頁</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom two-column: alert list + top drivers -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-3.5">
+
+      <div class="card p-4">
+        <h3 class="font-ui font-bold text-[14px] mb-3">最新異常通報</h3>
+        <div class="space-y-2.5">
+          <div class="flex items-start gap-3 pb-2.5 border-b" style="border-color:var(--border);">
+            <span class="tag tag-alert flex-none mt-0.5"><span class="tag-dot"></span>異常</span>
+            <div class="min-w-0 flex-1">
+              <div class="text-[13px] font-semibold">內湖區冷鏈車輛溫控異常</div>
+              <div class="text-[11.5px] mt-0.5" style="color:var(--ink-faint);">車號 <span class="mono">RB-2291</span> · 生鮮貨件 42 件受影響</div>
+            </div>
+            <span class="mono text-[11px] flex-none" style="color:var(--ink-faint);">14:12</span>
+          </div>
+          <div class="flex items-start gap-3 pb-2.5 border-b" style="border-color:var(--border);">
+            <span class="tag tag-alert flex-none mt-0.5"><span class="tag-dot"></span>異常</span>
+            <div class="min-w-0 flex-1">
+              <div class="text-[13px] font-semibold">台南轉運站分揀機故障</div>
+              <div class="text-[11.5px] mt-0.5" style="color:var(--ink-faint);">預估延誤分揀時間 <span class="mono">90</span> 分鐘</div>
+            </div>
+            <span class="mono text-[11px] flex-none" style="color:var(--ink-faint);">13:47</span>
+          </div>
+          <div class="flex items-start gap-3 pb-2.5 border-b" style="border-color:var(--border);">
+            <span class="tag tag-delay flex-none mt-0.5"><span class="tag-dot"></span>延遲</span>
+            <div class="min-w-0 flex-1">
+              <div class="text-[13px] font-semibold">新竹地區午後陣雨影響車速</div>
+              <div class="text-[11.5px] mt-0.5" style="color:var(--ink-faint);">預估整體時效延後 <span class="mono">25</span> 分鐘</div>
+            </div>
+            <span class="mono text-[11px] flex-none" style="color:var(--ink-faint);">13:20</span>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="tag tag-normal flex-none mt-0.5"><span class="tag-dot"></span>已排除</span>
+            <div class="min-w-0 flex-1">
+              <div class="text-[13px] font-semibold">板橋轉運站包裹掃描機重啟完成</div>
+              <div class="text-[11.5px] mt-0.5" style="color:var(--ink-faint);">停機 <span class="mono">18</span> 分鐘後已恢復運作</div>
+            </div>
+            <span class="mono text-[11px] flex-none" style="color:var(--ink-faint);">12:55</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card p-4">
+        <h3 class="font-ui font-bold text-[14px] mb-3">今日配送量前五名司機</h3>
+        <div class="space-y-2">
+          <div class="flex items-center gap-3">
+            <span class="mono text-[12px] w-4 flex-none" style="color:var(--ink-faint);">1</span>
+            <span class="text-[13px] font-medium flex-1 truncate">林建宏</span>
+            <span class="mono text-[11px]" style="color:var(--ink-faint);">高雄 / 鳳山</span>
+            <span class="mono text-[13px] font-bold w-14 text-right">312</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="mono text-[12px] w-4 flex-none" style="color:var(--ink-faint);">2</span>
+            <span class="text-[13px] font-medium flex-1 truncate">黃彥廷</span>
+            <span class="mono text-[11px]" style="color:var(--ink-faint);">桃園 / 中壢</span>
+            <span class="mono text-[13px] font-bold w-14 text-right">298</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="mono text-[12px] w-4 flex-none" style="color:var(--ink-faint);">3</span>
+            <span class="text-[13px] font-medium flex-1 truncate">李美君</span>
+            <span class="mono text-[11px]" style="color:var(--ink-faint);">台中 / 大里</span>
+            <span class="mono text-[13px] font-bold w-14 text-right">276</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="mono text-[12px] w-4 flex-none" style="color:var(--ink-faint);">4</span>
+            <span class="text-[13px] font-medium flex-1 truncate">吳承翰</span>
+            <span class="mono text-[11px]" style="color:var(--ink-faint);">板橋 / 新莊</span>
+            <span class="mono text-[13px] font-bold w-14 text-right">259</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="mono text-[12px] w-4 flex-none" style="color:var(--ink-faint);">5</span>
+            <span class="text-[13px] font-medium flex-1 truncate">陳志豪</span>
+            <span class="mono text-[11px]" style="color:var(--ink-faint);">新竹 / 竹北</span>
+            <span class="mono text-[13px] font-bold w-14 text-right">241</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="text-center text-[11px] py-2" style="color:var(--ink-faint);">
+      集貨網 CargoNet 調度指揮中心 © 2026　資料來源：全台 9 個轉運站即時回報系統
+    </div>
+
+  </main>
+</div>
+
+<script>
+  // Clock ticking
+  (function(){
+    var el = document.getElementById('clock');
+    function pad(n){ return n < 10 ? '0'+n : ''+n; }
+    function tick(){
+      var now = new Date();
+      el.textContent = pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+
+  // Gentle KPI number flicker to feel "live"
+  (function(){
+    var shipEl = document.getElementById('kpi-shipment');
+    var base = 18342;
+    setInterval(function(){
+      var delta = Math.floor(Math.random() * 6);
+      base += delta;
+      shipEl.textContent = base.toLocaleString('en-US');
+      shipEl.classList.remove('diff-tick');
+      void shipEl.offsetWidth;
+      shipEl.classList.add('diff-tick');
+    }, 4000);
+  })();
+
+  // Row click highlight (visual only)
+  document.querySelectorAll('#fleet-body tr').forEach(function(row){
+    row.addEventListener('click', function(){
+      document.querySelectorAll('#fleet-body tr').forEach(function(r){ r.style.outline = 'none'; });
+      row.style.outline = '2px solid #1f4fd6';
+      row.style.outlineOffset = '-2px';
+    });
+  });
+</script>
+
+</body>
+</html>

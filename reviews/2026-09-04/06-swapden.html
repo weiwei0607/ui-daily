@@ -1,0 +1,283 @@
+<!-- style #57 Gen Z Chaos -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>揪團倉 SwapDen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Grandstander:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --teal:#4ecdc4;
+    --coral:#ff6b6b;
+    --yellow:#ffe66d;
+    --purple:#a388ee;
+    --ink:#231f20;
+    --paper:#fffdf6;
+  }
+  *{ box-sizing:border-box; }
+  html,body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans TC','Grandstander',sans-serif;
+    overflow-x:hidden;
+    width:100%;
+  }
+  body{
+    background-image:
+      radial-gradient(circle, rgba(163,136,238,.18) 1.5px, transparent 1.5px),
+      radial-gradient(circle, rgba(78,205,196,.15) 1.5px, transparent 1.5px);
+    background-size: 26px 26px, 26px 26px;
+    background-position: 0 0, 13px 13px;
+  }
+  .font-display{ font-family:'Grandstander','Noto Sans TC',sans-serif; }
+  .font-mono{ font-family:'Space Mono','Noto Sans TC',monospace; }
+
+  .wrap{ max-width: 960px; margin: 0 auto; padding: 0 1rem; }
+
+  /* ---- marquee ---- */
+  .marquee-track{
+    display:flex;
+    width:max-content;
+    animation: marquee 16s linear infinite;
+  }
+  .marquee-track span{
+    display:inline-block;
+    padding: 0 1.25rem;
+    white-space:nowrap;
+  }
+  @keyframes marquee{
+    from{ transform:translateX(0); }
+    to{ transform:translateX(-50%); }
+  }
+
+  /* ---- sticker base ---- */
+  .sticker{
+    background:#fff;
+    border-radius: 18px;
+    border: 3px dashed var(--ink);
+    box-shadow: 6px 6px 0 var(--ink);
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .sticker:hover{
+    transform: rotate(0deg) scale(1.04) !important;
+    box-shadow: 9px 9px 0 var(--ink);
+  }
+
+  .tilt-1{ transform: rotate(-4deg); }
+  .tilt-2{ transform: rotate(3deg); }
+  .tilt-3{ transform: rotate(-2.5deg); }
+  .tilt-4{ transform: rotate(5deg); }
+  .tilt-5{ transform: rotate(-6deg); }
+
+  @keyframes wiggle{
+    0%,100%{ transform: rotate(var(--r,0deg)); }
+    50%{ transform: rotate(calc(var(--r,0deg) + 1.6deg)); }
+  }
+  .wiggle-1{ --r:-4deg; animation: wiggle 3.2s ease-in-out infinite; }
+  .wiggle-2{ --r:3deg; animation: wiggle 3.6s ease-in-out infinite .3s; }
+  .wiggle-3{ --r:-2.5deg; animation: wiggle 3.1s ease-in-out infinite .6s; }
+  .wiggle-4{ --r:5deg; animation: wiggle 3.8s ease-in-out infinite .2s; }
+
+  .badge-pop{
+    animation: pop 2.4s ease-in-out infinite;
+  }
+  @keyframes pop{
+    0%,100%{ transform: rotate(12deg) scale(1); }
+    50%{ transform: rotate(12deg) scale(1.12); }
+  }
+
+  .highlight{
+    background: linear-gradient(120deg, transparent 0%, transparent 6%, currentColor 6%, currentColor 94%, transparent 94%);
+    -webkit-background-clip: text;
+  }
+  .mark{
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    padding: .05em .28em;
+    border-radius: 6px;
+  }
+
+  .torn-edge{
+    position:relative;
+  }
+  .scribble-underline{
+    position:relative;
+    display:inline-block;
+  }
+  .scribble-underline::after{
+    content:"";
+    position:absolute;
+    left:-2%; right:-2%; bottom:-6px;
+    height: 10px;
+    background: repeating-linear-gradient(100deg, var(--coral) 0 8px, transparent 8px 14px);
+    opacity:.9;
+    border-radius: 8px;
+    transform: rotate(-1deg);
+  }
+
+  .btn-cta{
+    font-family:'Grandstander','Noto Sans TC',sans-serif;
+    animation: wiggle 2.6s ease-in-out infinite;
+    --r:-2deg;
+  }
+  .btn-cta:hover{ animation-play-state: paused; }
+
+  ::selection{ background: var(--yellow); color: var(--ink); }
+
+  @media (max-width: 640px){
+    .tilt-1,.tilt-2,.tilt-3,.tilt-4,.tilt-5{ transform: rotate(0deg); }
+    .wiggle-1,.wiggle-2,.wiggle-3,.wiggle-4{ animation: none; }
+    .sticker{ box-shadow: 4px 4px 0 var(--ink); }
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <!-- 頂部跑馬燈 -->
+  <div class="w-full border-b-4 border-[var(--ink)] py-2 overflow-hidden" style="background:var(--yellow);">
+    <div class="marquee-track font-mono text-sm md:text-base font-bold" style="color:var(--ink);">
+      <span>★ 不用花錢，用換的 ★ 開學季限定 ★ 全校瘋傳中 ★ 一鍵刊登只要 30 秒 ★</span>
+      <span>★ 不用花錢，用換的 ★ 開學季限定 ★ 全校瘋傳中 ★ 一鍵刊登只要 30 秒 ★</span>
+    </div>
+  </div>
+
+  <!-- 導覽列 -->
+  <header class="wrap flex items-center justify-between pt-6 pb-2 relative">
+    <div class="flex items-center gap-3">
+      <div class="sticker tilt-2 px-4 py-2 font-display font-extrabold text-lg md:text-xl" style="background:var(--purple); color:#fff;">
+        揪團倉
+      </div>
+      <span class="font-mono text-xs md:text-sm tracking-wider" style="color:var(--ink);">SwapDen ／ 校園二手交換</span>
+    </div>
+    <a href="#join" class="hidden sm:inline-block font-mono text-xs px-3 py-2 rounded-full border-2 border-[var(--ink)]" style="background:var(--teal);">
+      #.edu信箱限定
+    </a>
+  </header>
+
+  <!-- Hero -->
+  <main class="wrap relative pt-10 pb-6">
+
+    <div class="badge-pop absolute -top-2 right-2 sm:right-6 font-mono text-xs font-bold px-3 py-2 rounded-full border-2 border-[var(--ink)] z-10" style="background:var(--coral); color:#fff; transform:rotate(12deg);">
+      開學必裝！
+    </div>
+
+    <h1 class="font-display font-black leading-[0.95] tracking-tight" style="font-size:clamp(2.6rem,9vw,5.2rem);">
+      <span class="inline-block mark tilt-1" style="background:var(--yellow); transform:rotate(-3deg);">不用花錢</span><br class="hidden sm:block">
+      <span class="inline-block mark tilt-2 mt-2" style="background:var(--teal); color:#fff; transform:rotate(2deg);">用換的！</span>
+    </h1>
+
+    <p class="mt-6 max-w-xl font-display font-semibold text-lg sm:text-xl" style="color:var(--ink);">
+      大學生二手物交換社群 —
+      <span class="scribble-underline">你的閒置，是別人的寶藏</span>。
+    </p>
+
+    <!-- 塗鴉筆記 -->
+    <div class="sticker tilt-3 mt-8 max-w-xl p-5 sm:p-6 relative" style="background:#fffef2;">
+      <span class="absolute -top-3 -left-3 font-mono text-[10px] px-2 py-1 rounded-full border-2 border-[var(--ink)]" style="background:var(--purple); color:#fff; transform:rotate(-8deg);">碎碎念</span>
+      <p class="font-display text-base sm:text-lg leading-relaxed" style="color:var(--ink);">
+        開學前大掃除是不是又在煩惱：那件只穿過一次的萬聖節服裝、大一買了但沒翻幾頁的原文書、還沒拆封的收納箱……
+        與其堆在角落長灰塵，<span class="mark" style="background:var(--coral); color:#fff;">不如換一個你真正需要的東西</span>。
+        全校 <span class="font-mono font-bold">.edu</span> 信箱認證會員限定，安心、免費、還可以順便交朋友。
+      </p>
+    </div>
+
+    <!-- 功能貼紙卡片 -->
+    <section class="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10">
+
+      <div class="sticker wiggle-1 tilt-1 p-6" style="background:#fff;">
+        <div class="w-12 h-12 rounded-full flex items-center justify-center text-2xl mb-3 border-2 border-[var(--ink)]" style="background:var(--yellow);">📸</div>
+        <h3 class="font-display font-extrabold text-xl mb-1">一鍵刊登</h3>
+        <p class="text-sm leading-relaxed">拍照上傳、選分類、打勾「可換」，30 秒刊登完成，比你點手搖飲還快。</p>
+        <span class="font-mono text-xs inline-block mt-3 px-2 py-1 rounded-full border" style="border-color:var(--ink); background:var(--yellow);">#快狠準</span>
+      </div>
+
+      <div class="sticker wiggle-2 tilt-2 p-6" style="background:#fff;">
+        <div class="w-12 h-12 rounded-full flex items-center justify-center text-2xl mb-3 border-2 border-[var(--ink)]" style="background:var(--teal);">🗺️</div>
+        <h3 class="font-display font-extrabold text-xl mb-1">面交地圖</h3>
+        <p class="text-sm leading-relaxed">校內熱點地圖幫你揪最近的面交點，圖書館前、宿舍門口、系館川堂都幫你標好好。</p>
+        <span class="font-mono text-xs inline-block mt-3 px-2 py-1 rounded-full border" style="border-color:var(--ink); background:var(--teal); color:#fff;">#不用亂跑</span>
+      </div>
+
+      <div class="sticker wiggle-3 tilt-3 p-6" style="background:#fff;">
+        <div class="w-12 h-12 rounded-full flex items-center justify-center text-2xl mb-3 border-2 border-[var(--ink)]" style="background:var(--coral);">⭐</div>
+        <h3 class="font-display font-extrabold text-xl mb-1">信用分數</h3>
+        <p class="text-sm leading-relaxed">準時面交、物品狀況誠實標示，分數越高排序越前面，放鳥的人直接被大家看光光。</p>
+        <span class="font-mono text-xs inline-block mt-3 px-2 py-1 rounded-full border" style="border-color:var(--ink); background:var(--coral); color:#fff;">#路人皆知</span>
+      </div>
+
+      <div class="sticker wiggle-4 tilt-4 p-6" style="background:#fff;">
+        <div class="w-12 h-12 rounded-full flex items-center justify-center text-2xl mb-3 border-2 border-[var(--ink)]" style="background:var(--purple);">🎉</div>
+        <h3 class="font-display font-extrabold text-xl mb-1">揪團優惠</h3>
+        <p class="text-sm leading-relaxed">同系、同宿舍一起換，滿三件出貨免手續費，揪愈多人賺愈多。</p>
+        <span class="font-mono text-xs inline-block mt-3 px-2 py-1 rounded-full border" style="border-color:var(--ink); background:var(--purple); color:#fff;">#人多好辦事</span>
+      </div>
+
+    </section>
+
+    <!-- 數據貼紙 -->
+    <section class="mt-14 flex flex-wrap gap-4 sm:gap-6 justify-center">
+      <div class="sticker tilt-5 px-5 py-3 text-center" style="background:var(--yellow);">
+        <div class="font-display font-black text-2xl">1,280+</div>
+        <div class="font-mono text-[11px]">成功換出件數</div>
+      </div>
+      <div class="sticker tilt-2 px-5 py-3 text-center" style="background:var(--teal); color:#fff;">
+        <div class="font-display font-black text-2xl">36</div>
+        <div class="font-mono text-[11px]">合作校園</div>
+      </div>
+      <div class="sticker tilt-3 px-5 py-3 text-center" style="background:var(--coral); color:#fff;">
+        <div class="font-display font-black text-2xl">4.8</div>
+        <div class="font-mono text-[11px]">學生評價</div>
+      </div>
+    </section>
+
+    <!-- 學生留言貼紙 -->
+    <section class="mt-12 max-w-xl mx-auto">
+      <div class="sticker tilt-1 p-6" style="background:#fff8e8;">
+        <p class="font-display text-lg leading-relaxed">
+          「用課本換到一顆氣炸鍋，宿舍室友都嚇歪，這根本是我開學最划算的一筆交易。」
+        </p>
+        <p class="font-mono text-xs mt-3" style="color:#6b6b6b;">— 中文系三年級・匿名使用者</p>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="join" class="mt-16 mb-8 text-center">
+      <p class="font-display font-bold text-xl mb-5">還在猶豫？你的舊物正在等一個新主人。</p>
+      <a href="#" class="btn-cta inline-block font-black text-xl sm:text-2xl px-8 sm:px-10 py-4 rounded-2xl border-4 border-[var(--ink)]" style="background:var(--coral); color:#fff; box-shadow:8px 8px 0 var(--ink);">
+        立即加入 SwapDen
+      </a>
+      <p class="font-mono text-xs mt-4" style="color:#6b6b6b;">用學校 .edu 信箱註冊，最快 30 秒完成</p>
+    </section>
+
+  </main>
+
+  <footer class="w-full border-t-4 border-[var(--ink)] py-5 mt-4" style="background:var(--purple);">
+    <div class="wrap flex flex-col sm:flex-row items-center justify-between gap-2">
+      <span class="font-mono text-xs text-white">© 2026 揪團倉 SwapDen ・ 校園限定二手交換平台</span>
+      <span class="font-mono text-xs text-white">made with 混亂 &amp; 貼紙 ✂️</span>
+    </div>
+  </footer>
+
+<script>
+  // 隨機微調貼紙初始角度，增加拼貼混亂感（尊重 prefers-reduced-motion）
+  (function(){
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduce) return;
+    var stickers = document.querySelectorAll('.sticker');
+    stickers.forEach(function(el, i){
+      el.addEventListener('mouseenter', function(){
+        el.style.transform = 'rotate(0deg) scale(1.05)';
+      });
+      el.addEventListener('mouseleave', function(){
+        el.style.transform = '';
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
