@@ -21,6 +21,12 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-09-04（6 個，#01–06）
+- ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（curl -m 10 逾時無回應，exit 56），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
+- 本輪採用並行子代理（同時派 6 個 agent 各生成一個風格檔案，prompt 中明確指定字體配方、內容主題、技術要求，並要求每個 agent 完成後自行用 opencc 掃描＋檢查 HTML 標籤閉合），全數順利完成；其中 05-issue.html 的子代理在自我檢查時抓到一處西里爾字元誤植的錯字（「не妥協」應為「不妥協」）並自行修正，值得留意生成過程偶爾會混入非中文字元，之後仍建議每輪複查。主流程完成後再用 opencc（s2t）對全部 6 個檔案做逐字元簡繁比對：僅「游/台/里/皂/吃/峰/群/划」被標記，逐一人工檢查上下文後確認皆為台灣慣用正確用字（「划算」「大里」「手工皂」等），非簡體污染，全數保留。
+- 本輪 GH_TOKEN 直連 GitHub REST API（publish.py）预期仍會被環境閘道擋下，改用 `git push`（HTTPS + GH_TOKEN 當密碼）分批發布，每完成 1-2 個檔案就即時 commit+push 備份進度，避免中途遺失工作；發現本機分支曾是 detached HEAD 落後於 origin/master，已用 `git fetch`+`git checkout master`+`git pull --ff-only` 同步後再繼續推送。
+- 本批風格（避開近 3 天 08/09-01～09-03 用過的 #05/#08/#11/#13/#14/#16/#17/#21/#23/#25/#32/#35/#37/#44/#46/#48/#52/#53，並用 `grep -oE '#[0-9]+' taste-log.md | sort | uniq -c` 統計出的「歷史提及次數」優先挑最少的風格編號，跨 A/B/C/D 族群）：**Zero Interface #18**（A 組，累計偏低使用，避免 Inter，改用全新組合 Piazzolla + Noto Serif TC 延續「編輯/敘事配報紙體」偏好，做成個人散文寫作平台「字裡 InWords」，近白極淡背景、無卡片邊框陰影，只用留白與細分隔線組織資訊）、**Hero-Centric #20 × Dark Mode 皮膚**（B 組結構首次搭配 OLED 深色皮膚，避免 Inter，改用 Sora + Noto Sans TC + Space Mono 點綴，做成 AI 語音克隆新創首頁「聲紋 VoicePrint」，純黑底單一螢光紫強調色、巨大主標題與單一 CTA）、**Data-Dense Dashboard #28**（C 組，累計只用過 4 次，避免 Inter/JetBrains Mono，改用 Public Sans + Noto Sans TC + Space Mono 等寬數字靠右對齊，做成物流配送即時營運後台「集貨網 CargoNet」，含 KPI 摘要卡與 9 區車隊即時狀態表）、**Bento Box #39**（D 組，累計只用過 4 次為全庫最低之一，避免 Inter，改用 Onest + Noto Sans TC，做成質感選品電商「拾光選物 TIMEPICK」，CSS Grid 大小不一便當格卡片＋hover 微浮起）、**Minimalism / Swiss #01 重做**（A 組，她 08-17 第一次試過這個風格時明確嫌「字體不好看，要報紙體」，這次再次確認徹底套用 Newsreader + Noto Serif TC 報紙體、嚴格網格與大量留白，做成產業趨勢雙週刊「議題 ISSUE」）、**Gen Z Chaos #57**（D 組，避開前幾輪用過的 Unbounded/Bricolage Grotesque，改用全新組合 Grandstander + Space Mono + Noto Sans TC，做成大學生二手交換 App「揪團倉 SwapDen」，撞色貼紙卡片＋歪斜排版＋跑馬燈）。全數繁體中文文案，中文字元皆保留 Noto Sans/Serif TC 作為 fallback，已用 opencc 掃描並人工複查上下文確認無簡體字混入。
+
 ### 2026-09-03（6 個，#01–06）
 - ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（curl -m 8 逾時無回應，HTTP code 000），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
 - ⚠️ 本輪 Telegram 通知（步驟 8）也被環境網路政策擋下（`api.telegram.org` curl -m 15 逾時無回應，HTTP code 000），與 Firebase 同一機制擋下，非帳號或 bot token 問題。畫廊已正常生成並發布到 GitHub，只是這次沒有 Telegram 訊息推播，改用系統推播通知告知，連結：https://raw.githack.com/weiwei0607/ui-daily/master/reviews/2026-09-03/index.html
