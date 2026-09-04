@@ -1,0 +1,437 @@
+<!-- style #39 Bento Box -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>拾光選物 TIMEPICK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --bg: #f3efe8;
+    --paper: #fbf8f3;
+    --ink: #262220;
+    --ink-soft: #6b625b;
+    --line: #e6ddd0;
+    --accent: #b5651d;
+    --accent-deep: #7c4a1e;
+    --accent-soft: #f0dfc8;
+    --mint: #96a98c;
+    --clay: #c98a6b;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Onest', 'Noto Sans TC', sans-serif;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body{
+    background-image:
+      radial-gradient(circle at 10% 5%, rgba(181,101,29,0.06), transparent 45%),
+      radial-gradient(circle at 90% 90%, rgba(150,169,140,0.10), transparent 40%);
+  }
+
+  h1, h2, h3, .brand-font {
+    font-family: 'Onest', 'Noto Sans TC', sans-serif;
+    letter-spacing: 0.01em;
+  }
+
+  .tc { font-family: 'Noto Sans TC', 'Onest', sans-serif; }
+
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 28px 20px 64px;
+  }
+
+  /* ---------- Header ---------- */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 4px 26px;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .logo-mark{
+    width: 40px; height: 40px; border-radius: 12px;
+    background: linear-gradient(140deg, var(--accent) 0%, var(--clay) 60%, var(--accent-deep) 100%);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 4px 10px rgba(124,74,30,0.25);
+    flex: none;
+  }
+  .brand-name{
+    font-weight: 800; font-size: 19px; letter-spacing: 0.02em; color: var(--ink);
+  }
+  .brand-sub{
+    font-size: 11px; color: var(--ink-soft); letter-spacing: 0.14em; font-weight: 600;
+  }
+  nav.mainnav{
+    display:flex; gap: 26px; font-size: 14px; color: var(--ink-soft); font-weight: 500;
+  }
+  nav.mainnav a{ color: var(--ink-soft); text-decoration:none; transition: color .2s; }
+  nav.mainnav a:hover{ color: var(--accent-deep); }
+  .cart-pill{
+    display:flex; align-items:center; gap:8px;
+    background: var(--paper); border: 1px solid var(--line);
+    padding: 8px 16px; border-radius: 999px; font-size: 13px; font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* ---------- Bento grid ---------- */
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 108px;
+    gap: 18px;
+    grid-template-areas:
+      "hero hero mid1 stat"
+      "hero hero mid2 stat"
+      "hero hero mid2 phil"
+      "mid3 mid4 mid5 phil"
+      "mid3 mid4 mid5 cta";
+  }
+
+  .cell {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 26px;
+    padding: 22px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform .28s cubic-bezier(.22,.9,.32,1), box-shadow .28s;
+    box-shadow: 0 1px 2px rgba(38,34,32,0.04);
+  }
+  .cell:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 18px 34px rgba(38,34,32,0.12);
+  }
+
+  .cell-hero { grid-area: hero; }
+  .cell-mid1 { grid-area: mid1; }
+  .cell-mid2 { grid-area: mid2; }
+  .cell-mid3 { grid-area: mid3; }
+  .cell-mid4 { grid-area: mid4; }
+  .cell-mid5 { grid-area: mid5; }
+  .cell-stat { grid-area: stat; }
+  .cell-phil { grid-area: phil; }
+  .cell-cta  { grid-area: cta; }
+
+  /* ---------- Hero card ---------- */
+  .cell-hero {
+    background: linear-gradient(160deg, #efe3d2 0%, #f6efe3 55%, #fbf8f3 100%);
+    justify-content: space-between;
+  }
+  .hero-visual{
+    position: relative;
+    height: 168px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #d9a15c 0%, #b5651d 45%, #7c4a1e 100%);
+    overflow: hidden;
+    margin-bottom: 16px;
+    flex: none;
+  }
+  .hero-visual svg { position:absolute; inset:0; width:100%; height:100%; }
+  .badge {
+    position:absolute; top:14px; left:14px;
+    background: rgba(251,248,243,0.92); color: var(--accent-deep);
+    font-size: 11px; font-weight: 700; letter-spacing: .04em;
+    padding: 5px 12px; border-radius: 999px;
+  }
+  .hero-title{ font-size: 24px; font-weight: 800; color: var(--ink); margin: 0 0 6px; }
+  .hero-desc{ font-size: 14px; color: var(--ink-soft); line-height: 1.7; margin: 0 0 16px; max-width: 34em; }
+  .price-row{ display:flex; align-items:baseline; justify-content:space-between; gap: 10px; flex-wrap: wrap; }
+  .price{ font-size: 22px; font-weight: 800; color: var(--accent-deep); }
+  .price span{ font-size: 12px; font-weight: 600; color: var(--ink-soft); margin-right: 2px;}
+  .buy-btn{
+    background: var(--ink); color: #fbf8f3; border: none; border-radius: 999px;
+    padding: 10px 22px; font-size: 13px; font-weight: 700; cursor: pointer;
+    font-family: 'Onest', 'Noto Sans TC', sans-serif;
+    transition: background .2s, transform .2s;
+  }
+  .buy-btn:hover{ background: var(--accent-deep); transform: translateY(-1px); }
+
+  /* ---------- Mid product cards ---------- */
+  .prod-visual{
+    height: 74px; border-radius: 14px; margin-bottom: 12px; position: relative; overflow: hidden; flex:none;
+  }
+  .prod-visual svg{ position:absolute; inset:0; width:100%; height:100%; }
+  .prod-name{ font-size: 14px; font-weight: 700; margin: 0 0 4px; color: var(--ink); }
+  .prod-tag{ font-size: 11.5px; color: var(--ink-soft); margin: 0 0 10px; line-height: 1.5; flex: 1; }
+  .prod-price{ font-size: 15px; font-weight: 800; color: var(--accent-deep); }
+  .prod-price span{ font-size: 11px; color: var(--ink-soft); font-weight: 600; margin-right:1px; }
+
+  .cell-mid1 .prod-visual{ background: linear-gradient(135deg,#e7b26b,#b5651d); }
+  .cell-mid2 .prod-visual{ background: linear-gradient(135deg,#a9c1a0,#5f7a55); }
+  .cell-mid3 .prod-visual{ background: linear-gradient(135deg,#d9c2a6,#8a6a4a); }
+  .cell-mid4 .prod-visual{ background: linear-gradient(135deg,#e3d5c4,#b98a5e); }
+  .cell-mid5 .prod-visual{ background: linear-gradient(135deg,#c9a48c,#7c4a1e); }
+
+  /* ---------- Stat card ---------- */
+  .cell-stat{
+    background: linear-gradient(165deg, #3c332c 0%, #262220 100%);
+    color: #f3efe8;
+    justify-content: center;
+  }
+  .stat-num{ font-size: 40px; font-weight: 800; line-height: 1; margin-bottom: 6px; }
+  .stat-label{ font-size: 12.5px; color: #cfc6ba; font-weight: 500; line-height: 1.6; }
+  .stat-sub{ margin-top: 14px; font-size: 11px; color: #a89c8d; border-top: 1px solid rgba(255,255,255,0.12); padding-top: 12px; }
+  .stat-sub b{ color: #f0dfc8; font-weight: 700; }
+
+  /* ---------- Philosophy card ---------- */
+  .cell-phil{
+    background: var(--accent-soft);
+    justify-content: space-between;
+  }
+  .phil-eyebrow{ font-size: 11px; font-weight: 700; color: var(--accent-deep); letter-spacing: .1em; margin-bottom: 10px; }
+  .phil-quote{ font-size: 15px; font-weight: 600; line-height: 1.75; color: var(--ink); margin: 0; }
+  .phil-foot{ margin-top: 14px; font-size: 11.5px; color: var(--ink-soft); }
+
+  /* ---------- CTA card ---------- */
+  .cell-cta{
+    background: var(--paper);
+    justify-content: center;
+    align-items: flex-start;
+  }
+  .cta-title{ font-size: 15px; font-weight: 700; margin: 0 0 6px; }
+  .cta-desc{ font-size: 11.5px; color: var(--ink-soft); margin: 0 0 12px; line-height: 1.6; }
+  .cta-link{
+    font-size: 12.5px; font-weight: 700; color: var(--accent-deep);
+    display:inline-flex; align-items:center; gap: 5px; text-decoration: none;
+  }
+  .cta-link svg{ width:13px; height:13px; transition: transform .2s; }
+  .cta-link:hover svg{ transform: translateX(3px); }
+
+  footer.foot{
+    text-align:center; margin-top: 40px; font-size: 12px; color: var(--ink-soft);
+  }
+
+  @media (max-width: 900px) {
+    .bento {
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: auto;
+      grid-template-areas:
+        "hero hero"
+        "stat phil"
+        "mid1 mid2"
+        "mid3 mid4"
+        "mid5 cta";
+    }
+    .cell-hero, .cell-stat, .cell-phil, .cell-mid1, .cell-mid2, .cell-mid3, .cell-mid4, .cell-mid5, .cell-cta{
+      min-height: 190px;
+    }
+    .hero-visual{ height: 140px; }
+  }
+
+  @media (max-width: 560px) {
+    .bento{
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "hero"
+        "stat"
+        "phil"
+        "mid1"
+        "mid2"
+        "mid3"
+        "mid4"
+        "mid5"
+        "cta";
+    }
+    nav.mainnav{ display:none; }
+    .topbar{ justify-content: space-between; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <div class="logo-mark">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M10 2 L17 6 L17 14 L10 18 L3 14 L3 6 Z" stroke="#fbf8f3" stroke-width="1.3" fill="none"/>
+          <circle cx="10" cy="10" r="2.4" fill="#fbf8f3"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-name">拾光選物<span style="color:var(--accent-deep); font-weight:800;"> TIMEPICK</span></div>
+        <div class="brand-sub tc">日日選物 · 慢生活提案</div>
+      </div>
+    </div>
+    <nav class="mainnav">
+      <a href="#">首頁</a>
+      <a href="#">文具</a>
+      <a href="#">香氛</a>
+      <a href="#">居家</a>
+      <a href="#">關於我們</a>
+    </nav>
+    <div class="cart-pill">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h2l2.4 12.4a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.6L21 8H6"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>
+      購物袋（2）
+    </div>
+  </div>
+
+  <div class="bento">
+
+    <!-- HERO -->
+    <div class="cell cell-hero">
+      <div class="hero-visual">
+        <span class="badge">本週主打</span>
+        <svg viewBox="0 0 300 168" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="heroGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#e7b26b"/>
+              <stop offset="55%" stop-color="#b5651d"/>
+              <stop offset="100%" stop-color="#5f3a17"/>
+            </linearGradient>
+          </defs>
+          <rect width="300" height="168" fill="url(#heroGrad)"/>
+          <circle cx="235" cy="40" r="70" fill="rgba(251,248,243,0.10)"/>
+          <circle cx="60" cy="150" r="90" fill="rgba(38,34,32,0.10)"/>
+          <g transform="translate(150 84) rotate(-18)">
+            <rect x="-90" y="-6" width="150" height="12" rx="6" fill="#fbf8f3" opacity="0.92"/>
+            <polygon points="60,-6 78,0 60,6" fill="#262220" opacity="0.85"/>
+            <rect x="-98" y="-3" width="10" height="6" rx="3" fill="#262220" opacity="0.6"/>
+          </g>
+        </svg>
+      </div>
+      <div>
+        <h2 class="hero-title tc">胡桃木鋼筆套組</h2>
+        <p class="hero-desc tc">胡桃木削製的筆桿，紋理各自不同；配上德製鋼尖，書寫時有回甘般的重量感。附贈同款筆記本一冊，適合每天寫一點什麼。</p>
+      </div>
+      <div class="price-row">
+        <div class="price"><span>NT$</span>1,680</div>
+        <button class="buy-btn">加入購物袋</button>
+      </div>
+    </div>
+
+    <!-- MID 1 -->
+    <div class="cell cell-mid1">
+      <div class="prod-visual">
+        <svg viewBox="0 0 200 74" preserveAspectRatio="none">
+          <rect width="200" height="74" fill="#b5651d"/>
+          <ellipse cx="150" cy="18" rx="60" ry="40" fill="rgba(255,255,255,0.14)"/>
+          <rect x="70" y="14" width="34" height="46" rx="6" fill="#fbf8f3" opacity="0.9"/>
+          <ellipse cx="87" cy="14" rx="17" ry="6" fill="#e7b26b"/>
+        </svg>
+      </div>
+      <p class="prod-name tc">琥珀雪松香氛蠟燭</p>
+      <p class="prod-tag tc">木質調中帶一點煙燻，秋冬點一支剛剛好</p>
+      <div class="prod-price"><span>NT$</span>680</div>
+    </div>
+
+    <!-- MID 2 -->
+    <div class="cell cell-mid2">
+      <div class="prod-visual">
+        <svg viewBox="0 0 200 74" preserveAspectRatio="none">
+          <rect width="200" height="74" fill="#5f7a55"/>
+          <circle cx="60" cy="37" r="26" fill="#fbf8f3" opacity="0.85"/>
+          <circle cx="100" cy="37" r="20" fill="#fbf8f3" opacity="0.6"/>
+          <circle cx="132" cy="37" r="14" fill="#fbf8f3" opacity="0.45"/>
+        </svg>
+      </div>
+      <p class="prod-name tc">初榨橄欖油手工皂．三入</p>
+      <p class="prod-tag tc">冷製工法慢慢等待六週，洗感溫和不刺激</p>
+      <div class="prod-price"><span>NT$</span>450</div>
+    </div>
+
+    <!-- MID 3 -->
+    <div class="cell cell-mid3">
+      <div class="prod-visual">
+        <svg viewBox="0 0 200 74" preserveAspectRatio="none">
+          <rect width="200" height="74" fill="#8a6a4a"/>
+          <ellipse cx="100" cy="50" rx="70" ry="14" fill="#262220" opacity="0.18"/>
+          <ellipse cx="100" cy="34" rx="58" ry="20" fill="#e3d5c4"/>
+        </svg>
+      </div>
+      <p class="prod-name tc">陶燒圓盤托盤</p>
+      <p class="prod-tag tc">手工拉坯，邊緣留著自然不規則的弧度</p>
+      <div class="prod-price"><span>NT$</span>390</div>
+    </div>
+
+    <!-- MID 4 -->
+    <div class="cell cell-mid4">
+      <div class="prod-visual">
+        <svg viewBox="0 0 200 74" preserveAspectRatio="none">
+          <rect width="200" height="74" fill="#b98a5e"/>
+          <g stroke="#fbf8f3" stroke-width="2.4" opacity="0.75" fill="none">
+            <path d="M40 20 L40 60"/><path d="M60 15 L60 60"/><path d="M80 22 L80 60"/><path d="M100 16 L100 60"/><path d="M120 24 L120 60"/><path d="M140 18 L140 60"/>
+          </g>
+        </svg>
+      </div>
+      <p class="prod-name tc">亞麻織紋收納籃</p>
+      <p class="prod-tag tc">手工編織，桌邊放雜物剛好收得服貼</p>
+      <div class="prod-price"><span>NT$</span>980</div>
+    </div>
+
+    <!-- MID 5 -->
+    <div class="cell cell-mid5">
+      <div class="prod-visual">
+        <svg viewBox="0 0 200 74" preserveAspectRatio="none">
+          <rect width="200" height="74" fill="#7c4a1e"/>
+          <rect x="70" y="10" width="14" height="54" rx="4" fill="#fbf8f3" opacity="0.9"/>
+          <rect x="90" y="20" width="14" height="44" rx="4" fill="#fbf8f3" opacity="0.65"/>
+          <rect x="110" y="30" width="14" height="34" rx="4" fill="#fbf8f3" opacity="0.45"/>
+        </svg>
+      </div>
+      <p class="prod-name tc">手工線裝筆記本</p>
+      <p class="prod-tag tc">米色內頁不反光，適合鋼筆與鉛筆書寫</p>
+      <div class="prod-price"><span>NT$</span>320</div>
+    </div>
+
+    <!-- STAT -->
+    <div class="cell cell-stat">
+      <div class="stat-num">128</div>
+      <div class="stat-label tc">件生活選品<br>本週嚴選上架</div>
+      <div class="stat-sub tc">每季試用超過 <b>400</b> 件，僅有不到一成留下</div>
+    </div>
+
+    <!-- PHILOSOPHY -->
+    <div class="cell cell-phil">
+      <div>
+        <div class="phil-eyebrow tc">品牌理念</div>
+        <p class="phil-quote tc">我們相信一件好用的物品，比十件將就的東西更值得擁有。每樣選品都經由選物師親自使用一個月以上。</p>
+      </div>
+      <div class="phil-foot tc">— 拾光選物 選品團隊</div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cell cell-cta">
+      <div class="cta-title tc">加入會員享免運</div>
+      <p class="cta-desc tc">消費滿 NT$1,500 全台免運，會員生日當月再享 95 折</p>
+      <a href="#" class="cta-link tc">立即加入
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+  </div>
+
+  <footer class="foot tc">拾光選物 TIMEPICK · 每一件都值得被好好使用</footer>
+</div>
+
+<script>
+  // 微互動：卡片依滑鼠位置做輕微 3D 浮起效果
+  document.querySelectorAll('.cell').forEach(function (cell) {
+    cell.addEventListener('mousemove', function (e) {
+      var r = cell.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width - 0.5;
+      var y = (e.clientY - r.top) / r.height - 0.5;
+      cell.style.transform = 'translateY(-5px) rotateX(' + (-y * 2.5) + 'deg) rotateY(' + (x * 2.5) + 'deg)';
+    });
+    cell.addEventListener('mouseleave', function () {
+      cell.style.transform = '';
+    });
+  });
+</script>
+</body>
+</html>
