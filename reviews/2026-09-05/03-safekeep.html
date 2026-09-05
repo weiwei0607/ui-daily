@@ -1,0 +1,323 @@
+<!-- style #24 Social Proof-Focused -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>護存 SafeKeep｜企業級雲端備份服務</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;500;600;700;800&family=Spectral:ital@1&family=Noto+Serif+TC:wght@500;600;700;900&family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink-900:#0b1a2b;
+    --ink-800:#132a41;
+    --navy-700:#1c3a5e;
+    --navy-600:#26507f;
+    --slate-500:#5b6b7d;
+    --slate-400:#8494a6;
+    --paper:#f7f5ef;
+    --paper-2:#efece2;
+    --hair:#d9d4c4;
+    --gold:#b48a3f;
+    --gold-2:#8a6a2c;
+  }
+  html,body{background:var(--paper);}
+  body{
+    font-family:'Noto Sans TC','Noto Serif TC',sans-serif;
+    color:var(--ink-900);
+    -webkit-font-smoothing:antialiased;
+  }
+  .serif-en{font-family:'Spectral','Noto Serif TC',serif;}
+  .serif-tc{font-family:'Noto Serif TC','Spectral',serif;}
+  .headline{
+    font-family:'Noto Serif TC','Spectral',serif;
+    font-weight:800;
+    letter-spacing:0.01em;
+  }
+  .kicker{
+    font-family:'Spectral',serif;
+    font-style:italic;
+    letter-spacing:0.08em;
+  }
+  .rule{border-top:1px solid var(--hair);}
+  .rule-thick{border-top:3px double var(--ink-800);}
+  .stat-num{
+    font-family:'Spectral',serif;
+    font-weight:700;
+    font-variant-numeric:tabular-nums;
+    letter-spacing:-0.01em;
+  }
+  .quote-mark{
+    font-family:'Spectral',serif;
+    font-weight:700;
+    color:var(--gold);
+    line-height:0.6;
+  }
+  .logo-plate{
+    font-family:'Spectral',serif;
+    font-weight:600;
+    letter-spacing:0.03em;
+    color:var(--navy-700);
+    border:1px solid var(--hair);
+    background:#fff;
+  }
+  .btn-primary{
+    background:var(--navy-700);
+    color:#fdfcf8;
+    font-family:'Noto Serif TC','Spectral',serif;
+    font-weight:700;
+    transition:background .18s ease, transform .18s ease;
+  }
+  .btn-primary:hover{background:var(--ink-800); transform:translateY(-1px);}
+  .btn-ghost{
+    border:1.5px solid var(--ink-800);
+    color:var(--ink-800);
+    font-family:'Noto Serif TC','Spectral',serif;
+    font-weight:700;
+  }
+  .btn-ghost:hover{background:var(--ink-800); color:#fdfcf8;}
+  .masthead-tag{
+    font-family:'Spectral',serif;
+    font-weight:500;
+    letter-spacing:0.2em;
+  }
+  .card-testimonial{
+    background:#fff;
+    border:1px solid var(--hair);
+  }
+  .card-testimonial:hover{
+    box-shadow:0 14px 30px -18px rgba(11,26,43,0.35);
+  }
+  .divider-dot::before{
+    content:"·";
+    margin:0 .5rem;
+    color:var(--slate-400);
+  }
+  .badge-caps{
+    font-family:'Spectral',serif;
+    letter-spacing:0.16em;
+    font-weight:600;
+  }
+  ::selection{background:var(--gold); color:#fff;}
+</style>
+</head>
+<body class="antialiased">
+
+  <!-- ===== Top Utility Bar ===== -->
+  <div class="bg-[var(--ink-900)] text-[var(--paper)]">
+    <div class="max-w-6xl mx-auto px-6 py-2 flex items-center justify-between text-[11px] tracking-wide">
+      <span class="masthead-tag opacity-80">企業資安與資料治理權威媒體級服務</span>
+      <div class="hidden sm:flex items-center gap-4 opacity-90">
+        <span>客服專線：0800-711-966</span>
+        <span class="divider-dot"></span>
+        <span>服務時間：週一至週五 09:00–18:00</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Header / Masthead ===== -->
+  <header class="bg-[var(--paper)] border-b border-[var(--hair)]">
+    <div class="max-w-6xl mx-auto px-6 pt-8 pb-6">
+      <div class="flex items-end justify-between flex-wrap gap-4">
+        <div>
+          <p class="kicker text-sm text-[var(--gold-2)] mb-1">ENTERPRISE CLOUD BACKUP · EST. 2014</p>
+          <h1 class="headline text-4xl sm:text-5xl text-[var(--ink-900)]">護存 <span class="text-[var(--navy-700)]">SafeKeep</span></h1>
+        </div>
+        <nav class="hidden md:flex items-center gap-8 serif-en text-[15px] text-[var(--ink-800)] font-medium mb-1">
+          <a href="#proof" class="hover:text-[var(--navy-700)]">客戶實績</a>
+          <a href="#stats" class="hover:text-[var(--navy-700)]">關鍵數據</a>
+          <a href="#testimonials" class="hover:text-[var(--navy-700)]">客戶見證</a>
+          <a href="#contact" class="hover:text-[var(--navy-700)]">聯絡我們</a>
+        </nav>
+        <a href="#contact" class="btn-primary px-5 py-2.5 text-sm mb-1">預約免費諮詢</a>
+      </div>
+    </div>
+    <div class="rule-thick"></div>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="bg-[var(--paper)]">
+    <div class="max-w-6xl mx-auto px-6 py-16 sm:py-20 grid md:grid-cols-12 gap-10 items-center">
+      <div class="md:col-span-7">
+        <p class="badge-caps text-xs text-[var(--gold-2)] mb-4">TRUSTED BY 500+ ENTERPRISES IN TAIWAN</p>
+        <h2 class="headline text-[2.2rem] sm:text-5xl leading-[1.25] text-[var(--ink-900)] mb-6">
+          當災難來臨之前，<br class="hidden sm:block">您的企業資料，早已安全備份。
+        </h2>
+        <p class="text-[17px] leading-relaxed text-[var(--slate-500)] max-w-xl mb-8">
+          護存 SafeKeep 提供符合金融等級規格的異地雲端備份與災難復原方案，協助中小企業 IT 團隊在勒索軟體、硬體故障與人為疏失發生時，於分鐘等級內完成資料復原，讓營運不因意外而中斷。
+        </p>
+        <div class="flex flex-wrap items-center gap-4">
+          <a href="#contact" class="btn-primary px-7 py-3.5 text-[15px]">免費諮詢，30 分鐘完成備份健檢</a>
+          <a href="#stats" class="btn-ghost px-7 py-3.5 text-[15px]">查看服務成效數據</a>
+        </div>
+        <p class="mt-5 text-[13px] text-[var(--slate-400)]">無需信用卡・提供 14 天完整功能試用・專屬顧問一對一導入</p>
+      </div>
+      <div class="md:col-span-5">
+        <div class="border border-[var(--hair)] bg-white p-7">
+          <p class="badge-caps text-xs text-[var(--navy-700)] mb-4">SLA 服務承諾</p>
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3">
+              <span class="stat-num text-2xl text-[var(--navy-700)] w-16 shrink-0">99.99%</span>
+              <span class="text-sm text-[var(--slate-500)] pt-1.5">資料復原成功率，通過第三方稽核驗證</span>
+            </li>
+            <li class="flex items-start gap-3 border-t border-[var(--hair)] pt-4">
+              <span class="stat-num text-2xl text-[var(--navy-700)] w-16 shrink-0">15分</span>
+              <span class="text-sm text-[var(--slate-500)] pt-1.5">平均資料復原啟動時間（RTO）</span>
+            </li>
+            <li class="flex items-start gap-3 border-t border-[var(--hair)] pt-4">
+              <span class="stat-num text-2xl text-[var(--navy-700)] w-16 shrink-0">256bit</span>
+              <span class="text-sm text-[var(--slate-500)] pt-1.5">AES 軍規等級端對端加密</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Logo Wall ===== -->
+  <section id="proof" class="bg-[var(--paper-2)] border-y border-[var(--hair)]">
+    <div class="max-w-6xl mx-auto px-6 py-12">
+      <p class="text-center badge-caps text-xs text-[var(--slate-500)] mb-8">超過 500 家企業信賴的資料守護夥伴，橫跨製造、金融、醫療與零售產業</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+        <div class="logo-plate flex items-center justify-center h-16 text-center px-2 text-[15px]">恆昌精密工業</div>
+        <div class="logo-plate flex items-center justify-center h-16 text-center px-2 text-[15px]">台鼎生技集團</div>
+        <div class="logo-plate flex items-center justify-center h-16 text-center px-2 text-[15px]">聯泰國際物流</div>
+        <div class="logo-plate flex items-center justify-center h-16 text-center px-2 text-[15px]">昇陽金融科技</div>
+        <div class="logo-plate flex items-center justify-center h-16 text-center px-2 text-[15px]">大有連鎖零售</div>
+        <div class="logo-plate flex items-center justify-center h-16 text-center px-2 text-[15px]">正華法律事務所</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Key Stats ===== -->
+  <section id="stats" class="bg-[var(--ink-900)] text-[var(--paper)]">
+    <div class="max-w-6xl mx-auto px-6 py-16">
+      <div class="text-center mb-12">
+        <p class="kicker text-sm text-[var(--gold)] mb-2">BY THE NUMBERS</p>
+        <h3 class="headline text-3xl sm:text-4xl">用數據說話的信任基礎</h3>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="text-center border-r border-white/15 last:border-r-0 md:last:border-r-0">
+          <p class="stat-num text-5xl mb-2">500<span class="text-2xl align-top">+</span></p>
+          <p class="text-sm text-white/70">服務企業客戶數</p>
+        </div>
+        <div class="text-center md:border-r border-white/15">
+          <p class="stat-num text-5xl mb-2">99.99<span class="text-2xl align-top">%</span></p>
+          <p class="text-sm text-white/70">資料復原成功率</p>
+        </div>
+        <div class="text-center border-r border-white/15 md:border-r-0">
+          <p class="stat-num text-5xl mb-2">12<span class="text-2xl align-top">年</span></p>
+          <p class="text-sm text-white/70">企業備份服務經驗</p>
+        </div>
+        <div class="text-center">
+          <p class="stat-num text-5xl mb-2">3.2<span class="text-2xl align-top">PB</span></p>
+          <p class="text-sm text-white/70">目前託管備份資料總量</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Testimonials ===== -->
+  <section id="testimonials" class="bg-[var(--paper)]">
+    <div class="max-w-6xl mx-auto px-6 py-20">
+      <div class="text-center mb-14">
+        <p class="kicker text-sm text-[var(--gold-2)] mb-2">CLIENT TESTIMONIALS</p>
+        <h3 class="headline text-3xl sm:text-4xl text-[var(--ink-900)]">客戶怎麼說</h3>
+        <p class="text-[var(--slate-500)] mt-3 max-w-xl mx-auto">來自不同產業 IT 主管的真實使用回饋</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="card-testimonial p-7 flex flex-col">
+          <span class="quote-mark text-5xl block mb-2">"</span>
+          <p class="text-[15px] leading-relaxed text-[var(--ink-800)] flex-1 mb-6">
+            去年公司差點遭遇勒索軟體攻擊，多虧護存的異地備份機制，我們在當天下午就把全部生產資料復原回來，幾乎沒有影響到出貨排程。這筆投資絕對值得。
+          </p>
+          <div class="rule pt-4">
+            <p class="serif-tc font-semibold text-[var(--ink-900)]">陳信宏</p>
+            <p class="text-sm text-[var(--slate-500)]">資訊部經理・恆昌精密工業</p>
+          </div>
+        </div>
+        <div class="card-testimonial p-7 flex flex-col">
+          <span class="quote-mark text-5xl block mb-2">"</span>
+          <p class="text-[15px] leading-relaxed text-[var(--ink-800)] flex-1 mb-6">
+            我們是受金管會監管的產業，資料保存的合規要求非常嚴格。護存的稽核報告與加密規格完全符合我們內外部審查標準，導入過程中顧問也提供了非常專業的協助。
+          </p>
+          <div class="rule pt-4">
+            <p class="serif-tc font-semibold text-[var(--ink-900)]">林佳蓉</p>
+            <p class="text-sm text-[var(--slate-500)]">資訊安全處處長・昇陽金融科技</p>
+          </div>
+        </div>
+        <div class="card-testimonial p-7 flex flex-col">
+          <span class="quote-mark text-5xl block mb-2">"</span>
+          <p class="text-[15px] leading-relaxed text-[var(--ink-800)] flex-1 mb-6">
+            過去我們用傳統磁帶備份，每次還原都要等上一整天。換成護存之後，備份自動化、還原速度快，IT 團隊終於不用再為了半夜的備份排程加班了。
+          </p>
+          <div class="rule pt-4">
+            <p class="serif-tc font-semibold text-[var(--ink-900)]">黃俊傑</p>
+            <p class="text-sm text-[var(--slate-500)]">IT 主任・大有連鎖零售</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Secondary CTA ===== -->
+  <section id="contact" class="bg-[var(--paper-2)] border-y border-[var(--hair)]">
+    <div class="max-w-6xl mx-auto px-6 py-16 text-center">
+      <p class="kicker text-sm text-[var(--gold-2)] mb-3">GET STARTED TODAY</p>
+      <h3 class="headline text-3xl sm:text-4xl text-[var(--ink-900)] mb-4">讓您的企業資料，從今天開始受到專業守護</h3>
+      <p class="text-[var(--slate-500)] max-w-xl mx-auto mb-8">
+        填寫表單，我們的資料備份顧問將於一個工作天內與您聯繫，為貴公司量身規劃備份與災難復原方案。
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a href="#" class="btn-primary px-8 py-4 text-[15px]">立即預約免費諮詢</a>
+        <a href="#" class="btn-ghost px-8 py-4 text-[15px]">下載企業備份白皮書</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="bg-[var(--ink-900)] text-white/80">
+    <div class="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-4 gap-10">
+      <div>
+        <h4 class="headline text-xl text-white mb-3">護存 SafeKeep</h4>
+        <p class="text-sm leading-relaxed text-white/60">為中小企業提供金融等級的雲端備份與災難復原服務，守護您最重要的數位資產。</p>
+      </div>
+      <div>
+        <p class="badge-caps text-xs text-white/50 mb-4">服務項目</p>
+        <ul class="space-y-2 text-sm text-white/70">
+          <li>企業雲端備份</li>
+          <li>災難復原規劃</li>
+          <li>端點資料保護</li>
+          <li>合規性稽核報告</li>
+        </ul>
+      </div>
+      <div>
+        <p class="badge-caps text-xs text-white/50 mb-4">公司資訊</p>
+        <ul class="space-y-2 text-sm text-white/70">
+          <li>關於護存</li>
+          <li>資安認證與合規</li>
+          <li>合作夥伴</li>
+          <li>人才招募</li>
+        </ul>
+      </div>
+      <div>
+        <p class="badge-caps text-xs text-white/50 mb-4">聯絡方式</p>
+        <ul class="space-y-2 text-sm text-white/70">
+          <li>客服專線：0800-711-966</li>
+          <li>service@safekeep-example.tw</li>
+          <li>台北市信義區松仁路 88 號 21 樓</li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/15">
+      <div class="max-w-6xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-white/50">
+        <p>© 2026 護存 SafeKeep 股份有限公司　版權所有</p>
+        <p>本頁面為 UI/UX 設計練習作品，僅供展示用途</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

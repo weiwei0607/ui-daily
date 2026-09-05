@@ -1,0 +1,454 @@
+<!-- style #03 Glassmorphism -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>糖霜 SUGARFROST｜手作甜點烘焙工作室</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --glass-bg: rgba(255,255,255,0.28);
+    --glass-bg-strong: rgba(255,255,255,0.42);
+    --glass-border: rgba(255,255,255,0.55);
+    --ink: #3a2350;
+    --ink-soft: #5c4470;
+    --accent: #ff7ac6;
+    --accent2: #7c5cff;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin:0;
+    padding:0;
+    font-family: 'M PLUS Rounded 1c', 'Noto Sans TC', 'Baloo 2', sans-serif;
+    color: var(--ink);
+    background: #764ba2;
+    overflow-x: hidden;
+  }
+
+  .font-display{
+    font-family: 'Baloo 2', 'M PLUS Rounded 1c', 'Noto Sans TC', sans-serif;
+  }
+
+  /* 彩色漸層底 + 浮動光斑，讓毛玻璃有東西可以「毛」 */
+  .bg-scene{
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 45%, #f093fb 100%);
+  }
+  .bg-blob{
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(10px);
+    z-index: -1;
+    opacity: 0.55;
+    animation: float 14s ease-in-out infinite;
+  }
+  .blob1{ width: 420px; height: 420px; background: #ffd1e8; top: -120px; left: -100px; animation-delay: 0s; }
+  .blob2{ width: 360px; height: 360px; background: #a0e9ff; top: 30%; right: -140px; animation-delay: 3s; }
+  .blob3{ width: 300px; height: 300px; background: #fff2b0; bottom: -100px; left: 20%; animation-delay: 6s; }
+  .blob4{ width: 260px; height: 260px; background: #d9b8ff; bottom: 10%; right: 10%; animation-delay: 9s; }
+
+  @keyframes float{
+    0%, 100% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(30px, -40px) scale(1.08); }
+  }
+
+  /* 招牌毛玻璃卡片 */
+  .glass{
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px 0 rgba(70, 30, 90, 0.25);
+  }
+  .glass-strong{
+    background: var(--glass-bg-strong);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 10px 40px 0 rgba(70, 30, 90, 0.3);
+  }
+
+  .btn-glass{
+    background: rgba(255,255,255,0.55);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.75);
+    color: var(--ink);
+    box-shadow: 0 6px 20px rgba(124, 92, 255, 0.35);
+    transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+  }
+  .btn-glass:hover{
+    transform: translateY(-3px);
+    background: rgba(255,255,255,0.75);
+    box-shadow: 0 10px 28px rgba(124, 92, 255, 0.45);
+  }
+  .btn-glass:active{ transform: translateY(0px) scale(0.98); }
+
+  .btn-outline-glass{
+    background: rgba(255,255,255,0.14);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1.5px solid rgba(255,255,255,0.85);
+    color: #fff;
+    transition: transform .25s ease, background .25s ease;
+  }
+  .btn-outline-glass:hover{
+    background: rgba(255,255,255,0.28);
+    transform: translateY(-3px);
+  }
+
+  .card{
+    transition: transform .3s ease, box-shadow .3s ease, background .3s ease;
+  }
+  .card:hover{
+    transform: translateY(-8px);
+    background: var(--glass-bg-strong);
+    box-shadow: 0 16px 40px 0 rgba(70, 30, 90, 0.35);
+  }
+
+  .price-tag{
+    background: rgba(255, 122, 198, 0.9);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(255, 122, 198, 0.5);
+  }
+
+  .nav-glass{
+    background: rgba(255,255,255,0.22);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    border-bottom: 1px solid rgba(255,255,255,0.4);
+  }
+
+  .chip{
+    background: rgba(255,255,255,0.35);
+    border: 1px solid rgba(255,255,255,0.55);
+    backdrop-filter: blur(10px);
+  }
+
+  .divider-blob{
+    background: rgba(255,255,255,0.4);
+    border: 1px solid rgba(255,255,255,0.6);
+  }
+
+  ::selection{
+    background: rgba(255,122,198,0.4);
+  }
+
+  /* 加入購物車跳出的小提示 */
+  #toast{
+    position: fixed;
+    left: 50%;
+    bottom: 28px;
+    transform: translateX(-50%) translateY(20px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease, transform .3s ease;
+    z-index: 50;
+  }
+  #toast.show{
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+  }
+
+  .cart-btn{
+    transition: transform .18s ease;
+  }
+  .cart-btn:active{
+    transform: scale(0.9);
+  }
+
+  @keyframes pop{
+    0%{ transform: scale(1); }
+    40%{ transform: scale(1.25); }
+    100%{ transform: scale(1); }
+  }
+  .pop{ animation: pop .4s ease; }
+
+  .scroll-hint{
+    animation: bob 2s ease-in-out infinite;
+  }
+  @keyframes bob{
+    0%,100%{ transform: translateY(0); }
+    50%{ transform: translateY(8px); }
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="bg-scene"></div>
+<div class="bg-blob blob1"></div>
+<div class="bg-blob blob2"></div>
+<div class="bg-blob blob3"></div>
+<div class="bg-blob blob4"></div>
+
+<!-- Nav -->
+<header class="nav-glass sticky top-0 z-40">
+  <div class="max-w-6xl mx-auto px-5 md:px-8 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="text-2xl">🍰</span>
+      <span class="font-display font-800 text-xl md:text-2xl text-white tracking-wide" style="font-weight:800;">糖霜 SUGARFROST</span>
+    </div>
+    <nav class="hidden md:flex items-center gap-7 text-white/90 font-medium">
+      <a href="#menu" class="hover:text-white transition">甜點菜單</a>
+      <a href="#order" class="hover:text-white transition">訂購方式</a>
+      <a href="#about" class="hover:text-white transition">關於工作室</a>
+    </nav>
+    <a href="#menu" class="btn-glass hidden md:inline-flex px-5 py-2 rounded-full font-semibold text-sm">立即選購</a>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="max-w-6xl mx-auto px-5 md:px-8 pt-14 md:pt-20 pb-16 md:pb-24 text-center flex flex-col items-center">
+  <div class="chip inline-flex items-center gap-2 px-4 py-2 rounded-full text-white text-sm font-medium mb-6">
+    <span>✨</span>
+    <span>台北大安・每日限量手作</span>
+  </div>
+  <h1 class="font-display text-white leading-tight mb-5" style="font-weight:700; font-size: clamp(2.2rem, 5vw, 3.6rem);">
+    把甜甜的心意<br class="md:hidden">
+    <span style="color:#fff2b0;">捧在手心的溫柔</span>
+  </h1>
+  <p class="text-white/90 text-base md:text-lg max-w-xl mb-9 leading-relaxed">
+    每一份甜點都在當天清晨現做，選用小農鮮乳與當季水果，<br class="hidden md:block">
+    用手心的溫度，做出可以捧在心上的甜蜜。
+  </p>
+  <div class="flex flex-wrap items-center justify-center gap-4 mb-14">
+    <a href="#menu" class="btn-glass px-8 py-3.5 rounded-full font-bold text-base font-display">看看今日甜點 🍓</a>
+    <a href="#order" class="btn-outline-glass px-8 py-3.5 rounded-full font-bold text-base font-display">預約取貨時段</a>
+  </div>
+
+  <!-- Hero glass stat card -->
+  <div class="glass-strong rounded-3xl px-6 md:px-10 py-6 md:py-7 grid grid-cols-3 gap-4 md:gap-10 w-full max-w-2xl">
+    <div>
+      <p class="font-display text-white text-2xl md:text-3xl" style="font-weight:800;">6</p>
+      <p class="text-white/85 text-xs md:text-sm mt-1">款每日精選甜點</p>
+    </div>
+    <div class="border-x border-white/30">
+      <p class="font-display text-white text-2xl md:text-3xl" style="font-weight:800;">100%</p>
+      <p class="text-white/85 text-xs md:text-sm mt-1">當日現做不過夜</p>
+    </div>
+    <div>
+      <p class="font-display text-white text-2xl md:text-3xl" style="font-weight:800;">4.9</p>
+      <p class="text-white/85 text-xs md:text-sm mt-1">顧客回購評價</p>
+    </div>
+  </div>
+
+  <div class="scroll-hint mt-14 text-white/70 text-sm">往下滑，看看今天有什麼好吃的 ↓</div>
+</section>
+
+<!-- Menu -->
+<section id="menu" class="max-w-6xl mx-auto px-5 md:px-8 py-10 md:py-16">
+  <div class="text-center mb-12">
+    <p class="text-white/80 font-medium mb-2 tracking-widest text-sm">TODAY'S MENU</p>
+    <h2 class="font-display text-white" style="font-weight:700; font-size: clamp(1.7rem, 3.6vw, 2.6rem);">今日甜點菜單</h2>
+    <p class="text-white/85 mt-3 text-sm md:text-base">每日限量供應，售完為止，建議提前一天預約</p>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
+
+    <!-- Card 1 -->
+    <div class="card glass rounded-3xl p-5 flex flex-col">
+      <div class="rounded-2xl overflow-hidden mb-4 h-40 flex items-center justify-center text-6xl"
+           style="background: linear-gradient(135deg, #ffd1e8, #c9a7ff);">🍰</div>
+      <h3 class="font-display text-white text-lg mb-1" style="font-weight:700;">莓果重乳酪</h3>
+      <p class="text-white/85 text-sm mb-4 leading-relaxed flex-1">紐約風味重乳酪蛋糕，鋪滿新鮮藍莓與覆盆莓，濃郁中帶著微酸的清爽尾韻。</p>
+      <div class="flex items-center justify-between mt-auto">
+        <span class="price-tag px-3 py-1 rounded-full text-sm font-bold font-display">NT$ 320</span>
+        <button class="cart-btn btn-glass w-10 h-10 rounded-full flex items-center justify-center text-lg" onclick="addToCart(this,'莓果重乳酪')">＋</button>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card glass rounded-3xl p-5 flex flex-col">
+      <div class="rounded-2xl overflow-hidden mb-4 h-40 flex items-center justify-center text-6xl"
+           style="background: linear-gradient(135deg, #ffe9b0, #ffc1d9);">🧁</div>
+      <h3 class="font-display text-white text-lg mb-1" style="font-weight:700;">伯爵茶戚風</h3>
+      <p class="text-white/85 text-sm mb-4 leading-relaxed flex-1">以格雷伯爵茶葉慢煮鮮奶油,搭配輕盈戚風蛋糕體,茶香清雅、口感柔軟濕潤。</p>
+      <div class="flex items-center justify-between mt-auto">
+        <span class="price-tag px-3 py-1 rounded-full text-sm font-bold font-display">NT$ 280</span>
+        <button class="cart-btn btn-glass w-10 h-10 rounded-full flex items-center justify-center text-lg" onclick="addToCart(this,'伯爵茶戚風')">＋</button>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card glass rounded-3xl p-5 flex flex-col">
+      <div class="rounded-2xl overflow-hidden mb-4 h-40 flex items-center justify-center text-6xl"
+           style="background: linear-gradient(135deg, #ffdca0, #ffb199);">🍮</div>
+      <h3 class="font-display text-white text-lg mb-1" style="font-weight:700;">焦糖布丁塔</h3>
+      <p class="text-white/85 text-sm mb-4 leading-relaxed flex-1">酥脆法式塔皮盛裝滑順布丁餡,表層以噴槍炙燒出微苦焦糖脆殼,口感層次豐富。</p>
+      <div class="flex items-center justify-between mt-auto">
+        <span class="price-tag px-3 py-1 rounded-full text-sm font-bold font-display">NT$ 150</span>
+        <button class="cart-btn btn-glass w-10 h-10 rounded-full flex items-center justify-center text-lg" onclick="addToCart(this,'焦糖布丁塔')">＋</button>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="card glass rounded-3xl p-5 flex flex-col">
+      <div class="rounded-2xl overflow-hidden mb-4 h-40 flex items-center justify-center text-6xl"
+           style="background: linear-gradient(135deg, #c9f7d0, #a7d8ff);">🍋</div>
+      <h3 class="font-display text-white text-lg mb-1" style="font-weight:700;">香草檸檬塔</h3>
+      <p class="text-white/85 text-sm mb-4 leading-relaxed flex-1">新鮮檸檬手工熬煮的酸甜內餡,搭配馬達加斯加香草奶霜,清新解膩、老少咸宜。</p>
+      <div class="flex items-center justify-between mt-auto">
+        <span class="price-tag px-3 py-1 rounded-full text-sm font-bold font-display">NT$ 160</span>
+        <button class="cart-btn btn-glass w-10 h-10 rounded-full flex items-center justify-center text-lg" onclick="addToCart(this,'香草檸檬塔')">＋</button>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="card glass rounded-3xl p-5 flex flex-col">
+      <div class="rounded-2xl overflow-hidden mb-4 h-40 flex items-center justify-center text-6xl"
+           style="background: linear-gradient(135deg, #d9b8ff, #ffb8e0);">🍩</div>
+      <h3 class="font-display text-white text-lg mb-1" style="font-weight:700;">玫瑰荔枝馬卡龍</h3>
+      <p class="text-white/85 text-sm mb-4 leading-relaxed flex-1">法式馬卡龍殼酥脆輕巧,包裹玫瑰荔枝甘納許,花香果香交織,一口一個幸福。</p>
+      <div class="flex items-center justify-between mt-auto">
+        <span class="price-tag px-3 py-1 rounded-full text-sm font-bold font-display">NT$ 65 / 顆</span>
+        <button class="cart-btn btn-glass w-10 h-10 rounded-full flex items-center justify-center text-lg" onclick="addToCart(this,'玫瑰荔枝馬卡龍')">＋</button>
+      </div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="card glass rounded-3xl p-5 flex flex-col">
+      <div class="rounded-2xl overflow-hidden mb-4 h-40 flex items-center justify-center text-6xl"
+           style="background: linear-gradient(135deg, #b8e6ff, #d6c1ff);">🍫</div>
+      <h3 class="font-display text-white text-lg mb-1" style="font-weight:700;">70%生巧克力磅蛋糕</h3>
+      <p class="text-white/85 text-sm mb-4 leading-relaxed flex-1">選用比利時70%苦甜巧克力,質地濕潤紮實,微苦回甘,是巧克力控的最愛。</p>
+      <div class="flex items-center justify-between mt-auto">
+        <span class="price-tag px-3 py-1 rounded-full text-sm font-bold font-display">NT$ 350</span>
+        <button class="cart-btn btn-glass w-10 h-10 rounded-full flex items-center justify-center text-lg" onclick="addToCart(this,'70%生巧克力磅蛋糕')">＋</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Order / Info -->
+<section id="order" class="max-w-6xl mx-auto px-5 md:px-8 py-10 md:py-16">
+  <div class="glass-strong rounded-3xl p-7 md:p-12">
+    <div class="text-center mb-10">
+      <p class="text-white/80 font-medium mb-2 tracking-widest text-sm">HOW TO ORDER</p>
+      <h2 class="font-display text-white" style="font-weight:700; font-size: clamp(1.6rem, 3.4vw, 2.3rem);">訂購流程與營業資訊</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+      <div class="glass rounded-2xl p-6 text-center">
+        <div class="text-4xl mb-3">📱</div>
+        <h3 class="font-display text-white text-base mb-2" style="font-weight:700;">1. 線上預約</h3>
+        <p class="text-white/85 text-sm leading-relaxed">透過官方 LINE 或本網站選擇品項與取貨時段,建議提前 1-2 天下單。</p>
+      </div>
+      <div class="glass rounded-2xl p-6 text-center">
+        <div class="text-4xl mb-3">👩‍🍳</div>
+        <h3 class="font-display text-white text-base mb-2" style="font-weight:700;">2. 當日現做</h3>
+        <p class="text-white/85 text-sm leading-relaxed">工作室於每日清晨開始製作,堅持新鮮不隔夜,現做現交給您。</p>
+      </div>
+      <div class="glass rounded-2xl p-6 text-center">
+        <div class="text-4xl mb-3">🎁</div>
+        <h3 class="font-display text-white text-base mb-2" style="font-weight:700;">3. 到店取貨</h3>
+        <p class="text-white/85 text-sm leading-relaxed">於預約時段親自到店取貨,也提供大安、信義區當日冷藏配送服務。</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="divider-blob rounded-2xl p-6">
+        <h4 class="font-display text-white text-base mb-3" style="font-weight:700;">🕐 營業時間</h4>
+        <ul class="text-white/90 text-sm space-y-1.5">
+          <li>週二至週五　11:00 - 19:00</li>
+          <li>週六、週日　11:00 - 20:00</li>
+          <li>每週一公休（國定假日除外）</li>
+        </ul>
+      </div>
+      <div class="divider-blob rounded-2xl p-6">
+        <h4 class="font-display text-white text-base mb-3" style="font-weight:700;">📍 店鋪資訊</h4>
+        <ul class="text-white/90 text-sm space-y-1.5">
+          <li>台北市大安區甜心巷 12 號 1 樓</li>
+          <li>捷運大安森林公園站 3 號出口步行 5 分鐘</li>
+          <li>訂購專線：02-2755-6688</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about" class="max-w-6xl mx-auto px-5 md:px-8 py-10 md:py-20 text-center">
+  <div class="glass rounded-3xl px-6 md:px-14 py-10 md:py-14 max-w-3xl mx-auto">
+    <p class="text-4xl mb-4">🌸</p>
+    <h2 class="font-display text-white mb-4" style="font-weight:700; font-size: clamp(1.5rem, 3vw, 2rem);">關於糖霜 SUGARFROST</h2>
+    <p class="text-white/90 leading-relaxed text-sm md:text-base">
+      糖霜 SUGARFROST 成立於 2019 年，由一對熱愛甜點的夫妻共同創立。<br class="hidden md:block">
+      我們相信最好的甜點不是華麗的裝飾，而是用心挑選的食材與踏實的手作工序。<br class="hidden md:block">
+      每一份送到您手上的甜點，都承載著我們想與您分享的那份甜甜心意。
+    </p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="mt-6">
+  <div class="glass-strong rounded-t-3xl md:rounded-t-[2.5rem] max-w-6xl mx-auto px-6 md:px-10 py-10">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-white/90 text-sm">
+      <div>
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-xl">🍰</span>
+          <span class="font-display text-white text-lg" style="font-weight:800;">糖霜 SUGARFROST</span>
+        </div>
+        <p class="leading-relaxed text-white/80">手作甜點烘焙工作室<br>用溫柔的甜味，陪你度過每一天。</p>
+      </div>
+      <div>
+        <h5 class="font-display text-white mb-3" style="font-weight:700;">聯絡我們</h5>
+        <ul class="space-y-1.5 text-white/80">
+          <li>電話：02-2755-6688</li>
+          <li>LINE：@sugarfrost</li>
+          <li>Instagram：@sugarfrost.tw</li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="font-display text-white mb-3" style="font-weight:700;">快速連結</h5>
+        <ul class="space-y-1.5 text-white/80">
+          <li><a href="#menu" class="hover:text-white transition">甜點菜單</a></li>
+          <li><a href="#order" class="hover:text-white transition">訂購方式</a></li>
+          <li><a href="#about" class="hover:text-white transition">關於工作室</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/25 mt-8 pt-6 text-center text-white/70 text-xs">
+      © 2026 糖霜 SUGARFROST．版權所有，未經同意請勿轉載
+    </div>
+  </div>
+</footer>
+
+<!-- Toast -->
+<div id="toast">
+  <div class="glass-strong rounded-full px-6 py-3 text-white font-display text-sm flex items-center gap-2" style="font-weight:600;">
+    <span>🧺</span>
+    <span id="toast-text">已加入購物籃</span>
+  </div>
+</div>
+
+<script>
+  function addToCart(btn, name){
+    btn.classList.remove('pop');
+    void btn.offsetWidth;
+    btn.classList.add('pop');
+    btn.textContent = '✓';
+    setTimeout(() => { btn.textContent = '＋'; }, 900);
+
+    const toast = document.getElementById('toast');
+    const toastText = document.getElementById('toast-text');
+    toastText.textContent = '已將「' + name + '」加入購物籃 🎉';
+    toast.classList.add('show');
+    clearTimeout(window._toastTimer);
+    window._toastTimer = setTimeout(() => {
+      toast.classList.remove('show');
+    }, 2200);
+  }
+</script>
+
+</body>
+</html>

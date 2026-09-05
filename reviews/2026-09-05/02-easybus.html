@@ -1,0 +1,461 @@
+<!-- style #17 Inclusive Design -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>好搭 EasyBus｜高齡友善公車導航</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy: #003366;
+    --navy-deep: #001f3f;
+    --orange: #E86A00;
+    --orange-dark: #B85200;
+    --white: #FFFFFF;
+    --bg-soft: #F7F9FC;
+    --text-main: #12202E;
+    --border-soft: #C9D6E3;
+  }
+
+  html[data-hc="1"]{
+    --navy: #000000;
+    --navy-deep: #000000;
+    --orange: #FF6A00;
+    --orange-dark: #CC5500;
+    --white: #FFFFFF;
+    --bg-soft: #FFFFFF;
+    --text-main: #000000;
+    --border-soft: #000000;
+  }
+
+  * { box-sizing: border-box; }
+
+  body{
+    background: var(--bg-soft);
+    color: var(--text-main);
+    font-family: 'Noto Sans TC', 'Atkinson Hyperlegible', sans-serif;
+    font-size: 18px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .font-en{
+    font-family: 'Atkinson Hyperlegible', 'Noto Sans TC', sans-serif;
+  }
+
+  html[data-big="1"] body{ font-size: 22px; }
+  html[data-big="2"] body{ font-size: 26px; }
+
+  h1, h2, h3 { font-weight: 900; letter-spacing: 0.01em; }
+
+  /* 明顯的 focus-visible 樣式 */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  [tabindex]:focus-visible{
+    outline: 3px solid var(--orange);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  .btn-primary{
+    background: var(--orange);
+    color: var(--white);
+    min-height: 48px;
+    border: 3px solid var(--orange-dark);
+    transition: transform .12s ease, background .12s ease;
+  }
+  .btn-primary:hover{ background: var(--orange-dark); transform: translateY(-1px); }
+
+  .btn-secondary{
+    background: var(--white);
+    color: var(--navy);
+    min-height: 48px;
+    border: 3px solid var(--navy);
+    transition: transform .12s ease, background .12s ease;
+  }
+  .btn-secondary:hover{ background: var(--navy); color: var(--white); transform: translateY(-1px); }
+
+  .btn-toggle{
+    min-height: 48px;
+    border: 3px solid var(--navy);
+    background: var(--white);
+    color: var(--navy);
+    font-weight: 700;
+    transition: background .12s ease, color .12s ease;
+  }
+  .btn-toggle[aria-pressed="true"]{
+    background: var(--navy);
+    color: var(--white);
+  }
+
+  html[data-hc="1"] .btn-toggle[aria-pressed="true"]{
+    background: #000000;
+    color: #FFFFFF;
+    border-color: #FFFFFF;
+    outline: 3px solid #FFFFFF;
+    outline-offset: -6px;
+  }
+
+  .card{
+    background: var(--white);
+    border: 2px solid var(--border-soft);
+    border-radius: 16px;
+  }
+
+  .navy-bg{ background: var(--navy); }
+  .navy-deep-bg{ background: var(--navy-deep); }
+
+  .badge-num{
+    background: var(--navy);
+    color: var(--white);
+    min-width: 64px;
+    height: 64px;
+    border-radius: 14px;
+    font-weight: 900;
+    font-size: 1.75rem;
+  }
+
+  .eta-time{
+    font-weight: 900;
+    color: var(--orange-dark);
+  }
+
+  .skip-link{
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: var(--orange);
+    color: #fff;
+    padding: 12px 20px;
+    z-index: 100;
+    border-radius: 0 0 8px 0;
+    font-weight: 700;
+  }
+  .skip-link:focus{
+    left: 0;
+  }
+
+  .divider{
+    height: 3px;
+    background: var(--orange);
+    width: 64px;
+    border-radius: 2px;
+  }
+
+  html[data-hc="1"] .card{ border: 3px solid #000000; }
+  html[data-hc="1"] .divider{ background: #000000; }
+  html[data-hc="1"] .badge-num{ background:#000000; color:#FFFFFF; border:2px solid #FFFFFF; }
+  html[data-hc="1"] .eta-time{ color:#000000; }
+
+  details > summary{ cursor: pointer; list-style: none; }
+  details > summary::-webkit-details-marker{ display:none; }
+  details[open] .chev{ transform: rotate(180deg); }
+  .chev{ transition: transform .15s ease; }
+
+  .toolbar-wrap{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+<a href="#main-content" class="skip-link">跳到主要內容</a>
+
+<!-- 頂部工具列：大字模式 / 高對比模式 -->
+<div class="toolbar-wrap navy-deep-bg text-white">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-3">
+      <div class="w-11 h-11 rounded-xl navy-bg border-2 border-white flex items-center justify-center font-en font-black text-lg">EB</div>
+      <span class="font-en font-bold text-lg">好搭 EasyBus</span>
+    </div>
+    <div class="flex flex-wrap gap-3" role="group" aria-label="無障礙顯示設定">
+      <button id="btnBigText" type="button" class="btn-toggle px-4 py-2 rounded-full font-en" aria-pressed="false">
+        <span aria-hidden="true">🔤</span> 大字模式
+      </button>
+      <button id="btnContrast" type="button" class="btn-toggle px-4 py-2 rounded-full font-en" aria-pressed="false">
+        <span aria-hidden="true">◐</span> 高對比模式
+      </button>
+    </div>
+  </div>
+</div>
+
+<main id="main-content">
+
+  <!-- Hero -->
+  <section class="navy-bg text-white">
+    <div class="max-w-6xl mx-auto px-4 py-14 md:py-20 grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <p class="inline-block bg-white/10 border border-white/40 rounded-full px-4 py-2 mb-5 text-base font-bold">
+          專為長輩與行動不便朋友設計
+        </p>
+        <h1 class="text-4xl md:text-5xl leading-tight mb-5">
+          看得清楚、按得下去，<br>搭公車不再擔心。
+        </h1>
+        <p class="text-lg md:text-xl mb-8 text-white/90">
+          好搭 EasyBus 把公車動態變成大大的字、清楚的顏色，讓阿公阿嬤、長輩與行動不便的朋友都能安心看懂公車什麼時候到、要坐幾號車。不用瞇眼睛，不用問來問去。
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#eta" class="btn-primary inline-flex items-center justify-center px-7 py-3 rounded-full text-lg font-bold">
+            立即查公車動態
+          </a>
+          <a href="#faq" class="btn-secondary inline-flex items-center justify-center px-7 py-3 rounded-full text-lg font-bold" style="background:transparent;color:#fff;border-color:#fff;">
+            怎麼使用？
+          </a>
+        </div>
+      </div>
+      <div class="card p-6 md:p-8 text-[var(--text-main)]">
+        <h2 class="text-2xl mb-4 flex items-center gap-2">
+          <span aria-hidden="true">🚌</span> 我們在意的三件事
+        </h2>
+        <ul class="space-y-4 text-lg">
+          <li class="flex gap-3">
+            <span class="badge-num flex items-center justify-center shrink-0" style="min-width:40px;height:40px;border-radius:10px;font-size:1.1rem;">大</span>
+            <span>字體夠大，遠遠就能看清楚站牌與時間。</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="badge-num flex items-center justify-center shrink-0" style="min-width:40px;height:40px;border-radius:10px;font-size:1.1rem;">準</span>
+            <span>用簡單的話說明公車動態,不用猜術語。</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="badge-num flex items-center justify-center shrink-0" style="min-width:40px;height:40px;border-radius:10px;font-size:1.1rem;">穩</span>
+            <span>按鈕夠大顆,手抖一點也按得到。</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 即時到站查詢 -->
+  <section id="eta" class="max-w-6xl mx-auto px-4 py-14">
+    <div class="mb-8">
+      <h2 class="text-3xl mb-2">即時到站查詢</h2>
+      <div class="divider mb-4"></div>
+      <p class="text-lg text-[var(--text-main)]/80">
+        目前站牌：<strong class="font-en">中山國小站（往火車站方向）</strong>。以下是我們示範用的到站資訊,實際搭乘時請以站牌現場公告為準。
+      </p>
+    </div>
+
+    <div class="grid gap-5">
+      <!-- Route 1 -->
+      <div class="card p-5 md:p-6 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-4">
+          <div class="badge-num flex items-center justify-center font-en">15</div>
+          <div>
+            <p class="text-xl font-bold">15 路公車</p>
+            <p class="text-base text-[var(--text-main)]/70">往火車站・低地板無障礙車輛</p>
+          </div>
+        </div>
+        <div class="text-right">
+          <p class="eta-time text-3xl font-en">3 分鐘</p>
+          <p class="text-base text-[var(--text-main)]/70">後到站</p>
+        </div>
+      </div>
+
+      <!-- Route 2 -->
+      <div class="card p-5 md:p-6 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-4">
+          <div class="badge-num flex items-center justify-center font-en">紅3</div>
+          <div>
+            <p class="text-xl font-bold">紅3 幹線</p>
+            <p class="text-base text-[var(--text-main)]/70">往市立醫院・低地板無障礙車輛</p>
+          </div>
+        </div>
+        <div class="text-right">
+          <p class="eta-time text-3xl font-en">8 分鐘</p>
+          <p class="text-base text-[var(--text-main)]/70">後到站</p>
+        </div>
+      </div>
+
+      <!-- Route 3 -->
+      <div class="card p-5 md:p-6 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-4">
+          <div class="badge-num flex items-center justify-center font-en">22</div>
+          <div>
+            <p class="text-xl font-bold">22 路公車</p>
+            <p class="text-base text-[var(--text-main)]/70">往傳統市場</p>
+          </div>
+        </div>
+        <div class="text-right">
+          <p class="eta-time text-3xl font-en">即將進站</p>
+          <p class="text-base text-[var(--text-main)]/70">請留意月台</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="mt-6 text-base text-[var(--text-main)]/70">
+      <span aria-hidden="true">💡</span> 小提醒：時間僅供參考，實際到站時間會因路況而不同，建議提早 5 分鐘到站牌等候較安心。
+    </p>
+  </section>
+
+  <!-- 使用說明 / FAQ -->
+  <section id="faq" class="bg-white border-t-2 border-b-2 border-[var(--border-soft)]">
+    <div class="max-w-6xl mx-auto px-4 py-14">
+      <h2 class="text-3xl mb-2">使用上有疑問嗎？我們陪你慢慢看</h2>
+      <div class="divider mb-8"></div>
+
+      <div class="space-y-4">
+        <details class="card p-5 md:p-6" open>
+          <summary class="flex items-center justify-between font-bold text-xl">
+            怎麼把字放大一點？
+            <span class="chev text-2xl" aria-hidden="true">⌄</span>
+          </summary>
+          <p class="mt-4 text-lg text-[var(--text-main)]/85">
+            只要點畫面最上面的「大字模式」按鈕就可以了，點一次字會變大一點，再點一次會更大，方便您閱讀所有內容，不用另外調整手機設定。
+          </p>
+        </details>
+
+        <details class="card p-5 md:p-6">
+          <summary class="flex items-center justify-between font-bold text-xl">
+            眼睛比較容易花，看不清楚顏色怎麼辦？
+            <span class="chev text-2xl" aria-hidden="true">⌄</span>
+          </summary>
+          <p class="mt-4 text-lg text-[var(--text-main)]/85">
+            請點選「高對比模式」，畫面會切換成黑白為主、對比更強烈的樣式，文字與按鈕的邊界會更清楚，看起來更輕鬆。
+          </p>
+        </details>
+
+        <details class="card p-5 md:p-6">
+          <summary class="flex items-center justify-between font-bold text-xl">
+            我不會用智慧型手機，家人可以幫我設定嗎？
+            <span class="chev text-2xl" aria-hidden="true">⌄</span>
+          </summary>
+          <p class="mt-4 text-lg text-[var(--text-main)]/85">
+            當然可以。這個網頁不需要下載安裝，家人幫忙打開一次網址、設定好「大字模式」之後，之後只要點開同一個畫面就能直接使用，非常簡單。
+          </p>
+        </details>
+
+        <details class="card p-5 md:p-6">
+          <summary class="flex items-center justify-between font-bold text-xl">
+            如果我搭車時需要協助，可以怎麼做？
+            <span class="chev text-2xl" aria-hidden="true">⌄</span>
+          </summary>
+          <p class="mt-4 text-lg text-[var(--text-main)]/85">
+            每一班標示「低地板無障礙車輛」的公車，司機都受過協助長輩與行動不便乘客上下車的訓練，上車時可以直接告訴司機您需要幫忙，也歡迎撥打下方客服電話，我們的服務人員會耐心為您說明。
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 溫馨叮嚀 -->
+  <section class="max-w-6xl mx-auto px-4 py-14">
+    <div class="navy-bg text-white rounded-3xl p-8 md:p-10 grid md:grid-cols-3 gap-6">
+      <div>
+        <p class="text-3xl mb-2" aria-hidden="true">🪑</p>
+        <h3 class="text-xl mb-2">博愛座保留給您</h3>
+        <p class="text-white/85">上車後請優先留意博愛座，如需要協助入座，可請司機或其他乘客幫忙。</p>
+      </div>
+      <div>
+        <p class="text-3xl mb-2" aria-hidden="true">🕰️</p>
+        <h3 class="text-xl mb-2">提早出門更安心</h3>
+        <p class="text-white/85">建議提早 5 到 10 分鐘到站牌，避免因走路較慢而錯過班次。</p>
+      </div>
+      <div>
+        <p class="text-3xl mb-2" aria-hidden="true">📞</p>
+        <h3 class="text-xl mb-2">有問題就打電話</h3>
+        <p class="text-white/85">不確定路線或時間，隨時可以撥打客服電話，我們會耐心說明給您聽。</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="navy-deep-bg text-white">
+  <div class="max-w-6xl mx-auto px-4 py-12 grid md:grid-cols-3 gap-8">
+    <div>
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-11 h-11 rounded-xl navy-bg border-2 border-white flex items-center justify-center font-en font-black text-lg">EB</div>
+        <span class="font-en font-bold text-lg">好搭 EasyBus</span>
+      </div>
+      <p class="text-white/80">
+        讓每一位長輩與行動不便的朋友，都能安心、清楚地搭上每一班公車。
+      </p>
+    </div>
+    <div>
+      <h3 class="text-lg font-bold mb-3">客服與協助</h3>
+      <ul class="space-y-2 text-white/85">
+        <li><span aria-hidden="true">📞</span> 客服專線：0800-123-456（免付費）</li>
+        <li><span aria-hidden="true">🕗</span> 服務時間：每日 07:00–21:00</li>
+        <li><span aria-hidden="true">✉️</span> 意見信箱：help@easybus.example.tw</li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="text-lg font-bold mb-3">貼心提醒</h3>
+      <p class="text-white/85">
+        本頁面資料僅供示範參考，實際到站時間與路線請以現場站牌公告與司機廣播為準。若您或家人在使用上有任何不方便的地方，歡迎來電告訴我們，我們會持續調整，讓每個人都好搭。
+      </p>
+    </div>
+  </div>
+  <div class="border-t border-white/20 py-5 text-center text-white/70">
+    <p class="font-en">&copy; 2026 EasyBus 好搭. 版權所有.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var html = document.documentElement;
+  var btnBig = document.getElementById('btnBigText');
+  var btnHC = document.getElementById('btnContrast');
+
+  var bigLevel = 0; // 0, 1, 2
+  var hcOn = false;
+
+  function applyBig(){
+    if (bigLevel === 0) {
+      html.removeAttribute('data-big');
+      btnBig.setAttribute('aria-pressed', 'false');
+      btnBig.innerHTML = '<span aria-hidden="true">🔤</span> 大字模式';
+    } else {
+      html.setAttribute('data-big', String(bigLevel));
+      btnBig.setAttribute('aria-pressed', 'true');
+      btnBig.innerHTML = '<span aria-hidden="true">🔤</span> 大字模式（等級 ' + bigLevel + '／2）';
+    }
+    try { localStorage.setItem('easybus-big', String(bigLevel)); } catch (e) {}
+  }
+
+  function applyHC(){
+    if (hcOn) {
+      html.setAttribute('data-hc', '1');
+    } else {
+      html.removeAttribute('data-hc');
+    }
+    btnHC.setAttribute('aria-pressed', hcOn ? 'true' : 'false');
+    btnHC.innerHTML = hcOn
+      ? '<span aria-hidden="true">◑</span> 高對比模式（已開啟）'
+      : '<span aria-hidden="true">◐</span> 高對比模式';
+    try { localStorage.setItem('easybus-hc', hcOn ? '1' : '0'); } catch (e) {}
+  }
+
+  btnBig.addEventListener('click', function(){
+    bigLevel = (bigLevel + 1) % 3;
+    applyBig();
+  });
+
+  btnHC.addEventListener('click', function(){
+    hcOn = !hcOn;
+    applyHC();
+  });
+
+  // 還原上次選擇
+  try {
+    var savedBig = parseInt(localStorage.getItem('easybus-big') || '0', 10);
+    if (savedBig >= 0 && savedBig <= 2) { bigLevel = savedBig; }
+    hcOn = localStorage.getItem('easybus-hc') === '1';
+  } catch (e) {}
+
+  applyBig();
+  applyHC();
+})();
+</script>
+
+</body>
+</html>
