@@ -1,0 +1,550 @@
+<!-- style #40 Y2K Revival -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>鈦銀 TITAN SILVER｜千禧金屬感配件</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&family=Rajdhani:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-deep:#0a0014;
+    --bg-purple:#1a0033;
+    --magenta:#ff00ff;
+    --cyan:#00ffff;
+    --yellow:#ffff00;
+    --chrome-1:#e8e8e8;
+    --chrome-2:#c0c0c0;
+    --chrome-3:#8a8a9a;
+    --card-bg:rgba(30,10,50,0.55);
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    background:var(--bg-deep);
+    color:#f5f2ff;
+    font-family:'Rajdhani','Noto Sans TC',sans-serif;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3,.font-display{
+    font-family:'Rowdies','Noto Sans TC',cursive;
+  }
+
+  /* ---------- background ---------- */
+  .bg-scene{
+    position:fixed;
+    inset:0;
+    z-index:-2;
+    background:
+      radial-gradient(ellipse at 20% 20%, rgba(255,0,255,0.25), transparent 55%),
+      radial-gradient(ellipse at 80% 10%, rgba(0,255,255,0.2), transparent 50%),
+      radial-gradient(ellipse at 50% 90%, rgba(255,255,0,0.12), transparent 55%),
+      linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-purple) 45%, #14001f 100%);
+  }
+  .grid-floor{
+    position:fixed;
+    left:0; right:0; bottom:0; height:45vh;
+    z-index:-1;
+    background-image:
+      linear-gradient(rgba(0,255,255,0.35) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,0,255,0.3) 1px, transparent 1px);
+    background-size: 48px 48px;
+    transform: perspective(400px) rotateX(65deg);
+    transform-origin: bottom;
+    opacity:0.35;
+    mask-image: linear-gradient(to top, black, transparent);
+    -webkit-mask-image: linear-gradient(to top, black, transparent);
+  }
+
+  /* ---------- chrome gradient text ---------- */
+  .chrome-text{
+    background: linear-gradient(180deg,
+      #ffffff 0%,
+      #cfcfe0 15%,
+      #8f8fa8 30%,
+      #ffffff 42%,
+      #b9b9cc 55%,
+      #f5f5ff 68%,
+      #7c7c92 82%,
+      #eaeaf5 100%);
+    background-size: 100% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 18px rgba(255,255,255,0.35));
+    animation: chromeShift 6s ease-in-out infinite;
+  }
+  @keyframes chromeShift{
+    0%,100%{ background-position: 0% 0%; }
+    50%{ background-position: 0% 100%; }
+  }
+
+  .neon-magenta{
+    color:#fff;
+    text-shadow:
+      0 0 4px #fff,
+      0 0 10px var(--magenta),
+      0 0 20px var(--magenta),
+      0 0 40px var(--magenta),
+      0 0 80px var(--magenta);
+  }
+  .neon-cyan{
+    color:#fff;
+    text-shadow:
+      0 0 4px #fff,
+      0 0 10px var(--cyan),
+      0 0 20px var(--cyan),
+      0 0 40px var(--cyan);
+  }
+  .neon-yellow{
+    color:#fff;
+    text-shadow:
+      0 0 4px #fff,
+      0 0 8px var(--yellow),
+      0 0 18px var(--yellow),
+      0 0 36px var(--yellow);
+  }
+
+  @keyframes flicker{
+    0%, 19%, 21%, 23%, 54%, 56%, 100% { opacity: 1; }
+    20%, 22%, 55% { opacity: 0.55; }
+  }
+  .flicker{ animation: flicker 4.5s infinite; }
+
+  /* ---------- starburst ---------- */
+  .starburst{
+    position:relative;
+    display:inline-block;
+  }
+  .starburst::before, .starburst::after{
+    content:"";
+    position:absolute;
+    inset:-60px;
+    background:
+      repeating-conic-gradient(from 0deg, rgba(255,255,0,0.9) 0deg 1.2deg, transparent 1.2deg 9deg);
+    border-radius:50%;
+    z-index:-1;
+    animation: spin 18s linear infinite;
+    pointer-events:none;
+    mix-blend-mode: screen;
+  }
+  .starburst::after{
+    inset:-90px;
+    background:
+      repeating-conic-gradient(from 15deg, rgba(255,0,255,0.6) 0deg 0.6deg, transparent 0.6deg 12deg);
+    animation: spin 26s linear infinite reverse;
+  }
+  @keyframes spin{ to{ transform: rotate(360deg); } }
+
+  .sparkle{
+    position:absolute;
+    color:var(--yellow);
+    text-shadow:0 0 8px #fff, 0 0 16px var(--yellow);
+    animation: twinkle 2.2s ease-in-out infinite;
+  }
+  @keyframes twinkle{
+    0%,100%{ opacity:0.2; transform:scale(0.7) rotate(0deg); }
+    50%{ opacity:1; transform:scale(1.15) rotate(20deg); }
+  }
+
+  /* ---------- glossy chrome button ---------- */
+  .btn-chrome{
+    background: linear-gradient(180deg, #ffffff 0%, #d8d8e6 20%, #9494a8 50%, #e8e8f2 55%, #6c6c80 100%);
+    color:#1a0033;
+    font-family:'Rajdhani',sans-serif;
+    font-weight:700;
+    letter-spacing:0.08em;
+    border:2px solid #fff;
+    box-shadow: 0 0 20px rgba(255,0,255,0.6), 0 0 40px rgba(0,255,255,0.3), inset 0 2px 4px rgba(255,255,255,0.8);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .btn-chrome:hover{
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 0 30px rgba(255,0,255,0.9), 0 0 60px rgba(0,255,255,0.5), inset 0 2px 4px rgba(255,255,255,0.9);
+  }
+
+  /* ---------- product card ---------- */
+  .y2k-card{
+    background: var(--card-bg);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 20px;
+    backdrop-filter: blur(6px);
+    position: relative;
+    overflow:hidden;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+  }
+  .y2k-card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:20px;
+    padding:2px;
+    background: conic-gradient(from 0deg, var(--magenta), var(--cyan), var(--yellow), var(--magenta));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity:0;
+    transition: opacity 0.35s ease;
+    animation: spin 5s linear infinite;
+  }
+  .y2k-card:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 0 25px rgba(255,0,255,0.55), 0 0 50px rgba(0,255,255,0.35);
+  }
+  .y2k-card:hover::before{ opacity:1; }
+
+  .holo-swatch{
+    background: linear-gradient(120deg,
+      #ff00ff, #00ffff, #ffff00, #ff00ff, #00ffff);
+    background-size: 400% 400%;
+    animation: holoMove 5s ease infinite;
+  }
+  @keyframes holoMove{
+    0%{ background-position:0% 50%; }
+    50%{ background-position:100% 50%; }
+    100%{ background-position:0% 50%; }
+  }
+
+  .price-tag{
+    font-family:'Rajdhani',sans-serif;
+    font-weight:700;
+    color:#fff;
+    text-shadow: 0 0 6px var(--cyan), 0 0 14px var(--cyan);
+  }
+
+  .tag-chip{
+    background: linear-gradient(180deg,#fff,#b7b7c8);
+    color:#1a0033;
+    font-weight:700;
+    letter-spacing:0.05em;
+  }
+
+  .marquee-track{
+    display:inline-flex;
+    animation: marquee 22s linear infinite;
+    white-space:nowrap;
+  }
+  @keyframes marquee{
+    0%{ transform: translateX(0); }
+    100%{ transform: translateX(-50%); }
+  }
+
+  .divider-glow{
+    height:2px;
+    background: linear-gradient(90deg, transparent, var(--cyan), var(--magenta), var(--yellow), transparent);
+    box-shadow: 0 0 12px rgba(0,255,255,0.7);
+  }
+
+  ::selection{ background:var(--magenta); color:#fff; }
+
+  @media (max-width: 640px){
+    .hero-title{ font-size: 2.6rem !important; line-height:1.15; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-scene"></div>
+<div class="grid-floor"></div>
+
+<!-- ================= NAV ================= -->
+<header class="sticky top-0 z-50 backdrop-blur-md bg-[#0a0014]/60 border-b border-white/10">
+  <div class="max-w-6xl mx-auto flex items-center justify-between px-5 py-4">
+    <div class="font-display text-xl md:text-2xl chrome-text tracking-wide">TITAN SILVER</div>
+    <nav class="hidden md:flex gap-8 text-sm tracking-widest" style="font-weight:600;">
+      <a href="#products" class="hover:text-cyan-300 transition">商品目錄</a>
+      <a href="#story" class="hover:text-fuchsia-300 transition">品牌故事</a>
+      <a href="#promo" class="hover:text-yellow-300 transition">限時特賣</a>
+      <a href="#footer" class="hover:text-cyan-300 transition">聯絡我們</a>
+    </nav>
+    <a href="#promo" class="btn-chrome px-5 py-2 rounded-full text-xs md:text-sm">立即搶購</a>
+  </div>
+</header>
+
+<!-- ================= MARQUEE ================= -->
+<div class="overflow-hidden border-y border-white/10 py-2 bg-black/30">
+  <div class="marquee-track text-sm tracking-[0.3em]" style="font-weight:600;">
+    <span class="neon-yellow px-6">✦ 全息幻彩　新品上市</span>
+    <span class="neon-cyan px-6">✦ 滿 NT$1,500 免運全台</span>
+    <span class="neon-magenta px-6">✦ 千禧回歸　限量發售</span>
+    <span class="neon-yellow px-6">✦ 全息幻彩　新品上市</span>
+    <span class="neon-cyan px-6">✦ 滿 NT$1,500 免運全台</span>
+    <span class="neon-magenta px-6">✦ 千禧回歸　限量發售</span>
+  </div>
+</div>
+
+<!-- ================= HERO ================= -->
+<section class="relative px-5 pt-20 pb-24 md:pt-28 md:pb-32 text-center max-w-5xl mx-auto">
+  <div class="sparkle" style="top:10%; left:8%; font-size:2rem;">✦</div>
+  <div class="sparkle" style="top:30%; right:10%; font-size:1.4rem; animation-delay:0.8s;">✧</div>
+  <div class="sparkle" style="bottom:15%; left:15%; font-size:1.6rem; animation-delay:1.4s;">✦</div>
+  <div class="sparkle" style="top:5%; right:25%; font-size:1.2rem; animation-delay:0.4s;">✧</div>
+
+  <p class="neon-cyan tracking-[0.4em] text-xs md:text-sm mb-6" style="font-weight:600;">M I L L E N N I U M &nbsp; M E T A L &nbsp; A C C E S S O R I E S</p>
+
+  <div class="starburst">
+    <h1 class="hero-title font-display chrome-text text-5xl md:text-7xl lg:text-8xl leading-tight px-4">
+      鈦銀<br class="md:hidden">TITAN SILVER
+    </h1>
+  </div>
+
+  <p class="mt-8 text-lg md:text-2xl neon-magenta font-display flicker">閃耀千禧　金屬未來</p>
+
+  <p class="mt-6 max-w-2xl mx-auto text-base md:text-lg text-white/80" style="font-weight:500;">
+    重返 Y2K 的金屬狂想時代——全息幻彩手機殼、鉻面耳環、鏈條項鍊，
+    每一件配件都像從未來寄回來的信物。用光影說故事，用金屬寫下你的態度。
+  </p>
+
+  <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
+    <a href="#products" class="btn-chrome px-8 py-3 rounded-full text-sm tracking-widest">探索全系列 →</a>
+    <a href="#promo" class="px-8 py-3 rounded-full text-sm tracking-widest border border-cyan-300/60 neon-cyan hover:bg-cyan-400/10 transition">查看限時優惠</a>
+  </div>
+
+  <div class="mt-14 flex flex-wrap justify-center gap-3 text-xs">
+    <span class="tag-chip px-4 py-1 rounded-full">✦ 台灣官方直營</span>
+    <span class="tag-chip px-4 py-1 rounded-full">✦ 七天鑑賞期</span>
+    <span class="tag-chip px-4 py-1 rounded-full">✦ 電鍍防刮工藝</span>
+  </div>
+</section>
+
+<div class="divider-glow max-w-5xl mx-auto"></div>
+
+<!-- ================= PRODUCTS ================= -->
+<section id="products" class="px-5 py-20 max-w-6xl mx-auto">
+  <div class="text-center mb-14">
+    <h2 class="font-display chrome-text text-3xl md:text-5xl mb-3">商品展示區</h2>
+    <p class="neon-yellow text-sm md:text-base tracking-widest">SHINE LIKE IT'S Y2K</p>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+    <!-- card 1 -->
+    <div class="y2k-card p-5">
+      <div class="holo-swatch h-44 rounded-2xl mb-5 relative overflow-hidden flex items-center justify-center">
+        <span class="font-display text-white text-2xl drop-shadow-[0_0_10px_rgba(255,255,255,0.9)]">📱</span>
+      </div>
+      <h3 class="font-display text-lg mb-2 neon-cyan">全息幻彩手機殼</h3>
+      <p class="text-sm text-white/70 mb-4" style="font-weight:500;">雷射鏡面電鍍，隨光線折射出洋紅、青藍、螢黃三色幻彩，防摔氣墊邊框。</p>
+      <div class="flex items-center justify-between">
+        <span class="price-tag text-xl">NT$ 890</span>
+        <button class="btn-chrome px-4 py-2 rounded-full text-xs">加入購物車</button>
+      </div>
+    </div>
+
+    <!-- card 2 -->
+    <div class="y2k-card p-5">
+      <div class="h-44 rounded-2xl mb-5 relative overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,#2a0a40,#0a1a40);">
+        <span class="text-4xl">✦</span>
+      </div>
+      <h3 class="font-display text-lg mb-2 neon-magenta">星際感耳環</h3>
+      <p class="text-sm text-white/70 mb-4" style="font-weight:500;">不對稱星形垂墜設計，鈦鋼鍍鉻材質，長時間配戴不過敏、不氧化。</p>
+      <div class="flex items-center justify-between">
+        <span class="price-tag text-xl">NT$ 690</span>
+        <button class="btn-chrome px-4 py-2 rounded-full text-xs">加入購物車</button>
+      </div>
+    </div>
+
+    <!-- card 3 -->
+    <div class="y2k-card p-5">
+      <div class="holo-swatch h-44 rounded-2xl mb-5 relative overflow-hidden flex items-center justify-center">
+        <span class="text-4xl">⛓</span>
+      </div>
+      <h3 class="font-display text-lg mb-2 neon-yellow">銀河鏈條項鍊</h3>
+      <p class="text-sm text-white/70 mb-4" style="font-weight:500;">粗鏈設計搭配鏡面拋光工藝，單戴或疊戴都能撐起整體造型。</p>
+      <div class="flex items-center justify-between">
+        <span class="price-tag text-xl">NT$ 1,280</span>
+        <button class="btn-chrome px-4 py-2 rounded-full text-xs">加入購物車</button>
+      </div>
+    </div>
+
+    <!-- card 4 -->
+    <div class="y2k-card p-5">
+      <div class="h-44 rounded-2xl mb-5 relative overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,#40102a,#10203f);">
+        <span class="text-4xl">💿</span>
+      </div>
+      <h3 class="font-display text-lg mb-2 neon-cyan">幻彩鏡面氣囊支架</h3>
+      <p class="text-sm text-white/70 mb-4" style="font-weight:500;">360 度旋轉支架，鏡面外殼可當隨身補妝鏡，追劇滑手機都好用。</p>
+      <div class="flex items-center justify-between">
+        <span class="price-tag text-xl">NT$ 450</span>
+        <button class="btn-chrome px-4 py-2 rounded-full text-xs">加入購物車</button>
+      </div>
+    </div>
+
+    <!-- card 5 -->
+    <div class="y2k-card p-5">
+      <div class="holo-swatch h-44 rounded-2xl mb-5 relative overflow-hidden flex items-center justify-center">
+        <span class="text-4xl">💍</span>
+      </div>
+      <h3 class="font-display text-lg mb-2 neon-magenta">液態金屬戒指組</h3>
+      <p class="text-sm text-white/70 mb-4" style="font-weight:500;">三件式疊戴戒指，仿液態流線造型，呈現融化金屬般的視覺效果。</p>
+      <div class="flex items-center justify-between">
+        <span class="price-tag text-xl">NT$ 780</span>
+        <button class="btn-chrome px-4 py-2 rounded-full text-xs">加入購物車</button>
+      </div>
+    </div>
+
+    <!-- card 6 -->
+    <div class="y2k-card p-5">
+      <div class="h-44 rounded-2xl mb-5 relative overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,#101a40,#301040);">
+        <span class="text-4xl">👜</span>
+      </div>
+      <h3 class="font-display text-lg mb-2 neon-yellow">迷你幻彩鏈條包</h3>
+      <p class="text-sm text-white/70 mb-4" style="font-weight:500;">PVC 鏡面材質搭配金屬鏈條肩帶，容量小巧剛好放下手機與卡夾。</p>
+      <div class="flex items-center justify-between">
+        <span class="price-tag text-xl">NT$ 1,650</span>
+        <button class="btn-chrome px-4 py-2 rounded-full text-xs">加入購物車</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider-glow max-w-5xl mx-auto"></div>
+
+<!-- ================= BRAND STORY ================= -->
+<section id="story" class="px-5 py-20 max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+  <div>
+    <h2 class="font-display chrome-text text-3xl md:text-4xl mb-6">品牌故事</h2>
+    <p class="text-white/80 leading-relaxed mb-4" style="font-weight:500;">
+      西元 2000 年，金屬感與螢光色是那個世代對「未來」最直接的想像。
+      鈦銀 TITAN SILVER 從一群熱愛復古未來風的設計師手中誕生，
+      我們相信真正的潮流會循環回來——而這一次，它戴著鉻銀色的光環回來了。
+    </p>
+    <p class="text-white/80 leading-relaxed mb-4" style="font-weight:500;">
+      每一款配件都經過至少三層電鍍工序，搭配台灣在地工廠手工品管，
+      我們拒絕廉價塑料感，只做真正經得起光線考驗的金屬質地。
+    </p>
+    <p class="neon-cyan text-sm tracking-widest" style="font-weight:600;">MADE FOR THE Y2K REVIVAL GENERATION</p>
+  </div>
+  <div class="y2k-card p-8 text-center">
+    <div class="starburst inline-block mb-4">
+      <div class="text-6xl">✦</div>
+    </div>
+    <p class="font-display neon-magenta text-2xl mb-2">2000+</p>
+    <p class="text-white/70 text-sm mb-6">位星際造型師的共同選擇</p>
+    <div class="divider-glow mb-6"></div>
+    <p class="font-display neon-yellow text-2xl mb-2">4.9 / 5.0</p>
+    <p class="text-white/70 text-sm">全站商品平均評價</p>
+  </div>
+</section>
+
+<!-- ================= PROMO / COUNTDOWN ================= -->
+<section id="promo" class="px-5 py-20">
+  <div class="max-w-4xl mx-auto y2k-card p-8 md:p-12 text-center relative">
+    <div class="sparkle" style="top:8%; left:6%; font-size:1.6rem;">✧</div>
+    <div class="sparkle" style="bottom:10%; right:8%; font-size:1.8rem; animation-delay:1s;">✦</div>
+
+    <h2 class="font-display chrome-text text-3xl md:text-4xl mb-3">千禧限時特賣</h2>
+    <p class="neon-magenta text-sm md:text-base mb-8 tracking-widest" style="font-weight:600;">全館滿 NT$1,500 現折 NT$200，倒數結束即恢復原價</p>
+
+    <div class="flex justify-center gap-4 md:gap-6 mb-10" id="countdown">
+      <div class="text-center">
+        <div class="font-display neon-cyan text-4xl md:text-5xl" id="cd-days">00</div>
+        <div class="text-xs tracking-widest mt-1 text-white/60">天</div>
+      </div>
+      <div class="font-display neon-cyan text-4xl md:text-5xl">:</div>
+      <div class="text-center">
+        <div class="font-display neon-cyan text-4xl md:text-5xl" id="cd-hours">00</div>
+        <div class="text-xs tracking-widest mt-1 text-white/60">時</div>
+      </div>
+      <div class="font-display neon-cyan text-4xl md:text-5xl">:</div>
+      <div class="text-center">
+        <div class="font-display neon-cyan text-4xl md:text-5xl" id="cd-mins">00</div>
+        <div class="text-xs tracking-widest mt-1 text-white/60">分</div>
+      </div>
+      <div class="font-display neon-cyan text-4xl md:text-5xl">:</div>
+      <div class="text-center">
+        <div class="font-display neon-cyan text-4xl md:text-5xl" id="cd-secs">00</div>
+        <div class="text-xs tracking-widest mt-1 text-white/60">秒</div>
+      </div>
+    </div>
+
+    <a href="#products" class="btn-chrome inline-block px-10 py-3 rounded-full text-sm tracking-widest">馬上搶購全系列</a>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer id="footer" class="border-t border-white/10 mt-10 px-5 py-14 bg-black/40">
+  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
+    <div>
+      <div class="font-display chrome-text text-xl mb-3">TITAN SILVER</div>
+      <p class="text-white/60 text-sm leading-relaxed" style="font-weight:500;">
+        鈦銀官方旗艦店<br>
+        千禧金屬感配件專門店<br>
+        台北市信義區風格路 40 號
+      </p>
+    </div>
+    <div>
+      <h4 class="neon-cyan text-sm mb-4 tracking-widest" style="font-weight:600;">商品分類</h4>
+      <ul class="space-y-2 text-sm text-white/70" style="font-weight:500;">
+        <li><a href="#products" class="hover:text-cyan-300 transition">手機殼系列</a></li>
+        <li><a href="#products" class="hover:text-cyan-300 transition">耳環項鍊</a></li>
+        <li><a href="#products" class="hover:text-cyan-300 transition">戒指手鍊</a></li>
+        <li><a href="#products" class="hover:text-cyan-300 transition">包款配件</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="neon-magenta text-sm mb-4 tracking-widest" style="font-weight:600;">客戶服務</h4>
+      <ul class="space-y-2 text-sm text-white/70" style="font-weight:500;">
+        <li>常見問題</li>
+        <li>退換貨政策</li>
+        <li>訂單查詢</li>
+        <li>聯絡客服</li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="neon-yellow text-sm mb-4 tracking-widest" style="font-weight:600;">聯絡資訊</h4>
+      <ul class="space-y-2 text-sm text-white/70" style="font-weight:500;">
+        <li>客服信箱：hello@titansilver.tw</li>
+        <li>服務時間：週一至週五 10:00–19:00</li>
+        <li>客服專線：0800-040-040</li>
+      </ul>
+    </div>
+  </div>
+  <div class="divider-glow max-w-6xl mx-auto mb-6"></div>
+  <p class="text-center text-xs text-white/40 tracking-widest">© 2026 TITAN SILVER 鈦銀. ALL RIGHTS RESERVED. 千禧金屬　螢光復古　閃耀重生</p>
+</footer>
+
+<script>
+  // 倒數計時：設定為 48 小時後結束的限時活動
+  (function(){
+    var end = new Date().getTime() + (48 * 60 * 60 * 1000);
+    function tick(){
+      var now = new Date().getTime();
+      var diff = end - now;
+      if(diff < 0){ diff = 0; }
+      var d = Math.floor(diff / (1000*60*60*24));
+      var h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+      var m = Math.floor((diff % (1000*60*60)) / (1000*60));
+      var s = Math.floor((diff % (1000*60)) / 1000);
+      function pad(n){ return String(n).padStart(2,'0'); }
+      document.getElementById('cd-days').textContent = pad(d);
+      document.getElementById('cd-hours').textContent = pad(h);
+      document.getElementById('cd-mins').textContent = pad(m);
+      document.getElementById('cd-secs').textContent = pad(s);
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+
+  // 商品卡片微互動：hover 時輕微傾斜
+  document.querySelectorAll('.y2k-card').forEach(function(card){
+    card.addEventListener('mousemove', function(e){
+      var rect = card.getBoundingClientRect();
+      var x = (e.clientX - rect.left) / rect.width - 0.5;
+      var y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = 'perspective(600px) rotateX(' + (-y*6) + 'deg) rotateY(' + (x*6) + 'deg) translateY(-6px)';
+    });
+    card.addEventListener('mouseleave', function(){
+      card.style.transform = '';
+    });
+  });
+</script>
+
+</body>
+</html>
