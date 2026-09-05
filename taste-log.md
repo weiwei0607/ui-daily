@@ -21,6 +21,13 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-09-05（6 個，#01–06）
+- ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（curl -m 10，agent-proxy 明確回報 `connect_rejected` / organization policy），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
+- ⚠️ 本輪 GH_TOKEN 直連 GitHub REST API 測試（`/repos/.../` 端點）回 403，與過去每輪一致，改用 `git push`（HTTPS + GH_TOKEN 當密碼，走 git 協定而非 REST API）發布。
+- ⚠️ 本輪 Telegram 通知（步驟 8）測試 `getMe` 端點同樣被環境網路政策擋下（CONNECT tunnel failed, 403），與 Firebase 同一機制擋下，非帳號或 bot token 問題。畫廊已正常生成並發布到 GitHub，只是這次沒有 Telegram 訊息推播，改用系統推播通知告知，連結：https://raw.githack.com/weiwei0607/ui-daily/master/reviews/2026-09-05/index.html
+- 本輪採用並行子代理（同時派 6 個 agent 各生成一個風格檔案，prompt 中明確指定字體配方、內容主題、技術要求，並要求每個 agent 完成後自行檢查簡體字、標籤閉合、字體是否正確），全數順利完成，過程中每完成 1 個就即時 commit 備份進度。主流程完成後再用 opencc（s2t）對全部 6 個檔案做逐字元簡繁比對：僅「台/郁/吃/核/表/峰/群」被標記，逐一確認皆為台灣慣用正體字（台灣/馥郁/小吃/核心/手表/巔峰/人群等），非簡體污染，全數保留。另用 Python 腳本確認每個檔案 `<html>`/`</html>`/`<body>`/`</body>` 標籤數量皆為 1；「Inter」關鍵字搜尋在 titansilver/motionlab 命中的是 `setInterval`/`IntersectionObserver` 字串，非實際字體引用，確認排除。
+- 本批風格（避開近 3 天 09-02/09-03/09-04 用過的 #01/#05/#08/#11/#14/#16/#18/#20/#21/#23/#28/#32/#35/#39/#44/#52/#53/#57，並用 `grep -oE '#[0-9]+' taste-log.md | sort | uniq -c` 統計出的「歷史提及次數」優先挑最少的風格編號，跨 A/B/C/D 族群）：**Glassmorphism #03**（A 組，她 08-17 第一次試過這個風格時明確嫌「字體不好看，要圓一點」，之後已用 Zen Maru Gothic+Quicksand 等圓體修正過，這次再換新組合 Baloo 2 + M PLUS Rounded 1c，做成手作甜點烘焙工作室「糖霜 SUGARFROST」，彩色漸層底＋毛玻璃商品卡片＋可運作的加入購物籃動畫）、**Inclusive Design #17**（A 組，套用配方指定的無障礙字體 Atkinson Hyperlegible + Noto Sans TC，做成高齡友善巴士導航 App「好搭 EasyBus」，深藍＋高對比橙、含真的可運作的大字模式／高對比模式切換按鈕與明顯 focus-visible 樣式）、**Social Proof-Focused #24**（B 組結構，延續「編輯/權威風配報紙體」偏好，避開已用過的 Geologica/Domine，改用全新組合 Spectral + Noto Serif TC，做成企業雲端備份服務見證頁「護存 SafeKeep」，客戶 logo 牆＋成效數據＋3 則客戶見證引言）、**Heatmap & Density Dashboard #29**（C 組，避免 Inter/JetBrains Mono，改用 Karla + Space Mono + Noto Sans TC，做成連鎖冷凍倉儲溫控監控後台「冷鏈眼 ColdEye」，CSS Grid 熱力圖含真實可運作的 hover tooltip＋KPI 摘要卡＋異常警報列表）、**Y2K Revival #40**（D 組，避開已用過的 Wallpoet/Audiowide，改用全新組合 Rowdies + Rajdhani，做成千禧復古美妝配件電商「鈦銀 TITAN SILVER」，鉻銀漸層文字＋星芒裝飾＋霓虹發光商品卡＋真的會倒數的促銷計時器）、**Kinetic Typography #48**（D 組，避開已用過的 Bebas Neue+Work Sans/Noto Sans TC 900 舊組合，這次搭配新的內文字 Archivo，做成當代舞蹈工作室「動態 MOTIONLAB」，標題逐字進場動畫＋無限跑馬燈＋IntersectionObserver 滾動觸發文字動畫，皆為真實可運作的 CSS/JS）。全數繁體中文文案，中文字元皆保留 Noto Sans/Serif TC 作為 fallback，已用 opencc 掃描並人工複查上下文確認無簡體字混入。
+
 ### 2026-09-04（6 個，#01–06）
 - ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（curl -m 10 逾時無回應，exit 56），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
 - ⚠️ 本輪 Telegram 通知（步驟 8）也被環境網路政策擋下（`api.telegram.org` agent-proxy 明確回報 `connect_rejected` / organization policy），與 Firebase 同一機制擋下，非帳號或 bot token 問題。畫廊已正常生成並發布到 GitHub，只是這次沒有 Telegram 訊息推播，改用系統推播通知告知，連結：https://raw.githack.com/weiwei0607/ui-daily/master/reviews/2026-09-04/index.html

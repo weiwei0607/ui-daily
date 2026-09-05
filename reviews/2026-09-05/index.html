@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>韡寧的 UI 待審 · 2026-09-05</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Noto Sans TC',sans-serif; background:#f4f2ec; color:#1f2226;}
+  .frame-wrap{
+    width:100%; height:260px; overflow:hidden; position:relative;
+    background:#fff; border-radius:12px;
+  }
+  .frame-wrap iframe{
+    width:200%; height:200%;
+    transform: scale(.5);
+    transform-origin: top left;
+    border:0;
+  }
+  .card{
+    background:#fff; border:1px solid #e5e2d8; border-radius:16px;
+    box-shadow:0 4px 14px rgba(30,30,20,.05);
+    transition: box-shadow .15s ease, transform .15s ease;
+  }
+  .card:hover{ box-shadow:0 10px 26px rgba(30,30,20,.1); transform: translateY(-2px); }
+  .heart{
+    cursor:pointer; user-select:none; font-size:22px;
+    filter: grayscale(1); opacity:.55; transition: all .15s ease;
+  }
+  .heart:hover{ opacity:.85; }
+  .heart.liked{ filter:none; opacity:1; transform: scale(1.15); }
+</style>
+</head>
+<body>
+
+  <header class="max-w-5xl mx-auto px-6 pt-10 pb-6">
+    <p class="text-xs tracking-[0.25em] text-[#9a9484] mb-2">UI / UX DAILY REVIEW</p>
+    <h1 class="text-2xl md:text-3xl font-bold">韡寧的 UI 待審 · 2026-09-05</h1>
+    <p class="text-sm text-[#7a756a] mt-2">今天 6 個風格方向，喜歡的按 ❤️，我會學起來（偏好會累積進 taste-log.md）。</p>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6 pb-16 grid grid-cols-1 md:grid-cols-2 gap-6">
+
+    <div class="card overflow-hidden" data-id="2026-09-05_01">
+      <div class="frame-wrap"><iframe src="01-sugarfrost.html" loading="lazy"></iframe></div>
+      <div class="p-4 flex items-center justify-between">
+        <div>
+          <p class="font-bold">#01 · Glassmorphism 毛玻璃層叠</p>
+          <p class="text-xs text-[#8a8570]">糖霜 SUGARFROST · 手作甜點烘焙工作室</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="01-sugarfrost.html" target="_blank" class="text-sm font-semibold text-[#3b4a6b] hover:underline">開啟 ↗</a>
+          <span class="heart" data-id="2026-09-05_01">❤️</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card overflow-hidden" data-id="2026-09-05_02">
+      <div class="frame-wrap"><iframe src="02-easybus.html" loading="lazy"></iframe></div>
+      <div class="p-4 flex items-center justify-between">
+        <div>
+          <p class="font-bold">#02 · Inclusive Design 無障礙溫暖設計</p>
+          <p class="text-xs text-[#8a8570]">好搭 EasyBus · 高齡友善巴士導航 App</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="02-easybus.html" target="_blank" class="text-sm font-semibold text-[#3b4a6b] hover:underline">開啟 ↗</a>
+          <span class="heart" data-id="2026-09-05_02">❤️</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card overflow-hidden" data-id="2026-09-05_03">
+      <div class="frame-wrap"><iframe src="03-safekeep.html" loading="lazy"></iframe></div>
+      <div class="p-4 flex items-center justify-between">
+        <div>
+          <p class="font-bold">#03 · Social Proof-Focused 信任見證結構</p>
+          <p class="text-xs text-[#8a8570]">護存 SafeKeep · 企業雲端備份服務</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="03-safekeep.html" target="_blank" class="text-sm font-semibold text-[#3b4a6b] hover:underline">開啟 ↗</a>
+          <span class="heart" data-id="2026-09-05_03">❤️</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card overflow-hidden" data-id="2026-09-05_04">
+      <div class="frame-wrap"><iframe src="04-coldeye.html" loading="lazy"></iframe></div>
+      <div class="p-4 flex items-center justify-between">
+        <div>
+          <p class="font-bold">#04 · Heatmap & Density Dashboard 熱力密度後台</p>
+          <p class="text-xs text-[#8a8570]">冷鏈眼 ColdEye · 連鎖冷凍倉儲溫控監控</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="04-coldeye.html" target="_blank" class="text-sm font-semibold text-[#3b4a6b] hover:underline">開啟 ↗</a>
+          <span class="heart" data-id="2026-09-05_04">❤️</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card overflow-hidden" data-id="2026-09-05_05">
+      <div class="frame-wrap"><iframe src="05-titansilver.html" loading="lazy"></iframe></div>
+      <div class="p-4 flex items-center justify-between">
+        <div>
+          <p class="font-bold">#05 · Y2K Revival 千禧金屬復古</p>
+          <p class="text-xs text-[#8a8570]">鈦銀 TITAN SILVER · 千禧復古美妝配件電商</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="05-titansilver.html" target="_blank" class="text-sm font-semibold text-[#3b4a6b] hover:underline">開啟 ↗</a>
+          <span class="heart" data-id="2026-09-05_05">❤️</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card overflow-hidden" data-id="2026-09-05_06">
+      <div class="frame-wrap"><iframe src="06-motionlab.html" loading="lazy"></iframe></div>
+      <div class="p-4 flex items-center justify-between">
+        <div>
+          <p class="font-bold">#06 · Kinetic Typography 會動的文字</p>
+          <p class="text-xs text-[#8a8570]">動態 MOTIONLAB · 當代舞蹈工作室</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="06-motionlab.html" target="_blank" class="text-sm font-semibold text-[#3b4a6b] hover:underline">開啟 ↗</a>
+          <span class="heart" data-id="2026-09-05_06">❤️</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="max-w-5xl mx-auto px-6 pb-10 text-center text-xs text-[#a19c8c]">UI Daily · 2026-09-05 · 共 6 個風格</footer>
+
+<script>
+  const DATE = "2026-09-05";
+  const DB = "https://b-battle-580b5-default-rtdb.firebaseio.com/uigallery";
+
+  function setLiked(el, liked){
+    if(liked){ el.classList.add('liked'); } else { el.classList.remove('liked'); }
+  }
+
+  // restore state on load
+  fetch(DB + ".json").then(r => r.json()).then(data => {
+    if(!data) return;
+    document.querySelectorAll('.heart').forEach(h => {
+      const id = h.getAttribute('data-id');
+      if(data[id] === true) setLiked(h, true);
+    });
+  }).catch(() => { /* 網路政策可能擋下 firebase，靜默失敗即可 */ });
+
+  document.querySelectorAll('.heart').forEach(h => {
+    h.addEventListener('click', () => {
+      const id = h.getAttribute('data-id');
+      const nowLiked = !h.classList.contains('liked');
+      setLiked(h, nowLiked);
+      fetch(DB + "/" + id + ".json", {
+        method: "PUT",
+        body: JSON.stringify(nowLiked)
+      }).catch(() => { /* 網路政策可能擋下，UI 狀態仍先切換 */ });
+    });
+  });
+</script>
+
+</body>
+</html>
