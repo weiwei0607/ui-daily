@@ -1,0 +1,705 @@
+<!-- style #29 Heatmap & Density Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>冷鏈眼 ColdEye｜連鎖冷凍倉儲溫控監控後台</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --bg-app:#0b1526;
+    --bg-panel:#1e293b;
+    --bg-panel-2:#243349;
+    --bg-panel-3:#2b3c56;
+    --border:#32415c;
+    --border-soft:#25324a;
+    --text-hi:#eef2f8;
+    --text-mid:#a9b7cc;
+    --text-low:#6c7d9a;
+    --brand:#38bdf8;
+    --brand-dim:#0ea5e9;
+    --brand-glow:rgba(56,189,248,.35);
+    --ok:#34d399;
+    --ok-dim:#0f2e26;
+    --warn:#f59e0b;
+    --warn-dim:#3a2a0c;
+    --danger:#f87171;
+    --danger-strong:#ef4444;
+    --danger-dim:#3a1418;
+  }
+  *{box-sizing:border-box;}
+  html,body{background:var(--bg-app);}
+  body{
+    font-family:'Karla','Noto Sans TC',sans-serif;
+    color:var(--text-hi);
+    -webkit-font-smoothing:antialiased;
+  }
+  .font-num{font-family:'Space Mono','Noto Sans TC',monospace;}
+  .font-cjk{font-family:'Noto Sans TC','Karla',sans-serif;}
+
+  /* ---------- layout shell ---------- */
+  .app-shell{
+    display:grid;
+    grid-template-columns:232px 1fr;
+    min-height:100vh;
+  }
+  @media (max-width:900px){
+    .app-shell{grid-template-columns:1fr;}
+  }
+
+  /* ---------- sidebar ---------- */
+  .sidebar{
+    background:linear-gradient(180deg,#0f1c30,#0a1424);
+    border-right:1px solid var(--border-soft);
+    padding:20px 16px;
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+  }
+  @media (max-width:900px){
+    .sidebar{
+      flex-direction:row;
+      align-items:center;
+      overflow-x:auto;
+      border-right:none;
+      border-bottom:1px solid var(--border-soft);
+      padding:12px 14px;
+      gap:16px;
+    }
+    .sidebar-nav{flex-direction:row !important; gap:6px !important;}
+    .sidebar-foot{display:none;}
+  }
+  .brand-mark{
+    display:flex;align-items:center;gap:10px;
+  }
+  .brand-icon{
+    width:34px;height:34px;border-radius:9px;
+    background:radial-gradient(circle at 30% 25%, var(--brand), #0c4a6e 75%);
+    display:flex;align-items:center;justify-content:center;
+    font-size:16px;flex:none;
+    box-shadow:0 0 0 1px rgba(56,189,248,.25), 0 4px 14px -4px var(--brand-glow);
+  }
+  .brand-name{font-weight:800;letter-spacing:.02em;font-size:15px;line-height:1.1;}
+  .brand-sub{font-size:10.5px;color:var(--text-low);letter-spacing:.08em;font-family:'Space Mono',monospace;}
+
+  .sidebar-nav{display:flex;flex-direction:column;gap:2px;}
+  .nav-item{
+    display:flex;align-items:center;gap:10px;
+    padding:9px 10px;border-radius:8px;
+    font-size:13.5px;color:var(--text-mid);
+    white-space:nowrap;
+    border:1px solid transparent;
+    cursor:default;
+  }
+  .nav-item .dot{width:6px;height:6px;border-radius:99px;background:var(--text-low);flex:none;}
+  .nav-item.active{
+    background:linear-gradient(90deg, rgba(56,189,248,.14), rgba(56,189,248,.02));
+    border-color:rgba(56,189,248,.28);
+    color:var(--text-hi);font-weight:600;
+  }
+  .nav-item.active .dot{background:var(--brand);box-shadow:0 0 8px var(--brand-glow);}
+  .nav-item:hover{color:var(--text-hi);}
+
+  .sidebar-foot{
+    margin-top:auto;
+    border-top:1px solid var(--border-soft);
+    padding-top:14px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .avatar{
+    width:32px;height:32px;border-radius:99px;background:var(--bg-panel-3);
+    display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;
+    border:1px solid var(--border);flex:none;
+  }
+
+  /* ---------- topbar ---------- */
+  .topbar{
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:16px 24px;border-bottom:1px solid var(--border-soft);
+    background:rgba(15,23,42,.4);
+    flex-wrap:wrap;
+  }
+  .breadcrumb{font-size:12.5px;color:var(--text-low);}
+  .breadcrumb b{color:var(--text-hi);font-weight:700;}
+  .search-box{
+    display:flex;align-items:center;gap:8px;
+    background:var(--bg-panel);border:1px solid var(--border);
+    border-radius:8px;padding:7px 12px;color:var(--text-low);font-size:12.5px;
+    min-width:220px;
+  }
+  .icon-btn{
+    width:34px;height:34px;border-radius:8px;background:var(--bg-panel);
+    border:1px solid var(--border);display:flex;align-items:center;justify-content:center;
+    color:var(--text-mid);position:relative;flex:none;
+  }
+  .icon-btn .badge{
+    position:absolute;top:-4px;right:-4px;background:var(--danger-strong);
+    color:#fff;font-size:9.5px;font-weight:700;border-radius:99px;
+    padding:1px 4px;min-width:15px;text-align:center;font-family:'Space Mono',monospace;
+    border:1.5px solid var(--bg-app);
+  }
+
+  /* ---------- main ---------- */
+  .main-pad{padding:22px 24px 60px;}
+
+  /* ---------- KPI cards ---------- */
+  .kpi-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:14px;
+  }
+  @media (max-width:1100px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:560px){.kpi-grid{grid-template-columns:1fr;}}
+  .kpi-card{
+    background:linear-gradient(160deg,var(--bg-panel),var(--bg-panel-2));
+    border:1px solid var(--border);border-radius:12px;padding:16px 18px;
+    position:relative;overflow:hidden;
+  }
+  .kpi-card::after{
+    content:"";position:absolute;inset:auto -30% -60% auto;width:140px;height:140px;
+    background:radial-gradient(circle, var(--kpi-glow,var(--brand-glow)), transparent 70%);
+    pointer-events:none;
+  }
+  .kpi-label{font-size:12px;color:var(--text-mid);display:flex;align-items:center;justify-content:space-between;}
+  .kpi-value{
+    font-family:'Space Mono',monospace;font-weight:700;font-size:30px;line-height:1.15;
+    margin-top:8px;text-align:right;color:var(--text-hi);
+  }
+  .kpi-value small{font-size:14px;color:var(--text-mid);font-weight:400;margin-left:2px;}
+  .kpi-foot{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:11.5px;color:var(--text-low);}
+  .trend-up{color:var(--danger);}
+  .trend-down{color:var(--ok);}
+  .trend-flat{color:var(--text-low);}
+
+  /* ---------- panel shells ---------- */
+  .panel{
+    background:var(--bg-panel);border:1px solid var(--border);border-radius:14px;
+    padding:18px 20px 20px;
+  }
+  .panel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap;}
+  .panel-title{font-size:15px;font-weight:700;letter-spacing:.01em;}
+  .panel-sub{font-size:12px;color:var(--text-low);margin-top:3px;}
+  .pill{
+    font-size:11px;padding:3px 9px;border-radius:99px;border:1px solid var(--border);
+    color:var(--text-mid);font-family:'Space Mono',monospace;
+  }
+
+  /* ---------- legend ---------- */
+  .legend{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--text-mid);}
+  .legend-scale{
+    width:120px;height:9px;border-radius:99px;
+    background:linear-gradient(90deg,#1e293b,#155e75,#0ea5e9,#38bdf8);
+    border:1px solid var(--border);
+  }
+  .legend-chip{display:flex;align-items:center;gap:6px;}
+  .legend-swatch{width:10px;height:10px;border-radius:3px;flex:none;}
+
+  /* ---------- heatmap ---------- */
+  .heatmap-scroll{
+    overflow-x:auto;padding-bottom:6px;margin-top:6px;
+    -webkit-overflow-scrolling:touch;
+  }
+  .heatmap-grid{
+    display:grid;
+    grid-template-columns:132px repeat(24, minmax(30px,1fr));
+    min-width:900px;
+    gap:3px;
+  }
+  .hm-corner{
+    position:sticky;left:0;background:var(--bg-panel);z-index:3;
+  }
+  .hm-hour{
+    font-size:9.5px;color:var(--text-low);text-align:center;
+    font-family:'Space Mono',monospace;padding-bottom:4px;
+  }
+  .hm-row-label{
+    position:sticky;left:0;background:var(--bg-panel);z-index:2;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:4px 8px 4px 2px;border-right:1px solid var(--border-soft);
+  }
+  .hm-row-label b{font-size:12.5px;font-weight:700;}
+  .hm-row-label span{font-size:10px;color:var(--text-low);margin-top:1px;}
+  .hm-cell{
+    aspect-ratio:1/1;border-radius:4px;cursor:crosshair;
+    border:1px solid rgba(255,255,255,.04);
+    transition:transform .08s ease, box-shadow .08s ease;
+  }
+  .hm-cell:hover{
+    transform:scale(1.18);
+    box-shadow:0 0 0 1.5px #fff, 0 4px 12px -2px rgba(0,0,0,.6);
+    z-index:5;position:relative;
+  }
+  .hm-cell.is-danger{box-shadow:0 0 0 1px rgba(248,113,113,.55) inset;}
+  .hm-cell.is-warn{box-shadow:0 0 0 1px rgba(245,158,11,.5) inset;}
+
+  @media (max-width:640px){
+    .heatmap-grid{grid-template-columns:96px repeat(24, minmax(22px,1fr));}
+    .hm-row-label b{font-size:11px;}
+    .hm-row-label span{display:none;}
+    .hm-hour{font-size:8px;}
+  }
+
+  #hm-tooltip{
+    position:fixed;pointer-events:none;z-index:60;
+    background:#0a1424;border:1px solid var(--border);border-radius:10px;
+    padding:10px 13px;min-width:180px;
+    box-shadow:0 12px 30px -8px rgba(0,0,0,.6);
+    opacity:0;transform:translateY(4px);transition:opacity .1s ease;
+    font-size:12px;
+  }
+  #hm-tooltip.show{opacity:1;transform:translateY(0);}
+  #hm-tooltip .tt-title{font-weight:700;font-size:12.5px;margin-bottom:5px;color:var(--text-hi);}
+  #hm-tooltip .tt-row{display:flex;justify-content:space-between;gap:14px;color:var(--text-mid);padding:1.5px 0;}
+  #hm-tooltip .tt-row b{font-family:'Space Mono',monospace;color:var(--text-hi);}
+  #hm-tooltip .tt-status{
+    display:inline-block;margin-top:6px;font-size:10.5px;font-weight:700;
+    padding:2px 8px;border-radius:99px;
+  }
+
+  /* ---------- alerts ---------- */
+  .alert-row{
+    display:grid;
+    grid-template-columns:auto 1fr auto auto;
+    gap:14px;align-items:center;
+    padding:12px 14px;border-radius:10px;
+    background:var(--bg-panel-2);border:1px solid var(--border-soft);
+    border-left:3px solid var(--text-low);
+    margin-bottom:8px;
+  }
+  .alert-row.sev-danger{border-left-color:var(--danger-strong);background:linear-gradient(90deg, var(--danger-dim), var(--bg-panel-2) 55%);}
+  .alert-row.sev-warn{border-left-color:var(--warn);background:linear-gradient(90deg, var(--warn-dim), var(--bg-panel-2) 55%);}
+  .sev-badge{
+    font-size:11px;font-weight:700;padding:4px 10px;border-radius:7px;white-space:nowrap;
+  }
+  .sev-badge.danger{background:rgba(248,113,113,.14);color:var(--danger);border:1px solid rgba(248,113,113,.35);}
+  .sev-badge.warn{background:rgba(245,158,11,.14);color:var(--warn);border:1px solid rgba(245,158,11,.35);}
+  .alert-main b{font-size:13.5px;font-weight:700;}
+  .alert-main div{font-size:11.5px;color:var(--text-low);margin-top:2px;}
+  .alert-temp{font-family:'Space Mono',monospace;font-weight:700;font-size:15px;text-align:right;}
+  .alert-time{font-family:'Space Mono',monospace;font-size:11.5px;color:var(--text-low);text-align:right;white-space:nowrap;}
+
+  @media (max-width:620px){
+    .alert-row{grid-template-columns:1fr;grid-template-rows:auto auto auto;}
+    .alert-temp,.alert-time{text-align:left;}
+  }
+
+  .two-col{display:grid;grid-template-columns:1.55fr 1fr;gap:16px;align-items:start;}
+  @media (max-width:1100px){.two-col{grid-template-columns:1fr;}}
+
+  .table-wrap{overflow-x:auto;}
+  table.mini{width:100%;border-collapse:collapse;font-size:12.5px;}
+  table.mini th{
+    text-align:left;color:var(--text-low);font-weight:600;font-size:11px;
+    padding:6px 10px;border-bottom:1px solid var(--border-soft);white-space:nowrap;
+  }
+  table.mini td{padding:9px 10px;border-bottom:1px solid var(--border-soft);color:var(--text-mid);white-space:nowrap;}
+  table.mini td.num{font-family:'Space Mono',monospace;color:var(--text-hi);text-align:right;}
+  .status-chip{font-size:10.5px;padding:2px 8px;border-radius:99px;font-weight:700;}
+  .status-chip.ok{background:rgba(52,211,153,.13);color:var(--ok);border:1px solid rgba(52,211,153,.3);}
+  .status-chip.warn{background:rgba(245,158,11,.13);color:var(--warn);border:1px solid rgba(245,158,11,.3);}
+  .status-chip.danger{background:rgba(248,113,113,.13);color:var(--danger);border:1px solid rgba(248,113,113,.3);}
+</style>
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- ===================== 側邊導覽 ===================== -->
+  <aside class="sidebar">
+    <div class="brand-mark">
+      <div class="brand-icon">❄️</div>
+      <div>
+        <div class="brand-name">冷鏈眼 ColdEye</div>
+        <div class="brand-sub">COLD CHAIN OPS</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-item active"><span class="dot"></span>總覽儀表板</div>
+      <div class="nav-item"><span class="dot"></span>倉儲總覽</div>
+      <div class="nav-item"><span class="dot"></span>溫控熱力圖</div>
+      <div class="nav-item"><span class="dot"></span>異常警報中心</div>
+      <div class="nav-item"><span class="dot"></span>感測設備管理</div>
+      <div class="nav-item"><span class="dot"></span>報表匯出</div>
+      <div class="nav-item"><span class="dot"></span>系統設定</div>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="avatar">王督</div>
+      <div>
+        <div style="font-size:12.5px;font-weight:700;">王築督導</div>
+        <div style="font-size:10.5px;color:var(--text-low);">全台營運監控中心</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===================== 主內容 ===================== -->
+  <div>
+    <header class="topbar">
+      <div class="breadcrumb">冷鏈眼 ColdEye　/　<b>總覽儀表板</b></div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <div class="search-box">🔍<span>搜尋倉區、感測器編號…</span></div>
+        <div class="icon-btn" title="重新整理" id="refresh-btn">⟳</div>
+        <div class="icon-btn" title="警報通知">🔔<span class="badge" id="bell-badge">–</span></div>
+        <div style="font-size:12px;color:var(--text-low);font-family:'Space Mono',monospace;white-space:nowrap;">2026-09-05 (六) 14:32</div>
+      </div>
+    </header>
+
+    <main class="main-pad">
+
+      <!-- ===================== KPI 卡片列 ===================== -->
+      <section class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">全台監控倉儲數 <span class="pill">32 站</span></div>
+          <div class="kpi-value">32<small>間</small></div>
+          <div class="kpi-foot"><span>涵蓋北、中、南、東 4 大配送區</span><span class="trend-flat">與昨日持平</span></div>
+        </div>
+        <div class="kpi-card" style="--kpi-glow:rgba(248,113,113,.35);">
+          <div class="kpi-label">目前異常警報</div>
+          <div class="kpi-value" id="kpi-alerts">–<small>筆</small></div>
+          <div class="kpi-foot"><span>其中 <span id="kpi-alerts-danger">–</span> 筆為危險等級</span><span class="trend-up">▲ 較昨日 +2 筆</span></div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">監控倉區平均溫度</div>
+          <div class="kpi-value" id="kpi-avg-temp">–<small>°C</small></div>
+          <div class="kpi-foot"><span>標準作業區間 −25°C ～ −18°C</span><span class="trend-up">▲ 較昨日 +0.4°C</span></div>
+        </div>
+        <div class="kpi-card" style="--kpi-glow:rgba(52,211,153,.3);">
+          <div class="kpi-label">近 24 小時溫控合格率</div>
+          <div class="kpi-value" id="kpi-rate">–<small>%</small></div>
+          <div class="kpi-foot"><span>合格門檻 ≥ 95.0%</span><span class="trend-down" id="kpi-rate-trend">▼ 較昨日 -0.6%</span></div>
+        </div>
+      </section>
+
+      <div class="two-col" style="margin-top:16px;">
+
+        <!-- ===================== 熱力圖主區塊 ===================== -->
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <div class="panel-title">倉區溫度密度熱力圖</div>
+              <div class="panel-sub">高風險 7 倉區 × 24 小時／今日 00:00–23:00，滑鼠移到格子上可查看該時段詳細讀數</div>
+            </div>
+            <div class="legend">
+              <div class="legend-chip"><span class="legend-scale"></span><span>低溫 → 接近門檻</span></div>
+              <div class="legend-chip"><span class="legend-swatch" style="background:var(--warn);"></span>警戒 −17°C ~ −14°C</div>
+              <div class="legend-chip"><span class="legend-swatch" style="background:var(--danger-strong);"></span>危險 ≥ −14°C</div>
+            </div>
+          </div>
+
+          <div class="heatmap-scroll">
+            <div class="heatmap-grid" id="heatmap-grid">
+              <!-- JS 產生 -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================== 異常警報列表 ===================== -->
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <div class="panel-title">異常警報中心</div>
+              <div class="panel-sub">依嚴重程度排序，點選可指派複查人員</div>
+            </div>
+            <span class="pill" id="alert-count-pill">– 筆待處理</span>
+          </div>
+          <div id="alert-list"><!-- JS 產生 --></div>
+        </section>
+
+      </div>
+
+      <!-- ===================== 倉區明細表 ===================== -->
+      <section class="panel" style="margin-top:16px;">
+        <div class="panel-head">
+          <div>
+            <div class="panel-title">高風險倉區即時明細</div>
+            <div class="panel-sub">熱力圖對應之 7 個倉區，最新感測數值每 5 分鐘同步一次</div>
+          </div>
+          <span class="pill font-num">最後同步 14:30:12</span>
+        </div>
+        <div class="table-wrap">
+          <table class="mini">
+            <thead>
+              <tr>
+                <th>倉區代碼</th><th>倉區名稱</th><th>監控分區</th>
+                <th style="text-align:right;">目前溫度</th>
+                <th style="text-align:right;">24H 最高溫</th>
+                <th style="text-align:right;">24H 最低溫</th>
+                <th>狀態</th><th>感測器數</th>
+              </tr>
+            </thead>
+            <tbody id="wh-table-body"><!-- JS 產生 --></tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<div id="hm-tooltip"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------------- 基礎資料 ---------------- */
+  var warehouses = [
+    { id:"WH-14", name:"台北內湖倉", zone:"C 區急凍庫", base:-20.6, note:"14:00 短暫停電，備援發電機延遲 6 分鐘啟動" },
+    { id:"WH-12", name:"桃園龜山倉", zone:"A 區急凍庫", base:-20.2, note:"月台卸貨頻繁，12:00–14:00 冷氣持續外洩" },
+    { id:"WH-08", name:"新北五股倉", zone:"B 區冷凍庫", base:-21.1, note:"整體運作穩定，僅例行除霜略有波動" },
+    { id:"WH-03", name:"台中北屯倉", zone:"C 區冷凍庫", base:-19.8, note:"09:00 交貨閘門開啟時間過長" },
+    { id:"WH-19", name:"台南永康倉", zone:"A 區冷凍庫", base:-20.9, note:"整體運作穩定" },
+    { id:"WH-21", name:"高雄仁武倉", zone:"B 區急凍庫", base:-19.4, note:"壓縮機老化，15:00 起效能逐時下滑，建議排入歲修" },
+    { id:"WH-05", name:"新竹湖口倉", zone:"A 區冷凍庫", base:-21.4, note:"整體運作穩定" }
+  ];
+
+  var HOURS = 24;
+  var DANGER_T = -14;   // 危險門檻
+  var WARN_T   = -17;   // 警戒門檻
+
+  function mulberry32(seed){
+    return function(){
+      seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
+      var t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  // 各倉區的「事件時段」：模擬真實冷凍倉常見的異常成因
+  var incidents = {
+    "WH-14": [{ h:14, len:1, peak:5.5 }],                    // 單點停電尖峰
+    "WH-12": [{ h:12, len:3, peak:8.0, ramp:true }],          // 卸貨門開啟，持續偏高
+    "WH-03": [{ h:9,  len:2, peak:3.2, ramp:true }],          // 短暫警戒
+    "WH-21": [{ h:15, len:5, peak:9.5, ramp:true }]           // 壓縮機老化，漸進惡化
+  };
+
+  function statusOf(t){
+    if (t >= DANGER_T) return "danger";
+    if (t >= WARN_T) return "warn";
+    return "normal";
+  }
+
+  function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
+
+  function hexToRgb(hex){
+    var v = parseInt(hex.replace("#",""),16);
+    return [ (v>>16)&255, (v>>8)&255, v&255 ];
+  }
+  function rgbToHex(r,g,b){
+    return "#" + [r,g,b].map(function(x){
+      return clamp(Math.round(x),0,255).toString(16).padStart(2,"0");
+    }).join("");
+  }
+  function lerpColor(hexA, hexB, t){
+    var a = hexToRgb(hexA), b = hexToRgb(hexB);
+    return rgbToHex(a[0]+(b[0]-a[0])*t, a[1]+(b[1]-a[1])*t, a[2]+(b[2]-a[2])*t);
+  }
+
+  function colorForTemp(t){
+    if (t >= DANGER_T){
+      var tt = clamp((t - DANGER_T) / 6, 0, 1); // 越熱越亮紅
+      return lerpColor("#b91c1c", "#ef4444", tt);
+    }
+    if (t >= WARN_T){
+      var tw = clamp((t - WARN_T) / (DANGER_T - WARN_T), 0, 1);
+      return lerpColor("#92650f", "#f59e0b", tw);
+    }
+    // 正常區間：−27°C（最深藍）～ −17°C（品牌藍青）
+    var tn = clamp((t - (-27)) / ((WARN_T) - (-27)), 0, 1);
+    return lerpColor("#1e293b", "#38bdf8", tn);
+  }
+
+  /* ---------------- 產生 7 x 24 資料矩陣 ---------------- */
+  var grid = warehouses.map(function(wh, wi){
+    var rng = mulberry32(2200 + wi * 97);
+    var row = [];
+    for (var h = 0; h < HOURS; h++){
+      var t = wh.base + (rng() - 0.5) * 1.4;
+      var evs = incidents[wh.id] || [];
+      for (var k = 0; k < evs.length; k++){
+        var ev = evs[k];
+        if (h >= ev.h && h < ev.h + ev.len){
+          var progress = (h - ev.h + 1) / ev.len;
+          var add = ev.ramp ? ev.peak * progress : ev.peak;
+          t += add + (rng() - 0.5) * 0.6;
+        }
+      }
+      row.push(Math.round(t * 10) / 10);
+    }
+    return row;
+  });
+
+  /* ---------------- 畫熱力圖 ---------------- */
+  var hmGrid = document.getElementById("heatmap-grid");
+  var tooltip = document.getElementById("hm-tooltip");
+
+  var frag = document.createDocumentFragment();
+  frag.appendChild(document.createElement("div")).className = "hm-corner";
+  for (var h = 0; h < HOURS; h++){
+    var hc = document.createElement("div");
+    hc.className = "hm-hour";
+    hc.textContent = (h % 3 === 0) ? (String(h).padStart(2,"0") + ":00") : "";
+    frag.appendChild(hc);
+  }
+
+  var statusLabel = { normal:"正常", warn:"警戒", danger:"危險" };
+  var statusColor = { normal:"var(--ok)", warn:"var(--warn)", danger:"var(--danger)" };
+  var statusBg = { normal:"rgba(52,211,153,.15)", warn:"rgba(245,158,11,.16)", danger:"rgba(248,113,113,.16)" };
+
+  warehouses.forEach(function(wh, wi){
+    var label = document.createElement("div");
+    label.className = "hm-row-label";
+    label.innerHTML = "<b>"+wh.name+"</b><span>"+wh.zone+" · "+wh.id+"</span>";
+    frag.appendChild(label);
+
+    for (var h = 0; h < HOURS; h++){
+      var t = grid[wi][h];
+      var st = statusOf(t);
+      var cell = document.createElement("div");
+      cell.className = "hm-cell" + (st === "danger" ? " is-danger" : st === "warn" ? " is-warn" : "");
+      cell.style.background = colorForTemp(t);
+      cell.dataset.wh = wh.name;
+      cell.dataset.zone = wh.zone;
+      cell.dataset.id = wh.id;
+      cell.dataset.hour = h;
+      cell.dataset.temp = t.toFixed(1);
+      cell.dataset.status = st;
+
+      cell.addEventListener("mouseenter", showTip);
+      cell.addEventListener("mousemove", moveTip);
+      cell.addEventListener("mouseleave", hideTip);
+      frag.appendChild(cell);
+    }
+  });
+  hmGrid.appendChild(frag);
+
+  function showTip(e){
+    var d = e.currentTarget.dataset;
+    var hourLabel = String(d.hour).padStart(2,"0") + ":00 – " + String((+d.hour+1)%24).padStart(2,"0") + ":00";
+    tooltip.innerHTML =
+      '<div class="tt-title">'+d.wh+'　'+d.id+'</div>' +
+      '<div class="tt-row"><span>監控分區</span><b>'+d.zone+'</b></div>' +
+      '<div class="tt-row"><span>時段</span><b>'+hourLabel+'</b></div>' +
+      '<div class="tt-row"><span>庫溫讀數</span><b>'+d.temp+' °C</b></div>' +
+      '<span class="tt-status" style="color:'+statusColor[d.status]+';background:'+statusBg[d.status]+';">'+statusLabel[d.status]+'</span>';
+    tooltip.classList.add("show");
+    moveTip(e);
+  }
+  function moveTip(e){
+    var pad = 16;
+    var x = e.clientX + pad, y = e.clientY + pad;
+    var tw = tooltip.offsetWidth || 190, th = tooltip.offsetHeight || 100;
+    if (x + tw > window.innerWidth - 8) x = e.clientX - tw - pad;
+    if (y + th > window.innerHeight - 8) y = e.clientY - th - pad;
+    tooltip.style.left = x + "px";
+    tooltip.style.top = y + "px";
+  }
+  function hideTip(){ tooltip.classList.remove("show"); }
+
+  /* ---------------- 由格子資料彙整異常警報（相鄰同倉區時段合併） ---------------- */
+  var alerts = [];
+  warehouses.forEach(function(wh, wi){
+    var h = 0;
+    while (h < HOURS){
+      var st = statusOf(grid[wi][h]);
+      if (st === "normal"){ h++; continue; }
+      var startH = h, worst = st, peak = grid[wi][h];
+      while (h < HOURS && statusOf(grid[wi][h]) !== "normal"){
+        var s = statusOf(grid[wi][h]);
+        if (s === "danger") worst = "danger";
+        if (grid[wi][h] > peak) peak = grid[wi][h];
+        h++;
+      }
+      alerts.push({
+        wh: wh.name, id: wh.id, zone: wh.zone,
+        start: startH, end: h,
+        severity: worst, peak: peak,
+        note: wh.note
+      });
+    }
+  });
+  alerts.sort(function(a,b){
+    if (a.severity !== b.severity) return a.severity === "danger" ? -1 : 1;
+    return b.peak - a.peak;
+  });
+
+  var alertListEl = document.getElementById("alert-list");
+  if (alerts.length === 0){
+    alertListEl.innerHTML = '<div style="color:var(--text-low);font-size:12.5px;padding:20px 4px;">目前無異常警報，所有倉區皆維持在標準溫控區間內。</div>';
+  } else {
+    alerts.forEach(function(a){
+      var row = document.createElement("div");
+      row.className = "alert-row sev-" + a.severity;
+      var timeStr = String(a.start).padStart(2,"0") + ":00–" + String(a.end).padStart(2,"0") + ":00";
+      row.innerHTML =
+        '<span class="sev-badge '+a.severity+'">'+(a.severity==="danger"?"危險":"警戒")+'</span>' +
+        '<div class="alert-main"><b>'+a.wh+'　·　'+a.zone+'</b><div>'+a.note+'</div></div>' +
+        '<div class="alert-temp" style="color:'+(a.severity==="danger"?"var(--danger)":"var(--warn)")+';">'+a.peak.toFixed(1)+'°C</div>' +
+        '<div class="alert-time">'+timeStr+'</div>';
+      alertListEl.appendChild(row);
+    });
+  }
+  document.getElementById("alert-count-pill").textContent = alerts.length + " 筆待處理";
+
+  /* ---------------- KPI 計算 ---------------- */
+  var allTemps = [], normalCount = 0, totalCount = 0;
+  grid.forEach(function(row){
+    row.forEach(function(t){
+      allTemps.push(t);
+      totalCount++;
+      if (statusOf(t) === "normal") normalCount++;
+    });
+  });
+  var avgTemp = allTemps.reduce(function(a,b){return a+b;},0) / allTemps.length;
+  var passRate = (normalCount / totalCount) * 100;
+  var dangerAlerts = alerts.filter(function(a){ return a.severity === "danger"; }).length;
+
+  document.getElementById("kpi-alerts").innerHTML = alerts.length + "<small>筆</small>";
+  document.getElementById("kpi-alerts-danger").textContent = dangerAlerts;
+  document.getElementById("kpi-avg-temp").innerHTML = avgTemp.toFixed(1) + "<small>°C</small>";
+  document.getElementById("kpi-rate").innerHTML = passRate.toFixed(1) + "<small>%</small>";
+  document.getElementById("bell-badge").textContent = alerts.length;
+
+  var rateTrendEl = document.getElementById("kpi-rate-trend");
+  if (passRate >= 95){
+    rateTrendEl.className = "trend-down";
+    rateTrendEl.textContent = "▼ 較昨日 -0.6%（仍達標）";
+  } else {
+    rateTrendEl.className = "trend-up";
+    rateTrendEl.textContent = "▲ 低於合格門檻，請儘速排查";
+  }
+
+  /* ---------------- 倉區明細表 ---------------- */
+  var tbody = document.getElementById("wh-table-body");
+  warehouses.forEach(function(wh, wi){
+    var row = grid[wi];
+    var now = row[14]; // 對應目前時間 14:xx
+    var max = Math.max.apply(null, row);
+    var min = Math.min.apply(null, row);
+    var st = statusOf(now);
+    var tr = document.createElement("tr");
+    tr.innerHTML =
+      '<td class="font-num">'+wh.id+'</td>' +
+      '<td>'+wh.name+'</td>' +
+      '<td>'+wh.zone+'</td>' +
+      '<td class="num">'+now.toFixed(1)+' °C</td>' +
+      '<td class="num">'+max.toFixed(1)+' °C</td>' +
+      '<td class="num">'+min.toFixed(1)+' °C</td>' +
+      '<td><span class="status-chip '+(st==="normal"?"ok":st)+'">'+statusLabel[st]+'</span></td>' +
+      '<td class="font-num">'+(6 + (wi % 3))+' 顆</td>';
+    tbody.appendChild(tr);
+  });
+
+  /* ---------------- 重新整理按鈕（示意動畫） ---------------- */
+  document.getElementById("refresh-btn").addEventListener("click", function(){
+    this.style.transform = "rotate(360deg)";
+    this.style.transition = "transform .5s ease";
+    var self = this;
+    setTimeout(function(){ self.style.transform = "rotate(0deg)"; }, 550);
+  });
+
+})();
+</script>
+</body>
+</html>
