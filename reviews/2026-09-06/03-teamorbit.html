@@ -1,0 +1,816 @@
+<!-- style #22 Feature-Rich Showcase -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>協作圈 TeamOrbit｜團隊協作平台</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --ink:#12172b;
+    --ink-soft:#525a72;
+    --bg:#fbfaf7;
+    --panel:#ffffff;
+    --line:#e7e4dc;
+    --brand:#5b5bf0;
+    --brand-dark:#3f3fd6;
+    --brand-soft:#eeeeff;
+    --amber:#f2994a;
+    --mint:#1fb6a8;
+    --pink:#ef6a9c;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Plus Jakarta Sans','Noto Sans TC',sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  .zh{font-family:'Noto Sans TC','Plus Jakarta Sans',sans-serif;}
+  h1,h2,h3,h4,.brand{font-family:'Plus Jakarta Sans','Noto Sans TC',sans-serif;}
+  .container-x{max-width:1180px;margin:0 auto;padding-left:24px;padding-right:24px;}
+  .section-pad{padding-top:96px;padding-bottom:96px;}
+  @media (max-width:768px){.section-pad{padding-top:64px;padding-bottom:64px;}}
+
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:13px;font-weight:700;letter-spacing:.04em;
+    color:var(--brand-dark);background:var(--brand-soft);
+    padding:6px 14px;border-radius:999px;
+  }
+  .btn-primary{
+    background:var(--ink);color:#fff;font-weight:700;
+    padding:14px 28px;border-radius:12px;display:inline-flex;align-items:center;gap:8px;
+    transition:transform .15s ease, background .15s ease, box-shadow .15s ease;
+    box-shadow:0 8px 20px -8px rgba(18,23,43,.45);
+  }
+  .btn-primary:hover{background:var(--brand-dark);transform:translateY(-2px);box-shadow:0 14px 28px -10px rgba(63,63,214,.5);}
+  .btn-ghost{
+    border:1.5px solid var(--line);color:var(--ink);font-weight:700;
+    padding:13px 26px;border-radius:12px;display:inline-flex;align-items:center;gap:8px;
+    transition:border-color .15s ease, background .15s ease;
+    background:#fff;
+  }
+  .btn-ghost:hover{border-color:var(--ink);background:#f5f4ef;}
+
+  .card-shadow{box-shadow:0 24px 60px -30px rgba(18,23,43,.35);}
+
+  /* ---------- Nav ---------- */
+  .nav-link{color:var(--ink-soft);font-weight:600;font-size:14.5px;transition:color .15s ease;}
+  .nav-link:hover{color:var(--ink);}
+
+  /* ---------- Hero dashboard mockup ---------- */
+  .hero-mock{
+    background:linear-gradient(180deg,#ffffff, #f7f6f1);
+    border:1px solid var(--line);
+    border-radius:22px;
+    overflow:hidden;
+  }
+  .mock-topbar{
+    display:flex;align-items:center;gap:8px;
+    padding:14px 18px;border-bottom:1px solid var(--line);background:#fff;
+  }
+  .dot{width:10px;height:10px;border-radius:50%;}
+  .mock-body{display:grid;grid-template-columns:170px 1fr;min-height:340px;}
+  @media (max-width:640px){.mock-body{grid-template-columns:1fr;}}
+  .mock-side{background:#faf9f5;border-right:1px solid var(--line);padding:18px 14px;}
+  .mock-side-item{
+    display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:9px;
+    font-size:13px;font-weight:600;color:var(--ink-soft);margin-bottom:4px;
+  }
+  .mock-side-item.active{background:var(--brand-soft);color:var(--brand-dark);}
+  .mock-side-dot{width:8px;height:8px;border-radius:50%;background:currentColor;opacity:.5;}
+  .mock-main{padding:22px 24px;}
+  .stat-chip{
+    border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:#fff;
+  }
+  .bar{border-radius:6px 6px 0 0;}
+  .avatar{
+    width:26px;height:26px;border-radius:50%;border:2px solid #fff;
+    display:inline-flex;align-items:center;justify-content:center;
+    font-size:10px;font-weight:800;color:#fff;margin-left:-8px;
+  }
+  .avatar:first-child{margin-left:0;}
+
+  /* ---------- Feature kanban mockup ---------- */
+  .kanban-wrap{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px;}
+  .kanban-col{background:#faf9f5;border-radius:14px;padding:12px;min-width:0;}
+  .kanban-col h4{font-size:12.5px;font-weight:800;color:var(--ink-soft);letter-spacing:.02em;}
+  .kcard{
+    background:#fff;border:1px solid var(--line);border-radius:11px;padding:11px 12px;
+    margin-top:10px;cursor:grab;transition:box-shadow .18s ease, transform .18s ease, border-color .18s ease;
+  }
+  .kcard:hover{
+    box-shadow:0 16px 30px -12px rgba(18,23,43,.28);
+    transform:translateY(-3px) rotate(-0.4deg);
+    border-color:#d7d3f5;
+  }
+  .kcard .tag{font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:999px;}
+  .kcard.dimmed{opacity:.35;}
+  .kanban-tab{
+    padding:7px 15px;border-radius:9px;font-size:13.5px;font-weight:700;color:var(--ink-soft);
+    cursor:pointer;transition:background .15s ease,color .15s ease;
+  }
+  .kanban-tab.active{background:var(--ink);color:#fff;}
+
+  /* ---------- Chat mockup ---------- */
+  .chat-wrap{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;}
+  .chat-channels{background:#1b1e2e;color:#c9cbe0;}
+  .chan-item{
+    padding:9px 14px;font-size:13px;font-weight:600;cursor:pointer;border-radius:8px;margin:2px 8px;
+    transition:background .15s ease,color .15s ease;display:flex;align-items:center;justify-content:space-between;
+  }
+  .chan-item:hover{background:#2b2f45;color:#fff;}
+  .chan-item.active{background:#5b5bf0;color:#fff;}
+  .chan-badge{background:#ef6a9c;color:#fff;font-size:10px;font-weight:800;border-radius:999px;padding:1px 7px;}
+  .bubble{max-width:78%;padding:10px 14px;border-radius:14px;font-size:13.5px;line-height:1.55;}
+  .bubble.them{background:#f2f1ea;border-bottom-left-radius:4px;}
+  .bubble.me{background:var(--brand);color:#fff;border-bottom-right-radius:4px;margin-left:auto;}
+
+  /* ---------- File mockup ---------- */
+  .file-wrap{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px;}
+  .file-row{
+    display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:11px;
+    transition:background .15s ease;
+  }
+  .file-row:hover{background:#faf9f5;}
+  .file-ico{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:11px;flex-shrink:0;}
+
+  /* ---------- Timeline mockup ---------- */
+  .tl-wrap{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px;}
+  .tl-track{position:relative;padding-left:22px;}
+  .tl-track::before{content:"";position:absolute;left:6px;top:4px;bottom:4px;width:2px;background:var(--line);}
+  .tl-node{position:relative;padding-bottom:22px;}
+  .tl-node:last-child{padding-bottom:0;}
+  .tl-node::before{content:"";position:absolute;left:-22px;top:3px;width:12px;height:12px;border-radius:50%;background:var(--brand);border:3px solid #fff;box-shadow:0 0 0 2px var(--brand);}
+  .tl-node.done::before{background:var(--mint);box-shadow:0 0 0 2px var(--mint);}
+
+  /* ---------- feature section marker ---------- */
+  .feat-num{
+    font-size:13px;font-weight:800;color:#fff;background:var(--ink);
+    width:34px;height:34px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;
+  }
+
+  /* ---------- logos ---------- */
+  .logo-pill{
+    font-weight:800;color:#9a9788;font-size:19px;letter-spacing:.01em;opacity:.75;
+    transition:opacity .15s ease, color .15s ease;
+  }
+  .logo-pill:hover{opacity:1;color:var(--ink);}
+
+  /* ---------- pricing ---------- */
+  .pricing-toggle-wrap{
+    display:inline-flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--line);
+    padding:8px 10px;border-radius:999px;
+  }
+  .toggle-track{
+    width:52px;height:28px;border-radius:999px;background:var(--ink);position:relative;cursor:pointer;flex-shrink:0;
+  }
+  .toggle-knob{
+    position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;
+    transition:left .2s ease;box-shadow:0 2px 6px rgba(0,0,0,.25);
+  }
+  .toggle-track.on .toggle-knob{left:27px;}
+  .save-badge{
+    background:#e7f9f2;color:#0f8f76;font-size:11.5px;font-weight:800;padding:3px 9px;border-radius:999px;
+  }
+  .price-card{
+    background:#fff;border:1.5px solid var(--line);border-radius:22px;padding:32px 28px;
+    display:flex;flex-direction:column;transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  }
+  .price-card:hover{transform:translateY(-6px);box-shadow:0 26px 50px -24px rgba(18,23,43,.32);}
+  .price-card.featured{
+    border-color:var(--ink);background:var(--ink);color:#fff;
+  }
+  .price-card.featured .price-sub, .price-card.featured .feat-check-label{color:#c8cadf;}
+  .price-num{font-size:42px;font-weight:800;letter-spacing:-.02em;}
+  .feat-check{width:18px;height:18px;border-radius:6px;background:var(--brand-soft);color:var(--brand-dark);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .price-card.featured .feat-check{background:#33375a;color:#a9b1ff;}
+
+  /* misc */
+  .divider-soft{border-top:1px solid var(--line);}
+</style>
+</head>
+<body class="antialiased">
+
+<!-- ============ NAV ============ -->
+<header class="sticky top-0 z-50 bg-[#fbfaf7]/90 backdrop-blur border-b border-[var(--line)]">
+  <div class="container-x flex items-center justify-between h-[72px]">
+    <a href="#" class="flex items-center gap-2 brand font-extrabold text-[19px]">
+      <span class="w-8 h-8 rounded-lg bg-[var(--ink)] text-white flex items-center justify-center text-sm">◎</span>
+      協作圈 <span class="text-[var(--brand-dark)]">TeamOrbit</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8">
+      <a href="#features" class="nav-link zh">功能特色</a>
+      <a href="#kanban" class="nav-link zh">任務看板</a>
+      <a href="#logos" class="nav-link zh">客戶案例</a>
+      <a href="#pricing" class="nav-link zh">價格方案</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <a href="#" class="hidden sm:inline-block nav-link zh font-bold">登入</a>
+      <a href="#pricing" class="btn-primary zh !py-[10px] !px-[20px] text-[14px]">免費試用 14 天</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="section-pad">
+  <div class="container-x grid lg:grid-cols-2 gap-14 items-center">
+    <div>
+      <span class="eyebrow zh">給台灣中小企業的團隊協作平台</span>
+      <h1 class="zh mt-6 text-[38px] sm:text-[46px] leading-[1.25] font-extrabold tracking-tight">
+        任務、聊天、檔案，<br>
+        在<span class="text-[var(--brand-dark)]">同一個圈子</span>裡搞定。
+      </h1>
+      <p class="zh mt-6 text-[16.5px] leading-[1.9] text-[var(--ink-soft)] max-w-[480px]">
+        協作圈 TeamOrbit 把任務看板、即時聊天、檔案協作與時間軸報告整合成一個工作空間，
+        讓 10 人到 300 人的團隊都能少開三個分頁，多一點專注時間。
+      </p>
+      <div class="mt-9 flex flex-wrap items-center gap-4">
+        <a href="#pricing" class="btn-primary zh">
+          立即開始使用
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#kanban" class="btn-ghost zh">觀看功能導覽</a>
+      </div>
+      <div class="mt-8 flex items-center gap-3 text-[13.5px] zh text-[var(--ink-soft)]">
+        <span class="flex -space-x-2">
+          <span class="avatar" style="background:#5b5bf0">陳</span>
+          <span class="avatar" style="background:#ef6a9c">林</span>
+          <span class="avatar" style="background:#f2994a">黃</span>
+          <span class="avatar" style="background:#1fb6a8">吳</span>
+        </span>
+        已有超過 <b class="text-[var(--ink)]">2,400</b> 個台灣團隊在使用
+      </div>
+    </div>
+
+    <!-- Hero dashboard mockup (pure CSS/HTML) -->
+    <div class="hero-mock card-shadow">
+      <div class="mock-topbar">
+        <span class="dot" style="background:#f0605a"></span>
+        <span class="dot" style="background:#f2b23c"></span>
+        <span class="dot" style="background:#3fbf6f"></span>
+        <span class="zh ml-3 text-[12.5px] font-semibold text-[var(--ink-soft)]">app.teamorbit.tw／總覽儀表板</span>
+      </div>
+      <div class="mock-body">
+        <div class="mock-side zh">
+          <div class="mock-side-item active"><span class="mock-side-dot"></span>總覽儀表板</div>
+          <div class="mock-side-item"><span class="mock-side-dot"></span>任務看板</div>
+          <div class="mock-side-item"><span class="mock-side-dot"></span>團隊聊天</div>
+          <div class="mock-side-item"><span class="mock-side-dot"></span>檔案協作</div>
+          <div class="mock-side-item"><span class="mock-side-dot"></span>時間軸報告</div>
+        </div>
+        <div class="mock-main zh">
+          <div class="flex items-center justify-between mb-4">
+            <div class="font-extrabold text-[15px]">2026 年 9 月・第 3 週</div>
+            <div class="flex -space-x-2">
+              <span class="avatar" style="background:#5b5bf0">王</span>
+              <span class="avatar" style="background:#f2994a">周</span>
+              <span class="avatar" style="background:#1fb6a8">許</span>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-3 mb-5">
+            <div class="stat-chip">
+              <div class="text-[11px] font-bold text-[var(--ink-soft)]">進行中任務</div>
+              <div class="text-[20px] font-extrabold mt-1">32</div>
+            </div>
+            <div class="stat-chip">
+              <div class="text-[11px] font-bold text-[var(--ink-soft)]">本週完成</div>
+              <div class="text-[20px] font-extrabold mt-1 text-[var(--mint)]">18</div>
+            </div>
+            <div class="stat-chip">
+              <div class="text-[11px] font-bold text-[var(--ink-soft)]">即將逾期</div>
+              <div class="text-[20px] font-extrabold mt-1 text-[var(--amber)]">4</div>
+            </div>
+          </div>
+          <div class="stat-chip">
+            <div class="flex items-center justify-between text-[11.5px] font-bold text-[var(--ink-soft)] mb-2">
+              <span>團隊產出趨勢</span><span>近 7 天</span>
+            </div>
+            <div class="flex items-end gap-2 h-[64px]">
+              <div class="bar flex-1 bg-[#dcdcfa]" style="height:38%"></div>
+              <div class="bar flex-1 bg-[#c3c3f7]" style="height:55%"></div>
+              <div class="bar flex-1 bg-[#a6a6f2]" style="height:44%"></div>
+              <div class="bar flex-1 bg-[var(--brand)]" style="height:80%"></div>
+              <div class="bar flex-1 bg-[#c3c3f7]" style="height:62%"></div>
+              <div class="bar flex-1 bg-[#dcdcfa]" style="height:35%"></div>
+              <div class="bar flex-1 bg-[var(--brand)]" style="height:90%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LOGOS ============ -->
+<section id="logos" class="py-14 border-y border-[var(--line)] bg-[#f6f4ee]">
+  <div class="container-x">
+    <p class="zh text-center text-[13px] font-bold tracking-wide text-[var(--ink-soft)] mb-8">深受各行各業團隊信賴</p>
+    <div class="flex flex-wrap items-center justify-center gap-x-14 gap-y-6">
+      <span class="logo-pill">日昇餐飲集團</span>
+      <span class="logo-pill">晴天設計工作室</span>
+      <span class="logo-pill">綠芽電商</span>
+      <span class="logo-pill">奇岩科技</span>
+      <span class="logo-pill">遠見顧問</span>
+      <span class="logo-pill">好日子連鎖</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES INTRO ============ -->
+<section id="features" class="section-pad !pb-0">
+  <div class="container-x text-center max-w-[640px] mx-auto">
+    <span class="eyebrow zh">功能特色</span>
+    <h2 class="zh mt-5 text-[32px] sm:text-[36px] font-extrabold tracking-tight">四個核心模組，一次到位</h2>
+    <p class="zh mt-4 text-[15.5px] leading-[1.85] text-[var(--ink-soft)]">
+      不用再切換五個工具、開六個群組。協作圈把團隊日常最常用的功能整合在一起，
+      介面簡單到不需要教育訓練。
+    </p>
+  </div>
+</section>
+
+<!-- ============ FEATURE 1: KANBAN (image left / text right) ============ -->
+<section id="kanban" class="section-pad">
+  <div class="container-x grid lg:grid-cols-2 gap-14 items-center">
+    <div class="order-2 lg:order-1">
+      <div class="kanban-wrap card-shadow">
+        <div class="flex items-center justify-between mb-4">
+          <div class="zh font-extrabold text-[15px]">網站改版專案</div>
+          <div class="flex items-center gap-1" id="kanbanTabs">
+            <span class="kanban-tab zh active" data-filter="all">全部</span>
+            <span class="kanban-tab zh" data-filter="week">本週</span>
+            <span class="kanban-tab zh" data-filter="done">已完成</span>
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-3">
+          <div class="kanban-col">
+            <h4 class="zh px-1">待處理・3</h4>
+            <div class="kcard" data-status="week">
+              <span class="tag zh" style="background:#fdeee0;color:#c56a1f">高優先</span>
+              <p class="zh text-[13px] font-bold mt-2 leading-snug">首頁視覺稿確認</p>
+              <p class="zh text-[11px] text-[var(--ink-soft)] mt-1">9/10 截止・林設計</p>
+            </div>
+            <div class="kcard" data-status="week">
+              <span class="tag zh" style="background:#eef2fd;color:#3355c9">一般</span>
+              <p class="zh text-[13px] font-bold mt-2 leading-snug">競品規格蒐集</p>
+              <p class="zh text-[11px] text-[var(--ink-soft)] mt-1">9/12 截止・陳分析</p>
+            </div>
+            <div class="kcard" data-status="later">
+              <span class="tag zh" style="background:#eef2fd;color:#3355c9">一般</span>
+              <p class="zh text-[13px] font-bold mt-2 leading-snug">SEO 關鍵字盤點</p>
+              <p class="zh text-[11px] text-[var(--ink-soft)] mt-1">9/20 截止・周行銷</p>
+            </div>
+          </div>
+          <div class="kanban-col">
+            <h4 class="zh px-1">進行中・2</h4>
+            <div class="kcard" data-status="week">
+              <span class="tag zh" style="background:#fdeaf0;color:#c23367">緊急</span>
+              <p class="zh text-[13px] font-bold mt-2 leading-snug">結帳流程原型測試</p>
+              <p class="zh text-[11px] text-[var(--ink-soft)] mt-1">9/8 截止・許前端</p>
+            </div>
+            <div class="kcard" data-status="week">
+              <span class="tag zh" style="background:#eaf7f1;color:#128a5e">一般</span>
+              <p class="zh text-[13px] font-bold mt-2 leading-snug">後台權限規劃</p>
+              <p class="zh text-[11px] text-[var(--ink-soft)] mt-1">9/15 截止・黃後端</p>
+            </div>
+          </div>
+          <div class="kanban-col">
+            <h4 class="zh px-1">已完成・2</h4>
+            <div class="kcard" data-status="done">
+              <span class="tag zh" style="background:#eaf7f1;color:#128a5e">完成</span>
+              <p class="zh text-[13px] font-bold mt-2 leading-snug line-through text-[var(--ink-soft)]">品牌色票定案</p>
+              <p class="zh text-[11px] text-[var(--ink-soft)] mt-1">9/2 完成・林設計</p>
+            </div>
+            <div class="kcard" data-status="done">
+              <span class="tag zh" style="background:#eaf7f1;color:#128a5e">完成</span>
+              <p class="zh text-[13px] font-bold mt-2 leading-snug line-through text-[var(--ink-soft)]">使用者訪談 5 場</p>
+              <p class="zh text-[11px] text-[var(--ink-soft)] mt-1">8/29 完成・陳分析</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="order-1 lg:order-2">
+      <span class="feat-num">01</span>
+      <h3 class="zh mt-5 text-[27px] sm:text-[30px] font-extrabold tracking-tight">任務看板，進度一眼看穿</h3>
+      <p class="zh mt-4 text-[15.5px] leading-[1.9] text-[var(--ink-soft)]">
+        用拖曳就能更新任務狀態，支援自訂欄位、優先順序與截止日提醒。
+        點兩下切換「全部／本週／已完成」篩選，主管不用追進度，看板自己會說話。
+      </p>
+      <ul class="zh mt-6 space-y-3">
+        <li class="flex items-start gap-3 text-[14.5px]"><span class="feat-check">✓</span>拖曳卡片即可換欄位與指派負責人</li>
+        <li class="flex items-start gap-3 text-[14.5px]"><span class="feat-check">✓</span>逾期任務自動標紅，主管一目了然</li>
+        <li class="flex items-start gap-3 text-[14.5px]"><span class="feat-check">✓</span>可依專案、負責人或標籤自訂多種看板</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURE 2: CHAT (text left / image right) ============ -->
+<section class="section-pad bg-[#f6f4ee]">
+  <div class="container-x grid lg:grid-cols-2 gap-14 items-center">
+    <div>
+      <span class="feat-num">02</span>
+      <h3 class="zh mt-5 text-[27px] sm:text-[30px] font-extrabold tracking-tight">即時聊天，不用再切換 App</h3>
+      <p class="zh mt-4 text-[15.5px] leading-[1.9] text-[var(--ink-soft)]">
+        頻道式聊天室搭配任務直接關聯，討論到一半想指派任務，一鍵轉成看板卡片，
+        訊息不再被洗版洗掉。
+      </p>
+      <ul class="zh mt-6 space-y-3">
+        <li class="flex items-start gap-3 text-[14.5px]"><span class="feat-check">✓</span>訊息可直接轉換成任務或提醒事項</li>
+        <li class="flex items-start gap-3 text-[14.5px]"><span class="feat-check">✓</span>支援頻道、私訊與跨部門討論群</li>
+        <li class="flex items-start gap-3 text-[14.5px]"><span class="feat-check">✓</span>重要訊息釘選，新人加入也能秒懂脈絡</li>
+      </ul>
+    </div>
+    <div>
+      <div class="chat-wrap card-shadow grid grid-cols-[130px_1fr] h-[360px]">
+        <div class="chat-channels py-4" id="chanList">
+          <p class="zh px-4 text-[11px] font-bold text-[#8a8db0] mb-2">頻道</p>
+          <div class="chan-item active" data-chan="design"># 設計討論</div>
+          <div class="chan-item" data-chan="dev"># 開發同步<span class="chan-badge">3</span></div>
+          <div class="chan-item" data-chan="pm"># 專案管理</div>
+        </div>
+        <div class="flex flex-col">
+          <div class="px-5 py-3 border-b border-[var(--line)] zh font-extrabold text-[13.5px]" id="chanTitle"># 設計討論</div>
+          <div class="flex-1 px-5 py-4 space-y-3 overflow-hidden" id="chanBody"></div>
+          <div class="px-4 py-3 border-t border-[var(--line)] flex items-center gap-2">
+            <div class="flex-1 zh text-[12.5px] text-[var(--ink-soft)] bg-[#faf9f5] rounded-full px-4 py-2">輸入訊息...</div>
+            <span class="w-8 h-8 rounded-full bg-[var(--brand)] text-white flex items-center justify-center text-[13px]">➤</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURE 3: FILES (image left / text right) ============ -->
+<section class="section-pad">
+  <div class="container-x grid lg:grid-cols-2 gap-14 items-center">
+    <div class="order-2 lg:order-1">
+      <div class="file-wrap card-shadow">
+        <div class="flex items-center justify-between mb-3 zh">
+          <div class="font-extrabold text-[14px]">共用資料夾／網站改版專案</div>
+          <div class="text-[12px] font-bold text-[var(--brand-dark)]">＋上傳檔案</div>
+        </div>
+        <div class="divider-soft mb-1"></div>
+        <div class="file-row">
+          <div class="file-ico" style="background:#5b5bf0">FIG</div>
+          <div class="flex-1 zh">
+            <p class="text-[13.5px] font-bold">首頁視覺設計v3.fig</p>
+            <p class="text-[11.5px] text-[var(--ink-soft)]">林設計・2 小時前更新</p>
+          </div>
+          <div class="flex -space-x-2">
+            <span class="avatar" style="background:#f2994a">周</span>
+            <span class="avatar" style="background:#1fb6a8">許</span>
+          </div>
+        </div>
+        <div class="file-row">
+          <div class="file-ico" style="background:#1fb6a8">XLS</div>
+          <div class="flex-1 zh">
+            <p class="text-[13.5px] font-bold">競品規格比較表.xlsx</p>
+            <p class="text-[11.5px] text-[var(--ink-soft)]">陳分析・昨天更新</p>
+          </div>
+          <div class="flex -space-x-2">
+            <span class="avatar" style="background:#5b5bf0">王</span>
+          </div>
+        </div>
+        <div class="file-row">
+          <div class="file-ico" style="background:#ef6a9c">PDF</div>
+          <div class="flex-1 zh">
+            <p class="text-[13.5px] font-bold">使用者訪談逐字稿.pdf</p>
+            <p class="text-[11.5px] text-[var(--ink-soft)]">陳分析・9/2 更新</p>
+          </div>
+          <div class="flex -space-x-2">
+            <span class="avatar" style="background:#f2994a">周</span>
+          </div>
+        </div>
+        <div class="file-row">
+          <div class="file-ico" style="background:#f2994a">MP4</div>
+          <div class="flex-1 zh">
+            <p class="text-[13.5px] font-bold">產品操作示範影片.mp4</p>
+            <p class="text-[11.5px] text-[var(--ink-soft)]">許前端・8/30 更新</p>
+          </div>
+          <div class="flex -space-x-2">
+            <span class="avatar" style="background:#1fb6a8">許</span>
+            <span class="avatar" style="background:#ef6a9c">林</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="order-1 lg:order-2">
+      <span class="feat-num">03</span>
+      <h3 class="zh mt-5 text-[27px] sm:text-[30px] font-extrabold tracking-tight">檔案協作，版本永遠對得上</h3>
+      <p class="zh mt-4 text-[15.5px] leading-[1.9] text-[var(--ink-soft)]">
+        設計稿、報表、簡報都放在同一個雲端空間，自動記錄每一次更新與編輯者，
+        再也不會發生「用到舊版本」的悲劇。
+      </p>
+      <ul class="zh mt-6 space-y-3">
+        <li class="flex items-start gap-3 text-[14.5px]"><span class="feat-check">✓</span>自動版本紀錄，隨時可還原舊檔</li>
+        <li class="flex items-start gap-3 text-[14.5px]"><span class="feat-check">✓</span>檔案可直接關聯到任務與討論串</li>
+        <li class="flex items-start gap-3 text-[14.5px]"><span class="feat-check">✓</span>支援資料夾權限設定，外部協作也安心</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURE 4: TIMELINE (text left / image right) ============ -->
+<section class="section-pad bg-[#f6f4ee]">
+  <div class="container-x grid lg:grid-cols-2 gap-14 items-center">
+    <div>
+      <span class="feat-num">04</span>
+      <h3 class="zh mt-5 text-[27px] sm:text-[30px] font-extrabold tracking-tight">時間軸報告，一鍵匯出給老闆</h3>
+      <p class="zh mt-4 text-[15.5px] leading-[1.9] text-[var(--ink-soft)]">
+        每個專案自動生成時間軸與週報，重要里程碑清楚標示，
+        月會前不用再熬夜手動整理進度簡報。
+      </p>
+      <ul class="zh mt-6 space-y-3">
+        <li class="flex items-start gap-3 text-[14.5px]"><span class="feat-check">✓</span>自動彙整任務進度成週報與月報</li>
+        <li class="flex items-start gap-3 text-[14.5px]"><span class="feat-check">✓</span>里程碑與延遲風險提前預警</li>
+        <li class="flex items-start gap-3 text-[14.5px]"><span class="feat-check">✓</span>報告可匯出 PDF 或直接分享連結</li>
+      </ul>
+    </div>
+    <div>
+      <div class="tl-wrap card-shadow">
+        <div class="flex items-center justify-between mb-5 zh">
+          <div class="font-extrabold text-[14.5px]">網站改版專案・時間軸</div>
+          <div class="text-[11.5px] font-bold text-[var(--ink-soft)]">更新於 9/6</div>
+        </div>
+        <div class="tl-track">
+          <div class="tl-node done zh">
+            <p class="text-[13.5px] font-bold">需求訪談完成</p>
+            <p class="text-[11.5px] text-[var(--ink-soft)] mt-1">8/29・已完成</p>
+          </div>
+          <div class="tl-node done zh">
+            <p class="text-[13.5px] font-bold">品牌視覺定案</p>
+            <p class="text-[11.5px] text-[var(--ink-soft)] mt-1">9/2・已完成</p>
+          </div>
+          <div class="tl-node zh">
+            <p class="text-[13.5px] font-bold">首頁與結帳頁原型</p>
+            <p class="text-[11.5px] text-[var(--ink-soft)] mt-1">9/10・進行中，風險：低</p>
+          </div>
+          <div class="tl-node zh">
+            <p class="text-[13.5px] font-bold">內部驗收與測試</p>
+            <p class="text-[11.5px] text-[var(--ink-soft)] mt-1">9/22・尚未開始</p>
+          </div>
+          <div class="tl-node zh">
+            <p class="text-[13.5px] font-bold">正式上線</p>
+            <p class="text-[11.5px] text-[var(--ink-soft)] mt-1">10/1・里程碑</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section id="pricing" class="section-pad">
+  <div class="container-x text-center max-w-[640px] mx-auto">
+    <span class="eyebrow zh">價格方案</span>
+    <h2 class="zh mt-5 text-[32px] sm:text-[36px] font-extrabold tracking-tight">簡單透明的定價</h2>
+    <p class="zh mt-4 text-[15.5px] leading-[1.85] text-[var(--ink-soft)]">
+      依團隊規模選擇方案，年繳再省 20%，隨時可以升級或降級。
+    </p>
+    <div class="pricing-toggle-wrap mt-8">
+      <span class="zh text-[14px] font-bold" id="labelMonthly">月繳</span>
+      <div class="toggle-track" id="billingToggle" role="switch" aria-checked="false" tabindex="0">
+        <div class="toggle-knob"></div>
+      </div>
+      <span class="zh text-[14px] font-bold text-[var(--ink-soft)]" id="labelYearly">年繳</span>
+      <span class="save-badge zh">省 20%</span>
+    </div>
+  </div>
+
+  <div class="container-x grid md:grid-cols-3 gap-6 mt-12">
+    <div class="price-card">
+      <div class="zh font-extrabold text-[17px]">新創方案</div>
+      <p class="zh price-sub text-[13px] text-[var(--ink-soft)] mt-1">適合 10 人以下的小團隊</p>
+      <div class="mt-6 flex items-end gap-1">
+        <span class="price-num price-value" data-monthly="299" data-yearly="239">NT$299</span>
+        <span class="zh text-[13px] text-[var(--ink-soft)] mb-2">／人／月</span>
+      </div>
+      <p class="zh price-sub text-[12px] text-[var(--ink-soft)] mt-1 billing-note">依月計費</p>
+      <a href="#" class="btn-ghost zh justify-center mt-6">開始免費試用</a>
+      <ul class="zh mt-7 space-y-3 text-[14px]">
+        <li class="flex items-center gap-3"><span class="feat-check">✓</span>任務看板與基本報告</li>
+        <li class="flex items-center gap-3"><span class="feat-check">✓</span>即時聊天與頻道</li>
+        <li class="flex items-center gap-3"><span class="feat-check">✓</span>5GB 雲端檔案空間</li>
+        <li class="flex items-center gap-3"><span class="feat-check">✓</span>Email 客服支援</li>
+      </ul>
+    </div>
+
+    <div class="price-card featured relative">
+      <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[var(--amber)] text-white text-[11.5px] font-extrabold px-4 py-1 rounded-full zh">最多團隊選擇</div>
+      <div class="zh font-extrabold text-[17px]">成長方案</div>
+      <p class="zh price-sub text-[13px] mt-1">適合 10～100 人的成長團隊</p>
+      <div class="mt-6 flex items-end gap-1">
+        <span class="price-num price-value" data-monthly="599" data-yearly="479">NT$599</span>
+        <span class="zh text-[13px] mb-2 feat-check-label">／人／月</span>
+      </div>
+      <p class="zh price-sub text-[12px] mt-1 billing-note">依月計費</p>
+      <a href="#" class="btn-primary zh justify-center mt-6 !bg-white !text-[var(--ink)]">開始免費試用</a>
+      <ul class="zh mt-7 space-y-3 text-[14px]">
+        <li class="flex items-center gap-3"><span class="feat-check">✓</span>包含新創方案所有功能</li>
+        <li class="flex items-center gap-3"><span class="feat-check">✓</span>自動化時間軸報告</li>
+        <li class="flex items-center gap-3"><span class="feat-check">✓</span>100GB 雲端檔案空間</li>
+        <li class="flex items-center gap-3"><span class="feat-check">✓</span>權限管理與稽核紀錄</li>
+        <li class="flex items-center gap-3"><span class="feat-check">✓</span>專屬客戶成功經理</li>
+      </ul>
+    </div>
+
+    <div class="price-card">
+      <div class="zh font-extrabold text-[17px]">企業方案</div>
+      <p class="zh price-sub text-[13px] text-[var(--ink-soft)] mt-1">適合 100 人以上的企業組織</p>
+      <div class="mt-6 flex items-end gap-1">
+        <span class="price-num zh">客製報價</span>
+      </div>
+      <p class="zh price-sub text-[12px] text-[var(--ink-soft)] mt-1">依需求規劃</p>
+      <a href="#" class="btn-ghost zh justify-center mt-6">聯絡業務團隊</a>
+      <ul class="zh mt-7 space-y-3 text-[14px]">
+        <li class="flex items-center gap-3"><span class="feat-check">✓</span>包含成長方案所有功能</li>
+        <li class="flex items-center gap-3"><span class="feat-check">✓</span>單一登入（SSO）與資安審查</li>
+        <li class="flex items-center gap-3"><span class="feat-check">✓</span>不限雲端檔案空間</li>
+        <li class="flex items-center gap-3"><span class="feat-check">✓</span>導入輔導與教育訓練</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA BAND ============ -->
+<section class="py-20 bg-[var(--ink)]">
+  <div class="container-x text-center">
+    <h2 class="zh text-white text-[28px] sm:text-[32px] font-extrabold tracking-tight">準備好讓團隊更有效率了嗎？</h2>
+    <p class="zh text-[#c8cadf] mt-4 text-[15px]">無需信用卡，14 天內隨時可以取消。</p>
+    <a href="#" class="btn-primary zh mt-8 !bg-white !text-[var(--ink)]">免費建立協作圈</a>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="pt-16 pb-10 bg-[#f6f4ee]">
+  <div class="container-x grid md:grid-cols-5 gap-10">
+    <div class="md:col-span-2">
+      <a href="#" class="flex items-center gap-2 brand font-extrabold text-[18px]">
+        <span class="w-7 h-7 rounded-lg bg-[var(--ink)] text-white flex items-center justify-center text-[13px]">◎</span>
+        協作圈 TeamOrbit
+      </a>
+      <p class="zh mt-4 text-[13.5px] leading-[1.8] text-[var(--ink-soft)] max-w-[280px]">
+        專為台灣中小企業打造的團隊協作平台，整合任務、聊天、檔案與報告。
+      </p>
+    </div>
+    <div class="zh">
+      <p class="font-extrabold text-[13.5px] mb-4">產品</p>
+      <ul class="space-y-2.5 text-[13.5px] text-[var(--ink-soft)]">
+        <li><a href="#kanban" class="hover:text-[var(--ink)]">任務看板</a></li>
+        <li><a href="#features" class="hover:text-[var(--ink)]">即時聊天</a></li>
+        <li><a href="#pricing" class="hover:text-[var(--ink)]">價格方案</a></li>
+      </ul>
+    </div>
+    <div class="zh">
+      <p class="font-extrabold text-[13.5px] mb-4">資源</p>
+      <ul class="space-y-2.5 text-[13.5px] text-[var(--ink-soft)]">
+        <li><a href="#" class="hover:text-[var(--ink)]">說明文件</a></li>
+        <li><a href="#" class="hover:text-[var(--ink)]">常見問題</a></li>
+        <li><a href="#" class="hover:text-[var(--ink)]">客服中心</a></li>
+      </ul>
+    </div>
+    <div class="zh">
+      <p class="font-extrabold text-[13.5px] mb-4">公司</p>
+      <ul class="space-y-2.5 text-[13.5px] text-[var(--ink-soft)]">
+        <li><a href="#" class="hover:text-[var(--ink)]">關於我們</a></li>
+        <li><a href="#" class="hover:text-[var(--ink)]">隱私權政策</a></li>
+        <li><a href="#" class="hover:text-[var(--ink)]">服務條款</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container-x mt-12 pt-6 divider-soft zh text-[12.5px] text-[var(--ink-soft)] flex flex-col sm:flex-row items-center justify-between gap-3">
+    <span>© 2026 協作圈 TeamOrbit．版權所有</span>
+    <span>Made with ◎ in Taiwan</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- 1. Kanban tab filter ---------- */
+  var tabs = document.querySelectorAll('#kanbanTabs .kanban-tab');
+  var cards = document.querySelectorAll('.kcard');
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      tabs.forEach(function(t){ t.classList.remove('active'); });
+      tab.classList.add('active');
+      var filter = tab.getAttribute('data-filter');
+      cards.forEach(function(card){
+        var status = card.getAttribute('data-status');
+        var show = (filter === 'all') ||
+                   (filter === 'week' && (status === 'week')) ||
+                   (filter === 'done' && status === 'done');
+        card.classList.toggle('dimmed', !show);
+      });
+    });
+  });
+
+  /* ---------- 2. Chat channel switcher ---------- */
+  var chanData = {
+    design: {
+      title: '# 設計討論',
+      msgs: [
+        {who:'them', name:'林設計', text:'首頁 hero 區的配色我再調亮一點，等等傳給大家看。'},
+        {who:'them', name:'周行銷', text:'好的～記得手機版也要確認一下對比度喔。'},
+        {who:'me', text:'沒問題，我這邊晚點把 icon 也補齊，順便轉成任務追蹤。'}
+      ]
+    },
+    dev: {
+      title: '# 開發同步',
+      msgs: [
+        {who:'them', name:'許前端', text:'結帳頁的 API 串接遇到 CORS 問題，正在排查。'},
+        {who:'them', name:'黃後端', text:'我這邊剛更新後台權限，麻煩重新拉一次分支。'},
+        {who:'me', text:'收到，我把這則訊息轉成任務指派給自己，今天處理完。'}
+      ]
+    },
+    pm: {
+      title: '# 專案管理',
+      msgs: [
+        {who:'them', name:'陳分析', text:'這週訪談逐字稿整理好了，放在共用資料夾。'},
+        {who:'me', text:'太好了，我來更新時間軸報告，順便標記里程碑完成。'}
+      ]
+    }
+  };
+
+  var chanItems = document.querySelectorAll('#chanList .chan-item');
+  var chanTitle = document.getElementById('chanTitle');
+  var chanBody = document.getElementById('chanBody');
+
+  function renderChannel(key){
+    var data = chanData[key];
+    if(!data) return;
+    chanTitle.textContent = data.title;
+    chanBody.innerHTML = '';
+    data.msgs.forEach(function(m){
+      var wrap = document.createElement('div');
+      if(m.who === 'them'){
+        wrap.innerHTML =
+          '<p class="zh text-[11px] font-bold text-[var(--ink-soft)] mb-1">' + m.name + '</p>' +
+          '<div class="bubble them zh">' + m.text + '</div>';
+      } else {
+        wrap.innerHTML = '<div class="bubble me zh">' + m.text + '</div>';
+      }
+      chanBody.appendChild(wrap);
+    });
+  }
+
+  chanItems.forEach(function(item){
+    item.addEventListener('click', function(){
+      chanItems.forEach(function(i){ i.classList.remove('active'); });
+      item.classList.add('active');
+      renderChannel(item.getAttribute('data-chan'));
+    });
+  });
+  renderChannel('design');
+
+  /* ---------- 3. Pricing monthly / yearly toggle ---------- */
+  var toggle = document.getElementById('billingToggle');
+  var labelMonthly = document.getElementById('labelMonthly');
+  var labelYearly = document.getElementById('labelYearly');
+  var priceValues = document.querySelectorAll('.price-value');
+  var billingNotes = document.querySelectorAll('.billing-note');
+  var isYearly = false;
+
+  function updatePricing(){
+    toggle.classList.toggle('on', isYearly);
+    toggle.setAttribute('aria-checked', String(isYearly));
+    labelMonthly.classList.toggle('text-[var(--ink-soft)]', isYearly);
+    labelMonthly.classList.toggle('font-bold', true);
+    labelYearly.classList.toggle('text-[var(--ink-soft)]', !isYearly);
+
+    priceValues.forEach(function(el){
+      var val = isYearly ? el.getAttribute('data-yearly') : el.getAttribute('data-monthly');
+      el.textContent = 'NT$' + val;
+    });
+    billingNotes.forEach(function(el){
+      el.textContent = isYearly ? '年繳優惠價，每月折算' : '依月計費';
+    });
+  }
+
+  function toggleBilling(){
+    isYearly = !isYearly;
+    updatePricing();
+  }
+
+  toggle.addEventListener('click', toggleBilling);
+  toggle.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      toggleBilling();
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
