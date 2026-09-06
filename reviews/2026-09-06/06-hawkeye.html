@@ -1,0 +1,617 @@
+<!-- style #51 HUD / Sci-Fi -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>鷹眼 HAWK-EYE 無人機艦隊即時監控系統</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Share+Tech+Mono&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #01060a;
+    --bg-2: #020c10;
+    --cyan: #01fff0;
+    --cyan-dim: #0aa8a0;
+    --cyan-faint: rgba(1,255,240,0.12);
+    --amber: #ffb020;
+    --red: #ff2f52;
+    --panel-bg: rgba(3,22,26,0.55);
+    --panel-border: rgba(1,255,240,0.28);
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ background:var(--bg); }
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse at 50% -10%, rgba(1,255,240,0.08), transparent 60%),
+      radial-gradient(ellipse at 90% 110%, rgba(1,255,240,0.05), transparent 55%),
+      var(--bg);
+    color: #bdfcf7;
+    font-family:'Noto Sans TC', sans-serif;
+    min-height:100vh;
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  .font-display{ font-family:'Orbitron','Noto Sans TC',sans-serif; }
+  .font-mono{ font-family:'Share Tech Mono','Noto Sans TC',monospace; letter-spacing:0.03em; }
+  .font-tc{ font-family:'Noto Sans TC',sans-serif; }
+
+  /* global scanline texture */
+  body::before{
+    content:'';
+    position:fixed; inset:0;
+    pointer-events:none;
+    z-index:60;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(1,255,240,0.025) 0px,
+      rgba(1,255,240,0.025) 1px,
+      transparent 2px,
+      transparent 3px
+    );
+    mix-blend-mode:screen;
+  }
+  /* moving scan beam */
+  body::after{
+    content:'';
+    position:fixed; left:0; right:0; height:120px;
+    pointer-events:none; z-index:61;
+    background:linear-gradient(to bottom, transparent, rgba(1,255,240,0.07), transparent);
+    animation: scan-sweep 7s linear infinite;
+  }
+  @keyframes scan-sweep{
+    0%{ top:-120px; }
+    100%{ top:100vh; }
+  }
+
+  .glow-text{ text-shadow:0 0 6px rgba(1,255,240,0.75), 0 0 16px rgba(1,255,240,0.35); }
+  .glow-text-red{ text-shadow:0 0 6px rgba(255,47,82,0.85), 0 0 16px rgba(255,47,82,0.4); }
+  .glow-text-amber{ text-shadow:0 0 6px rgba(255,176,32,0.85), 0 0 16px rgba(255,176,32,0.4); }
+
+  /* HUD panel with corner brackets */
+  .hud-panel{
+    position:relative;
+    background:var(--panel-bg);
+    border:1px solid rgba(1,255,240,0.15);
+    box-shadow: 0 0 18px rgba(1,255,240,0.08), inset 0 0 30px rgba(1,255,240,0.02);
+    backdrop-filter: blur(2px);
+  }
+  .corner{ position:absolute; width:16px; height:16px; pointer-events:none; z-index:5; }
+  .corner::before{ content:''; position:absolute; inset:0; filter: drop-shadow(0 0 3px var(--cyan)); }
+  .corner.tl{ top:-1px; left:-1px; border-top:2px solid var(--cyan); border-left:2px solid var(--cyan); }
+  .corner.tr{ top:-1px; right:-1px; border-top:2px solid var(--cyan); border-right:2px solid var(--cyan); }
+  .corner.bl{ bottom:-1px; left:-1px; border-bottom:2px solid var(--cyan); border-left:2px solid var(--cyan); }
+  .corner.br{ bottom:-1px; right:-1px; border-bottom:2px solid var(--cyan); border-right:2px solid var(--cyan); }
+
+  .panel-title{
+    font-size:0.78rem;
+    letter-spacing:0.12em;
+    color:var(--cyan);
+    padding:10px 14px;
+    border-bottom:1px solid rgba(1,255,240,0.18);
+    display:flex; align-items:center; justify-content:space-between;
+    background:linear-gradient(to right, rgba(1,255,240,0.08), transparent);
+  }
+
+  .blink-dot{
+    width:8px; height:8px; border-radius:50%;
+    background:var(--cyan);
+    box-shadow:0 0 8px var(--cyan), 0 0 16px var(--cyan);
+    animation: blink-pulse 1.6s ease-in-out infinite;
+    display:inline-block;
+  }
+  @keyframes blink-pulse{
+    0%,100%{ opacity:1; transform:scale(1); }
+    50%{ opacity:0.35; transform:scale(0.75); }
+  }
+
+  /* radar / map panel */
+  .radar-map{
+    position:relative;
+    overflow:hidden;
+    background:
+      repeating-radial-gradient(circle at 50% 50%, transparent 0, transparent 46px, rgba(1,255,240,0.07) 47px, rgba(1,255,240,0.07) 48px),
+      repeating-linear-gradient(rgba(1,255,240,0.07) 0 1px, transparent 1px 40px),
+      repeating-linear-gradient(90deg, rgba(1,255,240,0.07) 0 1px, transparent 1px 40px),
+      radial-gradient(ellipse at 50% 50%, rgba(1,255,240,0.05), transparent 70%),
+      #01090c;
+  }
+  .radar-map::before{
+    content:'';
+    position:absolute; top:50%; left:50%;
+    width:200%; padding-top:200%;
+    transform:translate(-50%,-50%);
+    background:conic-gradient(from 0deg, rgba(1,255,240,0.30), transparent 12%, transparent 100%);
+    animation: sweep-rotate 5s linear infinite;
+    mix-blend-mode:screen;
+    pointer-events:none;
+  }
+  @keyframes sweep-rotate{ to{ transform:translate(-50%,-50%) rotate(360deg); } }
+  .radar-crosshair{ position:absolute; inset:0; pointer-events:none; }
+  .radar-crosshair span{ position:absolute; background:rgba(1,255,240,0.18); }
+  .radar-crosshair .h{ top:50%; left:0; right:0; height:1px; }
+  .radar-crosshair .v{ left:50%; top:0; bottom:0; width:1px; }
+
+  .drone-dot{
+    position:absolute;
+    width:9px; height:9px; border-radius:50%;
+    background:var(--cyan);
+    box-shadow:0 0 6px var(--cyan), 0 0 14px var(--cyan);
+    transform:translate(-50%,-50%);
+    transition: left 2.4s linear, top 2.4s linear;
+    z-index:3;
+  }
+  .drone-dot.rtb{ background:var(--amber); box-shadow:0 0 6px var(--amber), 0 0 14px var(--amber); }
+  .drone-dot.idle{ background:#4fd8d0; opacity:0.55; }
+  .drone-dot::after{
+    content:'';
+    position:absolute; inset:-6px;
+    border:1px solid currentColor;
+    border-radius:50%;
+    opacity:0.5;
+    animation: dot-ring 2.4s ease-out infinite;
+  }
+  @keyframes dot-ring{
+    0%{ transform:scale(0.4); opacity:0.7; }
+    100%{ transform:scale(2.2); opacity:0; }
+  }
+  .drone-label{
+    position:absolute;
+    transform:translate(8px,-10px);
+    font-size:10px;
+    white-space:nowrap;
+    color:var(--cyan);
+    text-shadow:0 0 4px rgba(1,255,240,0.8);
+    z-index:4;
+    pointer-events:none;
+  }
+
+  /* fleet list */
+  .fleet-item{
+    border:1px solid rgba(1,255,240,0.12);
+    background:rgba(1,255,240,0.02);
+    cursor:pointer;
+    transition:all .2s ease;
+  }
+  .fleet-item:hover{ background:rgba(1,255,240,0.07); border-color:rgba(1,255,240,0.35); }
+  .fleet-item.selected{
+    background:rgba(1,255,240,0.10);
+    border-color:var(--cyan);
+    box-shadow:0 0 12px rgba(1,255,240,0.25) inset, 0 0 10px rgba(1,255,240,0.15);
+  }
+
+  .status-pill{
+    font-size:10px; padding:1px 7px; border-radius:2px;
+    border:1px solid currentColor;
+    letter-spacing:0.05em;
+  }
+
+  /* mini ring */
+  .mini-ring{ transform:rotate(-90deg); }
+  .ring-track{ fill:none; stroke:rgba(1,255,240,0.12); }
+  .ring-fill{ fill:none; stroke-linecap:round; transition: stroke-dashoffset 1s ease, stroke 0.6s ease; }
+
+  /* log feed */
+  .log-feed{ height:100%; overflow-y:auto; }
+  .log-feed::-webkit-scrollbar{ width:5px; }
+  .log-feed::-webkit-scrollbar-thumb{ background:rgba(1,255,240,0.3); }
+  .log-line{
+    border-bottom:1px dashed rgba(1,255,240,0.1);
+    padding:7px 12px;
+    font-size:11.5px;
+    line-height:1.5;
+    animation: log-in 0.4s ease;
+  }
+  @keyframes log-in{
+    from{ opacity:0; transform:translateY(-6px); background:rgba(1,255,240,0.12); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  .log-tag{ font-size:10px; padding:0 4px; border:1px solid currentColor; margin-right:6px; border-radius:2px; }
+
+  .gauge-big-wrap svg{ overflow:visible; }
+
+  ::selection{ background:rgba(1,255,240,0.35); }
+
+  @media (max-width: 1100px){
+    .main-grid{ grid-template-columns: 1fr !important; }
+  }
+  @media (max-width: 700px){
+    .header-grid{ grid-template-columns: 1fr !important; text-align:center; row-gap:10px; }
+    .gauge-grid{ grid-template-columns: 1fr !important; }
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <div class="max-w-[1500px] mx-auto p-3 md:p-5 relative z-10">
+
+    <!-- ============ TOP STATUS BAR ============ -->
+    <header class="hud-panel mb-4 px-4 py-3 md:px-6 md:py-4">
+      <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+      <div class="header-grid grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+
+        <!-- logo -->
+        <div class="flex items-center gap-3 justify-center md:justify-start">
+          <svg width="38" height="38" viewBox="0 0 100 100" class="shrink-0">
+            <circle cx="50" cy="50" r="46" fill="none" stroke="#01fff0" stroke-width="2" opacity="0.5"/>
+            <circle cx="50" cy="50" r="32" fill="none" stroke="#01fff0" stroke-width="1.5" opacity="0.35"/>
+            <line x1="50" y1="2" x2="50" y2="18" stroke="#01fff0" stroke-width="2"/>
+            <line x1="50" y1="82" x2="50" y2="98" stroke="#01fff0" stroke-width="2"/>
+            <line x1="2" y1="50" x2="18" y2="50" stroke="#01fff0" stroke-width="2"/>
+            <line x1="82" y1="50" x2="98" y2="50" stroke="#01fff0" stroke-width="2"/>
+            <circle cx="50" cy="50" r="6" fill="#01fff0"/>
+          </svg>
+          <div>
+            <div class="font-display font-800 text-xl md:text-2xl glow-text tracking-widest leading-none">鷹眼 HAWK-EYE</div>
+            <div class="font-tc text-[11px] text-cyan-200/70 tracking-wide mt-1">無人機艦隊即時監控系統 · 基礎設施智慧巡檢</div>
+          </div>
+        </div>
+
+        <!-- clock -->
+        <div class="text-center">
+          <div id="clock-time" class="font-display font-700 text-3xl md:text-4xl glow-text tabular-nums">00:00:00</div>
+          <div class="font-mono text-[11px] text-cyan-300/70 mt-1" id="clock-date">----/--/-- (-) UTC+8 TAIPEI</div>
+        </div>
+
+        <!-- fleet status -->
+        <div class="flex items-center justify-center md:justify-end gap-5 md:gap-6">
+          <div class="text-center">
+            <div class="font-mono text-[10px] text-cyan-300/60 tracking-widest">FLEET ONLINE 艦隊在線</div>
+            <div class="font-display font-700 text-xl glow-text"><span id="fleet-online">6</span>/<span id="fleet-total">6</span></div>
+          </div>
+          <div class="text-center">
+            <div class="font-mono text-[10px] text-cyan-300/60 tracking-widest">ACTIVE 執行任務中</div>
+            <div class="font-display font-700 text-xl glow-text"><span id="fleet-active">4</span></div>
+          </div>
+          <div class="flex flex-col items-center gap-1">
+            <span class="blink-dot"></span>
+            <div class="font-mono text-[10px] text-cyan-300/70 tracking-widest">系統正常<br>NOMINAL</div>
+          </div>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- ============ MAIN GRID ============ -->
+    <div class="main-grid grid gap-4" style="grid-template-columns: 300px 1fr 320px;">
+
+      <!-- LEFT: FLEET LIST -->
+      <section class="hud-panel flex flex-col" style="min-height:460px;">
+        <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+        <div class="panel-title">
+          <span class="font-mono">FLEET STATUS // 艦隊列表</span>
+          <span class="font-mono text-cyan-300/50">6 UNITS</span>
+        </div>
+        <div id="fleet-list" class="flex-1 overflow-y-auto p-2.5 space-y-2 log-feed"></div>
+      </section>
+
+      <!-- CENTER: MAP / RADAR -->
+      <section class="hud-panel flex flex-col" style="min-height:460px;">
+        <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+        <div class="panel-title">
+          <span class="font-mono">AIRSPACE MAP // 即時空域佈局圖</span>
+          <span class="font-mono text-cyan-300/50">AO: 北台灣巡檢作業區</span>
+        </div>
+        <div class="radar-map flex-1 relative">
+          <div class="radar-crosshair"><span class="h"></span><span class="v"></span></div>
+          <div id="drone-layer" class="absolute inset-0"></div>
+          <div class="absolute left-2 bottom-2 font-mono text-[10px] text-cyan-300/50 leading-tight">
+            MODE: AUTO-PATROL<br>
+            GPS: LOCK · SAT 14<br>
+            GRID: TWD97 / TM2
+          </div>
+          <div class="absolute right-2 top-2 font-mono text-[10px] text-cyan-300/50 leading-tight text-right">
+            OPERATOR: 控制中心 TPE-OCC<br>
+            LINK: <span id="map-latency">42</span>ms
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT: LOG FEED -->
+      <section class="hud-panel flex flex-col" style="min-height:460px;">
+        <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+        <div class="panel-title">
+          <span class="font-mono">ALERT LOG // 警報與事件日誌</span>
+          <span class="blink-dot" style="width:6px;height:6px;"></span>
+        </div>
+        <div id="log-feed" class="log-feed flex-1"></div>
+      </section>
+
+    </div>
+
+    <!-- ============ DETAIL / TELEMETRY PANEL ============ -->
+    <section class="hud-panel mt-4">
+      <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+      <div class="panel-title">
+        <span class="font-mono">TELEMETRY DETAIL // 詳細遙測資料 — <span id="detail-name" class="text-white">HAWK-01</span></span>
+        <span class="font-mono text-cyan-300/50" id="detail-mission">161kV 輸電鐵塔巡檢</span>
+      </div>
+      <div class="gauge-grid grid grid-cols-1 md:grid-cols-3 gap-4 p-5">
+
+        <div class="flex items-center gap-4 gauge-big-wrap">
+          <svg width="104" height="104" viewBox="0 0 104 104" class="mini-ring shrink-0">
+            <circle class="ring-track" cx="52" cy="52" r="44" stroke-width="8"/>
+            <circle id="gauge-battery" class="ring-fill" cx="52" cy="52" r="44" stroke-width="8"
+              stroke="#01fff0" stroke-dasharray="276.5" stroke-dashoffset="276.5"/>
+          </svg>
+          <div>
+            <div class="font-mono text-[11px] text-cyan-300/60 tracking-widest">BATTERY 電池電量</div>
+            <div class="font-display font-700 text-2xl glow-text" id="detail-battery-val">--%</div>
+            <div class="font-tc text-[11px] text-cyan-300/50 mt-0.5" id="detail-battery-note">電量狀態正常</div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-4 gauge-big-wrap">
+          <svg width="104" height="104" viewBox="0 0 104 104" class="mini-ring shrink-0">
+            <circle class="ring-track" cx="52" cy="52" r="44" stroke-width="8"/>
+            <circle id="gauge-altitude" class="ring-fill" cx="52" cy="52" r="44" stroke-width="8"
+              stroke="#01fff0" stroke-dasharray="276.5" stroke-dashoffset="276.5"/>
+          </svg>
+          <div>
+            <div class="font-mono text-[11px] text-cyan-300/60 tracking-widest">ALTITUDE 飛行高度</div>
+            <div class="font-display font-700 text-2xl glow-text"><span id="detail-altitude-val">--</span><span class="text-sm"> m</span></div>
+            <div class="font-tc text-[11px] text-cyan-300/50 mt-0.5">巡航高度上限 200 公尺</div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-4 gauge-big-wrap">
+          <svg width="104" height="104" viewBox="0 0 104 104" class="mini-ring shrink-0">
+            <circle class="ring-track" cx="52" cy="52" r="44" stroke-width="8"/>
+            <circle id="gauge-signal" class="ring-fill" cx="52" cy="52" r="44" stroke-width="8"
+              stroke="#01fff0" stroke-dasharray="276.5" stroke-dashoffset="276.5"/>
+          </svg>
+          <div>
+            <div class="font-mono text-[11px] text-cyan-300/60 tracking-widest">SIGNAL 訊號強度</div>
+            <div class="font-display font-700 text-2xl glow-text" id="detail-signal-val">--%</div>
+            <div class="font-tc text-[11px] text-cyan-300/50 mt-0.5" id="detail-signal-note">資料鏈路穩定</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- footer -->
+    <footer class="text-center font-mono text-[10px] text-cyan-300/40 mt-4 tracking-widest">
+      鷹眼指揮中心 HAWK-EYE COMMAND CONSOLE v4.2.1 &nbsp;//&nbsp; 台灣基礎設施智慧巡檢作業系統 &nbsp;//&nbsp; 資料每 2.5 秒更新一次
+    </footer>
+
+  </div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- CLOCK ---------- */
+  var weekdays = ['日','一','二','三','四','五','六'];
+  function pad(n){ return n < 10 ? '0'+n : ''+n; }
+  function tickClock(){
+    var now = new Date();
+    var timeStr = pad(now.getHours())+':'+pad(now.getMinutes())+':'+pad(now.getSeconds());
+    var dateStr = now.getFullYear()+'/'+pad(now.getMonth()+1)+'/'+pad(now.getDate())+' ('+weekdays[now.getDay()]+') UTC+8 TAIPEI';
+    document.getElementById('clock-time').textContent = timeStr;
+    document.getElementById('clock-date').textContent = dateStr;
+  }
+  tickClock();
+  setInterval(tickClock, 1000);
+
+  /* ---------- FLEET DATA ---------- */
+  var fleet = [
+    { id:'HAWK-01', mission:'161kV 輸電鐵塔巡檢', zone:'陽明山區段 A7',   status:'巡航中', battery:78, altitude:85,  signal:92, x:30, y:38, vx:0.4,  vy:-0.25 },
+    { id:'HAWK-02', mission:'高屏溪橋墩巡檢',      zone:'高屏大橋 P12',   status:'巡航中', battery:54, altitude:42,  signal:88, x:62, y:60, vx:-0.3, vy:0.3  },
+    { id:'HAWK-03', mission:'風力發電機葉片巡檢',  zone:'苗栗海線風場 T04', status:'返航中', battery:23, altitude:110, signal:75, x:80, y:24, vx:-0.5, vy:0.15 },
+    { id:'HAWK-04', mission:'161kV 輸電鐵塔巡檢', zone:'陽明山區段 A9',   status:'巡航中', battery:91, altitude:78,  signal:95, x:44, y:72, vx:0.25, vy:-0.35 },
+    { id:'HAWK-05', mission:'風力發電機葉片巡檢',  zone:'苗栗海線風場 T07', status:'待命中', battery:100, altitude:0,  signal:98, x:14, y:82, vx:0,    vy:0    },
+    { id:'HAWK-06', mission:'高屏溪橋墩巡檢',      zone:'高屏大橋 P15',   status:'充電中', battery:12, altitude:0,   signal:40, x:90, y:88, vx:0,    vy:0    }
+  ];
+  var selectedId = fleet[0].id;
+  var CIRC = 276.5; // 2 * PI * 44
+
+  function statusColor(status){
+    if(status === '返航中') return '#ffb020';
+    if(status === '充電中') return '#4fd8d0';
+    if(status === '待命中') return '#7fe9e2';
+    return '#01fff0';
+  }
+  function batteryColor(v){
+    if(v < 20) return '#ff2f52';
+    if(v < 45) return '#ffb020';
+    return '#01fff0';
+  }
+
+  function renderFleetList(){
+    var wrap = document.getElementById('fleet-list');
+    wrap.innerHTML = '';
+    fleet.forEach(function(d){
+      var offset = CIRC * (1 - Math.max(0, Math.min(100, d.battery)) / 100);
+      var col = batteryColor(d.battery);
+      var el = document.createElement('div');
+      el.className = 'fleet-item rounded p-2.5' + (d.id === selectedId ? ' selected' : '');
+      el.setAttribute('data-id', d.id);
+      el.innerHTML =
+        '<div class="flex items-center gap-2.5">' +
+          '<svg width="40" height="40" viewBox="0 0 104 104" class="mini-ring shrink-0">' +
+            '<circle class="ring-track" cx="52" cy="52" r="44" stroke-width="12"/>' +
+            '<circle class="ring-fill" cx="52" cy="52" r="44" stroke-width="12" stroke="'+col+'" stroke-dasharray="'+CIRC+'" stroke-dashoffset="'+offset+'"/>' +
+          '</svg>' +
+          '<div class="flex-1 min-w-0">' +
+            '<div class="flex items-center justify-between">' +
+              '<span class="font-display font-700 text-sm glow-text">'+d.id+'</span>' +
+              '<span class="status-pill font-mono" style="color:'+statusColor(d.status)+'">'+d.status+'</span>' +
+            '</div>' +
+            '<div class="font-tc text-[11px] text-cyan-100/80 truncate">'+d.mission+'</div>' +
+            '<div class="font-mono text-[10px] text-cyan-300/50 flex gap-2 mt-0.5">' +
+              '<span>BAT '+Math.round(d.battery)+'%</span><span>ALT '+Math.round(d.altitude)+'m</span><span>SIG '+Math.round(d.signal)+'%</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      el.addEventListener('click', function(){
+        selectedId = d.id;
+        renderFleetList();
+        renderDetail();
+      });
+      wrap.appendChild(el);
+    });
+  }
+
+  function renderDetail(){
+    var d = fleet.find(function(f){ return f.id === selectedId; });
+    if(!d) return;
+    document.getElementById('detail-name').textContent = d.id + ' — ' + d.zone;
+    document.getElementById('detail-mission').textContent = d.mission;
+
+    var batOff = CIRC * (1 - Math.max(0, Math.min(100,d.battery))/100);
+    var altPct = Math.max(0, Math.min(100, (d.altitude/200)*100));
+    var altOff = CIRC * (1 - altPct/100);
+    var sigOff = CIRC * (1 - Math.max(0, Math.min(100,d.signal))/100);
+
+    var gBat = document.getElementById('gauge-battery');
+    gBat.style.strokeDashoffset = batOff;
+    gBat.setAttribute('stroke', batteryColor(d.battery));
+    document.getElementById('detail-battery-val').textContent = Math.round(d.battery) + '%';
+    document.getElementById('detail-battery-note').textContent = d.battery < 20 ? '電量過低，已觸發返航機制' : (d.battery < 45 ? '電量偏低，請留意任務排程' : '電量狀態正常');
+
+    var gAlt = document.getElementById('gauge-altitude');
+    gAlt.style.strokeDashoffset = altOff;
+    gAlt.setAttribute('stroke', '#01fff0');
+    document.getElementById('detail-altitude-val').textContent = Math.round(d.altitude);
+
+    var gSig = document.getElementById('gauge-signal');
+    gSig.style.strokeDashoffset = sigOff;
+    gSig.setAttribute('stroke', d.signal < 60 ? '#ffb020' : '#01fff0');
+    document.getElementById('detail-signal-val').textContent = Math.round(d.signal) + '%';
+    document.getElementById('detail-signal-note').textContent = d.signal < 60 ? '訊號減弱，已切換備援頻道' : '資料鏈路穩定';
+  }
+
+  function renderMap(){
+    var layer = document.getElementById('drone-layer');
+    layer.innerHTML = '';
+    fleet.forEach(function(d){
+      var dot = document.createElement('div');
+      var cls = 'drone-dot';
+      if(d.status === '返航中') cls += ' rtb';
+      if(d.status === '待命中' || d.status === '充電中') cls += ' idle';
+      dot.className = cls;
+      dot.style.left = d.x + '%';
+      dot.style.top = d.y + '%';
+      layer.appendChild(dot);
+
+      var label = document.createElement('div');
+      label.className = 'drone-label';
+      label.style.left = d.x + '%';
+      label.style.top = d.y + '%';
+      label.textContent = d.id;
+      layer.appendChild(label);
+    });
+  }
+
+  /* ---------- LOG FEED ---------- */
+  var logPool = [
+    function(id){ return { tag:'INFO', color:'#01fff0', text:'['+id+'] 已抵達巡檢航點，開始影像擷取' }; },
+    function(id){ return { tag:'INFO', color:'#01fff0', text:'['+id+'] 訊號強度穩定於健康範圍' }; },
+    function(id){ return { tag:'INFO', color:'#01fff0', text:'['+id+'] 高度維持於巡航許可範圍內' }; },
+    function(id){ return { tag:'WARN', color:'#ffb020', text:'['+id+'] 偵測到陣風 '+(6+Math.round(Math.random()*5))+'.'+Math.round(Math.random()*9)+' m/s，已啟動抗風穩定模式' }; },
+    function(id){ return { tag:'WARN', color:'#ffb020', text:'['+id+'] 訊號強度下降，已切換至備援頻道' }; },
+    function(id){ return { tag:'INFO', color:'#01fff0', text:'['+id+'] 熱顯像偵測到溫度異常點，已回傳座標供複核' }; },
+    function(id){ return { tag:'INFO', color:'#01fff0', text:'['+id+'] 完成本段掃描，影像已上傳雲端資料庫' }; },
+    function(id){ return { tag:'SYS',  color:'#7fe9e2', text:'資料鏈路延遲 '+(20+Math.round(Math.random()*40))+'ms，運作正常' }; },
+    function(id){ return { tag:'SYS',  color:'#7fe9e2', text:'GPS 定位鎖定衛星數 14 顆，訊號穩定' }; },
+    function(id){ return { tag:'SYS',  color:'#7fe9e2', text:'氣象資料更新：能見度良好，適合飛行作業' }; }
+  ];
+
+  function addLog(entry, isAlert){
+    var feed = document.getElementById('log-feed');
+    var now = new Date();
+    var ts = pad(now.getHours())+':'+pad(now.getMinutes())+':'+pad(now.getSeconds());
+    var line = document.createElement('div');
+    line.className = 'log-line font-mono';
+    line.innerHTML =
+      '<span class="text-cyan-300/40">'+ts+'</span> ' +
+      '<span class="log-tag" style="color:'+entry.color+'">'+entry.tag+'</span> ' +
+      '<span class="font-tc" style="color:'+(isAlert?'#ffb020':'#bdfcf7')+'">'+entry.text+'</span>';
+    feed.insertBefore(line, feed.firstChild);
+    while(feed.children.length > 16){
+      feed.removeChild(feed.lastChild);
+    }
+  }
+
+  function seedLog(){
+    addLog({ tag:'SYS', color:'#7fe9e2', text:'鷹眼指揮中心已連線，艦隊資料同步完成' });
+    addLog({ tag:'INFO', color:'#01fff0', text:'[HAWK-01] 已抵達巡檢航點 WP-07，開始影像擷取' });
+    addLog({ tag:'WARN', color:'#ffb020', text:'[HAWK-03] 電池電量低於 25%，建議返航充電' });
+    addLog({ tag:'INFO', color:'#01fff0', text:'[HAWK-04] 訊號強度穩定於健康範圍' });
+    addLog({ tag:'SYS', color:'#7fe9e2', text:'GPS 定位鎖定衛星數 14 顆，訊號穩定' });
+  }
+
+  function randomLogTick(){
+    var flying = fleet.filter(function(f){ return f.status === '巡航中' || f.status === '返航中'; });
+    var pickDrone = flying.length ? flying[Math.floor(Math.random()*flying.length)] : fleet[Math.floor(Math.random()*fleet.length)];
+    var fn = logPool[Math.floor(Math.random()*logPool.length)];
+    var entry = fn(pickDrone.id);
+    addLog(entry, entry.tag === 'WARN');
+  }
+
+  /* ---------- TELEMETRY SIMULATION ---------- */
+  function clamp(v, lo, hi){ return Math.max(lo, Math.min(hi, v)); }
+
+  function stepTelemetry(){
+    fleet.forEach(function(d){
+      if(d.status === '巡航中' || d.status === '返航中'){
+        d.battery = clamp(d.battery - (0.2 + Math.random()*0.5), 0, 100);
+        d.altitude = clamp(d.altitude + (Math.random()*8 - 4), 15, 180);
+        d.signal = clamp(d.signal + (Math.random()*6 - 3), 45, 100);
+        d.x = clamp(d.x + d.vx, 6, 94);
+        d.y = clamp(d.y + d.vy, 8, 92);
+        if(d.x <= 6 || d.x >= 94) d.vx *= -1;
+        if(d.y <= 8 || d.y >= 92) d.vy *= -1;
+        if(Math.random() < 0.12){ d.vx += (Math.random()*0.3 - 0.15); d.vy += (Math.random()*0.3 - 0.15); }
+
+        if(d.status === '巡航中' && d.battery < 22){
+          d.status = '返航中';
+          addLog({ tag:'WARN', color:'#ffb020', text:'['+d.id+'] 電池電量低於 22%，系統自動觸發返航程序' }, true);
+        }
+        if(d.status === '返航中' && d.altitude < 25 && d.battery < 8){
+          d.status = '充電中';
+          d.altitude = 0;
+          addLog({ tag:'INFO', color:'#01fff0', text:'['+d.id+'] 已完成降落，開始充電作業' });
+        }
+      } else if(d.status === '充電中'){
+        d.battery = clamp(d.battery + (0.4 + Math.random()*0.6), 0, 100);
+        d.signal = clamp(d.signal + (Math.random()*4 - 2), 30, 60);
+        if(d.battery >= 96){
+          d.status = '待命中';
+          addLog({ tag:'SYS', color:'#7fe9e2', text:'['+d.id+'] 充電完成，轉為待命狀態' });
+        }
+      } else if(d.status === '待命中'){
+        d.signal = clamp(d.signal + (Math.random()*2 - 1), 90, 100);
+        d.battery = clamp(d.battery - Math.random()*0.05, 90, 100);
+      }
+    });
+
+    document.getElementById('fleet-active').textContent = fleet.filter(function(f){ return f.status === '巡航中' || f.status === '返航中'; }).length;
+    document.getElementById('fleet-online').textContent = fleet.filter(function(f){ return f.signal > 0; }).length;
+    document.getElementById('map-latency').textContent = (25 + Math.round(Math.random()*35));
+
+    renderFleetList();
+    renderDetail();
+    renderMap();
+  }
+
+  /* ---------- INIT ---------- */
+  renderFleetList();
+  renderDetail();
+  renderMap();
+  seedLog();
+
+  setInterval(stepTelemetry, 2500);
+  setInterval(randomLogTick, 4200);
+
+})();
+</script>
+
+</body>
+</html>
