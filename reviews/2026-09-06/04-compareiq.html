@@ -1,0 +1,780 @@
+<!-- style #33 Comparative Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>比對 CompareIQ · 行銷活動比對儀表板</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --brand:#6C5CE7;
+    --brand-dark:#4C3FCF;
+    --brand-soft:#EFECFF;
+    --good:#0E9F6E;
+    --good-soft:#E4F8EF;
+    --bad:#E1432B;
+    --bad-soft:#FDEAE7;
+    --ink:#1B1832;
+    --ink-soft:#6B6980;
+    --line:#E7E5F0;
+    --bg:#F4F3FA;
+    --card:#FFFFFF;
+    --side-bg:#161329;
+    --side-line:#2A2645;
+    --side-text:#B9B6D4;
+    --a-color:#6C5CE7;
+    --b-color:#FF9F43;
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Outfit','Noto Sans TC',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .num{
+    font-family:'Space Mono',monospace;
+    font-variant-numeric:tabular-nums;
+    letter-spacing:-0.5px;
+  }
+  ::-webkit-scrollbar{height:8px;width:8px;}
+  ::-webkit-scrollbar-thumb{background:#D6D3E8;border-radius:4px;}
+
+  /* ---------- layout shell ---------- */
+  .shell{display:flex;min-height:100vh;}
+
+  /* ---------- sidebar ---------- */
+  .sidebar{
+    width:236px;
+    flex:0 0 236px;
+    background:var(--side-bg);
+    color:var(--side-text);
+    display:flex;
+    flex-direction:column;
+    padding:20px 14px;
+    position:fixed;
+    top:0;left:0;bottom:0;
+    z-index:40;
+    transition:transform .25s ease;
+  }
+  .brand{
+    display:flex;align-items:center;gap:10px;
+    padding:6px 8px 20px 8px;
+    border-bottom:1px solid var(--side-line);
+    margin-bottom:14px;
+  }
+  .brand-mark{
+    width:34px;height:34px;border-radius:9px;
+    background:linear-gradient(135deg,var(--brand),#9C8CFF);
+    display:flex;align-items:center;justify-content:center;
+    font-weight:800;color:#fff;font-size:14px;
+    flex:0 0 auto;
+  }
+  .brand-name{font-weight:700;color:#fff;font-size:15px;line-height:1.2;}
+  .brand-sub{font-size:10.5px;color:#8B87AA;letter-spacing:.4px;}
+
+  .nav-group-label{
+    font-size:10.5px;color:#7A76A0;
+    padding:14px 10px 6px;letter-spacing:1px;
+    text-transform:uppercase;
+  }
+  .nav-item{
+    display:flex;align-items:center;gap:11px;
+    padding:9px 10px;border-radius:9px;
+    font-size:13.5px;color:var(--side-text);
+    cursor:pointer;user-select:none;
+    margin-bottom:2px;
+    border:1px solid transparent;
+  }
+  .nav-item svg{width:17px;height:17px;flex:0 0 auto;opacity:.85;}
+  .nav-item:hover{background:#211D3B;color:#fff;}
+  .nav-item.active{
+    background:var(--brand-soft);
+    color:var(--brand-dark);
+    font-weight:600;
+  }
+  .nav-item.active svg{opacity:1;color:var(--brand-dark);}
+  .side-foot{
+    margin-top:auto;padding:12px 10px;
+    border-top:1px solid var(--side-line);
+    font-size:11px;color:#7A76A0;
+  }
+
+  .sidebar-scrim{
+    display:none;position:fixed;inset:0;background:rgba(10,8,25,.5);z-index:35;
+  }
+
+  /* ---------- main ---------- */
+  .main{
+    margin-left:236px;
+    flex:1;
+    min-width:0;
+    display:flex;flex-direction:column;
+  }
+  .topbar{
+    position:sticky;top:0;z-index:20;
+    background:rgba(244,243,250,.9);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+    padding:14px 24px;
+  }
+  .hamburger{
+    display:none;
+    width:36px;height:36px;border-radius:9px;
+    border:1px solid var(--line);background:#fff;
+    align-items:center;justify-content:center;
+    cursor:pointer;
+  }
+
+  .compare-bar{
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:10px 12px;
+    box-shadow:0 1px 2px rgba(20,16,60,.03);
+  }
+  .side-select{
+    display:flex;align-items:center;gap:8px;
+    padding:7px 10px;border-radius:10px;
+    background:#FBFAFF;border:1.5px solid var(--line);
+    min-width:230px;
+  }
+  .side-select.a{border-color:color-mix(in srgb, var(--a-color) 55%, var(--line));}
+  .side-select.b{border-color:color-mix(in srgb, var(--b-color) 55%, var(--line));}
+  .dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto;}
+  .dot.a{background:var(--a-color);}
+  .dot.b{background:var(--b-color);}
+  .side-select select{
+    border:none;background:transparent;outline:none;
+    font-size:13px;font-weight:600;color:var(--ink);
+    flex:1;min-width:0;
+    font-family:'Outfit','Noto Sans TC',sans-serif;
+  }
+  .side-select .tag{
+    font-size:10px;color:var(--ink-soft);font-weight:700;
+    letter-spacing:.5px;
+  }
+  .swap-btn{
+    width:32px;height:32px;border-radius:50%;
+    border:1px solid var(--line);background:#fff;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;color:var(--brand);
+    transition:transform .2s ease;flex:0 0 auto;
+  }
+  .swap-btn:hover{background:var(--brand-soft);transform:rotate(180deg);}
+
+  .content{padding:20px 24px 60px;}
+
+  /* ---------- summary strip ---------- */
+  .summary-strip{
+    background:linear-gradient(135deg, var(--brand) 0%, #8B7BF0 100%);
+    color:#fff;border-radius:16px;
+    padding:16px 20px;margin-bottom:20px;
+    display:flex;align-items:center;gap:14px;
+    box-shadow:0 8px 20px -8px rgba(108,92,231,.55);
+  }
+  .summary-strip .icon{
+    width:38px;height:38px;border-radius:11px;
+    background:rgba(255,255,255,.18);
+    display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+  }
+  .summary-strip p{margin:0;font-size:13.5px;line-height:1.6;}
+  .summary-strip b{font-family:'Space Mono',monospace;}
+
+  /* ---------- kpi cards ---------- */
+  .kpi-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:16px 16px 14px;
+    display:flex;flex-direction:column;gap:10px;
+    position:relative;overflow:hidden;
+  }
+  .kpi-card::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+    background:var(--line);
+  }
+  .kpi-card.win-a::before{background:var(--a-color);}
+  .kpi-card.win-b::before{background:var(--b-color);}
+  .kpi-label{font-size:12.5px;font-weight:600;color:var(--ink-soft);}
+  .kpi-rows{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;}
+  .kpi-col{display:flex;flex-direction:column;gap:2px;}
+  .kpi-col .tag{font-size:10px;font-weight:700;letter-spacing:.4px;display:flex;align-items:center;gap:4px;}
+  .kpi-col.a .tag{color:var(--a-color);}
+  .kpi-col.b .tag{color:var(--b-color);}
+  .kpi-val{font-size:20px;font-weight:700;line-height:1;}
+  .kpi-val.small{font-size:16px;color:var(--ink-soft);font-weight:700;}
+  .delta-badge{
+    align-self:flex-start;
+    display:inline-flex;align-items:center;gap:5px;
+    font-size:11.5px;font-weight:700;
+    padding:4px 9px;border-radius:999px;
+  }
+  .delta-badge.good{background:var(--good-soft);color:var(--good);}
+  .delta-badge.bad{background:var(--bad-soft);color:var(--bad);}
+
+  /* ---------- panels ---------- */
+  .panel{
+    background:var(--card);border:1px solid var(--line);
+    border-radius:16px;padding:18px 18px 14px;
+  }
+  .panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
+  .panel-title{font-size:14.5px;font-weight:700;display:flex;align-items:center;gap:8px;}
+  .panel-sub{font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
+  .legend{display:flex;align-items:center;gap:14px;font-size:11.5px;font-weight:600;color:var(--ink-soft);}
+  .legend span{display:flex;align-items:center;gap:6px;}
+  .legend i{width:9px;height:9px;border-radius:3px;display:inline-block;}
+
+  /* ---------- bar chart ---------- */
+  .chart-wrap{overflow-x:auto;padding-bottom:6px;}
+  .chart-area{
+    display:flex;align-items:flex-end;gap:26px;
+    height:210px;min-width:560px;
+    padding:0 6px;border-bottom:1px solid var(--line);
+    position:relative;
+  }
+  .chart-area::before,.chart-area::after{
+    content:"";position:absolute;left:0;right:0;border-top:1px dashed #E9E7F3;
+  }
+  .chart-area::before{top:25%;}
+  .chart-area::after{top:62.5%;}
+  .bar-group{display:flex;flex-direction:column;align-items:center;gap:8px;flex:1;min-width:60px;}
+  .bars{display:flex;align-items:flex-end;gap:6px;height:170px;position:relative;}
+  .bar{
+    width:22px;border-radius:6px 6px 2px 2px;
+    position:relative;cursor:pointer;
+    transition:filter .15s ease, transform .15s ease;
+  }
+  .bar:hover{filter:brightness(1.08);transform:translateY(-2px);}
+  .bar.a{background:linear-gradient(180deg,#8B7BF0,var(--a-color));}
+  .bar.b{background:linear-gradient(180deg,#FFC078,var(--b-color));}
+  .bar-val{
+    position:absolute;top:-19px;left:50%;transform:translateX(-50%);
+    font-size:9.5px;color:var(--ink-soft);white-space:nowrap;
+  }
+  .bar-group .cat-label{font-size:11.5px;font-weight:600;color:var(--ink);text-align:center;}
+  .bar-group .cat-share{font-size:10px;color:var(--ink-soft);}
+
+  #tooltip{
+    position:fixed;z-index:100;pointer-events:none;
+    background:#1B1832;color:#fff;border-radius:10px;
+    padding:9px 12px;font-size:11.5px;line-height:1.6;
+    box-shadow:0 10px 24px -6px rgba(20,16,60,.4);
+    opacity:0;transform:translateY(4px);transition:opacity .12s ease,transform .12s ease;
+    max-width:220px;
+  }
+  #tooltip.show{opacity:1;transform:translateY(0);}
+  #tooltip .tt-title{font-weight:700;margin-bottom:4px;font-size:11.5px;}
+  #tooltip .tt-row{display:flex;justify-content:space-between;gap:14px;color:#C9C6E4;}
+  #tooltip .tt-row b{color:#fff;font-family:'Space Mono',monospace;}
+
+  /* ---------- table ---------- */
+  .table-wrap{overflow-x:auto;}
+  table.cmp{width:100%;border-collapse:collapse;min-width:720px;font-size:13px;}
+  table.cmp thead th{
+    text-align:left;font-size:11px;color:var(--ink-soft);
+    font-weight:700;letter-spacing:.3px;text-transform:uppercase;
+    padding:8px 10px;border-bottom:1px solid var(--line);
+  }
+  table.cmp thead th.num-head{text-align:right;}
+  table.cmp tbody td{padding:11px 10px;border-bottom:1px solid #F0EFF8;vertical-align:middle;}
+  table.cmp tbody tr:hover{background:#FAFAFE;}
+  table.cmp td.metric{font-weight:600;}
+  table.cmp td.metric .sub{display:block;font-size:10.5px;color:var(--ink-soft);font-weight:500;margin-top:1px;}
+  table.cmp td.val{text-align:right;font-weight:700;border-radius:8px;}
+  table.cmp td.val.win{background:var(--good-soft);color:var(--good);}
+  table.cmp td.val.lose{background:var(--bad-soft);color:var(--bad);}
+  table.cmp td.diff{text-align:right;}
+  .diff-chip{display:inline-flex;align-items:center;gap:4px;font-weight:700;font-size:12px;padding:3px 8px;border-radius:999px;}
+  .diff-chip.good{background:var(--good-soft);color:var(--good);}
+  .diff-chip.bad{background:var(--bad-soft);color:var(--bad);}
+  .winner-pill{
+    display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;
+    padding:3px 9px;border-radius:999px;
+  }
+  .winner-pill.a{background:color-mix(in srgb, var(--a-color) 14%, white);color:var(--a-color);}
+  .winner-pill.b{background:color-mix(in srgb, var(--b-color) 16%, white);color:#B5650B;}
+
+  .grid-kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;}
+  .grid-main{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;margin-bottom:16px;}
+
+  @media (max-width:1100px){
+    .grid-main{grid-template-columns:1fr;}
+  }
+  @media (max-width:900px){
+    .grid-kpi{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (max-width:768px){
+    .sidebar{transform:translateX(-100%);}
+    .sidebar.open{transform:translateX(0);}
+    .sidebar-scrim.show{display:block;}
+    .main{margin-left:0;}
+    .hamburger{display:flex;}
+    .grid-kpi{grid-template-columns:1fr;}
+    .side-select{min-width:0;flex:1;}
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- ================= sidebar ================= -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark">Iq</div>
+      <div>
+        <div class="brand-name">比對 CompareIQ</div>
+        <div class="brand-sub">電商行銷比對分析平台</div>
+      </div>
+    </div>
+
+    <div class="nav-group-label">分析</div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg>
+      總覽儀表板
+    </div>
+    <div class="nav-item active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="10" width="6" height="10" rx="1.2"/><rect x="14" y="4" width="6" height="16" rx="1.2"/></svg>
+      活動比對
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9.5" r="2.4"/><path d="M3.5 20c0-3.3 2.5-6 6-6s6 2.7 6 6"/><path d="M14.5 15.5c2.7.3 4.5 2.4 4.5 5"/></svg>
+      受眾洞察
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16l-6 8v6l-4 2v-8z"/></svg>
+      轉換漏斗
+    </div>
+
+    <div class="nav-group-label">管理</div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v13"/><path d="M7 12l5 5 5-5"/><path d="M4 20h16"/></svg>
+      報表匯出
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.13-1.34l1.9-1.48-1.9-3.3-2.24.76a7 7 0 0 0-2.32-1.34L14 3h-4l-.4 2.3a7 7 0 0 0-2.32 1.34l-2.24-.76-1.9 3.3 1.9 1.48A7 7 0 0 0 5 12c0 .45.05.9.13 1.34l-1.9 1.48 1.9 3.3 2.24-.76a7 7 0 0 0 2.32 1.34L10 21h4l.4-2.3a7 7 0 0 0 2.32-1.34l2.24.76 1.9-3.3-1.9-1.48c.08-.44.13-.89.13-1.34z"/></svg>
+      系統設定
+    </div>
+
+    <div class="side-foot">
+      版本 v2.4.1<br>資料每 15 分鐘同步一次
+    </div>
+  </aside>
+  <div class="sidebar-scrim" id="scrim"></div>
+
+  <!-- ================= main ================= -->
+  <div class="main">
+    <header class="topbar">
+      <div class="flex items-center gap-3 mb-3">
+        <button class="hamburger" id="hamburger" aria-label="開啟選單">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+        <div>
+          <h1 class="text-[17px] font-bold leading-tight">活動比對儀表板</h1>
+          <p class="panel-sub">並排比較兩個檔期或渠道組合的成效差異，紅綠為勝負判讀，非品牌色</p>
+        </div>
+      </div>
+
+      <div class="compare-bar">
+        <div class="side-select a">
+          <span class="dot a"></span>
+          <div class="flex flex-col leading-tight">
+            <span class="tag">比對組 A</span>
+            <select id="selA">
+              <option value="midautumn">中秋節限時檔（9/10–9/17）</option>
+              <option value="anniversary">週年慶預熱檔（8/20–8/31）</option>
+              <option value="augRegular">8月日常檔期（8/1–8/31）</option>
+              <option value="lastYear">去年同期（2025/9/10–9/17）</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="swap-btn" id="swapBtn" title="對調 A / B">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 7h13l-3.5-3.5"/><path d="M17 17H4l3.5 3.5"/></svg>
+        </button>
+
+        <div class="side-select b">
+          <span class="dot b"></span>
+          <div class="flex flex-col leading-tight">
+            <span class="tag">比對組 B</span>
+            <select id="selB">
+              <option value="midautumn">中秋節限時檔（9/10–9/17）</option>
+              <option value="anniversary">週年慶預熱檔（8/20–8/31）</option>
+              <option value="augRegular" selected>8月日常檔期（8/1–8/31）</option>
+              <option value="lastYear">去年同期（2025/9/10–9/17）</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="ml-auto flex items-center gap-2 text-[11px] font-semibold" style="color:var(--ink-soft)">
+          <span class="w-2 h-2 rounded-full" style="background:var(--good);display:inline-block;"></span>
+          最後更新 <span class="num">2026/09/06 09:32</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="content">
+
+      <!-- summary -->
+      <div class="summary-strip">
+        <div class="icon">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg>
+        </div>
+        <p id="summaryText">計算中…</p>
+      </div>
+
+      <!-- kpi cards -->
+      <div class="grid-kpi" id="kpiGrid"></div>
+
+      <div class="grid-main">
+        <!-- bar chart -->
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <div class="panel-title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg>
+                各渠道流量比較
+              </div>
+              <div class="panel-sub">滑鼠移到長條上可查看確切數值與佔比</div>
+            </div>
+            <div class="legend">
+              <span><i style="background:var(--a-color)"></i><span id="legA">A</span></span>
+              <span><i style="background:var(--b-color)"></i><span id="legB">B</span></span>
+            </div>
+          </div>
+          <div class="chart-wrap">
+            <div class="chart-area" id="chartArea"></div>
+          </div>
+        </section>
+
+        <!-- winner mini panel -->
+        <section class="panel">
+          <div class="panel-head">
+            <div class="panel-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2"><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 0 1-10 0V4z"/><path d="M7 5H4a3 3 0 0 0 3 5M17 5h3a3 3 0 0 1-3 5"/></svg>
+              勝負總覽
+            </div>
+          </div>
+          <div id="winnerList" class="flex flex-col gap-2"></div>
+        </section>
+      </div>
+
+      <!-- table -->
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <div class="panel-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 4v16"/></svg>
+              詳細指標比對
+            </div>
+            <div class="panel-sub">綠色為該指標表現較佳的一方（依指標特性判定漲跌好壞），非單純數值高低</div>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="cmp">
+            <thead>
+              <tr>
+                <th style="width:26%">指標</th>
+                <th class="num-head" id="thA">A</th>
+                <th class="num-head" id="thB">B</th>
+                <th class="num-head">差異</th>
+                <th style="text-align:center;width:10%">勝出方</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<div id="tooltip"></div>
+
+<script>
+/* ===================== 資料集 ===================== */
+const DATA = {
+  midautumn: {
+    label: '中秋節限時檔（9/10–9/17）',
+    short: '中秋限時檔',
+    kpis: { conversion:4.12, aov:1380, traffic:152300, roas:5.2, orders:6275, adSpend:1665300, cpa:266, returnRate:3.1, cartRate:8.4, checkoutRate:62.3 },
+    channels: { facebook:48200, google:39500, line:28700, instagram:21100, organic:14800 }
+  },
+  anniversary: {
+    label: '週年慶預熱檔（8/20–8/31）',
+    short: '週年慶預熱檔',
+    kpis: { conversion:3.68, aov:1420, traffic:180000, roas:4.9, orders:6624, adSpend:1919610, cpa:290, returnRate:3.4, cartRate:7.8, checkoutRate:60.1 },
+    channels: { facebook:55000, google:47200, line:33400, instagram:26800, organic:17600 }
+  },
+  augRegular: {
+    label: '8月日常檔期（8/1–8/31）',
+    short: '8月日常檔',
+    kpis: { conversion:2.87, aov:1150, traffic:96200, roas:3.6, orders:2761, adSpend:881990, cpa:320, returnRate:4.4, cartRate:6.1, checkoutRate:54.8 },
+    channels: { facebook:28100, google:26800, line:18200, instagram:13100, organic:10000 }
+  },
+  lastYear: {
+    label: '去年同期（2025/9/10–9/17）',
+    short: '去年同期',
+    kpis: { conversion:3.05, aov:1080, traffic:78300, roas:4.0, orders:2388, adSpend:644760, cpa:270, returnRate:3.8, cartRate:6.9, checkoutRate:57.2 },
+    channels: { facebook:22400, google:21300, line:15600, instagram:9800, organic:9200 }
+  }
+};
+
+const CHANNEL_META = {
+  facebook: 'Facebook 廣告',
+  google: 'Google 廣告',
+  line: 'LINE 官方帳號',
+  instagram: 'Instagram 廣告',
+  organic: '自然搜尋'
+};
+
+/* 指標定義：lowerBetter=true 代表數值越低越好（例如成本、退貨率） */
+const METRICS = [
+  { key:'conversion',    label:'轉換率',       sub:'訂單數 / 造訪人次',        fmt:v=>v.toFixed(2)+'%',                lowerBetter:false, headline:true },
+  { key:'aov',           label:'客單價',       sub:'平均每筆訂單金額',          fmt:v=>'NT$'+Math.round(v).toLocaleString('en-US'), lowerBetter:false, headline:true },
+  { key:'traffic',       label:'流量',         sub:'各渠道造訪人次加總',        fmt:v=>Math.round(v).toLocaleString('en-US')+' 次', lowerBetter:false, headline:true },
+  { key:'roas',          label:'ROAS',         sub:'廣告投資報酬率',            fmt:v=>v.toFixed(1)+'x',                lowerBetter:false, headline:true },
+  { key:'orders',        label:'訂單數',       sub:'成交訂單總筆數',            fmt:v=>Math.round(v).toLocaleString('en-US')+' 筆', lowerBetter:false, headline:false },
+  { key:'adSpend',       label:'廣告花費',     sub:'含各渠道投放預算',          fmt:v=>'NT$'+Math.round(v).toLocaleString('en-US'), lowerBetter:true,  headline:false },
+  { key:'cpa',           label:'取得成本 CPA', sub:'每筆訂單平均取得成本',       fmt:v=>'NT$'+Math.round(v).toLocaleString('en-US'), lowerBetter:true,  headline:false },
+  { key:'cartRate',      label:'加入購物車率', sub:'瀏覽轉加入購物車比例',       fmt:v=>v.toFixed(1)+'%',                lowerBetter:false, headline:false },
+  { key:'checkoutRate',  label:'結帳完成率',   sub:'加入購物車轉結帳成功比例',   fmt:v=>v.toFixed(1)+'%',                lowerBetter:false, headline:false },
+  { key:'returnRate',    label:'退貨率',       sub:'成交訂單中申請退貨比例',     fmt:v=>v.toFixed(1)+'%',                lowerBetter:true,  headline:false }
+];
+
+const selA = document.getElementById('selA');
+const selB = document.getElementById('selB');
+const tooltip = document.getElementById('tooltip');
+
+function isABetter(m, a, b){
+  if(a === b) return null;
+  return m.lowerBetter ? a < b : a > b;
+}
+
+function diffText(m, a, b){
+  const diff = a - b;
+  const pct = b !== 0 ? (diff / Math.abs(b)) * 100 : 0;
+  const sign = diff > 0 ? '+' : (diff < 0 ? '' : '±');
+  // 對於百分比 / 倍數型指標直接顯示差值，其餘顯示相對百分比變化
+  let text;
+  if(m.key === 'conversion' || m.key === 'returnRate' || m.key === 'cartRate' || m.key === 'checkoutRate'){
+    text = sign + diff.toFixed(2) + ' pp';
+  } else if(m.key === 'roas'){
+    text = sign + diff.toFixed(1) + 'x';
+  } else {
+    text = sign + pct.toFixed(1) + '%';
+  }
+  return { text, better: isABetter(m, a, b) };
+}
+
+function renderKpiCards(a, b){
+  const grid = document.getElementById('kpiGrid');
+  grid.innerHTML = '';
+  METRICS.filter(m=>m.headline).forEach(m=>{
+    const va = a.kpis[m.key], vb = b.kpis[m.key];
+    const d = diffText(m, va, vb);
+    const winClass = d.better === true ? 'win-a' : (d.better === false ? 'win-b' : '');
+    const badgeClass = d.better ? 'good' : 'bad';
+    const arrow = (va - vb) >= 0
+      ? '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 19V5M5 12l7-7 7 7"/></svg>'
+      : '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 5v14M5 12l7 7 7-7"/></svg>';
+
+    const card = document.createElement('div');
+    card.className = 'kpi-card ' + winClass;
+    card.innerHTML = `
+      <div class="kpi-label">${m.label}</div>
+      <div class="kpi-rows">
+        <div class="kpi-col a">
+          <span class="tag"><span class="dot a" style="width:6px;height:6px;"></span>A</span>
+          <span class="kpi-val num">${m.fmt(va)}</span>
+        </div>
+        <div class="kpi-col b">
+          <span class="tag"><span class="dot b" style="width:6px;height:6px;"></span>B</span>
+          <span class="kpi-val small num">${m.fmt(vb)}</span>
+        </div>
+      </div>
+      <span class="delta-badge ${badgeClass}">${arrow} <span class="num">${d.text}</span> 較 B</span>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function maxOfChannels(a, b){
+  let max = 0;
+  Object.keys(CHANNEL_META).forEach(k=>{
+    max = Math.max(max, a.channels[k], b.channels[k]);
+  });
+  return max;
+}
+
+function renderChart(a, b){
+  const area = document.getElementById('chartArea');
+  area.innerHTML = '';
+  const max = maxOfChannels(a, b) * 1.12;
+  const totalA = Object.values(a.channels).reduce((s,v)=>s+v,0);
+  const totalB = Object.values(b.channels).reduce((s,v)=>s+v,0);
+
+  Object.keys(CHANNEL_META).forEach(k=>{
+    const va = a.channels[k], vb = b.channels[k];
+    const hA = Math.max(6, (va/max)*170);
+    const hB = Math.max(6, (vb/max)*170);
+    const group = document.createElement('div');
+    group.className = 'bar-group';
+    group.innerHTML = `
+      <div class="bars">
+        <div class="bar a" style="height:${hA}px" data-set="A" data-label="${a.short}" data-ch="${CHANNEL_META[k]}" data-val="${va}" data-share="${((va/totalA)*100).toFixed(1)}">
+          <span class="bar-val num">${(va/1000).toFixed(1)}k</span>
+        </div>
+        <div class="bar b" style="height:${hB}px" data-set="B" data-label="${b.short}" data-ch="${CHANNEL_META[k]}" data-val="${vb}" data-share="${((vb/totalB)*100).toFixed(1)}">
+          <span class="bar-val num">${(vb/1000).toFixed(1)}k</span>
+        </div>
+      </div>
+      <div class="cat-label">${CHANNEL_META[k]}</div>
+      <div class="cat-share num">${(va>vb?'A':'B')} 領先</div>
+    `;
+    area.appendChild(group);
+  });
+
+  // tooltip 事件（重新綁定，因為節點已重建）
+  area.querySelectorAll('.bar').forEach(bar=>{
+    bar.addEventListener('mousemove', e=>{
+      const val = Number(bar.dataset.val).toLocaleString('en-US');
+      tooltip.innerHTML = `
+        <div class="tt-title">${bar.dataset.ch}</div>
+        <div class="tt-row"><span>比對組</span><b>${bar.dataset.set} · ${bar.dataset.label}</b></div>
+        <div class="tt-row"><span>流量</span><b>${val} 次</b></div>
+        <div class="tt-row"><span>佔該組總流量</span><b>${bar.dataset.share}%</b></div>
+      `;
+      tooltip.style.left = (e.clientX + 14) + 'px';
+      tooltip.style.top = (e.clientY + 14) + 'px';
+      tooltip.classList.add('show');
+    });
+    bar.addEventListener('mouseleave', ()=> tooltip.classList.remove('show'));
+  });
+}
+
+function renderTable(a, b){
+  const body = document.getElementById('tableBody');
+  body.innerHTML = '';
+  METRICS.forEach(m=>{
+    const va = a.kpis[m.key], vb = b.kpis[m.key];
+    const better = isABetter(m, va, vb);
+    const d = diffText(m, va, vb);
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="metric">${m.label}<span class="sub">${m.sub}</span></td>
+      <td class="val num ${better===true?'win':(better===false?'lose':'')}">${m.fmt(va)}</td>
+      <td class="val num ${better===false?'win':(better===true?'lose':'')}">${m.fmt(vb)}</td>
+      <td class="diff"><span class="diff-chip ${better?'good':'bad'} num">${d.text}</span></td>
+      <td style="text-align:center;">
+        <span class="winner-pill ${better?'a':'b'}">${better?'A 勝出':'B 勝出'}</span>
+      </td>
+    `;
+    body.appendChild(tr);
+  });
+}
+
+function renderWinnerList(a, b){
+  const list = document.getElementById('winnerList');
+  list.innerHTML = '';
+  let aWins = 0, bWins = 0;
+  const rows = METRICS.map(m=>{
+    const better = isABetter(m, a.kpis[m.key], b.kpis[m.key]);
+    if(better) aWins++; else bWins++;
+    return { m, better };
+  });
+
+  const summary = document.createElement('div');
+  summary.className = 'flex items-center justify-between text-[12px] font-semibold mb-1';
+  summary.innerHTML = `
+    <span style="color:var(--a-color)">A 勝出 <span class="num">${aWins}</span> 項</span>
+    <span style="color:#B5650B">B 勝出 <span class="num">${bWins}</span> 項</span>
+  `;
+  list.appendChild(summary);
+
+  const bar = document.createElement('div');
+  bar.style.cssText = 'height:8px;border-radius:999px;overflow:hidden;display:flex;background:var(--line);margin-bottom:10px;';
+  bar.innerHTML = `<div style="width:${(aWins/rows.length)*100}%;background:var(--a-color);"></div><div style="width:${(bWins/rows.length)*100}%;background:var(--b-color);"></div>`;
+  list.appendChild(bar);
+
+  rows.forEach(r=>{
+    const row = document.createElement('div');
+    row.className = 'flex items-center justify-between text-[12.5px] py-1.5';
+    row.style.borderBottom = '1px solid #F0EFF8';
+    row.innerHTML = `
+      <span class="font-medium">${r.m.label}</span>
+      <span class="winner-pill ${r.better?'a':'b'}">${r.better?'A':'B'} 較佳</span>
+    `;
+    list.appendChild(row);
+  });
+}
+
+function renderSummary(a, b){
+  const conv = diffText(METRICS.find(m=>m.key==='conversion'), a.kpis.conversion, b.kpis.conversion);
+  const aov = diffText(METRICS.find(m=>m.key==='aov'), a.kpis.aov, b.kpis.aov);
+  const el = document.getElementById('summaryText');
+  el.innerHTML = `<b>${a.short}</b> 相較 <b>${b.short}</b>：轉換率 <b class="num">${conv.text}</b>、客單價變化 <b class="num">${aov.text}</b>、ROAS 由 <b class="num">${b.kpis.roas.toFixed(1)}x</b> 變為 <b class="num">${a.kpis.roas.toFixed(1)}x</b>，整體流量 <b class="num">${Math.round(a.kpis.traffic).toLocaleString('en-US')}</b> 次 vs <b class="num">${Math.round(b.kpis.traffic).toLocaleString('en-US')}</b> 次。`;
+}
+
+function render(){
+  const a = DATA[selA.value];
+  const b = DATA[selB.value];
+
+  document.getElementById('legA').textContent = 'A · ' + a.short;
+  document.getElementById('legB').textContent = 'B · ' + b.short;
+  document.getElementById('thA').innerHTML = 'A · ' + a.short;
+  document.getElementById('thB').innerHTML = 'B · ' + b.short;
+
+  renderSummary(a, b);
+  renderKpiCards(a, b);
+  renderChart(a, b);
+  renderTable(a, b);
+  renderWinnerList(a, b);
+}
+
+selA.addEventListener('change', render);
+selB.addEventListener('change', render);
+
+document.getElementById('swapBtn').addEventListener('click', ()=>{
+  const tmp = selA.value;
+  selA.value = selB.value;
+  selB.value = tmp;
+  render();
+});
+
+/* 側邊選單行動裝置收合 */
+const sidebar = document.getElementById('sidebar');
+const scrim = document.getElementById('scrim');
+document.getElementById('hamburger').addEventListener('click', ()=>{
+  sidebar.classList.add('open');
+  scrim.classList.add('show');
+});
+scrim.addEventListener('click', ()=>{
+  sidebar.classList.remove('open');
+  scrim.classList.remove('show');
+});
+
+/* 側邊導覽點擊切換視覺焦點（示意用） */
+document.querySelectorAll('.nav-item').forEach(item=>{
+  item.addEventListener('click', ()=>{
+    document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
+    item.classList.add('active');
+    if(window.innerWidth <= 768){
+      sidebar.classList.remove('open');
+      scrim.classList.remove('show');
+    }
+  });
+});
+
+render();
+</script>
+</body>
+</html>
