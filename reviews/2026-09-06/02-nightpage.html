@@ -1,0 +1,717 @@
+<!-- style #07 Dark Mode (OLED) -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>夜讀 NightPage｜護眼夜讀 e 書與 Podcast</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --bg: #0a0a0a;
+    --surface: #121212;
+    --surface-2: #171717;
+    --surface-3: #1e1e1e;
+    --border: #2a2a2a;
+    --text-primary: #eaeaea;
+    --text-secondary: #9a9a9a;
+    --text-tertiary: #6b6b6b;
+    --accent: #39ff14;
+    --accent-dim: #1f8f0b;
+    --accent-glow: rgba(57,255,20,0.55);
+  }
+
+  *{ -webkit-tap-highlight-color: transparent; }
+
+  html, body{
+    background: var(--bg);
+    color: var(--text-primary);
+  }
+
+  body{
+    font-family: 'Noto Sans TC', 'Space Grotesk', sans-serif;
+    letter-spacing: 0.01em;
+  }
+
+  .font-display{
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
+  }
+
+  .font-mono{
+    font-family: 'JetBrains Mono', 'Noto Sans TC', monospace;
+  }
+
+  ::selection{
+    background: var(--accent-dim);
+    color: #000;
+  }
+
+  /* ---- Glow utilities ---- */
+  .glow-text{
+    color: var(--accent);
+    text-shadow: 0 0 6px var(--accent-glow), 0 0 18px rgba(57,255,20,0.28);
+  }
+
+  .glow-text-soft{
+    color: var(--accent);
+    text-shadow: 0 0 10px rgba(57,255,20,0.35);
+  }
+
+  .glow-border{
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px rgba(57,255,20,0.15), 0 0 18px rgba(57,255,20,0.18);
+  }
+
+  .glow-dot{
+    box-shadow: 0 0 8px 2px var(--accent-glow);
+  }
+
+  .btn-primary{
+    background: var(--accent);
+    color: #061006;
+    font-weight: 700;
+    box-shadow: 0 0 22px rgba(57,255,20,0.35), 0 0 4px rgba(57,255,20,0.5);
+    transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
+  }
+  .btn-primary:hover{
+    transform: translateY(-1px);
+    box-shadow: 0 0 32px rgba(57,255,20,0.55), 0 0 8px rgba(57,255,20,0.7);
+  }
+  .btn-primary:active{ transform: translateY(0); }
+
+  .btn-ghost{
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    transition: border-color .2s ease, box-shadow .2s ease, color .2s ease;
+  }
+  .btn-ghost:hover{
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: 0 0 14px rgba(57,255,20,0.2);
+  }
+
+  .card{
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+
+  .card-hover{
+    transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+  }
+  .card-hover:hover{
+    border-color: rgba(57,255,20,0.45);
+    box-shadow: 0 0 24px rgba(57,255,20,0.12);
+    transform: translateY(-2px);
+  }
+
+  .pulse-dot{
+    animation: pulseDot 2.2s ease-in-out infinite;
+  }
+  @keyframes pulseDot{
+    0%, 100%{ opacity: 1; box-shadow: 0 0 6px 2px var(--accent-glow); }
+    50%{ opacity: .5; box-shadow: 0 0 2px 0px rgba(57,255,20,0.2); }
+  }
+
+  .divider-glow{
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(57,255,20,0.5), transparent);
+  }
+
+  /* ---- Reading mockup ---- */
+  .book-page{
+    background: #f4ecd8;
+    color: #2a2a26;
+    transition: background-color .35s ease, filter .35s ease;
+    font-family: 'Noto Sans TC', serif;
+  }
+
+  .device-frame{
+    background: linear-gradient(180deg, #1a1a1a, #0d0d0d);
+    border: 1px solid #2c2c2c;
+  }
+
+  input[type="range"]{
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--accent-dim), var(--accent));
+    outline: none;
+  }
+  input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent-glow);
+    cursor: pointer;
+    border: 2px solid #0a0a0a;
+  }
+  input[type="range"]::-moz-range-thumb{
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent-glow);
+    cursor: pointer;
+    border: 2px solid #0a0a0a;
+  }
+
+  .play-btn{
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--surface-3);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    transition: box-shadow .2s ease, border-color .2s ease;
+  }
+  .play-btn:hover{
+    border-color: var(--accent);
+    box-shadow: 0 0 18px rgba(57,255,20,0.25);
+  }
+
+  .eq-bar{
+    width: 3px;
+    background: var(--accent);
+    border-radius: 2px;
+    box-shadow: 0 0 6px var(--accent-glow);
+  }
+  .eq-bar.playing{
+    animation: eqAnim 1s ease-in-out infinite;
+  }
+  @keyframes eqAnim{
+    0%, 100%{ height: 6px; }
+    50%{ height: 22px; }
+  }
+
+  .price-card{
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+  .price-card.featured{
+    border: 1px solid rgba(57,255,20,0.5);
+    box-shadow: 0 0 30px rgba(57,255,20,0.15);
+  }
+
+  .grain-noise::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.03;
+    background-image: radial-gradient(circle, #fff 1px, transparent 1px);
+    background-size: 3px 3px;
+  }
+
+  .scanline-hero{
+    position: relative;
+    overflow: hidden;
+  }
+  .scanline-hero::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(57,255,20,0.08), transparent 60%);
+    pointer-events: none;
+  }
+
+  .fade-num{
+    font-variant-numeric: tabular-nums;
+  }
+
+  a{ text-decoration: none; }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <!-- ===== NAV ===== -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-black/70 border-b border-[var(--border)]">
+    <div class="max-w-6xl mx-auto px-5 md:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full glow-dot pulse-dot" style="background:var(--accent)"></span>
+        <span class="font-display font-bold text-lg tracking-tight">夜讀 <span class="glow-text">NightPage</span></span>
+      </div>
+      <nav class="hidden md:flex items-center gap-8 text-sm text-[var(--text-secondary)] font-medium">
+        <a href="#features" class="hover:text-[var(--accent)] transition-colors">功能特色</a>
+        <a href="#preview" class="hover:text-[var(--accent)] transition-colors">閱讀預覽</a>
+        <a href="#pricing" class="hover:text-[var(--accent)] transition-colors">方案價格</a>
+        <a href="#footer" class="hover:text-[var(--accent)] transition-colors">關於我們</a>
+      </nav>
+      <a href="#pricing" class="btn-primary rounded-full px-5 py-2 text-sm font-display">免費試用</a>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="scanline-hero px-5 md:px-8 pt-16 pb-20 md:pt-24 md:pb-28">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <div class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] px-3 py-1 mb-6 text-xs font-mono text-[var(--text-secondary)]">
+          <span class="w-1.5 h-1.5 rounded-full glow-dot" style="background:var(--accent)"></span>
+          OLED 純黑・省電護眼模式
+        </div>
+        <h1 class="font-display font-bold text-4xl md:text-6xl leading-[1.1] tracking-tight mb-6">
+          睡前的最後一段時光<br>
+          留給<span class="glow-text">護眼夜讀</span>
+        </h1>
+        <p class="text-[var(--text-secondary)] text-base md:text-lg leading-relaxed mb-8 max-w-md">
+          真黑背景搭配單一柔光色調，減少藍光對睡眠的干擾。電子書與 Podcast 一次滿足，讀著讀著、聽著聽著，自然而然就睡著了。
+        </p>
+        <div class="flex flex-wrap items-center gap-4 mb-10">
+          <a href="#pricing" class="btn-primary rounded-full px-7 py-3.5 font-display font-bold text-sm">開始 14 天免費試用</a>
+          <a href="#preview" class="btn-ghost rounded-full px-7 py-3.5 font-display font-semibold text-sm">看看閱讀介面</a>
+        </div>
+        <div class="flex items-center gap-8 font-mono text-sm">
+          <div>
+            <div class="glow-text-soft text-xl font-bold">128,000<span class="text-[var(--text-tertiary)]">+</span></div>
+            <div class="text-[var(--text-tertiary)] text-xs mt-1">夜間活躍讀者</div>
+          </div>
+          <div class="w-px h-8 bg-[var(--border)]"></div>
+          <div>
+            <div class="glow-text-soft text-xl font-bold">4.9<span class="text-[var(--text-tertiary)]">/5</span></div>
+            <div class="text-[var(--text-tertiary)] text-xs mt-1">用戶滿意度</div>
+          </div>
+          <div class="w-px h-8 bg-[var(--border)]"></div>
+          <div>
+            <div class="glow-text-soft text-xl font-bold">0<span class="text-[var(--text-tertiary)]">%</span></div>
+            <div class="text-[var(--text-tertiary)] text-xs mt-1">刺眼白光</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative flex justify-center">
+        <div class="device-frame rounded-[2rem] p-3 w-64 md:w-72 shadow-2xl">
+          <div class="rounded-[1.5rem] overflow-hidden book-page px-6 py-8 h-[420px] flex flex-col" id="heroBookPreview">
+            <div class="font-mono text-[10px] tracking-widest opacity-50 mb-4">CHAPTER 07 ・ 深夜書房</div>
+            <h3 class="font-display font-bold text-lg mb-3">在寂靜裡，聽見自己的呼吸</h3>
+            <p class="text-sm leading-loose opacity-90">
+              夜色漸深，城市的喧囂逐漸退去。她翻開書頁，指尖劃過紙張的紋理，彷彿能感受到文字裡藏著的溫度。這是屬於她一個人的時刻，不被訊息打擾，不被螢幕的冷光刺傷雙眼。
+            </p>
+            <div class="mt-auto flex items-center justify-between font-mono text-[10px] opacity-50">
+              <span>P. 142 / 286</span>
+              <span>49%</span>
+            </div>
+          </div>
+        </div>
+        <div class="absolute -bottom-4 -right-4 md:-right-8 card rounded-2xl px-4 py-3 flex items-center gap-3 shadow-xl">
+          <div class="w-8 h-8 rounded-full flex items-center justify-center" style="background:var(--surface-3)">
+            <span class="glow-text text-xs">♪</span>
+          </div>
+          <div>
+            <div class="text-xs font-semibold">《深夜電台》EP.52</div>
+            <div class="font-mono text-[10px] text-[var(--text-tertiary)]">正在播放・睡眠計時中</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-6xl mx-auto px-5 md:px-8"><div class="divider-glow"></div></div>
+
+  <!-- ===== FEATURES ===== -->
+  <section id="features" class="px-5 md:px-8 py-20 md:py-28">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-14 max-w-xl">
+        <div class="font-mono text-xs text-[var(--accent)] mb-3 tracking-widest">FEATURES</div>
+        <h2 class="font-display font-bold text-3xl md:text-4xl mb-4">為了熬夜也不傷眼<br>我們把每個細節都想過了</h2>
+        <p class="text-[var(--text-secondary)] leading-relaxed">從色溫、書籤到睡眠計時，NightPage 專為睡前閱讀與聆聽設計，讓最後一小時成為一天中最放鬆的時刻。</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="card card-hover rounded-2xl p-7">
+          <div class="w-11 h-11 rounded-xl flex items-center justify-center mb-6" style="background:var(--surface-3)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="glow-text-soft" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          </div>
+          <h3 class="font-display font-bold text-lg mb-2">冷暖色溫自由調</h3>
+          <p class="text-[var(--text-secondary)] text-sm leading-relaxed">從溫暖的燭光色到冷冽的月光色，依照時段與心情調整螢幕色溫，降低藍光對褪黑激素的影響。</p>
+        </div>
+
+        <div class="card card-hover rounded-2xl p-7">
+          <div class="w-11 h-11 rounded-xl flex items-center justify-center mb-6" style="background:var(--surface-3)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="glow-text-soft" stroke-width="1.8"><path d="M6 3h12v18l-6-4-6 4V3z"/></svg>
+          </div>
+          <h3 class="font-display font-bold text-lg mb-2">書籤跨裝置同步</h3>
+          <p class="text-[var(--text-secondary)] text-sm leading-relaxed">手機看到一半睡著了？隔天打開平板或電腦，畫面自動停在你閉眼前的那一行，不漏看一個字。</p>
+        </div>
+
+        <div class="card card-hover rounded-2xl p-7">
+          <div class="w-11 h-11 rounded-xl flex items-center justify-center mb-6" style="background:var(--surface-3)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="glow-text-soft" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+          </div>
+          <h3 class="font-display font-bold text-lg mb-2">Podcast 睡眠計時</h3>
+          <p class="text-[var(--text-secondary)] text-sm leading-relaxed">設定 15、30 或 60 分鐘後自動停止播放，聽著喜歡的節目安心入睡，不怕電量與流量整夜消耗。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-6xl mx-auto px-5 md:px-8"><div class="divider-glow"></div></div>
+
+  <!-- ===== READING PREVIEW ===== -->
+  <section id="preview" class="px-5 md:px-8 py-20 md:py-28">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-14 max-w-xl">
+        <div class="font-mono text-xs text-[var(--accent)] mb-3 tracking-widest">LIVE PREVIEW</div>
+        <h2 class="font-display font-bold text-3xl md:text-4xl mb-4">動手調調看<br>你的專屬夜讀亮度</h2>
+        <p class="text-[var(--text-secondary)] leading-relaxed">拖曳下方滑桿，即時預覽書頁的色溫與亮度變化——這正是 NightPage 內建的閱讀引擎。</p>
+      </div>
+
+      <div class="grid lg:grid-cols-5 gap-8">
+        <!-- Book mock -->
+        <div class="lg:col-span-3 card rounded-3xl p-6 md:p-8">
+          <div class="flex items-center justify-between mb-5">
+            <div class="flex items-center gap-2 text-xs font-mono text-[var(--text-tertiary)]">
+              <span class="w-2 h-2 rounded-full" style="background:#3a3a3a"></span>
+              <span class="w-2 h-2 rounded-full" style="background:#3a3a3a"></span>
+              <span class="w-2 h-2 rounded-full glow-dot" style="background:var(--accent)"></span>
+              <span class="ml-2">reading-mode.app</span>
+            </div>
+            <span class="font-mono text-xs text-[var(--text-tertiary)]" id="clockLabel">23:47</span>
+          </div>
+
+          <div id="bookPage" class="book-page rounded-2xl px-6 md:px-10 py-8 md:py-10 min-h-[320px] flex flex-col justify-between">
+            <div>
+              <div class="font-mono text-[10px] tracking-widest opacity-50 mb-4">《如果海知道》・第九章</div>
+              <h4 class="font-display font-bold text-xl md:text-2xl mb-4 leading-snug">關於失眠這件事</h4>
+              <p class="leading-loose text-[15px] md:text-base">
+                有些夜晚特別漫長，思緒像退不去的潮水，一波一波地打在心上。但只要調暗一點光線，換上一段熟悉的文字，呼吸就會漸漸慢下來。閱讀從來不是為了抵達終點，而是讓此刻的自己，安穩地待在這裡。
+              </p>
+            </div>
+            <div class="flex items-center justify-between font-mono text-xs opacity-60 mt-8">
+              <span>第 214 頁・共 356 頁</span>
+              <span id="progressPct">60%</span>
+            </div>
+          </div>
+
+          <div class="mt-7">
+            <div class="flex items-center justify-between text-xs font-mono text-[var(--text-secondary)] mb-3">
+              <span>🕯️ 暖色溫</span>
+              <span id="tempValue" class="glow-text-soft font-semibold">50%</span>
+              <span>冷色溫 ❄️</span>
+            </div>
+            <input id="tempSlider" type="range" min="0" max="100" value="50" class="w-full">
+
+            <div class="flex items-center justify-between text-xs font-mono text-[var(--text-secondary)] mt-6 mb-3">
+              <span>🌑 較暗</span>
+              <span id="brightValue" class="glow-text-soft font-semibold">70%</span>
+              <span>較亮 🔆</span>
+            </div>
+            <input id="brightSlider" type="range" min="10" max="100" value="70" class="w-full">
+          </div>
+        </div>
+
+        <!-- Podcast player -->
+        <div class="lg:col-span-2 card rounded-3xl p-6 md:p-8 flex flex-col">
+          <div class="font-mono text-xs text-[var(--text-tertiary)] tracking-widest mb-6">NOW PLAYING</div>
+
+          <div class="w-full aspect-square max-w-[220px] mx-auto rounded-2xl mb-6 flex items-center justify-center" style="background:linear-gradient(155deg, #1c1c1c, #0c0c0c); border:1px solid var(--border)">
+            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="glow-text" stroke-width="1.5"><path d="M12 3a4 4 0 0 0-4 4v5a4 4 0 0 0 8 0V7a4 4 0 0 0-4-4z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v3M9 21h6"/></svg>
+          </div>
+
+          <h4 class="font-display font-bold text-center mb-1">深夜電台・失眠者的自白</h4>
+          <p class="text-center text-xs text-[var(--text-tertiary)] font-mono mb-6">EP.52・主持人：陳雨桐</p>
+
+          <div class="flex items-end justify-center gap-1.5 h-8 mb-6" id="eqBars">
+            <span class="eq-bar" style="height:6px"></span>
+            <span class="eq-bar" style="height:6px"></span>
+            <span class="eq-bar" style="height:6px"></span>
+            <span class="eq-bar" style="height:6px"></span>
+            <span class="eq-bar" style="height:6px"></span>
+          </div>
+
+          <div class="flex items-center justify-center gap-6 mb-8">
+            <button id="rewindBtn" class="text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors" aria-label="倒轉15秒">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v4h4"/></svg>
+            </button>
+            <button id="playBtn" class="play-btn" aria-label="播放或暫停">
+              <svg id="playIcon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" class="glow-text"><path d="M8 5v14l11-7z"/></svg>
+              <svg id="pauseIcon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" class="glow-text hidden"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+            </button>
+            <button id="forwardBtn" class="text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors" aria-label="快轉15秒">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12a9 9 0 1 1-3-6.7M21 4v4h-4"/></svg>
+            </button>
+          </div>
+
+          <div class="mt-auto">
+            <div class="text-xs font-mono text-[var(--text-tertiary)] mb-2">睡眠計時</div>
+            <div class="flex gap-2 mb-4" id="timerOptions">
+              <button data-min="15" class="timer-btn flex-1 py-2 rounded-lg border border-[var(--border)] text-xs font-mono hover:border-[var(--accent)] transition-colors">15 分</button>
+              <button data-min="30" class="timer-btn flex-1 py-2 rounded-lg border border-[var(--border)] text-xs font-mono hover:border-[var(--accent)] transition-colors">30 分</button>
+              <button data-min="60" class="timer-btn flex-1 py-2 rounded-lg border border-[var(--border)] text-xs font-mono hover:border-[var(--accent)] transition-colors">60 分</button>
+            </div>
+            <div class="rounded-xl border border-[var(--border)] py-3 text-center">
+              <div class="font-mono text-2xl font-bold glow-text-soft" id="timerDisplay">--:--</div>
+              <div class="text-[10px] text-[var(--text-tertiary)] font-mono mt-1" id="timerStatus">尚未設定計時</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-6xl mx-auto px-5 md:px-8"><div class="divider-glow"></div></div>
+
+  <!-- ===== PRICING ===== -->
+  <section id="pricing" class="px-5 md:px-8 py-20 md:py-28">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center max-w-xl mx-auto mb-14">
+        <div class="font-mono text-xs text-[var(--accent)] mb-3 tracking-widest">PRICING</div>
+        <h2 class="font-display font-bold text-3xl md:text-4xl mb-4">選一個最適合你的夜晚</h2>
+        <p class="text-[var(--text-secondary)] leading-relaxed">不綁約，隨時可以取消。所有方案都享有 14 天免費試用。</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <div class="price-card rounded-2xl p-8 flex flex-col">
+          <h3 class="font-display font-bold text-lg mb-1">輕讀方案</h3>
+          <p class="text-[var(--text-tertiary)] text-xs mb-6">給偶爾睡前翻幾頁的你</p>
+          <div class="flex items-end gap-1 mb-6">
+            <span class="font-mono text-3xl font-bold">NT$0</span>
+            <span class="text-[var(--text-tertiary)] text-sm mb-1">/月</span>
+          </div>
+          <ul class="space-y-3 text-sm text-[var(--text-secondary)] mb-8 flex-1">
+            <li class="flex gap-2"><span class="glow-text-soft">✓</span>每月 3 本電子書</li>
+            <li class="flex gap-2"><span class="glow-text-soft">✓</span>基本色溫調整</li>
+            <li class="flex gap-2"><span class="glow-text-soft">✓</span>單一裝置書籤</li>
+          </ul>
+          <a href="#" class="btn-ghost rounded-full text-center py-3 font-display font-semibold text-sm">免費開始</a>
+        </div>
+
+        <div class="price-card featured rounded-2xl p-8 flex flex-col relative">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-4 py-1 text-[10px] font-mono font-bold" style="background:var(--accent); color:#061006;">最多人選擇</div>
+          <h3 class="font-display font-bold text-lg mb-1">夜讀方案</h3>
+          <p class="text-[var(--text-tertiary)] text-xs mb-6">每晚都要讀一點、聽一點</p>
+          <div class="flex items-end gap-1 mb-6">
+            <span class="font-mono text-3xl font-bold glow-text">NT$149</span>
+            <span class="text-[var(--text-tertiary)] text-sm mb-1">/月</span>
+          </div>
+          <ul class="space-y-3 text-sm text-[var(--text-secondary)] mb-8 flex-1">
+            <li class="flex gap-2"><span class="glow-text-soft">✓</span>無限本電子書借閱</li>
+            <li class="flex gap-2"><span class="glow-text-soft">✓</span>全部 Podcast 節目</li>
+            <li class="flex gap-2"><span class="glow-text-soft">✓</span>冷暖色溫 + 睡眠計時</li>
+            <li class="flex gap-2"><span class="glow-text-soft">✓</span>三台裝置書籤同步</li>
+          </ul>
+          <a href="#" class="btn-primary rounded-full text-center py-3 font-display font-bold text-sm">開始 14 天試用</a>
+        </div>
+
+        <div class="price-card rounded-2xl p-8 flex flex-col">
+          <h3 class="font-display font-bold text-lg mb-1">家庭方案</h3>
+          <p class="text-[var(--text-tertiary)] text-xs mb-6">與家人共享夜讀時光</p>
+          <div class="flex items-end gap-1 mb-6">
+            <span class="font-mono text-3xl font-bold">NT$249</span>
+            <span class="text-[var(--text-tertiary)] text-sm mb-1">/月</span>
+          </div>
+          <ul class="space-y-3 text-sm text-[var(--text-secondary)] mb-8 flex-1">
+            <li class="flex gap-2"><span class="glow-text-soft">✓</span>夜讀方案所有功能</li>
+            <li class="flex gap-2"><span class="glow-text-soft">✓</span>最多 5 位家庭成員</li>
+            <li class="flex gap-2"><span class="glow-text-soft">✓</span>不限裝置書籤同步</li>
+          </ul>
+          <a href="#" class="btn-ghost rounded-full text-center py-3 font-display font-semibold text-sm">選擇此方案</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer id="footer" class="px-5 md:px-8 py-14 border-t border-[var(--border)]">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid md:grid-cols-4 gap-10 mb-10">
+        <div>
+          <div class="flex items-center gap-2 mb-4">
+            <span class="w-2.5 h-2.5 rounded-full glow-dot" style="background:var(--accent)"></span>
+            <span class="font-display font-bold">夜讀 NightPage</span>
+          </div>
+          <p class="text-[var(--text-tertiary)] text-sm leading-relaxed">給眼睛一個溫柔的夜晚。<br>電子書與 Podcast，睡前最後的陪伴。</p>
+        </div>
+        <div>
+          <h5 class="font-display font-semibold text-sm mb-4">產品</h5>
+          <ul class="space-y-2 text-sm text-[var(--text-tertiary)]">
+            <li><a href="#features" class="hover:text-[var(--accent)] transition-colors">功能特色</a></li>
+            <li><a href="#preview" class="hover:text-[var(--accent)] transition-colors">閱讀預覽</a></li>
+            <li><a href="#pricing" class="hover:text-[var(--accent)] transition-colors">方案價格</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 class="font-display font-semibold text-sm mb-4">支援</h5>
+          <ul class="space-y-2 text-sm text-[var(--text-tertiary)]">
+            <li><a href="#" class="hover:text-[var(--accent)] transition-colors">常見問題</a></li>
+            <li><a href="#" class="hover:text-[var(--accent)] transition-colors">聯絡客服</a></li>
+            <li><a href="#" class="hover:text-[var(--accent)] transition-colors">使用條款</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 class="font-display font-semibold text-sm mb-4">關注我們</h5>
+          <ul class="space-y-2 text-sm text-[var(--text-tertiary)]">
+            <li><a href="#" class="hover:text-[var(--accent)] transition-colors">Instagram</a></li>
+            <li><a href="#" class="hover:text-[var(--accent)] transition-colors">Threads</a></li>
+            <li><a href="#" class="hover:text-[var(--accent)] transition-colors">電子報訂閱</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="divider-glow mb-6"></div>
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono text-[var(--text-tertiary)]">
+        <span>© 2026 NightPage Studio・版權所有</span>
+        <span>台灣・繁體中文版</span>
+      </div>
+    </div>
+  </footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---- Live clock ---- */
+  var clockLabel = document.getElementById('clockLabel');
+  function updateClock(){
+    var now = new Date();
+    var h = String(now.getHours()).padStart(2, '0');
+    var m = String(now.getMinutes()).padStart(2, '0');
+    if(clockLabel){ clockLabel.textContent = h + ':' + m; }
+  }
+  updateClock();
+  setInterval(updateClock, 15000);
+
+  /* ---- Brightness + color temperature sliders ---- */
+  var bookPage = document.getElementById('bookPage');
+  var tempSlider = document.getElementById('tempSlider');
+  var brightSlider = document.getElementById('brightSlider');
+  var tempValue = document.getElementById('tempValue');
+  var brightValue = document.getElementById('brightValue');
+
+  // warm color ~ (255,224,178) at 0, cool color ~ (198,220,255) at 100
+  function lerp(a, b, t){ return Math.round(a + (b - a) * t); }
+
+  function applyPagePreview(){
+    var temp = parseInt(tempSlider.value, 10);   // 0 warm -> 100 cool
+    var bright = parseInt(brightSlider.value, 10); // 10 dark -> 100 bright
+
+    var t = temp / 100;
+    var r = lerp(255, 200, t);
+    var g = lerp(224, 220, t);
+    var b = lerp(178, 255, t);
+
+    var bgColor = 'rgb(' + r + ',' + g + ',' + b + ')';
+    var brightnessFactor = (bright / 100 * 0.7 + 0.3).toFixed(2); // 0.3 -> 1.0
+    var textOpacity = (0.55 + (bright/100) * 0.45).toFixed(2);
+
+    bookPage.style.backgroundColor = bgColor;
+    bookPage.style.filter = 'brightness(' + brightnessFactor + ')';
+
+    tempValue.textContent = temp + '%';
+    brightValue.textContent = bright + '%';
+  }
+
+  if(tempSlider && brightSlider){
+    tempSlider.addEventListener('input', applyPagePreview);
+    brightSlider.addEventListener('input', applyPagePreview);
+    applyPagePreview();
+  }
+
+  /* ---- Podcast play / pause ---- */
+  var playBtn = document.getElementById('playBtn');
+  var playIcon = document.getElementById('playIcon');
+  var pauseIcon = document.getElementById('pauseIcon');
+  var eqBars = document.querySelectorAll('#eqBars .eq-bar');
+  var isPlaying = false;
+
+  function setPlayingState(playing){
+    isPlaying = playing;
+    if(playing){
+      playIcon.classList.add('hidden');
+      pauseIcon.classList.remove('hidden');
+      eqBars.forEach(function(bar, i){
+        bar.classList.add('playing');
+        bar.style.animationDelay = (i * 0.12) + 's';
+      });
+    } else {
+      playIcon.classList.remove('hidden');
+      pauseIcon.classList.add('hidden');
+      eqBars.forEach(function(bar){
+        bar.classList.remove('playing');
+        bar.style.height = '6px';
+      });
+    }
+  }
+
+  if(playBtn){
+    playBtn.addEventListener('click', function(){
+      setPlayingState(!isPlaying);
+    });
+  }
+
+  var rewindBtn = document.getElementById('rewindBtn');
+  var forwardBtn = document.getElementById('forwardBtn');
+  if(rewindBtn){
+    rewindBtn.addEventListener('click', function(){
+      if(!isPlaying){ setPlayingState(true); }
+    });
+  }
+  if(forwardBtn){
+    forwardBtn.addEventListener('click', function(){
+      if(!isPlaying){ setPlayingState(true); }
+    });
+  }
+
+  /* ---- Sleep timer countdown ---- */
+  var timerButtons = document.querySelectorAll('.timer-btn');
+  var timerDisplay = document.getElementById('timerDisplay');
+  var timerStatus = document.getElementById('timerStatus');
+  var countdownInterval = null;
+  var remainingSeconds = 0;
+
+  function formatTime(totalSeconds){
+    var m = Math.floor(totalSeconds / 60);
+    var s = totalSeconds % 60;
+    return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+  }
+
+  function startTimer(minutes){
+    if(countdownInterval){ clearInterval(countdownInterval); }
+    remainingSeconds = minutes * 60;
+    timerDisplay.textContent = formatTime(remainingSeconds);
+    timerStatus.textContent = '播放結束後將自動停止';
+    setPlayingState(true);
+
+    countdownInterval = setInterval(function(){
+      remainingSeconds -= 1;
+      if(remainingSeconds <= 0){
+        clearInterval(countdownInterval);
+        countdownInterval = null;
+        timerDisplay.textContent = '00:00';
+        timerStatus.textContent = '已自動暫停，晚安。';
+        setPlayingState(false);
+        return;
+      }
+      timerDisplay.textContent = formatTime(remainingSeconds);
+    }, 1000);
+  }
+
+  timerButtons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      timerButtons.forEach(function(b){
+        b.style.borderColor = 'var(--border)';
+        b.style.color = 'var(--text-primary)';
+      });
+      btn.style.borderColor = 'var(--accent)';
+      btn.style.color = 'var(--accent)';
+      var minutes = parseInt(btn.getAttribute('data-min'), 10);
+      startTimer(minutes);
+    });
+  });
+
+  /* ---- Reading progress ping (subtle life to the preview) ---- */
+  var progressPct = document.getElementById('progressPct');
+  var progress = 60;
+  setInterval(function(){
+    if(!progressPct) return;
+    progress = progress >= 61 ? 60 : progress + 1;
+    progressPct.textContent = progress + '%';
+  }, 4000);
+
+})();
+</script>
+</body>
+</html>
