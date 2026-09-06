@@ -1,0 +1,717 @@
+<!-- style #46 Dimensional Layering -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>層景 Layered Estates — 頂級住宅選粹</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700;800;900&family=Noto+Sans+TC:wght@300;400;500;600;700;900&family=Noto+Serif+TC:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --ink:#232019;
+    --ink-soft:#4a453d;
+    --paper:#f5f0e8;
+    --paper-2:#ede5d8;
+    --card:#fffdf9;
+    --line: rgba(35,32,25,0.12);
+    --brass:#a9812f;
+    --brass-deep:#7d5f22;
+    --brass-soft:#cfa74f;
+    --shadow-color: 35,32,25;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Urbanist','Noto Sans TC',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .zh{ font-family:'Noto Sans TC','Urbanist',sans-serif; }
+  .serif-accent{ font-family:'Noto Serif TC','Urbanist',serif; letter-spacing:0.14em; }
+  h1,h2,h3,h4,.font-display{ font-family:'Urbanist','Noto Sans TC',sans-serif; }
+
+  /* ---------- layered shadow system ---------- */
+  .depth-1{ box-shadow: 0 1px 2px rgba(var(--shadow-color),0.06), 0 4px 10px rgba(var(--shadow-color),0.06); }
+  .depth-2{ box-shadow:
+      0 2px 4px rgba(var(--shadow-color),0.08),
+      0 10px 20px rgba(var(--shadow-color),0.10),
+      0 24px 48px -12px rgba(var(--shadow-color),0.16);
+  }
+  .depth-3{ box-shadow:
+      0 3px 6px rgba(var(--shadow-color),0.10),
+      0 14px 28px rgba(var(--shadow-color),0.12),
+      0 34px 68px -16px rgba(var(--shadow-color),0.24),
+      0 60px 90px -30px rgba(var(--shadow-color),0.20);
+  }
+  .depth-4{ box-shadow:
+      0 4px 8px rgba(var(--shadow-color),0.12),
+      0 18px 36px rgba(var(--shadow-color),0.14),
+      0 44px 80px -18px rgba(var(--shadow-color),0.30),
+      0 80px 120px -30px rgba(var(--shadow-color),0.26);
+  }
+
+  .grain{
+    position:relative;
+  }
+  .grain::after{
+    content:"";
+    position:absolute; inset:0;
+    background-image:radial-gradient(rgba(35,32,25,0.05) 1px, transparent 1px);
+    background-size:3px 3px;
+    opacity:0.5;
+    pointer-events:none;
+    mix-blend-mode:multiply;
+  }
+
+  /* ---------- nav ---------- */
+  .site-nav{
+    backdrop-filter: blur(14px) saturate(140%);
+    background: rgba(245,240,232,0.78);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-link{ position:relative; }
+  .nav-link::after{
+    content:""; position:absolute; left:0; right:0; bottom:-6px; height:1px;
+    background:var(--brass); transform:scaleX(0); transform-origin:left;
+    transition:transform .35s ease;
+  }
+  .nav-link:hover::after{ transform:scaleX(1); }
+
+  /* ---------- hero stacked composition ---------- */
+  .stage{
+    perspective: 1800px;
+  }
+  .stack{
+    position:relative;
+    transform-style:preserve-3d;
+  }
+  .layer{
+    position:absolute;
+    border-radius:22px;
+    background:var(--card);
+    border:1px solid rgba(35,32,25,0.08);
+    transition: transform .6s cubic-bezier(.16,1,.3,1), box-shadow .6s cubic-bezier(.16,1,.3,1);
+    will-change: transform;
+  }
+  .layer-photo{
+    top:0; left:0; width:82%; z-index:30;
+    transform: translate3d(0,0,60px) rotateZ(0deg);
+  }
+  .layer-plan{
+    top:16%; left:26%; width:64%; z-index:20;
+    transform: translate3d(0,0,20px) rotateZ(-1.2deg);
+  }
+  .layer-info{
+    top:56%; left:4%; width:58%; z-index:40;
+    transform: translate3d(0,0,90px) rotateZ(1.4deg);
+  }
+  .stage:hover .layer-photo{ transform: translate3d(-10px,-14px,70px) rotateZ(-.6deg); }
+  .stage:hover .layer-plan{ transform: translate3d(14px,10px,10px) rotateZ(-2.4deg); }
+  .stage:hover .layer-info{ transform: translate3d(-6px,-8px,100px) rotateZ(2.2deg); }
+
+  .badge-brass{
+    background:linear-gradient(135deg,var(--brass-soft),var(--brass-deep));
+    color:#fbf6ea;
+  }
+
+  /* ---------- property cards ---------- */
+  .prop-card{
+    position:relative;
+    background:var(--card);
+    border-radius:18px;
+    border:1px solid var(--line);
+    transition: transform .45s cubic-bezier(.16,1,.3,1), box-shadow .45s cubic-bezier(.16,1,.3,1);
+    z-index:5;
+  }
+  .prop-peek{
+    position:absolute;
+    left:6%;
+    right:6%;
+    bottom:-14px;
+    height:64px;
+    background:var(--paper-2);
+    border:1px solid var(--line);
+    border-radius:14px;
+    z-index:1;
+    transform: translateY(0) scale(0.92);
+    opacity:0;
+    transition: transform .45s cubic-bezier(.16,1,.3,1), opacity .45s ease;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 20px;
+  }
+  .prop-card:hover, .prop-card.is-active{
+    transform: translateY(-10px);
+    box-shadow:
+      0 3px 6px rgba(var(--shadow-color),0.10),
+      0 16px 30px rgba(var(--shadow-color),0.14),
+      0 40px 60px -20px rgba(var(--shadow-color),0.28);
+  }
+  .prop-card:hover .prop-peek, .prop-card.is-active .prop-peek{
+    transform: translateY(22px) scale(1);
+    opacity:1;
+  }
+  .prop-card .prop-media{
+    transition: transform .6s cubic-bezier(.16,1,.3,1);
+  }
+  .prop-card:hover .prop-media{ transform: scale(1.04); }
+
+  /* ---------- why choose layered icon cards ---------- */
+  .icon-stack{ position:relative; width:76px; height:76px; }
+  .icon-stack .plate{
+    position:absolute; inset:0;
+    border-radius:16px;
+    transition: transform .4s cubic-bezier(.16,1,.3,1);
+  }
+  .icon-stack .plate-back{
+    background:var(--paper-2);
+    transform: translate(8px,8px) rotate(6deg);
+  }
+  .icon-stack .plate-mid{
+    background:#efe6d4;
+    transform: translate(4px,4px) rotate(-3deg);
+  }
+  .icon-stack .plate-front{
+    background:var(--card);
+    border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--brass-deep);
+  }
+  .why-card:hover .plate-back{ transform: translate(12px,12px) rotate(10deg); }
+  .why-card:hover .plate-mid{ transform: translate(6px,6px) rotate(-6deg); }
+
+  /* filter chips */
+  .chip{
+    border:1px solid var(--line);
+    background:var(--card);
+    transition:all .25s ease;
+  }
+  .chip.active{
+    background:var(--ink);
+    color:var(--paper);
+    border-color:var(--ink);
+  }
+
+  .divider-brass{
+    height:2px;
+    width:56px;
+    background:linear-gradient(90deg,var(--brass),transparent);
+  }
+
+  @media (max-width: 767px){
+    .layer-photo{ width:92%; }
+    .layer-plan{ left:14%; width:70%; top:22%; }
+    .layer-info{ left:2%; width:70%; top:64%; }
+    .stack{ height:400px !important; }
+  }
+
+  ::selection{ background:var(--brass-soft); color:#2a2211; }
+</style>
+</head>
+<body class="grain">
+
+<!-- ============ NAV ============ -->
+<header class="site-nav fixed top-0 left-0 right-0 z-50">
+  <div class="max-w-7xl mx-auto px-6 md:px-10 h-20 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-3">
+      <span class="w-9 h-9 rounded-full flex items-center justify-center badge-brass font-display font-bold text-sm">層</span>
+      <span class="font-display font-semibold text-lg tracking-tight">層景 <span class="text-[var(--ink-soft)] font-normal zh">Layered Estates</span></span>
+    </a>
+    <nav class="hidden md:flex items-center gap-10 text-sm zh text-[var(--ink-soft)]">
+      <a href="#listings" class="nav-link">精選物件</a>
+      <a href="#why" class="nav-link">服務優勢</a>
+      <a href="#agents" class="nav-link">專屬顧問</a>
+      <a href="#contact" class="nav-link">預約賞屋</a>
+    </nav>
+    <a href="#contact" class="hidden md:inline-flex items-center px-5 py-2.5 rounded-full text-sm zh bg-[var(--ink)] text-[var(--paper)] depth-1 hover:opacity-90 transition">立即諮詢</a>
+    <button id="menuBtn" class="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5">
+      <span class="w-6 h-[1.5px] bg-[var(--ink)]"></span>
+      <span class="w-6 h-[1.5px] bg-[var(--ink)]"></span>
+    </button>
+  </div>
+  <div id="mobileMenu" class="hidden md:hidden border-t border-[var(--line)] bg-[var(--paper)] px-6 py-4 flex flex-col gap-4 text-sm zh">
+    <a href="#listings">精選物件</a>
+    <a href="#why">服務優勢</a>
+    <a href="#agents">專屬顧問</a>
+    <a href="#contact">預約賞屋</a>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section id="top" class="pt-36 pb-28 md:pt-44 md:pb-36 relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6 md:px-10 grid md:grid-cols-2 gap-16 items-center">
+    <div>
+      <p class="serif-accent uppercase text-xs text-[var(--brass-deep)] mb-5">Taipei · New Taipei · Premium Residences</p>
+      <h1 class="font-display text-4xl md:text-6xl font-semibold leading-[1.12] tracking-tight mb-6">
+        每一層堆疊<br class="hidden md:block">
+        <span class="zh">都是生活的景深</span>
+      </h1>
+      <p class="zh text-[var(--ink-soft)] text-base md:text-lg leading-relaxed mb-10 max-w-md">
+        層景 Layered Estates 專營大安、信義、內湖、天母及淡水河岸頂級住宅，為高資產客戶精選格局、景觀與地段皆具層次感的稀有物件。
+      </p>
+      <div class="flex flex-wrap items-center gap-4">
+        <a href="#listings" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[var(--ink)] text-[var(--paper)] zh text-sm depth-2 hover:-translate-y-0.5 transition-transform">
+          瀏覽精選物件
+          <span>→</span>
+        </a>
+        <a href="#contact" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-[var(--ink)]/20 zh text-sm hover:bg-white/50 transition depth-1">
+          預約一對一賞屋
+        </a>
+      </div>
+      <div class="flex items-center gap-8 mt-14 zh">
+        <div>
+          <p class="font-display text-2xl font-semibold">18<span class="text-[var(--brass-deep)]">年</span></p>
+          <p class="text-xs text-[var(--ink-soft)] mt-1">豪宅市場深耕</p>
+        </div>
+        <div class="w-px h-10 bg-[var(--line)]"></div>
+        <div>
+          <p class="font-display text-2xl font-semibold">236<span class="text-[var(--brass-deep)]">戶</span></p>
+          <p class="text-xs text-[var(--ink-soft)] mt-1">成交紀錄</p>
+        </div>
+        <div class="w-px h-10 bg-[var(--line)]"></div>
+        <div>
+          <p class="font-display text-2xl font-semibold">4.9<span class="text-[var(--brass-deep)]">★</span></p>
+          <p class="text-xs text-[var(--ink-soft)] mt-1">客戶滿意評分</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- stacked card visual -->
+    <div class="stage">
+      <div class="stack relative h-[440px] md:h-[520px]">
+        <!-- photo layer -->
+        <div class="layer layer-photo depth-3 overflow-hidden">
+          <div class="h-56 md:h-72 w-full bg-[linear-gradient(135deg,#d9c8a3,#8f8265_40%,#4d4636_75%,#2c2820)] relative">
+            <div class="absolute inset-0 opacity-40" style="background-image:repeating-linear-gradient(115deg, rgba(255,255,255,0.08) 0 2px, transparent 2px 26px);"></div>
+            <span class="absolute top-4 left-4 px-3 py-1 rounded-full badge-brass text-[11px] zh depth-1">預售新案</span>
+            <span class="absolute bottom-4 right-4 px-3 py-1 rounded-full bg-black/40 text-white text-[11px] zh backdrop-blur-sm">大安區 · 敦化南路</span>
+          </div>
+          <div class="p-5">
+            <p class="serif-accent text-[10px] text-[var(--brass-deep)] uppercase mb-1">Signature Residence</p>
+            <h3 class="font-display font-semibold text-lg zh">敦南雲邸</h3>
+            <p class="zh text-xs text-[var(--ink-soft)] mt-1">3 房 2 廳 · 58 坪 · 面東南採光</p>
+          </div>
+        </div>
+        <!-- floorplan layer -->
+        <div class="layer layer-plan depth-2 p-5">
+          <p class="serif-accent text-[10px] text-[var(--brass-deep)] uppercase mb-3">Floor Plan</p>
+          <svg viewBox="0 0 200 130" class="w-full h-24 md:h-28">
+            <rect x="4" y="4" width="192" height="122" fill="none" stroke="#6b5f45" stroke-width="1.4"/>
+            <line x1="4" y1="70" x2="120" y2="70" stroke="#6b5f45" stroke-width="1"/>
+            <line x1="120" y1="4" x2="120" y2="126" stroke="#6b5f45" stroke-width="1"/>
+            <line x1="150" y1="70" x2="150" y2="126" stroke="#6b5f45" stroke-width="1"/>
+            <text x="16" y="42" font-size="9" fill="#4a453d">主臥</text>
+            <text x="16" y="102" font-size="9" fill="#4a453d">客廳</text>
+            <text x="130" y="30" font-size="9" fill="#4a453d">書房</text>
+            <text x="158" y="102" font-size="9" fill="#4a453d">廚房</text>
+          </svg>
+        </div>
+        <!-- info / price layer -->
+        <div class="layer layer-info depth-4 p-5 md:p-6">
+          <p class="serif-accent text-[10px] text-[var(--brass-deep)] uppercase mb-1">Total Price</p>
+          <p class="font-display text-2xl md:text-3xl font-bold">6,880<span class="text-base font-medium zh"> 萬起</span></p>
+          <div class="divider-brass my-3"></div>
+          <p class="zh text-xs text-[var(--ink-soft)]">單價約 118.6 萬／坪</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LISTINGS ============ -->
+<section id="listings" class="py-24 md:py-32 bg-[var(--paper-2)] relative">
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+      <div>
+        <p class="serif-accent uppercase text-xs text-[var(--brass-deep)] mb-3">Curated Listings</p>
+        <h2 class="font-display text-3xl md:text-4xl font-semibold zh">精選物件</h2>
+        <p class="zh text-[var(--ink-soft)] mt-3 max-w-lg">滑過卡片，第二層樓層平面與屋齡資訊將由後方浮現 — 如同實際堪屋的層層揭露。</p>
+      </div>
+    </div>
+
+    <!-- filter controls -->
+    <div class="flex flex-wrap items-center gap-3 mb-10 zh text-sm">
+      <span class="text-[var(--ink-soft)] text-xs mr-1">總價篩選：</span>
+      <button class="chip active px-4 py-2 rounded-full" data-filter="price" data-value="all">不限</button>
+      <button class="chip px-4 py-2 rounded-full" data-filter="price" data-value="under3000">3,000 萬以下</button>
+      <button class="chip px-4 py-2 rounded-full" data-filter="price" data-value="3000-8000">3,000～8,000 萬</button>
+      <button class="chip px-4 py-2 rounded-full" data-filter="price" data-value="over8000">8,000 萬以上</button>
+
+      <span class="text-[var(--ink-soft)] text-xs ml-4 mr-1">坪數篩選：</span>
+      <button class="chip active px-4 py-2 rounded-full" data-filter="size" data-value="all">不限</button>
+      <button class="chip px-4 py-2 rounded-full" data-filter="size" data-value="under30">30 坪以下</button>
+      <button class="chip px-4 py-2 rounded-full" data-filter="size" data-value="30-60">30～60 坪</button>
+      <button class="chip px-4 py-2 rounded-full" data-filter="size" data-value="over60">60 坪以上</button>
+    </div>
+
+    <div id="propGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+      <!-- Card 1 -->
+      <article class="prop-card overflow-hidden" data-price="6800" data-size="42">
+        <div class="prop-media h-52 relative overflow-hidden rounded-t-[18px]" style="background:linear-gradient(150deg,#c9b98d,#7c7357 45%,#3a3527);">
+          <span class="absolute top-4 left-4 px-3 py-1 rounded-full badge-brass text-[11px] zh">熱門</span>
+          <span class="absolute top-4 right-4 px-3 py-1 rounded-full bg-black/40 text-white text-[11px] zh">內湖區</span>
+        </div>
+        <div class="p-6">
+          <p class="serif-accent text-[10px] text-[var(--brass-deep)] uppercase mb-1">Neihu · River View</p>
+          <h3 class="font-display font-semibold text-lg zh mb-1">洲子街 河景苑</h3>
+          <p class="zh text-xs text-[var(--ink-soft)] mb-4">3 房 2 廳 2 衛 · 42 坪 · 屋齡 3 年</p>
+          <div class="flex items-end justify-between">
+            <p class="font-display text-xl font-bold zh">6,800 萬</p>
+            <span class="text-xs zh text-[var(--brass-deep)]">單價 161.9 萬／坪</span>
+          </div>
+        </div>
+        <div class="prop-peek zh text-xs text-[var(--ink-soft)]">
+          <span>坪效格局圖 · 面基隆河</span>
+          <span class="text-[var(--brass-deep)]">查看詳情 →</span>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="prop-card overflow-hidden" data-price="12000" data-size="68">
+        <div class="prop-media h-52 relative overflow-hidden rounded-t-[18px]" style="background:linear-gradient(150deg,#ddd0ae,#a08e63 45%,#4b4229);">
+          <span class="absolute top-4 left-4 px-3 py-1 rounded-full badge-brass text-[11px] zh">新上架</span>
+          <span class="absolute top-4 right-4 px-3 py-1 rounded-full bg-black/40 text-white text-[11px] zh">大安區</span>
+        </div>
+        <div class="p-6">
+          <p class="serif-accent text-[10px] text-[var(--brass-deep)] uppercase mb-1">Da-an · Signature</p>
+          <h3 class="font-display font-semibold text-lg zh mb-1">仁愛路三段 御璟</h3>
+          <p class="zh text-xs text-[var(--ink-soft)] mb-4">4 房 3 廳 3 衛 · 68 坪 · 屋齡 1 年</p>
+          <div class="flex items-end justify-between">
+            <p class="font-display text-xl font-bold zh">1.2 億</p>
+            <span class="text-xs zh text-[var(--brass-deep)]">單價 176.5 萬／坪</span>
+          </div>
+        </div>
+        <div class="prop-peek zh text-xs text-[var(--ink-soft)]">
+          <span>坪效格局圖 · 雙車位</span>
+          <span class="text-[var(--brass-deep)]">查看詳情 →</span>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="prop-card overflow-hidden" data-price="2380" data-size="24">
+        <div class="prop-media h-52 relative overflow-hidden rounded-t-[18px]" style="background:linear-gradient(150deg,#c7cdb8,#82896e 45%,#3c4030);">
+          <span class="absolute top-4 left-4 px-3 py-1 rounded-full badge-brass text-[11px] zh">首購推薦</span>
+          <span class="absolute top-4 right-4 px-3 py-1 rounded-full bg-black/40 text-white text-[11px] zh">淡水區</span>
+        </div>
+        <div class="p-6">
+          <p class="serif-accent text-[10px] text-[var(--brass-deep)] uppercase mb-1">Tamsui · River Front</p>
+          <h3 class="font-display font-semibold text-lg zh mb-1">淡水河岸 觀海匯</h3>
+          <p class="zh text-xs text-[var(--ink-soft)] mb-4">2 房 2 廳 1 衛 · 24 坪 · 屋齡 5 年</p>
+          <div class="flex items-end justify-between">
+            <p class="font-display text-xl font-bold zh">2,380 萬</p>
+            <span class="text-xs zh text-[var(--brass-deep)]">單價 99.2 萬／坪</span>
+          </div>
+        </div>
+        <div class="prop-peek zh text-xs text-[var(--ink-soft)]">
+          <span>坪效格局圖 · 夕陽海景</span>
+          <span class="text-[var(--brass-deep)]">查看詳情 →</span>
+        </div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="prop-card overflow-hidden" data-price="4500" data-size="35">
+        <div class="prop-media h-52 relative overflow-hidden rounded-t-[18px]" style="background:linear-gradient(150deg,#d8c3a5,#93765a 45%,#40311f);">
+          <span class="absolute top-4 left-4 px-3 py-1 rounded-full badge-brass text-[11px] zh">學區宅</span>
+          <span class="absolute top-4 right-4 px-3 py-1 rounded-full bg-black/40 text-white text-[11px] zh">天母</span>
+        </div>
+        <div class="p-6">
+          <p class="serif-accent text-[10px] text-[var(--brass-deep)] uppercase mb-1">Tianmu · Garden</p>
+          <h3 class="font-display font-semibold text-lg zh mb-1">中山北路七段 天母苑</h3>
+          <p class="zh text-xs text-[var(--ink-soft)] mb-4">3 房 2 廳 2 衛 · 35 坪 · 屋齡 12 年</p>
+          <div class="flex items-end justify-between">
+            <p class="font-display text-xl font-bold zh">4,500 萬</p>
+            <span class="text-xs zh text-[var(--brass-deep)]">單價 128.6 萬／坪</span>
+          </div>
+        </div>
+        <div class="prop-peek zh text-xs text-[var(--ink-soft)]">
+          <span>坪效格局圖 · 近美國學校</span>
+          <span class="text-[var(--brass-deep)]">查看詳情 →</span>
+        </div>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="prop-card overflow-hidden" data-price="18800" data-size="92">
+        <div class="prop-media h-52 relative overflow-hidden rounded-t-[18px]" style="background:linear-gradient(150deg,#e2d4b0,#b3945f 45%,#5a4726);">
+          <span class="absolute top-4 left-4 px-3 py-1 rounded-full badge-brass text-[11px] zh">頂級豪墅</span>
+          <span class="absolute top-4 right-4 px-3 py-1 rounded-full bg-black/40 text-white text-[11px] zh">陽明山</span>
+        </div>
+        <div class="p-6">
+          <p class="serif-accent text-[10px] text-[var(--brass-deep)] uppercase mb-1">Yangmingshan · Villa</p>
+          <h3 class="font-display font-semibold text-lg zh mb-1">格致路 山嵐邸</h3>
+          <p class="zh text-xs text-[var(--ink-soft)] mb-4">5 房 4 廳 4 衛 · 92 坪 · 獨棟花園</p>
+          <div class="flex items-end justify-between">
+            <p class="font-display text-xl font-bold zh">1.88 億</p>
+            <span class="text-xs zh text-[var(--brass-deep)]">單價 204.3 萬／坪</span>
+          </div>
+        </div>
+        <div class="prop-peek zh text-xs text-[var(--ink-soft)]">
+          <span>坪效格局圖 · 私人庭院</span>
+          <span class="text-[var(--brass-deep)]">查看詳情 →</span>
+        </div>
+      </article>
+
+      <!-- Card 6 -->
+      <article class="prop-card overflow-hidden" data-price="1580" data-size="18">
+        <div class="prop-media h-52 relative overflow-hidden rounded-t-[18px]" style="background:linear-gradient(150deg,#cfd6c6,#8a9280 45%,#41453a);">
+          <span class="absolute top-4 left-4 px-3 py-1 rounded-full badge-brass text-[11px] zh">小資首選</span>
+          <span class="absolute top-4 right-4 px-3 py-1 rounded-full bg-black/40 text-white text-[11px] zh">板橋區</span>
+        </div>
+        <div class="p-6">
+          <p class="serif-accent text-[10px] text-[var(--brass-deep)] uppercase mb-1">Banqiao · Compact</p>
+          <h3 class="font-display font-semibold text-lg zh mb-1">縣民大道 匯景苑</h3>
+          <p class="zh text-xs text-[var(--ink-soft)] mb-4">2 房 1 廳 1 衛 · 18 坪 · 屋齡 8 年</p>
+          <div class="flex items-end justify-between">
+            <p class="font-display text-xl font-bold zh">1,580 萬</p>
+            <span class="text-xs zh text-[var(--brass-deep)]">單價 87.8 萬／坪</span>
+          </div>
+        </div>
+        <div class="prop-peek zh text-xs text-[var(--ink-soft)]">
+          <span>坪效格局圖 · 近捷運站</span>
+          <span class="text-[var(--brass-deep)]">查看詳情 →</span>
+        </div>
+      </article>
+    </div>
+
+    <p id="emptyState" class="hidden text-center zh text-[var(--ink-soft)] py-16">目前沒有符合篩選條件的物件，請調整範圍再試一次。</p>
+  </div>
+</section>
+
+<!-- ============ WHY CHOOSE US ============ -->
+<section id="why" class="py-24 md:py-32">
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+    <div class="text-center max-w-xl mx-auto mb-16">
+      <p class="serif-accent uppercase text-xs text-[var(--brass-deep)] mb-3">Why Layered Estates</p>
+      <h2 class="font-display text-3xl md:text-4xl font-semibold zh mb-4">服務優勢</h2>
+      <p class="zh text-[var(--ink-soft)]">從鑑價、議價到交屋，每一個環節都由專屬顧問層層把關。</p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="why-card text-center p-6">
+        <div class="icon-stack mx-auto mb-6">
+          <div class="plate plate-back"></div>
+          <div class="plate plate-mid"></div>
+          <div class="plate plate-front">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 10.5 12 4l9 6.5"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-6h4v6"/></svg>
+          </div>
+        </div>
+        <h3 class="font-display font-semibold zh mb-2">實價登錄比對</h3>
+        <p class="zh text-sm text-[var(--ink-soft)] leading-relaxed">每筆物件皆比對周邊三年實價資料，開價透明不哄抬。</p>
+      </div>
+      <div class="why-card text-center p-6">
+        <div class="icon-stack mx-auto mb-6">
+          <div class="plate plate-back"></div>
+          <div class="plate plate-mid"></div>
+          <div class="plate plate-front">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.9 3.1-6.5 7-6.5s7 2.6 7 6.5"/></svg>
+          </div>
+        </div>
+        <h3 class="font-display font-semibold zh mb-2">一對一專屬顧問</h3>
+        <p class="zh text-sm text-[var(--ink-soft)] leading-relaxed">從第一次賞屋到交屋入住，全程一位顧問陪同服務。</p>
+      </div>
+      <div class="why-card text-center p-6">
+        <div class="icon-stack mx-auto mb-6">
+          <div class="plate plate-back"></div>
+          <div class="plate plate-mid"></div>
+          <div class="plate plate-front">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M10 4v16"/></svg>
+          </div>
+        </div>
+        <h3 class="font-display font-semibold zh mb-2">格局深度解析</h3>
+        <p class="zh text-sm text-[var(--ink-soft)] leading-relaxed">提供 3D 樓層透視與採光模擬，看清每一層空間關係。</p>
+      </div>
+      <div class="why-card text-center p-6">
+        <div class="icon-stack mx-auto mb-6">
+          <div class="plate plate-back"></div>
+          <div class="plate plate-mid"></div>
+          <div class="plate plate-front">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3 4 6.5v5c0 5 3.4 8.7 8 9.5 4.6-.8 8-4.5 8-9.5v-5L12 3Z"/></svg>
+          </div>
+        </div>
+        <h3 class="font-display font-semibold zh mb-2">產權法律保障</h3>
+        <p class="zh text-sm text-[var(--ink-soft)] leading-relaxed">合作地政士全面審查產權，杜絕交易糾紛與瑕疵風險。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AGENTS / CONTACT ============ -->
+<section id="agents" class="py-24 md:py-32 bg-[var(--paper-2)]">
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+    <div class="text-center max-w-xl mx-auto mb-16">
+      <p class="serif-accent uppercase text-xs text-[var(--brass-deep)] mb-3">Meet Your Advisor</p>
+      <h2 class="font-display text-3xl md:text-4xl font-semibold zh mb-4">專屬顧問團隊</h2>
+      <p class="zh text-[var(--ink-soft)]">每位顧問皆深耕單一精華地段，掌握第一手屋況與議價空間。</p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="depth-2 bg-[var(--card)] rounded-2xl p-7 text-center">
+        <div class="w-20 h-20 rounded-full mx-auto mb-5 depth-1" style="background:linear-gradient(160deg,#d8c39d,#7c6440);"></div>
+        <h3 class="font-display font-semibold zh">林芷嫻</h3>
+        <p class="zh text-xs text-[var(--brass-deep)] mt-1 mb-3">大安 · 信義區資深顧問</p>
+        <p class="zh text-sm text-[var(--ink-soft)] leading-relaxed mb-4">專精豪宅換屋規劃，累積成交金額超過 32 億元。</p>
+        <a href="#contact" class="text-sm zh text-[var(--brass-deep)] hover:underline">預約諮詢 →</a>
+      </div>
+      <div class="depth-2 bg-[var(--card)] rounded-2xl p-7 text-center">
+        <div class="w-20 h-20 rounded-full mx-auto mb-5 depth-1" style="background:linear-gradient(160deg,#c7cdb8,#5c6350);"></div>
+        <h3 class="font-display font-semibold zh">陳柏宇</h3>
+        <p class="zh text-xs text-[var(--brass-deep)] mt-1 mb-3">內湖 · 淡水河岸顧問</p>
+        <p class="zh text-sm text-[var(--ink-soft)] leading-relaxed mb-4">熟悉重劃區未來發展，擅長首購與投資型物件配對。</p>
+        <a href="#contact" class="text-sm zh text-[var(--brass-deep)] hover:underline">預約諮詢 →</a>
+      </div>
+      <div class="depth-2 bg-[var(--card)] rounded-2xl p-7 text-center">
+        <div class="w-20 h-20 rounded-full mx-auto mb-5 depth-1" style="background:linear-gradient(160deg,#e2d4b0,#93765a);"></div>
+        <h3 class="font-display font-semibold zh">黃詩涵</h3>
+        <p class="zh text-xs text-[var(--brass-deep)] mt-1 mb-3">天母 · 陽明山顧問</p>
+        <p class="zh text-sm text-[var(--ink-soft)] leading-relaxed mb-4">十年別墅與獨棟宅仲介經驗，注重隱私與客製化服務。</p>
+        <a href="#contact" class="text-sm zh text-[var(--brass-deep)] hover:underline">預約諮詢 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="py-24 md:py-32">
+  <div class="max-w-4xl mx-auto px-6 md:px-10">
+    <div class="depth-4 bg-[var(--ink)] text-[var(--paper)] rounded-3xl p-10 md:p-16 relative overflow-hidden">
+      <div class="absolute -top-16 -right-16 w-52 h-52 rounded-full" style="background:radial-gradient(circle,rgba(169,129,47,0.35),transparent 70%);"></div>
+      <p class="serif-accent uppercase text-xs text-[var(--brass-soft)] mb-3">Private Consultation</p>
+      <h2 class="font-display text-2xl md:text-3xl font-semibold zh mb-4">預約您的專屬賞屋行程</h2>
+      <p class="zh text-white/70 mb-10 max-w-md">留下聯絡方式，顧問將於 24 小時內與您聯繫，安排不公開釋出的內部物件參觀。</p>
+      <form id="contactForm" class="grid sm:grid-cols-2 gap-4">
+        <input required name="name" type="text" placeholder="姓名" class="zh px-5 py-3.5 rounded-xl bg-white/10 border border-white/15 placeholder-white/40 outline-none focus:border-[var(--brass-soft)] transition">
+        <input required name="phone" type="tel" placeholder="聯絡電話" class="zh px-5 py-3.5 rounded-xl bg-white/10 border border-white/15 placeholder-white/40 outline-none focus:border-[var(--brass-soft)] transition">
+        <select name="area" class="zh sm:col-span-2 px-5 py-3.5 rounded-xl bg-white/10 border border-white/15 outline-none focus:border-[var(--brass-soft)] transition">
+          <option class="text-black">感興趣的區域</option>
+          <option class="text-black">大安區</option>
+          <option class="text-black">內湖區</option>
+          <option class="text-black">天母</option>
+          <option class="text-black">淡水區</option>
+          <option class="text-black">陽明山</option>
+          <option class="text-black">板橋區</option>
+        </select>
+        <button type="submit" class="sm:col-span-2 mt-2 px-7 py-4 rounded-xl badge-brass zh font-medium depth-2 hover:opacity-90 transition">送出預約需求</button>
+      </form>
+      <p id="formMsg" class="hidden zh mt-4 text-sm text-[var(--brass-soft)]">感謝您的填寫，顧問將盡快與您聯繫。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="border-t border-[var(--line)] py-14">
+  <div class="max-w-7xl mx-auto px-6 md:px-10 flex flex-col md:flex-row items-center justify-between gap-6">
+    <div class="flex items-center gap-3">
+      <span class="w-8 h-8 rounded-full flex items-center justify-center badge-brass font-display font-bold text-xs">層</span>
+      <span class="font-display font-medium zh">層景 Layered Estates</span>
+    </div>
+    <p class="zh text-xs text-[var(--ink-soft)] text-center">台北市大安區敦化南路二段 218 號 12 樓 · 不動產經紀業務員字號 (112) 台北字第 04562 號</p>
+    <div class="flex items-center gap-6 text-xs zh text-[var(--ink-soft)]">
+      <a href="#" class="hover:text-[var(--brass-deep)]">隱私權政策</a>
+      <a href="#" class="hover:text-[var(--brass-deep)]">服務條款</a>
+      <a href="#" class="hover:text-[var(--brass-deep)]">© 2026 層景不動產</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  // mobile menu toggle
+  var menuBtn = document.getElementById('menuBtn');
+  var mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', function(){
+    mobileMenu.classList.toggle('hidden');
+  });
+
+  // property card tap-to-peek for touch devices (in addition to hover)
+  var cards = document.querySelectorAll('.prop-card');
+  cards.forEach(function(card){
+    card.addEventListener('click', function(e){
+      // toggle active state without navigating anywhere
+      var wasActive = card.classList.contains('is-active');
+      cards.forEach(function(c){ c.classList.remove('is-active'); });
+      if(!wasActive){ card.classList.add('is-active'); }
+    });
+  });
+
+  // filter logic
+  var priceFilter = 'all';
+  var sizeFilter = 'all';
+  var grid = document.getElementById('propGrid');
+  var emptyState = document.getElementById('emptyState');
+  var chips = document.querySelectorAll('.chip');
+
+  function matchesPrice(price){
+    if(priceFilter === 'all') return true;
+    if(priceFilter === 'under3000') return price < 3000;
+    if(priceFilter === '3000-8000') return price >= 3000 && price <= 8000;
+    if(priceFilter === 'over8000') return price > 8000;
+    return true;
+  }
+  function matchesSize(size){
+    if(sizeFilter === 'all') return true;
+    if(sizeFilter === 'under30') return size < 30;
+    if(sizeFilter === '30-60') return size >= 30 && size <= 60;
+    if(sizeFilter === 'over60') return size > 60;
+    return true;
+  }
+
+  function applyFilters(){
+    var visibleCount = 0;
+    grid.querySelectorAll('.prop-card').forEach(function(card){
+      var price = parseFloat(card.getAttribute('data-price'));
+      var size = parseFloat(card.getAttribute('data-size'));
+      var show = matchesPrice(price) && matchesSize(size);
+      card.style.display = show ? '' : 'none';
+      if(show) visibleCount++;
+    });
+    emptyState.classList.toggle('hidden', visibleCount !== 0);
+  }
+
+  chips.forEach(function(chip){
+    chip.addEventListener('click', function(){
+      var group = chip.getAttribute('data-filter');
+      var value = chip.getAttribute('data-value');
+      document.querySelectorAll('.chip[data-filter="' + group + '"]').forEach(function(c){
+        c.classList.remove('active');
+      });
+      chip.classList.add('active');
+      if(group === 'price') priceFilter = value;
+      if(group === 'size') sizeFilter = value;
+      applyFilters();
+    });
+  });
+
+  // contact form (no real backend — simulate confirmation)
+  var form = document.getElementById('contactForm');
+  var formMsg = document.getElementById('formMsg');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    formMsg.classList.remove('hidden');
+    form.reset();
+    setTimeout(function(){ formMsg.classList.add('hidden'); }, 5000);
+  });
+
+  // subtle parallax tilt on hero stack following pointer
+  var stage = document.querySelector('.stage');
+  var stack = document.querySelector('.stack');
+  if(stage && stack && window.matchMedia('(min-width: 768px)').matches){
+    stage.addEventListener('mousemove', function(e){
+      var rect = stage.getBoundingClientRect();
+      var x = (e.clientX - rect.left) / rect.width - 0.5;
+      var y = (e.clientY - rect.top) / rect.height - 0.5;
+      stack.style.transform = 'rotateY(' + (x * 6) + 'deg) rotateX(' + (y * -6) + 'deg)';
+    });
+    stage.addEventListener('mouseleave', function(){
+      stack.style.transform = 'rotateY(0deg) rotateX(0deg)';
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
