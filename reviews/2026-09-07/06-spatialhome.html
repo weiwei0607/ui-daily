@@ -1,0 +1,136 @@
+<!-- style #55 Spatial UI -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>空間 Spatial Home｜智慧家庭控制台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Plus Jakarta Sans',sans-serif;
+    background: radial-gradient(circle at 20% 20%, #2b2f45, #14161f 60%);
+    color:#eef0f6;
+    min-height:100vh;
+    perspective: 1400px;
+  }
+  .glass{
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,0.14);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
+  }
+  .float-panel{
+    transform: rotateX(4deg) rotateY(-4deg);
+    transition: transform .4s ease;
+  }
+  .float-panel:hover{ transform: rotateX(0deg) rotateY(0deg) translateY(-6px); }
+  .glow{ box-shadow: 0 0 40px rgba(120,150,255,0.35); }
+</style>
+</head>
+<body class="px-6 py-10">
+
+  <div class="max-w-6xl mx-auto">
+    <div class="flex items-center justify-between mb-10">
+      <div>
+        <h1 class="text-2xl font-bold">空間 <span class="font-normal text-slate-400">Spatial Home</span></h1>
+        <p class="text-sm text-slate-400 mt-1">週日・晴・室外溫度 26°C</p>
+      </div>
+      <div class="glass rounded-full px-5 py-2.5 text-sm font-semibold">👋 早安，蔚寧</div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 mb-8">
+      <div class="glass float-panel rounded-3xl p-7 md:col-span-2">
+        <p class="text-sm text-slate-300 mb-1">客廳</p>
+        <div class="flex items-end justify-between mb-6">
+          <p class="text-5xl font-bold">24.5°C</p>
+          <p class="text-sm text-slate-400">濕度 58%</p>
+        </div>
+        <div class="grid grid-cols-3 gap-4">
+          <button class="glass rounded-2xl py-4 text-center hover:glow transition" onclick="toggleLight(this,'客廳主燈')">
+            <div class="text-2xl mb-1">💡</div>
+            <p class="text-xs font-semibold">主燈</p>
+          </button>
+          <button class="glass rounded-2xl py-4 text-center hover:glow transition" onclick="toggleLight(this,'空調')">
+            <div class="text-2xl mb-1">❄️</div>
+            <p class="text-xs font-semibold">空調</p>
+          </button>
+          <button class="glass rounded-2xl py-4 text-center hover:glow transition" onclick="toggleLight(this,'窗簾')">
+            <div class="text-2xl mb-1">🪟</div>
+            <p class="text-xs font-semibold">窗簾</p>
+          </button>
+        </div>
+      </div>
+
+      <div class="glass float-panel rounded-3xl p-7 flex flex-col justify-between">
+        <div>
+          <p class="text-sm text-slate-300 mb-1">本月用電</p>
+          <p class="text-4xl font-bold mb-2">312<span class="text-lg font-normal"> kWh</span></p>
+          <p class="text-xs text-emerald-300">較上月省 8%</p>
+        </div>
+        <div class="mt-6 w-full h-2 rounded-full bg-white/10 overflow-hidden">
+          <div class="h-full rounded-full" style="width:62%; background:linear-gradient(90deg,#7c9bff,#a78bfa);"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="glass float-panel rounded-3xl p-7">
+        <p class="text-sm text-slate-300 mb-4">場景模式</p>
+        <div class="space-y-3" id="scenes"></div>
+      </div>
+
+      <div class="glass float-panel rounded-3xl p-7 md:col-span-2">
+        <p class="text-sm text-slate-300 mb-4">房間狀態總覽</p>
+        <div class="grid grid-cols-2 gap-4" id="rooms"></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  function toggleLight(el, name){
+    el.classList.toggle('glow');
+    const on = el.classList.contains('glow');
+    el.querySelector('p').textContent = name + (on ? '・開' : '');
+  }
+
+  const scenes = [
+    {name:'回家模式', icon:'🏠'},
+    {name:'電影時光', icon:'🎬'},
+    {name:'睡眠模式', icon:'🌙'},
+    {name:'離家模式', icon:'🚪'},
+  ];
+  const scenesEl = document.getElementById('scenes');
+  scenes.forEach((s, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'w-full glass rounded-2xl px-4 py-3 flex items-center gap-3 text-sm font-medium hover:glow transition';
+    if(i===0) btn.classList.add('glow');
+    btn.innerHTML = `<span class="text-xl">${s.icon}</span> ${s.name}`;
+    btn.addEventListener('click', () => {
+      scenesEl.querySelectorAll('button').forEach(b => b.classList.remove('glow'));
+      btn.classList.add('glow');
+    });
+    scenesEl.appendChild(btn);
+  });
+
+  const rooms = [
+    {name:'主臥室', temp:23.2, status:'空調運轉中'},
+    {name:'書房', temp:25.0, status:'燈光關閉'},
+    {name:'廚房', temp:26.4, status:'感應燈待命'},
+    {name:'陽台', temp:27.1, status:'澆花系統排程中'},
+  ];
+  const roomsEl = document.getElementById('rooms');
+  rooms.forEach(r => {
+    const card = document.createElement('div');
+    card.className = 'glass rounded-2xl p-4';
+    card.innerHTML = `
+      <p class="text-sm font-semibold mb-1">${r.name}</p>
+      <p class="text-2xl font-bold mb-1">${r.temp}°C</p>
+      <p class="text-xs text-slate-400">${r.status}</p>`;
+    roomsEl.appendChild(card);
+  });
+</script>
+</body>
+</html>

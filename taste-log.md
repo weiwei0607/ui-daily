@@ -21,6 +21,10 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-09-07（6 個，#01–06）
+- ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（curl -m 8 無回應，exit 56），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
+- 本批風格（避開近 3 天 09-04/05/06 用過的 #01/03/07/15/17/18/20/22/24/28/29/33/39/40/46/48/51/57，優先挑選近三週最久沒出現過的風格編號，並跨 A/B/C/D 族群）：**Claymorphism #09**（A 組，上次出現於 08-17，此次改用 Baloo 2 + Quicksand 圓體組合，做成靜心冥想 App「棉花糖 CloudyMind」，含可互動的呼吸節奏練習動畫）、**Organic Biophilic #42**（A 組，改用 EB Garamond + Zen Maru Gothic 的新組合，做成有機小農生鮮訂閱「土耕直送」，含依家庭人數即時試算省下採買費用的互動滑桿）、**Trust & Authority #26**（B 組，沿用她認可的 Playfair Display + Noto Serif TC 報紙體公式，做成家族信託顧問服務「守成家族辦公室」，含填答式傳承體檢小工具）、**Sales Intelligence #37**（C 組儀表板，改用 Manrope + Roboto Mono 取代預設 Inter+JetBrains Mono，做成 B2B 業務戰情室「戰情室 War Room」，含管線階段條、業務排行榜與近 12 週業績趨勢 SVG 折線圖）、**Neubrutalism #38**（D 組，她 08-18 明確稱讚「唯一字體對上的」，沿用 Archivo Black + Space Grotesk 原配方，做成校園社群集點 App「打卡王」，含可點擊的地點打卡互動）、**Spatial UI #55**（D 組，避開預設 Inter，改用 Plus Jakarta Sans 呈現 visionOS 質感，做成智慧家庭控制台「空間 Spatial Home」，含 3D 懸浮玻璃卡片與場景模式切換）。全數繁體中文文案，人工檢查過無簡體字混入。
+
 ### 2026-09-06（6 個，#01–06）
 - ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（curl -m 10 逾時無回應，HTTP code 000；WebFetch 同一網址回 `EGRESS_BLOCKED`），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
 - ⚠️ 本輪 publish.py 直連 GitHub REST API 一如既往回 403（與過去每輪一致），改用 `git push`（HTTPS + GH_TOKEN 當密碼，走 git 協定）發布，確認 remote master 已更新到含本輪 6 個檔案＋畫廊＋taste-log 的 commit。

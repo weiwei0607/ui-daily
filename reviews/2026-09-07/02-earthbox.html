@@ -1,0 +1,144 @@
+<!-- style #42 Organic Biophilic -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>土耕直送｜有機小農宅配</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;0,600;1,500&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --earth-forest: #3e4a32;
+    --earth-sage: #8fbc8f;
+    --earth-cream: #f5f1e8;
+    --earth-clay: #b96b4a;
+  }
+  body{font-family:'Zen Maru Gothic',sans-serif; background: var(--earth-cream); color:#33392b;}
+  .serif-title{font-family:'EB Garamond', serif;}
+  .organic-card{
+    border-radius: 40% 60% 55% 45% / 50% 45% 55% 50%;
+  }
+  .organic-card-soft{
+    border-radius: 28px 40px 28px 40px;
+  }
+  .leaf-divider{
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--earth-sage), transparent);
+  }
+  .texture{
+    background-image: radial-gradient(circle at 1px 1px, rgba(62,74,50,0.06) 1px, transparent 0);
+    background-size: 18px 18px;
+  }
+</style>
+</head>
+<body class="texture">
+
+  <nav class="max-w-6xl mx-auto flex items-center justify-between px-6 py-7">
+    <div class="flex items-center gap-2">
+      <span class="text-2xl">🌱</span>
+      <span class="serif-title text-2xl font-semibold" style="color:var(--earth-forest);">土耕直送</span>
+    </div>
+    <div class="hidden md:flex items-center gap-8 text-sm font-medium" style="color:#5a6650;">
+      <a href="#" class="hover:opacity-70">本週作物</a>
+      <a href="#" class="hover:opacity-70">小農故事</a>
+      <a href="#" class="hover:opacity-70">訂閱方案</a>
+    </div>
+    <button class="px-6 py-2.5 rounded-full text-sm font-bold text-white" style="background:var(--earth-forest);">開始訂閱</button>
+  </nav>
+
+  <header class="max-w-5xl mx-auto px-6 pt-10 pb-20 grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <p class="text-sm font-semibold tracking-wide mb-4" style="color:var(--earth-clay);">從產地到餐桌，只隔一個晚上</p>
+      <h1 class="serif-title text-5xl md:text-6xl italic leading-tight mb-6" style="color:var(--earth-forest);">
+        把土地的<br/>季節，<br/>送到你家門口
+      </h1>
+      <p class="text-base leading-relaxed mb-8" style="color:#5a6650;">
+        我們與 42 個友善耕作的小農合作，依節氣安排採收，隔夜配送。每箱都附上這一季負責照顧作物的農夫故事卡。
+      </p>
+      <div class="flex gap-4 flex-wrap">
+        <button class="px-8 py-4 rounded-full font-bold text-white" style="background:var(--earth-forest);">看看這週有什麼</button>
+        <button class="px-8 py-4 rounded-full font-bold border-2" style="border-color:var(--earth-forest); color:var(--earth-forest);">認識我們的小農</button>
+      </div>
+    </div>
+    <div class="relative">
+      <div class="organic-card w-full aspect-square flex items-center justify-center text-8xl" style="background:linear-gradient(135deg,#c9dfc0,#8fbc8f);">
+        🥬
+      </div>
+      <div class="absolute -bottom-6 -left-6 organic-card-soft px-6 py-4 shadow-lg" style="background:white;">
+        <p class="text-xs" style="color:#5a6650;">本週推薦</p>
+        <p class="serif-title text-lg font-semibold" style="color:var(--earth-forest);">關山有機玉米筍</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="leaf-divider max-w-3xl mx-auto mb-16"></div>
+
+  <section class="max-w-6xl mx-auto px-6 pb-20">
+    <h2 class="serif-title text-3xl italic text-center mb-12" style="color:var(--earth-forest);">選一個適合你的節奏</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="organic-card-soft p-8 border-2" style="border-color:#dfe7d5; background:white;">
+        <p class="text-sm font-semibold mb-2" style="color:var(--earth-clay);">單身輕食</p>
+        <p class="serif-title text-3xl font-semibold mb-4" style="color:var(--earth-forest);">NT$390<span class="text-sm font-normal">／週</span></p>
+        <ul class="text-sm space-y-2" style="color:#5a6650;">
+          <li>🌿 4-5 樣時令蔬菜</li>
+          <li>🌿 附一則小農故事卡</li>
+          <li>🌿 可隨時暫停</li>
+        </ul>
+      </div>
+      <div class="organic-card-soft p-8 text-white relative" style="background:var(--earth-forest);">
+        <span class="absolute -top-3 right-6 text-xs font-bold px-3 py-1 rounded-full" style="background:var(--earth-clay);">最多人選</span>
+        <p class="text-sm font-semibold mb-2 opacity-80">家庭分享</p>
+        <p class="serif-title text-3xl font-semibold mb-4">NT$690<span class="text-sm font-normal opacity-80">／週</span></p>
+        <ul class="text-sm space-y-2 opacity-90">
+          <li>🌿 8-10 樣時令蔬果</li>
+          <li>🌿 附時令料理食譜</li>
+          <li>🌿 免運費配送</li>
+        </ul>
+      </div>
+      <div class="organic-card-soft p-8 border-2" style="border-color:#dfe7d5; background:white;">
+        <p class="text-sm font-semibold mb-2" style="color:var(--earth-clay);">餐廳採購</p>
+        <p class="serif-title text-3xl font-semibold mb-4" style="color:var(--earth-forest);">洽談報價</p>
+        <ul class="text-sm space-y-2" style="color:#5a6650;">
+          <li>🌿 客製化品項與量</li>
+          <li>🌿 專屬採收排程</li>
+          <li>🌿 開立統一發票</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-6 pb-24">
+    <div class="organic-card-soft p-10" style="background:#eef2e6;">
+      <h3 class="serif-title text-2xl italic mb-6 text-center" style="color:var(--earth-forest);">算算看，你能少浪費多少</h3>
+      <div class="grid md:grid-cols-2 gap-6 items-center">
+        <div>
+          <label class="text-sm font-medium block mb-2" style="color:#5a6650;">家裡目前幾個人吃飯？</label>
+          <input id="peopleInput" type="range" min="1" max="6" value="2" class="w-full accent-[#3e4a32]">
+          <p class="text-sm mt-2" style="color:#5a6650;"><span id="peopleVal">2</span> 人份</p>
+        </div>
+        <div class="organic-card-soft p-6 text-center" style="background:white;">
+          <p class="text-sm" style="color:#5a6650;">預估每月省下的過剩採買</p>
+          <p class="serif-title text-4xl font-bold" style="color:var(--earth-clay);"><span id="savedAmount">680</span> 元</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="text-center pb-10 text-sm" style="color:#7a8570;">
+    © 2026 土耕直送 ・ 42 個小農，一起把土地種好
+  </footer>
+
+<script>
+  const slider = document.getElementById('peopleInput');
+  const peopleVal = document.getElementById('peopleVal');
+  const savedAmount = document.getElementById('savedAmount');
+  slider.addEventListener('input', () => {
+    const people = parseInt(slider.value, 10);
+    peopleVal.textContent = people;
+    savedAmount.textContent = (people * 340).toLocaleString('zh-Hant');
+  });
+</script>
+</body>
+</html>

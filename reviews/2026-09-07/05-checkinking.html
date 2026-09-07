@@ -1,0 +1,120 @@
+<!-- style #38 Neubrutalism -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>打卡王｜校園社群集點 App</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Space Grotesk',sans-serif; background:#fdf6e3;}
+  .display{font-family:'Archivo Black', sans-serif;}
+  .brut-border{border: 4px solid #111; box-shadow: 8px 8px 0 #111;}
+  .brut-border-sm{border: 3px solid #111; box-shadow: 5px 5px 0 #111;}
+  .brut-btn{transition: all .1s ease;}
+  .brut-btn:active{transform: translate(4px,4px); box-shadow: 2px 2px 0 #111 !important;}
+  .marquee-track{animation: marquee 14s linear infinite; white-space: nowrap;}
+  @keyframes marquee{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <div class="overflow-hidden border-b-4 border-black py-2" style="background:#ffe156;">
+    <div class="marquee-track inline-block font-bold text-sm">
+      🔥 本週集點王：資工三 陳柏宇（2,480 點）　★　新活動「圖書館自習打卡」上線　★　邀請同學再拿 200 點　★　🔥 本週集點王：資工三 陳柏宇（2,480 點）　★　新活動「圖書館自習打卡」上線　★　邀請同學再拿 200 點　★
+    </div>
+  </div>
+
+  <nav class="max-w-6xl mx-auto flex items-center justify-between px-6 py-6">
+    <span class="display text-2xl" style="color:#111;">打卡王<span style="color:#ff6b6b;">.</span></span>
+    <button class="brut-border-sm brut-btn px-5 py-2.5 font-bold text-sm" style="background:#4ecdc4;">立即加入</button>
+  </nav>
+
+  <header class="max-w-5xl mx-auto px-6 pt-8 pb-16 grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <h1 class="display text-5xl md:text-6xl leading-[1.05] mb-6" style="color:#111;">
+        上課打卡<br/>
+        <span style="background:#ffe156; padding:0 8px;">換免費飲料</span>
+      </h1>
+      <p class="text-base font-medium mb-8" style="color:#333;">
+        走進教室、圖書館、社團活動就能打卡集點，點數換校園周邊店家優惠。全校 38 個科系都在玩。
+      </p>
+      <div class="flex gap-4 flex-wrap">
+        <button class="brut-border brut-btn px-7 py-4 font-bold text-lg" style="background:#ff6b6b; color:white;">馬上開始打卡</button>
+        <button class="brut-border brut-btn px-7 py-4 font-bold text-lg" style="background:white;">看兌換清單</button>
+      </div>
+    </div>
+    <div class="brut-border p-8 relative" style="background:#a388ee;">
+      <p class="font-bold text-sm mb-2 text-white">今日打卡進度</p>
+      <p class="display text-6xl text-white mb-4">3<span class="text-2xl">/5</span></p>
+      <div class="w-full h-5 border-3 border-black bg-white overflow-hidden" style="border-width:3px;">
+        <div class="h-full" style="width:60%; background:#111;"></div>
+      </div>
+      <p class="text-xs text-white font-bold mt-3">再打卡 2 次，今天就能開寶箱！</p>
+    </div>
+  </header>
+
+  <section class="max-w-6xl mx-auto px-6 pb-16">
+    <h2 class="display text-3xl mb-8" style="color:#111;">熱門兌換</h2>
+    <div class="grid md:grid-cols-4 gap-6">
+      <div class="brut-border-sm p-6 text-center" style="background:#ffe156;">
+        <div class="text-4xl mb-3">🧋</div>
+        <p class="font-bold">半糖手搖飲</p>
+        <p class="text-sm mt-1 font-semibold">150 點</p>
+      </div>
+      <div class="brut-border-sm p-6 text-center" style="background:#4ecdc4;">
+        <div class="text-4xl mb-3">🍜</div>
+        <p class="font-bold">學餐 8 折券</p>
+        <p class="text-sm mt-1 font-semibold">220 點</p>
+      </div>
+      <div class="brut-border-sm p-6 text-center" style="background:#ff6b6b; color:white;">
+        <div class="text-4xl mb-3">📓</div>
+        <p class="font-bold">限量筆記本</p>
+        <p class="text-sm mt-1 font-semibold">380 點</p>
+      </div>
+      <div class="brut-border-sm p-6 text-center" style="background:#a388ee; color:white;">
+        <div class="text-4xl mb-3">🎧</div>
+        <p class="font-bold">系學會耳機</p>
+        <p class="text-sm mt-1 font-semibold">1,200 點</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-6 pb-20">
+    <div class="brut-border p-8" style="background:white;">
+      <h2 class="display text-2xl mb-6" style="color:#111;">選一個地點打卡看看</h2>
+      <div class="grid grid-cols-3 gap-4 mb-6" id="checkinSpots"></div>
+      <div id="checkinResult" class="brut-border-sm p-4 font-bold text-center hidden" style="background:#ffe156;"></div>
+    </div>
+  </section>
+
+  <footer class="text-center pb-10 font-bold text-sm" style="color:#555;">
+    © 2026 打卡王 ・ 由學生會與 12 間店家共同贊助
+  </footer>
+
+<script>
+  const spots = [
+    {name:'圖書館 3F', icon:'📚', pts:20},
+    {name:'體育館', icon:'🏀', pts:30},
+    {name:'系館教室', icon:'🏫', pts:15},
+  ];
+  const container = document.getElementById('checkinSpots');
+  const result = document.getElementById('checkinResult');
+  let total = 0;
+  spots.forEach(s => {
+    const btn = document.createElement('button');
+    btn.className = 'brut-border-sm brut-btn p-5 text-center font-bold';
+    btn.style.background = '#fdf6e3';
+    btn.innerHTML = `<div class="text-3xl mb-2">${s.icon}</div>${s.name}<div class="text-xs font-semibold mt-1">+${s.pts} 點</div>`;
+    btn.addEventListener('click', () => {
+      total += s.pts;
+      result.textContent = `✅ 已在「${s.name}」打卡成功！獲得 ${s.pts} 點，今日累計 ${total} 點`;
+      result.classList.remove('hidden');
+    });
+    container.appendChild(btn);
+  });
+</script>
+</body>
+</html>
