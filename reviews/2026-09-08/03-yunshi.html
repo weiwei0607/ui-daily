@@ -1,0 +1,392 @@
+<!-- style #27 Storytelling -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>釀時 YunShi｜三代人的醬油紀實</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;0,7..72,500;0,7..72,600;0,7..72,700;1,7..72,400;1,7..72,500&family=Noto+Serif+TC:wght@300;400;500;600;700;900&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --paper: #f4efe4;
+    --paper-2: #eee6d6;
+    --ink: #2a2620;
+    --ink-soft: #57503f;
+    --pine: #1f3329;
+    --pine-2: #16241d;
+    --brass: #a9793f;
+    --line: #cfc3a8;
+  }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Noto Serif TC', 'Literata', serif;
+  }
+
+  .font-display{
+    font-family: 'Literata', 'Noto Serif TC', serif;
+  }
+
+  .font-ui{
+    font-family: 'Karla', 'Noto Serif TC', sans-serif;
+  }
+
+  .texture{
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(31,51,41,0.04) 0, transparent 45%),
+      radial-gradient(circle at 80% 60%, rgba(169,121,63,0.06) 0, transparent 50%);
+  }
+
+  /* 捲動淡入 */
+  .reveal{
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.9s cubic-bezier(.2,.6,.2,1), transform 0.9s cubic-bezier(.2,.6,.2,1);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible{
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1.is-visible{ transition-delay: .12s; }
+  .reveal-delay-2.is-visible{ transition-delay: .24s; }
+  .reveal-delay-3.is-visible{ transition-delay: .36s; }
+
+  /* 首字放大 */
+  .drop-cap::first-letter{
+    font-family: 'Literata', 'Noto Serif TC', serif;
+    font-weight: 700;
+    font-size: 4.2rem;
+    line-height: 0.82;
+    float: left;
+    padding-right: 0.35rem;
+    padding-top: 0.15rem;
+    color: var(--pine);
+  }
+
+  .chapter-num{
+    font-family: 'Literata', serif;
+    font-style: italic;
+    color: var(--brass);
+  }
+
+  .hr-thin{
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--line) 20%, var(--line) 80%, transparent);
+  }
+
+  .vline{
+    background: linear-gradient(180deg, transparent, var(--line) 10%, var(--line) 90%, transparent);
+  }
+
+  /* 時間軸 */
+  .timeline-track{
+    position: relative;
+  }
+  .timeline-track::before{
+    content: "";
+    position: absolute;
+    left: 11px;
+    top: 6px;
+    bottom: 6px;
+    width: 1px;
+    background: var(--line);
+  }
+  @media (min-width: 768px){
+    .timeline-track::before{
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+  .tl-dot{
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    background: var(--paper);
+    border: 2px solid var(--pine);
+    flex-shrink: 0;
+  }
+
+  .link-underline{
+    background-image: linear-gradient(var(--pine), var(--pine));
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 1px;
+    transition: background-size .35s ease;
+  }
+  .link-underline:hover{ background-size: 100% 1px; }
+
+  ::selection{
+    background: var(--pine);
+    color: var(--paper);
+  }
+</style>
+</head>
+<body class="texture antialiased">
+
+  <!-- 頁首導覽 -->
+  <header class="fixed top-0 inset-x-0 z-40 backdrop-blur-sm bg-[var(--paper)]/85 border-b border-[var(--line)]">
+    <div class="max-w-5xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
+      <a href="#top" class="font-ui tracking-[0.3em] text-sm text-[var(--pine)]">釀時 · YUNSHI</a>
+      <nav class="hidden md:flex items-center gap-8 font-ui text-[13px] tracking-widest text-[var(--ink-soft)]">
+        <a href="#ch1" class="link-underline pb-0.5">創始</a>
+        <a href="#ch2" class="link-underline pb-0.5">古法</a>
+        <a href="#ch3" class="link-underline pb-0.5">堅持</a>
+        <a href="#ch4" class="link-underline pb-0.5">傳承</a>
+        <a href="#timeline" class="link-underline pb-0.5">年表</a>
+      </nav>
+      <a href="#timeline" class="font-ui text-[12px] tracking-widest border border-[var(--pine)] text-[var(--pine)] px-4 py-2 rounded-full hover:bg-[var(--pine)] hover:text-[var(--paper)] transition-colors">閱讀故事</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="top" class="relative pt-40 pb-28 md:pt-52 md:pb-36 px-6 md:px-10 overflow-hidden">
+    <div class="max-w-5xl mx-auto relative">
+      <p class="reveal font-ui text-xs md:text-sm tracking-[0.4em] text-[var(--brass)] mb-6">一段關於黑豆、陽光與等待的紀實</p>
+      <h1 class="reveal reveal-delay-1 font-display font-medium text-[15vw] leading-[0.9] md:text-[7.5rem] text-[var(--pine)] tracking-tight">
+        釀時
+      </h1>
+      <p class="reveal reveal-delay-2 mt-8 max-w-xl text-lg md:text-xl leading-relaxed text-[var(--ink-soft)] font-display">
+        三代人，一甕時間釀出的滋味。<br class="hidden md:block">
+        雲林西螺，一間醬油老鋪，七十八年的日曬與等待。
+      </p>
+      <div class="reveal reveal-delay-3 mt-12 flex items-center gap-4 font-ui text-xs tracking-widest text-[var(--ink-soft)]">
+        <span>1948 年創立</span>
+        <span class="w-8 h-px bg-[var(--line)]"></span>
+        <span>雲林縣西螺鎮</span>
+        <span class="w-8 h-px bg-[var(--line)]"></span>
+        <span>陳氏三代</span>
+      </div>
+    </div>
+    <div class="reveal reveal-delay-3 max-w-5xl mx-auto mt-24">
+      <hr class="hr-thin">
+    </div>
+  </section>
+
+  <!-- 引言 -->
+  <section class="px-6 md:px-10 pb-24 md:pb-32">
+    <div class="max-w-2xl mx-auto text-center">
+      <p class="reveal font-display italic text-xl md:text-2xl leading-relaxed text-[var(--ink)]">
+        「醬油不是調味料而已，是一個家庭把日子過給你吃。」
+      </p>
+      <p class="reveal reveal-delay-1 mt-4 font-ui text-xs tracking-widest text-[var(--ink-soft)]">陳金水的女兒，回憶父親常掛在嘴邊的一句話</p>
+    </div>
+  </section>
+
+  <!-- 第一章：創始人開業初衷 -->
+  <section id="ch1" class="px-6 md:px-10 py-20 md:py-28 border-t border-[var(--line)]">
+    <div class="max-w-3xl mx-auto">
+      <div class="reveal flex items-center gap-4 mb-8">
+        <span class="chapter-num text-2xl">Ch. 01</span>
+        <span class="flex-1 h-px bg-[var(--line)]"></span>
+        <span class="font-ui text-xs tracking-widest text-[var(--ink-soft)]">1948</span>
+      </div>
+      <h2 class="reveal font-display font-semibold text-3xl md:text-4xl text-[var(--pine)] mb-8">一鍋黑豆，一句對得起良心的承諾</h2>
+
+      <p class="reveal drop-cap text-lg leading-loose text-[var(--ink)] mb-6">
+        戰後第三年，陳金水從農忙裡抽出身，在西螺延平老街後頭租下一間磚造小屋，架起兩口大灶。那時候市面上流通的醬油良莠不齊，不少是用豆餅粕加鹽水快速泡煮，色深味鹹卻少了甘韻。他跟著岳父學過幾年做麴，總覺得傳統的日曬工法才對得起吃這口醬油的人，於是把家裡僅有的積蓄換成一批黑豆，賭上了往後半輩子。
+      </p>
+      <p class="reveal reveal-delay-1 text-lg leading-loose text-[var(--ink-soft)]">
+        開業那天沒有剪綵，只請了鄰居來吃一碗滷肉飯配自家醬油。陳金水後來常說，他當時想的很簡單：家裡孩子多，總要有一門手藝能養活一家人，而他唯一會的，就是等待——等豆子發酵、等太陽曬透、等時間把鹹味熬成甘味。店名「金和號」也是那時候取的，取「和氣生財」之意，甕缸就擺在後院，一字排開，成了整條街最早聞得到豆香的地方。
+      </p>
+    </div>
+  </section>
+
+  <!-- 第二章：傳統黑豆日曬釀造工法 -->
+  <section id="ch2" class="px-6 md:px-10 py-20 md:py-28 bg-[var(--paper-2)] border-t border-[var(--line)]">
+    <div class="max-w-3xl mx-auto">
+      <div class="reveal flex items-center gap-4 mb-8">
+        <span class="chapter-num text-2xl">Ch. 02</span>
+        <span class="flex-1 h-px bg-[var(--line)]"></span>
+        <span class="font-ui text-xs tracking-widest text-[var(--ink-soft)]">工法</span>
+      </div>
+      <h2 class="reveal font-display font-semibold text-3xl md:text-4xl text-[var(--pine)] mb-8">六個月的陽光，換一匙深色的甘</h2>
+
+      <p class="reveal text-lg leading-loose text-[var(--ink-soft)] mb-6">
+        金和號用的始終是雲林在地契作的黑豆。黑豆先蒸熟到能用指腹輕輕壓扁的程度，放涼後拌入麵粉與麴菌，鋪進竹篩，送進麴室培養三天，等豆粒長出一層均勻的黃綠色菌絲，這一步他們叫「入麴」，也是決定日後醬油香氣厚薄的關鍵。
+      </p>
+      <p class="reveal reveal-delay-1 text-lg leading-loose text-[var(--ink-soft)] mb-6">
+        接著把成麴的黑豆連同粗鹽層層封進陶甕，加水沒過豆麵，甕口蒙上紗布，搬到後院日曬場排開。每天清晨要巡一次甕，用木杓從甕底往上翻攪，讓陽光均勻曬到每一層豆醪，同時觀察天色——遇上連日陰雨要蓋上斗笠形的甕蓋防止雨水滲入，若是豔陽天則要留意水分蒸散太快，適時補鹽水。這樣日曬夜露，短則一百八十天，講究一點的甕要曬滿一年，讓豆麴裡的蛋白質慢慢分解出胺基酸的甘味。
+      </p>
+      <p class="reveal reveal-delay-2 text-lg leading-loose text-[var(--ink-soft)]">
+        曬熟的豆醪最後裝進布袋，用竹編的醬油壓榨機一層一層疊起重壓，第一道流出來的原汁最為濃郁，稱作「頭抽」，也是整甕醬油裡最珍貴的部分。剩下的醪渣還會再加水回煮，榨出二抽、三抽，物盡其用，不浪費一絲一毫。
+      </p>
+    </div>
+  </section>
+
+  <!-- 第三章：第二代面對工業化的掙扎與堅持 -->
+  <section id="ch3" class="px-6 md:px-10 py-20 md:py-28 border-t border-[var(--line)]">
+    <div class="max-w-3xl mx-auto">
+      <div class="reveal flex items-center gap-4 mb-8">
+        <span class="chapter-num text-2xl">Ch. 03</span>
+        <span class="flex-1 h-px bg-[var(--line)]"></span>
+        <span class="font-ui text-xs tracking-widest text-[var(--ink-soft)]">1970s—1990s</span>
+      </div>
+      <h2 class="reveal font-display font-semibold text-3xl md:text-4xl text-[var(--pine)] mb-8">當速成醬油席捲市場，陳文雄選擇了慢</h2>
+
+      <p class="reveal text-lg leading-loose text-[var(--ink-soft)] mb-6">
+        一九七〇年代末，台灣醬油市場迎來劇烈轉型。化學速成的酸水解工法只要三、五天就能量產，成本壓到傳統釀造的三分之一，各地雜貨店的貨架很快被便宜的瓶裝醬油佔滿。接手家業的第二代陳文雄那幾年天天算帳，晚上常常對著甕缸嘆氣——同樣一甕醬油，別人早就出貨三批了，他還在等豆子曬熟。
+      </p>
+      <p class="reveal reveal-delay-1 text-lg leading-loose text-[var(--ink-soft)] mb-6">
+        親戚勸他改用快速發酵，甚至有工廠找上門想低價收購「金和號」這塊招牌轉做代工。陳文雄猶豫過，也試著添購過一批不鏽鋼發酵槽想縮短工時，但釀出來的醬油總覺得少了甕缸日曬那股厚實的豆香。有一次他把兩種醬油端給父親陳金水嚐，老人家只夾了一口菜沾了沾，沒說話，把筷子放下就走了。那個沉默讓陳文雄想了整晚，隔天就把新買的發酵槽退了。
+      </p>
+      <p class="reveal reveal-delay-2 text-lg leading-loose text-[var(--ink-soft)]">
+        往後二十年，金和號的產量始終沒有跟上時代的速度，甚至一度縮編到只剩三個工人。陳文雄常跟客人說一句話：「別人的醬油賣快，我的醬油賣久。」他把店裡多出來的心力放在跟老顧客搏感情，逢年過節親自送貨到府，慢慢在西螺一帶累積出一群認得出「金和號」瓶身、也認得出那股甘味的死忠主顧，撐過了整條老街最蕭條的年代。
+      </p>
+    </div>
+  </section>
+
+  <!-- 第四章：第三代如何用現代方式延續古法 -->
+  <section id="ch4" class="px-6 md:px-10 py-20 md:py-28 bg-[var(--paper-2)] border-t border-[var(--line)]">
+    <div class="max-w-3xl mx-auto">
+      <div class="reveal flex items-center gap-4 mb-8">
+        <span class="chapter-num text-2xl">Ch. 04</span>
+        <span class="flex-1 h-px bg-[var(--line)]"></span>
+        <span class="font-ui text-xs tracking-widest text-[var(--ink-soft)]">2015 迄今</span>
+      </div>
+      <h2 class="reveal font-display font-semibold text-3xl md:text-4xl text-[var(--pine)] mb-8">陳怡君把曬場搬到了鏡頭前</h2>
+
+      <p class="reveal text-lg leading-loose text-[var(--ink-soft)] mb-6">
+        第三代陳怡君原本在台北做行銷企劃，二〇一五年因為父親跌傷腳踝回鄉幫忙，才第一次認真蹲在曬場邊看阿公留下來的甕缸。她發現，家裡最珍貴的資產從來不是配方，而是那片日曬場、那套翻攪的手感，以及一整套外人幾乎看不到的等待工序。於是她做的第一件事，不是改工法，而是把工法「說出來」。
+      </p>
+      <p class="reveal reveal-delay-1 text-lg leading-loose text-[var(--ink-soft)] mb-6">
+        她把後院曬場整理成小型開放參觀動線，每個月固定辦兩場「甕缸導覽」，讓遊客能實際掀開甕蓋聞豆醪的氣味、學著用木杓翻攪；也把爺爺當年入麴、封甕、日曬、壓榨的四道工序拍成短片放上網路，意外吸引不少年輕人專程從外縣市開車來西螺，就為了看一眼曬了半年的醬油缸。
+      </p>
+      <p class="reveal reveal-delay-2 text-lg leading-loose text-[var(--ink-soft)]">
+        線上通路也是她一手建起來的：架設官網、上架電商平台、設計禮盒讓頭抽醬油能寄到外縣市甚至海外。產量依然受限於曬場的甕缸數量，做多少賣多少，從不因為訂單增加而縮短日曬天數。陳怡君說，她想做的不是把老店「翻新」，而是讓阿公跟爸爸堅持了六十幾年的慢，被更多人看見、也被更多人願意等待。
+      </p>
+    </div>
+  </section>
+
+  <!-- 時間軸 -->
+  <section id="timeline" class="px-6 md:px-10 py-20 md:py-28 border-t border-[var(--line)]">
+    <div class="max-w-3xl mx-auto">
+      <div class="reveal text-center mb-16">
+        <p class="font-ui text-xs tracking-[0.4em] text-[var(--brass)] mb-3">THREE GENERATIONS</p>
+        <h2 class="font-display font-semibold text-3xl md:text-4xl text-[var(--pine)]">三代年表</h2>
+      </div>
+
+      <div class="timeline-track space-y-14 md:space-y-0">
+
+        <div class="reveal relative md:grid md:grid-cols-2 md:gap-10 md:items-center">
+          <div class="flex md:contents items-start gap-5">
+            <div class="tl-dot mt-1 md:hidden"></div>
+            <div class="md:text-right md:pr-10">
+              <p class="font-display text-2xl text-[var(--pine)] mb-1">1948</p>
+              <p class="font-ui text-xs tracking-widest text-[var(--brass)] mb-2">第一代・陳金水</p>
+              <p class="text-[var(--ink-soft)] leading-relaxed">於西螺延平老街後方創立「金和號」，堅持黑豆日曬古法，開啟三代釀造之路。</p>
+            </div>
+          </div>
+          <div class="hidden md:flex justify-start pl-10">
+            <div class="tl-dot"></div>
+          </div>
+        </div>
+
+        <div class="reveal relative md:grid md:grid-cols-2 md:gap-10 md:items-center">
+          <div class="hidden md:flex justify-end pr-10 order-1">
+            <div class="tl-dot"></div>
+          </div>
+          <div class="flex md:contents items-start gap-5 order-2">
+            <div class="tl-dot mt-1 md:hidden"></div>
+            <div class="md:pl-10">
+              <p class="font-display text-2xl text-[var(--pine)] mb-1">1976</p>
+              <p class="font-ui text-xs tracking-widest text-[var(--brass)] mb-2">第二代・陳文雄</p>
+              <p class="text-[var(--ink-soft)] leading-relaxed">接下家業，在化學速成醬油盛行的年代拒絕轉型，以慢工守住金和號的名聲。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal relative md:grid md:grid-cols-2 md:gap-10 md:items-center">
+          <div class="flex md:contents items-start gap-5">
+            <div class="tl-dot mt-1 md:hidden"></div>
+            <div class="md:text-right md:pr-10">
+              <p class="font-display text-2xl text-[var(--pine)] mb-1">2015</p>
+              <p class="font-ui text-xs tracking-widest text-[var(--brass)] mb-2">第三代・陳怡君</p>
+              <p class="text-[var(--ink-soft)] leading-relaxed">返鄉接手，開放曬場導覽、拍攝工序影片，將老工法帶進大眾視野。</p>
+            </div>
+          </div>
+          <div class="hidden md:flex justify-start pl-10">
+            <div class="tl-dot"></div>
+          </div>
+        </div>
+
+        <div class="reveal relative md:grid md:grid-cols-2 md:gap-10 md:items-center">
+          <div class="hidden md:flex justify-end pr-10 order-1">
+            <div class="tl-dot" style="background: var(--pine);"></div>
+          </div>
+          <div class="flex md:contents items-start gap-5 order-2">
+            <div class="tl-dot mt-1 md:hidden" style="background: var(--pine);"></div>
+            <div class="md:pl-10">
+              <p class="font-display text-2xl text-[var(--pine)] mb-1">2024</p>
+              <p class="font-ui text-xs tracking-widest text-[var(--brass)] mb-2">至今</p>
+              <p class="text-[var(--ink-soft)] leading-relaxed">官網與電商上線，頭抽醬油禮盒寄往全台與海外，曬場依舊維持七十八道甕缸。</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 尾聲 -->
+  <section class="px-6 md:px-10 py-24 md:py-32 border-t border-[var(--line)]">
+    <div class="max-w-2xl mx-auto text-center">
+      <p class="reveal font-display italic text-xl md:text-2xl leading-relaxed text-[var(--pine)]">
+        七十八年過去，曬場上的甕缸還是那個數字，<br class="hidden md:block">
+        只是曬過的時間，換了三代人來守。
+      </p>
+      <p class="reveal reveal-delay-1 mt-6 font-ui text-xs tracking-widest text-[var(--ink-soft)]">— 金和號釀造場，雲林縣西螺鎮</p>
+    </div>
+  </section>
+
+  <!-- 頁尾 -->
+  <footer class="px-6 md:px-10 py-14 border-t border-[var(--line)] bg-[var(--pine)] text-[var(--paper)]">
+    <div class="max-w-5xl mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+      <div>
+        <p class="font-ui tracking-[0.3em] text-sm mb-3">釀時 · YUNSHI</p>
+        <p class="text-sm leading-relaxed text-[var(--paper)]/70 max-w-sm">
+          金和號釀造場｜雲林縣西螺鎮延平老街 32 巷<br>
+          每月開放曬場導覽，需提前預約，詳情請洽官方網站。
+        </p>
+      </div>
+      <div class="font-ui text-xs tracking-widest text-[var(--paper)]/60 space-y-2">
+        <p>© 1948—2026 金和號 Chin Ho Hao</p>
+        <p>本頁為每日 UI／UX 生成專案之風格示範，非真實商業網站</p>
+      </div>
+    </div>
+  </footer>
+
+<script>
+  (function () {
+    var items = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      items.forEach(function (el) { el.classList.add('is-visible'); });
+      return;
+    }
+
+    var observer = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, {
+      root: null,
+      rootMargin: '0px 0px -10% 0px',
+      threshold: 0.12
+    });
+
+    items.forEach(function (el) { observer.observe(el); });
+  })();
+</script>
+
+</body>
+</html>

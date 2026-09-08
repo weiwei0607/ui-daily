@@ -1,0 +1,378 @@
+<!-- style #54 Neubrutalism v2 -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>軋團 GigJam — 地下展演售票平台</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --yellow:#ffe156;
+    --pink:#ff6b6b;
+    --teal:#4ecdc4;
+    --purple:#a388ee;
+    --paper:#f5f1e8;
+    --ink:#1a1a1a;
+  }
+  html,body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Space Grotesk','Noto Sans TC',sans-serif;
+    overflow-x:hidden;
+  }
+  .font-display{
+    font-family:'Archivo Black','Noto Sans TC',sans-serif;
+    font-weight:900;
+  }
+  .font-display-zh{
+    font-family:'Noto Sans TC','Archivo Black',sans-serif;
+    font-weight:900;
+  }
+  .brutal-border{
+    border:3px solid var(--ink);
+  }
+  .brutal-shadow{
+    box-shadow:8px 8px 0 var(--ink);
+  }
+  .brutal-shadow-sm{
+    box-shadow:5px 5px 0 var(--ink);
+  }
+  .brutal-btn{
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .brutal-btn:hover{
+    transform:translate(-4px,-4px);
+    box-shadow:12px 12px 0 var(--ink);
+  }
+  .brutal-btn:active{
+    transform:translate(0,0);
+    box-shadow:2px 2px 0 var(--ink);
+  }
+  .card-hover{
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .card-hover:hover{
+    transform:translate(-3px,-3px);
+    box-shadow:11px 11px 0 var(--ink);
+  }
+  .city-btn{
+    transition:all .15s ease;
+  }
+  .city-btn.active{
+    background:var(--ink);
+    color:var(--paper);
+    transform:translate(-2px,-2px);
+    box-shadow:6px 6px 0 var(--purple);
+  }
+  .city-btn:not(.active):hover{
+    transform:translate(-2px,-2px);
+    box-shadow:6px 6px 0 var(--ink);
+  }
+  .marquee-track{
+    display:flex;
+    width:max-content;
+    animation:marquee 26s linear infinite;
+  }
+  .marquee-track:hover{
+    animation-play-state:paused;
+  }
+  @keyframes marquee{
+    from{ transform:translateX(0); }
+    to{ transform:translateX(-50%); }
+  }
+  .tag-dot{
+    width:.6rem;height:.6rem;
+    border:2px solid var(--ink);
+    display:inline-block;
+  }
+  .noise-band{
+    background-image:repeating-linear-gradient(45deg, var(--ink) 0, var(--ink) 2px, transparent 2px, transparent 14px);
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <!-- 頂部條 -->
+  <div class="w-full bg-[var(--ink)] text-[var(--paper)] text-xs sm:text-sm font-medium py-1.5 px-4 flex items-center justify-between font-['Space_Grotesk']">
+    <span>⚡ 全台獨立展演售票・手續費最低・現場最真實</span>
+    <span class="hidden sm:inline">支援 LINE Pay／信用卡／超商付款</span>
+  </div>
+
+  <!-- Header -->
+  <header class="max-w-6xl mx-auto px-5 sm:px-8 py-6 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-11 h-11 sm:w-12 sm:h-12 brutal-border bg-[var(--yellow)] flex items-center justify-center font-display text-lg rotate-[-4deg]">
+        軋
+      </div>
+      <span class="font-display-zh text-xl sm:text-2xl tracking-tight">軋團 GigJam</span>
+    </div>
+    <nav class="hidden md:flex items-center gap-6 text-sm font-semibold">
+      <a href="#shows" class="hover:underline decoration-4 decoration-[var(--pink)] underline-offset-4">近期場次</a>
+      <a href="#cities" class="hover:underline decoration-4 decoration-[var(--teal)] underline-offset-4">城市篩選</a>
+      <a href="#" class="hover:underline decoration-4 decoration-[var(--purple)] underline-offset-4">場地方合作</a>
+    </nav>
+    <a href="#shows" class="brutal-btn brutal-border brutal-shadow-sm bg-[var(--ink)] text-[var(--paper)] font-bold text-sm px-4 py-2 hidden sm:inline-block">
+      立即找場次
+    </a>
+  </header>
+
+  <!-- Hero -->
+  <section class="max-w-6xl mx-auto px-5 sm:px-8 pt-6 pb-16 relative">
+    <div class="absolute -top-2 right-6 w-16 h-16 sm:w-24 sm:h-24 bg-[var(--purple)] brutal-border rotate-12 hidden sm:block"></div>
+    <div class="absolute top-24 right-40 w-10 h-10 bg-[var(--teal)] brutal-border rounded-full hidden md:block"></div>
+
+    <p class="inline-block brutal-border bg-[var(--teal)] px-3 py-1 text-xs sm:text-sm font-bold mb-6 rotate-[-1deg]">
+      為地下音樂場景而生的售票平台
+    </p>
+
+    <h1 class="font-display-zh text-4xl sm:text-6xl md:text-7xl leading-[1.05] mb-6 max-w-3xl">
+      別滑手機了，<br>
+      <span class="bg-[var(--yellow)] px-2 inline-block brutal-border rotate-[-1deg] my-1">今晚去現場</span><br>
+      聽一場真正的團。
+    </h1>
+
+    <p class="text-base sm:text-lg max-w-xl mb-8 leading-relaxed font-medium">
+      軋團 GigJam 專門幫獨立樂團、小型展演空間、地下廠牌賣票。
+      不必求爺爺告奶奶談通路，你的團、你的場，直接被聽見。
+      我們只抽最低手續費，剩下的都留給音樂本身。
+    </p>
+
+    <div class="flex flex-wrap items-center gap-4">
+      <a href="#shows" class="brutal-btn brutal-border brutal-shadow bg-[var(--pink)] font-display-zh text-lg px-7 py-4 inline-block">
+        逛逛本週場次
+      </a>
+      <a href="#" class="brutal-btn brutal-border brutal-shadow bg-[var(--paper)] font-bold text-base px-7 py-4 inline-block">
+        我是樂團／場地方，想上架
+      </a>
+    </div>
+
+    <div class="flex flex-wrap gap-6 mt-10 text-sm font-semibold">
+      <div class="flex items-center gap-2"><span class="tag-dot bg-[var(--yellow)]"></span>累積售出 38,200+ 張票</div>
+      <div class="flex items-center gap-2"><span class="tag-dot bg-[var(--pink)]"></span>合作展演空間 96 間</div>
+      <div class="flex items-center gap-2"><span class="tag-dot bg-[var(--purple)]"></span>上架樂團 540+ 組</div>
+    </div>
+  </section>
+
+  <!-- 城市篩選 -->
+  <section id="cities" class="max-w-6xl mx-auto px-5 sm:px-8 pb-4">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="w-8 h-8 brutal-border bg-[var(--purple)] flex-shrink-0"></div>
+      <h2 class="font-display-zh text-xl sm:text-2xl">找你家附近的場</h2>
+    </div>
+    <div id="city-filter" class="flex flex-wrap gap-3">
+      <button data-city="全部" class="city-btn active brutal-border bg-[var(--paper)] font-bold px-5 py-2 text-sm">全部城市</button>
+      <button data-city="台北" class="city-btn brutal-border bg-[var(--paper)] font-bold px-5 py-2 text-sm">台北</button>
+      <button data-city="台中" class="city-btn brutal-border bg-[var(--paper)] font-bold px-5 py-2 text-sm">台中</button>
+      <button data-city="高雄" class="city-btn brutal-border bg-[var(--paper)] font-bold px-5 py-2 text-sm">高雄</button>
+      <button data-city="其他" class="city-btn brutal-border bg-[var(--paper)] font-bold px-5 py-2 text-sm">其他縣市</button>
+    </div>
+    <p id="city-hint" class="text-xs mt-3 font-medium text-[var(--ink)]/70">目前顯示：全部城市的場次</p>
+  </section>
+
+  <!-- 近期場次 -->
+  <section id="shows" class="max-w-6xl mx-auto px-5 sm:px-8 py-10">
+    <div class="flex items-end justify-between flex-wrap gap-3 mb-8">
+      <h2 class="font-display-zh text-3xl sm:text-4xl">近期場次</h2>
+      <span class="text-sm font-semibold border-b-2 border-[var(--ink)] pb-0.5">看全部 128 場 →</span>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-7">
+
+      <!-- Card 1 -->
+      <article class="show-card card-hover brutal-border brutal-shadow-sm bg-[var(--paper)] p-5 flex flex-col" data-city="台北">
+        <div class="flex items-start justify-between mb-3">
+          <span class="brutal-border bg-[var(--pink)] text-xs font-bold px-2.5 py-1">熱賣中</span>
+          <span class="font-display text-sm bg-[var(--yellow)] brutal-border px-2 py-1">09.20 SAT</span>
+        </div>
+        <h3 class="font-display-zh text-2xl mb-1">爛泥少年</h3>
+        <p class="text-sm font-semibold mb-4">失眠系噪音搖滾・首張專輯巡演台北場</p>
+        <div class="mt-auto flex items-center justify-between text-sm font-bold border-t-2 border-[var(--ink)] pt-3">
+          <span>THE WALL 公館</span>
+          <span>NT$ 580</span>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="show-card card-hover brutal-border brutal-shadow-sm bg-[var(--paper)] p-5 flex flex-col" data-city="台中">
+        <div class="flex items-start justify-between mb-3">
+          <span class="brutal-border bg-[var(--purple)] text-xs font-bold px-2.5 py-1">即將完售</span>
+          <span class="font-display text-sm bg-[var(--yellow)] brutal-border px-2 py-1">09.27 SUN</span>
+        </div>
+        <h3 class="font-display-zh text-2xl mb-1">曬鹽計畫</h3>
+        <p class="text-sm font-semibold mb-4">海口氣味的迷幻民謠・不插電限定場</p>
+        <div class="mt-auto flex items-center justify-between text-sm font-bold border-t-2 border-[var(--ink)] pt-3">
+          <span>玖樓沙鹿倉庫</span>
+          <span>NT$ 450</span>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="show-card card-hover brutal-border brutal-shadow-sm bg-[var(--paper)] p-5 flex flex-col" data-city="高雄">
+        <div class="flex items-start justify-between mb-3">
+          <span class="brutal-border bg-[var(--teal)] text-xs font-bold px-2.5 py-1">預售開跑</span>
+          <span class="font-display text-sm bg-[var(--yellow)] brutal-border px-2 py-1">10.04 SAT</span>
+        </div>
+        <h3 class="font-display-zh text-2xl mb-1">鐵皮狂歡</h3>
+        <p class="text-sm font-semibold mb-4">南部龐克三團聯演・港邊倉庫夜</p>
+        <div class="mt-auto flex items-center justify-between text-sm font-bold border-t-2 border-[var(--ink)] pt-3">
+          <span>駁二 P2 倉庫</span>
+          <span>NT$ 500</span>
+        </div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="show-card card-hover brutal-border brutal-shadow-sm bg-[var(--paper)] p-5 flex flex-col" data-city="台北">
+        <div class="flex items-start justify-between mb-3">
+          <span class="brutal-border bg-[var(--pink)] text-xs font-bold px-2.5 py-1">熱賣中</span>
+          <span class="font-display text-sm bg-[var(--yellow)] brutal-border px-2 py-1">10.11 SUN</span>
+        </div>
+        <h3 class="font-display-zh text-2xl mb-1">霓虹便利店</h3>
+        <p class="text-sm font-semibold mb-4">合成器city pop・深夜限定電子場</p>
+        <div class="mt-auto flex items-center justify-between text-sm font-bold border-t-2 border-[var(--ink)] pt-3">
+          <span>Legacy 西門紅樓</span>
+          <span>NT$ 650</span>
+        </div>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="show-card card-hover brutal-border brutal-shadow-sm bg-[var(--paper)] p-5 flex flex-col" data-city="其他">
+        <div class="flex items-start justify-between mb-3">
+          <span class="brutal-border bg-[var(--teal)] text-xs font-bold px-2.5 py-1">預售開跑</span>
+          <span class="font-display text-sm bg-[var(--yellow)] brutal-border px-2 py-1">10.18 SUN</span>
+        </div>
+        <h3 class="font-display-zh text-2xl mb-1">山風與菸</h3>
+        <p class="text-sm font-semibold mb-4">木吉他敘事系創作・山城巡迴首站</p>
+        <div class="mt-auto flex items-center justify-between text-sm font-bold border-t-2 border-[var(--ink)] pt-3">
+          <span>九份小山田咖啡</span>
+          <span>NT$ 400</span>
+        </div>
+      </article>
+
+      <!-- Card 6 -->
+      <article class="show-card card-hover brutal-border brutal-shadow-sm bg-[var(--paper)] p-5 flex flex-col" data-city="台中">
+        <div class="flex items-start justify-between mb-3">
+          <span class="brutal-border bg-[var(--purple)] text-xs font-bold px-2.5 py-1">即將完售</span>
+          <span class="font-display text-sm bg-[var(--yellow)] brutal-border px-2 py-1">10.25 SUN</span>
+        </div>
+        <h3 class="font-display-zh text-2xl mb-1">生鏽的星期五</h3>
+        <p class="text-sm font-semibold mb-4">後龐克廠牌年度大匯演・五團接力</p>
+        <div class="mt-auto flex items-center justify-between text-sm font-bold border-t-2 border-[var(--ink)] pt-3">
+          <span>demo3.0 台中</span>
+          <span>NT$ 700</span>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- 為什麼選我們 -->
+  <section class="max-w-6xl mx-auto px-5 sm:px-8 py-10">
+    <div class="brutal-border brutal-shadow bg-[var(--purple)]/30 p-6 sm:p-10 grid grid-cols-1 sm:grid-cols-3 gap-8">
+      <div>
+        <div class="w-10 h-10 brutal-border bg-[var(--yellow)] mb-3"></div>
+        <h3 class="font-display-zh text-lg mb-2">手續費全台最低</h3>
+        <p class="text-sm font-medium leading-relaxed">不吃樂團的錢，票款隔天直接入帳，沒有神秘扣款。</p>
+      </div>
+      <div>
+        <div class="w-10 h-10 brutal-border bg-[var(--pink)] mb-3"></div>
+        <h3 class="font-display-zh text-lg mb-2">場地方一鍵開賣</h3>
+        <p class="text-sm font-medium leading-relaxed">從 Livehouse 到廢棄倉庫，五分鐘就能上架一場活動。</p>
+      </div>
+      <div>
+        <div class="w-10 h-10 brutal-border bg-[var(--teal)] mb-3"></div>
+        <h3 class="font-display-zh text-lg mb-2">現場才是重點</h3>
+        <p class="text-sm font-medium leading-relaxed">我們相信音樂該被真實聽見，不是被演算法決定。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 跑馬燈 -->
+  <div class="brutal-border border-x-0 bg-[var(--ink)] text-[var(--paper)] py-3 overflow-hidden">
+    <div class="marquee-track font-display-zh text-lg sm:text-xl whitespace-nowrap">
+      <span class="px-6">支持地下音樂・不要只在串流上聽團</span>
+      <span class="px-6 text-[var(--yellow)]">★</span>
+      <span class="px-6">獨立場地才是台灣音樂的根</span>
+      <span class="px-6 text-[var(--pink)]">★</span>
+      <span class="px-6">下班別滑手機・去 live house 站一晚</span>
+      <span class="px-6 text-[var(--teal)]">★</span>
+      <span class="px-6">樂團上架免費・手續費由平台吸收</span>
+      <span class="px-6 text-[var(--purple)]">★</span>
+      <!-- 重複一次以達成無縫捲動 -->
+      <span class="px-6">支持地下音樂・不要只在串流上聽團</span>
+      <span class="px-6 text-[var(--yellow)]">★</span>
+      <span class="px-6">獨立場地才是台灣音樂的根</span>
+      <span class="px-6 text-[var(--pink)]">★</span>
+      <span class="px-6">下班別滑手機・去 live house 站一晚</span>
+      <span class="px-6 text-[var(--teal)]">★</span>
+      <span class="px-6">樂團上架免費・手續費由平台吸收</span>
+      <span class="px-6 text-[var(--purple)]">★</span>
+    </div>
+  </div>
+
+  <!-- 頁尾 -->
+  <footer class="max-w-6xl mx-auto px-5 sm:px-8 py-12">
+    <div class="brutal-border brutal-shadow-sm bg-[var(--yellow)]/60 p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-10">
+      <div>
+        <h3 class="font-display-zh text-2xl mb-1">你的團，也可以被聽見</h3>
+        <p class="text-sm font-semibold">免費上架、免綁約，展演空間與樂團都能申請合作。</p>
+      </div>
+      <a href="#" class="brutal-btn brutal-border brutal-shadow-sm bg-[var(--paper)] font-bold px-6 py-3 text-sm text-center">
+        申請成為合作場地
+      </a>
+    </div>
+
+    <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 border-t-2 border-[var(--ink)] pt-6">
+      <div>
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-7 h-7 brutal-border bg-[var(--yellow)] flex items-center justify-center font-display text-xs rotate-[-4deg]">軋</div>
+          <span class="font-display-zh text-base">軋團 GigJam</span>
+        </div>
+        <p class="text-xs font-medium text-[var(--ink)]/70">陪台灣地下音樂場景，一場一場軋下去。</p>
+      </div>
+      <div class="flex flex-wrap gap-x-6 gap-y-2 text-xs font-bold">
+        <a href="#" class="hover:underline">關於軋團</a>
+        <a href="#" class="hover:underline">場地方合作</a>
+        <a href="#" class="hover:underline">常見問題</a>
+        <a href="#" class="hover:underline">聯絡我們</a>
+      </div>
+    </div>
+    <p class="text-xs font-medium text-[var(--ink)]/50 mt-6">© 2026 軋團 GigJam。獨立音樂展演售票平台，非官方票務代理商。</p>
+  </footer>
+
+<script>
+  (function () {
+    var buttons = document.querySelectorAll('#city-filter .city-btn');
+    var cards = document.querySelectorAll('.show-card');
+    var hint = document.getElementById('city-hint');
+
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        buttons.forEach(function (b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+
+        var city = btn.getAttribute('data-city');
+        hint.textContent = '目前顯示：' + (city === '全部' ? '全部城市的場次' : city + ' 的場次（示意切換，實際場次不會被過濾）');
+
+        cards.forEach(function (card) {
+          if (city === '全部') {
+            card.style.opacity = '1';
+            card.style.outline = 'none';
+          } else if (card.getAttribute('data-city') === city) {
+            card.style.opacity = '1';
+            card.style.outline = '3px solid var(--purple)';
+          } else {
+            card.style.opacity = '0.35';
+            card.style.outline = 'none';
+          }
+        });
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
