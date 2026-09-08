@@ -1,0 +1,468 @@
+<!-- style #31 Real-Time Monitoring -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>電網眼 GridEye｜城市電網即時監控中心</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0f172a;
+    --bg-panel:#131f38;
+    --bg-panel2:#16233f;
+    --border:#233252;
+    --text:#e2e8f0;
+    --text-dim:#8291ad;
+    --cyan:#22d3ee;
+    --amber:#fbbf24;
+    --red:#ef4444;
+  }
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Barlow Semi Condensed','Noto Sans TC',sans-serif;
+    margin:0;
+    min-height:100vh;
+  }
+  .font-ui{font-family:'Barlow Semi Condensed','Noto Sans TC',sans-serif;}
+  .font-cjk{font-family:'Noto Sans TC','Barlow Semi Condensed',sans-serif;}
+  .font-mono{font-family:'JetBrains Mono',monospace;}
+
+  .grid-bg{
+    background-image:
+      linear-gradient(rgba(34,211,238,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(34,211,238,0.05) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .panel{
+    background: linear-gradient(180deg, var(--bg-panel) 0%, var(--bg-panel2) 100%);
+    border:1px solid var(--border);
+    border-radius:12px;
+  }
+
+  @keyframes pulse-dot{
+    0%,100%{ box-shadow:0 0 0 0 currentColor; opacity:1; }
+    50%{ box-shadow:0 0 0 6px transparent; opacity:0.55; }
+  }
+  .status-dot{
+    display:inline-block;
+    width:9px;height:9px;
+    border-radius:50%;
+    animation: pulse-dot 1.6s ease-in-out infinite;
+  }
+  .dot-ok{ background:var(--cyan); color:var(--cyan); }
+  .dot-warn{ background:var(--amber); color:var(--amber); }
+  .dot-danger{ background:var(--red); color:var(--red); }
+
+  @keyframes flicker-glow{
+    0%,100%{ text-shadow:0 0 12px currentColor; }
+    50%{ text-shadow:0 0 20px currentColor; }
+  }
+  .glow-cyan{ color:var(--cyan); animation: flicker-glow 2.4s ease-in-out infinite; }
+
+  @keyframes tick-flash{
+    0%{ background-color: rgba(34,211,238,0.18); }
+    100%{ background-color: transparent; }
+  }
+  .tick-flash{ animation: tick-flash 0.6s ease-out; }
+
+  @keyframes scanline{
+    0%{ transform: translateY(-100%); }
+    100%{ transform: translateY(100%); }
+  }
+  .scan-wrap{ position:relative; overflow:hidden; }
+  .scan-wrap::after{
+    content:"";
+    position:absolute; left:0; right:0; top:0; height:40%;
+    background:linear-gradient(180deg, transparent, rgba(34,211,238,0.06), transparent);
+    animation: scanline 5s linear infinite;
+    pointer-events:none;
+  }
+
+  .trend-up{ color:var(--cyan); }
+  .trend-down{ color:var(--red); }
+
+  table.grideye-table thead th{
+    font-family:'Barlow Semi Condensed',sans-serif;
+    letter-spacing:0.05em;
+    color:var(--text-dim);
+    font-weight:600;
+  }
+  table.grideye-table tbody tr{ border-top:1px solid var(--border); }
+  table.grideye-table tbody tr:hover{ background:rgba(34,211,238,0.04); }
+
+  .badge{
+    display:inline-flex; align-items:center; gap:6px;
+    padding:3px 10px; border-radius:999px;
+    font-size:12px; font-weight:600;
+    border:1px solid currentColor;
+  }
+  .badge-ok{ color:var(--cyan); background:rgba(34,211,238,0.08); }
+  .badge-warn{ color:var(--amber); background:rgba(251,191,36,0.08); }
+  .badge-danger{ color:var(--red); background:rgba(239,68,68,0.08); }
+
+  .log-item{ border-left:3px solid var(--border); }
+  .log-ok{ border-left-color:var(--cyan); }
+  .log-warn{ border-left-color:var(--amber); }
+  .log-danger{ border-left-color:var(--red); }
+
+  ::-webkit-scrollbar{ width:8px; height:8px; }
+  ::-webkit-scrollbar-track{ background:var(--bg-panel); }
+  ::-webkit-scrollbar-thumb{ background:var(--border); border-radius:4px; }
+</style>
+</head>
+<body class="grid-bg">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+  <!-- Header -->
+  <header class="flex flex-wrap items-center justify-between gap-4 mb-6">
+    <div class="flex items-center gap-3">
+      <div class="w-11 h-11 rounded-xl panel flex items-center justify-center">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2">
+          <path d="M13 2 L4 14 h6 l-1 8 9-12h-6z" stroke-linejoin="round" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <h1 class="font-ui text-2xl sm:text-3xl font-extrabold tracking-wide text-white leading-none">GRID<span class="glow-cyan">EYE</span><span class="font-cjk text-lg font-medium text-slate-300 ml-2">電網眼・城市電網即時監控中心</span></h1>
+        <p class="font-cjk text-xs text-slate-500 mt-1">台灣電力調度整合平台 ・ 資料每 2 秒更新一次</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-2 font-cjk text-sm text-slate-400">
+        <span class="status-dot dot-ok"></span>系統連線正常
+      </div>
+      <div id="clock" class="font-mono text-sm text-cyan-300 tabular-nums"></div>
+    </div>
+  </header>
+
+  <!-- KPI Summary -->
+  <section class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+    <div class="panel p-4">
+      <div class="font-cjk text-xs text-slate-400 mb-2">目前總負載</div>
+      <div class="flex items-end justify-between">
+        <span id="kpi-load" class="font-mono text-3xl font-bold text-white tick-flash">8,742</span>
+        <span class="font-mono text-xs text-slate-500 mb-1">MW</span>
+      </div>
+      <div class="flex items-center gap-1 mt-2 text-xs font-mono">
+        <span id="kpi-load-trend" class="trend-up">▲ 0.4%</span>
+        <span class="font-cjk text-slate-500">較上一分鐘</span>
+      </div>
+    </div>
+    <div class="panel p-4">
+      <div class="font-cjk text-xs text-slate-400 mb-2">電壓穩定度</div>
+      <div class="flex items-end justify-between">
+        <span id="kpi-voltage" class="font-mono text-3xl font-bold text-white tick-flash">99.6</span>
+        <span class="font-mono text-xs text-slate-500 mb-1">%</span>
+      </div>
+      <div class="flex items-center gap-1 mt-2 text-xs font-mono">
+        <span id="kpi-voltage-trend" class="trend-up">▲ 0.1%</span>
+        <span class="font-cjk text-slate-500">較上一分鐘</span>
+      </div>
+    </div>
+    <div class="panel p-4">
+      <div class="font-cjk text-xs text-slate-400 mb-2">線上變電站</div>
+      <div class="flex items-end justify-between">
+        <span id="kpi-stations" class="font-mono text-3xl font-bold text-white">46 <span class="text-lg text-slate-500">/ 48</span></span>
+      </div>
+      <div class="flex items-center gap-1 mt-2 text-xs font-mono">
+        <span class="trend-down">▼ 2 站離線</span>
+        <span class="font-cjk text-slate-500">維護中</span>
+      </div>
+    </div>
+    <div class="panel p-4">
+      <div class="font-cjk text-xs text-slate-400 mb-2">目前異常警報</div>
+      <div class="flex items-end justify-between">
+        <span id="kpi-alerts" class="font-mono text-3xl font-bold text-amber-400 tick-flash">3</span>
+        <span class="font-cjk text-xs text-slate-500 mb-1">筆</span>
+      </div>
+      <div class="flex items-center gap-1 mt-2 text-xs font-mono">
+        <span class="trend-up" style="color:var(--amber);">▲ 1</span>
+        <span class="font-cjk text-slate-500">較 10 分鐘前</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
+    <!-- Real-time chart -->
+    <div class="panel p-4 lg:col-span-2 scan-wrap">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="font-ui text-lg font-semibold text-white tracking-wide">即時總負載曲線 <span class="font-cjk text-xs text-slate-500 font-normal">單位：MW</span></h2>
+        <div class="flex items-center gap-3 font-cjk text-xs text-slate-400">
+          <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full inline-block" style="background:var(--cyan);"></span>即時負載</span>
+          <span id="chart-live-val" class="font-mono text-cyan-300">8,742 MW</span>
+        </div>
+      </div>
+      <svg id="chart-svg" viewBox="0 0 600 200" class="w-full h-48">
+        <line x1="0" y1="50" x2="600" y2="50" stroke="#233252" stroke-width="1"/>
+        <line x1="0" y1="100" x2="600" y2="100" stroke="#233252" stroke-width="1"/>
+        <line x1="0" y1="150" x2="600" y2="150" stroke="#233252" stroke-width="1"/>
+        <polyline id="chart-line" fill="none" stroke="#22d3ee" stroke-width="2" points=""/>
+        <polygon id="chart-fill" fill="url(#gridEyeGradient)" opacity="0.35" points=""/>
+        <defs>
+          <linearGradient id="gridEyeGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <circle id="chart-dot" r="4" fill="#22d3ee"/>
+      </svg>
+      <div class="flex justify-between font-mono text-[10px] text-slate-500 mt-1">
+        <span>-60s</span><span>-45s</span><span>-30s</span><span>-15s</span><span>現在</span>
+      </div>
+    </div>
+
+    <!-- Alert log -->
+    <div class="panel p-4">
+      <h2 class="font-ui text-lg font-semibold text-white tracking-wide mb-3">即時警報日誌</h2>
+      <div id="alert-log" class="space-y-2 max-h-64 overflow-y-auto pr-1"></div>
+    </div>
+  </div>
+
+  <!-- Substation table -->
+  <section class="panel p-4">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="font-ui text-lg font-semibold text-white tracking-wide">變電站狀態一覽</h2>
+      <span class="font-cjk text-xs text-slate-500">共 8 站顯示 ・ 每 2 秒同步負載數值</span>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="grideye-table w-full text-sm">
+        <thead>
+          <tr class="text-left">
+            <th class="py-2 pr-4 font-cjk">變電站名稱</th>
+            <th class="py-2 pr-4 font-cjk">所屬地區</th>
+            <th class="py-2 pr-4 text-right font-cjk">目前負載</th>
+            <th class="py-2 pr-4 font-cjk">負載率</th>
+            <th class="py-2 pr-4 font-cjk">狀態</th>
+            <th class="py-2 pr-0 text-right font-cjk">最後更新</th>
+          </tr>
+        </thead>
+        <tbody id="station-table-body" class="font-cjk">
+          <!-- rows injected by JS -->
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer class="text-center font-cjk text-xs text-slate-600 mt-6">
+    GridEye 電網眼監控平台 ・ 資料僅供內部調度示意使用 ・ 頁面每 2 秒自動刷新一次數據
+  </footer>
+</div>
+
+<script>
+(function(){
+  // ---------- 時鐘 ----------
+  function pad(n){ return n.toString().padStart(2,'0'); }
+  function updateClock(){
+    const now = new Date();
+    const el = document.getElementById('clock');
+    el.textContent = now.getFullYear()+'/'+pad(now.getMonth()+1)+'/'+pad(now.getDate())+' '+pad(now.getHours())+':'+pad(now.getMinutes())+':'+pad(now.getSeconds());
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  // ---------- KPI 即時跳動 ----------
+  let load = 8742;
+  let voltage = 99.6;
+  let alerts = 3;
+
+  function flash(el){
+    el.classList.remove('tick-flash');
+    void el.offsetWidth; // 觸發重新播放動畫
+    el.classList.add('tick-flash');
+  }
+
+  function updateKPI(){
+    const loadDelta = Math.round((Math.random()-0.45)*60);
+    load = Math.max(7800, Math.min(9600, load + loadDelta));
+    const loadEl = document.getElementById('kpi-load');
+    loadEl.textContent = load.toLocaleString('zh-Hant-TW');
+    flash(loadEl);
+
+    const loadTrend = document.getElementById('kpi-load-trend');
+    const loadPct = (loadDelta/load*100).toFixed(2);
+    if(loadDelta >= 0){
+      loadTrend.className = 'trend-up';
+      loadTrend.textContent = '▲ ' + Math.abs(loadPct) + '%';
+    } else {
+      loadTrend.className = 'trend-down';
+      loadTrend.textContent = '▼ ' + Math.abs(loadPct) + '%';
+    }
+
+    const voltDelta = (Math.random()-0.5)*0.3;
+    voltage = Math.max(96.5, Math.min(100, voltage + voltDelta));
+    const voltEl = document.getElementById('kpi-voltage');
+    voltEl.textContent = voltage.toFixed(1);
+    flash(voltEl);
+
+    const voltTrend = document.getElementById('kpi-voltage-trend');
+    if(voltDelta >= 0){
+      voltTrend.className = 'trend-up';
+      voltTrend.textContent = '▲ ' + Math.abs(voltDelta).toFixed(2) + '%';
+    } else {
+      voltTrend.className = 'trend-down';
+      voltTrend.textContent = '▼ ' + Math.abs(voltDelta).toFixed(2) + '%';
+    }
+
+    document.getElementById('chart-live-val').textContent = load.toLocaleString('zh-Hant-TW') + ' MW';
+  }
+
+  // ---------- 折線圖 ----------
+  const chartData = [];
+  for(let i=0;i<30;i++){ chartData.push(load + Math.round((Math.random()-0.5)*100)); }
+
+  function renderChart(){
+    const w = 600, h = 200, pad = 10;
+    const min = Math.min(...chartData) - 100;
+    const max = Math.max(...chartData) + 100;
+    const range = Math.max(max-min, 1);
+    const step = (w-pad*2) / (chartData.length-1);
+
+    const points = chartData.map((v,i)=>{
+      const x = pad + i*step;
+      const y = h - pad - ((v-min)/range)*(h-pad*2);
+      return x.toFixed(1)+','+y.toFixed(1);
+    });
+
+    document.getElementById('chart-line').setAttribute('points', points.join(' '));
+
+    const fillPoints = points.slice();
+    fillPoints.push((pad+(chartData.length-1)*step).toFixed(1)+','+(h-pad));
+    fillPoints.push(pad+','+(h-pad));
+    document.getElementById('chart-fill').setAttribute('points', fillPoints.join(' '));
+
+    const last = points[points.length-1].split(',');
+    const dot = document.getElementById('chart-dot');
+    dot.setAttribute('cx', last[0]);
+    dot.setAttribute('cy', last[1]);
+  }
+  renderChart();
+
+  function pushChartValue(){
+    chartData.push(load);
+    if(chartData.length > 30) chartData.shift();
+    renderChart();
+  }
+
+  // ---------- 變電站資料 ----------
+  const stations = [
+    { name:'北區一號變電站', area:'台北市士林區', base:82, status:'ok' },
+    { name:'內湖二號站',    area:'台北市內湖區', base:91, status:'warn' },
+    { name:'板橋三號變電站', area:'新北市板橋區', base:64, status:'ok' },
+    { name:'桃園科技園區站', area:'桃園市中壢區', base:97, status:'danger' },
+    { name:'台中港區變電站', area:'台中市梧棲區', base:73, status:'ok' },
+    { name:'台南永康站',    area:'台南市永康區', base:58, status:'ok' },
+    { name:'高雄臨海一號站', area:'高雄市小港區', base:88, status:'warn' },
+    { name:'花蓮吉安變電站', area:'花蓮縣吉安鄉', base:47, status:'ok' },
+  ];
+
+  function statusMeta(status){
+    if(status === 'ok') return { dot:'dot-ok', badge:'badge-ok', label:'正常' };
+    if(status === 'warn') return { dot:'dot-warn', badge:'badge-warn', label:'警告' };
+    return { dot:'dot-danger', badge:'badge-danger', label:'異常' };
+  }
+
+  function renderStations(){
+    const tbody = document.getElementById('station-table-body');
+    tbody.innerHTML = stations.map(s=>{
+      const meta = statusMeta(s.status);
+      const now = new Date();
+      const timeStr = pad(now.getHours())+':'+pad(now.getMinutes())+':'+pad(now.getSeconds());
+      return `<tr>
+        <td class="py-2.5 pr-4 text-slate-100">${s.name}</td>
+        <td class="py-2.5 pr-4 text-slate-400">${s.area}</td>
+        <td class="py-2.5 pr-4 text-right font-mono text-slate-100">${s.load} MW</td>
+        <td class="py-2.5 pr-4">
+          <div class="flex items-center gap-2">
+            <div class="w-20 h-1.5 rounded-full bg-slate-700 overflow-hidden">
+              <div class="h-full rounded-full" style="width:${s.pct}%; background:${s.status==='danger'?'var(--red)':s.status==='warn'?'var(--amber)':'var(--cyan)'}"></div>
+            </div>
+            <span class="font-mono text-xs text-slate-400 w-10 text-right">${s.pct}%</span>
+          </div>
+        </td>
+        <td class="py-2.5 pr-4">
+          <span class="badge ${meta.badge}"><span class="status-dot ${meta.dot}"></span>${meta.label}</span>
+        </td>
+        <td class="py-2.5 pr-0 text-right font-mono text-xs text-slate-500">${timeStr}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  function updateStations(){
+    stations.forEach(s=>{
+      const jitter = (Math.random()-0.5)*6;
+      let pct = Math.max(20, Math.min(102, s.base + jitter));
+      s.pct = pct.toFixed(1);
+      s.load = Math.round(pct * 8.4);
+      if(pct >= 95) s.status = 'danger';
+      else if(pct >= 85) s.status = 'warn';
+      else s.status = 'ok';
+    });
+    renderStations();
+  }
+
+  // ---------- 警報日誌 ----------
+  const alertPool = [
+    { level:'danger', text:'桃園科技園區站負載超過額定容量 95%，請立即分流。' },
+    { level:'warn',   text:'內湖二號站電壓波動超過安全範圍，建議派員檢查。' },
+    { level:'warn',   text:'高雄臨海一號站負載持續攀升，已接近警戒值。' },
+    { level:'ok',     text:'板橋三號變電站完成例行維護，狀態已恢復正常。' },
+    { level:'danger', text:'偵測到桃園科技園區站短暫過載，已啟動自動保護機制。' },
+    { level:'warn',   text:'台中港區變電站頻率略有偏移，持續觀察中。' },
+    { level:'ok',     text:'北區一號變電站負載回穩，警報已自動解除。' },
+  ];
+
+  const logList = [];
+  function pushAlert(){
+    const pick = alertPool[Math.floor(Math.random()*alertPool.length)];
+    const now = new Date();
+    const timeStr = pad(now.getHours())+':'+pad(now.getMinutes())+':'+pad(now.getSeconds());
+    logList.unshift({ time: timeStr, level: pick.level, text: pick.text });
+    if(logList.length > 8) logList.pop();
+    renderLog();
+  }
+
+  function renderLog(){
+    const wrap = document.getElementById('alert-log');
+    wrap.innerHTML = logList.map(item=>{
+      const cls = item.level==='danger' ? 'log-danger' : item.level==='warn' ? 'log-warn' : 'log-ok';
+      const dotCls = item.level==='danger' ? 'dot-danger' : item.level==='warn' ? 'dot-warn' : 'dot-ok';
+      return `<div class="log-item ${cls} pl-3 py-1.5">
+        <div class="flex items-center gap-2 mb-0.5">
+          <span class="status-dot ${dotCls}"></span>
+          <span class="font-mono text-[11px] text-slate-500">${item.time}</span>
+        </div>
+        <div class="font-cjk text-xs text-slate-300 leading-relaxed">${item.text}</div>
+      </div>`;
+    }).join('');
+  }
+
+  // ---------- 初始化 ----------
+  updateStations();
+  pushAlert();
+  pushAlert();
+  document.getElementById('kpi-alerts').textContent = alerts;
+
+  // ---------- 每 2 秒即時更新 ----------
+  setInterval(function(){
+    updateKPI();
+    pushChartValue();
+    updateStations();
+
+    if(Math.random() < 0.35){
+      pushAlert();
+      alerts = Math.min(9, alerts + (Math.random()<0.5?1:0));
+      const alertEl = document.getElementById('kpi-alerts');
+      alertEl.textContent = alerts;
+      flash(alertEl);
+    }
+  }, 2000);
+})();
+</script>
+</body>
+</html>
