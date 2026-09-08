@@ -1,0 +1,455 @@
+<!-- style #10 Aurora UI -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>極光聲域 AuroraSound</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Varela+Round&family=Zen+Maru+Gothic:wght@400;500;700;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --aurora-blue:#0080ff;
+    --aurora-purple:#8b00ff;
+    --aurora-pink:#ff1493;
+    --aurora-cyan:#00ffff;
+    --ink:#f4f1ff;
+    --ink-soft:#d8cdfa;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{
+    margin:0;
+    padding:0;
+    background:#0a0716;
+    color:var(--ink);
+    overflow-x:hidden;
+  }
+
+  body{
+    font-family:'Varela Round','Noto Sans TC',sans-serif;
+  }
+
+  .font-display{
+    font-family:'Fredoka','Zen Maru Gothic','Noto Sans TC',sans-serif;
+  }
+
+  .font-body-zh{
+    font-family:'Varela Round','Noto Sans TC',sans-serif;
+  }
+
+  /* ------ 極光背景層 ------ */
+  .aurora-bg{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse 80% 60% at 15% 20%, rgba(0,128,255,0.55), transparent 60%),
+      radial-gradient(ellipse 70% 60% at 85% 15%, rgba(139,0,255,0.5), transparent 60%),
+      radial-gradient(ellipse 75% 65% at 80% 85%, rgba(255,20,147,0.45), transparent 60%),
+      radial-gradient(ellipse 70% 55% at 10% 85%, rgba(0,255,255,0.35), transparent 60%),
+      linear-gradient(160deg,#0a0716 0%, #100a26 50%, #0a0716 100%);
+    animation:auroraShift 22s ease-in-out infinite alternate;
+  }
+
+  @keyframes auroraShift{
+    0%{ filter:hue-rotate(0deg) saturate(1); background-position:0% 0%; }
+    50%{ filter:hue-rotate(15deg) saturate(1.15); }
+    100%{ filter:hue-rotate(-10deg) saturate(1.05); background-position:100% 100%; }
+  }
+
+  .glow-orb{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(90px);
+    opacity:0.55;
+    animation:floatOrb 16s ease-in-out infinite;
+  }
+  .orb-1{ width:420px; height:420px; top:-120px; left:-100px; background:radial-gradient(circle,var(--aurora-cyan),transparent 70%); animation-duration:19s; }
+  .orb-2{ width:480px; height:480px; top:20%; right:-140px; background:radial-gradient(circle,var(--aurora-purple),transparent 70%); animation-duration:23s; animation-delay:-4s; }
+  .orb-3{ width:360px; height:360px; bottom:-100px; left:20%; background:radial-gradient(circle,var(--aurora-pink),transparent 70%); animation-duration:17s; animation-delay:-8s; }
+  .orb-4{ width:300px; height:300px; bottom:10%; right:10%; background:radial-gradient(circle,var(--aurora-blue),transparent 70%); animation-duration:21s; animation-delay:-2s; }
+
+  @keyframes floatOrb{
+    0%,100%{ transform:translate(0,0) scale(1); }
+    33%{ transform:translate(30px,-40px) scale(1.08); }
+    66%{ transform:translate(-25px,25px) scale(0.95); }
+  }
+
+  .noise-veil{
+    position:fixed;
+    inset:0;
+    z-index:1;
+    pointer-events:none;
+    background:radial-gradient(circle at 50% 40%, transparent 0%, rgba(6,4,16,0.35) 100%);
+  }
+
+  main{
+    position:relative;
+    z-index:2;
+  }
+
+  /* ------ 毛玻璃卡片 ------ */
+  .glass{
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(20px) saturate(140%);
+    -webkit-backdrop-filter:blur(20px) saturate(140%);
+    border:1px solid rgba(255,255,255,0.18);
+    box-shadow:0 8px 32px rgba(10,5,30,0.35), inset 0 1px 0 rgba(255,255,255,0.15);
+  }
+
+  .glass-strong{
+    background:rgba(255,255,255,0.12);
+    backdrop-filter:blur(28px) saturate(150%);
+    -webkit-backdrop-filter:blur(28px) saturate(150%);
+    border:1px solid rgba(255,255,255,0.25);
+  }
+
+  .sound-card{
+    transition:transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease, border-color .4s ease;
+  }
+  .sound-card:hover{
+    transform:translateY(-8px) scale(1.015);
+    border-color:rgba(255,255,255,0.4);
+    box-shadow:0 20px 50px rgba(139,0,255,0.35), inset 0 1px 0 rgba(255,255,255,0.25);
+  }
+
+  .icon-orb{
+    width:64px; height:64px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:28px;
+    background:radial-gradient(circle at 35% 30%, rgba(255,255,255,0.35), rgba(255,255,255,0.05) 60%);
+    box-shadow:0 0 24px rgba(0,255,255,0.35), inset 0 0 12px rgba(255,255,255,0.25);
+  }
+
+  .aurora-text{
+    background:linear-gradient(90deg,var(--aurora-cyan),var(--aurora-blue),var(--aurora-purple),var(--aurora-pink));
+    background-size:300% auto;
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    animation:textFlow 8s linear infinite;
+  }
+  @keyframes textFlow{
+    0%{ background-position:0% 50%; }
+    100%{ background-position:300% 50%; }
+  }
+
+  .cta-btn{
+    background:linear-gradient(90deg,var(--aurora-blue),var(--aurora-purple),var(--aurora-pink));
+    background-size:220% auto;
+    transition:background-position .6s ease, transform .3s ease, box-shadow .3s ease;
+    box-shadow:0 10px 30px rgba(139,0,255,0.45);
+  }
+  .cta-btn:hover{
+    background-position:100% 0;
+    transform:translateY(-3px);
+    box-shadow:0 14px 36px rgba(255,20,147,0.5);
+  }
+
+  /* ------ 播放器 ------ */
+  .play-btn{
+    width:88px; height:88px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background:radial-gradient(circle at 35% 30%, rgba(255,255,255,0.4), rgba(255,255,255,0.05) 70%);
+    border:1px solid rgba(255,255,255,0.35);
+    box-shadow:0 0 0 0 rgba(0,255,255,0.5);
+    cursor:pointer;
+    transition:transform .25s ease, box-shadow .25s ease;
+    position:relative;
+  }
+  .play-btn:active{ transform:scale(0.94); }
+  .play-btn.is-playing{
+    animation:pulseRing 2.2s ease-out infinite;
+  }
+  @keyframes pulseRing{
+    0%{ box-shadow:0 0 0 0 rgba(0,255,255,0.45); }
+    70%{ box-shadow:0 0 0 22px rgba(0,255,255,0); }
+    100%{ box-shadow:0 0 0 0 rgba(0,255,255,0); }
+  }
+
+  .wave-bars{
+    display:flex;
+    align-items:flex-end;
+    gap:4px;
+    height:26px;
+  }
+  .wave-bars span{
+    width:4px;
+    border-radius:2px;
+    background:linear-gradient(180deg,var(--aurora-cyan),var(--aurora-purple));
+    height:6px;
+    transition:height .2s ease;
+  }
+  .is-playing .wave-bars span{
+    animation:waveMove 1s ease-in-out infinite;
+  }
+  .wave-bars span:nth-child(1){ animation-delay:.0s; }
+  .wave-bars span:nth-child(2){ animation-delay:.15s; }
+  .wave-bars span:nth-child(3){ animation-delay:.3s; }
+  .wave-bars span:nth-child(4){ animation-delay:.45s; }
+  .wave-bars span:nth-child(5){ animation-delay:.6s; }
+  @keyframes waveMove{
+    0%,100%{ height:6px; }
+    50%{ height:24px; }
+  }
+
+  input[type="range"].aurora-slider{
+    -webkit-appearance:none;
+    appearance:none;
+    width:100%;
+    height:8px;
+    border-radius:999px;
+    background:linear-gradient(90deg,var(--aurora-blue),var(--aurora-purple),var(--aurora-pink),var(--aurora-cyan));
+    outline:none;
+  }
+  input[type="range"].aurora-slider::-webkit-slider-thumb{
+    -webkit-appearance:none;
+    width:22px; height:22px;
+    border-radius:50%;
+    background:#fff;
+    border:3px solid var(--aurora-purple);
+    box-shadow:0 0 12px rgba(0,255,255,0.7);
+    cursor:pointer;
+  }
+  input[type="range"].aurora-slider::-moz-range-thumb{
+    width:22px; height:22px;
+    border-radius:50%;
+    background:#fff;
+    border:3px solid var(--aurora-purple);
+    box-shadow:0 0 12px rgba(0,255,255,0.7);
+    cursor:pointer;
+  }
+
+  .badge-pill{
+    background:rgba(255,255,255,0.12);
+    border:1px solid rgba(255,255,255,0.25);
+  }
+
+  ::selection{
+    background:var(--aurora-purple);
+    color:#fff;
+  }
+</style>
+</head>
+<body>
+
+<div class="aurora-bg">
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+  <div class="glow-orb orb-3"></div>
+  <div class="glow-orb orb-4"></div>
+</div>
+<div class="noise-veil"></div>
+
+<main class="min-h-screen w-full">
+
+  <!-- 導覽列 -->
+  <header class="max-w-6xl mx-auto px-6 pt-8 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="icon-orb">🌌</div>
+      <span class="font-display text-xl md:text-2xl font-semibold tracking-wide">AuroraSound</span>
+    </div>
+    <nav class="hidden md:flex items-center gap-8 font-body-zh text-sm text-[var(--ink-soft)]">
+      <a href="#sounds" class="hover:text-white transition-colors">聲景庫</a>
+      <a href="#player" class="hover:text-white transition-colors">立即聆聽</a>
+      <a href="#footer" class="hover:text-white transition-colors">關於我們</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="max-w-6xl mx-auto px-6 pt-16 pb-20 text-center flex flex-col items-center">
+    <span class="badge-pill inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-body-zh text-[var(--ink-soft)] mb-6">
+      <span class="w-1.5 h-1.5 rounded-full bg-[var(--aurora-cyan)]"></span>
+      沉浸式聲景 · 專注與放鬆的極光體驗
+    </span>
+    <h1 class="font-display text-4xl md:text-6xl font-bold leading-tight mb-6">
+      極光聲域<br class="md:hidden">
+      <span class="aurora-text">AuroraSound</span>
+    </h1>
+    <p class="font-body-zh text-base md:text-lg text-[var(--ink-soft)] max-w-xl mb-10">
+      讓思緒隨極光流動，用聲音與光暈編織出屬於你的專注結界，一鍵切換放鬆、深眠與心流時刻。
+    </p>
+    <div class="flex flex-col sm:flex-row items-center gap-4">
+      <a href="#player" class="cta-btn font-display text-white font-semibold px-9 py-3.5 rounded-full text-base">
+        立即體驗
+      </a>
+      <a href="#sounds" class="font-body-zh text-[var(--ink-soft)] text-sm underline underline-offset-4 decoration-white/30 hover:text-white transition-colors">
+        先看看有哪些聲景 ↓
+      </a>
+    </div>
+  </section>
+
+  <!-- 聲景分類卡片 -->
+  <section id="sounds" class="max-w-6xl mx-auto px-6 pb-20">
+    <div class="text-center mb-10">
+      <h2 class="font-display text-2xl md:text-3xl font-semibold mb-3">四種極光聲景，陪你走過一天</h2>
+      <p class="font-body-zh text-sm md:text-base text-[var(--ink-soft)]">依照當下的心情與需求，挑選最適合的聲音光暈</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <!-- 卡片 1 -->
+      <div class="glass sound-card rounded-3xl p-6 flex flex-col gap-4">
+        <div class="icon-orb" style="background:radial-gradient(circle at 35% 30%, rgba(0,255,255,0.4), rgba(255,255,255,0.05) 60%);">🌧️</div>
+        <h3 class="font-display text-lg font-semibold">雨林呢喃</h3>
+        <p class="font-body-zh text-sm text-[var(--ink-soft)] leading-relaxed flex-1">
+          細雨滑過闊葉、遠方雷聲低鳴，帶你走進潮濕溫柔的雨林深處，放鬆緊繃的肩頸與思緒。
+        </p>
+        <div class="flex items-center justify-between pt-2 border-t border-white/10">
+          <span class="text-xs font-body-zh text-[var(--ink-soft)]">45 分鐘循環</span>
+          <span class="text-xs font-body-zh px-2 py-1 rounded-full badge-pill">放鬆</span>
+        </div>
+      </div>
+
+      <!-- 卡片 2 -->
+      <div class="glass sound-card rounded-3xl p-6 flex flex-col gap-4">
+        <div class="icon-orb" style="background:radial-gradient(circle at 35% 30%, rgba(0,128,255,0.4), rgba(255,255,255,0.05) 60%);">🌊</div>
+        <h3 class="font-display text-lg font-semibold">深海律動</h3>
+        <p class="font-body-zh text-sm text-[var(--ink-soft)] leading-relaxed flex-1">
+          低頻脈動如潮汐緩緩起伏，模擬深海中的靜謐壓力感，幫助紛亂的心緒慢慢沉澱下來。
+        </p>
+        <div class="flex items-center justify-between pt-2 border-t border-white/10">
+          <span class="text-xs font-body-zh text-[var(--ink-soft)]">60 分鐘循環</span>
+          <span class="text-xs font-body-zh px-2 py-1 rounded-full badge-pill">舒壓</span>
+        </div>
+      </div>
+
+      <!-- 卡片 3 -->
+      <div class="glass sound-card rounded-3xl p-6 flex flex-col gap-4">
+        <div class="icon-orb" style="background:radial-gradient(circle at 35% 30%, rgba(139,0,255,0.4), rgba(255,255,255,0.05) 60%);">⚪</div>
+        <h3 class="font-display text-lg font-semibold">專注白噪音</h3>
+        <p class="font-body-zh text-sm text-[var(--ink-soft)] leading-relaxed flex-1">
+          均勻綿密的白噪音，遮蔽環境雜音與突發干擾，在辦公室或咖啡廳都能打造屬於自己的沉浸工作圈。
+        </p>
+        <div class="flex items-center justify-between pt-2 border-t border-white/10">
+          <span class="text-xs font-body-zh text-[var(--ink-soft)]">不限時長</span>
+          <span class="text-xs font-body-zh px-2 py-1 rounded-full badge-pill">專注</span>
+        </div>
+      </div>
+
+      <!-- 卡片 4 -->
+      <div class="glass sound-card rounded-3xl p-6 flex flex-col gap-4">
+        <div class="icon-orb" style="background:radial-gradient(circle at 35% 30%, rgba(255,20,147,0.4), rgba(255,255,255,0.05) 60%);">🌙</div>
+        <h3 class="font-display text-lg font-semibold">深眠雙耳節拍</h3>
+        <p class="font-body-zh text-sm text-[var(--ink-soft)] leading-relaxed flex-1">
+          運用雙耳節拍技術，左右耳細微的頻率差引導腦波緩緩下降，陪伴你從淺眠走向真正的深層休息。
+        </p>
+        <div class="flex items-center justify-between pt-2 border-t border-white/10">
+          <span class="text-xs font-body-zh text-[var(--ink-soft)]">90 分鐘循環</span>
+          <span class="text-xs font-body-zh px-2 py-1 rounded-full badge-pill">助眠</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 播放器 -->
+  <section id="player" class="max-w-3xl mx-auto px-6 pb-24">
+    <div class="glass-strong rounded-[2rem] p-8 md:p-10 flex flex-col items-center gap-8 text-center">
+      <div>
+        <p class="font-body-zh text-xs text-[var(--ink-soft)] mb-2 tracking-widest">NOW PLAYING</p>
+        <h3 id="trackName" class="font-display text-2xl font-semibold">雨林呢喃</h3>
+        <p class="font-body-zh text-sm text-[var(--ink-soft)] mt-1" id="trackStatus">點按下方按鈕，開始你的極光聆聽時光</p>
+      </div>
+
+      <button id="playBtn" class="play-btn" aria-label="播放或暫停">
+        <span id="playIcon" class="text-3xl">▶</span>
+      </button>
+
+      <div class="wave-bars" id="waveBars" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <div class="w-full flex flex-col gap-3">
+        <div class="flex items-center justify-between font-body-zh text-xs text-[var(--ink-soft)]">
+          <span>漸強音量</span>
+          <span id="volumeValue">60%</span>
+        </div>
+        <input type="range" min="0" max="100" value="60" class="aurora-slider" id="volumeSlider">
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-3 pt-2">
+        <button type="button" class="mood-pick badge-pill font-body-zh text-xs px-4 py-2 rounded-full hover:bg-white/20 transition-colors" data-name="雨林呢喃">🌧️ 雨林呢喃</button>
+        <button type="button" class="mood-pick badge-pill font-body-zh text-xs px-4 py-2 rounded-full hover:bg-white/20 transition-colors" data-name="深海律動">🌊 深海律動</button>
+        <button type="button" class="mood-pick badge-pill font-body-zh text-xs px-4 py-2 rounded-full hover:bg-white/20 transition-colors" data-name="專注白噪音">⚪ 專注白噪音</button>
+        <button type="button" class="mood-pick badge-pill font-body-zh text-xs px-4 py-2 rounded-full hover:bg-white/20 transition-colors" data-name="深眠雙耳節拍">🌙 深眠雙耳節拍</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 頁尾 -->
+  <footer id="footer" class="border-t border-white/10">
+    <div class="max-w-6xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="icon-orb" style="width:44px;height:44px;font-size:20px;">🌌</div>
+        <div class="text-left">
+          <p class="font-display text-sm font-semibold">極光聲域 AuroraSound</p>
+          <p class="font-body-zh text-xs text-[var(--ink-soft)]">陪你找回專注與放鬆的節奏</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-6 font-body-zh text-xs text-[var(--ink-soft)]">
+        <a href="#" class="hover:text-white transition-colors">隱私權政策</a>
+        <a href="#" class="hover:text-white transition-colors">服務條款</a>
+        <a href="#" class="hover:text-white transition-colors">聯絡我們</a>
+      </div>
+    </div>
+    <p class="text-center font-body-zh text-xs text-[var(--ink-soft)] pb-8">© 2026 AuroraSound 極光聲域．版權所有</p>
+  </footer>
+
+</main>
+
+<script>
+  (function(){
+    var playBtn = document.getElementById('playBtn');
+    var playIcon = document.getElementById('playIcon');
+    var trackStatus = document.getElementById('trackStatus');
+    var trackName = document.getElementById('trackName');
+    var volumeSlider = document.getElementById('volumeSlider');
+    var volumeValue = document.getElementById('volumeValue');
+    var moodBtns = document.querySelectorAll('.mood-pick');
+    var isPlaying = false;
+
+    function setPlayingState(playing){
+      isPlaying = playing;
+      if(playing){
+        playBtn.classList.add('is-playing');
+        playIcon.textContent = '❚❚';
+        trackStatus.textContent = '正在播放「' + trackName.textContent + '」，閉上眼睛，讓極光陪你呼吸';
+      }else{
+        playBtn.classList.remove('is-playing');
+        playIcon.textContent = '▶';
+        trackStatus.textContent = '已暫停，準備好時再按一次繼續聆聽';
+      }
+    }
+
+    playBtn.addEventListener('click', function(){
+      setPlayingState(!isPlaying);
+    });
+
+    volumeSlider.addEventListener('input', function(){
+      volumeValue.textContent = volumeSlider.value + '%';
+    });
+
+    moodBtns.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        trackName.textContent = btn.getAttribute('data-name');
+        if(isPlaying){
+          trackStatus.textContent = '正在播放「' + trackName.textContent + '」，閉上眼睛，讓極光陪你呼吸';
+        }else{
+          trackStatus.textContent = '已選擇「' + trackName.textContent + '」，按下播放鍵開始聆聽';
+          setPlayingState(true);
+        }
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>

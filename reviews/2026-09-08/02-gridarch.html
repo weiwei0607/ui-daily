@@ -1,0 +1,336 @@
+<!-- style #50 Swiss Modernism 2.0 -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>格律建築師事務所 GRID Architecture Office</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Noto+Serif+TC:wght@400;500;600;700;900&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --ink:#111111;
+    --paper:#f5f1e8;
+    --red:#d92b2b;
+  }
+  *{box-sizing:border-box;}
+  html,body{background:var(--paper); color:var(--ink); margin:0; padding:0;}
+  body{
+    font-family:'Work Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .serif-en{ font-family:'Frank Ruhl Libre', 'Noto Serif TC', serif; }
+  .serif-tc{ font-family:'Noto Serif TC', 'Frank Ruhl Libre', serif; }
+  .hairline{ border-color: var(--ink); }
+  .grid-container{
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  @media(min-width:768px){
+    .grid-container{ padding-left: 3rem; padding-right: 3rem; }
+  }
+  .num-tag{
+    font-family:'Frank Ruhl Libre', serif;
+    font-style:italic;
+  }
+  .redline{ background:var(--red); }
+  .tick{
+    position:relative;
+  }
+  .tick::before{
+    content:"";
+    position:absolute;
+    left:0; top:0.55em;
+    width:0.5rem; height:1px;
+    background:var(--ink);
+  }
+  ::selection{ background:var(--red); color:var(--paper); }
+  a{ color:inherit; }
+  .work-card{
+    transition: transform .35s ease;
+  }
+  .work-card:hover .work-shape{ transform: translate(4px,-4px); }
+  .work-shape{ transition: transform .35s ease; }
+</style>
+</head>
+<body class="antialiased">
+
+  <!-- ===== Top Bar ===== -->
+  <header class="grid-container border-b hairline py-5 flex items-center justify-between">
+    <div class="flex items-baseline gap-3">
+      <span class="serif-en text-lg md:text-xl font-semibold tracking-tight">GRID</span>
+      <span class="serif-tc text-lg md:text-xl font-semibold">格律建築師事務所</span>
+    </div>
+    <nav class="hidden md:flex items-center gap-8 text-xs tracking-[0.15em] uppercase">
+      <a href="#philosophy" class="hover:text-[var(--red)] transition-colors">設計理念</a>
+      <a href="#works" class="hover:text-[var(--red)] transition-colors">代表作品</a>
+      <a href="#contact" class="hover:text-[var(--red)] transition-colors">聯絡我們</a>
+    </nav>
+    <span class="text-xs tracking-[0.15em] uppercase">EST. 2009 · 台北</span>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="grid-container pt-20 pb-24 md:pt-32 md:pb-36">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
+      <div class="md:col-span-1 hidden md:flex flex-col items-start">
+        <span class="text-xs tracking-[0.2em] uppercase [writing-mode:vertical-rl] rotate-180">建築 × 秩序 × 比例</span>
+      </div>
+      <div class="md:col-span-11">
+        <p class="text-xs md:text-sm tracking-[0.25em] uppercase mb-6 flex items-center gap-3">
+          <span class="inline-block w-8 h-[1px] bg-[var(--ink)]"></span>
+          格律建築師事務所 · Since 2009
+        </p>
+        <h1 class="serif-tc font-black leading-[1.05] text-[13vw] md:text-[6.2vw] lg:text-[86px] tracking-tight mb-2">
+          在秩序之中，<br class="hidden md:block">留白才有重量。
+        </h1>
+        <p class="serif-en italic text-2xl md:text-4xl mt-6 mb-10 text-[var(--red)] tracking-tight">
+          Order gives weight to what is left empty.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 mt-14">
+          <div class="md:col-span-5 md:col-start-2">
+            <p class="text-base md:text-lg leading-relaxed max-w-md">
+              我們相信，好的建築不是加法，而是節制的減法。格律成立於二〇〇九年，長期專注於機構建築、集合住宅與公共文化空間，以嚴謹的模矩系統與比例邏輯，回應台灣的地理紋理與生活節奏。
+            </p>
+          </div>
+          <div class="md:col-span-4 md:col-start-8 flex flex-col justify-end">
+            <div class="grid grid-cols-3 gap-4 border-t hairline pt-4">
+              <div>
+                <p class="serif-en text-3xl font-bold">17</p>
+                <p class="text-[11px] tracking-[0.15em] uppercase mt-1">年執業</p>
+              </div>
+              <div>
+                <p class="serif-en text-3xl font-bold">62</p>
+                <p class="text-[11px] tracking-[0.15em] uppercase mt-1">完工案件</p>
+              </div>
+              <div>
+                <p class="serif-en text-3xl font-bold">9</p>
+                <p class="text-[11px] tracking-[0.15em] uppercase mt-1">設計獎項</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="grid-container"><div class="h-[3px] bg-[var(--ink)]"></div></div>
+
+  <!-- ===== 設計理念 ===== -->
+  <section id="philosophy" class="grid-container py-20 md:py-28">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-16">
+      <div class="md:col-span-4">
+        <p class="text-xs tracking-[0.25em] uppercase mb-3 text-[var(--red)]">Philosophy</p>
+        <h2 class="serif-tc text-4xl md:text-5xl font-bold tracking-tight">設計理念</h2>
+      </div>
+      <div class="md:col-span-6 md:col-start-7 flex items-end">
+        <p class="text-sm md:text-base leading-relaxed">
+          三項原則貫穿格律每一個提案：不追逐風格的表面語彙，而回到結構、光線與使用者行為的根本問題上，建立可被驗證、可被複製的設計方法。
+        </p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 border-t border-l hairline">
+      <div class="border-r border-b hairline p-8 md:p-10 min-h-[280px] flex flex-col justify-between">
+        <div class="flex items-start justify-between">
+          <span class="num-tag serif-en text-5xl md:text-6xl font-medium">01</span>
+        </div>
+        <div>
+          <h3 class="serif-tc text-xl md:text-2xl font-bold mb-3 mt-10">模矩先於造型</h3>
+          <p class="text-sm leading-relaxed">
+            每一個案子都從一套自訂的模矩網格出發，柱位、開窗、動線皆依此推導，讓造型成為邏輯的結果，而非任意的裝飾。
+          </p>
+        </div>
+      </div>
+      <div class="border-r border-b hairline p-8 md:p-10 min-h-[280px] flex flex-col justify-between">
+        <div class="flex items-start justify-between">
+          <span class="num-tag serif-en text-5xl md:text-6xl font-medium">02</span>
+        </div>
+        <div>
+          <h3 class="serif-tc text-xl md:text-2xl font-bold mb-3 mt-10">留白是一種材料</h3>
+          <p class="text-sm leading-relaxed">
+            空地、天井、走廊的餘裕不是浪費，而是被刻意配置的資源，用以調節光線、聲音與人在建築中移動的呼吸感。
+          </p>
+        </div>
+      </div>
+      <div class="border-r border-b hairline p-8 md:p-10 min-h-[280px] flex flex-col justify-between">
+        <div class="flex items-start justify-between">
+          <span class="num-tag serif-en text-5xl md:text-6xl font-medium">03</span>
+        </div>
+        <div>
+          <h3 class="serif-tc text-xl md:text-2xl font-bold mb-3 mt-10">誠實面對材料</h3>
+          <p class="text-sm leading-relaxed">
+            清水混凝土、鍍鋅鋼構、原色木料，皆以本色現身，不加以修飾覆蓋，讓時間在材料表面留下可被閱讀的痕跡。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="grid-container"><div class="h-[1px] bg-[var(--ink)]"></div></div>
+
+  <!-- ===== 代表作品 ===== -->
+  <section id="works" class="grid-container py-20 md:py-28">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-16">
+      <div class="md:col-span-4">
+        <p class="text-xs tracking-[0.25em] uppercase mb-3 text-[var(--red)]">Selected Works</p>
+        <h2 class="serif-tc text-4xl md:text-5xl font-bold tracking-tight">代表作品</h2>
+      </div>
+      <div class="md:col-span-6 md:col-start-7 flex items-end">
+        <p class="text-sm md:text-base leading-relaxed">
+          從公共文化設施到集合住宅，格律的每個項目都保留一份可辨識的秩序感，並回應各自基地的獨特條件。
+        </p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-14">
+
+      <!-- Work 01 -->
+      <div class="work-card border-t hairline pt-6">
+        <div class="aspect-[16/10] bg-[var(--ink)] mb-6 relative overflow-hidden flex items-end p-6">
+          <svg class="work-shape" width="72%" height="72%" viewBox="0 0 200 200" style="position:absolute; right:8%; top:8%;">
+            <rect x="10" y="60" width="180" height="130" fill="none" stroke="#f5f1e8" stroke-width="2"/>
+            <line x1="10" y1="60" x2="100" y2="10" stroke="#f5f1e8" stroke-width="2"/>
+            <line x1="190" y1="60" x2="100" y2="10" stroke="#f5f1e8" stroke-width="2"/>
+            <line x1="10" y1="110" x2="190" y2="110" stroke="#d92b2b" stroke-width="2"/>
+          </svg>
+          <span class="serif-en text-[var(--paper)] text-xs tracking-[0.2em] uppercase relative z-10">Work 01</span>
+        </div>
+        <div class="flex items-baseline justify-between mb-2">
+          <h3 class="serif-tc text-xl md:text-2xl font-bold">清水苑集合住宅</h3>
+          <span class="serif-en text-sm text-[var(--red)]">2021</span>
+        </div>
+        <p class="text-xs tracking-[0.1em] uppercase mb-3">台中市 · 大里區</p>
+        <p class="text-sm leading-relaxed">
+          以三米六為基本模矩排列的清水混凝土量體，中庭天井貫穿五層樓，讓自然光沿垂直動線層層滲入。
+        </p>
+      </div>
+
+      <!-- Work 02 -->
+      <div class="work-card border-t hairline pt-6">
+        <div class="aspect-[16/10] bg-[var(--ink)] mb-6 relative overflow-hidden flex items-end p-6">
+          <svg class="work-shape" width="72%" height="72%" viewBox="0 0 200 200" style="position:absolute; right:8%; top:8%;">
+            <circle cx="100" cy="100" r="85" fill="none" stroke="#f5f1e8" stroke-width="2"/>
+            <line x1="15" y1="100" x2="185" y2="100" stroke="#f5f1e8" stroke-width="2"/>
+            <line x1="100" y1="15" x2="100" y2="185" stroke="#d92b2b" stroke-width="2"/>
+          </svg>
+          <span class="serif-en text-[var(--paper)] text-xs tracking-[0.2em] uppercase relative z-10">Work 02</span>
+        </div>
+        <div class="flex items-baseline justify-between mb-2">
+          <h3 class="serif-tc text-xl md:text-2xl font-bold">埕口社區圖書館</h3>
+          <span class="serif-en text-sm text-[var(--red)]">2019</span>
+        </div>
+        <p class="text-xs tracking-[0.1em] uppercase mb-3">台南市 · 安平區</p>
+        <p class="text-sm leading-relaxed">
+          以環形閱讀廳為核心，書架依同心圓向外展開，屋頂天窗依圓心開設，正午時分光線恰好落於借閱櫃台。
+        </p>
+      </div>
+
+      <!-- Work 03 -->
+      <div class="work-card border-t hairline pt-6">
+        <div class="aspect-[16/10] bg-[var(--ink)] mb-6 relative overflow-hidden flex items-end p-6">
+          <svg class="work-shape" width="72%" height="72%" viewBox="0 0 200 200" style="position:absolute; right:8%; top:8%;">
+            <rect x="20" y="20" width="70" height="70" fill="none" stroke="#f5f1e8" stroke-width="2"/>
+            <rect x="110" y="20" width="70" height="70" fill="none" stroke="#f5f1e8" stroke-width="2"/>
+            <rect x="20" y="110" width="70" height="70" fill="none" stroke="#f5f1e8" stroke-width="2"/>
+            <rect x="110" y="110" width="70" height="70" fill="#d92b2b" stroke="#d92b2b" stroke-width="2"/>
+          </svg>
+          <span class="serif-en text-[var(--paper)] text-xs tracking-[0.2em] uppercase relative z-10">Work 03</span>
+        </div>
+        <div class="flex items-baseline justify-between mb-2">
+          <h3 class="serif-tc text-xl md:text-2xl font-bold">格致文創園區</h3>
+          <span class="serif-en text-sm text-[var(--red)]">2023</span>
+        </div>
+        <p class="text-xs tracking-[0.1em] uppercase mb-3">新北市 · 鶯歌區</p>
+        <p class="text-sm leading-relaxed">
+          由舊窯廠改建而成的四棟展演空間，保留原有磚造結構的九宮格柱網，新增鋼構量體以對角線方式介入既有秩序。
+        </p>
+      </div>
+
+      <!-- Work 04 -->
+      <div class="work-card border-t hairline pt-6">
+        <div class="aspect-[16/10] bg-[var(--ink)] mb-6 relative overflow-hidden flex items-end p-6">
+          <svg class="work-shape" width="72%" height="72%" viewBox="0 0 200 200" style="position:absolute; right:8%; top:8%;">
+            <polygon points="100,15 185,185 15,185" fill="none" stroke="#f5f1e8" stroke-width="2"/>
+            <line x1="100" y1="15" x2="100" y2="185" stroke="#d92b2b" stroke-width="2"/>
+            <line x1="15" y1="185" x2="185" y2="185" stroke="#f5f1e8" stroke-width="2"/>
+          </svg>
+          <span class="serif-en text-[var(--paper)] text-xs tracking-[0.2em] uppercase relative z-10">Work 04</span>
+        </div>
+        <div class="flex items-baseline justify-between mb-2">
+          <h3 class="serif-tc text-xl md:text-2xl font-bold">山嵐學校活動中心</h3>
+          <span class="serif-en text-sm text-[var(--red)]">2024</span>
+        </div>
+        <p class="text-xs tracking-[0.1em] uppercase mb-3">南投縣 · 魚池鄉</p>
+        <p class="text-sm leading-relaxed">
+          斜屋頂順應山勢角度而生，木構桁架外露，室內挑高禮堂可容納全校師生集會，同時作為部落防災避難據點。
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="grid-container"><div class="h-[3px] bg-[var(--ink)]"></div></div>
+
+  <!-- ===== 聯絡資訊 ===== -->
+  <section id="contact" class="grid-container py-20 md:py-28">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+      <div class="md:col-span-5">
+        <p class="text-xs tracking-[0.25em] uppercase mb-3 text-[var(--red)]">Contact</p>
+        <h2 class="serif-tc text-4xl md:text-5xl font-bold tracking-tight mb-8">聯絡我們</h2>
+        <p class="text-sm md:text-base leading-relaxed max-w-sm">
+          無論是住宅設計、公共標案或空間顧問，歡迎與我們聯繫，討論您基地上的秩序與可能性。
+        </p>
+      </div>
+      <div class="md:col-span-6 md:col-start-7">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-8 gap-x-10 border-t hairline pt-8">
+          <div class="tick pl-6">
+            <p class="text-[11px] tracking-[0.15em] uppercase mb-2">事務所地址</p>
+            <p class="text-sm md:text-base leading-relaxed">
+              106 台北市大安區敦化南路二段 88 號 5 樓
+            </p>
+          </div>
+          <div class="tick pl-6">
+            <p class="text-[11px] tracking-[0.15em] uppercase mb-2">聯絡電話</p>
+            <p class="text-sm md:text-base leading-relaxed">
+              02-2755-0918
+            </p>
+          </div>
+          <div class="tick pl-6">
+            <p class="text-[11px] tracking-[0.15em] uppercase mb-2">電子信箱</p>
+            <p class="text-sm md:text-base leading-relaxed">
+              studio@grid-architecture.tw
+            </p>
+          </div>
+          <div class="tick pl-6">
+            <p class="text-[11px] tracking-[0.15em] uppercase mb-2">洽談時間</p>
+            <p class="text-sm md:text-base leading-relaxed">
+              週一至週五　09:30－18:30
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="border-t hairline">
+    <div class="grid-container py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div class="flex items-baseline gap-3">
+        <span class="serif-en text-sm font-semibold">GRID</span>
+        <span class="serif-tc text-sm">格律建築師事務所</span>
+      </div>
+      <p class="text-[11px] tracking-[0.1em] uppercase order-3 md:order-2">
+        © 2026 GRID Architecture Office．All Rights Reserved．
+      </p>
+      <div class="flex items-center gap-6 text-[11px] tracking-[0.1em] uppercase order-2 md:order-3">
+        <span>建築師開業證號　台建字第 04217 號</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
