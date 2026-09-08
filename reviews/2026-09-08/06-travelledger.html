@@ -1,0 +1,438 @@
+<!-- style #36 Financial Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>差旅精算 TravelLedger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['"Public Sans"', '"Noto Sans TC"', 'sans-serif'],
+          mono: ['"IBM Plex Mono"', 'monospace'],
+        },
+        colors: {
+          base: {
+            900: '#1e2733',
+            800: '#25313f',
+            700: '#334155',
+            600: '#3f4c5e',
+            500: '#4b5a6e',
+          },
+          up: '#10b981',
+          down: '#ef4444',
+        }
+      }
+    }
+  }
+</script>
+<style>
+  html, body {
+    background-color: #1e2733;
+    font-family: 'Public Sans', 'Noto Sans TC', sans-serif;
+  }
+  .font-mono, .num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+  ::-webkit-scrollbar { height: 8px; width: 8px; }
+  ::-webkit-scrollbar-track { background: #25313f; }
+  ::-webkit-scrollbar-thumb { background: #4b5a6e; border-radius: 4px; }
+
+  .bar-fill {
+    width: 0%;
+    transition: width 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .kpi-card {
+    background: linear-gradient(180deg, #2b3846 0%, #25313f 100%);
+    border: 1px solid #3c4a5a;
+  }
+
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.2rem 0.65rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    display: inline-block;
+  }
+
+  table tbody tr:hover {
+    background-color: rgba(255,255,255,0.03);
+  }
+</style>
+</head>
+<body class="min-h-screen text-slate-200 antialiased">
+
+  <!-- 頂部導覽列 -->
+  <header class="border-b border-base-600 bg-base-800/80 backdrop-blur sticky top-0 z-20">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-slate-500 to-slate-700 border border-base-500 flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 3v18h18"></path>
+            <path d="M7 15l4-6 4 3 5-8"></path>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-lg font-bold tracking-tight text-white">差旅精算 <span class="text-slate-400 font-medium">TravelLedger</span></h1>
+          <p class="text-xs text-slate-400">企業差旅報銷與預算控管後台</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-5">
+        <div class="hidden sm:flex flex-col items-end">
+          <span class="text-xs text-slate-400">資料截至</span>
+          <span class="text-sm font-medium num text-slate-200">2026-09-08 09:30</span>
+        </div>
+        <div class="h-8 w-px bg-base-600 hidden sm:block"></div>
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-full bg-slate-600 flex items-center justify-center text-xs font-semibold text-white">游</div>
+          <div class="hidden md:block">
+            <p class="text-sm font-medium text-white leading-tight">游雅琳</p>
+            <p class="text-xs text-slate-400 leading-tight">財務部・報銷審核員</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-6 py-8 space-y-10">
+
+    <!-- KPI 摘要卡 -->
+    <section>
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-base font-semibold text-white">本月營運摘要</h2>
+        <span class="text-xs text-slate-400">統計區間：2026/09/01 - 2026/09/08</span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+        <!-- KPI 1 -->
+        <div class="kpi-card rounded-xl p-5 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-medium text-slate-400">本月差旅總支出</span>
+            <span class="status-pill bg-red-500/10 text-red-400">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l10-10M17 7H7m10 0v10"></path></svg>
+              12.4%
+            </span>
+          </div>
+          <p class="text-2xl font-bold text-white num text-right">NT$ 1,284,650</p>
+          <p class="text-xs text-slate-500 mt-2 text-right">較上月同期增加，已提交執行長辦公室追蹤</p>
+        </div>
+
+        <!-- KPI 2 -->
+        <div class="kpi-card rounded-xl p-5 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-medium text-slate-400">待審核申請數</span>
+            <span class="status-pill bg-amber-400/10 text-amber-300">
+              <span class="dot bg-amber-400"></span>
+              需處理
+            </span>
+          </div>
+          <p class="text-2xl font-bold text-white num text-right">18 件</p>
+          <p class="text-xs text-slate-500 mt-2 text-right">其中 4 件申請金額逾 NT$ 50,000</p>
+        </div>
+
+        <!-- KPI 3 -->
+        <div class="kpi-card rounded-xl p-5 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-medium text-slate-400">超支部門數</span>
+            <span class="status-pill bg-red-500/10 text-red-400">
+              <span class="dot bg-red-500"></span>
+              風險
+            </span>
+          </div>
+          <p class="text-2xl font-bold text-white num text-right">3 / 5 個</p>
+          <p class="text-xs text-slate-500 mt-2 text-right">業務部、行政部已超過預算門檻</p>
+        </div>
+
+        <!-- KPI 4 -->
+        <div class="kpi-card rounded-xl p-5 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-medium text-slate-400">平均審核天數</span>
+            <span class="status-pill bg-emerald-500/10 text-emerald-400">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 7L7 17M7 7h10v10"></path></svg>
+              0.4 天
+            </span>
+          </div>
+          <p class="text-2xl font-bold text-white num text-right">2.6 天</p>
+          <p class="text-xs text-slate-500 mt-2 text-right">較上月加快，優於內控目標 3 天</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 待審核申請表格 -->
+    <section>
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+        <div>
+          <h2 class="text-base font-semibold text-white">差旅報銷申請一覽</h2>
+          <p class="text-xs text-slate-400 mt-0.5">依申請時間排序，請優先處理逾期未審核項目</p>
+        </div>
+        <div class="flex items-center gap-2 text-xs">
+          <span class="status-pill bg-amber-400/10 text-amber-300"><span class="dot bg-amber-400"></span>待審核 5</span>
+          <span class="status-pill bg-emerald-500/10 text-emerald-400"><span class="dot bg-emerald-500"></span>已核准 2</span>
+          <span class="status-pill bg-red-500/10 text-red-400"><span class="dot bg-red-500"></span>已退回 1</span>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-base-600 bg-base-800/60 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm min-w-[860px]">
+            <thead>
+              <tr class="border-b border-base-600 text-xs text-slate-400 uppercase tracking-wide">
+                <th class="text-left font-medium px-5 py-3">申請人</th>
+                <th class="text-left font-medium px-5 py-3">部門</th>
+                <th class="text-left font-medium px-5 py-3">出差地點</th>
+                <th class="text-left font-medium px-5 py-3">出差事由</th>
+                <th class="text-left font-medium px-5 py-3">申請日期</th>
+                <th class="text-right font-medium px-5 py-3">申請金額</th>
+                <th class="text-center font-medium px-5 py-3">狀態</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-base-600">
+              <tr>
+                <td class="px-5 py-3.5 font-medium text-white">林柏宇</td>
+                <td class="px-5 py-3.5 text-slate-300">業務部</td>
+                <td class="px-5 py-3.5 text-slate-300">台中</td>
+                <td class="px-5 py-3.5 text-slate-400">客戶簽約會議</td>
+                <td class="px-5 py-3.5 text-slate-400 num">2026-09-05</td>
+                <td class="px-5 py-3.5 text-right num font-semibold text-white">NT$ 18,600</td>
+                <td class="px-5 py-3.5 text-center">
+                  <span class="status-pill bg-amber-400/10 text-amber-300"><span class="dot bg-amber-400"></span>待審核</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-5 py-3.5 font-medium text-white">陳怡君</td>
+                <td class="px-5 py-3.5 text-slate-300">行銷部</td>
+                <td class="px-5 py-3.5 text-slate-300">高雄</td>
+                <td class="px-5 py-3.5 text-slate-400">品牌展覽支援</td>
+                <td class="px-5 py-3.5 text-slate-400 num">2026-09-03</td>
+                <td class="px-5 py-3.5 text-right num font-semibold text-white">NT$ 32,450</td>
+                <td class="px-5 py-3.5 text-center">
+                  <span class="status-pill bg-emerald-500/10 text-emerald-400"><span class="dot bg-emerald-500"></span>已核准</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-5 py-3.5 font-medium text-white">王建智</td>
+                <td class="px-5 py-3.5 text-slate-300">研發部</td>
+                <td class="px-5 py-3.5 text-slate-300">新竹</td>
+                <td class="px-5 py-3.5 text-slate-400">供應商技術會議</td>
+                <td class="px-5 py-3.5 text-slate-400 num">2026-09-06</td>
+                <td class="px-5 py-3.5 text-right num font-semibold text-white">NT$ 9,800</td>
+                <td class="px-5 py-3.5 text-center">
+                  <span class="status-pill bg-amber-400/10 text-amber-300"><span class="dot bg-amber-400"></span>待審核</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-5 py-3.5 font-medium text-white">張雅婷</td>
+                <td class="px-5 py-3.5 text-slate-300">業務部</td>
+                <td class="px-5 py-3.5 text-slate-300">東京</td>
+                <td class="px-5 py-3.5 text-slate-400">海外客戶開發</td>
+                <td class="px-5 py-3.5 text-slate-400 num">2026-09-02</td>
+                <td class="px-5 py-3.5 text-right num font-semibold text-white">NT$ 86,200</td>
+                <td class="px-5 py-3.5 text-center">
+                  <span class="status-pill bg-amber-400/10 text-amber-300"><span class="dot bg-amber-400"></span>待審核</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-5 py-3.5 font-medium text-white">李承翰</td>
+                <td class="px-5 py-3.5 text-slate-300">財務部</td>
+                <td class="px-5 py-3.5 text-slate-300">台南</td>
+                <td class="px-5 py-3.5 text-slate-400">分公司內部稽核</td>
+                <td class="px-5 py-3.5 text-slate-400 num">2026-08-29</td>
+                <td class="px-5 py-3.5 text-right num font-semibold text-white">NT$ 6,350</td>
+                <td class="px-5 py-3.5 text-center">
+                  <span class="status-pill bg-red-500/10 text-red-400"><span class="dot bg-red-500"></span>已退回</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-5 py-3.5 font-medium text-white">黃詩涵</td>
+                <td class="px-5 py-3.5 text-slate-300">行銷部</td>
+                <td class="px-5 py-3.5 text-slate-300">新加坡</td>
+                <td class="px-5 py-3.5 text-slate-400">區域品牌活動</td>
+                <td class="px-5 py-3.5 text-slate-400 num">2026-09-01</td>
+                <td class="px-5 py-3.5 text-right num font-semibold text-white">NT$ 112,000</td>
+                <td class="px-5 py-3.5 text-center">
+                  <span class="status-pill bg-amber-400/10 text-amber-300"><span class="dot bg-amber-400"></span>待審核</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-5 py-3.5 font-medium text-white">吳俊傑</td>
+                <td class="px-5 py-3.5 text-slate-300">研發部</td>
+                <td class="px-5 py-3.5 text-slate-300">台北</td>
+                <td class="px-5 py-3.5 text-slate-400">技術研討會</td>
+                <td class="px-5 py-3.5 text-slate-400 num">2026-08-27</td>
+                <td class="px-5 py-3.5 text-right num font-semibold text-white">NT$ 4,200</td>
+                <td class="px-5 py-3.5 text-center">
+                  <span class="status-pill bg-emerald-500/10 text-emerald-400"><span class="dot bg-emerald-500"></span>已核准</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-5 py-3.5 font-medium text-white">許芳瑜</td>
+                <td class="px-5 py-3.5 text-slate-300">業務部</td>
+                <td class="px-5 py-3.5 text-slate-300">上海</td>
+                <td class="px-5 py-3.5 text-slate-400">既有客戶拜訪</td>
+                <td class="px-5 py-3.5 text-slate-400 num">2026-09-07</td>
+                <td class="px-5 py-3.5 text-right num font-semibold text-white">NT$ 45,900</td>
+                <td class="px-5 py-3.5 text-center">
+                  <span class="status-pill bg-amber-400/10 text-amber-300"><span class="dot bg-amber-400"></span>待審核</span>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr class="border-t border-base-600 bg-base-900/40">
+                <td colspan="5" class="px-5 py-3 text-xs font-medium text-slate-400">共 8 筆申請・合計金額</td>
+                <td class="px-5 py-3 text-right num font-bold text-white">NT$ 315,500</td>
+                <td class="px-5 py-3"></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 部門預算執行率 -->
+    <section>
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h2 class="text-base font-semibold text-white">部門差旅預算執行率</h2>
+          <p class="text-xs text-slate-400 mt-0.5">執行率超過 90% 將標示為紅色警示，請通知部門主管控管後續支出</p>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-base-600 bg-base-800/60 p-6 space-y-5">
+
+        <!-- 業務部 -->
+        <div>
+          <div class="flex items-center justify-between mb-1.5 text-sm">
+            <span class="font-medium text-white">業務部</span>
+            <span class="num text-slate-300">
+              <span class="text-red-400 font-semibold">NT$ 480,000</span>
+              <span class="text-slate-500"> / NT$ 500,000</span>
+            </span>
+          </div>
+          <div class="w-full h-3 rounded-full bg-base-900 overflow-hidden">
+            <div class="bar-fill h-full rounded-full bg-red-500" data-target="96"></div>
+          </div>
+          <div class="flex justify-end mt-1">
+            <span class="text-xs font-semibold text-red-400 num">96% ・ 已逼近上限</span>
+          </div>
+        </div>
+
+        <!-- 行政部 -->
+        <div>
+          <div class="flex items-center justify-between mb-1.5 text-sm">
+            <span class="font-medium text-white">行政部</span>
+            <span class="num text-slate-300">
+              <span class="text-red-400 font-semibold">NT$ 136,500</span>
+              <span class="text-slate-500"> / NT$ 150,000</span>
+            </span>
+          </div>
+          <div class="w-full h-3 rounded-full bg-base-900 overflow-hidden">
+            <div class="bar-fill h-full rounded-full bg-red-500" data-target="91"></div>
+          </div>
+          <div class="flex justify-end mt-1">
+            <span class="text-xs font-semibold text-red-400 num">91% ・ 已逼近上限</span>
+          </div>
+        </div>
+
+        <!-- 行銷部 -->
+        <div>
+          <div class="flex items-center justify-between mb-1.5 text-sm">
+            <span class="font-medium text-white">行銷部</span>
+            <span class="num text-slate-300">
+              <span class="text-slate-200 font-semibold">NT$ 352,000</span>
+              <span class="text-slate-500"> / NT$ 400,000</span>
+            </span>
+          </div>
+          <div class="w-full h-3 rounded-full bg-base-900 overflow-hidden">
+            <div class="bar-fill h-full rounded-full bg-emerald-500" data-target="88"></div>
+          </div>
+          <div class="flex justify-end mt-1">
+            <span class="text-xs font-semibold text-emerald-400 num">88% ・ 尚在可控範圍</span>
+          </div>
+        </div>
+
+        <!-- 研發部 -->
+        <div>
+          <div class="flex items-center justify-between mb-1.5 text-sm">
+            <span class="font-medium text-white">研發部</span>
+            <span class="num text-slate-300">
+              <span class="text-slate-200 font-semibold">NT$ 216,000</span>
+              <span class="text-slate-500"> / NT$ 300,000</span>
+            </span>
+          </div>
+          <div class="w-full h-3 rounded-full bg-base-900 overflow-hidden">
+            <div class="bar-fill h-full rounded-full bg-emerald-500" data-target="72"></div>
+          </div>
+          <div class="flex justify-end mt-1">
+            <span class="text-xs font-semibold text-emerald-400 num">72% ・ 尚在可控範圍</span>
+          </div>
+        </div>
+
+        <!-- 財務部 -->
+        <div>
+          <div class="flex items-center justify-between mb-1.5 text-sm">
+            <span class="font-medium text-white">財務部</span>
+            <span class="num text-slate-300">
+              <span class="text-slate-200 font-semibold">NT$ 90,000</span>
+              <span class="text-slate-500"> / NT$ 200,000</span>
+            </span>
+          </div>
+          <div class="w-full h-3 rounded-full bg-base-900 overflow-hidden">
+            <div class="bar-fill h-full rounded-full bg-emerald-500" data-target="45"></div>
+          </div>
+          <div class="flex justify-end mt-1">
+            <span class="text-xs font-semibold text-emerald-400 num">45% ・ 尚在可控範圍</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 頁尾 -->
+  <footer class="border-t border-base-600 mt-6">
+    <div class="max-w-7xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+      <p>&copy; 2026 差旅精算 TravelLedger・企業財務部內部系統，僅供授權人員使用</p>
+      <div class="flex items-center gap-4">
+        <span>版本 v3.2.1</span>
+        <span class="w-1 h-1 rounded-full bg-slate-600"></span>
+        <span>如有疑問請聯繫財務部系統管理小組</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var bars = document.querySelectorAll('.bar-fill');
+      requestAnimationFrame(function () {
+        setTimeout(function () {
+          bars.forEach(function (bar) {
+            var target = bar.getAttribute('data-target');
+            bar.style.width = target + '%';
+          });
+        }, 100);
+      });
+    });
+  </script>
+
+</body>
+</html>
