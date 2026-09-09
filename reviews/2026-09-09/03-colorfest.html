@@ -1,0 +1,330 @@
+<!-- style #44 Memphis Revival -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>色塊祭 ColorFest｜2026 夏季音樂節與藝術市集</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          display: ['"Archivo Black"', '"Noto Sans TC"', 'sans-serif'],
+          body: ['"Poppins"', '"Noto Sans TC"', 'sans-serif'],
+        },
+        colors: {
+          magenta: '#ff6b9d',
+          sunyellow: '#ffd93d',
+          teal: '#6bcfcf',
+          violet: '#a78bfa',
+          cream: '#fdf8f0',
+          ink: '#1f1a2e',
+        }
+      }
+    }
+  }
+</script>
+<style>
+  :root{
+    --magenta:#ff6b9d;
+    --yellow:#ffd93d;
+    --teal:#6bcfcf;
+    --violet:#a78bfa;
+    --cream:#fdf8f0;
+    --ink:#1f1a2e;
+  }
+  *{ box-sizing:border-box; }
+  html, body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Poppins','Noto Sans TC',sans-serif;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.font-display{
+    font-family:'Archivo Black','Noto Sans TC',sans-serif;
+    letter-spacing:0.02em;
+  }
+  /* Tailwind default font override safety net */
+  body, button, input, textarea, select{
+    font-family:'Poppins','Noto Sans TC',sans-serif;
+  }
+
+  .dot-pattern{
+    background-image: radial-gradient(var(--ink) 2px, transparent 2.5px);
+    background-size: 22px 22px;
+  }
+  .dot-pattern-yellow{
+    background-image: radial-gradient(var(--ink) 2px, transparent 2.5px);
+    background-size: 18px 18px;
+  }
+
+  .zigzag-divider{
+    height: 28px;
+    width: 100%;
+    background:
+      linear-gradient(135deg, var(--magenta) 25%, transparent 25%) -14px 0,
+      linear-gradient(225deg, var(--magenta) 25%, transparent 25%) -14px 0,
+      linear-gradient(315deg, var(--magenta) 25%, transparent 25%),
+      linear-gradient(45deg, var(--magenta) 25%, transparent 25%);
+    background-size: 28px 28px;
+    background-color: var(--cream);
+  }
+
+  .blob-1{
+    clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
+  }
+  .blob-2{
+    clip-path: polygon(0% 15%, 60% 0%, 100% 0%, 100% 85%, 40% 100%, 0% 100%);
+  }
+  .blob-triangle{
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  }
+  .blob-arrow{
+    clip-path: polygon(0% 20%, 60% 20%, 60% 0%, 100% 50%, 60% 100%, 60% 80%, 0% 80%);
+  }
+  .blob-burst{
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  }
+  .blob-lightning{
+    clip-path: polygon(45% 0%, 100% 0%, 55% 45%, 90% 45%, 30% 100%, 45% 55%, 0% 55%);
+  }
+
+  .card-tilt-1{ transform: rotate(-3.5deg); transition: transform .25s ease, box-shadow .25s ease; }
+  .card-tilt-2{ transform: rotate(2.5deg); transition: transform .25s ease, box-shadow .25s ease; }
+  .card-tilt-3{ transform: rotate(-1.8deg); transition: transform .25s ease, box-shadow .25s ease; }
+  .card-tilt-1:hover{ transform: rotate(-7deg) scale(1.03); }
+  .card-tilt-2:hover{ transform: rotate(6deg) scale(1.03); }
+  .card-tilt-3:hover{ transform: rotate(-5deg) scale(1.03); }
+
+  .hard-shadow{ box-shadow: 8px 8px 0 var(--ink); }
+  .hard-shadow-sm{ box-shadow: 5px 5px 0 var(--ink); }
+
+  .stamp{ transform: rotate(-8deg); }
+
+  .marquee-track{
+    display:flex;
+    width: max-content;
+    animation: marquee 18s linear infinite;
+  }
+  @keyframes marquee{
+    0%{ transform: translateX(0); }
+    100%{ transform: translateX(-50%); }
+  }
+
+  .wiggle-btn{ transition: transform .18s ease; }
+  .wiggle-btn:hover{ transform: rotate(-3deg) scale(1.06); }
+  .wiggle-btn:active{ transform: rotate(2deg) scale(0.97); }
+
+  .squiggle-underline{
+    text-decoration: none;
+    background-image: repeating-linear-gradient(120deg, var(--magenta), var(--magenta) 6px, transparent 6px, transparent 10px);
+    background-position: 0 100%;
+    background-size: 100% 6px;
+    background-repeat: repeat-x;
+    padding-bottom: 6px;
+  }
+
+  .confetti-dot{
+    position:absolute;
+    border-radius:9999px;
+  }
+
+  .outline-text{
+    -webkit-text-stroke: 2px var(--ink);
+    color: var(--cream);
+  }
+
+  @media (max-width: 640px){
+    .card-tilt-1, .card-tilt-2, .card-tilt-3{ transform: rotate(-1.5deg); }
+  }
+</style>
+</head>
+<body class="bg-cream text-ink">
+
+  <!-- 跑馬燈公告 -->
+  <div class="bg-ink text-cream py-2 overflow-hidden border-b-4 border-ink">
+    <div class="marquee-track font-display text-sm md:text-base tracking-wide">
+      <span class="px-6 flex items-center gap-3">🎪 色塊祭 ColorFest 早鳥票倒數中 <span class="text-yellow">★</span> 每週六日限定開賣 <span class="text-magenta">●</span> 攤位陣容持續公布 <span class="text-teal">▲</span></span>
+      <span class="px-6 flex items-center gap-3">🎪 色塊祭 ColorFest 早鳥票倒數中 <span class="text-yellow">★</span> 每週六日限定開賣 <span class="text-magenta">●</span> 攤位陣容持續公布 <span class="text-teal">▲</span></span>
+      <span class="px-6 flex items-center gap-3">🎪 色塊祭 ColorFest 早鳥票倒數中 <span class="text-yellow">★</span> 每週六日限定開賣 <span class="text-magenta">●</span> 攤位陣容持續公布 <span class="text-teal">▲</span></span>
+      <span class="px-6 flex items-center gap-3">🎪 色塊祭 ColorFest 早鳥票倒數中 <span class="text-yellow">★</span> 每週六日限定開賣 <span class="text-magenta">●</span> 攤位陣容持續公布 <span class="text-teal">▲</span></span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header class="relative dot-pattern bg-cream pt-10 pb-24 px-5 md:px-12 overflow-hidden">
+    <!-- 裝飾幾何碎片 -->
+    <div class="blob-burst bg-yellow w-24 h-24 md:w-36 md:h-36 absolute top-6 right-6 md:right-16 opacity-90"></div>
+    <div class="blob-triangle bg-violet w-16 h-16 md:w-24 md:h-24 absolute bottom-10 left-4 md:left-24 rotate-12"></div>
+    <div class="blob-lightning bg-magenta w-20 h-24 md:w-28 md:h-32 absolute top-24 left-6 md:left-40 opacity-90 hidden sm:block"></div>
+    <div class="w-10 h-10 rounded-full bg-teal absolute top-40 right-1/3 hidden md:block"></div>
+    <div class="w-6 h-6 rounded-full bg-magenta absolute top-16 left-1/2 hidden md:block"></div>
+
+    <nav class="relative z-10 max-w-6xl mx-auto flex items-center justify-between mb-16">
+      <div class="font-display text-xl md:text-2xl bg-ink text-cream px-4 py-2 hard-shadow-sm rotate-[-2deg] inline-block">ColorFest</div>
+      <a href="#tickets" class="font-display text-xs md:text-sm bg-magenta text-cream px-4 py-2 hard-shadow-sm rotate-[2deg] wiggle-btn inline-block">立即購票</a>
+    </nav>
+
+    <div class="relative z-10 max-w-6xl mx-auto text-center">
+      <p class="font-display inline-block bg-teal text-ink px-4 py-1.5 rotate-[-2deg] hard-shadow-sm text-xs md:text-sm mb-6">2026．夏季限定．戶外派對</p>
+      <h1 class="font-display text-5xl sm:text-6xl md:text-8xl leading-[1.05] mb-6">
+        <span class="block">色塊祭</span>
+        <span class="block outline-text">ColorFest</span>
+      </h1>
+      <p class="font-body text-base md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+        一場獻給眼睛與耳朵的糖果色狂歡！三個舞台、五十組創作攤位，
+        用最<span class="squiggle-underline font-semibold">衝突的顏色</span>撞出最自由的夏天。
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a href="#tickets" class="font-display text-lg md:text-xl bg-yellow text-ink px-8 py-4 hard-shadow rotate-[-2deg] wiggle-btn inline-block">搶購早鳥票 →</a>
+        <a href="#lineup" class="font-display text-lg md:text-xl bg-cream border-4 border-ink text-ink px-8 py-4 hard-shadow rotate-[1.5deg] wiggle-btn inline-block">查看陣容</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="zigzag-divider"></div>
+
+  <!-- 陣容/攤位亮點 -->
+  <section id="lineup" class="relative bg-cream py-20 px-5 md:px-12">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <span class="font-display inline-block bg-violet text-cream px-4 py-1.5 rotate-[2deg] hard-shadow-sm text-xs md:text-sm mb-4">HIGHLIGHT</span>
+        <h2 class="font-display text-4xl md:text-6xl">演出陣容 × 攤位亮點</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-10 md:gap-8">
+        <!-- 卡片一 -->
+        <div class="card-tilt-1 bg-white border-4 border-ink hard-shadow p-6 relative">
+          <div class="blob-1 bg-magenta w-14 h-14 absolute -top-6 -right-6"></div>
+          <p class="font-display text-xs bg-ink text-cream inline-block px-3 py-1 mb-4 rotate-[-2deg]">主舞台</p>
+          <h3 class="font-display text-2xl mb-3 leading-snug">電幻迷宮 Neon Maze</h3>
+          <p class="font-body text-sm leading-relaxed mb-4">
+            集結全台六組電子音樂人接力演出，從日落到深夜，用重低音帶你穿越一場光的迷宮。舞台燈光採用糖果色雷射矩陣，每半小時變換一次主題色。
+          </p>
+          <ul class="font-body text-sm space-y-1 text-ink/80">
+            <li>● 演出時段：14:00–22:00</li>
+            <li>● 六組音樂人接力</li>
+            <li>● 現場 VJ 即時視覺演出</li>
+          </ul>
+        </div>
+
+        <!-- 卡片二 -->
+        <div class="card-tilt-2 bg-white border-4 border-ink hard-shadow p-6 relative">
+          <div class="blob-2 bg-teal w-14 h-14 absolute -top-6 -left-6"></div>
+          <p class="font-display text-xs bg-ink text-cream inline-block px-3 py-1 mb-4 rotate-[2deg]">創作市集</p>
+          <h3 class="font-display text-2xl mb-3 leading-snug">怪奇手作攤 Weird Market</h3>
+          <p class="font-body text-sm leading-relaxed mb-4">
+            超過五十組獨立創作者進駐，從孟菲斯風格陶器、手繪帆布包，到限定絹印海報，每個攤位都是一格會走路的色塊。
+          </p>
+          <ul class="font-body text-sm space-y-1 text-ink/80">
+            <li>● 50+ 品牌與創作者</li>
+            <li>● 現場絹印體驗工作坊</li>
+            <li>● 限定聯名商品僅此一日</li>
+          </ul>
+        </div>
+
+        <!-- 卡片三 -->
+        <div class="card-tilt-3 bg-white border-4 border-ink hard-shadow p-6 relative">
+          <div class="blob-triangle bg-yellow w-14 h-14 absolute -top-6 -right-4 rotate-6"></div>
+          <p class="font-display text-xs bg-ink text-cream inline-block px-3 py-1 mb-4 rotate-[-2deg]">美食廣場</p>
+          <h3 class="font-display text-2xl mb-3 leading-snug">彩虹小吃街 Rainbow Bites</h3>
+          <p class="font-body text-sm leading-relaxed mb-4">
+            集合十五家人氣餐車，用天然食材染出撞色餐點，從紫薯氣泡飲到藍蝶花刨冰，吃的也要跟主視覺一樣搶眼。
+          </p>
+          <ul class="font-body text-sm space-y-1 text-ink/80">
+            <li>● 15 家人氣餐車</li>
+            <li>● 全彩系創意料理</li>
+            <li>● 素食與純素選項齊全</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="zigzag-divider"></div>
+
+  <!-- 時間地點 -->
+  <section class="relative bg-ink text-cream py-20 px-5 md:px-12 overflow-hidden">
+    <div class="dot-pattern-yellow absolute inset-0 opacity-10"></div>
+    <div class="blob-arrow bg-magenta w-24 h-16 absolute top-10 right-6 md:right-24 opacity-90"></div>
+    <div class="blob-burst bg-teal w-20 h-20 absolute bottom-8 left-6 md:left-20 opacity-90"></div>
+
+    <div class="relative z-10 max-w-5xl mx-auto">
+      <div class="text-center mb-14">
+        <span class="font-display inline-block bg-yellow text-ink px-4 py-1.5 rotate-[-2deg] hard-shadow-sm text-xs md:text-sm mb-4">INFO</span>
+        <h2 class="font-display text-4xl md:text-6xl">時間與地點</h2>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-8">
+        <div class="bg-cream text-ink border-4 border-cream p-8 rotate-[-2deg] hard-shadow">
+          <p class="font-display text-sm text-magenta mb-2">📅 活動日期</p>
+          <p class="font-display text-3xl mb-1">2026 / 10 / 24（六）</p>
+          <p class="font-body text-sm text-ink/70 mb-6">中午 12:00 開放入場，晚間 22:00 結束</p>
+          <p class="font-display text-sm text-teal mb-2">🕐 售票時段</p>
+          <p class="font-body text-sm text-ink/80">即日起開放早鳥預購，數量有限售完為止</p>
+        </div>
+        <div class="bg-cream text-ink border-4 border-cream p-8 rotate-[2deg] hard-shadow">
+          <p class="font-display text-sm text-violet mb-2">📍 活動地點</p>
+          <p class="font-display text-3xl mb-1">河岸草原廣場</p>
+          <p class="font-body text-sm text-ink/70 mb-6">台北市大同區河濱公園特別開放區（近捷運圓山站，步行約 10 分鐘）</p>
+          <p class="font-display text-sm text-yellow bg-ink inline-block px-2 py-0.5 mb-2">🚗 交通提醒</p>
+          <p class="font-body text-sm text-ink/80">現場無汽車停車位，強烈建議搭乘大眾運輸或共享單車前往</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="zigzag-divider"></div>
+
+  <!-- 購票 CTA -->
+  <section id="tickets" class="relative bg-cream py-24 px-5 md:px-12 overflow-hidden">
+    <div class="blob-lightning bg-yellow w-20 h-24 absolute top-10 left-8 md:left-20 opacity-90 hidden sm:block"></div>
+    <div class="blob-1 bg-violet w-16 h-16 absolute bottom-10 right-10 md:right-32"></div>
+
+    <div class="relative z-10 max-w-3xl mx-auto text-center">
+      <div class="stamp inline-block bg-magenta text-cream font-display px-6 py-3 hard-shadow mb-8 text-sm md:text-base">
+        限量發售 ★ 售完即止
+      </div>
+      <h2 class="font-display text-4xl md:text-6xl mb-6 leading-tight">準備好跳進<br class="sm:hidden"> 色塊漩渦了嗎？</h2>
+      <p class="font-body text-base md:text-lg mb-10 max-w-xl mx-auto leading-relaxed">
+        早鳥票、團體票、市集自由入場券三種選擇，通通在下方一鍵搞定。
+        帶上你最鮮豔的那件衣服，色塊祭見！
+      </p>
+
+      <div class="grid sm:grid-cols-3 gap-6 mb-12">
+        <div class="card-tilt-2 bg-white border-4 border-ink hard-shadow-sm p-6">
+          <p class="font-display text-xs bg-yellow inline-block px-3 py-1 mb-3 rotate-[-2deg]">早鳥票</p>
+          <p class="font-display text-3xl mb-2">NT$ 880</p>
+          <p class="font-body text-xs text-ink/70">限量 500 張，含入場＋主舞台區</p>
+        </div>
+        <div class="card-tilt-1 bg-white border-4 border-ink hard-shadow-sm p-6">
+          <p class="font-display text-xs bg-teal inline-block px-3 py-1 mb-3 rotate-[2deg]">四人團體票</p>
+          <p class="font-display text-3xl mb-2">NT$ 3,200</p>
+          <p class="font-body text-xs text-ink/70">四人同行再送限定貼紙組</p>
+        </div>
+        <div class="card-tilt-3 bg-white border-4 border-ink hard-shadow-sm p-6">
+          <p class="font-display text-xs bg-magenta text-cream inline-block px-3 py-1 mb-3 rotate-[-2deg]">市集自由券</p>
+          <p class="font-display text-3xl mb-2">NT$ 350</p>
+          <p class="font-body text-xs text-ink/70">只逛市集與美食廣場的輕鬆選擇</p>
+        </div>
+      </div>
+
+      <button type="button" onclick="alert('感謝支持色塊祭！購票功能為展示頁面，正式售票請鎖定官方粉絲專頁公告。')" class="font-display text-xl md:text-2xl bg-ink text-cream px-10 py-5 hard-shadow rotate-[-1.5deg] wiggle-btn inline-block">
+        立即前往購票 🎟
+      </button>
+    </div>
+  </section>
+
+  <footer class="bg-ink text-cream text-center py-8 px-5 border-t-4 border-ink">
+    <p class="font-display text-sm mb-2">色塊祭 ColorFest</p>
+    <p class="font-body text-xs text-cream/70">© 2026 色塊祭籌備小組．保留所有活動最終解釋權</p>
+  </footer>
+
+</body>
+</html>
