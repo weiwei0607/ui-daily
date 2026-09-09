@@ -21,6 +21,13 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-09-09（6 個，#01–06）
+- ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（agent-proxy 明確回報 `connect_rejected` / gateway 403 policy denial，host: b-battle-580b5-default-rtdb.firebaseio.com），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
+- ⚠️ Telegram 通知（步驟 8）同樣被環境網路政策擋下（api.telegram.org 同一機制 403 policy denial），改用系統推播通知告知使用者，Telegram 訊息這次沒有送出。
+- ✅ 本輪意外發現 GitHub REST API（api.github.com，含 publish.py 用到的 `/repos/.../git/ref/...` 端點）今天**可以**連線成功（curl 測試回 200），與過去多輪被 403 擋下不同；但仍改用 `git push`（HTTPS + GH_TOKEN 當密碼，走 git 協定）逐檔即時 commit+push，因為之前每完成 1-2 個就備份進度的作法更能避免中途被 Stop hook 擋下或超時遺失進度，效果與 publish.py 相同（都是 commit 到 master）。
+- 本輪採用並行子代理（同時派 6 個 agent 各生成一個風格檔案，prompt 中明確指定字體配方、內容主題、技術要求，並要求每個 agent 完成後自行檢查簡體字、Inter/Helvetica 字體誤用、HTML 標籤閉合），全數順利完成，每個 agent 回報都自行做了簡體字掃描與字體殘留檢查，結果皆為通過（少數 grep 誤判如 pointer-events/cursor-pointer 含 "inter" 子字串，經確認非字體洩漏）。
+- 本批風格挑選依據：先統計 reviews/ 全部歷史檔案的 `<!-- style #NN 風格名 -->` 標頭，避開最近 3 天（09-06/09-07/09-08）用過的風格，並優先挑歷史出現次數最少（1-2 次）的風格，跨 A/B/C/D 四組：**Soft UI Evolution #19**（A 組，圓體 Baloo 2 + Quicksand + Zen Maru Gothic，做成正念冥想 App「靜心角」）、**Parallax Storytelling #49**（B 組，襯線報紙體 Newsreader + Noto Serif TC，做成手沖咖啡品牌故事頁「拾光烘豆所」，含真實 scroll 視差效果）、**Memphis Revival #44**（D 組，粗展示字 Archivo Black + Poppins，做成音樂節宣傳頁「色塊祭 ColorFest」）、**Drill-Down Dashboard #32**（C 組，Plus Jakarta Sans + JetBrains Mono，做成零售銷售下鑽分析後台「盤點通」，含真實可展開/收合的分類明細）、**Cyberpunk #41**（A/D 組，Orbitron + Share Tech Mono，做成電競戰隊平台「霓虹戰隊 NeonSquad」，含真實 glitch 動畫與掃描線）、**Pixel Art / Retro Gaming #52**（D 組，Press Start 2P 標題 + VT323/Noto Sans TC 內文，做成復古像素遊戲收藏網站「像素盒 PixelBox」，中文內文皆用 Noto Sans TC 確保可讀）。全數繁體中文文案，皆避免使用 Inter/Helvetica 作為實際渲染字體。
+
 ### 2026-09-08（6 個，#01–06）
 - ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（curl -m 10 無回應，exit 56），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
 - ⚠️ 本輪 publish.py 直連 GitHub REST API 一如既往回 403 Forbidden，改用 `git push`（HTTPS + GH_TOKEN 當密碼，走 git 協定）發布。
