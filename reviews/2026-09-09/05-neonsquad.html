@@ -1,0 +1,562 @@
+<!-- style #41 Cyberpunk -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>霓虹戰隊 NeonSquad</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0f;
+    --bg2:#120a18;
+    --magenta:#ff006e;
+    --cyan:#00fff5;
+    --panel:#12111a;
+    --line:#2a2438;
+  }
+
+  *{box-sizing:border-box;}
+
+  html,body{
+    background:var(--bg);
+    color:#e8e6f0;
+    margin:0;
+    padding:0;
+  }
+
+  body{
+    font-family:'Share Tech Mono','Noto Sans TC',monospace,sans-serif;
+    position:relative;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3,.font-display{
+    font-family:'Orbitron','Noto Sans TC',sans-serif;
+  }
+
+  /* 覆寫 Tailwind 預設字體，避免 fallback 到 Inter/Helvetica */
+  .font-sans, .font-mono{
+    font-family:'Share Tech Mono','Noto Sans TC',monospace,sans-serif !important;
+  }
+
+  /* ---------- 全域掃描線動畫 ---------- */
+  .scanline-overlay{
+    position:fixed;
+    top:0; left:0; right:0; bottom:0;
+    pointer-events:none;
+    z-index:50;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        rgba(0,255,245,0.02) 0px,
+        rgba(0,255,245,0.02) 1px,
+        transparent 1px,
+        transparent 3px
+      );
+  }
+
+  .scanline-beam{
+    position:fixed;
+    left:0; right:0;
+    height:120px;
+    top:-120px;
+    pointer-events:none;
+    z-index:51;
+    background:linear-gradient(
+      to bottom,
+      rgba(0,255,245,0) 0%,
+      rgba(0,255,245,0.06) 40%,
+      rgba(0,255,245,0.18) 50%,
+      rgba(0,255,245,0.06) 60%,
+      rgba(0,255,245,0) 100%
+    );
+    animation:scanmove 7s linear infinite;
+    mix-blend-mode:screen;
+  }
+
+  @keyframes scanmove{
+    0%{ transform:translateY(0); }
+    100%{ transform:translateY(calc(100vh + 240px)); }
+  }
+
+  /* ---------- 霓虹文字發光 ---------- */
+  .neon-magenta{
+    color:#fff;
+    text-shadow:
+      0 0 4px #fff,
+      0 0 10px var(--magenta),
+      0 0 20px var(--magenta),
+      0 0 40px var(--magenta),
+      0 0 80px var(--magenta);
+  }
+
+  .neon-cyan{
+    color:#fff;
+    text-shadow:
+      0 0 4px #fff,
+      0 0 10px var(--cyan),
+      0 0 20px var(--cyan),
+      0 0 40px var(--cyan),
+      0 0 80px var(--cyan);
+  }
+
+  .neon-border{
+    border:1px solid var(--cyan);
+    box-shadow:
+      0 0 6px rgba(0,255,245,0.5),
+      0 0 16px rgba(0,255,245,0.25),
+      inset 0 0 12px rgba(0,255,245,0.08);
+  }
+
+  .neon-border-magenta{
+    border:1px solid var(--magenta);
+    box-shadow:
+      0 0 6px rgba(255,0,110,0.5),
+      0 0 16px rgba(255,0,110,0.25),
+      inset 0 0 12px rgba(255,0,110,0.08);
+  }
+
+  /* ---------- Glitch 標題效果 ---------- */
+  .glitch-wrap{
+    position:relative;
+    display:inline-block;
+  }
+
+  .glitch{
+    position:relative;
+    font-family:'Orbitron', sans-serif;
+    letter-spacing:0.06em;
+  }
+
+  .glitch::before,
+  .glitch::after{
+    content:attr(data-text);
+    position:absolute;
+    top:0; left:0;
+    width:100%;
+    height:100%;
+    background:transparent;
+  }
+
+  .glitch::before{
+    color:var(--cyan);
+    left:3px;
+    clip-path:inset(0 0 0 0);
+    animation:glitch-top 3.5s infinite linear alternate-reverse;
+    opacity:0.85;
+  }
+
+  .glitch::after{
+    color:var(--magenta);
+    left:-3px;
+    clip-path:inset(0 0 0 0);
+    animation:glitch-bottom 2.7s infinite linear alternate-reverse;
+    opacity:0.85;
+  }
+
+  @keyframes glitch-top{
+    0%{ clip-path:inset(0 0 85% 0); transform:translate(-2px,-1px); }
+    10%{ clip-path:inset(10% 0 60% 0); transform:translate(2px,1px); }
+    20%{ clip-path:inset(40% 0 40% 0); transform:translate(-1px,2px); }
+    30%{ clip-path:inset(70% 0 5% 0); transform:translate(1px,-2px); }
+    40%{ clip-path:inset(15% 0 70% 0); transform:translate(-2px,1px); }
+    50%{ clip-path:inset(55% 0 20% 0); transform:translate(2px,-1px); }
+    60%{ clip-path:inset(5% 0 88% 0); transform:translate(-1px,-2px); }
+    70%{ clip-path:inset(65% 0 10% 0); transform:translate(1px,2px); }
+    80%{ clip-path:inset(30% 0 50% 0); transform:translate(-2px,-1px); }
+    90%{ clip-path:inset(80% 0 2% 0); transform:translate(2px,1px); }
+    100%{ clip-path:inset(20% 0 60% 0); transform:translate(-1px,1px); }
+  }
+
+  @keyframes glitch-bottom{
+    0%{ clip-path:inset(85% 0 0 0); transform:translate(2px,1px); }
+    10%{ clip-path:inset(60% 0 10% 0); transform:translate(-2px,-1px); }
+    20%{ clip-path:inset(30% 0 45% 0); transform:translate(1px,-2px); }
+    30%{ clip-path:inset(5% 0 75% 0); transform:translate(-1px,2px); }
+    40%{ clip-path:inset(72% 0 8% 0); transform:translate(2px,-1px); }
+    50%{ clip-path:inset(18% 0 55% 0); transform:translate(-2px,1px); }
+    60%{ clip-path:inset(90% 0 2% 0); transform:translate(1px,2px); }
+    70%{ clip-path:inset(8% 0 68% 0); transform:translate(-1px,-2px); }
+    80%{ clip-path:inset(48% 0 28% 0); transform:translate(2px,1px); }
+    90%{ clip-path:inset(2% 0 82% 0); transform:translate(-2px,-1px); }
+    100%{ clip-path:inset(58% 0 22% 0); transform:translate(1px,-1px); }
+  }
+
+  /* ---------- 背景格線 ---------- */
+  .grid-bg{
+    background-image:
+      linear-gradient(rgba(255,0,110,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,245,0.06) 1px, transparent 1px);
+    background-size:42px 42px;
+  }
+
+  .radial-glow{
+    background:radial-gradient(ellipse 60% 50% at 50% 0%, rgba(255,0,110,0.18), transparent 70%),
+               radial-gradient(ellipse 50% 40% at 80% 30%, rgba(0,255,245,0.12), transparent 70%);
+  }
+
+  /* ---------- 選手卡片 ---------- */
+  .player-card{
+    background:linear-gradient(180deg, #14121e 0%, #0d0c14 100%);
+    border:1px solid var(--line);
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+
+  .player-card:hover{
+    transform:translateY(-6px);
+    border-color:var(--cyan);
+    box-shadow:0 0 24px rgba(0,255,245,0.35), 0 0 50px rgba(255,0,110,0.15);
+  }
+
+  .avatar-box{
+    aspect-ratio:1/1;
+    background:
+      linear-gradient(135deg, rgba(255,0,110,0.35), rgba(0,255,245,0.25)),
+      repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 6px);
+    position:relative;
+    overflow:hidden;
+  }
+
+  .avatar-box::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    border:1px solid rgba(0,255,245,0.4);
+  }
+
+  /* ---------- 數字強調（等寬） ---------- */
+  .stat-num{
+    font-family:'Share Tech Mono', monospace;
+    font-variant-numeric:tabular-nums;
+  }
+
+  /* ---------- 按鈕 ---------- */
+  .cta-btn{
+    font-family:'Orbitron', sans-serif;
+    position:relative;
+    background:transparent;
+    border:2px solid var(--magenta);
+    color:#fff;
+    text-shadow:0 0 8px var(--magenta);
+    box-shadow:0 0 12px rgba(255,0,110,0.5), inset 0 0 12px rgba(255,0,110,0.15);
+    transition:all .2s ease;
+    overflow:hidden;
+  }
+
+  .cta-btn:hover{
+    background:var(--magenta);
+    color:#0a0a0f;
+    text-shadow:none;
+    box-shadow:0 0 30px rgba(255,0,110,0.9), 0 0 60px rgba(255,0,110,0.5);
+  }
+
+  .cta-btn-outline{
+    font-family:'Orbitron', sans-serif;
+    background:transparent;
+    border:2px solid var(--cyan);
+    color:#fff;
+    text-shadow:0 0 8px var(--cyan);
+    box-shadow:0 0 12px rgba(0,255,245,0.4), inset 0 0 12px rgba(0,255,245,0.1);
+    transition:all .2s ease;
+  }
+
+  .cta-btn-outline:hover{
+    background:var(--cyan);
+    color:#0a0a0f;
+    text-shadow:none;
+    box-shadow:0 0 30px rgba(0,255,245,0.9), 0 0 60px rgba(0,255,245,0.5);
+  }
+
+  .tag-pill{
+    font-family:'Share Tech Mono', monospace;
+    border:1px solid rgba(0,255,245,0.5);
+    color:var(--cyan);
+    background:rgba(0,255,245,0.06);
+  }
+
+  .divider-glow{
+    height:1px;
+    background:linear-gradient(90deg, transparent, var(--cyan), var(--magenta), transparent);
+    box-shadow:0 0 8px rgba(0,255,245,0.6);
+  }
+
+  .flicker{
+    animation:flicker 4.5s infinite;
+  }
+  @keyframes flicker{
+    0%, 19%, 21%, 23%, 55%, 57%, 100%{ opacity:1; }
+    20%, 22%, 56%{ opacity:0.55; }
+  }
+
+  ::selection{
+    background:var(--magenta);
+    color:#0a0a0f;
+  }
+
+  /* 滾動條也做成賽博風 */
+  ::-webkit-scrollbar{ width:10px; }
+  ::-webkit-scrollbar-track{ background:#0a0a0f; }
+  ::-webkit-scrollbar-thumb{ background:linear-gradient(180deg, var(--magenta), var(--cyan)); border-radius:4px; }
+</style>
+</head>
+<body class="grid-bg">
+
+<div class="scanline-overlay"></div>
+<div class="scanline-beam"></div>
+
+<!-- ===== Navbar ===== -->
+<header class="relative z-10 border-b border-[#2a2438]/80 backdrop-blur-sm">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 neon-border rounded flex items-center justify-center font-display text-cyan-300" style="color:var(--cyan)">N</div>
+      <span class="font-display text-lg tracking-widest neon-cyan">NEON<span class="neon-magenta">SQUAD</span></span>
+    </div>
+    <nav class="hidden md:flex gap-8 text-sm tracking-wider" style="color:#a9a4c0">
+      <a href="#roster" class="hover:text-white transition">選手陣容</a>
+      <a href="#stats" class="hover:text-white transition">賽事戰績</a>
+      <a href="#join" class="hover:text-white transition">加入戰隊</a>
+    </nav>
+    <span class="tag-pill text-xs px-3 py-1 rounded-full tracking-widest">LIVE｜巡迴賽季 S7</span>
+  </div>
+</header>
+
+<!-- ===== Hero ===== -->
+<section class="relative z-10 radial-glow">
+  <div class="max-w-6xl mx-auto px-6 pt-20 pb-24 text-center">
+    <p class="tag-pill inline-block px-4 py-1 rounded-full text-xs tracking-[0.3em] mb-8">TAIWAN ESPORTS ORGANIZATION</p>
+
+    <h1 class="glitch-wrap block mb-6">
+      <span class="glitch font-display text-5xl md:text-7xl font-black tracking-widest" data-text="霓虹戰隊">
+        <span class="neon-magenta">霓虹</span><span class="neon-cyan">戰隊</span>
+      </span>
+    </h1>
+
+    <p class="font-display text-2xl md:text-3xl tracking-[0.4em] text-white/90 mb-8 flicker">N E O N S Q U A D</p>
+
+    <p class="max-w-2xl mx-auto text-base md:text-lg leading-relaxed" style="color:#c7c2dd">
+      我們是深耕夜城賽道的職業電競戰隊，橫跨戰術射擊與多人競技兩大賽事版圖。
+      用數據與訓練淬鍊每一場對局，用團隊默契點亮屬於霓虹戰隊的霸主之路。
+    </p>
+
+    <div class="flex flex-wrap justify-center gap-4 mt-10">
+      <a href="#join" class="cta-btn px-8 py-3 rounded tracking-widest text-sm">加入戰隊招募</a>
+      <a href="#stats" class="cta-btn-outline px-8 py-3 rounded tracking-widest text-sm">查看賽季戰績</a>
+    </div>
+
+    <div class="divider-glow max-w-4xl mx-auto mt-16"></div>
+  </div>
+</section>
+
+<!-- ===== 選手陣容 ===== -->
+<section id="roster" class="relative z-10 max-w-6xl mx-auto px-6 py-20">
+  <div class="text-center mb-14">
+    <h2 class="font-display text-3xl md:text-4xl tracking-widest neon-cyan mb-3">選手陣容</h2>
+    <p class="text-sm tracking-widest" style="color:#8f89ab">ROSTER // 五人主力先發名單</p>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+    <!-- 選手 1 -->
+    <div class="player-card rounded-lg overflow-hidden">
+      <div class="avatar-box flex items-center justify-center">
+        <span class="font-display text-4xl neon-magenta">刃</span>
+      </div>
+      <div class="p-5">
+        <div class="flex items-center justify-between mb-1">
+          <h3 class="font-display text-lg tracking-wide text-white">刃・凌</h3>
+          <span class="text-xs tag-pill px-2 py-0.5 rounded">隊長</span>
+        </div>
+        <p class="text-xs mb-3" style="color:#8f89ab">主攻手 / IGL</p>
+        <div class="grid grid-cols-2 gap-2 text-xs">
+          <div><span style="color:#8f89ab">場均擊殺</span><div class="stat-num text-lg neon-cyan">24.7</div></div>
+          <div><span style="color:#8f89ab">勝率</span><div class="stat-num text-lg neon-cyan">68%</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 選手 2 -->
+    <div class="player-card rounded-lg overflow-hidden">
+      <div class="avatar-box flex items-center justify-center">
+        <span class="font-display text-4xl neon-cyan">曦</span>
+      </div>
+      <div class="p-5">
+        <div class="flex items-center justify-between mb-1">
+          <h3 class="font-display text-lg tracking-wide text-white">曦・雪見</h3>
+          <span class="text-xs tag-pill px-2 py-0.5 rounded">狙擊手</span>
+        </div>
+        <p class="text-xs mb-3" style="color:#8f89ab">遠距離火力核心</p>
+        <div class="grid grid-cols-2 gap-2 text-xs">
+          <div><span style="color:#8f89ab">場均擊殺</span><div class="stat-num text-lg neon-cyan">21.3</div></div>
+          <div><span style="color:#8f89ab">爆頭率</span><div class="stat-num text-lg neon-cyan">57%</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 選手 3 -->
+    <div class="player-card rounded-lg overflow-hidden">
+      <div class="avatar-box flex items-center justify-center">
+        <span class="font-display text-4xl neon-magenta">燼</span>
+      </div>
+      <div class="p-5">
+        <div class="flex items-center justify-between mb-1">
+          <h3 class="font-display text-lg tracking-wide text-white">燼・夜行</h3>
+          <span class="text-xs tag-pill px-2 py-0.5 rounded">突擊手</span>
+        </div>
+        <p class="text-xs mb-3" style="color:#8f89ab">前線突破專家</p>
+        <div class="grid grid-cols-2 gap-2 text-xs">
+          <div><span style="color:#8f89ab">場均擊殺</span><div class="stat-num text-lg neon-cyan">19.8</div></div>
+          <div><span style="color:#8f89ab">開局勝率</span><div class="stat-num text-lg neon-cyan">61%</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 選手 4 -->
+    <div class="player-card rounded-lg overflow-hidden">
+      <div class="avatar-box flex items-center justify-center">
+        <span class="font-display text-4xl neon-cyan">澪</span>
+      </div>
+      <div class="p-5">
+        <div class="flex items-center justify-between mb-1">
+          <h3 class="font-display text-lg tracking-wide text-white">澪・電羽</h3>
+          <span class="text-xs tag-pill px-2 py-0.5 rounded">輔助</span>
+        </div>
+        <p class="text-xs mb-3" style="color:#8f89ab">戰場資訊與掩護</p>
+        <div class="grid grid-cols-2 gap-2 text-xs">
+          <div><span style="color:#8f89ab">場均助攻</span><div class="stat-num text-lg neon-cyan">15.2</div></div>
+          <div><span style="color:#8f89ab">存活率</span><div class="stat-num text-lg neon-cyan">74%</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== 賽事戰績數據 ===== -->
+<section id="stats" class="relative z-10 border-y border-[#2a2438]">
+  <div class="max-w-6xl mx-auto px-6 py-20">
+    <div class="text-center mb-14">
+      <h2 class="font-display text-3xl md:text-4xl tracking-widest neon-magenta mb-3">近期賽事戰績</h2>
+      <p class="text-sm tracking-widest" style="color:#8f89ab">SEASON STATS // 2026 夏季巡迴賽</p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-14">
+      <div class="neon-border rounded-lg p-6 text-center bg-[#0d0c14]">
+        <div class="stat-num text-4xl md:text-5xl neon-cyan mb-2">32<span class="text-xl">勝</span></div>
+        <p class="text-xs tracking-widest" style="color:#8f89ab">本季總勝場</p>
+      </div>
+      <div class="neon-border-magenta rounded-lg p-6 text-center bg-[#0d0c14]">
+        <div class="stat-num text-4xl md:text-5xl neon-magenta mb-2">71<span class="text-xl">%</span></div>
+        <p class="text-xs tracking-widest" style="color:#8f89ab">整體勝率</p>
+      </div>
+      <div class="neon-border rounded-lg p-6 text-center bg-[#0d0c14]">
+        <div class="stat-num text-4xl md:text-5xl neon-cyan mb-2">1,842</div>
+        <p class="text-xs tracking-widest" style="color:#8f89ab">積分排名分數</p>
+      </div>
+      <div class="neon-border-magenta rounded-lg p-6 text-center bg-[#0d0c14]">
+        <div class="stat-num text-4xl md:text-5xl neon-magenta mb-2">#3</div>
+        <p class="text-xs tracking-widest" style="color:#8f89ab">聯賽即時排名</p>
+      </div>
+    </div>
+
+    <div class="overflow-x-auto neon-border rounded-lg bg-[#0d0c14]">
+      <table class="w-full text-sm min-w-[560px]">
+        <thead>
+          <tr class="text-left border-b border-[#2a2438]" style="color:#8f89ab">
+            <th class="px-5 py-3 font-normal tracking-widest">賽事名稱</th>
+            <th class="px-5 py-3 font-normal tracking-widest">對手戰隊</th>
+            <th class="px-5 py-3 font-normal tracking-widest">比分</th>
+            <th class="px-5 py-3 font-normal tracking-widest">結果</th>
+          </tr>
+        </thead>
+        <tbody class="stat-num">
+          <tr class="border-b border-[#1c1826]">
+            <td class="px-5 py-3">霓虹聯賽 夏季組內賽</td>
+            <td class="px-5 py-3">狂嵐戰隊</td>
+            <td class="px-5 py-3">3 : 1</td>
+            <td class="px-5 py-3"><span class="neon-cyan">勝利</span></td>
+          </tr>
+          <tr class="border-b border-[#1c1826]">
+            <td class="px-5 py-3">城市邀請賽 準決賽</td>
+            <td class="px-5 py-3">赤炎軍團</td>
+            <td class="px-5 py-3">2 : 1</td>
+            <td class="px-5 py-3"><span class="neon-cyan">勝利</span></td>
+          </tr>
+          <tr class="border-b border-[#1c1826]">
+            <td class="px-5 py-3">亞洲區資格賽</td>
+            <td class="px-5 py-3">幻影機兵</td>
+            <td class="px-5 py-3">1 : 3</td>
+            <td class="px-5 py-3"><span class="neon-magenta">落敗</span></td>
+          </tr>
+          <tr>
+            <td class="px-5 py-3">霓虹聯賽 夏季組內賽</td>
+            <td class="px-5 py-3">鋼鐵曙光</td>
+            <td class="px-5 py-3">3 : 0</td>
+            <td class="px-5 py-3"><span class="neon-cyan">勝利</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA 招募 ===== -->
+<section id="join" class="relative z-10 radial-glow">
+  <div class="max-w-4xl mx-auto px-6 py-24 text-center">
+    <h2 class="font-display text-3xl md:text-4xl tracking-widest mb-4">
+      <span class="neon-magenta">準備好</span><span class="neon-cyan">點亮夜城</span>了嗎？
+    </h2>
+    <p class="max-w-xl mx-auto mb-10" style="color:#c7c2dd">
+      霓虹戰隊常態招募各賽區選手與訓練生，無論你是新秀還是老將，
+      只要你有實力與野心，這裡就有屬於你的舞台。即刻投遞試訓申請，
+      加入我們的下一場逆襲。
+    </p>
+    <div class="flex flex-wrap justify-center gap-4">
+      <button id="joinBtn" class="cta-btn px-10 py-4 rounded tracking-widest text-sm">立即投遞試訓申請</button>
+      <a href="#roster" class="cta-btn-outline px-10 py-4 rounded tracking-widest text-sm">認識現役選手</a>
+    </div>
+    <p id="joinMsg" class="mt-6 text-sm neon-cyan" style="min-height:1.2em"></p>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="relative z-10 border-t border-[#2a2438]">
+  <div class="max-w-6xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs tracking-widest" style="color:#6f6a8a">
+    <span>© 2026 NEONSQUAD ESPORTS CLUB．夜城訓練基地</span>
+    <span class="flicker">SYSTEM STATUS：ONLINE</span>
+  </div>
+</footer>
+
+<script>
+  // 招募按鈕互動效果：模擬故障式提交回饋
+  (function(){
+    var btn = document.getElementById('joinBtn');
+    var msg = document.getElementById('joinMsg');
+    var messages = [
+      '申請已送出，戰隊教練團將於三個工作天內與你聯繫。',
+      '訊號接收中... 已進入夜城系統，請留意信箱通知。',
+      '試訓資料已同步，感謝你對霓虹戰隊的熱情。'
+    ];
+    var clickCount = 0;
+    if(btn){
+      btn.addEventListener('click', function(){
+        clickCount++;
+        msg.textContent = messages[(clickCount - 1) % messages.length];
+        msg.style.opacity = 0;
+        msg.style.transform = 'translateY(4px)';
+        msg.style.transition = 'none';
+        requestAnimationFrame(function(){
+          msg.style.transition = 'opacity .4s ease, transform .4s ease';
+          msg.style.opacity = 1;
+          msg.style.transform = 'translateY(0)';
+        });
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>

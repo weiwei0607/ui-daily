@@ -1,0 +1,514 @@
+<!-- style #32 Drill-Down Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>盤點通｜銷售下鑽分析後台</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['"Plus Jakarta Sans"', '"Noto Sans TC"', 'sans-serif'],
+          mono: ['"JetBrains Mono"', '"Noto Sans TC"', 'monospace'],
+        },
+        colors: {
+          bg: '#f8fafc',
+          ink: '#1e293b',
+          up: '#10b981',
+          down: '#ef4444',
+          accent: '#4f46e5',
+        }
+      }
+    }
+  }
+</script>
+<style>
+  :root{
+    --bg:#f8fafc;
+    --panel:#ffffff;
+    --border:#e2e8f0;
+    --ink:#1e293b;
+    --sub:#64748b;
+    --up:#10b981;
+    --down:#ef4444;
+    --accent:#4f46e5;
+    --accent-soft:#eef2ff;
+  }
+  *{ box-sizing:border-box; }
+  html, body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Plus Jakarta Sans", "Noto Sans TC", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .font-num, .mono-num, table td.num, .kpi-value, .chart-axis, .badge-num{
+    font-family: "JetBrains Mono", "Noto Sans TC", monospace;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+  .panel{
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+  .pill-up{ color: var(--up); background: rgba(16,185,129,0.1); }
+  .pill-down{ color: var(--down); background: rgba(239,68,68,0.1); }
+  .accent-text{ color: var(--accent); }
+  .accent-bg{ background: var(--accent); }
+  .row-hover:hover{ background: #f1f5f9; }
+  .breadcrumb-link{ color: var(--sub); }
+  .breadcrumb-link:hover{ color: var(--accent); }
+  .chevron{ transition: transform 0.2s ease; }
+  .expanded > .chevron{ transform: rotate(90deg); }
+  .drill-body{
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.28s ease;
+  }
+  .drill-body.open{
+    max-height: 600px;
+  }
+  .scrollbar-thin::-webkit-scrollbar{ height: 8px; width: 8px; }
+  .scrollbar-thin::-webkit-scrollbar-thumb{ background: #cbd5e1; border-radius: 8px; }
+  .bar-track{ background: #eef1f6; border-radius: 6px; overflow: hidden; }
+  .bar-fill{ background: var(--accent); border-radius: 6px; }
+  .sparkline-point:hover circle{ r: 4.5; }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <!-- 頂部導覽列 -->
+  <header class="sticky top-0 z-20 bg-white/95 backdrop-blur border-b border-slate-200">
+    <div class="max-w-[1400px] mx-auto px-6 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl accent-bg flex items-center justify-center text-white font-bold text-sm">盤</div>
+        <div>
+          <p class="font-extrabold text-[15px] leading-tight tracking-tight">盤點通</p>
+          <p class="text-[11px] text-slate-400 leading-tight">零售銷售分析後台</p>
+        </div>
+      </div>
+      <nav class="hidden md:flex items-center gap-6 text-[13px] font-medium text-slate-500">
+        <a class="text-[var(--accent)] font-semibold" href="#">銷售分析</a>
+        <a class="hover:text-slate-800" href="#">庫存總覽</a>
+        <a class="hover:text-slate-800" href="#">會員經營</a>
+        <a class="hover:text-slate-800" href="#">報表中心</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <span class="hidden sm:inline text-[12px] text-slate-400 font-num">資料更新：2026/09/09 08:15</span>
+        <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-[12px] font-semibold text-slate-600">韡</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-[1400px] mx-auto px-6 py-6 space-y-6">
+
+    <!-- 麵包屑導覽 -->
+    <div class="flex items-center gap-2 text-[13px]">
+      <a href="#" class="breadcrumb-link">後台首頁</a>
+      <span class="text-slate-300">/</span>
+      <a href="#" class="breadcrumb-link">銷售分析</a>
+      <span class="text-slate-300">/</span>
+      <span class="font-semibold text-slate-700">分類下鑽總覽</span>
+    </div>
+
+    <!-- 標題列 -->
+    <div class="flex flex-wrap items-end justify-between gap-3">
+      <div>
+        <h1 class="text-xl font-extrabold tracking-tight">銷售下鑽分析</h1>
+        <p class="text-[13px] text-slate-400 mt-1">點擊分類列可展開子分類明細，逐層下鑽檢視銷售表現</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <button class="px-3 py-1.5 rounded-lg border border-slate-200 text-[12px] font-semibold text-slate-500 bg-white">今日</button>
+        <button class="px-3 py-1.5 rounded-lg border border-slate-200 text-[12px] font-semibold text-slate-500 bg-white">近 7 日</button>
+        <button class="px-3 py-1.5 rounded-lg accent-bg text-white text-[12px] font-semibold">近 30 日</button>
+      </div>
+    </div>
+
+    <!-- KPI 卡片列 -->
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+      <div class="panel p-5">
+        <div class="flex items-center justify-between">
+          <p class="text-[12px] font-semibold text-slate-400">總營收（近 30 日）</p>
+          <span class="w-7 h-7 rounded-lg accent-bg/10 bg-[var(--accent-soft)] flex items-center justify-center">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.2"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>
+          </span>
+        </div>
+        <p class="kpi-value text-2xl font-bold mt-3">NT$ 8,246,300</p>
+        <div class="flex items-center gap-2 mt-2">
+          <span class="pill-up font-num text-[11px] font-semibold px-1.5 py-0.5 rounded-md">▲ 12.4%</span>
+          <span class="text-[11px] text-slate-400">較上期成長</span>
+        </div>
+      </div>
+
+      <div class="panel p-5">
+        <div class="flex items-center justify-between">
+          <p class="text-[12px] font-semibold text-slate-400">訂單數</p>
+          <span class="w-7 h-7 rounded-lg bg-[var(--accent-soft)] flex items-center justify-center">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.2"><rect x="4" y="6" width="16" height="14" rx="2"/><path d="M8 3v4M16 3v4M4 11h16"/></svg>
+          </span>
+        </div>
+        <p class="kpi-value text-2xl font-bold mt-3">18,932</p>
+        <div class="flex items-center gap-2 mt-2">
+          <span class="pill-up font-num text-[11px] font-semibold px-1.5 py-0.5 rounded-md">▲ 6.8%</span>
+          <span class="text-[11px] text-slate-400">較上期成長</span>
+        </div>
+      </div>
+
+      <div class="panel p-5">
+        <div class="flex items-center justify-between">
+          <p class="text-[12px] font-semibold text-slate-400">平均客單價</p>
+          <span class="w-7 h-7 rounded-lg bg-[var(--accent-soft)] flex items-center justify-center">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M9 9h.01M15 15h.01M15 9l-6 6"/></svg>
+          </span>
+        </div>
+        <p class="kpi-value text-2xl font-bold mt-3">NT$ 435</p>
+        <div class="flex items-center gap-2 mt-2">
+          <span class="pill-down font-num text-[11px] font-semibold px-1.5 py-0.5 rounded-md">▼ 2.1%</span>
+          <span class="text-[11px] text-slate-400">較上期下滑</span>
+        </div>
+      </div>
+
+      <div class="panel p-5">
+        <div class="flex items-center justify-between">
+          <p class="text-[12px] font-semibold text-slate-400">退貨率</p>
+          <span class="w-7 h-7 rounded-lg bg-[var(--accent-soft)] flex items-center justify-center">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.2"><path d="M4 4v6h6M20 20v-6h-6"/><path d="M4 10a8 8 0 0114-5M20 14a8 8 0 01-14 5"/></svg>
+          </span>
+        </div>
+        <p class="kpi-value text-2xl font-bold mt-3">3.2%</p>
+        <div class="flex items-center gap-2 mt-2">
+          <span class="pill-up font-num text-[11px] font-semibold px-1.5 py-0.5 rounded-md">▲ 0.4%</span>
+          <span class="text-[11px] text-slate-400">較上期上升</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- 圖表區塊 + 側邊排行 -->
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+
+      <div class="panel p-5 lg:col-span-2">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h2 class="font-bold text-[14px]">近 14 日營收趨勢</h2>
+            <p class="text-[11px] text-slate-400 mt-0.5">單位：新台幣（千元）</p>
+          </div>
+          <div class="flex items-center gap-3 text-[11px] text-slate-400">
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full accent-bg inline-block"></span>本期</span>
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-slate-300 inline-block"></span>上期</span>
+          </div>
+        </div>
+
+        <!-- SVG 折線圖 -->
+        <svg viewBox="0 0 640 220" class="w-full h-[220px]" preserveAspectRatio="none">
+          <line x1="0" y1="20" x2="640" y2="20" stroke="#eef1f6" stroke-width="1"/>
+          <line x1="0" y1="70" x2="640" y2="70" stroke="#eef1f6" stroke-width="1"/>
+          <line x1="0" y1="120" x2="640" y2="120" stroke="#eef1f6" stroke-width="1"/>
+          <line x1="0" y1="170" x2="640" y2="170" stroke="#eef1f6" stroke-width="1"/>
+
+          <!-- 上期（淡灰虛線） -->
+          <polyline fill="none" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="4 4"
+            points="0,160 46,150 92,155 138,140 184,145 230,130 276,135 322,120 368,128 414,110 460,118 506,100 552,105 598,90 640,95"/>
+
+          <!-- 本期（靛色，含漸層面積） -->
+          <defs>
+            <linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#4f46e5" stop-opacity="0.22"/>
+              <stop offset="100%" stop-color="#4f46e5" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <polygon fill="url(#areaFill)"
+            points="0,140 46,120 92,128 138,95 184,110 230,80 276,90 322,60 368,72 414,45 460,58 506,30 552,40 598,15 640,22 640,220 0,220"/>
+          <polyline fill="none" stroke="#4f46e5" stroke-width="2.5"
+            points="0,140 46,120 92,128 138,95 184,110 230,80 276,90 322,60 368,72 414,45 460,58 506,30 552,40 598,15 640,22"/>
+
+          <g class="sparkline-point">
+            <circle cx="640" cy="22" r="3.5" fill="#4f46e5"/>
+          </g>
+        </svg>
+        <div class="flex justify-between mt-2 text-[10px] text-slate-400 chart-axis">
+          <span>08/27</span><span>08/30</span><span>09/02</span><span>09/05</span><span>09/09</span>
+        </div>
+      </div>
+
+      <div class="panel p-5">
+        <h2 class="font-bold text-[14px] mb-4">分類佔比排行</h2>
+        <div class="space-y-3">
+          <div>
+            <div class="flex justify-between text-[12px] mb-1">
+              <span class="font-medium">服飾</span>
+              <span class="font-num text-slate-500">42.6%</span>
+            </div>
+            <div class="bar-track h-2"><div class="bar-fill h-2" style="width:42.6%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-[12px] mb-1">
+              <span class="font-medium">鞋靴</span>
+              <span class="font-num text-slate-500">23.1%</span>
+            </div>
+            <div class="bar-track h-2"><div class="bar-fill h-2" style="width:23.1%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-[12px] mb-1">
+              <span class="font-medium">配件</span>
+              <span class="font-num text-slate-500">18.4%</span>
+            </div>
+            <div class="bar-track h-2"><div class="bar-fill h-2" style="width:18.4%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-[12px] mb-1">
+              <span class="font-medium">居家生活</span>
+              <span class="font-num text-slate-500">15.9%</span>
+            </div>
+            <div class="bar-track h-2"><div class="bar-fill h-2" style="width:15.9%"></div></div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- 可下鑽分類銷售表 -->
+    <section class="panel overflow-hidden">
+      <div class="flex items-center justify-between px-5 py-4 border-b border-slate-100">
+        <div>
+          <h2 class="font-bold text-[14px]">分類銷售明細（可下鑽）</h2>
+          <p class="text-[11px] text-slate-400 mt-0.5">點擊分類名稱展開／收合子分類明細</p>
+        </div>
+        <span class="text-[11px] text-slate-400 font-num">共 4 個大分類</span>
+      </div>
+
+      <div class="overflow-x-auto scrollbar-thin">
+        <table class="w-full text-[13px] min-w-[820px]">
+          <thead>
+            <tr class="text-left text-[11px] text-slate-400 border-b border-slate-100">
+              <th class="px-5 py-2.5 font-semibold w-[38%]">分類名稱</th>
+              <th class="px-3 py-2.5 font-semibold text-right">營收</th>
+              <th class="px-3 py-2.5 font-semibold text-right">訂單數</th>
+              <th class="px-3 py-2.5 font-semibold text-right">客單價</th>
+              <th class="px-3 py-2.5 font-semibold text-right">較上期</th>
+              <th class="px-5 py-2.5 font-semibold text-right">佔比</th>
+            </tr>
+          </thead>
+          <tbody id="drillTable">
+
+            <!-- 服飾 -->
+            <tr class="row-hover cursor-pointer border-b border-slate-50 drill-toggle" data-target="grp-clothes">
+              <td class="px-5 py-3 font-semibold">
+                <span class="inline-flex items-center gap-2 chevron-wrap">
+                  <svg class="chevron w-3.5 h-3.5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg>
+                  服飾
+                </span>
+              </td>
+              <td class="px-3 py-3 text-right num font-num">NT$ 3,512,900</td>
+              <td class="px-3 py-3 text-right num font-num">8,204</td>
+              <td class="px-3 py-3 text-right num font-num">NT$ 428</td>
+              <td class="px-3 py-3 text-right"><span class="pill-up font-num text-[11px] font-semibold px-1.5 py-0.5 rounded-md">▲ 9.2%</span></td>
+              <td class="px-5 py-3 text-right num font-num">42.6%</td>
+            </tr>
+            <tr id="grp-clothes" class="drill-row">
+              <td colspan="6" class="p-0 border-b border-slate-50">
+                <div class="drill-body">
+                  <table class="w-full text-[12.5px]">
+                    <tbody>
+                      <tr class="row-hover border-t border-dashed border-slate-100">
+                        <td class="pl-12 pr-5 py-2.5 text-slate-600">└ 上衣</td>
+                        <td class="px-3 py-2.5 text-right num font-num text-slate-500">NT$ 1,684,200</td>
+                        <td class="px-3 py-2.5 text-right num font-num text-slate-500">4,120</td>
+                        <td class="px-3 py-2.5 text-right num font-num text-slate-500">NT$ 409</td>
+                        <td class="px-3 py-2.5 text-right"><span class="pill-up font-num text-[10.5px] font-semibold px-1.5 py-0.5 rounded-md">▲ 11.5%</span></td>
+                        <td class="px-5 py-2.5 text-right num font-num text-slate-500">20.4%</td>
+                      </tr>
+                      <tr class="row-hover border-t border-dashed border-slate-100">
+                        <td class="pl-12 pr-5 py-2.5 text-slate-600">└ 褲裝</td>
+                        <td class="px-3 py-2.5 text-right num font-num text-slate-500">NT$ 1,203,600</td>
+                        <td class="px-3 py-2.5 text-right num font-num text-slate-500">2,588</td>
+                        <td class="px-3 py-2.5 text-right num font-num text-slate-500">NT$ 465</td>
+                        <td class="px-3 py-2.5 text-right"><span class="pill-up font-num text-[10.5px] font-semibold px-1.5 py-0.5 rounded-md">▲ 5.8%</span></td>
+                        <td class="px-5 py-2.5 text-right num font-num text-slate-500">14.6%</td>
+                      </tr>
+                      <tr class="row-hover border-t border-dashed border-slate-100">
+                        <td class="pl-12 pr-5 py-2.5 text-slate-600">└ 外套</td>
+                        <td class="px-3 py-2.5 text-right num font-num text-slate-500">NT$ 625,100</td>
+                        <td class="px-3 py-2.5 text-right num font-num text-slate-500">1,496</td>
+                        <td class="px-3 py-2.5 text-right num font-num text-slate-500">NT$ 418</td>
+                        <td class="px-3 py-2.5 text-right"><span class="pill-down font-num text-[10.5px] font-semibold px-1.5 py-0.5 rounded-md">▼ 1.3%</span></td>
+                        <td class="px-5 py-2.5 text-right num font-num text-slate-500">7.6%</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            </tr>
+
+            <!-- 鞋靴 -->
+            <tr class="row-hover cursor-pointer border-b border-slate-50 drill-toggle" data-target="grp-shoes">
+              <td class="px-5 py-3 font-semibold">
+                <span class="inline-flex items-center gap-2 chevron-wrap">
+                  <svg class="chevron w-3.5 h-3.5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg>
+                  鞋靴
+                </span>
+              </td>
+              <td class="px-3 py-3 text-right num font-num">NT$ 1,904,700</td>
+              <td class="px-3 py-3 text-right num font-num">3,352</td>
+              <td class="px-3 py-3 text-right num font-num">NT$ 568</td>
+              <td class="px-3 py-3 text-right"><span class="pill-up font-num text-[11px] font-semibold px-1.5 py-0.5 rounded-md">▲ 14.7%</span></td>
+              <td class="px-5 py-3 text-right num font-num">23.1%</td>
+            </tr>
+            <tr id="grp-shoes" class="drill-row">
+              <td colspan="6" class="p-0 border-b border-slate-50">
+                <div class="drill-body">
+                  <table class="w-full text-[12.5px]">
+                    <tbody>
+                      <tr class="row-hover border-t border-dashed border-slate-100">
+                        <td class="pl-12 pr-5 py-2.5 text-slate-600">└ 運動鞋</td>
+                        <td class="px-3 py-2.5 text-right num font-num text-slate-500">NT$ 1,240,300</td>
+                        <td class="px-3 py-2.5 text-right num font-num text-slate-500">2,105</td>
+                        <td class="px-3 py-2.5 text-right num font-num text-slate-500">NT$ 589</td>
+                        <td class="px-3 py-2.5 text-right"><span class="pill-up font-num text-[10.5px] font-semibold px-1.5 py-0.5 rounded-md">▲ 18.2%</span></td>
+                        <td class="px-5 py-2.5 text-right num font-num text-slate-500">15.0%</td>
+                      </tr>
+                      <tr class="row-hover border-t border-dashed border-slate-100">
+                        <td class="pl-12 pr-5 py-2.5 text-slate-600">└ 皮鞋／正式鞋款</td>
+                        <td class="px-3 py-2.5 text-right num font-num text-slate-500">NT$ 664,400</td>
+                        <td class="px-3 py-2.5 text-right num font-num text-slate-500">1,247</td>
+                        <td class="px-3 py-2.5 text-right num font-num text-slate-500">NT$ 533</td>
+                        <td class="px-3 py-2.5 text-right"><span class="pill-up font-num text-[10.5px] font-semibold px-1.5 py-0.5 rounded-md">▲ 6.4%</span></td>
+                        <td class="px-5 py-2.5 text-right num font-num text-slate-500">8.1%</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            </tr>
+
+            <!-- 配件 -->
+            <tr class="row-hover cursor-pointer border-b border-slate-50 drill-toggle" data-target="grp-acc">
+              <td class="px-5 py-3 font-semibold">
+                <span class="inline-flex items-center gap-2 chevron-wrap">
+                  <svg class="chevron w-3.5 h-3.5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg>
+                  配件
+                </span>
+              </td>
+              <td class="px-3 py-3 text-right num font-num">NT$ 1,517,400</td>
+              <td class="px-3 py-3 text-right num font-num">5,610</td>
+              <td class="px-3 py-3 text-right num font-num">NT$ 270</td>
+              <td class="px-3 py-3 text-right"><span class="pill-down font-num text-[11px] font-semibold px-1.5 py-0.5 rounded-md">▼ 3.6%</span></td>
+              <td class="px-5 py-3 text-right num font-num">18.4%</td>
+            </tr>
+            <tr id="grp-acc" class="drill-row">
+              <td colspan="6" class="p-0 border-b border-slate-50">
+                <div class="drill-body">
+                  <table class="w-full text-[12.5px]">
+                    <tbody>
+                      <tr class="row-hover border-t border-dashed border-slate-100">
+                        <td class="pl-12 pr-5 py-2.5 text-slate-600">└ 包款</td>
+                        <td class="px-3 py-2.5 text-right num font-num text-slate-500">NT$ 862,100</td>
+                        <td class="px-3 py-2.5 text-right num font-num text-slate-500">1,984</td>
+                        <td class="px-3 py-2.5 text-right num font-num text-slate-500">NT$ 434</td>
+                        <td class="px-3 py-2.5 text-right"><span class="pill-down font-num text-[10.5px] font-semibold px-1.5 py-0.5 rounded-md">▼ 5.1%</span></td>
+                        <td class="px-5 py-2.5 text-right num font-num text-slate-500">10.5%</td>
+                      </tr>
+                      <tr class="row-hover border-t border-dashed border-slate-100">
+                        <td class="pl-12 pr-5 py-2.5 text-slate-600">└ 飾品</td>
+                        <td class="px-3 py-2.5 text-right num font-num text-slate-500">NT$ 398,600</td>
+                        <td class="px-3 py-2.5 text-right num font-num text-slate-500">2,240</td>
+                        <td class="px-3 py-2.5 text-right num font-num text-slate-500">NT$ 178</td>
+                        <td class="px-3 py-2.5 text-right"><span class="pill-up font-num text-[10.5px] font-semibold px-1.5 py-0.5 rounded-md">▲ 2.9%</span></td>
+                        <td class="px-5 py-2.5 text-right num font-num text-slate-500">4.8%</td>
+                      </tr>
+                      <tr class="row-hover border-t border-dashed border-slate-100">
+                        <td class="pl-12 pr-5 py-2.5 text-slate-600">└ 帽款／圍巾</td>
+                        <td class="px-3 py-2.5 text-right num font-num text-slate-500">NT$ 256,700</td>
+                        <td class="px-3 py-2.5 text-right num font-num text-slate-500">1,386</td>
+                        <td class="px-3 py-2.5 text-right num font-num text-slate-500">NT$ 185</td>
+                        <td class="px-3 py-2.5 text-right"><span class="pill-down font-num text-[10.5px] font-semibold px-1.5 py-0.5 rounded-md">▼ 4.8%</span></td>
+                        <td class="px-5 py-2.5 text-right num font-num text-slate-500">3.1%</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            </tr>
+
+            <!-- 居家生活 -->
+            <tr class="row-hover cursor-pointer drill-toggle" data-target="grp-home">
+              <td class="px-5 py-3 font-semibold">
+                <span class="inline-flex items-center gap-2 chevron-wrap">
+                  <svg class="chevron w-3.5 h-3.5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg>
+                  居家生活
+                </span>
+              </td>
+              <td class="px-3 py-3 text-right num font-num">NT$ 1,311,300</td>
+              <td class="px-3 py-3 text-right num font-num">1,766</td>
+              <td class="px-3 py-3 text-right num font-num">NT$ 743</td>
+              <td class="px-3 py-3 text-right"><span class="pill-up font-num text-[11px] font-semibold px-1.5 py-0.5 rounded-md">▲ 21.3%</span></td>
+              <td class="px-5 py-3 text-right num font-num">15.9%</td>
+            </tr>
+            <tr id="grp-home" class="drill-row">
+              <td colspan="6" class="p-0">
+                <div class="drill-body">
+                  <table class="w-full text-[12.5px]">
+                    <tbody>
+                      <tr class="row-hover border-t border-dashed border-slate-100">
+                        <td class="pl-12 pr-5 py-2.5 text-slate-600">└ 寢具用品</td>
+                        <td class="px-3 py-2.5 text-right num font-num text-slate-500">NT$ 742,500</td>
+                        <td class="px-3 py-2.5 text-right num font-num text-slate-500">890</td>
+                        <td class="px-3 py-2.5 text-right num font-num text-slate-500">NT$ 834</td>
+                        <td class="px-3 py-2.5 text-right"><span class="pill-up font-num text-[10.5px] font-semibold px-1.5 py-0.5 rounded-md">▲ 26.0%</span></td>
+                        <td class="px-5 py-2.5 text-right num font-num text-slate-500">9.0%</td>
+                      </tr>
+                      <tr class="row-hover border-t border-dashed border-slate-100">
+                        <td class="pl-12 pr-5 py-2.5 text-slate-600">└ 收納家飾</td>
+                        <td class="px-3 py-2.5 text-right num font-num text-slate-500">NT$ 568,800</td>
+                        <td class="px-3 py-2.5 text-right num font-num text-slate-500">876</td>
+                        <td class="px-3 py-2.5 text-right num font-num text-slate-500">NT$ 649</td>
+                        <td class="px-3 py-2.5 text-right"><span class="pill-up font-num text-[10.5px] font-semibold px-1.5 py-0.5 rounded-md">▲ 15.7%</span></td>
+                        <td class="px-5 py-2.5 text-right num font-num text-slate-500">6.9%</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 頁尾備註 -->
+    <footer class="text-center text-[11px] text-slate-400 pb-6">
+      盤點通 PanPoint．內部銷售分析系統 — 數據每日 08:00 自動同步，僅供內部決策參考
+    </footer>
+
+  </main>
+
+<script>
+  document.querySelectorAll('.drill-toggle').forEach(function (row) {
+    row.addEventListener('click', function () {
+      var targetId = row.getAttribute('data-target');
+      var targetRow = document.getElementById(targetId);
+      if (!targetRow) return;
+      var body = targetRow.querySelector('.drill-body');
+      var isOpen = body.classList.contains('open');
+
+      if (isOpen) {
+        body.classList.remove('open');
+        row.classList.remove('expanded');
+      } else {
+        body.classList.add('open');
+        row.classList.add('expanded');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
