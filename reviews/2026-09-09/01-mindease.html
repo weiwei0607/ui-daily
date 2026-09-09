@@ -1,0 +1,404 @@
+<!-- style #19 Soft UI Evolution -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>靜心角｜每日五分鐘，找回內在平靜</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Quicksand:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky:#87ceeb;
+    --sky-deep:#5fb8dd;
+    --pink:#ffb6c1;
+    --pink-deep:#ff9bb0;
+    --green:#90ee90;
+    --green-deep:#6fd66f;
+    --base:#f4f1ea;
+    --base2:#eeeae1;
+    --ink:#4a4238;
+    --ink-soft:#7a7266;
+    --card:#f4f1ea;
+  }
+
+  *{ box-sizing:border-box; }
+
+  body{
+    background:var(--base);
+    color:var(--ink);
+    font-family:'Quicksand','Zen Maru Gothic','Noto Sans TC',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3,h4,.font-heading{
+    font-family:'Baloo 2','Zen Maru Gothic','Noto Sans TC',sans-serif;
+  }
+
+  /* 覆寫 Tailwind 預設字體，確保不會 fallback 到 Inter / Helvetica */
+  .font-sans, .font-mono{
+    font-family:'Quicksand','Zen Maru Gothic','Noto Sans TC',sans-serif !important;
+  }
+
+  /* ===== Neumorphism 核心陰影系統 ===== */
+  .neu{
+    background:linear-gradient(145deg,#f8f5ee,#efece3);
+    box-shadow: 9px 9px 18px rgba(178,168,150,0.45),
+                -9px -9px 18px rgba(255,255,255,0.9);
+    border-radius:28px;
+  }
+  .neu-sm{
+    background:linear-gradient(145deg,#f8f5ee,#efece3);
+    box-shadow: 6px 6px 12px rgba(178,168,150,0.4),
+                -6px -6px 12px rgba(255,255,255,0.9);
+    border-radius:20px;
+  }
+  .neu-inset{
+    background:linear-gradient(145deg,#efece3,#f8f5ee);
+    box-shadow: inset 6px 6px 12px rgba(178,168,150,0.4),
+                inset -6px -6px 12px rgba(255,255,255,0.85);
+    border-radius:20px;
+  }
+  .neu-btn{
+    background:linear-gradient(145deg,#f8f5ee,#efece3);
+    box-shadow: 6px 6px 14px rgba(178,168,150,0.45),
+                -6px -6px 14px rgba(255,255,255,0.95);
+    border-radius:999px;
+    transition: all .25s cubic-bezier(.4,0,.2,1);
+  }
+  .neu-btn:hover{
+    box-shadow: 3px 3px 8px rgba(178,168,150,0.45),
+                -3px -3px 8px rgba(255,255,255,0.95);
+    transform: translateY(1px) scale(0.99);
+  }
+  .neu-btn:active{
+    box-shadow: inset 4px 4px 10px rgba(178,168,150,0.45),
+                inset -4px -4px 10px rgba(255,255,255,0.9);
+    transform: translateY(2px) scale(0.98);
+  }
+
+  .grad-sky{ background:linear-gradient(135deg,var(--sky),var(--sky-deep)); }
+  .grad-pink{ background:linear-gradient(135deg,var(--pink),var(--pink-deep)); }
+  .grad-green{ background:linear-gradient(135deg,var(--green),var(--green-deep)); }
+  .grad-hero{ background:linear-gradient(160deg,#eaf7fb 0%, #f4f1ea 35%, #fdf1f3 70%, #eefaf0 100%); }
+
+  .text-outline-soft{
+    background:linear-gradient(135deg,var(--sky-deep),var(--pink-deep));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+
+  /* 卡片 hover 浮起 */
+  .float-card{ transition: transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .35s ease; }
+  .float-card:hover{ transform: translateY(-10px) rotate(-0.5deg); }
+
+  /* 呼吸圈動畫（Hero 互動視覺） */
+  @keyframes breathe{
+    0%,100%{ transform:scale(1); box-shadow:0 0 0 0 rgba(135,206,235,0.35), 9px 9px 18px rgba(178,168,150,0.4), -9px -9px 18px rgba(255,255,255,0.9); }
+    50%{ transform:scale(1.08); box-shadow:0 0 0 22px rgba(135,206,235,0), 9px 9px 18px rgba(178,168,150,0.4), -9px -9px 18px rgba(255,255,255,0.9); }
+  }
+  .breathe-circle{ animation: breathe 4.5s ease-in-out infinite; }
+
+  @keyframes float-y{
+    0%,100%{ transform:translateY(0px); }
+    50%{ transform:translateY(-14px); }
+  }
+  .float-y{ animation: float-y 6s ease-in-out infinite; }
+  .float-y-delay{ animation: float-y 7s ease-in-out infinite; animation-delay:1.2s; }
+  .float-y-delay2{ animation: float-y 5.5s ease-in-out infinite; animation-delay:0.6s; }
+
+  /* 進場淡入（scroll reveal） */
+  .reveal{ opacity:0; transform:translateY(24px); transition:opacity .8s ease, transform .8s ease; }
+  .reveal.show{ opacity:1; transform:translateY(0); }
+
+  /* 數據卡數字跳動 */
+  .count-up{ font-variant-numeric: tabular-nums; }
+
+  ::selection{ background:var(--pink); color:#4a4238; }
+
+  .badge-chip{
+    background:linear-gradient(145deg,#f8f5ee,#efece3);
+    box-shadow: 4px 4px 8px rgba(178,168,150,0.4), -4px -4px 8px rgba(255,255,255,0.9);
+  }
+
+  .divider-soft{
+    height:2px;
+    background:linear-gradient(90deg, transparent, var(--sky), var(--pink), var(--green), transparent);
+    border-radius:999px;
+    opacity:0.6;
+  }
+
+  nav.scrolled{
+    box-shadow: 0 6px 18px rgba(178,168,150,0.25);
+  }
+</style>
+</head>
+<body class="antialiased">
+
+  <!-- ===== Nav ===== -->
+  <nav id="nav" class="fixed top-0 left-0 right-0 z-50 bg-[#f4f1ea]/85 backdrop-blur-md transition-shadow duration-300">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-2xl grad-sky flex items-center justify-center text-xl neu-sm">🌙</div>
+        <span class="font-heading text-xl font-bold text-outline-soft">靜心角</span>
+      </div>
+      <div class="hidden md:flex items-center gap-8 font-heading font-medium text-[15px] text-[var(--ink-soft)]">
+        <a href="#features" class="hover:text-[var(--ink)] transition-colors">功能特色</a>
+        <a href="#proof" class="hover:text-[var(--ink)] transition-colors">使用者怎麼說</a>
+        <a href="#cta" class="hover:text-[var(--ink)] transition-colors">開始練習</a>
+      </div>
+      <button class="neu-btn px-5 py-2.5 font-heading font-semibold text-sm text-[var(--ink)]">立即下載</button>
+    </div>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <header class="grad-hero pt-32 pb-24 px-6 relative overflow-hidden">
+    <!-- 裝飾漂浮球 -->
+    <div class="absolute top-24 left-[6%] w-16 h-16 rounded-full grad-sky opacity-70 float-y hidden md:block"></div>
+    <div class="absolute top-48 right-[10%] w-10 h-10 rounded-full grad-pink opacity-70 float-y-delay hidden md:block"></div>
+    <div class="absolute bottom-20 left-[16%] w-8 h-8 rounded-full grad-green opacity-70 float-y-delay2 hidden md:block"></div>
+
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center relative">
+      <div class="reveal show">
+        <span class="badge-chip inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-heading font-semibold text-[var(--ink-soft)] mb-6">
+          🌤️ 每天 5 分鐘，溫柔靠近自己
+        </span>
+        <h1 class="font-heading text-4xl md:text-5xl font-extrabold leading-tight mb-6">
+          忙碌的日子裡，<br>
+          <span class="text-outline-soft">留一點時間給心</span>
+        </h1>
+        <p class="text-lg text-[var(--ink-soft)] leading-relaxed mb-8 max-w-md">
+          靜心角陪你用五分鐘的正念練習，梳理紛亂的思緒；用一句話紀錄今天的情緒；用一段睡眠音景，把夜晚還給安穩的自己。
+        </p>
+        <div class="flex flex-wrap gap-4 mb-10">
+          <button class="neu-btn px-8 py-4 font-heading font-bold text-[var(--ink)] flex items-center gap-2">
+            <span class="grad-sky w-6 h-6 rounded-full flex items-center justify-center text-xs">▶</span>
+            開始今天的練習
+          </button>
+          <button class="neu-btn px-8 py-4 font-heading font-semibold text-[var(--ink-soft)]">
+            看看怎麼運作
+          </button>
+        </div>
+        <div class="flex items-center gap-6 text-sm text-[var(--ink-soft)] font-heading">
+          <div class="flex -space-x-3">
+            <div class="w-9 h-9 rounded-full grad-pink border-2 border-[#f4f1ea]"></div>
+            <div class="w-9 h-9 rounded-full grad-sky border-2 border-[#f4f1ea]"></div>
+            <div class="w-9 h-9 rounded-full grad-green border-2 border-[#f4f1ea]"></div>
+          </div>
+          <span>已有 <b class="text-[var(--ink)]">86,000+</b> 人一起練習</span>
+        </div>
+      </div>
+
+      <div class="relative flex items-center justify-center">
+        <div class="breathe-circle w-64 h-64 md:w-80 md:h-80 rounded-full neu flex flex-col items-center justify-center text-center px-8">
+          <span class="text-5xl mb-3">🧘‍♀️</span>
+          <p class="font-heading font-bold text-lg mb-1">吸氣．停留．吐氣</p>
+          <p class="text-sm text-[var(--ink-soft)]">跟著圓圈的節奏呼吸看看</p>
+        </div>
+        <div class="neu-sm absolute -bottom-4 -left-4 px-5 py-3 flex items-center gap-2">
+          <span class="text-xl">😌</span>
+          <div class="text-left">
+            <p class="text-xs text-[var(--ink-soft)]">今天的心情</p>
+            <p class="font-heading font-bold text-sm">平靜　放鬆</p>
+          </div>
+        </div>
+        <div class="neu-sm absolute -top-2 -right-6 px-4 py-3 hidden sm:block">
+          <p class="text-xs text-[var(--ink-soft)] mb-1">連續練習</p>
+          <p class="font-heading font-extrabold text-xl text-outline-soft">21 天</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="max-w-4xl mx-auto"><div class="divider-soft"></div></div>
+
+  <!-- ===== Features ===== -->
+  <section id="features" class="py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16 reveal">
+        <span class="font-heading font-semibold text-[var(--sky-deep)] tracking-wide">FEATURES</span>
+        <h2 class="font-heading text-3xl md:text-4xl font-extrabold mt-3 mb-4">陪你把正念，變成生活習慣</h2>
+        <p class="text-[var(--ink-soft)] max-w-xl mx-auto">不需要盤腿打坐一小時，靜心角把正念練習拆成剛剛好的小份量，讓忙碌的你也能每天完成。</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="neu float-card p-7 reveal">
+          <div class="w-14 h-14 rounded-2xl grad-sky flex items-center justify-center text-2xl mb-5 neu-sm">🌬️</div>
+          <h3 class="font-heading font-bold text-lg mb-2">每日 5 分鐘正念練習</h3>
+          <p class="text-sm text-[var(--ink-soft)] leading-relaxed">短短五分鐘的引導式呼吸與覺察練習，用零碎時間也能完成，幫助你在忙碌中重新聚焦。</p>
+        </div>
+        <div class="neu float-card p-7 reveal">
+          <div class="w-14 h-14 rounded-2xl grad-pink flex items-center justify-center text-2xl mb-5 neu-sm">📝</div>
+          <h3 class="font-heading font-bold text-lg mb-2">情緒紀錄日記</h3>
+          <p class="text-sm text-[var(--ink-soft)] leading-relaxed">用表情符號與一句話紀錄每天的心情，累積成專屬於你的情緒曲線，看見自己的變化。</p>
+        </div>
+        <div class="neu float-card p-7 reveal">
+          <div class="w-14 h-14 rounded-2xl grad-green flex items-center justify-center text-2xl mb-5 neu-sm">🌙</div>
+          <h3 class="font-heading font-bold text-lg mb-2">助眠睡眠音景</h3>
+          <p class="text-sm text-[var(--ink-soft)] leading-relaxed">雨聲、海浪、森林白噪音，搭配漸弱設計，陪你自然而然地放鬆入眠，一覺到天亮。</p>
+        </div>
+        <div class="neu float-card p-7 reveal">
+          <div class="w-14 h-14 rounded-2xl grad-sky flex items-center justify-center text-2xl mb-5 neu-sm">🔥</div>
+          <h3 class="font-heading font-bold text-lg mb-2">溫柔的習慣提醒</h3>
+          <p class="text-sm text-[var(--ink-soft)] leading-relaxed">不打擾、不催促的提醒方式，搭配連續紀錄與小徽章，用鼓勵取代壓力，陪你走得更久。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Proof / 見證與數據 ===== -->
+  <section id="proof" class="py-24 px-6 bg-[var(--base2)]/60">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16 reveal">
+        <span class="font-heading font-semibold text-[var(--pink-deep)] tracking-wide">VOICES</span>
+        <h2 class="font-heading text-3xl md:text-4xl font-extrabold mt-3">她們，找回了睡前的安穩</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 mb-16">
+        <div class="neu p-7 reveal">
+          <div class="flex gap-1 text-[var(--pink-deep)] mb-4">★★★★★</div>
+          <p class="text-[var(--ink)] leading-relaxed mb-5">「以前躺在床上腦袋一直轉，現在睡前聽十分鐘雨聲音景，很快就有睡意了，連續用了兩個月，睡眠品質真的差很多。」</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full grad-sky"></div>
+            <div>
+              <p class="font-heading font-bold text-sm">雅婷</p>
+              <p class="text-xs text-[var(--ink-soft)]">行銷企劃・使用 4 個月</p>
+            </div>
+          </div>
+        </div>
+        <div class="neu p-7 reveal">
+          <div class="flex gap-1 text-[var(--pink-deep)] mb-4">★★★★★</div>
+          <p class="text-[var(--ink)] leading-relaxed mb-5">「情緒紀錄的功能讓我發現，原來我每個禮拜三下班都特別煩躁。看到自己的情緒曲線，反而比較能理解自己、也更能好好照顧自己。」</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full grad-pink"></div>
+            <div>
+              <p class="font-heading font-bold text-sm">柏彰</p>
+              <p class="text-xs text-[var(--ink-soft)]">軟體工程師・使用 7 個月</p>
+            </div>
+          </div>
+        </div>
+        <div class="neu p-7 reveal">
+          <div class="flex gap-1 text-[var(--pink-deep)] mb-4">★★★★★</div>
+          <p class="text-[var(--ink)] leading-relaxed mb-5">「五分鐘真的不誇張，早上出門前做一次呼吸練習，整個人會安定很多，是少數我能每天堅持下來的自我照顧習慣。」</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full grad-green"></div>
+            <div>
+              <p class="font-heading font-bold text-sm">思穎</p>
+              <p class="text-xs text-[var(--ink-soft)]">研究生・使用 9 個月</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="neu-inset grid grid-cols-2 md:grid-cols-4 gap-6 p-10 reveal">
+        <div class="text-center">
+          <p class="font-heading text-3xl md:text-4xl font-extrabold text-outline-soft count-up">86,000+</p>
+          <p class="text-sm text-[var(--ink-soft)] mt-2">累積練習人數</p>
+        </div>
+        <div class="text-center">
+          <p class="font-heading text-3xl md:text-4xl font-extrabold text-outline-soft count-up">1,200 萬</p>
+          <p class="text-sm text-[var(--ink-soft)] mt-2">完成練習次數</p>
+        </div>
+        <div class="text-center">
+          <p class="font-heading text-3xl md:text-4xl font-extrabold text-outline-soft count-up">4.9 分</p>
+          <p class="text-sm text-[var(--ink-soft)] mt-2">應用商店平均評分</p>
+        </div>
+        <div class="text-center">
+          <p class="font-heading text-3xl md:text-4xl font-extrabold text-outline-soft count-up">78%</p>
+          <p class="text-sm text-[var(--ink-soft)] mt-2">使用者睡眠品質提升</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section id="cta" class="py-24 px-6">
+    <div class="max-w-4xl mx-auto neu p-12 md:p-16 text-center relative overflow-hidden reveal">
+      <div class="absolute -top-10 -right-10 w-32 h-32 rounded-full grad-sky opacity-30 float-y"></div>
+      <div class="absolute -bottom-10 -left-10 w-24 h-24 rounded-full grad-pink opacity-30 float-y-delay"></div>
+      <span class="text-4xl mb-4 inline-block">🌸</span>
+      <h2 class="font-heading text-3xl md:text-4xl font-extrabold mb-4">今晚，就從五分鐘開始</h2>
+      <p class="text-[var(--ink-soft)] mb-10 max-w-lg mx-auto">不用等到準備好，靜心角會陪你，從第一次呼吸開始練習。現在下載，前七天完整體驗所有音景與課程。</p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <button id="ctaBtn" class="neu-btn px-10 py-4 font-heading font-bold text-lg text-[var(--ink)]">
+          免費開始練習
+        </button>
+        <button class="neu-btn px-10 py-4 font-heading font-semibold text-[var(--ink-soft)]">
+          了解訂閱方案
+        </button>
+      </div>
+      <p id="ctaMsg" class="mt-6 text-sm font-heading font-semibold text-[var(--sky-deep)] h-5"></p>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="px-6 pb-10">
+    <div class="max-w-6xl mx-auto neu-sm px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl grad-green flex items-center justify-center text-base">🌙</div>
+        <span class="font-heading font-bold">靜心角</span>
+        <span class="text-sm text-[var(--ink-soft)]">・每天，陪你安放情緒</span>
+      </div>
+      <p class="text-sm text-[var(--ink-soft)]">© 2026 靜心角 MindCorner。願你今天也能好好呼吸。</p>
+    </div>
+  </footer>
+
+<script>
+  // 導覽列滾動陰影
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  });
+
+  // 進場淡入效果
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // CTA 按鈕微互動：點擊給予溫暖回饋文字
+  const ctaBtn = document.getElementById('ctaBtn');
+  const ctaMsg = document.getElementById('ctaMsg');
+  const messages = [
+    '太好了，深呼吸一下，我們開始吧 🌿',
+    '今天的五分鐘，正在準備中… 🌤️',
+    '已經有人跟你一樣，正在此刻練習 🌸'
+  ];
+  let msgIndex = 0;
+  ctaBtn.addEventListener('click', () => {
+    ctaMsg.textContent = messages[msgIndex % messages.length];
+    msgIndex++;
+    ctaMsg.style.opacity = 0;
+    requestAnimationFrame(() => {
+      ctaMsg.style.transition = 'opacity .5s ease';
+      ctaMsg.style.opacity = 1;
+    });
+  });
+
+  // 輕微視差：Hero 裝飾球隨滑鼠移動
+  const heroHeader = document.querySelector('header');
+  const parallaxEls = document.querySelectorAll('header .float-y, header .float-y-delay, header .float-y-delay2');
+  heroHeader.addEventListener('mousemove', (e) => {
+    const { innerWidth, innerHeight } = window;
+    const x = (e.clientX / innerWidth - 0.5) * 20;
+    const y = (e.clientY / innerHeight - 0.5) * 20;
+    parallaxEls.forEach((el, i) => {
+      const factor = (i + 1) * 0.6;
+      el.style.transform = `translate(${x * factor}px, ${y * factor}px)`;
+    });
+  });
+</script>
+
+</body>
+</html>
