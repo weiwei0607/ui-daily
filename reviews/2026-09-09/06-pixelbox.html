@@ -1,0 +1,595 @@
+<!-- style #52 Pixel Art / Retro Gaming -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>像素盒 PixelBox｜復古像素遊戲收藏站</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gb-lightest:#8bac0f;
+    --gb-light:#9bce0f;
+    --gb-dark:#0f380f;
+    --gb-mid:#306230;
+    --gb-black:#031603;
+    --gb-white:#e7f4d3;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{
+    background:var(--gb-dark);
+  }
+
+  body{
+    font-family:'Noto Sans TC','VT323',monospace;
+    color:var(--gb-white);
+    image-rendering:pixelated;
+    -webkit-font-smoothing:none;
+  }
+
+  .font-pixel{
+    font-family:'Press Start 2P', 'Noto Sans TC', monospace;
+    line-height:1.7;
+  }
+
+  .font-mono-vt{
+    font-family:'VT323', 'Noto Sans TC', monospace;
+  }
+
+  .font-body{
+    font-family:'Noto Sans TC', sans-serif;
+  }
+
+  /* ---- 點陣網格背景 ---- */
+  .pixel-grid-bg{
+    background-color:var(--gb-dark);
+    background-image:
+      linear-gradient(var(--gb-mid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--gb-mid) 1px, transparent 1px);
+    background-size:16px 16px;
+    background-position:-1px -1px;
+    position:relative;
+  }
+  .pixel-grid-bg::before{
+    content:"";
+    position:absolute; inset:0;
+    background:radial-gradient(ellipse at 50% 0%, rgba(139,172,15,0.18), transparent 60%);
+    pointer-events:none;
+  }
+
+  /* ---- 硬邊像素邊框(box-shadow 疊層做出鋸齒感) ---- */
+  .pixel-border{
+    position:relative;
+    border:4px solid var(--gb-black);
+    box-shadow:
+      0 0 0 4px var(--gb-lightest),
+      0 0 0 8px var(--gb-black),
+      8px 8px 0 0 var(--gb-black);
+    image-rendering:pixelated;
+  }
+
+  .pixel-border-thin{
+    border:3px solid var(--gb-black);
+    box-shadow:
+      0 0 0 3px var(--gb-lightest),
+      4px 4px 0 0 var(--gb-black);
+  }
+
+  /* 鋸齒角(用 clip-path 做像素階梯角) */
+  .pixel-notch{
+    clip-path: polygon(
+      0 8px, 8px 8px, 8px 0,
+      calc(100% - 8px) 0, calc(100% - 8px) 8px, 100% 8px,
+      100% calc(100% - 8px), calc(100% - 8px) calc(100% - 8px), calc(100% - 8px) 100%,
+      8px 100%, 8px calc(100% - 8px), 0 calc(100% - 8px)
+    );
+  }
+
+  /* ---- 像素按鈕 ---- */
+  .pixel-btn{
+    font-family:'Press Start 2P', monospace;
+    display:inline-block;
+    position:relative;
+    background:var(--gb-lightest);
+    color:var(--gb-black);
+    border:3px solid var(--gb-black);
+    padding:14px 22px;
+    box-shadow:5px 5px 0 0 var(--gb-black);
+    transition:transform .06s steps(2), box-shadow .06s steps(2);
+    cursor:pointer;
+    user-select:none;
+    text-align:center;
+  }
+  .pixel-btn:hover{
+    background:var(--gb-light);
+    transform:translate(-2px,-2px);
+    box-shadow:7px 7px 0 0 var(--gb-black);
+  }
+  .pixel-btn:active,
+  .pixel-btn.is-pressed{
+    transform:translate(5px,5px);
+    box-shadow:0 0 0 0 var(--gb-black);
+    background:var(--gb-mid);
+    color:var(--gb-white);
+  }
+
+  .pixel-btn-outline{
+    font-family:'Press Start 2P', monospace;
+    display:inline-block;
+    background:var(--gb-dark);
+    color:var(--gb-lightest);
+    border:3px solid var(--gb-lightest);
+    padding:14px 22px;
+    box-shadow:5px 5px 0 0 var(--gb-black);
+    transition:transform .06s steps(2), box-shadow .06s steps(2);
+    cursor:pointer;
+  }
+  .pixel-btn-outline:hover{
+    transform:translate(-2px,-2px);
+    box-shadow:7px 7px 0 0 var(--gb-black);
+    background:var(--gb-mid);
+  }
+  .pixel-btn-outline:active{
+    transform:translate(5px,5px);
+    box-shadow:0 0 0 0 var(--gb-black);
+  }
+
+  /* ---- 像素星星評分 ---- */
+  .pixel-star{
+    width:18px;height:18px;
+    display:inline-block;
+    image-rendering:pixelated;
+    position:relative;
+  }
+  .pixel-star.on{
+    background:var(--gb-lightest);
+    clip-path:polygon(
+      50% 0%, 61% 35%, 98% 35%, 68% 57%,
+      79% 91%, 50% 70%, 21% 91%, 32% 57%,
+      2% 35%, 39% 35%
+    );
+    filter:drop-shadow(2px 2px 0 var(--gb-black));
+  }
+  .pixel-star.off{
+    background:var(--gb-mid);
+    opacity:.5;
+    clip-path:polygon(
+      50% 0%, 61% 35%, 98% 35%, 68% 57%,
+      79% 91%, 50% 70%, 21% 91%, 32% 57%,
+      2% 35%, 39% 35%
+    );
+  }
+
+  /* ---- 像素圖示(用多層方塊組成的簡易 icon) ---- */
+  .pix{ display:grid; }
+  .pix > div{ width:100%; height:100%; }
+
+  .icon-cart{ grid-template-columns:repeat(8,1fr); grid-template-rows:repeat(8,1fr); width:56px; height:56px; }
+  .icon-heart{ grid-template-columns:repeat(7,1fr); grid-template-rows:repeat(7,1fr); width:56px; height:56px; }
+  .icon-medal{ grid-template-columns:repeat(7,1fr); grid-template-rows:repeat(7,1fr); width:56px; height:56px; }
+  .icon-chat{ grid-template-columns:repeat(8,1fr); grid-template-rows:repeat(7,1fr); width:56px; height:49px; }
+
+  .c-on{ background:var(--gb-lightest); }
+  .c-dark{ background:var(--gb-black); }
+  .c-mid{ background:var(--gb-mid); }
+  .c-off{ background:transparent; }
+  .c-white{ background:var(--gb-white); }
+
+  /* ---- 掃描線效果 ---- */
+  .crt-scanlines{
+    position:relative;
+  }
+  .crt-scanlines::after{
+    content:"";
+    position:absolute; inset:0;
+    background:repeating-linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.15) 0px,
+      rgba(0,0,0,0.15) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    pointer-events:none;
+    mix-blend-mode:multiply;
+  }
+
+  /* ---- 遊戲卡片小屏幕(用漸層 + 方塊模擬像素畫面) ---- */
+  .game-screen{
+    aspect-ratio:4/3;
+    position:relative;
+    overflow:hidden;
+    image-rendering:pixelated;
+  }
+
+  /* ---- 閃爍動畫(coin / cursor) ---- */
+  @keyframes blink-hard{
+    0%, 49%{ opacity:1; }
+    50%, 100%{ opacity:0; }
+  }
+  .blinker{ animation:blink-hard 1s steps(1) infinite; }
+
+  @keyframes float-pixel{
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(-6px); }
+  }
+  .floaty{ animation:float-pixel 2s steps(6) infinite; }
+
+  @keyframes marquee-scroll{
+    0%{ transform:translateX(0); }
+    100%{ transform:translateX(-50%); }
+  }
+  .marquee-track{
+    display:flex;
+    width:max-content;
+    animation:marquee-scroll 14s linear infinite;
+  }
+
+  ::selection{ background:var(--gb-lightest); color:var(--gb-black); }
+
+  .scanline-title{
+    text-shadow: 3px 3px 0 var(--gb-black);
+  }
+
+  input[type="text"]::placeholder, input[type="email"]::placeholder{
+    font-family:'VT323', monospace;
+    color:var(--gb-mid);
+  }
+</style>
+</head>
+<body class="pixel-grid-bg">
+
+  <!-- ===== 導覽列 ===== -->
+  <header class="sticky top-0 z-50 border-b-4 border-black" style="background:var(--gb-dark);">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 pixel-border-thin flex items-center justify-center" style="background:var(--gb-black);">
+          <div class="w-4 h-4" style="background:var(--gb-lightest);"></div>
+        </div>
+        <span class="font-pixel text-xs md:text-sm" style="color:var(--gb-lightest);">PIXELBOX</span>
+      </div>
+      <nav class="hidden md:flex items-center gap-6 font-mono-vt text-xl" style="color:var(--gb-white);">
+        <a href="#collection" class="hover:text-[var(--gb-lightest)]">遊戲收藏</a>
+        <a href="#community" class="hover:text-[var(--gb-lightest)]">社群會員</a>
+        <a href="#join" class="hover:text-[var(--gb-lightest)]">加入我們</a>
+      </nav>
+      <button class="pixel-btn text-[10px] md:text-xs">登入</button>
+    </div>
+  </header>
+
+  <!-- ===== Hero 主視覺 ===== -->
+  <section class="relative overflow-hidden border-b-4 border-black crt-scanlines">
+    <div class="max-w-6xl mx-auto px-4 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center relative z-10">
+      <div>
+        <div class="inline-block font-mono-vt text-xl px-3 py-1 mb-5 pixel-border-thin" style="background:var(--gb-black); color:var(--gb-lightest);">
+          ▸ NEW GAME <span class="blinker">_</span>
+        </div>
+        <h1 class="font-pixel scanline-title text-2xl md:text-4xl leading-relaxed mb-6" style="color:var(--gb-lightest);">
+          像素盒<br>PixelBox
+        </h1>
+        <p class="font-body text-base md:text-lg leading-relaxed mb-3" style="color:var(--gb-white);">
+          一個專為復古遊戲愛好者打造的收藏與評測平台。從 8-bit 到 16-bit，我們用像素的溫度，把童年的螢光綠螢幕重新點亮。
+        </p>
+        <p class="font-body text-sm md:text-base leading-relaxed mb-8" style="color:#c8dba3;">
+          精選收藏、玩家實測評分、每週新片頭曲解析，通通收進這個像素盒子裡。
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <button class="pixel-btn text-xs md:text-sm" onclick="pressAndGo(this)">▶ 開始探索</button>
+          <a href="#community"><button class="pixel-btn-outline text-xs md:text-sm">關於社群</button></a>
+        </div>
+      </div>
+
+      <!-- 像素電視機視覺 -->
+      <div class="relative floaty flex justify-center">
+        <div class="pixel-border pixel-notch p-5" style="background:var(--gb-black); width:100%; max-width:340px;">
+          <div class="game-screen w-full" style="background:linear-gradient(180deg, var(--gb-lightest) 0%, var(--gb-light) 55%, var(--gb-mid) 100%);">
+            <!-- 像素山丘 -->
+            <div class="absolute bottom-0 left-0 w-full h-1/2" style="background:var(--gb-mid); clip-path:polygon(0% 100%,0% 60%,10% 50%,20% 55%,30% 40%,42% 52%,55% 35%,68% 50%,80% 42%,90% 55%,100% 45%,100% 100%);"></div>
+            <!-- 像素太陽 -->
+            <div class="absolute top-4 right-6 w-8 h-8" style="background:var(--gb-black); box-shadow: inset 0 0 0 3px var(--gb-lightest);"></div>
+            <!-- 像素角色 -->
+            <div class="absolute bottom-3 left-[42%] w-6 h-8" style="background:var(--gb-black);"></div>
+            <div class="absolute bottom-3 left-[42%] w-6 h-8" style="background:var(--gb-black); box-shadow: inset 0 0 0 2px var(--gb-lightest);"></div>
+          </div>
+        </div>
+        <div class="absolute -bottom-4 -right-4 font-mono-vt text-2xl px-3 py-1 pixel-border-thin" style="background:var(--gb-lightest); color:var(--gb-black);">
+          8-BIT MODE
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 跑馬燈提示條 -->
+  <div class="border-b-4 border-black overflow-hidden py-2" style="background:var(--gb-lightest);">
+    <div class="marquee-track font-pixel text-[10px]" style="color:var(--gb-black);">
+      <span class="px-6">★ 每週新增像素遊戲收藏</span>
+      <span class="px-6">★ 會員可解鎖隱藏評測</span>
+      <span class="px-6">★ 復古主機周邊即將上線</span>
+      <span class="px-6">★ 加入公會一起打王</span>
+      <span class="px-6">★ 每週新增像素遊戲收藏</span>
+      <span class="px-6">★ 會員可解鎖隱藏評測</span>
+      <span class="px-6">★ 復古主機周邊即將上線</span>
+      <span class="px-6">★ 加入公會一起打王</span>
+    </div>
+  </div>
+
+  <!-- ===== 精選遊戲收藏卡片牆 ===== -->
+  <section id="collection" class="max-w-6xl mx-auto px-4 py-16 md:py-20">
+    <div class="mb-10 text-center">
+      <h2 class="font-pixel text-lg md:text-2xl mb-4" style="color:var(--gb-lightest);">精選遊戲收藏</h2>
+      <p class="font-body text-sm md:text-base" style="color:#c8dba3;">六款編輯部私心珍藏的復古像素風遊戲，每一款都經過玩家實測評分</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <!-- 卡片 1 -->
+      <div class="pixel-border pixel-notch p-4 flex flex-col" style="background:var(--gb-black);">
+        <div class="game-screen mb-4" style="background:linear-gradient(160deg,#1a3d0f,#0f380f 60%,#031603);">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="pix icon-medal">
+              <div class="c-off"></div><div class="c-off"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-off"></div><div class="c-off"></div>
+              <div class="c-off"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-off"></div>
+              <div class="c-on"></div><div class="c-on"></div><div class="c-mid"></div><div class="c-on"></div><div class="c-mid"></div><div class="c-on"></div><div class="c-on"></div>
+              <div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div>
+              <div class="c-off"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-off"></div>
+              <div class="c-off"></div><div class="c-off"></div><div class="c-mid"></div><div class="c-off"></div><div class="c-mid"></div><div class="c-off"></div><div class="c-off"></div>
+              <div class="c-off"></div><div class="c-off"></div><div class="c-mid"></div><div class="c-mid"></div><div class="c-mid"></div><div class="c-off"></div><div class="c-off"></div>
+            </div>
+          </div>
+        </div>
+        <span class="font-mono-vt text-lg mb-1" style="color:var(--gb-lightest);">動作冒險</span>
+        <h3 class="font-pixel text-sm mb-3" style="color:var(--gb-white);">勇者的像素之旅</h3>
+        <p class="font-body text-sm mb-4 flex-grow" style="color:#b7cf94;">經典橫向卷軸冒險，操控揮劍的小勇者穿越森林、洞窟與城堡，找回被封印的光之寶石。</p>
+        <div class="flex items-center justify-between">
+          <div class="flex gap-1">
+            <div class="pixel-star on"></div><div class="pixel-star on"></div><div class="pixel-star on"></div><div class="pixel-star on"></div><div class="pixel-star off"></div>
+          </div>
+          <span class="font-mono-vt text-lg" style="color:var(--gb-lightest);">4.2 / 5</span>
+        </div>
+      </div>
+
+      <!-- 卡片 2 -->
+      <div class="pixel-border pixel-notch p-4 flex flex-col" style="background:var(--gb-black);">
+        <div class="game-screen mb-4" style="background:linear-gradient(160deg,#0f380f,#306230 70%,#8bac0f);">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="pix icon-heart">
+              <div class="c-off"></div><div class="c-on"></div><div class="c-on"></div><div class="c-off"></div><div class="c-on"></div><div class="c-on"></div><div class="c-off"></div>
+              <div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div>
+              <div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div>
+              <div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div>
+              <div class="c-off"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-off"></div>
+              <div class="c-off"></div><div class="c-off"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-off"></div><div class="c-off"></div>
+              <div class="c-off"></div><div class="c-off"></div><div class="c-off"></div><div class="c-on"></div><div class="c-off"></div><div class="c-off"></div><div class="c-off"></div>
+            </div>
+          </div>
+        </div>
+        <span class="font-mono-vt text-lg mb-1" style="color:var(--gb-lightest);">模擬養成</span>
+        <h3 class="font-pixel text-sm mb-3" style="color:var(--gb-white);">農場方塊物語</h3>
+        <p class="font-body text-sm mb-4 flex-grow" style="color:#b7cf94;">繼承爺爺的老舊農場，種田、養雞、跟村民搏感情，用最療癒的步調過完像素人生。</p>
+        <div class="flex items-center justify-between">
+          <div class="flex gap-1">
+            <div class="pixel-star on"></div><div class="pixel-star on"></div><div class="pixel-star on"></div><div class="pixel-star on"></div><div class="pixel-star on"></div>
+          </div>
+          <span class="font-mono-vt text-lg" style="color:var(--gb-lightest);">4.9 / 5</span>
+        </div>
+      </div>
+
+      <!-- 卡片 3 -->
+      <div class="pixel-border pixel-notch p-4 flex flex-col" style="background:var(--gb-black);">
+        <div class="game-screen mb-4" style="background:linear-gradient(160deg,#031603,#0f380f 50%,#306230);">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="pix icon-cart">
+              <div class="c-off"></div><div class="c-off"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-off"></div><div class="c-off"></div>
+              <div class="c-off"></div><div class="c-on"></div><div class="c-mid"></div><div class="c-mid"></div><div class="c-mid"></div><div class="c-mid"></div><div class="c-on"></div><div class="c-off"></div>
+              <div class="c-on"></div><div class="c-mid"></div><div class="c-on"></div><div class="c-mid"></div><div class="c-mid"></div><div class="c-on"></div><div class="c-mid"></div><div class="c-on"></div>
+              <div class="c-on"></div><div class="c-mid"></div><div class="c-mid"></div><div class="c-mid"></div><div class="c-mid"></div><div class="c-mid"></div><div class="c-mid"></div><div class="c-on"></div>
+              <div class="c-off"></div><div class="c-on"></div><div class="c-mid"></div><div class="c-mid"></div><div class="c-mid"></div><div class="c-mid"></div><div class="c-on"></div><div class="c-off"></div>
+              <div class="c-off"></div><div class="c-off"></div><div class="c-on"></div><div class="c-off"></div><div class="c-off"></div><div class="c-on"></div><div class="c-off"></div><div class="c-off"></div>
+              <div class="c-off"></div><div class="c-off"></div><div class="c-on"></div><div class="c-off"></div><div class="c-off"></div><div class="c-on"></div><div class="c-off"></div><div class="c-off"></div>
+              <div class="c-off"></div><div class="c-off"></div><div class="c-off"></div><div class="c-off"></div><div class="c-off"></div><div class="c-off"></div><div class="c-off"></div><div class="c-off"></div>
+            </div>
+          </div>
+        </div>
+        <span class="font-mono-vt text-lg mb-1" style="color:var(--gb-lightest);">賽車競速</span>
+        <h3 class="font-pixel text-sm mb-3" style="color:var(--gb-white);">格點賽道 GP</h3>
+        <p class="font-body text-sm mb-4 flex-grow" style="color:#b7cf94;">俯視角像素賽車遊戲，八張經典賽道任你挑戰，還有隱藏的香蕉皮道具讓對手翻車。</p>
+        <div class="flex items-center justify-between">
+          <div class="flex gap-1">
+            <div class="pixel-star on"></div><div class="pixel-star on"></div><div class="pixel-star on"></div><div class="pixel-star off"></div><div class="pixel-star off"></div>
+          </div>
+          <span class="font-mono-vt text-lg" style="color:var(--gb-lightest);">3.6 / 5</span>
+        </div>
+      </div>
+
+      <!-- 卡片 4 -->
+      <div class="pixel-border pixel-notch p-4 flex flex-col" style="background:var(--gb-black);">
+        <div class="game-screen mb-4" style="background:linear-gradient(160deg,#0f380f,#031603 60%,#000);">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="pix icon-chat">
+              <div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div>
+              <div class="c-on"></div><div class="c-off"></div><div class="c-mid"></div><div class="c-off"></div><div class="c-off"></div><div class="c-mid"></div><div class="c-off"></div><div class="c-on"></div>
+              <div class="c-on"></div><div class="c-off"></div><div class="c-off"></div><div class="c-off"></div><div class="c-off"></div><div class="c-off"></div><div class="c-off"></div><div class="c-on"></div>
+              <div class="c-on"></div><div class="c-off"></div><div class="c-mid"></div><div class="c-mid"></div><div class="c-mid"></div><div class="c-mid"></div><div class="c-off"></div><div class="c-on"></div>
+              <div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div><div class="c-on"></div>
+              <div class="c-off"></div><div class="c-off"></div><div class="c-on"></div><div class="c-off"></div><div class="c-off"></div><div class="c-off"></div><div class="c-off"></div><div class="c-off"></div>
+              <div class="c-off"></div><div class="c-off"></div><div class="c-off"></div><div class="c-on"></div><div class="c-off"></div><div class="c-off"></div><div class="c-off"></div><div class="c-off"></div>
+            </div>
+          </div>
+        </div>
+        <span class="font-mono-vt text-lg mb-1" style="color:var(--gb-lightest);">恐怖解謎</span>
+        <h3 class="font-pixel text-sm mb-3" style="color:var(--gb-white);">午夜像素旅館</h3>
+        <p class="font-body text-sm mb-4 flex-grow" style="color:#b7cf94;">單人潛行解謎，在只有 4 種顏色的旅館裡找出脫逃路線，小心別被走廊盡頭的東西發現。</p>
+        <div class="flex items-center justify-between">
+          <div class="flex gap-1">
+            <div class="pixel-star on"></div><div class="pixel-star on"></div><div class="pixel-star on"></div><div class="pixel-star on"></div><div class="pixel-star off"></div>
+          </div>
+          <span class="font-mono-vt text-lg" style="color:var(--gb-lightest);">4.4 / 5</span>
+        </div>
+      </div>
+
+      <!-- 卡片 5 -->
+      <div class="pixel-border pixel-notch p-4 flex flex-col" style="background:var(--gb-black);">
+        <div class="game-screen mb-4" style="background:linear-gradient(160deg,#306230,#8bac0f 60%,#9bce0f);">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="pix icon-medal">
+              <div class="c-off"></div><div class="c-on"></div><div class="c-off"></div><div class="c-on"></div><div class="c-off"></div><div class="c-on"></div><div class="c-off"></div>
+              <div class="c-on"></div><div class="c-off"></div><div class="c-on"></div><div class="c-off"></div><div class="c-on"></div><div class="c-off"></div><div class="c-on"></div>
+              <div class="c-off"></div><div class="c-on"></div><div class="c-off"></div><div class="c-on"></div><div class="c-off"></div><div class="c-on"></div><div class="c-off"></div>
+              <div class="c-on"></div><div class="c-off"></div><div class="c-on"></div><div class="c-off"></div><div class="c-on"></div><div class="c-off"></div><div class="c-on"></div>
+              <div class="c-off"></div><div class="c-on"></div><div class="c-off"></div><div class="c-on"></div><div class="c-off"></div><div class="c-on"></div><div class="c-off"></div>
+              <div class="c-on"></div><div class="c-off"></div><div class="c-on"></div><div class="c-off"></div><div class="c-on"></div><div class="c-off"></div><div class="c-on"></div>
+              <div class="c-off"></div><div class="c-on"></div><div class="c-off"></div><div class="c-on"></div><div class="c-off"></div><div class="c-on"></div><div class="c-off"></div>
+            </div>
+          </div>
+        </div>
+        <span class="font-mono-vt text-lg mb-1" style="color:var(--gb-lightest);">益智方塊</span>
+        <h3 class="font-pixel text-sm mb-3" style="color:var(--gb-white);">格子迷宮 Puzzle</h3>
+        <p class="font-body text-sm mb-4 flex-grow" style="color:#b7cf94;">上百關的推箱子與齒輪機關謎題，越到後面越燒腦，是辦公室午休最容易上癮的小遊戲。</p>
+        <div class="flex items-center justify-between">
+          <div class="flex gap-1">
+            <div class="pixel-star on"></div><div class="pixel-star on"></div><div class="pixel-star on"></div><div class="pixel-star on"></div><div class="pixel-star on"></div>
+          </div>
+          <span class="font-mono-vt text-lg" style="color:var(--gb-lightest);">4.7 / 5</span>
+        </div>
+      </div>
+
+      <!-- 卡片 6 -->
+      <div class="pixel-border pixel-notch p-4 flex flex-col" style="background:var(--gb-black);">
+        <div class="game-screen mb-4" style="background:linear-gradient(160deg,#0f380f,#306230 40%,#0f380f);">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="pix icon-cart">
+              <div class="c-off"></div><div class="c-on"></div><div class="c-off"></div><div class="c-off"></div><div class="c-off"></div><div class="c-off"></div><div class="c-on"></div><div class="c-off"></div>
+              <div class="c-off"></div><div class="c-off"></div><div class="c-on"></div><div class="c-off"></div><div class="c-off"></div><div class="c-on"></div><div class="c-off"></div><div class="c-off"></div>
+              <div class="c-on"></div><div class="c-mid"></div><div class="c-mid"></div><div class="c-on"></div><div class="c-on"></div><div class="c-mid"></div><div class="c-mid"></div><div class="c-on"></div>
+              <div class="c-on"></div><div class="c-mid"></div><div class="c-mid"></div><div class="c-mid"></div><div class="c-mid"></div><div class="c-mid"></div><div class="c-mid"></div><div class="c-on"></div>
+              <div class="c-off"></div><div class="c-on"></div><div class="c-mid"></div><div class="c-mid"></div><div class="c-mid"></div><div class="c-mid"></div><div class="c-on"></div><div class="c-off"></div>
+              <div class="c-off"></div><div class="c-off"></div><div class="c-on"></div><div class="c-off"></div><div class="c-off"></div><div class="c-on"></div><div class="c-off"></div><div class="c-off"></div>
+              <div class="c-off"></div><div class="c-on"></div><div class="c-off"></div><div class="c-off"></div><div class="c-off"></div><div class="c-off"></div><div class="c-on"></div><div class="c-off"></div>
+              <div class="c-off"></div><div class="c-off"></div><div class="c-off"></div><div class="c-off"></div><div class="c-off"></div><div class="c-off"></div><div class="c-off"></div><div class="c-off"></div>
+            </div>
+          </div>
+        </div>
+        <span class="font-mono-vt text-lg mb-1" style="color:var(--gb-lightest);">太空射擊</span>
+        <h3 class="font-pixel text-sm mb-3" style="color:var(--gb-white);">星際碎片守衛隊</h3>
+        <p class="font-body text-sm mb-4 flex-grow" style="color:#b7cf94;">經典彈幕射擊，駕駛像素戰機守護母星，關底大魔王的彈幕圖案是玩家間熱議的話題。</p>
+        <div class="flex items-center justify-between">
+          <div class="flex gap-1">
+            <div class="pixel-star on"></div><div class="pixel-star on"></div><div class="pixel-star on"></div><div class="pixel-star on"></div><div class="pixel-star off"></div>
+          </div>
+          <span class="font-mono-vt text-lg" style="color:var(--gb-lightest);">4.1 / 5</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== 社群/會員系統簡介 ===== -->
+  <section id="community" class="border-t-4 border-b-4 border-black py-16 md:py-20" style="background:var(--gb-black);">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="font-pixel text-lg md:text-2xl mb-4" style="color:var(--gb-lightest);">社群與會員系統</h2>
+        <p class="font-body text-sm md:text-base max-w-2xl mx-auto" style="color:#c8dba3;">
+          PixelBox 不只是收藏清單，更是一群熱愛復古像素風格玩家聚集的公會廣場。加入會員，解鎖更完整的體驗。
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="pixel-border-thin p-6 flex flex-col items-center text-center" style="background:var(--gb-dark);">
+          <div class="w-14 h-14 mb-4 flex items-center justify-center pixel-border-thin" style="background:var(--gb-black);">
+            <div class="w-6 h-6" style="background:var(--gb-lightest);"></div>
+          </div>
+          <h3 class="font-pixel text-xs mb-3" style="color:var(--gb-white);">玩家公會</h3>
+          <p class="font-body text-sm" style="color:#b7cf94;">加入以遊戲類型分類的公會頻道，跟同好交流破關技巧、討論隱藏彩蛋，還能組隊挑戰週末限定王。</p>
+        </div>
+        <div class="pixel-border-thin p-6 flex flex-col items-center text-center" style="background:var(--gb-dark);">
+          <div class="w-14 h-14 mb-4 flex items-center justify-center pixel-border-thin" style="background:var(--gb-black);">
+            <div class="w-6 h-6" style="background:var(--gb-lightest);"></div>
+          </div>
+          <h3 class="font-pixel text-xs mb-3" style="color:var(--gb-white);">徽章成就</h3>
+          <p class="font-body text-sm" style="color:#b7cf94;">完成每月挑戰任務即可解鎖限定像素徽章，收集全套徽章的玩家會被列進公會榮譽牆。</p>
+        </div>
+        <div class="pixel-border-thin p-6 flex flex-col items-center text-center" style="background:var(--gb-dark);">
+          <div class="w-14 h-14 mb-4 flex items-center justify-center pixel-border-thin" style="background:var(--gb-black);">
+            <div class="w-6 h-6" style="background:var(--gb-lightest);"></div>
+          </div>
+          <h3 class="font-pixel text-xs mb-3" style="color:var(--gb-white);">深度評測</h3>
+          <p class="font-body text-sm" style="color:#b7cf94;">會員專屬的完整評測內容，包含關卡設計拆解、音樂彩蛋考據，以及編輯部私藏的隱藏道具清單。</p>
+        </div>
+      </div>
+
+      <!-- 統計數字條 -->
+      <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+        <div class="pixel-border-thin py-5" style="background:var(--gb-dark);">
+          <div class="font-pixel text-base md:text-xl" style="color:var(--gb-lightest);">12,480</div>
+          <div class="font-mono-vt text-lg mt-2" style="color:#c8dba3;">註冊玩家</div>
+        </div>
+        <div class="pixel-border-thin py-5" style="background:var(--gb-dark);">
+          <div class="font-pixel text-base md:text-xl" style="color:var(--gb-lightest);">386</div>
+          <div class="font-mono-vt text-lg mt-2" style="color:#c8dba3;">收藏遊戲數</div>
+        </div>
+        <div class="pixel-border-thin py-5" style="background:var(--gb-dark);">
+          <div class="font-pixel text-base md:text-xl" style="color:var(--gb-lightest);">58</div>
+          <div class="font-mono-vt text-lg mt-2" style="color:#c8dba3;">活躍公會</div>
+        </div>
+        <div class="pixel-border-thin py-5" style="background:var(--gb-dark);">
+          <div class="font-pixel text-base md:text-xl" style="color:var(--gb-lightest);">4.6</div>
+          <div class="font-mono-vt text-lg mt-2" style="color:#c8dba3;">平均評測星等</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 底部 CTA ===== -->
+  <section id="join" class="max-w-4xl mx-auto px-4 py-16 md:py-24 text-center">
+    <div class="pixel-border pixel-notch p-8 md:p-12" style="background:var(--gb-black);">
+      <h2 class="font-pixel text-lg md:text-2xl mb-6 leading-relaxed" style="color:var(--gb-lightest);">
+        準備好插上手把了嗎？
+      </h2>
+      <p class="font-body text-sm md:text-base mb-8" style="color:#c8dba3;">
+        免費加入 PixelBox 會員，立即解鎖完整收藏庫、深度評測與公會頻道，重新找回按下 START 鍵的那份悸動。
+      </p>
+      <form class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6" onsubmit="return handleJoin(event)">
+        <input type="email" required placeholder="輸入你的 Email"
+          class="font-mono-vt text-xl px-4 py-3 w-full sm:w-72 pixel-border-thin outline-none"
+          style="background:var(--gb-dark); color:var(--gb-white);">
+        <button type="submit" class="pixel-btn text-xs md:text-sm whitespace-nowrap">免費加入會員</button>
+      </form>
+      <p id="join-msg" class="font-mono-vt text-lg" style="color:var(--gb-lightest); min-height:1.5em;"></p>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="border-t-4 border-black py-8" style="background:var(--gb-dark);">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+      <span class="font-pixel text-[10px]" style="color:var(--gb-lightest);">© PIXELBOX</span>
+      <span class="font-mono-vt text-lg" style="color:#c8dba3;">用像素，收藏每一段復古遊戲時光</span>
+    </div>
+  </footer>
+
+  <script>
+    function pressAndGo(btn){
+      btn.classList.add('is-pressed');
+      setTimeout(()=>{
+        btn.classList.remove('is-pressed');
+        document.getElementById('collection').scrollIntoView({behavior:'smooth'});
+      }, 120);
+    }
+
+    function handleJoin(e){
+      e.preventDefault();
+      const msg = document.getElementById('join-msg');
+      const input = e.target.querySelector('input[type="email"]');
+      if(input && input.value){
+        msg.textContent = '★ 加入成功！歡迎來到像素盒公會，快去信箱收取新手大禮包吧。';
+        input.value = '';
+      }
+      return false;
+    }
+  </script>
+
+</body>
+</html>
