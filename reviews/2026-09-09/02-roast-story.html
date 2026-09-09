@@ -1,0 +1,522 @@
+<!-- style #49 Parallax Storytelling -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>拾光烘豆所｜品牌故事</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=Noto+Serif+TC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          serif: ['Newsreader', 'Noto Serif TC', 'Georgia', 'serif'],
+        },
+        colors: {
+          paper: '#f4efe4',
+          paper2: '#ece3d1',
+          ink: '#2c2118',
+          coffee: '#4a3728',
+          coffee2: '#6b4f39',
+          rust: '#8b3a2f',
+        }
+      }
+    }
+  };
+</script>
+<style>
+  :root{
+    --paper: #f4efe4;
+    --paper-deep: #e9dfc9;
+    --ink: #2c2118;
+    --coffee: #4a3728;
+    --coffee-soft: #7a5c42;
+    --rust: #8b3a2f;
+    --line: rgba(74,55,40,0.18);
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin: 0;
+    padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  body, h1, h2, h3, h4, h5, p, span, a, button, li {
+    font-family: 'Newsreader', 'Noto Serif TC', Georgia, 'PingFang TC', serif !important;
+  }
+
+  .display{
+    font-family: 'Newsreader', 'Noto Serif TC', Georgia, serif !important;
+    font-optical-sizing: auto;
+  }
+
+  ::selection{
+    background: var(--rust);
+    color: var(--paper);
+  }
+
+  /* paper grain texture */
+  .grain{
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 60;
+    opacity: 0.05;
+    mix-blend-mode: multiply;
+    background-image: radial-gradient(circle at 1px 1px, #000 1px, transparent 0);
+    background-size: 3px 3px;
+  }
+
+  /* Section shells */
+  .chapter{
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .parallax-layer{
+    position: absolute;
+    inset: -20% 0 -20% 0;
+    will-change: transform;
+    z-index: 0;
+  }
+
+  .content-layer{
+    position: relative;
+    z-index: 10;
+    width: 100%;
+  }
+
+  /* fade-in on scroll */
+  .reveal{
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 1.1s cubic-bezier(.2,.7,.2,1), transform 1.1s cubic-bezier(.2,.7,.2,1);
+  }
+  .reveal.is-visible{
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1.is-visible{ transition-delay: .15s; }
+  .reveal-delay-2.is-visible{ transition-delay: .3s; }
+  .reveal-delay-3.is-visible{ transition-delay: .45s; }
+
+  .rule{
+    width: 64px;
+    height: 2px;
+    background: var(--rust);
+  }
+
+  .chip{
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+  }
+
+  .divider-num{
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* hero */
+  .hero-bg{
+    background:
+      radial-gradient(ellipse at 20% 20%, rgba(139,58,47,0.10), transparent 55%),
+      radial-gradient(ellipse at 80% 75%, rgba(74,55,40,0.14), transparent 55%),
+      linear-gradient(180deg, #f7f2e7 0%, #efe6d2 60%, #e6dabd 100%);
+  }
+
+  .bean-cluster{
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #6b4f39, #3a2b1f 70%);
+    box-shadow: inset -4px -6px 10px rgba(0,0,0,0.35), 0 8px 18px rgba(44,33,24,0.25);
+  }
+  .bean-cluster::after{
+    content:"";
+    position: absolute;
+    top: 18%;
+    left: 46%;
+    width: 10%;
+    height: 64%;
+    background: rgba(0,0,0,0.35);
+    border-radius: 50%;
+    transform: rotate(8deg);
+  }
+
+  /* chapter 1 origin */
+  .origin-bg{
+    background:
+      linear-gradient(180deg, rgba(74,55,40,0.06), transparent 30%),
+      repeating-linear-gradient(120deg, rgba(74,55,40,0.06) 0px, rgba(74,55,40,0.06) 2px, transparent 2px, transparent 26px),
+      linear-gradient(160deg, #efe4cd 0%, #e1d2ab 55%, #cdb98a 100%);
+  }
+  .terrace{
+    position: absolute;
+    left: -10%;
+    right: -10%;
+    height: 90px;
+    background: linear-gradient(180deg, rgba(107,79,57,0.35), rgba(74,55,40,0.55));
+    border-top: 2px solid rgba(74,55,40,0.35);
+  }
+
+  /* chapter 2 roaster */
+  .roast-bg{
+    background:
+      radial-gradient(circle at 70% 30%, rgba(139,58,47,0.18), transparent 45%),
+      linear-gradient(200deg, #3a2b1f 0%, #4a3728 55%, #5c4531 100%);
+  }
+  .ember{
+    position: absolute;
+    border-radius: 999px;
+    background: radial-gradient(circle, #d98a4a, #8b3a2f 70%, transparent 100%);
+    filter: blur(1px);
+    opacity: 0.85;
+  }
+  .drum{
+    position: absolute;
+    border-radius: 50%;
+    border: 3px solid rgba(244,239,228,0.25);
+  }
+
+  /* chapter 3 brewing */
+  .brew-bg{
+    background:
+      radial-gradient(circle at 30% 60%, rgba(139,58,47,0.10), transparent 50%),
+      linear-gradient(180deg, #f7f2e7 0%, #ece0c5 100%);
+  }
+  .steam{
+    position: absolute;
+    width: 3px;
+    background: linear-gradient(180deg, rgba(74,55,40,0.35), transparent);
+    border-radius: 999px;
+  }
+  .pour-ring{
+    position: absolute;
+    border: 2px solid rgba(139,58,47,0.35);
+    border-radius: 50%;
+  }
+
+  /* chapter 4 philosophy */
+  .phil-bg{
+    background: linear-gradient(160deg, #efe4cd 0%, #ddc9a0 55%, #c8ac78 100%);
+  }
+
+  /* CTA / final */
+  .cta-bg{
+    background: linear-gradient(180deg, #3a2b1f 0%, #2c2118 100%);
+  }
+
+  .btn-primary{
+    background: var(--rust);
+    color: #f4efe4;
+    border: 1px solid var(--rust);
+    transition: transform .25s ease, background .25s ease, box-shadow .25s ease;
+  }
+  .btn-primary:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(139,58,47,0.35);
+  }
+  .btn-outline{
+    background: transparent;
+    color: #f4efe4;
+    border: 1px solid rgba(244,239,228,0.55);
+    transition: transform .25s ease, background .25s ease;
+  }
+  .btn-outline:hover{
+    background: rgba(244,239,228,0.1);
+    transform: translateY(-2px);
+  }
+
+  .fine-rule{
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--line) 20%, var(--line) 80%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ transition: none; opacity: 1; transform: none; }
+    .parallax-layer{ transform: none !important; }
+  }
+</style>
+</head>
+<body class="bg-paper text-ink antialiased">
+
+<div class="grain"></div>
+
+<!-- progress marker -->
+<div id="progressLabel" class="fixed top-6 right-6 z-50 hidden md:block text-right chip uppercase text-coffee/60">
+  <span id="chapterName">序章</span>
+</div>
+
+<!-- ============ HERO ============ -->
+<header class="chapter hero-bg" id="hero">
+  <div class="parallax-layer" data-speed="0.15">
+    <div class="bean-cluster" style="width:120px;height:80px; top:12%; left:8%; transform:rotate(-12deg);"></div>
+    <div class="bean-cluster" style="width:90px;height:60px; top:65%; left:78%; transform:rotate(20deg);"></div>
+    <div class="bean-cluster" style="width:60px;height:42px; top:30%; left:85%; transform:rotate(-30deg);"></div>
+    <div class="bean-cluster" style="width:70px;height:48px; top:78%; left:14%; transform:rotate(8deg);"></div>
+  </div>
+
+  <div class="content-layer max-w-5xl mx-auto px-6 md:px-10 text-center">
+    <p class="reveal is-visible chip uppercase text-rust mb-6">RUOXI ROASTERY &nbsp;·&nbsp; 手沖咖啡品牌故事</p>
+    <h1 class="reveal is-visible display text-5xl md:text-7xl font-medium leading-tight text-coffee mb-6">
+      拾光烘豆所
+    </h1>
+    <p class="reveal is-visible reveal-delay-1 display text-xl md:text-2xl italic text-coffee2 mb-10 leading-relaxed">
+      每一顆豆子，都封存著一段時光；<br class="hidden md:block">
+      我們只是把它，輕輕地還給你。
+    </p>
+    <div class="reveal is-visible reveal-delay-2 flex items-center justify-center gap-4 text-coffee/70">
+      <span class="rule"></span>
+      <span class="chip uppercase">向下捲動，開始這段旅程</span>
+      <span class="rule"></span>
+    </div>
+  </div>
+
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-coffee/50 animate-bounce">
+    <svg width="20" height="28" viewBox="0 0 20 28" fill="none"><path d="M10 0V26M10 26L2 18M10 26L18 18" stroke="currentColor" stroke-width="1.5"/></svg>
+  </div>
+</header>
+
+<!-- ============ CHAPTER 01：產地的呼吸 ============ -->
+<section class="chapter origin-bg" id="ch1" data-chapter="第一章・產地的呼吸">
+  <div class="parallax-layer" data-speed="0.25">
+    <div class="terrace" style="top:20%;"></div>
+    <div class="terrace" style="top:45%; opacity:.85;"></div>
+    <div class="terrace" style="top:70%; opacity:.7;"></div>
+  </div>
+  <div class="parallax-layer" data-speed="0.45">
+    <div class="bean-cluster" style="width:46px;height:32px; top:15%; left:20%; transform:rotate(15deg); opacity:.8;"></div>
+    <div class="bean-cluster" style="width:36px;height:26px; top:60%; left:82%; transform:rotate(-25deg); opacity:.7;"></div>
+  </div>
+
+  <div class="content-layer max-w-3xl mx-auto px-6 md:px-10 py-32">
+    <div class="reveal">
+      <span class="chip uppercase text-rust">CHAPTER 01</span>
+      <h2 class="display text-4xl md:text-5xl font-medium text-coffee mt-4 mb-8">產地的呼吸</h2>
+    </div>
+    <div class="reveal reveal-delay-1 space-y-6 text-lg md:text-xl leading-loose text-coffee/90">
+      <p>
+        在海拔一千九百公尺的山坡上，霧氣總是先於陽光抵達。咖啡樹沿著等高線一層一層種下去，果實成熟的速度不一，所以只能靠人手，一顆一顆挑，一次又一次走進同一片坡地。
+      </p>
+      <p>
+        我們合作的小農家族，已經在這片土地上種了三代咖啡。他們不追求產量，只在乎每一顆果實熟成的時間點——太早採，酸澀刺口；太晚採，甜感就散了。那條界線，只有長年蹲在土地上的人才看得懂。
+      </p>
+      <p>
+        我們選擇直接跟農民交易，跳過層層盤商，把應得的價格還給種樹的人。這樣他們才能繼續留在山上，慢慢地、認真地，把一整年的等待，種進下一批果實裡。
+      </p>
+    </div>
+    <div class="reveal reveal-delay-2 mt-10 flex flex-wrap gap-x-10 gap-y-4 text-sm text-coffee/70 chip">
+      <span>海拔 1,900M</span>
+      <span class="hidden sm:inline">｜</span>
+      <span>手採熟果</span>
+      <span class="hidden sm:inline">｜</span>
+      <span>產地直接交易</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 02：烘豆職人的堅持 ============ -->
+<section class="chapter roast-bg text-paper" id="ch2" data-chapter="第二章・爐火與耐性">
+  <div class="parallax-layer" data-speed="0.3">
+    <div class="drum" style="width:340px;height:340px; top:-60px; right:-80px;"></div>
+    <div class="drum" style="width:220px;height:220px; bottom:-40px; left:-40px; opacity:.6;"></div>
+  </div>
+  <div class="parallax-layer" data-speed="0.55">
+    <div class="ember" style="width:10px;height:10px; top:22%; left:30%;"></div>
+    <div class="ember" style="width:6px;height:6px; top:40%; left:62%;"></div>
+    <div class="ember" style="width:8px;height:8px; top:65%; left:20%;"></div>
+    <div class="ember" style="width:5px;height:5px; top:55%; left:80%;"></div>
+  </div>
+
+  <div class="content-layer max-w-3xl mx-auto px-6 md:px-10 py-32">
+    <div class="reveal">
+      <span class="chip uppercase text-rust">CHAPTER 02</span>
+      <h2 class="display text-4xl md:text-5xl font-medium mt-4 mb-8">爐火與耐性</h2>
+    </div>
+    <div class="reveal reveal-delay-1 space-y-6 text-lg md:text-xl leading-loose text-paper/90">
+      <p>
+        烘豆師阿正在爐邊站了十二年。他說烘豆這件事，最難的從來不是配方，而是「聽」——聽第一爆的聲音夠不夠密集，聽豆子在滾筒裡摩擦的節奏，聽今天的濕度、氣壓、豆子含水率，悄悄改變了火力該怎麼給。
+      </p>
+      <p>
+        同一支豆子，他會試烘七、八個版本，喝完一輪，全部倒掉重來，只留下那個能把產地風味完整說出來的曲線。這不是浪費，是他對每一位喝到這杯咖啡的人，唯一能負責的方式。
+      </p>
+      <p class="italic text-paper/70">
+        「退步，是為了不將就。」他常這麼說。爐火不會騙人，用心與否，最後都會留在杯子裡。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 03：沖煮的儀式感 ============ -->
+<section class="chapter brew-bg" id="ch3" data-chapter="第三章・沖煮的儀式感">
+  <div class="parallax-layer" data-speed="0.3">
+    <div class="pour-ring" style="width:260px;height:260px; top:10%; right:6%;"></div>
+    <div class="pour-ring" style="width:180px;height:180px; top:16%; right:15%; opacity:.6;"></div>
+  </div>
+  <div class="parallax-layer" data-speed="0.5">
+    <div class="steam" style="height:120px; top:30%; left:35%; transform:rotate(4deg);"></div>
+    <div class="steam" style="height:90px; top:38%; left:40%; transform:rotate(-6deg); opacity:.6;"></div>
+    <div class="steam" style="height:100px; top:34%; left:45%; transform:rotate(10deg); opacity:.4;"></div>
+  </div>
+
+  <div class="content-layer max-w-3xl mx-auto px-6 md:px-10 py-32">
+    <div class="reveal">
+      <span class="chip uppercase text-rust">CHAPTER 03</span>
+      <h2 class="display text-4xl md:text-5xl font-medium text-coffee mt-4 mb-8">沖煮的儀式感</h2>
+    </div>
+    <div class="reveal reveal-delay-1 space-y-6 text-lg md:text-xl leading-loose text-coffee/90">
+      <p>
+        水溫定在攝氏九十二度，濾杯先燙過，粉牆刮平。第一次注水只為悶蒸——看著粉層緩緩鼓起，像是豆子在甦醒，吐出這一年來吸收的陽光與霧氣。
+      </p>
+      <p>
+        接著是繞圈注水，水流從中心往外，再收回中心，速度不快不慢。整個過程大約三分鐘，安靜到能聽見水流落下的聲音。這不只是沖一杯咖啡，是每天早晨，留給自己的一段獨處時間。
+      </p>
+      <p>
+        我們相信，好的咖啡值得被慢慢對待。手沖不是效率，是一種選擇——選擇在快速的日子裡，留一小段時間，只屬於自己與這杯咖啡。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 04：品牌理念 ============ -->
+<section class="chapter phil-bg" id="ch4" data-chapter="第四章・慢下來的溫度">
+  <div class="parallax-layer" data-speed="0.2">
+    <div class="bean-cluster" style="width:100px;height:70px; top:14%; left:75%; transform:rotate(-18deg); opacity:.5;"></div>
+    <div class="bean-cluster" style="width:60px;height:42px; top:70%; left:10%; transform:rotate(22deg); opacity:.5;"></div>
+  </div>
+
+  <div class="content-layer max-w-3xl mx-auto px-6 md:px-10 py-32">
+    <div class="reveal">
+      <span class="chip uppercase text-rust">CHAPTER 04</span>
+      <h2 class="display text-4xl md:text-5xl font-medium text-coffee mt-4 mb-8">慢下來的溫度</h2>
+    </div>
+    <div class="reveal reveal-delay-1 space-y-6 text-lg md:text-xl leading-loose text-coffee/90">
+      <p>
+        拾光烘豆所的名字，來自一個很簡單的想法：把每一段值得記住的時光，透過一杯咖啡，重新拾起來。從山上的果實、爐邊的堅持，到手中的濾杯，每一個環節都有人在慢慢地、認真地對待它。
+      </p>
+      <p>
+        我們不追求快速展店，也不追求最大產量。我們在意的是，公平地對待種豆子的人，誠實地對待喝咖啡的人，以及，讓每一杯咖啡都值得被好好品嚐。
+      </p>
+      <p>
+        如果生活已經夠快了，希望這杯咖啡，能是你一天裡，最慢的那十分鐘。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 05：邀請 / CTA ============ -->
+<section class="chapter cta-bg text-paper" id="ch5" data-chapter="終章・邀請你入座">
+  <div class="parallax-layer" data-speed="0.2">
+    <div class="bean-cluster" style="width:140px;height:96px; top:-20px; left:-30px; opacity:.4;"></div>
+    <div class="bean-cluster" style="width:90px;height:64px; bottom:-10px; right:-20px; opacity:.4;"></div>
+  </div>
+
+  <div class="content-layer max-w-3xl mx-auto px-6 md:px-10 py-32 text-center">
+    <div class="reveal">
+      <span class="chip uppercase text-rust">CHAPTER 05・尾聲</span>
+      <h2 class="display text-4xl md:text-5xl font-medium mt-4 mb-8">邀請你，坐下來喝一杯</h2>
+    </div>
+    <p class="reveal reveal-delay-1 text-lg md:text-xl leading-loose text-paper/85 mb-12">
+      無論是想在家自己沖一杯，還是想來我們的小店，親眼看看烘豆與沖煮的過程——
+      拾光烘豆所，都在這裡等你。
+    </p>
+    <div class="reveal reveal-delay-2 flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a href="#" class="btn-primary px-8 py-4 rounded-sm text-base md:text-lg tracking-wide">立即選購豆單</a>
+      <a href="#" class="btn-outline px-8 py-4 rounded-sm text-base md:text-lg tracking-wide">預約沖煮體驗</a>
+    </div>
+
+    <div class="fine-rule my-16"></div>
+
+    <div class="reveal reveal-delay-3 text-sm text-paper/60 leading-loose">
+      <p>拾光烘豆所 RUOXI ROASTERY</p>
+      <p>台北市大安區・每日 10:00－19:00（週二公休）</p>
+      <p class="mt-4 italic">用一杯咖啡的時間，把時光拾回來。</p>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---- Parallax scroll effect ----
+  var layers = Array.prototype.slice.call(document.querySelectorAll(".parallax-layer"));
+  var ticking = false;
+
+  function updateParallax(){
+    var scrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+    for (var i = 0; i < layers.length; i++){
+      var el = layers[i];
+      var speed = parseFloat(el.getAttribute("data-speed")) || 0.2;
+      var offset = scrollY * speed * -1;
+      el.style.transform = "translateY(" + offset.toFixed(2) + "px)";
+    }
+    ticking = false;
+  }
+
+  function onScroll(){
+    if (!ticking){
+      window.requestAnimationFrame(updateParallax);
+      ticking = true;
+    }
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  updateParallax();
+
+  // ---- Reveal on scroll (fade + rise) ----
+  var revealEls = document.querySelectorAll(".reveal:not(.is-visible)");
+  if ("IntersectionObserver" in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          entry.target.classList.add("is-visible");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.18, rootMargin: "0px 0px -8% 0px" });
+
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add("is-visible"); });
+  }
+
+  // ---- Chapter label in corner ----
+  var chapters = Array.prototype.slice.call(document.querySelectorAll("[data-chapter]"));
+  var label = document.getElementById("chapterName");
+
+  function updateChapterLabel(){
+    var mid = window.innerHeight * 0.4;
+    var current = "序章";
+    for (var i = 0; i < chapters.length; i++){
+      var rect = chapters[i].getBoundingClientRect();
+      if (rect.top <= mid && rect.bottom >= mid){
+        current = chapters[i].getAttribute("data-chapter");
+        break;
+      }
+    }
+    if (label && label.textContent !== current){
+      label.textContent = current;
+    }
+  }
+
+  window.addEventListener("scroll", function(){
+    window.requestAnimationFrame(updateChapterLabel);
+  }, { passive: true });
+  updateChapterLabel();
+})();
+</script>
+
+</body>
+</html>
