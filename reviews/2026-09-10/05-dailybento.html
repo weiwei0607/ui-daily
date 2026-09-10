@@ -1,0 +1,513 @@
+<!-- style #39 Bento Box -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日常拼盤 DailyBento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FBF6EE;
+    --card-1: #FFFFFF;
+    --card-2: #FFF4E8;
+    --card-3: #FFE9D6;
+    --card-4: #FFF9F0;
+    --coral: #FF6F4D;
+    --coral-dark: #E8562F;
+    --yellow: #FFC24B;
+    --ink: #2B2320;
+    --ink-soft: #6B5F55;
+    --line: rgba(43,35,32,0.08);
+    --shadow: rgba(43,35,32,0.10);
+    --shadow-hover: rgba(43,35,32,0.18);
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Noto Sans TC', 'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
+    padding: 32px 20px 56px;
+    min-height: 100vh;
+  }
+
+  .en{ font-family: 'Sora', 'Noto Sans TC', sans-serif; }
+
+  .wrap{
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  header.top{
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .brand{
+    display:flex;
+    align-items:center;
+    gap: 12px;
+  }
+
+  .brand .mark{
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--coral), var(--yellow));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Sora', sans-serif;
+    font-weight:800;
+    color:#fff;
+    font-size: 18px;
+    box-shadow: 0 6px 14px rgba(255,111,77,0.35);
+  }
+
+  .brand h1{
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    margin: 0;
+    letter-spacing: 0.2px;
+  }
+
+  .brand h1 .sub{
+    display:block;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: 2px;
+  }
+
+  .date-pill{
+    font-family: 'Sora', sans-serif;
+    font-size: 13px;
+    color: var(--ink-soft);
+    background: var(--card-1);
+    border: 1px solid var(--line);
+    padding: 8px 16px;
+    border-radius: 999px;
+  }
+
+  .date-pill b{ color: var(--ink); font-weight:600; }
+
+  /* ===== Bento Grid ===== */
+  .bento{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: minmax(96px, auto);
+    gap: 18px;
+  }
+
+  .card{
+    background: var(--card-1);
+    border-radius: 22px;
+    padding: 22px;
+    border: 1px solid var(--line);
+    box-shadow: 0 4px 14px var(--shadow);
+    transition: transform 0.28s cubic-bezier(.2,.8,.2,1), box-shadow 0.28s cubic-bezier(.2,.8,.2,1);
+    display:flex;
+    flex-direction: column;
+    position: relative;
+    overflow:hidden;
+  }
+
+  .card:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 16px 28px var(--shadow-hover);
+  }
+
+  .card-label{
+    font-family:'Sora', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--coral-dark);
+    margin-bottom: 10px;
+  }
+
+  /* grid placements */
+  .c-todo{ grid-column: span 3; grid-row: span 2; background: var(--card-1); }
+  .c-habit{ grid-column: span 2; grid-row: span 2; background: var(--card-2); }
+  .c-quote{ grid-column: span 1; grid-row: span 2; background: var(--coral); color:#fff; }
+  .c-weather{ grid-column: span 2; grid-row: span 1; background: var(--card-3); }
+  .c-focus{ grid-column: span 2; grid-row: span 1; background: var(--card-4); }
+  .c-calendar{ grid-column: span 2; grid-row: span 2; background: var(--card-1); }
+
+  .c-quote .card-label{ color: rgba(255,255,255,0.85); }
+
+  /* ===== 待辦清單 ===== */
+  .todo-list{
+    display:flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 4px;
+  }
+  .todo-item{
+    display:flex;
+    align-items:flex-start;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: rgba(43,35,32,0.03);
+  }
+  .todo-item.done{
+    background: rgba(255,111,77,0.07);
+  }
+  .todo-check{
+    width: 22px;
+    height: 22px;
+    border-radius: 7px;
+    border: 2px solid #D8CFC3;
+    flex-shrink:0;
+    margin-top: 1px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .todo-item.done .todo-check{
+    background: var(--coral);
+    border-color: var(--coral);
+    color:#fff;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .todo-text{ line-height: 1.5; }
+  .todo-item.done .todo-text{
+    text-decoration: line-through;
+    color: var(--ink-soft);
+  }
+  .todo-time{
+    display:block;
+    font-family:'Sora', sans-serif;
+    font-size: 11px;
+    color: var(--ink-soft);
+    margin-top: 2px;
+  }
+  .todo-title-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom: 2px;
+  }
+  .todo-title-row h2{
+    font-size: 17px;
+    margin:0;
+    font-weight: 700;
+  }
+  .todo-progress-tag{
+    font-family:'Sora', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    background: var(--coral);
+    color:#fff;
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+
+  /* ===== 習慣打卡 ===== */
+  .c-habit h2{ font-size: 16px; margin: 0 0 14px; font-weight: 700; }
+  .ring-wrap{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .ring-num{ font-family:'Sora', sans-serif; font-weight: 800; font-size: 26px; fill: var(--ink); }
+  .ring-caption{
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .ring-caption b{ color: var(--coral-dark); font-weight: 700; }
+
+  /* ===== 金句 ===== */
+  .c-quote{
+    justify-content: center;
+  }
+  .quote-mark{
+    font-family:'Sora', sans-serif;
+    font-size: 40px;
+    font-weight: 800;
+    opacity: 0.5;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .c-quote p{
+    font-size: 16px;
+    line-height: 1.75;
+    font-weight: 500;
+    margin: 0 0 10px;
+  }
+  .c-quote .quote-from{
+    font-size: 12px;
+    opacity: 0.85;
+  }
+
+  /* ===== 天氣 ===== */
+  .weather-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex:1;
+  }
+  .weather-city{
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .weather-desc{
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-top: 4px;
+  }
+  .weather-temp{
+    font-family:'Sora', sans-serif;
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--coral-dark);
+  }
+  .weather-icon{ font-size: 34px; }
+
+  /* ===== 專注時數 ===== */
+  .focus-row{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    flex:1;
+  }
+  .focus-num{
+    font-family:'Sora', sans-serif;
+    font-size: 34px;
+    font-weight: 800;
+    color: var(--ink);
+  }
+  .focus-num span{ font-size: 16px; font-weight: 600; color: var(--ink-soft); }
+  .focus-note{
+    font-size: 12px;
+    color: var(--ink-soft);
+    text-align: right;
+    line-height: 1.5;
+  }
+  .focus-bar-track{
+    height: 8px;
+    border-radius: 99px;
+    background: rgba(43,35,32,0.08);
+    margin-top: 14px;
+    overflow:hidden;
+  }
+  .focus-bar-fill{
+    height: 100%;
+    width: 62%;
+    border-radius: 99px;
+    background: linear-gradient(90deg, var(--yellow), var(--coral));
+  }
+
+  /* ===== 行事曆 ===== */
+  .c-calendar h2{ font-size: 16px; margin: 0 0 14px; font-weight: 700; }
+  .cal-list{
+    display:flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .cal-item{
+    display:flex;
+    gap: 12px;
+    align-items:flex-start;
+  }
+  .cal-time{
+    font-family:'Sora', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--coral-dark);
+    background: rgba(255,111,77,0.1);
+    padding: 4px 8px;
+    border-radius: 8px;
+    white-space: nowrap;
+    margin-top: 1px;
+  }
+  .cal-name{ font-size: 13.5px; line-height: 1.5; }
+  .cal-loc{
+    display:block;
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    margin-top: 1px;
+  }
+
+  footer.foot{
+    text-align:center;
+    margin-top: 30px;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 860px){
+    .bento{ grid-template-columns: repeat(2, 1fr); }
+    .c-todo{ grid-column: span 2; grid-row: auto; }
+    .c-habit{ grid-column: span 2; grid-row: auto; }
+    .c-quote{ grid-column: span 2; grid-row: auto; }
+    .c-weather{ grid-column: span 1; grid-row: auto; }
+    .c-focus{ grid-column: span 1; grid-row: auto; }
+    .c-calendar{ grid-column: span 2; grid-row: auto; }
+  }
+
+  @media (max-width: 480px){
+    body{ padding: 22px 14px 40px; }
+    .bento{ grid-template-columns: 1fr; gap: 14px; }
+    .c-todo, .c-habit, .c-quote, .c-weather, .c-focus, .c-calendar{
+      grid-column: span 1;
+    }
+    .card{ padding: 18px; border-radius: 18px; }
+    .ring-wrap{ gap: 12px; }
+    header.top{ align-items:flex-start; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header class="top">
+      <div class="brand">
+        <div class="mark en">DB</div>
+        <h1 class="en">日常拼盤 DailyBento
+          <span class="sub">把今天的每一件小事，拼成剛剛好的一盤</span>
+        </h1>
+      </div>
+      <div class="date-pill en">9月10日 星期四 · <b>秋高氣爽的一天</b></div>
+    </header>
+
+    <div class="bento">
+
+      <!-- 今日待辦：大格 -->
+      <section class="card c-todo">
+        <div class="card-label en">TODAY'S TASKS</div>
+        <div class="todo-title-row">
+          <h2>今日待辦</h2>
+          <span class="todo-progress-tag en">2 / 4</span>
+        </div>
+        <div class="todo-list">
+          <div class="todo-item done">
+            <div class="todo-check">✓</div>
+            <div class="todo-text">回覆客戶提案的修改意見
+              <span class="todo-time en">09:30 完成</span>
+            </div>
+          </div>
+          <div class="todo-item done">
+            <div class="todo-check">✓</div>
+            <div class="todo-text">繳交這個月的水電費
+              <span class="todo-time en">11:10 完成</span>
+            </div>
+          </div>
+          <div class="todo-item">
+            <div class="todo-check"></div>
+            <div class="todo-text">整理下週提案簡報的初稿
+              <span class="todo-time en">預計 15:00 開始</span>
+            </div>
+          </div>
+          <div class="todo-item">
+            <div class="todo-check"></div>
+            <div class="todo-text">待會兒去超市買晚餐食材
+              <span class="todo-time en">下班後</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 習慣打卡：中格 -->
+      <section class="card c-habit">
+        <div class="card-label en">HABIT TRACKER</div>
+        <h2>本週運動打卡</h2>
+        <div class="ring-wrap">
+          <svg width="112" height="112" viewBox="0 0 112 112">
+            <circle cx="56" cy="56" r="46" fill="none" stroke="rgba(232,86,47,0.14)" stroke-width="12"/>
+            <circle cx="56" cy="56" r="46" fill="none" stroke="#FF6F4D" stroke-width="12"
+              stroke-linecap="round"
+              stroke-dasharray="289.03"
+              stroke-dashoffset="57.8"
+              transform="rotate(-90 56 56)"/>
+            <text x="56" y="62" text-anchor="middle" class="ring-num en">4/5</text>
+          </svg>
+          <div class="ring-caption">已完成 <b>4 天</b>運動<br>只差最後一次<br>就能達標囉！</div>
+        </div>
+      </section>
+
+      <!-- 今日金句：中格窄 -->
+      <section class="card c-quote">
+        <div class="card-label">TODAY'S WORDS</div>
+        <div class="quote-mark en">"</div>
+        <p>不用把每件事都做完，只要把重要的事做好，今天就算數。</p>
+        <div class="quote-from">給正在努力的你</div>
+      </section>
+
+      <!-- 天氣：小格 -->
+      <section class="card c-weather">
+        <div class="card-label en">WEATHER</div>
+        <div class="weather-row">
+          <div>
+            <div class="weather-city">台北・大安區</div>
+            <div class="weather-desc">多雲時晴，微風舒適<br>降雨機率 10%</div>
+          </div>
+          <div style="text-align:right;">
+            <div class="weather-icon">🌤️</div>
+            <div class="weather-temp en">27°</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 專注時數：小格 -->
+      <section class="card c-focus">
+        <div class="card-label en">FOCUS TIME</div>
+        <div class="focus-row">
+          <div class="focus-num en">3.1<span>小時</span></div>
+          <div class="focus-note">今天已累積<br>3 段專注時段</div>
+        </div>
+        <div class="focus-bar-track"><div class="focus-bar-fill"></div></div>
+      </section>
+
+      <!-- 行事曆摘要：中格 -->
+      <section class="card c-calendar">
+        <div class="card-label en">TODAY'S SCHEDULE</div>
+        <h2>今天的行程</h2>
+        <div class="cal-list">
+          <div class="cal-item">
+            <span class="cal-time en">10:00</span>
+            <div class="cal-name">與設計團隊開週會
+              <span class="cal-loc">線上會議室・預計 40 分鐘</span>
+            </div>
+          </div>
+          <div class="cal-item">
+            <span class="cal-time en">14:30</span>
+            <div class="cal-name">牙醫回診檢查
+              <span class="cal-loc">巷口牙科診所</span>
+            </div>
+          </div>
+          <div class="cal-item">
+            <span class="cal-time en">19:00</span>
+            <div class="cal-name">和阿姨約晚餐聚聚
+              <span class="cal-loc">她家附近的麵館</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <footer class="foot en">DailyBento · 把每一天，拼成想要的樣子</footer>
+
+  </div>
+</body>
+</html>

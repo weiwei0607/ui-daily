@@ -1,0 +1,706 @@
+<!-- style #25 Interactive Demo -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>畫布 CanvasFlow － 團隊共創白板</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --bg: #fafafa;
+    --bg-canvas: #f4f3ff;
+    --ink: #201f2b;
+    --ink-soft: #5c5a6e;
+    --line: #e6e4f0;
+    --brand: #5b4bff;
+    --brand-dark: #4636d6;
+    --brand-soft: #efedff;
+    --accent: #ff9d5c;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Figtree", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body{
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .brand-font{
+    font-family: "Figtree", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    letter-spacing: -0.01em;
+  }
+
+  .section{
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---------- Nav ---------- */
+  .nav{
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgba(250,250,250,0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner{
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo-mark{
+    width: 30px; height: 30px;
+    border-radius: 9px;
+    background: linear-gradient(135deg, var(--brand), #8b7bff);
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-weight: 800; font-size: 15px;
+    box-shadow: 0 4px 12px rgba(91,75,255,0.35);
+  }
+  .logo-name{
+    font-weight: 800;
+    font-size: 17px;
+    color: var(--ink);
+  }
+  .nav-links a{
+    color: var(--ink-soft);
+    font-size: 14.5px;
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 28px;
+  }
+  .nav-links a:hover{ color: var(--ink); }
+
+  .btn-primary{
+    background: var(--brand);
+    color: #fff;
+    font-weight: 600;
+    padding: 10px 22px;
+    border-radius: 999px;
+    font-size: 14.5px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(91,75,255,0.28);
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+    white-space: nowrap;
+  }
+  .btn-primary:hover{
+    background: var(--brand-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 22px rgba(91,75,255,0.34);
+  }
+  .btn-secondary{
+    background: #fff;
+    color: var(--ink);
+    font-weight: 600;
+    padding: 10px 22px;
+    border-radius: 999px;
+    font-size: 14.5px;
+    border: 1.5px solid var(--line);
+    cursor: pointer;
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  .btn-secondary:hover{
+    border-color: var(--brand);
+    transform: translateY(-1px);
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding: 84px 0 60px;
+    text-align: center;
+    position: relative;
+  }
+  .hero-badge{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--brand-soft);
+    color: var(--brand-dark);
+    font-size: 13px;
+    font-weight: 700;
+    padding: 7px 16px;
+    border-radius: 999px;
+    margin-bottom: 22px;
+  }
+  .hero-badge .dot{
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 0 3px rgba(34,197,94,0.2);
+  }
+  .hero h1{
+    font-size: clamp(32px, 5.4vw, 58px);
+    font-weight: 800;
+    line-height: 1.15;
+    margin: 0 0 20px;
+  }
+  .hero h1 .accent-text{
+    color: var(--brand);
+  }
+  .hero p.lead{
+    font-size: clamp(16px, 2vw, 19px);
+    color: var(--ink-soft);
+    max-width: 620px;
+    margin: 0 auto 34px;
+    line-height: 1.75;
+    font-weight: 500;
+  }
+  .hero-cta{
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .hero-note{
+    margin-top: 16px;
+    font-size: 13px;
+    color: #8b8899;
+    font-weight: 500;
+  }
+
+  /* ---------- Demo ---------- */
+  .demo-wrap{
+    padding: 20px 0 76px;
+  }
+  .demo-card{
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    box-shadow: 0 24px 60px -24px rgba(70,54,214,0.25);
+    overflow: hidden;
+  }
+  .demo-toolbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 22px;
+    border-bottom: 1px solid var(--line);
+    background: #fcfcff;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .demo-toolbar-left{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .traffic{
+    display: flex;
+    gap: 6px;
+  }
+  .traffic span{
+    width: 10px; height: 10px; border-radius: 50%;
+  }
+  .traffic .r{ background: #ff6259; }
+  .traffic .y{ background: #ffbd2e; }
+  .traffic .g{ background: #27c93f; }
+  .demo-title{
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--ink-soft);
+  }
+  .demo-hint{
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--brand-dark);
+    background: var(--brand-soft);
+    padding: 6px 12px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .canvas-viewport{
+    position: relative;
+    width: 100%;
+    height: 460px;
+    background:
+      radial-gradient(circle at 1px 1px, #ded9ff 1.4px, transparent 0) 0 0/22px 22px,
+      var(--bg-canvas);
+    touch-action: none;
+    overflow: hidden;
+  }
+
+  .cursor-chip{
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #ffffffdd;
+    border: 1px solid var(--line);
+    padding: 5px 10px 5px 6px;
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--ink-soft);
+    box-shadow: 0 6px 16px -8px rgba(0,0,0,0.2);
+    pointer-events: none;
+  }
+  .cursor-chip .avatar{
+    width: 18px; height: 18px; border-radius: 50%;
+    background: linear-gradient(135deg,#ff9d5c,#ff6b9d);
+  }
+  .cursor-chip.two{ left: auto; right: 16px; top: 56px; }
+  .cursor-chip.two .avatar{ background: linear-gradient(135deg,#5b4bff,#3ad1c9); }
+
+  .sticky{
+    position: absolute;
+    width: 152px;
+    min-height: 108px;
+    padding: 14px 14px 12px;
+    border-radius: 10px;
+    font-size: 13.5px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: #35301a;
+    box-shadow: 0 10px 22px -10px rgba(30,20,60,0.35), 0 2px 4px rgba(0,0,0,0.06);
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+    transform: rotate(var(--r, 0deg));
+    transition: box-shadow .15s ease;
+    border: 1px solid rgba(0,0,0,0.04);
+  }
+  .sticky:active{ cursor: grabbing; }
+  .sticky.dragging{
+    box-shadow: 0 20px 34px -12px rgba(30,20,60,0.45);
+    z-index: 50;
+    transition: none;
+  }
+  .sticky .tag{
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .02em;
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.55);
+    margin-bottom: 8px;
+    color: inherit;
+    opacity: .75;
+  }
+  .sticky.y{ background: #ffe27a; color: #4a3c05; }
+  .sticky.p{ background: #ffc2e0; color: #5c1a3c; }
+  .sticky.g{ background: #bdf0c9; color: #114a29; }
+  .sticky.b{ background: #bcdcff; color: #0d3866; }
+  .sticky.o{ background: #ffd3ad; color: #5c2c07; }
+
+  .canvas-footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 22px;
+    border-top: 1px solid var(--line);
+    background: #fcfcff;
+    font-size: 12px;
+    color: #9997a6;
+    font-weight: 600;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .zoom-controls{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .zoom-controls button{
+    width: 26px; height: 26px;
+    border-radius: 7px;
+    border: 1px solid var(--line);
+    background: #fff;
+    color: var(--ink-soft);
+    font-weight: 700;
+    cursor: default;
+  }
+
+  /* ---------- Features ---------- */
+  .features{
+    padding: 20px 0 84px;
+  }
+  .section-head{
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 48px;
+  }
+  .eyebrow{
+    color: var(--brand-dark);
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: .04em;
+    margin-bottom: 12px;
+  }
+  .section-head h2{
+    font-size: clamp(26px, 3.6vw, 36px);
+    font-weight: 800;
+    margin: 0 0 14px;
+  }
+  .section-head p{
+    color: var(--ink-soft);
+    font-size: 16px;
+    line-height: 1.7;
+    font-weight: 500;
+  }
+  .feature-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  @media (max-width: 860px){
+    .feature-grid{ grid-template-columns: 1fr; }
+  }
+  .feature-card{
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 28px 24px;
+  }
+  .feature-icon{
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    margin-bottom: 18px;
+  }
+  .feature-icon.one{ background: #eeecff; }
+  .feature-icon.two{ background: #fff0e3; }
+  .feature-icon.three{ background: #e8fbee; }
+  .feature-card h3{
+    font-size: 17.5px;
+    font-weight: 800;
+    margin: 0 0 8px;
+  }
+  .feature-card p{
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.75;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  /* ---------- Philosophy ---------- */
+  .philosophy{
+    padding: 10px 0 88px;
+  }
+  .philosophy-inner{
+    background: linear-gradient(135deg, #4636d6, #5b4bff 55%, #7d6bff);
+    border-radius: 28px;
+    padding: 56px 44px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .philosophy-inner::before{
+    content: "";
+    position: absolute;
+    width: 340px; height: 340px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    top: -140px; right: -100px;
+  }
+  .philosophy-inner p.quote{
+    font-size: clamp(20px, 2.6vw, 27px);
+    font-weight: 700;
+    line-height: 1.65;
+    max-width: 760px;
+    position: relative;
+    margin: 0 0 22px;
+  }
+  .philosophy-inner p.byline{
+    font-size: 14px;
+    font-weight: 600;
+    color: #d9d4ff;
+    position: relative;
+    margin: 0;
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    border-top: 1px solid var(--line);
+    padding: 40px 0 46px;
+  }
+  .footer-inner{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-brand{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .footer-links{
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .footer-links a{
+    color: var(--ink-soft);
+    font-size: 13.5px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .footer-links a:hover{ color: var(--brand); }
+  .footer-copy{
+    font-size: 12.5px;
+    color: #a3a1ae;
+    font-weight: 500;
+    margin-top: 24px;
+  }
+
+  @media (max-width: 640px){
+    .hero{ padding: 56px 0 40px; }
+    .canvas-viewport{ height: 340px; }
+    .sticky{ width: 122px; min-height: 92px; padding: 10px 10px 9px; font-size: 12px; }
+    .philosophy-inner{ padding: 40px 24px; }
+    .demo-toolbar{ padding: 12px 16px; }
+    .nav-links{ display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div class="logo-mark">畫</div>
+      <span class="logo-name">CanvasFlow</span>
+    </div>
+    <div class="nav-links" style="display:flex; align-items:center;">
+      <a href="#demo">試玩畫布</a>
+      <a href="#features">功能特色</a>
+      <a href="#philosophy">產品理念</a>
+    </div>
+    <button class="btn-primary" style="padding:9px 20px;">免費開始使用</button>
+  </div>
+</nav>
+
+<header class="hero section">
+  <span class="hero-badge"><span class="dot"></span>已有超過 3,200 個團隊在使用</span>
+  <h1>團隊的想法，<br class="hidden sm:inline"><span class="accent-text">即時攤在同一張畫布上</span></h1>
+  <p class="lead">畫布 CanvasFlow 是一款線上協作白板工具，讓分散各地的團隊也能像在同一間會議室裡，一起畫圖、貼便利貼、排流程，所有變動即時同步、人人都看得到。</p>
+  <div class="hero-cta">
+    <button class="btn-primary">建立我的第一張畫布</button>
+    <button class="btn-secondary">觀看兩分鐘介紹影片</button>
+  </div>
+  <p class="hero-note">不需要信用卡・免費方案可無限邀請團隊成員</p>
+</header>
+
+<section class="demo-wrap section" id="demo">
+  <div class="demo-card">
+    <div class="demo-toolbar">
+      <div class="demo-toolbar-left">
+        <div class="traffic"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+        <span class="demo-title">腦力激盪畫布・行銷團隊週會</span>
+      </div>
+      <span class="demo-hint">👆 試著拖曳下面的便利貼看看</span>
+    </div>
+
+    <div class="canvas-viewport" id="canvasViewport">
+      <div class="cursor-chip"><span class="avatar"></span>阿凱正在編輯</div>
+      <div class="cursor-chip two"><span class="avatar"></span>小雨也在線上</div>
+
+      <div class="sticky y" style="left:6%; top:14%; --r:-3deg;">
+        <span class="tag">主題</span>
+        Q3 行銷主題發想
+      </div>
+
+      <div class="sticky p" style="left:30%; top:52%; --r:2deg;">
+        <span class="tag">洞察</span>
+        使用者訪談重點整理
+      </div>
+
+      <div class="sticky g" style="left:54%; top:16%; --r:-2deg;">
+        <span class="tag">待辦</span>
+        下週待辦：素材交付
+      </div>
+
+      <div class="sticky b" style="left:60%; top:58%; --r:3deg;">
+        <span class="tag">討論</span>
+        社群互動率下滑原因？
+      </div>
+
+      <div class="sticky o" style="left:16%; top:70%; --r:-4deg;">
+        <span class="tag">靈感</span>
+        跨部門合作提案構想
+      </div>
+    </div>
+
+    <div class="canvas-footer">
+      <span>畫布已即時同步・2 位協作者在線上</span>
+      <div class="zoom-controls">
+        <button>－</button>
+        <span>100%</span>
+        <button>＋</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features section" id="features">
+  <div class="section-head">
+    <div class="eyebrow">功能特色</div>
+    <h2>把分散的討論，收進同一個空間</h2>
+    <p>從發想到定案，畫布 CanvasFlow 陪團隊走完每一個階段，不用再切換十幾個聊天視窗或文件連結。</p>
+  </div>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon one">🖱️</div>
+      <h3>即時多人游標</h3>
+      <p>誰在看哪裡、正在動哪張便利貼，一目了然。多人同時編輯也不會互相覆蓋，討論節奏跟得上開會速度。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon two">🧭</div>
+      <h3>無限延伸畫布</h3>
+      <p>不再被一張投影片或一頁文件卡住。想法可以隨時往外擴散，用縮放與平移自由瀏覽整個專案全貌。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon three">📐</div>
+      <h3>現成範本庫</h3>
+      <p>內建腦力激盪、使用者旅程圖、衝刺回顧等常用範本，開會前一鍵套用，把時間留給真正的討論。</p>
+    </div>
+  </div>
+</section>
+
+<section class="philosophy section" id="philosophy">
+  <div class="philosophy-inner">
+    <p class="quote">「我們相信，好的想法很少誕生在安靜的文件裡，而是誕生在大家一起塗塗改改、彼此激盪的那個當下。畫布 CanvasFlow 想做的，就是把那個當下留住，不管團隊身在哪裡。」</p>
+    <p class="byline">CanvasFlow 產品團隊</p>
+  </div>
+</section>
+
+<footer class="section">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo-mark">畫</div>
+      <span class="logo-name">CanvasFlow</span>
+    </div>
+    <div class="footer-links">
+      <a href="#demo">產品功能</a>
+      <a href="#">定價方案</a>
+      <a href="#">使用手冊</a>
+      <a href="#">聯絡我們</a>
+    </div>
+  </div>
+  <p class="footer-copy">© 2026 CanvasFlow 畫布團隊 版權所有。用一張畫布，裝下整個團隊的腦袋。</p>
+</footer>
+
+<script>
+(function(){
+  var viewport = document.getElementById('canvasViewport');
+  var stickies = Array.prototype.slice.call(viewport.querySelectorAll('.sticky'));
+
+  // Convert each sticky's initial percentage-based left/top into pixel-based
+  // left/top so dragging math (which works in pixels) matches the rendered position.
+  function pinToPixels(el){
+    // offsetLeft/offsetTop are relative to the nearest positioned ancestor
+    // (the viewport) and, unlike getBoundingClientRect, are unaffected by
+    // the sticky's CSS rotate() transform.
+    el.style.left = el.offsetLeft + 'px';
+    el.style.top = el.offsetTop + 'px';
+  }
+
+  stickies.forEach(pinToPixels);
+
+  var active = null;
+  // Drag is delta-based: we record where the pointer started and where the
+  // sticky's own (un-rotated) left/top was at that moment, then apply the
+  // pointer's movement as a delta. This avoids any drift from the sticky's
+  // CSS rotate() transform, which affects getBoundingClientRect() but not
+  // offsetWidth/offsetHeight or the box's actual left/top.
+  var startPointerX = 0;
+  var startPointerY = 0;
+  var startLeft = 0;
+  var startTop = 0;
+
+  function clamp(value, min, max){
+    return Math.max(min, Math.min(max, value));
+  }
+
+  function onPointerDown(e){
+    var el = e.currentTarget;
+    active = el;
+    el.classList.add('dragging');
+    el.setPointerCapture && el.setPointerCapture(e.pointerId);
+
+    startPointerX = e.clientX;
+    startPointerY = e.clientY;
+    startLeft = parseFloat(el.style.left) || 0;
+    startTop = parseFloat(el.style.top) || 0;
+
+    // bring to front while dragging
+    el.style.zIndex = 50;
+    e.preventDefault();
+  }
+
+  function onPointerMove(e){
+    if(!active) return;
+
+    var deltaX = e.clientX - startPointerX;
+    var deltaY = e.clientY - startPointerY;
+
+    var rawLeft = startLeft + deltaX;
+    var rawTop = startTop + deltaY;
+
+    var maxLeft = viewport.clientWidth - active.offsetWidth;
+    var maxTop = viewport.clientHeight - active.offsetHeight;
+
+    var newLeft = clamp(rawLeft, 0, Math.max(0, maxLeft));
+    var newTop = clamp(rawTop, 0, Math.max(0, maxTop));
+
+    active.style.left = newLeft + 'px';
+    active.style.top = newTop + 'px';
+  }
+
+  function onPointerUp(e){
+    if(!active) return;
+    active.classList.remove('dragging');
+    active.style.zIndex = '';
+    try{ active.releasePointerCapture && active.releasePointerCapture(e.pointerId); }catch(err){}
+    active = null;
+  }
+
+  stickies.forEach(function(el){
+    el.addEventListener('pointerdown', onPointerDown);
+  });
+
+  window.addEventListener('pointermove', onPointerMove);
+  window.addEventListener('pointerup', onPointerUp);
+  window.addEventListener('pointercancel', onPointerUp);
+
+  // Keep stickies within bounds if the viewport is resized (e.g. rotating a phone).
+  window.addEventListener('resize', function(){
+    var vw = viewport.clientWidth;
+    var vh = viewport.clientHeight;
+    stickies.forEach(function(el){
+      var maxLeft = vw - el.offsetWidth;
+      var maxTop = vh - el.offsetHeight;
+      el.style.left = clamp(el.offsetLeft, 0, Math.max(0, maxLeft)) + 'px';
+      el.style.top = clamp(el.offsetTop, 0, Math.max(0, maxTop)) + 'px';
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

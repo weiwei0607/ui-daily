@@ -1,0 +1,508 @@
+<!-- style #45 Vaporwave -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>深夜電波 MidnightWave</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --pink:#ff71ce;
+    --silver:#c0c0c0;
+    --cyan:#01cdfe;
+    --deep:#1a1030;
+    --deep2:#100a22;
+    --purple:#7b2ff7;
+  }
+
+  *{ box-sizing:border-box; }
+
+  body{
+    margin:0;
+    background:var(--deep2);
+    color:var(--silver);
+    font-family:'Noto Sans TC','VT323',monospace;
+    overflow-x:hidden;
+  }
+
+  .font-display{
+    font-family:'Press Start 2P','Noto Sans TC',cursive;
+  }
+
+  .font-terminal{
+    font-family:'VT323',monospace;
+  }
+
+  .zh{
+    font-family:'Noto Sans TC','VT323',sans-serif;
+    letter-spacing:0.02em;
+  }
+
+  ::selection{ background:var(--pink); color:var(--deep2); }
+
+  /* ---------- scanline overlay ---------- */
+  .scanlines::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,0.035) 0px,
+      rgba(255,255,255,0.035) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    mix-blend-mode:overlay;
+  }
+
+  /* ---------- Hero background ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse at 50% 15%, rgba(255,113,206,0.25), transparent 55%),
+      linear-gradient(180deg, #2a1250 0%, #1a1030 45%, #0d0620 100%);
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:6rem 1.25rem 4rem;
+    border-bottom:2px solid var(--pink);
+  }
+
+  .stars{
+    position:absolute;
+    inset:0;
+    background-image:
+      radial-gradient(1.5px 1.5px at 20% 20%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 70% 10%, #fff, transparent),
+      radial-gradient(1px 1px at 85% 30%, #fff, transparent),
+      radial-gradient(1px 1px at 40% 8%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 55% 25%, #fff, transparent),
+      radial-gradient(1px 1px at 10% 35%, #fff, transparent),
+      radial-gradient(1px 1px at 92% 15%, #fff, transparent);
+    opacity:0.6;
+  }
+
+  .grid-title{
+    position:relative;
+    z-index:2;
+    text-align:center;
+    max-width:900px;
+  }
+
+  /* ---------- Glitch title ---------- */
+  .glitch{
+    position:relative;
+    display:inline-block;
+    color:#fff;
+    text-shadow:
+      0 0 6px var(--pink),
+      0 0 18px var(--pink),
+      0 0 36px var(--cyan);
+    line-height:1.6;
+  }
+
+  .glitch::before,
+  .glitch::after{
+    content:attr(data-text);
+    position:absolute;
+    left:0; top:0;
+    width:100%;
+    overflow:hidden;
+  }
+
+  .glitch::before{
+    color:var(--cyan);
+    z-index:-1;
+    animation:glitch-top 3.5s infinite linear alternate-reverse;
+  }
+
+  .glitch::after{
+    color:var(--pink);
+    z-index:-1;
+    animation:glitch-bottom 2.2s infinite linear alternate-reverse;
+  }
+
+  @keyframes glitch-top{
+    0%{ clip-path: inset(0 0 85% 0); transform:translate(0,0); }
+    10%{ clip-path: inset(10% 0 60% 0); transform:translate(-3px,-2px); }
+    20%{ clip-path: inset(40% 0 40% 0); transform:translate(3px,1px); }
+    30%{ clip-path: inset(5% 0 80% 0); transform:translate(-2px,2px); }
+    40%{ clip-path: inset(60% 0 10% 0); transform:translate(2px,-1px); }
+    50%{ clip-path: inset(20% 0 55% 0); transform:translate(-4px,0); }
+    60%{ clip-path: inset(75% 0 5% 0); transform:translate(4px,2px); }
+    70%{ clip-path: inset(30% 0 45% 0); transform:translate(-2px,-2px); }
+    80%{ clip-path: inset(50% 0 20% 0); transform:translate(3px,1px); }
+    90%{ clip-path: inset(15% 0 70% 0); transform:translate(-3px,1px); }
+    100%{ clip-path: inset(0 0 85% 0); transform:translate(0,0); }
+  }
+
+  @keyframes glitch-bottom{
+    0%{ clip-path: inset(85% 0 0 0); transform:translate(0,0); }
+    12%{ clip-path: inset(55% 0 15% 0); transform:translate(3px,2px); }
+    24%{ clip-path: inset(30% 0 45% 0); transform:translate(-3px,-1px); }
+    36%{ clip-path: inset(70% 0 8% 0); transform:translate(2px,-2px); }
+    48%{ clip-path: inset(10% 0 70% 0); transform:translate(-2px,2px); }
+    60%{ clip-path: inset(45% 0 30% 0); transform:translate(4px,0); }
+    72%{ clip-path: inset(65% 0 12% 0); transform:translate(-4px,-2px); }
+    84%{ clip-path: inset(25% 0 55% 0); transform:translate(2px,2px); }
+    100%{ clip-path: inset(85% 0 0 0); transform:translate(0,0); }
+  }
+
+  .en-title{
+    font-size:clamp(1rem,3.5vw,1.6rem);
+    letter-spacing:0.15em;
+  }
+
+  .zh-title{
+    font-size:clamp(2.4rem,10vw,5.5rem);
+  }
+
+  .slogan{
+    margin-top:1.75rem;
+    font-size:clamp(1.1rem,2.6vw,1.6rem);
+    color:#fff;
+    text-shadow:0 0 10px var(--cyan);
+  }
+
+  .desc{
+    margin-top:1rem;
+    font-size:1.05rem;
+    line-height:1.9;
+    color:var(--silver);
+    max-width:600px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+  .kana{
+    font-family:'VT323',monospace;
+    color:rgba(1,205,254,0.55);
+    letter-spacing:0.3em;
+    font-size:0.9rem;
+  }
+
+  /* ---------- CTA button ---------- */
+  .cta{
+    position:relative;
+    z-index:2;
+    margin-top:2.5rem;
+    display:inline-block;
+    padding:1rem 2.5rem;
+    font-family:'Press Start 2P','Noto Sans TC',cursive;
+    font-size:0.85rem;
+    color:#1a1030;
+    background:linear-gradient(90deg, var(--pink), var(--cyan));
+    border-radius:999px;
+    text-decoration:none;
+    box-shadow:
+      0 0 20px rgba(255,113,206,0.7),
+      0 0 45px rgba(1,205,254,0.5);
+    animation:pulse-glow 2.4s ease-in-out infinite;
+    border:2px solid #fff;
+    letter-spacing:0.05em;
+  }
+
+  @keyframes pulse-glow{
+    0%,100%{ box-shadow:0 0 18px rgba(255,113,206,0.6), 0 0 40px rgba(1,205,254,0.4); transform:scale(1); }
+    50%{ box-shadow:0 0 30px rgba(255,113,206,0.95), 0 0 65px rgba(1,205,254,0.75); transform:scale(1.035); }
+  }
+
+  /* ---------- Sunset grid horizon ---------- */
+  .horizon{
+    position:relative;
+    height:52vh;
+    min-height:340px;
+    overflow:hidden;
+    background:linear-gradient(180deg,#3a1360 0%, #1a1030 55%, #0d0620 100%);
+    border-bottom:2px solid var(--cyan);
+  }
+
+  .sun{
+    position:absolute;
+    left:50%;
+    top:18%;
+    width:min(46vw,340px);
+    height:min(46vw,340px);
+    transform:translateX(-50%);
+    border-radius:50%;
+    background:linear-gradient(180deg,
+      #fff37a 0%,
+      #ffd76a 12%,
+      #ff9d5c 28%,
+      var(--pink) 55%,
+      #c026d3 78%,
+      #7b2ff7 100%);
+    box-shadow:0 0 90px rgba(255,113,206,0.55);
+  }
+
+  .sun::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 6px,
+      #1a1030 6px,
+      #1a1030 10px
+    );
+    -webkit-mask-image:linear-gradient(180deg, transparent 0%, transparent 45%, black 46%);
+            mask-image:linear-gradient(180deg, transparent 0%, transparent 45%, black 46%);
+    border-radius:50%;
+  }
+
+  .ground{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    height:55%;
+    background:linear-gradient(180deg, rgba(255,113,206,0.18), var(--deep2) 85%);
+    perspective:220px;
+    overflow:hidden;
+  }
+
+  .grid-plane{
+    position:absolute;
+    left:-50%;
+    right:-50%;
+    bottom:0;
+    height:200%;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(1,205,254,0.9) 0px, rgba(1,205,254,0.9) 2px, transparent 2px, transparent 60px),
+      repeating-linear-gradient(0deg, rgba(1,205,254,0.7) 0px, rgba(1,205,254,0.7) 2px, transparent 2px, transparent 40px);
+    transform:rotateX(72deg);
+    transform-origin:bottom;
+    animation:grid-move 3.5s linear infinite;
+  }
+
+  @keyframes grid-move{
+    from{ background-position:0 0, 0 0; }
+    to{ background-position:0 0, 0 40px; }
+  }
+
+  .horizon-line{
+    position:absolute;
+    left:0; right:0;
+    bottom:45%;
+    height:2px;
+    background:var(--pink);
+    box-shadow:0 0 20px var(--pink), 0 0 40px var(--cyan);
+  }
+
+  /* ---------- Section headings ---------- */
+  .section-title{
+    font-family:'Press Start 2P','Noto Sans TC',cursive;
+    font-size:clamp(1.1rem,3vw,1.5rem);
+    color:#fff;
+    text-shadow:0 0 12px var(--pink);
+  }
+
+  /* ---------- Channel cards ---------- */
+  .channels{
+    background:var(--deep2);
+    padding:5rem 1.25rem;
+    position:relative;
+  }
+
+  .card{
+    position:relative;
+    background:linear-gradient(160deg, rgba(123,47,247,0.18), rgba(26,16,48,0.9));
+    border:2px solid var(--cyan);
+    border-radius:14px;
+    padding:1.75rem 1.5rem;
+    box-shadow:
+      0 0 12px rgba(1,205,254,0.5),
+      inset 0 0 25px rgba(255,113,206,0.08);
+    transition:transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .card:hover{
+    transform:translateY(-6px);
+    box-shadow:
+      0 0 26px rgba(255,113,206,0.85),
+      0 0 45px rgba(1,205,254,0.5),
+      inset 0 0 30px rgba(255,113,206,0.15);
+    border-color:var(--pink);
+  }
+
+  .card .tag{
+    font-family:'VT323',monospace;
+    font-size:0.95rem;
+    color:var(--cyan);
+    letter-spacing:0.15em;
+  }
+
+  .card h3{
+    font-family:'Noto Sans TC',sans-serif;
+    font-weight:700;
+    font-size:1.4rem;
+    color:#fff;
+    margin:0.5rem 0 0.6rem;
+  }
+
+  .card p{
+    font-family:'Noto Sans TC',sans-serif;
+    font-size:0.95rem;
+    line-height:1.75;
+    color:var(--silver);
+  }
+
+  .card .freq{
+    margin-top:1rem;
+    font-family:'VT323',monospace;
+    font-size:1.2rem;
+    color:var(--pink);
+  }
+
+  /* ---------- Story section ---------- */
+  .story{
+    background:linear-gradient(180deg,#150b28,#1a1030);
+    padding:5rem 1.25rem;
+    border-top:2px solid var(--pink);
+    border-bottom:2px solid var(--pink);
+  }
+
+  .story-box{
+    max-width:720px;
+    margin:0 auto;
+    font-family:'Noto Sans TC',sans-serif;
+    font-size:1.05rem;
+    line-height:2.1;
+    color:#e6dcff;
+  }
+
+  .story-box p + p{ margin-top:1.2rem; }
+
+  /* ---------- Footer ---------- */
+  footer{
+    background:#0d0620;
+    padding:3rem 1.25rem 2.5rem;
+    text-align:center;
+    color:var(--silver);
+  }
+
+  footer .brand{
+    font-family:'Press Start 2P','Noto Sans TC',cursive;
+    font-size:0.9rem;
+    color:var(--pink);
+    text-shadow:0 0 10px var(--pink);
+  }
+
+  footer p{
+    font-family:'Noto Sans TC',sans-serif;
+    font-size:0.85rem;
+    margin-top:0.8rem;
+    color:#8a80a8;
+  }
+
+  @media (max-width:640px){
+    .horizon{ height:38vh; min-height:220px; }
+    .sun{ width:60vw; height:60vw; top:12%; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero scanlines">
+    <div class="stars"></div>
+    <div class="grid-title">
+      <div class="kana">ミッドナイト ウェーブ・真夜中の周波数</div>
+      <h1 class="glitch en-title font-display" data-text="MIDNIGHTWAVE" style="margin-top:1rem;">MIDNIGHTWAVE</h1>
+      <h2 class="glitch zh-title font-display" data-text="深夜電波" style="margin-top:0.75rem;">深夜電波</h2>
+      <p class="slogan zh">深夜裡，找一個頻道躲起來。</p>
+      <p class="desc zh">
+        當城市睡去，訊號才真正甦醒。深夜電波是一款專為失眠者、夜貓子與需要獨處時刻的人打造的網路電台
+        App，用聲音替你隔出一個誰都進不來的房間。
+      </p>
+      <a href="#channels" class="cta">進入頻道 &gt;&gt;</a>
+    </div>
+  </section>
+
+  <!-- ================= SUNSET GRID HORIZON ================= -->
+  <section class="horizon" aria-hidden="true">
+    <div class="sun"></div>
+    <div class="horizon-line"></div>
+    <div class="ground">
+      <div class="grid-plane"></div>
+    </div>
+  </section>
+
+  <!-- ================= CHANNELS ================= -->
+  <section id="channels" class="channels">
+    <div class="max-w-5xl mx-auto text-center mb-14">
+      <p class="kana mb-3">チャンネルを選べ</p>
+      <h2 class="section-title zh">選一個頻道，今晚交給它</h2>
+      <p class="zh mt-4" style="color:var(--silver); font-family:'Noto Sans TC',sans-serif;">
+        四個電波頻率，四種深夜心情，隨時切台，沒有人會知道你在聽。
+      </p>
+    </div>
+
+    <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+      <div class="card">
+        <span class="tag">CH.01 — JAZZ</span>
+        <h3 class="zh">深夜爵士</h3>
+        <p class="zh">薩克斯風與威士忌般的嗓音，在昏黃燈光下慢慢流動，適合一個人加班到很晚的夜晚。</p>
+        <div class="freq">FM 104.7</div>
+      </div>
+
+      <div class="card">
+        <span class="tag">CH.02 — SYNTH</span>
+        <h3 class="zh">合成器慢波</h3>
+        <p class="zh">復古合成器堆疊出的緩慢電子聲牆，像在霓虹街道上開車，速度不快，也不急著到哪裡去。</p>
+        <div class="freq">FM 91.2</div>
+      </div>
+
+      <div class="card">
+        <span class="tag">CH.03 — RAIN</span>
+        <h3 class="zh">雨聲白噪音</h3>
+        <p class="zh">窗外持續落下的雨聲，混合遠方雷鳴與環境底噪，專門用來蓋掉思緒，幫助你安然入睡。</p>
+        <div class="freq">FM 98.6</div>
+      </div>
+
+      <div class="card">
+        <span class="tag">CH.04 — TALK</span>
+        <h3 class="zh">深夜聊天 room</h3>
+        <p class="zh">主持人用氣音陪你說話，聊聊今天過得如何，不談新聞、不談工作，只是單純的深夜陪伴。</p>
+        <div class="freq">FM 87.5</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= STORY ================= -->
+  <section class="story">
+    <p class="kana text-center mb-4">思い出のラジオ</p>
+    <div class="story-box">
+      <p>
+        深夜電波最早只是一台放在宿舍窗邊的舊收音機。訊號時常斷斷續續，但那份雜訊裡藏著的陪伴感，
+        後來成了整個產品最想留住的東西。
+      </p>
+      <p>
+        我們沒有把它做成一個功能齊全的音樂平台，而是刻意留白：沒有排行榜、沒有社群動態、沒有已讀未讀。
+        打開 App，你只會看到幾個頻道，和一句提醒——「今晚，想聽點什麼」。
+      </p>
+      <p>
+        深夜電波相信，晚上十一點以後的時間應該屬於自己。找一個頻道躲起來，不是逃避，而是給白天太用力的自己，
+        一段可以喘口氣的空白。
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="brand">MIDNIGHTWAVE</div>
+    <p class="zh">深夜電波 MidnightWave ・ 陪你熬夜的電台</p>
+    <p class="zh" style="margin-top:0.4rem;">© 2026 MidnightWave Radio Lab ・ 版本 1.0（測試示意頁面）</p>
+  </footer>
+
+</body>
+</html>

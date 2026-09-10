@@ -1,0 +1,456 @@
+<!-- style #14 Liquid Glass -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>悠境 YouJing｜一鍵切換家的情境模式</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    color-scheme: light;
+    --bg1:#667eea;
+    --bg2:#764ba2;
+    --bg3:#f093fb;
+    --ink:#3a2c55;
+    --ink-soft:#6b5b8a;
+    --glass-bg: rgba(255,255,255,0.28);
+    --glass-bg-strong: rgba(255,255,255,0.42);
+    --glass-border: rgba(255,255,255,0.55);
+    --glass-border-active: rgba(255,255,255,0.9);
+    --card-shadow: 0 8px 32px rgba(76, 44, 120, 0.25);
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin:0;
+    min-height:100vh;
+    font-family:'Quicksand','Zen Maru Gothic',sans-serif;
+    color:var(--ink);
+    background: linear-gradient(120deg, var(--bg1), var(--bg2), var(--bg3), var(--bg2));
+    background-size: 300% 300%;
+    animation: flowBg 18s ease-in-out infinite;
+    overflow-x:hidden;
+    position:relative;
+    padding-inline: 20px;
+  }
+
+  @keyframes flowBg{
+    0%{ background-position: 0% 30%; }
+    25%{ background-position: 60% 0%; }
+    50%{ background-position: 100% 70%; }
+    75%{ background-position: 40% 100%; }
+    100%{ background-position: 0% 30%; }
+  }
+
+  h1,h2,h3,.font-title{
+    font-family:'Baloo 2','Zen Maru Gothic',sans-serif;
+  }
+
+  .zh-title{
+    font-family:'Baloo 2','Zen Maru Gothic',sans-serif;
+  }
+
+  .blob{
+    position:fixed;
+    border-radius:50%;
+    filter: blur(60px);
+    opacity:0.55;
+    z-index:0;
+    pointer-events:none;
+  }
+  .blob1{ width:380px; height:380px; background:#f093fb; top:-100px; left:-100px; animation: floatBlob1 22s ease-in-out infinite; }
+  .blob2{ width:420px; height:420px; background:#667eea; bottom:-140px; right:-120px; animation: floatBlob2 26s ease-in-out infinite; }
+  .blob3{ width:300px; height:300px; background:#a685e2; top:40%; right:10%; animation: floatBlob3 20s ease-in-out infinite; }
+
+  @keyframes floatBlob1{
+    0%,100%{ transform: translate(0,0) scale(1); }
+    50%{ transform: translate(60px,80px) scale(1.15); }
+  }
+  @keyframes floatBlob2{
+    0%,100%{ transform: translate(0,0) scale(1); }
+    50%{ transform: translate(-50px,-60px) scale(1.1); }
+  }
+  @keyframes floatBlob3{
+    0%,100%{ transform: translate(0,0) scale(1); }
+    50%{ transform: translate(-40px,40px) scale(0.9); }
+  }
+
+  .content-wrap{
+    position:relative;
+    z-index:1;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding-block: 64px 40px;
+  }
+
+  .glass{
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 28px;
+    box-shadow: var(--card-shadow);
+  }
+
+  nav.glass{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding: 14px 26px;
+    border-radius: 999px;
+    margin-bottom: 56px;
+  }
+  nav .logo{
+    font-weight:700;
+    font-size:1.15rem;
+    letter-spacing:0.02em;
+    color: var(--ink);
+  }
+  nav .logo span{
+    font-weight:500;
+    font-size:0.85rem;
+    color: var(--ink-soft);
+    margin-left:6px;
+  }
+  nav .nav-links{
+    display:flex;
+    gap:22px;
+    font-size:0.92rem;
+    color: var(--ink-soft);
+    font-weight:600;
+  }
+  @media (max-width: 560px){
+    nav .nav-links{ display:none; }
+  }
+
+  .hero{
+    text-align:center;
+    padding: 20px 12px 10px;
+  }
+  .hero .badge{
+    display:inline-block;
+    padding:6px 18px;
+    border-radius:999px;
+    background: var(--glass-bg-strong);
+    border:1px solid var(--glass-border);
+    font-size:0.85rem;
+    font-weight:600;
+    color: var(--ink-soft);
+    margin-bottom: 22px;
+    backdrop-filter: blur(12px);
+  }
+  .hero h1{
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-weight:800;
+    color:#2c2150;
+    text-shadow: 0 2px 18px rgba(255,255,255,0.4);
+    margin:0 0 14px;
+    line-height:1.15;
+  }
+  .hero .slogan{
+    font-size: clamp(1.1rem, 2.6vw, 1.5rem);
+    font-weight:600;
+    color:#3a2c55;
+    margin-bottom: 18px;
+  }
+  .hero p.desc{
+    max-width: 560px;
+    margin: 0 auto 32px;
+    font-size: 1rem;
+    line-height:1.9;
+    color: var(--ink-soft);
+    font-weight:500;
+  }
+
+  .cta-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding: 16px 40px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.35);
+    border: 1px solid rgba(255,255,255,0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    color:#2c2150;
+    font-family:'Baloo 2','Zen Maru Gothic',sans-serif;
+    font-weight:700;
+    font-size:1.05rem;
+    box-shadow: 0 8px 30px rgba(118,75,162,0.35), 0 0 0 rgba(240,147,251,0);
+    cursor:pointer;
+    transition: box-shadow 0.4s ease, transform 0.3s ease, background 0.3s ease;
+  }
+  .cta-btn:hover{
+    transform: translateY(-3px);
+    background: rgba(255,255,255,0.5);
+    box-shadow: 0 10px 40px rgba(118,75,162,0.4), 0 0 46px rgba(240,147,251,0.65);
+  }
+  .cta-btn:active{
+    transform: translateY(0px) scale(0.98);
+  }
+
+  .section-title{
+    text-align:center;
+    margin: 70px 0 10px;
+  }
+  .section-title h2{
+    font-size: clamp(1.6rem, 3.6vw, 2.2rem);
+    font-weight:700;
+    color:#2c2150;
+  }
+  .section-title p{
+    color: var(--ink-soft);
+    font-weight:600;
+    margin-top:6px;
+  }
+
+  .modes-grid{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+    margin-top: 36px;
+  }
+  @media (max-width: 640px){
+    .modes-grid{ grid-template-columns: 1fr; }
+  }
+
+  .mode-card{
+    padding: 26px 24px;
+    cursor:pointer;
+    position:relative;
+    transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.25s ease, background 0.35s ease;
+    user-select:none;
+  }
+  .mode-card:hover{
+    transform: translateY(-4px);
+  }
+  .mode-card .icon{
+    font-size:2.2rem;
+    display:inline-block;
+    margin-bottom:14px;
+    filter: drop-shadow(0 4px 10px rgba(118,75,162,0.3));
+  }
+  .mode-card h3{
+    font-size:1.25rem;
+    font-weight:700;
+    color:#2c2150;
+    margin-bottom:8px;
+  }
+  .mode-card p{
+    font-size:0.92rem;
+    color: var(--ink-soft);
+    font-weight:500;
+    line-height:1.7;
+    margin-bottom: 16px;
+  }
+  .mode-card .status{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:0.85rem;
+    font-weight:700;
+    color: var(--ink-soft);
+    padding: 6px 14px;
+    border-radius:999px;
+    background: rgba(255,255,255,0.3);
+    border:1px solid rgba(255,255,255,0.5);
+    transition: all 0.3s ease;
+  }
+  .mode-card .status .dot{
+    width:8px;height:8px;border-radius:50%;
+    background:#b8a9d9;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .mode-card.active{
+    background: var(--glass-bg-strong);
+    border-color: var(--glass-border-active);
+    box-shadow: 0 8px 36px rgba(118,75,162,0.35), 0 0 40px rgba(240,147,251,0.5);
+  }
+  .mode-card.active .status{
+    color:#5a3d8a;
+    background: rgba(255,255,255,0.65);
+    border-color: rgba(255,255,255,0.9);
+  }
+  .mode-card.active .status .dot{
+    background:#7c4fd9;
+    box-shadow: 0 0 10px #c084fc;
+  }
+  .mode-card.active .status .status-text::before{
+    content:"已啟用 · ";
+  }
+  .mode-card .status .status-text::before{
+    content:"點一下啟用 · ";
+    color: var(--ink-soft);
+  }
+
+  .story{
+    margin-top: 70px;
+    padding: 40px 36px;
+    text-align:center;
+  }
+  .story h2{
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    font-weight:700;
+    color:#2c2150;
+    margin-bottom:18px;
+  }
+  .story p{
+    max-width:640px;
+    margin:0 auto 14px;
+    font-size:1rem;
+    line-height:2;
+    color: var(--ink-soft);
+    font-weight:500;
+  }
+
+  footer{
+    margin-top:60px;
+    text-align:center;
+    padding: 30px 20px 10px;
+    color: rgba(58,44,85,0.75);
+    font-size:0.85rem;
+    font-weight:600;
+  }
+  footer .foot-links{
+    display:flex;
+    justify-content:center;
+    gap:18px;
+    margin-bottom:10px;
+    flex-wrap:wrap;
+  }
+  footer a{
+    color: rgba(58,44,85,0.8);
+    text-decoration:none;
+  }
+  footer a:hover{ text-decoration:underline; }
+</style>
+</head>
+<body>
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
+
+<div class="content-wrap">
+
+  <nav class="glass">
+    <div class="logo zh-title">悠境 <span>YouJing</span></div>
+    <div class="nav-links">
+      <span>情境模式</span>
+      <span>品牌理念</span>
+      <span>支援裝置</span>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <span class="badge">全新推出 · 智慧家庭情境切換</span>
+    <h1 class="zh-title">悠境 YouJing</h1>
+    <p class="slogan">一鍵切換，家就換了一種心情</p>
+    <p class="desc">
+      不用逐一調整燈光、空調、音樂與窗簾，悠境把整個家的氛圍收進一顆按鈕裡。
+      早晨、專注、電影、出門，四種日常情境，隨手切換，家隨你的節奏流動。
+    </p>
+    <button class="cta-btn" id="ctaBtn">
+      <span>立即體驗悠境</span>
+      <span>→</span>
+    </button>
+  </section>
+
+  <section>
+    <div class="section-title">
+      <h2 class="zh-title">四種情境，收好你的一天</h2>
+      <p>點擊卡片，實際感受切換的瞬間</p>
+    </div>
+
+    <div class="modes-grid">
+      <div class="mode-card glass" data-mode="morning" tabindex="0" role="button" aria-pressed="false">
+        <span class="icon">🌤️</span>
+        <h3>晨起模式</h3>
+        <p>窗簾緩緩拉開，主燈以暖白色階漸亮，客廳音響輕輕放送晨間新聞，咖啡機同步啟動預熱。</p>
+        <span class="status"><span class="dot"></span><span class="status-text">晨起模式</span></span>
+      </div>
+
+      <div class="mode-card glass" data-mode="focus" tabindex="0" role="button" aria-pressed="false">
+        <span class="icon">🎯</span>
+        <h3>專注工作模式</h3>
+        <p>書房燈光調整為 5000K 專注白光，訊息通知靜音，背景播放無歌詞的低頻音樂，維持一小時不被打斷的節奏。</p>
+        <span class="status"><span class="dot"></span><span class="status-text">專注工作模式</span></span>
+      </div>
+
+      <div class="mode-card glass" data-mode="movie" tabindex="0" role="button" aria-pressed="false">
+        <span class="icon">🎬</span>
+        <h3>電影夜模式</h3>
+        <p>燈光降至 10% 暖橘微光，投影幕自動放下，環繞音響切換劇院模式，手機通知全數轉為靜音。</p>
+        <span class="status"><span class="dot"></span><span class="status-text">電影夜模式</span></span>
+      </div>
+
+      <div class="mode-card glass" data-mode="away" tabindex="0" role="button" aria-pressed="false">
+        <span class="icon">🚪</span>
+        <h3>離家模式</h3>
+        <p>所有燈具與電器逐一斷電，冷氣切換節能待機，玄關感應鏡頭啟動，門鎖自動上鎖並回報狀態。</p>
+        <span class="status"><span class="dot"></span><span class="status-text">離家模式</span></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="story glass">
+    <h2 class="zh-title">我們相信，家的樣子應該跟著人走</h2>
+    <p>
+      悠境的起點來自一個很簡單的觀察：多數智慧家庭產品讓你多了十幾個開關，卻沒有少一件麻煩事。
+      我們想做的不是「更多控制」，而是「更少決定」——把日常會重複的那幾種生活切面整理成情境，
+      讓你在踏進家門、坐到書桌前、按下播放鍵的那一刻，家已經先一步懂你。
+    </p>
+    <p>
+      悠境不取代你對家的想像，只是把想像變成一鍵可以到達的地方。
+    </p>
+  </section>
+
+  <footer>
+    <div class="foot-links">
+      <a href="#">關於悠境</a>
+      <a href="#">支援的智慧裝置</a>
+      <a href="#">隱私權說明</a>
+      <a href="#">聯絡我們</a>
+    </div>
+    <div>© 2026 悠境 YouJing．讓家，跟上你的節奏。</div>
+  </footer>
+
+</div>
+
+<script>
+  (function(){
+    var cards = document.querySelectorAll('.mode-card');
+
+    cards.forEach(function(card){
+      function toggleActive(){
+        var wasActive = card.classList.contains('active');
+        card.classList.toggle('active');
+        card.setAttribute('aria-pressed', String(!wasActive));
+      }
+      card.addEventListener('click', toggleActive);
+      card.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          toggleActive();
+        }
+      });
+    });
+
+    var cta = document.getElementById('ctaBtn');
+    cta.addEventListener('click', function(){
+      var modesSection = document.querySelector('.modes-grid');
+      if(modesSection){
+        modesSection.scrollIntoView({ behavior:'smooth', block:'center' });
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>

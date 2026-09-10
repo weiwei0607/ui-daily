@@ -21,6 +21,13 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-09-10（6 個，#01–06）
+- ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（curl -m 10 逾時無回應，HTTP code 000），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
+- ⚠️ Telegram 通知（步驟 8）測試 `getMe` 端點同樣被環境網路政策擋下（HTTP code 000），與 Firebase 同一機制擋下，非帳號或 bot token 問題，改用系統推播通知告知使用者。
+- ✅ 本輪 GitHub REST API（api.github.com）連線測試回 200，可正常連線，但沿用過去每輪更穩妥的做法：改用 `git push`（HTTPS + GH_TOKEN 當密碼，走 git 協定）發布。
+- 本輪採用並行子代理（同時派 6 個 agent 各生成一個風格檔案，prompt 中明確指定字體配方、內容主題、技術要求，並要求每個 agent 完成後自行檢查簡體字、Inter/Helvetica 字體誤用、HTML 標籤閉合），全數順利完成；主流程完成後再用 opencc（s2t）對全部 6 個檔案做逐字元簡繁比對複查：僅「干/了/游/群/台/数」被標記，逐一檢查上下文後確認「干擾」「一目了然」「游標」「社群」「台北」皆為台灣慣用正體字/正確詞彙（非簡體污染），06-midnightwave.html 裡的「数」出現在刻意點綴的日文假名裝飾文字「周波数」中（非中文內文），予以保留；另用 grep 排除 pointer-events/setInterval 等字串後確認全數檔案皆無誤用 Inter/Helvetica，`<html>`/`</html>`/`<body>`/`</body>` 標籤數量皆為 1。
+- 本批風格（避開近 3 天 09-07/09-08/09-09 用過的 #09/#42/#26/#37/#38/#55/#10/#50/#27/#31/#54/#36/#19/#49/#44/#32/#41/#52，並用 grep 統計「風格 #NN 標頭」在全部歷史 reviews 檔案裡的實際出現次數，優先挑最少次數的風格編號，跨 A/B/C/D 族群）：**Zero Interface #18**（A 組，全庫最低使用次數之一，避免 Inter，改用 Lora + Noto Serif TC + Karla 呼應「編輯/敘事風配報紙體」偏好，做成慢生活手寫日記與靈感筆記 App「留白 LiuBai」，近白極淡背景、無邊框無陰影、只用留白與細分隔線組織資訊、IntersectionObserver 滾動淡入）、**Liquid Glass #14**（A 組，圓潤/玻璃風延續「圓體」偏好，改用 Baloo 2 + Quicksand + Zen Maru Gothic，做成智慧家庭情境切換 App「悠境 YouJing」，毛玻璃卡片＋真的會流動的漸層背景動畫＋4 張情境卡片可點擊切換啟用狀態）、**Interactive Demo #25**（B 組結構，避免 Inter，改用 Figtree + Noto Sans TC，做成線上協作白板工具「畫布 CanvasFlow」，內嵌真的可用 pointer events 拖曳移動的便利貼 demo，子代理過程中還修正了旋轉角度造成拖曳偏移的隱藏 bug）、**Predictive Dashboard #34**（C 組，避免 Inter/JetBrains Mono，改用 Outfit + Roboto Mono + Noto Sans TC，做成零售補貨需求預測看板「先知 Foresight」，SVG 折線圖實線／虛線區分實際與預測值＋今日分隔線＋KPI 與表格數字邏輯互相對應）、**Bento Box #39**（D 組，全庫最低使用次數之一，避免 Inter，改用 Sora + Noto Sans TC，做成個人生產力生活儀表板「日常拼盤 DailyBento」，大小不一圓角便當格＋SVG 手寫習慣打卡進度環）、**Vaporwave #45**（D 組，配方 Press Start 2P + VT323，中文段落額外套用 Noto Sans TC 確保可讀，做成復古卡帶美學深夜電台 App「深夜電波 MidnightWave」，落日網格地平線＋真的會動的 glitch 故障動畫標題）。全數繁體中文文案，中文字元皆保留 Noto Sans/Serif TC 作為 fallback，已用 opencc 掃描並人工複查上下文確認無簡體字混入。
+
 ### 2026-09-09（6 個，#01–06）
 - ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（agent-proxy 明確回報 `connect_rejected` / gateway 403 policy denial，host: b-battle-580b5-default-rtdb.firebaseio.com），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
 - ⚠️ Telegram 通知（步驟 8）同樣被環境網路政策擋下（api.telegram.org 同一機制 403 policy denial），改用系統推播通知告知使用者，Telegram 訊息這次沒有送出。
