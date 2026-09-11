@@ -1,0 +1,130 @@
+<!-- style #30 Executive Summary Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>掌舵 Helm · 營運儀表板</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{
+    background:#0f1115;
+    color:#e8e9ec;
+    font-family:'Outfit','Noto Sans TC',sans-serif;
+  }
+  .mono{font-family:'Roboto Mono',monospace;}
+  .card{background:#171a20;border:1px solid #262a33;border-radius:16px;}
+  .up{color:#34d399;}
+  .down{color:#f87171;}
+  .grid-line{background-image:linear-gradient(#232733 1px, transparent 1px);background-size:100% 33.3%;}
+  .bar{transition:height .6s ease;}
+</style>
+</head>
+<body class="min-h-screen">
+
+  <div class="max-w-6xl mx-auto px-6 py-8">
+
+    <header class="flex items-center justify-between mb-8">
+      <div>
+        <p class="text-lg font-semibold tracking-tight">掌舵 <span class="text-[#8a90a0] font-normal">Helm</span></p>
+        <p class="text-xs text-[#8a90a0] mt-0.5">營運長總覽 · 更新於 09/11 08:00</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="card px-3 py-1.5 flex gap-1 mono text-xs">
+          <button class="px-3 py-1 rounded-md bg-[#2a2f3a] text-white">月</button>
+          <button class="px-3 py-1 rounded-md text-[#8a90a0]">季</button>
+          <button class="px-3 py-1 rounded-md text-[#8a90a0]">年</button>
+        </div>
+        <div class="w-9 h-9 rounded-full bg-gradient-to-br from-[#6d7cff] to-[#a78bfa]"></div>
+      </div>
+    </header>
+
+    <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      <div class="card p-5">
+        <p class="text-xs text-[#8a90a0] mb-2">月經常性收入 MRR</p>
+        <p class="mono text-3xl font-semibold">$4.82M</p>
+        <p class="text-xs up mt-2 mono">▲ 12.4% 較上月</p>
+      </div>
+      <div class="card p-5">
+        <p class="text-xs text-[#8a90a0] mb-2">淨留存率 NRR</p>
+        <p class="mono text-3xl font-semibold">118%</p>
+        <p class="text-xs up mt-2 mono">▲ 3.1% 較上月</p>
+      </div>
+      <div class="card p-5">
+        <p class="text-xs text-[#8a90a0] mb-2">客戶流失率</p>
+        <p class="mono text-3xl font-semibold">2.3%</p>
+        <p class="text-xs down mt-2 mono">▲ 0.4% 較上月</p>
+      </div>
+      <div class="card p-5">
+        <p class="text-xs text-[#8a90a0] mb-2">平均客單價</p>
+        <p class="mono text-3xl font-semibold">$186</p>
+        <p class="text-xs up mt-2 mono">▲ 5.7% 較上月</p>
+      </div>
+    </section>
+
+    <section class="grid md:grid-cols-3 gap-6 mb-8">
+      <div class="card p-6 md:col-span-2">
+        <div class="flex items-center justify-between mb-6">
+          <p class="text-sm font-medium">收入趨勢</p>
+          <p class="text-xs text-[#8a90a0] mono">單位：百萬美元</p>
+        </div>
+        <div class="grid-line h-48 flex items-end gap-4 px-1">
+          <div class="flex-1 bg-gradient-to-t from-[#6d7cff] to-[#8b96ff] bar rounded-t-md" style="height:42%"></div>
+          <div class="flex-1 bg-gradient-to-t from-[#6d7cff] to-[#8b96ff] bar rounded-t-md" style="height:55%"></div>
+          <div class="flex-1 bg-gradient-to-t from-[#6d7cff] to-[#8b96ff] bar rounded-t-md" style="height:48%"></div>
+          <div class="flex-1 bg-gradient-to-t from-[#6d7cff] to-[#8b96ff] bar rounded-t-md" style="height:63%"></div>
+          <div class="flex-1 bg-gradient-to-t from-[#6d7cff] to-[#8b96ff] bar rounded-t-md" style="height:71%"></div>
+          <div class="flex-1 bg-gradient-to-t from-[#a78bfa] to-[#c4b5fd] bar rounded-t-md" style="height:88%"></div>
+        </div>
+        <div class="flex justify-between mt-3 mono text-[10px] text-[#8a90a0]">
+          <span>4月</span><span>5月</span><span>6月</span><span>7月</span><span>8月</span><span>9月</span>
+        </div>
+      </div>
+
+      <div class="card p-6">
+        <p class="text-sm font-medium mb-5">部門健康度</p>
+        <div class="space-y-4">
+          <div>
+            <div class="flex justify-between text-xs mb-1.5"><span>業務</span><span class="mono up">94</span></div>
+            <div class="h-1.5 bg-[#232733] rounded-full"><div class="h-1.5 bg-[#34d399] rounded-full" style="width:94%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1.5"><span>產品</span><span class="mono up">87</span></div>
+            <div class="h-1.5 bg-[#232733] rounded-full"><div class="h-1.5 bg-[#34d399] rounded-full" style="width:87%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1.5"><span>客服</span><span class="mono" style="color:#fbbf24">71</span></div>
+            <div class="h-1.5 bg-[#232733] rounded-full"><div class="h-1.5 bg-[#fbbf24] rounded-full" style="width:71%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1.5"><span>行銷</span><span class="mono down">58</span></div>
+            <div class="h-1.5 bg-[#232733] rounded-full"><div class="h-1.5 bg-[#f87171] rounded-full" style="width:58%"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card p-6">
+      <p class="text-sm font-medium mb-4">本月需要您決策的三件事</p>
+      <div class="space-y-3">
+        <div class="flex items-center justify-between border-b border-[#262a33] pb-3">
+          <p class="text-sm">行銷團隊健康度連續兩月下滑，建議召開檢討會</p>
+          <span class="mono text-[10px] px-2.5 py-1 rounded-full bg-[#3a2020] text-[#f87171]">高優先</span>
+        </div>
+        <div class="flex items-center justify-between border-b border-[#262a33] pb-3">
+          <p class="text-sm">企業版方案續約率下降，客服團隊建議加開續約專線</p>
+          <span class="mono text-[10px] px-2.5 py-1 rounded-full bg-[#3a3520] text-[#fbbf24]">中優先</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <p class="text-sm">Q3 產品路線圖已定案，等待您的最終簽核</p>
+          <span class="mono text-[10px] px-2.5 py-1 rounded-full bg-[#20302a] text-[#34d399]">待簽核</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+</body>
+</html>

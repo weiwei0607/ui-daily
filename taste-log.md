@@ -21,6 +21,10 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-09-11（6 個，#01–06）
+- ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（curl -m 10 無回應，exit 56），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
+- 本批風格（避開近 3 天 09-08/09/10 用過的 #10/#50/#27/#31/#54/#36/#19/#49/#44/#32/#41/#52/#18/#14/#25/#34/#39/#45，優先挑選最久沒出現過的風格編號，並跨 A/B/C/D 族群）：**E-Ink / Paper #56**（A/D 交界最久沒出現的風格之一，上次用是 08-29，照配方 Newsreader + Noto Serif TC 襯線報紙體＋JetBrains Mono 數字，完全對應「敘事/權威→報紙體」偏好，做成深度閱讀 App「墨讀 InkRead」，含首字放大、標註卡片、閱讀節奏長條圖）、**Neumorphism #02**（A 組，最久沒出現之一，上次 08-30，柔和凸起單色系屬於圓潤家族，套用 Zen Maru Gothic + Quicksand 圓體，做成正念冥想 App「靜心島」，含可視化呼吸環形進度與雙向陰影按鈕）、**Executive Summary Dashboard #30**（C 組，最久沒出現，上次 08-27，避開已用過的 Manrope/Hanken Grotesk/IBM Plex Mono 組合，改用 Outfit + Roboto Mono 新配對，做成新創營運長儀表板「掌舵 Helm」，含收入趨勢長條圖與部門健康度）、**Exaggerated Minimalism #47**（D 組，最久沒出現，上次 08-28，沿用她稱讚過的 Archivo Black 巨型展示字，做成攝影師個人作品集「巨字 MONO」，黑白純粹、超大標題靠尺度對比）、**Brutalism #04**（A 組，上次 08-29，刻意避開官方配方預設的 Inter，改用 Unbounded + Space Mono 保留野性但不通用，做成地下音樂祭售票頁「噪音祭 NOISE FEST」，含跑馬燈公告、硬陰影票種卡片）、**Conversion-Optimized #21 × Vibrant Block #06 皮膚**（B 組結構＋A 組皮膚組合，避開 Inter，改用 Lexend + Work Sans 新配對，做成線上程式課程銷售頁「codelab 上線囉」，含高飽和色塊統計卡、學員評價、sticky CTA）。全數繁體中文文案，人工檢查過無簡體字混入，字體皆依風格美學挑選、未重複使用同一組字體。
+
 ### 2026-09-10（6 個，#01–06）
 - ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（curl -m 10 逾時無回應，HTTP code 000），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
 - ⚠️ Telegram 通知（步驟 8）測試 `getMe` 端點同樣被環境網路政策擋下（HTTP code 000），與 Firebase 同一機制擋下，非帳號或 bot token 問題，改用系統推播通知告知使用者。

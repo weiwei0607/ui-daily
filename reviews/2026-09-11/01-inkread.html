@@ -1,0 +1,151 @@
+<!-- style #56 E-Ink / Paper -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>墨讀 InkRead · 深度閱讀</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,500&family=Noto+Serif+TC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f5f1eb;
+    --ink:#1a1a1a;
+    --ink-soft:#4a4a45;
+    --rule:#1a1a1a33;
+    --accent:#8a2d1f;
+  }
+  body{
+    background-color:var(--paper);
+    color:var(--ink);
+    font-family:'Newsreader','Noto Serif TC',serif;
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(0,0,0,0.02) 0, transparent 40%),
+      radial-gradient(circle at 80% 60%, rgba(0,0,0,0.025) 0, transparent 45%);
+  }
+  .mono{font-family:'JetBrains Mono',monospace;}
+  .rule{border-color:var(--rule);}
+  .no-shadow *{box-shadow:none !important;}
+  .drop-cap::first-letter{
+    font-family:'Newsreader','Noto Serif TC',serif;
+    font-size:3.4em;
+    line-height:0.8;
+    float:left;
+    padding-right:0.08em;
+    padding-top:0.05em;
+    font-weight:600;
+  }
+  .texture{
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  }
+  .progress-track{background:repeating-linear-gradient(90deg, var(--ink) 0 2px, transparent 2px 6px);}
+  .underline-hover{background-image:linear-gradient(var(--accent),var(--accent));background-size:0% 1px;background-repeat:no-repeat;background-position:0 100%;transition:background-size .3s ease;}
+  .underline-hover:hover{background-size:100% 1px;}
+  .highlight{background:linear-gradient(180deg, transparent 60%, #e7c86a80 60%);}
+</style>
+</head>
+<body class="texture no-shadow min-h-screen">
+
+  <header class="border-b-2 rule px-6 py-4 flex items-center justify-between max-w-5xl mx-auto">
+    <div class="flex items-baseline gap-2">
+      <span class="text-2xl font-semibold tracking-tight">墨讀</span>
+      <span class="mono text-[10px] uppercase tracking-[0.2em] text-[--ink-soft]">Ink&nbsp;Read</span>
+    </div>
+    <nav class="hidden sm:flex gap-6 mono text-xs uppercase tracking-widest text-[--ink-soft]">
+      <a href="#" class="underline-hover pb-0.5">書架</a>
+      <a href="#" class="underline-hover pb-0.5">摘要</a>
+      <a href="#" class="underline-hover pb-0.5">標註</a>
+      <a href="#" class="underline-hover pb-0.5">設定</a>
+    </nav>
+    <button class="border rule px-3 py-1.5 mono text-[11px] tracking-wide">登入</button>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6">
+
+    <section class="grid md:grid-cols-[1fr,280px] gap-10 py-10 border-b rule">
+      <div>
+        <p class="mono text-[11px] tracking-[0.25em] text-[--accent] mb-3">今日精選 · 第 214 期</p>
+        <h1 class="text-4xl md:text-5xl font-semibold leading-tight mb-4">當我們把時間<br>切成螢幕以外的碎片</h1>
+        <p class="text-[--ink-soft] mono text-xs mb-6">林知遠 · 12 分鐘閱讀 · 已收藏 3,204 次</p>
+        <p class="drop-cap leading-8 text-[17px] text-[--ink]">閱讀這件事，從來不是資訊的堆疊，而是注意力的一場練習。墨讀試著把介面收得極安靜——沒有多餘的陰影、沒有跳動的提示，讓紙的觸感在螢幕上重新活過來。你會發現，當畫面不再急著討好你，文字反而更願意被讀完。</p>
+        <button class="mt-6 border-2 rule px-5 py-2 mono text-xs tracking-widest hover:bg-[--ink] hover:text-[--paper] transition-colors">繼續閱讀 →</button>
+      </div>
+      <aside class="border-l rule pl-6">
+        <p class="mono text-[10px] uppercase tracking-[0.2em] text-[--ink-soft] mb-3">本週書架</p>
+        <ul class="space-y-4">
+          <li class="border-b rule pb-3">
+            <p class="text-sm font-medium">《緩慢的技藝》</p>
+            <p class="mono text-[10px] text-[--ink-soft] mt-1">已讀 68%</p>
+            <div class="progress-track h-[3px] mt-1"></div>
+          </li>
+          <li class="border-b rule pb-3">
+            <p class="text-sm font-medium">遠距工作的邊界感</p>
+            <p class="mono text-[10px] text-[--ink-soft] mt-1">已讀 32%</p>
+            <div class="progress-track h-[3px] mt-1"></div>
+          </li>
+          <li>
+            <p class="text-sm font-medium">城南舊事：重讀筆記</p>
+            <p class="mono text-[10px] text-[--ink-soft] mt-1">已讀 91%</p>
+            <div class="progress-track h-[3px] mt-1"></div>
+          </li>
+        </ul>
+      </aside>
+    </section>
+
+    <section class="py-10 border-b rule">
+      <p class="mono text-[11px] uppercase tracking-[0.25em] text-[--ink-soft] mb-6">今日標註 · 3 則</p>
+      <div class="grid md:grid-cols-3 gap-6">
+        <blockquote class="border rule p-5">
+          <p class="text-[15px] leading-7"><span class="highlight">「安靜不是沒有內容，是把選擇權還給讀者。」</span></p>
+          <p class="mono text-[10px] text-[--ink-soft] mt-4">— 摘自《緩慢的技藝》第 4 章</p>
+        </blockquote>
+        <blockquote class="border rule p-5">
+          <p class="text-[15px] leading-7">遠距工作最難的不是效率，而是<span class="highlight">邊界一直被重新協商</span>。</p>
+          <p class="mono text-[10px] text-[--ink-soft] mt-4">— 你的筆記，09/08</p>
+        </blockquote>
+        <blockquote class="border rule p-5">
+          <p class="text-[15px] leading-7">城南的巷子總在雨後<span class="highlight">特別安靜</span>，像被按了暫停鍵。</p>
+          <p class="mono text-[10px] text-[--ink-soft] mt-4">— 你的筆記，09/05</p>
+        </blockquote>
+      </div>
+    </section>
+
+    <section class="py-10 border-b rule">
+      <div class="flex items-baseline justify-between mb-6">
+        <p class="mono text-[11px] uppercase tracking-[0.25em] text-[--ink-soft]">閱讀節奏</p>
+        <p class="mono text-[10px] text-[--ink-soft]">近 7 天</p>
+      </div>
+      <div class="flex items-end gap-3 h-32">
+        <div class="flex-1 flex flex-col items-center gap-2">
+          <div class="w-full bg-[--ink]" style="height:40%"></div><span class="mono text-[10px] text-[--ink-soft]">一</span>
+        </div>
+        <div class="flex-1 flex flex-col items-center gap-2">
+          <div class="w-full bg-[--ink]" style="height:65%"></div><span class="mono text-[10px] text-[--ink-soft]">二</span>
+        </div>
+        <div class="flex-1 flex flex-col items-center gap-2">
+          <div class="w-full bg-[--ink]" style="height:30%"></div><span class="mono text-[10px] text-[--ink-soft]">三</span>
+        </div>
+        <div class="flex-1 flex flex-col items-center gap-2">
+          <div class="w-full bg-[--accent]" style="height:88%"></div><span class="mono text-[10px] text-[--ink-soft]">四</span>
+        </div>
+        <div class="flex-1 flex flex-col items-center gap-2">
+          <div class="w-full bg-[--ink]" style="height:52%"></div><span class="mono text-[10px] text-[--ink-soft]">五</span>
+        </div>
+        <div class="flex-1 flex flex-col items-center gap-2">
+          <div class="w-full bg-[--ink]" style="height:20%"></div><span class="mono text-[10px] text-[--ink-soft]">六</span>
+        </div>
+        <div class="flex-1 flex flex-col items-center gap-2">
+          <div class="w-full bg-[--ink]" style="height:74%"></div><span class="mono text-[10px] text-[--ink-soft]">日</span>
+        </div>
+      </div>
+    </section>
+
+    <footer class="py-8 mono text-[10px] text-[--ink-soft] flex justify-between">
+      <span>墨讀 InkRead © 2026</span>
+      <span>紙的觸感，螢幕的容量</span>
+    </footer>
+  </main>
+
+</body>
+</html>
