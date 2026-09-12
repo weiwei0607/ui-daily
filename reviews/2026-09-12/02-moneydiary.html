@@ -1,0 +1,640 @@
+<!-- style #12 Flat Design 2.0 -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>錢包日記 WalletDiary</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#3498db;
+    --blue-dark:#2980b9;
+    --red:#e74c3c;
+    --green:#27ae60;
+    --orange:#f39c12;
+    --purple:#9b59b6;
+    --ink:#2c3e50;
+    --ink-soft:#5c6b7a;
+    --paper:#f7f9fb;
+    --card:#ffffff;
+  }
+  html,body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    scroll-behavior:smooth;
+  }
+  h1,h2,h3,h4,.font-heading{
+    font-family:'Poppins', sans-serif;
+  }
+  .flat-shadow{
+    box-shadow: 0 4px 0 rgba(44,62,80,0.08), 0 8px 20px rgba(44,62,80,0.06);
+  }
+  .flat-shadow-sm{
+    box-shadow: 0 3px 0 rgba(44,62,80,0.07), 0 4px 12px rgba(44,62,80,0.05);
+  }
+  .btn-pop{
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-pop:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 8px 0 rgba(44,62,80,0.10), 0 14px 24px rgba(44,62,80,0.10);
+  }
+  .btn-pop:active{
+    transform: translateY(0px);
+    box-shadow: 0 2px 0 rgba(44,62,80,0.10);
+  }
+  .card-lift{
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .card-lift:hover{
+    transform: translateY(-6px);
+    box-shadow: 0 10px 0 rgba(44,62,80,0.06), 0 20px 30px rgba(44,62,80,0.10);
+  }
+  .dot-nav{
+    transition: background-color .2s ease, transform .2s ease;
+  }
+  .tab-btn.active{
+    background:var(--ink);
+    color:#fff;
+  }
+  .bar-anim{
+    transform-origin: bottom;
+    animation: growUp 1s ease forwards;
+  }
+  @keyframes growUp{
+    from{ transform: scaleY(0); }
+    to{ transform: scaleY(1); }
+  }
+  .float-slow{
+    animation: floaty 5s ease-in-out infinite;
+  }
+  @keyframes floaty{
+    0%,100%{ transform: translateY(0px); }
+    50%{ transform: translateY(-10px); }
+  }
+  .spin-slow{
+    animation: spin 16s linear infinite;
+  }
+  @keyframes spin{
+    from{ transform: rotate(0deg); }
+    to{ transform: rotate(360deg); }
+  }
+  .marquee-track{
+    animation: marquee 22s linear infinite;
+  }
+  @keyframes marquee{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(-50%); }
+  }
+  .coin{
+    background: repeating-conic-gradient(var(--orange) 0deg 90deg, #ffcf6b 90deg 180deg);
+  }
+  ::selection{
+    background: var(--blue);
+    color:#fff;
+  }
+</style>
+</head>
+<body class="antialiased">
+
+<!-- ===== NAVBAR ===== -->
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b-2 border-[#eef1f4]">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <div class="w-9 h-9 rounded-xl bg-[var(--blue)] flat-shadow-sm flex items-center justify-center">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <rect x="2" y="6" width="20" height="14" rx="3" fill="#fff"/>
+          <rect x="2" y="6" width="20" height="4" rx="2" fill="#eaf3fb"/>
+          <circle cx="17" cy="14" r="2.2" fill="var(--orange)"/>
+        </svg>
+      </div>
+      <span class="font-heading font-bold text-lg tracking-tight">錢包日記</span>
+    </div>
+    <nav class="hidden md:flex items-center gap-8 text-[15px] font-medium text-[var(--ink-soft)]">
+      <a href="#features" class="hover:text-[var(--ink)] transition">功能特色</a>
+      <a href="#dashboard" class="hover:text-[var(--ink)] transition">記帳總覽</a>
+      <a href="#pricing" class="hover:text-[var(--ink)] transition">方案價格</a>
+      <a href="#faq" class="hover:text-[var(--ink)] transition">常見問題</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <a href="#" class="hidden sm:inline text-[15px] font-medium text-[var(--ink-soft)] hover:text-[var(--ink)]">登入</a>
+      <a href="#download" class="btn-pop bg-[var(--blue)] text-white text-[15px] font-semibold px-5 py-2.5 rounded-xl flat-shadow-sm">免費下載</a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="relative overflow-hidden">
+  <div class="absolute -top-10 -right-16 w-72 h-72 rounded-full bg-[#eaf3fb] float-slow"></div>
+  <div class="absolute top-40 -left-20 w-56 h-56 rounded-full bg-[#fdf1de]"></div>
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 pt-14 pb-20 relative grid md:grid-cols-2 gap-12 items-center">
+    <div>
+      <span class="inline-flex items-center gap-2 bg-[#eafaf1] text-[var(--green)] font-semibold text-sm px-4 py-1.5 rounded-full">
+        <span class="w-2 h-2 rounded-full bg-[var(--green)]"></span>
+        台灣最多人使用的記帳 App
+      </span>
+      <h1 class="font-heading font-extrabold text-4xl sm:text-5xl leading-[1.15] mt-5 text-[var(--ink)]">
+        把每一筆花費<br>
+        變成看得懂的<span class="text-[var(--blue)]">生活故事</span>
+      </h1>
+      <p class="mt-5 text-lg text-[var(--ink-soft)] leading-relaxed max-w-md">
+        錢包日記幫你自動記帳、自動分類，用最直覺的圖表，讓你三秒看懂這個月的錢都花去哪了。
+      </p>
+      <div class="mt-8 flex flex-wrap items-center gap-4">
+        <a href="#download" class="btn-pop bg-[var(--orange)] text-white font-bold text-base px-7 py-3.5 rounded-2xl flat-shadow">
+          立即免費開始記帳
+        </a>
+        <a href="#dashboard" class="btn-pop bg-white border-2 border-[#e6ebef] text-[var(--ink)] font-semibold text-base px-6 py-3.5 rounded-2xl">
+          看看實際畫面 →
+        </a>
+      </div>
+      <div class="mt-9 flex items-center gap-6 text-sm text-[var(--ink-soft)]">
+        <div class="flex items-center gap-1.5">
+          <span class="font-heading font-bold text-[var(--ink)] text-xl">86 萬+</span> 使用者
+        </div>
+        <div class="w-px h-6 bg-[#e6ebef]"></div>
+        <div class="flex items-center gap-1.5">
+          <span class="font-heading font-bold text-[var(--ink)] text-xl">4.8</span> App Store 評分
+        </div>
+      </div>
+    </div>
+
+    <!-- phone mockup -->
+    <div class="relative flex justify-center">
+      <div class="w-[280px] rounded-[2.2rem] bg-white flat-shadow p-4 border-4 border-[#eef1f4]">
+        <div class="flex items-center justify-between mb-4 px-1">
+          <span class="text-xs text-[var(--ink-soft)] font-medium">9 月支出總覽</span>
+          <span class="w-6 h-6 rounded-full bg-[#eaf3fb] flex items-center justify-center text-[var(--blue)] text-xs font-bold">我</span>
+        </div>
+        <div class="bg-[var(--blue)] rounded-2xl p-4 text-white mb-4">
+          <p class="text-xs opacity-80">本月已花費</p>
+          <p class="font-heading font-bold text-2xl mt-1">NT$ 18,420</p>
+          <div class="mt-3 h-2 rounded-full bg-white/25 overflow-hidden">
+            <div class="h-full bg-[var(--orange)] rounded-full" style="width:61%"></div>
+          </div>
+          <p class="text-[11px] mt-1.5 opacity-80">預算 NT$30,000・已使用 61%</p>
+        </div>
+        <div class="space-y-2.5">
+          <div class="flex items-center gap-3 bg-[#fdf1de] rounded-xl p-2.5">
+            <div class="w-8 h-8 rounded-lg bg-[var(--orange)] flex items-center justify-center">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 10L12 4l8 6v9a1 1 0 01-1 1h-4v-6H9v6H5a1 1 0 01-1-1v-9z" fill="#fff"/></svg>
+            </div>
+            <div class="flex-1">
+              <p class="text-xs font-semibold">房租水電</p>
+              <p class="text-[10px] text-[var(--ink-soft)]">9/05</p>
+            </div>
+            <span class="text-xs font-bold">-NT$8,000</span>
+          </div>
+          <div class="flex items-center gap-3 bg-[#eafaf1] rounded-xl p-2.5">
+            <div class="w-8 h-8 rounded-lg bg-[var(--green)] flex items-center justify-center">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" fill="#fff"/><path d="M12 8v8M8 12h8" stroke="var(--green)" stroke-width="2"/></svg>
+            </div>
+            <div class="flex-1">
+              <p class="text-xs font-semibold">早午餐店</p>
+              <p class="text-[10px] text-[var(--ink-soft)]">9/09</p>
+            </div>
+            <span class="text-xs font-bold">-NT$165</span>
+          </div>
+          <div class="flex items-center gap-3 bg-[#eaf3fb] rounded-xl p-2.5">
+            <div class="w-8 h-8 rounded-lg bg-[var(--blue)] flex items-center justify-center">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="4" y="7" width="16" height="10" rx="2" fill="#fff"/></svg>
+            </div>
+            <div class="flex-1">
+              <p class="text-xs font-semibold">捷運悠遊卡儲值</p>
+              <p class="text-[10px] text-[var(--ink-soft)]">9/10</p>
+            </div>
+            <span class="text-xs font-bold">-NT$500</span>
+          </div>
+        </div>
+      </div>
+      <div class="absolute -bottom-5 -left-6 w-16 h-16 rounded-2xl coin flat-shadow-sm spin-slow"></div>
+      <div class="absolute -top-6 -right-4 w-12 h-12 rounded-full bg-[var(--red)]/90 flat-shadow-sm flex items-center justify-center text-white font-heading font-bold text-xs">
+        -12%
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LOGO / TRUST STRIP ===== -->
+<section class="border-y-2 border-[#eef1f4] bg-white py-5 overflow-hidden">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <p class="text-center text-xs font-semibold text-[var(--ink-soft)] tracking-wide mb-1">支援台灣主要銀行與電子支付，自動同步帳戶</p>
+    <div class="relative w-full overflow-hidden mt-3">
+      <div class="flex gap-14 whitespace-nowrap marquee-track text-[var(--ink-soft)] font-heading font-semibold text-sm">
+        <span>國泰世華</span><span>玉山銀行</span><span>台新銀行</span><span>中信銀行</span><span>街口支付</span><span>LINE Pay</span><span>悠遊付</span>
+        <span>國泰世華</span><span>玉山銀行</span><span>台新銀行</span><span>中信銀行</span><span>街口支付</span><span>LINE Pay</span><span>悠遊付</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURES ===== -->
+<section id="features" class="max-w-6xl mx-auto px-5 sm:px-8 py-24">
+  <div class="text-center max-w-xl mx-auto mb-14">
+    <span class="text-[var(--blue)] font-bold text-sm tracking-wide">核心功能</span>
+    <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-3 text-[var(--ink)]">理財這件事，交給我們就對了</h2>
+    <p class="text-[var(--ink-soft)] mt-4 leading-relaxed">從自動記帳到預算提醒，錢包日記把繁瑣的記帳流程，變成每天三秒就能完成的小習慣。</p>
+  </div>
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="card-lift bg-white rounded-3xl p-6 flat-shadow-sm">
+      <div class="w-12 h-12 rounded-2xl bg-[var(--blue)] flex items-center justify-center mb-5">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h10" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>
+      </div>
+      <h3 class="font-heading font-bold text-lg mb-2">自動記帳</h3>
+      <p class="text-sm text-[var(--ink-soft)] leading-relaxed">連結銀行帳戶與信用卡，消費紀錄自動同步，不用再手動輸入每一筆花費。</p>
+    </div>
+
+    <div class="card-lift bg-white rounded-3xl p-6 flat-shadow-sm">
+      <div class="w-12 h-12 rounded-2xl bg-[var(--orange)] flex items-center justify-center mb-5">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#fff" stroke-width="2.2"/><path d="M12 4v8l6 3" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>
+      </div>
+      <h3 class="font-heading font-bold text-lg mb-2">分類統計</h3>
+      <p class="text-sm text-[var(--ink-soft)] leading-relaxed">AI 自動辨識消費類別，餐飲、交通、娛樂一目了然，輕鬆掌握花費結構。</p>
+    </div>
+
+    <div class="card-lift bg-white rounded-3xl p-6 flat-shadow-sm">
+      <div class="w-12 h-12 rounded-2xl bg-[var(--red)] flex items-center justify-center mb-5">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.4 5.6L20 9.6l-4.2 3.8 1.2 6.1L12 16.6l-5 2.9 1.2-6.1L4 9.6l5.6-1z" fill="#fff"/></svg>
+      </div>
+      <h3 class="font-heading font-bold text-lg mb-2">預算提醒</h3>
+      <p class="text-sm text-[var(--ink-soft)] leading-relaxed">設定每月預算，接近上限即時推播提醒，不再等到月底才發現超支。</p>
+    </div>
+
+    <div class="card-lift bg-white rounded-3xl p-6 flat-shadow-sm">
+      <div class="w-12 h-12 rounded-2xl bg-[var(--green)] flex items-center justify-center mb-5">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="#fff" stroke-width="2.2"/><path d="M3 10h18" stroke="#fff" stroke-width="2.2"/></svg>
+      </div>
+      <h3 class="font-heading font-bold text-lg mb-2">帳戶總覽</h3>
+      <p class="text-sm text-[var(--ink-soft)] leading-relaxed">銀行、信用卡、電子錢包全部整合在同一頁面，資產全貌一次掌握。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DASHBOARD / CHART SECTION ===== -->
+<section id="dashboard" class="bg-white py-24 border-y-2 border-[#eef1f4]">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <div class="grid lg:grid-cols-2 gap-14 items-center">
+      <div>
+        <span class="text-[var(--orange)] font-bold text-sm tracking-wide">支出分析</span>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-3 mb-5 text-[var(--ink)]">用圖表看懂錢<br>都花到哪裡去了</h2>
+        <p class="text-[var(--ink-soft)] leading-relaxed mb-8">每週、每月自動整理成清楚的長條圖與圓餅圖，哪一類花費失控了，一眼就看得出來。</p>
+
+        <!-- fake tab switch -->
+        <div class="inline-flex bg-[#f1f4f7] rounded-2xl p-1.5 mb-8" id="tabGroup">
+          <button data-tab="week" class="tab-btn active font-heading font-semibold text-sm px-5 py-2 rounded-xl transition">本週</button>
+          <button data-tab="month" class="tab-btn font-heading font-semibold text-sm px-5 py-2 rounded-xl transition">本月</button>
+          <button data-tab="year" class="tab-btn font-heading font-semibold text-sm px-5 py-2 rounded-xl transition">今年</button>
+        </div>
+
+        <div id="tabPanelWeek" class="tab-panel space-y-4">
+          <div class="flex items-center gap-4">
+            <span class="w-24 text-sm text-[var(--ink-soft)]">餐飲</span>
+            <div class="flex-1 h-3 rounded-full bg-[#f1f4f7] overflow-hidden"><div class="h-full rounded-full bg-[var(--orange)]" style="width:72%"></div></div>
+            <span class="w-16 text-sm font-semibold text-right">NT$2,340</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <span class="w-24 text-sm text-[var(--ink-soft)]">交通</span>
+            <div class="flex-1 h-3 rounded-full bg-[#f1f4f7] overflow-hidden"><div class="h-full rounded-full bg-[var(--blue)]" style="width:38%"></div></div>
+            <span class="w-16 text-sm font-semibold text-right">NT$980</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <span class="w-24 text-sm text-[var(--ink-soft)]">娛樂</span>
+            <div class="flex-1 h-3 rounded-full bg-[#f1f4f7] overflow-hidden"><div class="h-full rounded-full bg-[var(--purple)]" style="width:24%"></div></div>
+            <span class="w-16 text-sm font-semibold text-right">NT$650</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <span class="w-24 text-sm text-[var(--ink-soft)]">購物</span>
+            <div class="flex-1 h-3 rounded-full bg-[#f1f4f7] overflow-hidden"><div class="h-full rounded-full bg-[var(--red)]" style="width:55%"></div></div>
+            <span class="w-16 text-sm font-semibold text-right">NT$1,720</span>
+          </div>
+        </div>
+
+        <div id="tabPanelMonth" class="tab-panel hidden space-y-4">
+          <div class="flex items-center gap-4">
+            <span class="w-24 text-sm text-[var(--ink-soft)]">餐飲</span>
+            <div class="flex-1 h-3 rounded-full bg-[#f1f4f7] overflow-hidden"><div class="h-full rounded-full bg-[var(--orange)]" style="width:64%"></div></div>
+            <span class="w-16 text-sm font-semibold text-right">NT$9,120</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <span class="w-24 text-sm text-[var(--ink-soft)]">房租</span>
+            <div class="flex-1 h-3 rounded-full bg-[#f1f4f7] overflow-hidden"><div class="h-full rounded-full bg-[var(--blue)]" style="width:88%"></div></div>
+            <span class="w-16 text-sm font-semibold text-right">NT$8,000</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <span class="w-24 text-sm text-[var(--ink-soft)]">娛樂</span>
+            <div class="flex-1 h-3 rounded-full bg-[#f1f4f7] overflow-hidden"><div class="h-full rounded-full bg-[var(--purple)]" style="width:30%"></div></div>
+            <span class="w-16 text-sm font-semibold text-right">NT$2,480</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <span class="w-24 text-sm text-[var(--ink-soft)]">購物</span>
+            <div class="flex-1 h-3 rounded-full bg-[#f1f4f7] overflow-hidden"><div class="h-full rounded-full bg-[var(--red)]" style="width:47%"></div></div>
+            <span class="w-16 text-sm font-semibold text-right">NT$6,120</span>
+          </div>
+        </div>
+
+        <div id="tabPanelYear" class="tab-panel hidden space-y-4">
+          <div class="flex items-center gap-4">
+            <span class="w-24 text-sm text-[var(--ink-soft)]">餐飲</span>
+            <div class="flex-1 h-3 rounded-full bg-[#f1f4f7] overflow-hidden"><div class="h-full rounded-full bg-[var(--orange)]" style="width:58%"></div></div>
+            <span class="w-16 text-sm font-semibold text-right">NT$98,400</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <span class="w-24 text-sm text-[var(--ink-soft)]">房租</span>
+            <div class="flex-1 h-3 rounded-full bg-[#f1f4f7] overflow-hidden"><div class="h-full rounded-full bg-[var(--blue)]" style="width:92%"></div></div>
+            <span class="w-16 text-sm font-semibold text-right">NT$96,000</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <span class="w-24 text-sm text-[var(--ink-soft)]">旅遊</span>
+            <div class="flex-1 h-3 rounded-full bg-[#f1f4f7] overflow-hidden"><div class="h-full rounded-full bg-[var(--purple)]" style="width:41%"></div></div>
+            <span class="w-16 text-sm font-semibold text-right">NT$42,300</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <span class="w-24 text-sm text-[var(--ink-soft)]">購物</span>
+            <div class="flex-1 h-3 rounded-full bg-[#f1f4f7] overflow-hidden"><div class="h-full rounded-full bg-[var(--red)]" style="width:50%"></div></div>
+            <span class="w-16 text-sm font-semibold text-right">NT$51,600</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- bar chart mock -->
+      <div class="bg-[var(--paper)] rounded-3xl p-8 flat-shadow-sm">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <p class="text-sm text-[var(--ink-soft)]">近 6 個月支出趨勢</p>
+            <p class="font-heading font-bold text-2xl mt-1">NT$ 112,860</p>
+          </div>
+          <span class="bg-[#eafaf1] text-[var(--green)] text-xs font-bold px-3 py-1.5 rounded-full">↓ 較上季 8%</span>
+        </div>
+        <div class="flex items-end justify-between gap-3 h-48">
+          <div class="flex-1 flex flex-col items-center gap-2">
+            <div class="w-full rounded-t-xl bg-[var(--blue)] bar-anim" style="height:55%"></div>
+            <span class="text-xs text-[var(--ink-soft)]">4月</span>
+          </div>
+          <div class="flex-1 flex flex-col items-center gap-2">
+            <div class="w-full rounded-t-xl bg-[var(--blue)] bar-anim" style="height:70%; animation-delay:.1s"></div>
+            <span class="text-xs text-[var(--ink-soft)]">5月</span>
+          </div>
+          <div class="flex-1 flex flex-col items-center gap-2">
+            <div class="w-full rounded-t-xl bg-[var(--orange)] bar-anim" style="height:88%; animation-delay:.2s"></div>
+            <span class="text-xs text-[var(--ink-soft)]">6月</span>
+          </div>
+          <div class="flex-1 flex flex-col items-center gap-2">
+            <div class="w-full rounded-t-xl bg-[var(--blue)] bar-anim" style="height:62%; animation-delay:.3s"></div>
+            <span class="text-xs text-[var(--ink-soft)]">7月</span>
+          </div>
+          <div class="flex-1 flex flex-col items-center gap-2">
+            <div class="w-full rounded-t-xl bg-[var(--blue)] bar-anim" style="height:48%; animation-delay:.4s"></div>
+            <span class="text-xs text-[var(--ink-soft)]">8月</span>
+          </div>
+          <div class="flex-1 flex flex-col items-center gap-2">
+            <div class="w-full rounded-t-xl bg-[var(--green)] bar-anim" style="height:40%; animation-delay:.5s"></div>
+            <span class="text-xs text-[var(--ink-soft)]">9月</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HOW IT WORKS ===== -->
+<section class="max-w-6xl mx-auto px-5 sm:px-8 py-24">
+  <div class="text-center max-w-xl mx-auto mb-14">
+    <span class="text-[var(--green)] font-bold text-sm tracking-wide">開始使用</span>
+    <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-3 text-[var(--ink)]">三個步驟，養成記帳好習慣</h2>
+  </div>
+  <div class="grid md:grid-cols-3 gap-8">
+    <div class="text-center">
+      <div class="w-16 h-16 mx-auto rounded-2xl bg-[var(--blue)] flat-shadow-sm flex items-center justify-center font-heading font-bold text-white text-2xl mb-5">1</div>
+      <h3 class="font-heading font-bold text-lg mb-2">建立帳戶</h3>
+      <p class="text-sm text-[var(--ink-soft)] leading-relaxed max-w-xs mx-auto">下載 App，用手機號碼或 Apple ID 快速註冊，一分鐘完成設定。</p>
+    </div>
+    <div class="text-center">
+      <div class="w-16 h-16 mx-auto rounded-2xl bg-[var(--orange)] flat-shadow-sm flex items-center justify-center font-heading font-bold text-white text-2xl mb-5">2</div>
+      <h3 class="font-heading font-bold text-lg mb-2">連結帳戶</h3>
+      <p class="text-sm text-[var(--ink-soft)] leading-relaxed max-w-xs mx-auto">綁定銀行、信用卡與電子支付，所有交易自動匯入，安全又省事。</p>
+    </div>
+    <div class="text-center">
+      <div class="w-16 h-16 mx-auto rounded-2xl bg-[var(--green)] flat-shadow-sm flex items-center justify-center font-heading font-bold text-white text-2xl mb-5">3</div>
+      <h3 class="font-heading font-bold text-lg mb-2">設定預算</h3>
+      <p class="text-sm text-[var(--ink-soft)] leading-relaxed max-w-xs mx-auto">依生活型態設定各類別預算，超支前主動提醒，理財不再是壓力。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="bg-white py-24 border-y-2 border-[#eef1f4]">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <div class="text-center max-w-xl mx-auto mb-14">
+      <span class="text-[var(--red)] font-bold text-sm tracking-wide">使用者怎麼說</span>
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-3 text-[var(--ink)]">真實用戶的理財轉變</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="bg-[var(--paper)] rounded-3xl p-6">
+        <div class="flex gap-1 mb-4 text-[var(--orange)]">★★★★★</div>
+        <p class="text-sm text-[var(--ink-soft)] leading-relaxed mb-5">「以前記帳三天就放棄，現在完全自動同步，每天打開看一眼就知道花了多少，真的養成習慣了。」</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-[var(--blue)] flex items-center justify-center text-white font-heading font-bold">陳</div>
+          <div>
+            <p class="font-semibold text-sm">陳小姐</p>
+            <p class="text-xs text-[var(--ink-soft)]">上班族・台北</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-[var(--paper)] rounded-3xl p-6">
+        <div class="flex gap-1 mb-4 text-[var(--orange)]">★★★★★</div>
+        <p class="text-sm text-[var(--ink-soft)] leading-relaxed mb-5">「預算提醒功能超實用，這個月餐飲快超支的時候直接跳通知提醒我，成功省下不少錢。」</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-[var(--orange)] flex items-center justify-center text-white font-heading font-bold">林</div>
+          <div>
+            <p class="font-semibold text-sm">林先生</p>
+            <p class="text-xs text-[var(--ink-soft)]">工程師・新竹</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-[var(--paper)] rounded-3xl p-6">
+        <div class="flex gap-1 mb-4 text-[var(--orange)]">★★★★★</div>
+        <p class="text-sm text-[var(--ink-soft)] leading-relaxed mb-5">「介面很清楚，圖表一看就懂，跟另一半一起用共享帳本管理家庭開銷，省心很多。」</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-[var(--green)] flex items-center justify-center text-white font-heading font-bold">黃</div>
+          <div>
+            <p class="font-semibold text-sm">黃太太</p>
+            <p class="text-xs text-[var(--ink-soft)]">自由業・台中</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRICING ===== -->
+<section id="pricing" class="max-w-6xl mx-auto px-5 sm:px-8 py-24">
+  <div class="text-center max-w-xl mx-auto mb-14">
+    <span class="text-[var(--blue)] font-bold text-sm tracking-wide">方案價格</span>
+    <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-3 text-[var(--ink)]">選擇適合你的方案</h2>
+    <p class="text-[var(--ink-soft)] mt-4 leading-relaxed">基礎記帳功能永久免費，進階分析與多帳戶管理升級付費即可解鎖。</p>
+  </div>
+  <div class="grid md:grid-cols-3 gap-6 items-stretch">
+    <div class="card-lift bg-white rounded-3xl p-8 flat-shadow-sm flex flex-col">
+      <h3 class="font-heading font-bold text-xl mb-1">免費版</h3>
+      <p class="text-sm text-[var(--ink-soft)] mb-6">個人記帳入門首選</p>
+      <p class="font-heading font-bold text-4xl mb-6">NT$0<span class="text-base font-medium text-[var(--ink-soft)]">／月</span></p>
+      <ul class="space-y-3 text-sm text-[var(--ink-soft)] mb-8 flex-1">
+        <li class="flex items-center gap-2"><span class="w-5 h-5 rounded-full bg-[#eafaf1] text-[var(--green)] flex items-center justify-center text-xs">✓</span>手動與自動記帳</li>
+        <li class="flex items-center gap-2"><span class="w-5 h-5 rounded-full bg-[#eafaf1] text-[var(--green)] flex items-center justify-center text-xs">✓</span>基本分類統計</li>
+        <li class="flex items-center gap-2"><span class="w-5 h-5 rounded-full bg-[#eafaf1] text-[var(--green)] flex items-center justify-center text-xs">✓</span>綁定 1 個帳戶</li>
+      </ul>
+      <a href="#download" class="btn-pop text-center bg-[#f1f4f7] text-[var(--ink)] font-semibold px-6 py-3 rounded-2xl">立即下載</a>
+    </div>
+
+    <div class="card-lift bg-[var(--blue)] rounded-3xl p-8 flat-shadow flex flex-col relative">
+      <span class="absolute -top-3 right-8 bg-[var(--orange)] text-white text-xs font-bold px-3 py-1 rounded-full">最多人選擇</span>
+      <h3 class="font-heading font-bold text-xl mb-1 text-white">進階版</h3>
+      <p class="text-sm text-white/80 mb-6">認真理財者的最佳選擇</p>
+      <p class="font-heading font-bold text-4xl mb-6 text-white">NT$99<span class="text-base font-medium text-white/80">／月</span></p>
+      <ul class="space-y-3 text-sm text-white/90 mb-8 flex-1">
+        <li class="flex items-center gap-2"><span class="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center text-xs">✓</span>無限帳戶綁定</li>
+        <li class="flex items-center gap-2"><span class="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center text-xs">✓</span>進階圖表與趨勢分析</li>
+        <li class="flex items-center gap-2"><span class="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center text-xs">✓</span>預算提醒與超支警示</li>
+        <li class="flex items-center gap-2"><span class="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center text-xs">✓</span>資料匯出 Excel</li>
+      </ul>
+      <a href="#download" class="btn-pop text-center bg-white text-[var(--blue)] font-bold px-6 py-3 rounded-2xl">開始 14 天免費試用</a>
+    </div>
+
+    <div class="card-lift bg-white rounded-3xl p-8 flat-shadow-sm flex flex-col">
+      <h3 class="font-heading font-bold text-xl mb-1">家庭版</h3>
+      <p class="text-sm text-[var(--ink-soft)] mb-6">與家人共享帳本</p>
+      <p class="font-heading font-bold text-4xl mb-6">NT$179<span class="text-base font-medium text-[var(--ink-soft)]">／月</span></p>
+      <ul class="space-y-3 text-sm text-[var(--ink-soft)] mb-8 flex-1">
+        <li class="flex items-center gap-2"><span class="w-5 h-5 rounded-full bg-[#eafaf1] text-[var(--green)] flex items-center justify-center text-xs">✓</span>包含進階版所有功能</li>
+        <li class="flex items-center gap-2"><span class="w-5 h-5 rounded-full bg-[#eafaf1] text-[var(--green)] flex items-center justify-center text-xs">✓</span>最多 6 人共享帳本</li>
+        <li class="flex items-center gap-2"><span class="w-5 h-5 rounded-full bg-[#eafaf1] text-[var(--green)] flex items-center justify-center text-xs">✓</span>家庭預算總覽</li>
+      </ul>
+      <a href="#download" class="btn-pop text-center bg-[#f1f4f7] text-[var(--ink)] font-semibold px-6 py-3 rounded-2xl">立即下載</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section id="faq" class="bg-white py-24 border-y-2 border-[#eef1f4]">
+  <div class="max-w-3xl mx-auto px-5 sm:px-8">
+    <div class="text-center mb-12">
+      <span class="text-[var(--orange)] font-bold text-sm tracking-wide">常見問題</span>
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-3 text-[var(--ink)]">大家最常問的問題</h2>
+    </div>
+    <div class="space-y-4" id="faqList">
+      <div class="faq-item bg-[var(--paper)] rounded-2xl p-5 cursor-pointer">
+        <div class="flex items-center justify-between">
+          <h4 class="font-heading font-semibold">連結銀行帳戶安全嗎？</h4>
+          <span class="faq-icon font-heading font-bold text-[var(--blue)] text-xl transition-transform">+</span>
+        </div>
+        <p class="faq-answer hidden mt-3 text-sm text-[var(--ink-soft)] leading-relaxed">錢包日記採用銀行等級的加密技術，僅讀取交易紀錄，不會儲存您的帳號密碼，所有連線皆通過金融級認證機制。</p>
+      </div>
+      <div class="faq-item bg-[var(--paper)] rounded-2xl p-5 cursor-pointer">
+        <div class="flex items-center justify-between">
+          <h4 class="font-heading font-semibold">免費版可以用多久？</h4>
+          <span class="faq-icon font-heading font-bold text-[var(--blue)] text-xl transition-transform">+</span>
+        </div>
+        <p class="faq-answer hidden mt-3 text-sm text-[var(--ink-soft)] leading-relaxed">免費版沒有使用期限，基本記帳與分類功能可以永久免費使用，升級付費方案只是為了解鎖進階分析功能。</p>
+      </div>
+      <div class="faq-item bg-[var(--paper)] rounded-2xl p-5 cursor-pointer">
+        <div class="flex items-center justify-between">
+          <h4 class="font-heading font-semibold">可以匯出記帳資料嗎？</h4>
+          <span class="faq-icon font-heading font-bold text-[var(--blue)] text-xl transition-transform">+</span>
+        </div>
+        <p class="faq-answer hidden mt-3 text-sm text-[var(--ink-soft)] leading-relaxed">進階版與家庭版用戶可以隨時將記帳資料匯出成 Excel 檔案，方便報稅或做更進一步的分析整理。</p>
+      </div>
+      <div class="faq-item bg-[var(--paper)] rounded-2xl p-5 cursor-pointer">
+        <div class="flex items-center justify-between">
+          <h4 class="font-heading font-semibold">支援哪些裝置？</h4>
+          <span class="faq-icon font-heading font-bold text-[var(--blue)] text-xl transition-transform">+</span>
+        </div>
+        <p class="faq-answer hidden mt-3 text-sm text-[var(--ink-soft)] leading-relaxed">目前支援 iOS 與 Android 手機、平板，並提供網頁版，資料會即時同步於所有裝置之間。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DOWNLOAD CTA ===== -->
+<section id="download" class="max-w-6xl mx-auto px-5 sm:px-8 py-24">
+  <div class="bg-[var(--ink)] rounded-[2.5rem] px-8 sm:px-16 py-16 text-center relative overflow-hidden">
+    <div class="absolute -top-14 -left-14 w-48 h-48 rounded-full bg-[var(--blue)] opacity-30 float-slow"></div>
+    <div class="absolute -bottom-16 -right-10 w-56 h-56 rounded-full bg-[var(--orange)] opacity-20"></div>
+    <div class="relative">
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl text-white mb-4">今天就開始，找回花錢的主導權</h2>
+      <p class="text-white/70 max-w-lg mx-auto mb-9 leading-relaxed">加入 86 萬名用戶的行列，用錢包日記把每一筆花費都變得清清楚楚。</p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="#" class="btn-pop bg-white text-[var(--ink)] font-bold px-7 py-3.5 rounded-2xl flex items-center gap-2">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 12.5c0-2.5 2-3.5 2.1-3.6-1.1-1.6-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1.9-4 2.4-1.7 2.9-.4 7.3 1.2 9.6.8 1.1 1.8 2.4 3 2.4 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.3.9-1.4 1.3-2.7 1.3-2.8-.1 0-2.6-1-2.6-3.9zM15 4.9c.7-.8 1.1-1.9 1-3-1 .1-2.1.6-2.8 1.4-.6.7-1.1 1.8-1 2.9 1.1.1 2.1-.5 2.8-1.3z"/></svg>
+          App Store 下載
+        </a>
+        <a href="#" class="btn-pop bg-transparent border-2 border-white/30 text-white font-bold px-7 py-3.5 rounded-2xl flex items-center gap-2">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.6c-.3.3-.5.7-.5 1.2v16.4c0 .5.2.9.5 1.2l.1.1L13 12.2v-.4L3.7 2.5l-.1.1z"/><path d="M16.2 15.4l-3.2-3.2v-.4l3.2-3.2 3.7 2.1c1 .6 1 1.6 0 2.2l-3.7 2.5z"/></svg>
+          Google Play 下載
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="border-t-2 border-[#eef1f4] py-12">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-lg bg-[var(--blue)] flex items-center justify-center">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="6" width="20" height="14" rx="3" fill="#fff"/><circle cx="17" cy="14" r="2" fill="var(--orange)"/></svg>
+      </div>
+      <span class="font-heading font-bold">錢包日記</span>
+      <span class="text-sm text-[var(--ink-soft)]">© 2026 WalletDiary Inc.</span>
+    </div>
+    <div class="flex gap-6 text-sm text-[var(--ink-soft)]">
+      <a href="#" class="hover:text-[var(--ink)]">隱私權政策</a>
+      <a href="#" class="hover:text-[var(--ink)]">服務條款</a>
+      <a href="#" class="hover:text-[var(--ink)]">聯絡我們</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // fake tab switching for chart section
+  (function(){
+    var buttons = document.querySelectorAll('.tab-btn');
+    var panels = {
+      week: document.getElementById('tabPanelWeek'),
+      month: document.getElementById('tabPanelMonth'),
+      year: document.getElementById('tabPanelYear')
+    };
+    buttons.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        buttons.forEach(function(b){ b.classList.remove('active'); });
+        btn.classList.add('active');
+        var key = btn.getAttribute('data-tab');
+        Object.keys(panels).forEach(function(k){
+          panels[k].classList.toggle('hidden', k !== key);
+        });
+      });
+    });
+  })();
+
+  // FAQ accordion
+  (function(){
+    var items = document.querySelectorAll('.faq-item');
+    items.forEach(function(item){
+      item.addEventListener('click', function(){
+        var answer = item.querySelector('.faq-answer');
+        var icon = item.querySelector('.faq-icon');
+        var isOpen = !answer.classList.contains('hidden');
+        answer.classList.toggle('hidden');
+        icon.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(45deg)';
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,410 @@
+<!-- style #20+#42 Hero-Centric × Organic Biophilic -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>歸樸 ReNature｜與土地共生的慢時尚</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --forest: #3e4a32;
+    --forest-deep: #2c3524;
+    --sage: #8fbc8f;
+    --sage-deep: #6f9e6f;
+    --cream: #f5f1e8;
+    --cream-deep: #ece4d3;
+    --clay: #b08a5e;
+    --ink: #2e2a22;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin: 0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Nunito', 'Noto Sans TC', sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .serif{
+    font-family: 'Cormorant Garamond', 'Noto Serif TC', serif;
+    letter-spacing: 0.01em;
+  }
+
+  .tracked{ letter-spacing: 0.32em; }
+
+  /* ---------- organic blob shapes ---------- */
+  .blob{
+    border-radius: 63% 37% 54% 46% / 42% 45% 55% 58%;
+    animation: blobmove 16s ease-in-out infinite;
+  }
+  .blob-alt{
+    border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
+    animation: blobmove 20s ease-in-out infinite reverse;
+  }
+  @keyframes blobmove{
+    0%, 100% { border-radius: 63% 37% 54% 46% / 42% 45% 55% 58%; }
+    33% { border-radius: 45% 55% 68% 32% / 55% 40% 60% 45%; }
+    66% { border-radius: 58% 42% 40% 60% / 35% 60% 40% 65%; }
+  }
+
+  .leaf-shape{
+    border-radius: 0% 100% 0% 100% / 0% 100% 0% 100%;
+  }
+
+  /* wavy divider */
+  .wave-divider{ display:block; width:100%; line-height:0; }
+  .wave-divider svg{ width:100%; height:auto; display:block; }
+
+  /* scroll reveal */
+  .reveal{
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .reveal.is-visible{
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .btn-primary{
+    background: var(--forest);
+    color: var(--cream);
+    transition: all 0.35s ease;
+    box-shadow: 0 10px 30px -12px rgba(62,74,50,0.55);
+  }
+  .btn-primary:hover{
+    background: var(--forest-deep);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 36px -10px rgba(62,74,50,0.6);
+  }
+
+  .btn-outline{
+    border: 1.5px solid var(--forest);
+    color: var(--forest);
+    transition: all 0.35s ease;
+  }
+  .btn-outline:hover{
+    background: var(--forest);
+    color: var(--cream);
+    transform: translateY(-2px);
+  }
+
+  .card-hover{ transition: transform 0.4s ease, box-shadow 0.4s ease; }
+  .card-hover:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 24px 45px -20px rgba(62,74,50,0.35);
+  }
+
+  .stat-num{
+    font-family: 'Cormorant Garamond', serif;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .nav-link{ position: relative; }
+  .nav-link::after{
+    content:'';
+    position:absolute;
+    left:0; bottom:-4px;
+    width:0%; height:1.5px;
+    background: var(--forest);
+    transition: width 0.3s ease;
+  }
+  .nav-link:hover::after{ width:100%; }
+
+  ::selection{ background: var(--sage); color: var(--forest-deep); }
+</style>
+</head>
+<body>
+
+  <!-- ============ NAV (minimal, secondary to hero) ============ -->
+  <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#f5f1e8]/80 border-b border-[#3e4a32]/10">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
+      <a href="#top" class="serif text-2xl md:text-[1.7rem] font-semibold text-[var(--forest)] italic">歸樸 <span class="not-italic text-sm align-middle tracking-widest text-[var(--clay)]">ReNature</span></a>
+      <div class="hidden md:flex items-center gap-10 text-[15px] text-[var(--ink)]">
+        <a href="#story" class="nav-link">品牌故事</a>
+        <a href="#materials" class="nav-link">材質工藝</a>
+        <a href="#impact" class="nav-link">環境足跡</a>
+        <a href="#cta" class="nav-link">聯絡我們</a>
+      </div>
+      <a href="#hero" class="hidden md:inline-block text-sm px-5 py-2 rounded-full btn-outline">探索系列</a>
+    </div>
+  </nav>
+
+  <!-- ============ HERO — dominates the first screen ============ -->
+  <header id="top" class="relative min-h-screen flex items-center overflow-hidden pt-24" style="background: linear-gradient(160deg,#f7f3ea 0%,#f0ead9 55%,#e8e0c9 100%);">
+
+    <!-- organic decorative blobs suggesting foliage -->
+    <div class="blob absolute -top-24 -right-32 w-[30rem] h-[30rem] opacity-70" style="background: radial-gradient(circle at 30% 30%, #a8caa2, #6f9e6f 70%);"></div>
+    <div class="blob-alt absolute top-1/3 -left-40 w-[26rem] h-[26rem] opacity-60" style="background: radial-gradient(circle at 60% 40%, #d8cba4, #b08a5e 75%);"></div>
+    <div class="blob absolute bottom-[-8rem] right-1/4 w-72 h-72 opacity-50" style="background: radial-gradient(circle at 50% 50%, #8fbc8f, #3e4a32 80%);"></div>
+
+    <!-- soft leaf silhouette -->
+    <svg class="absolute right-6 md:right-16 top-28 md:top-24 w-40 md:w-64 opacity-80" viewBox="0 0 200 300" fill="none">
+      <path d="M100 10 C 170 60, 190 160, 100 290 C 10 160, 30 60, 100 10 Z" fill="#8fbc8f" opacity="0.45"/>
+      <path d="M100 20 L100 280" stroke="#3e4a32" stroke-width="2" opacity="0.4"/>
+      <path d="M100 80 C 130 90, 150 110, 155 130" stroke="#3e4a32" stroke-width="1.5" opacity="0.35" fill="none"/>
+      <path d="M100 150 C 70 160, 50 180, 45 200" stroke="#3e4a32" stroke-width="1.5" opacity="0.35" fill="none"/>
+      <path d="M100 220 C 130 228, 145 245, 150 260" stroke="#3e4a32" stroke-width="1.5" opacity="0.35" fill="none"/>
+    </svg>
+
+    <div class="relative z-10 max-w-6xl mx-auto px-6 w-full grid md:grid-cols-[1.3fr_0.7fr] gap-10 items-center">
+      <div>
+        <p class="tracked text-xs md:text-sm uppercase text-[var(--clay)] mb-6 font-semibold">Slow Fashion, Rooted in Nature · 台灣在地慢時尚</p>
+        <h1 class="serif text-[2.6rem] leading-[1.15] sm:text-6xl md:text-7xl font-semibold text-[var(--forest-deep)] mb-8">
+          讓每一件衣裳<br>
+          <span class="italic text-[var(--clay)]">回歸</span>土地的懷抱
+        </h1>
+        <p class="text-lg md:text-xl text-[var(--ink)]/80 max-w-xl mb-10 leading-relaxed">
+          歸樸以台灣原生苧麻、有機棉與植物染工藝,手作能夠自然分解、隨歲月留下風土痕跡的服裝——讓時尚不再消耗地球,而是與它一起呼吸。
+        </p>
+        <div class="flex flex-wrap items-center gap-5">
+          <a href="#materials" class="btn-primary inline-block px-9 py-4 rounded-full text-base md:text-lg serif italic tracking-wide">
+            探索永續系列
+          </a>
+          <a href="#story" class="text-sm md:text-base text-[var(--forest)] underline underline-offset-4 decoration-[var(--sage)] decoration-2 hover:text-[var(--forest-deep)] transition">
+            閱讀品牌故事 →
+          </a>
+        </div>
+      </div>
+
+      <!-- decorative organic "product" panel -->
+      <div class="relative hidden md:block h-[26rem]">
+        <div class="blob absolute inset-0 shadow-2xl" style="background: linear-gradient(150deg,#8fbc8f,#3e4a32 85%);"></div>
+        <div class="absolute inset-8 blob-alt border border-[var(--cream)]/40" style="background: linear-gradient(200deg,#f5f1e8,#d8cba4);"></div>
+        <p class="absolute bottom-10 left-1/2 -translate-x-1/2 serif italic text-[var(--cream)] text-lg drop-shadow">一針一線,取自山林</p>
+      </div>
+    </div>
+
+    <a href="#story" class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[var(--forest)]/70 text-xs tracking-widest">
+      <span>SCROLL</span>
+      <span class="w-[1px] h-8 bg-[var(--forest)]/50 animate-pulse"></span>
+    </a>
+  </header>
+
+  <div class="wave-divider" style="background:#f5f1e8;">
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none"><path d="M0,40 C240,100 480,0 720,40 C960,80 1200,10 1440,50 L1440,100 L0,100 Z" fill="#fdfbf6"/></svg>
+  </div>
+
+  <!-- ============ BRAND STORY / MISSION ============ -->
+  <section id="story" class="relative py-24 md:py-32" style="background:#fdfbf6;">
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+      <div class="reveal">
+        <div class="relative w-full h-80 md:h-[26rem]">
+          <div class="blob-alt absolute inset-0" style="background: radial-gradient(circle at 30% 30%, #c9d9ae, #8fbc8f 70%);"></div>
+          <div class="blob absolute inset-10 opacity-90" style="background: radial-gradient(circle at 70% 60%, #f5f1e8, #d8cba4 80%);"></div>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <p class="serif italic text-2xl md:text-3xl text-[var(--forest-deep)] text-center px-10">與土地<br>一起呼吸</p>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <p class="tracked text-xs uppercase text-[var(--clay)] mb-4 font-semibold">Our Mission</p>
+        <h2 class="serif text-4xl md:text-5xl font-semibold text-[var(--forest-deep)] mb-6 leading-snug">
+          我們相信,<br class="hidden md:block">時尚應該<span class="italic">留得住</span>土地的溫度
+        </h2>
+        <p class="text-[var(--ink)]/80 leading-loose mb-5">
+          二〇一九年,幾位來自台南與花蓮的織品職人與農友,因為不忍看見快時尚產業對環境的消耗,決定回到最單純的方式做衣服——從一株苧麻、一畦棉田開始。
+        </p>
+        <p class="text-[var(--ink)]/80 leading-loose mb-8">
+          歸樸至今仍維持小批量、季節限定的生產模式,每一款布料都能追溯到契作農地。我們不使用石化合成纖維,也拒絕漂白劑與化學速染,讓每件衣服在完成使命後,終能回到土壤,而不是留在焚化爐裡。
+        </p>
+        <ul class="space-y-4">
+          <li class="flex items-start gap-3">
+            <span class="mt-1 w-2 h-2 rounded-full bg-[var(--sage-deep)] shrink-0"></span>
+            <span class="text-[var(--ink)]/85">與台灣友善耕作農戶契作,拒絕農藥與化肥污染水源</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="mt-1 w-2 h-2 rounded-full bg-[var(--sage-deep)] shrink-0"></span>
+            <span class="text-[var(--ink)]/85">全系列採用天然植物染,每批色澤皆為獨一無二的風土紀錄</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="mt-1 w-2 h-2 rounded-full bg-[var(--sage-deep)] shrink-0"></span>
+            <span class="text-[var(--ink)]/85">小批量生產,拒絕庫存浪費,拒絕快時尚式的消耗邏輯</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="wave-divider" style="background:#fdfbf6;">
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none"><path d="M0,60 C300,0 600,100 900,50 C1150,10 1300,70 1440,30 L1440,100 L0,100 Z" fill="#eee6d4"/></svg>
+  </div>
+
+  <!-- ============ MATERIALS / PRODUCT HIGHLIGHTS ============ -->
+  <section id="materials" class="relative py-24 md:py-32" style="background:#eee6d4;">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+        <p class="tracked text-xs uppercase text-[var(--clay)] mb-4 font-semibold">Materials &amp; Craft</p>
+        <h2 class="serif text-4xl md:text-5xl font-semibold text-[var(--forest-deep)] mb-5">來自山海之間的<span class="italic">材質</span></h2>
+        <p class="text-[var(--ink)]/75 leading-relaxed">每一種纖維,都經過職人反覆試作,只為找到人與自然最舒服的相處方式。</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- card 1 -->
+        <div class="card-hover reveal bg-[#fdfbf6] rounded-[2.5rem] p-8 border border-[var(--forest)]/8">
+          <div class="blob w-20 h-20 mb-6 flex items-center justify-center text-2xl" style="background:linear-gradient(135deg,#8fbc8f,#3e4a32);">
+            <span class="text-[var(--cream)]">苧</span>
+          </div>
+          <h3 class="serif text-2xl font-semibold text-[var(--forest-deep)] mb-3">恆春苧麻</h3>
+          <p class="text-[var(--ink)]/75 leading-relaxed text-[15px]">
+            取自恆春半島原生種植的苧麻,纖維強韌、透氣排汗,種植過程幾乎不需額外灌溉,是台灣最古老的天然纖維之一。
+          </p>
+        </div>
+        <!-- card 2 -->
+        <div class="card-hover reveal bg-[#fdfbf6] rounded-[2.5rem] p-8 border border-[var(--forest)]/8" style="transition-delay:0.1s;">
+          <div class="blob-alt w-20 h-20 mb-6 flex items-center justify-center text-2xl" style="background:linear-gradient(135deg,#b08a5e,#6f5b3e);">
+            <span class="text-[var(--cream)]">染</span>
+          </div>
+          <h3 class="serif text-2xl font-semibold text-[var(--forest-deep)] mb-3">植物手染工藝</h3>
+          <p class="text-[var(--ink)]/75 leading-relaxed text-[15px]">
+            以福木、薯榔、藍靛等台灣傳統植物染材,由職人手工浸染多次,呈現只屬於這一批布料的大地色階。
+          </p>
+        </div>
+        <!-- card 3 -->
+        <div class="card-hover reveal bg-[#fdfbf6] rounded-[2.5rem] p-8 border border-[var(--forest)]/8" style="transition-delay:0.2s;">
+          <div class="blob w-20 h-20 mb-6 flex items-center justify-center text-2xl" style="background:linear-gradient(135deg,#a8caa2,#8fbc8f);">
+            <span class="text-[var(--forest-deep)]">棉</span>
+          </div>
+          <h3 class="serif text-2xl font-semibold text-[var(--forest-deep)] mb-3">再生有機棉</h3>
+          <p class="text-[var(--ink)]/75 leading-relaxed text-[15px]">
+            回收舊衣纖維重新紡紗,混紡雲林契作有機棉,觸感柔軟親膚,同時大幅減少新棉種植所需的水資源。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wave-divider" style="background:#eee6d4;">
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none"><path d="M0,50 C360,110 720,-10 1080,50 C1260,80 1350,40 1440,60 L1440,100 L0,100 Z" fill="#3e4a32"/></svg>
+  </div>
+
+  <!-- ============ ENVIRONMENTAL IMPACT STATS ============ -->
+  <section id="impact" class="relative py-24 md:py-28 text-[var(--cream)]" style="background: linear-gradient(160deg,#3e4a32,#2c3524);">
+    <div class="blob absolute top-10 right-10 w-64 h-64 opacity-10" style="background:#f5f1e8;"></div>
+    <div class="blob-alt absolute bottom-0 left-0 w-72 h-72 opacity-10" style="background:#8fbc8f;"></div>
+
+    <div class="relative max-w-6xl mx-auto px-6">
+      <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+        <p class="tracked text-xs uppercase text-[var(--sage)] mb-4 font-semibold">Our Impact</p>
+        <h2 class="serif text-4xl md:text-5xl font-semibold mb-5">我們一起<span class="italic">留下</span>的痕跡</h2>
+        <p class="text-[var(--cream)]/75 leading-relaxed">每一次選擇歸樸,都是一次對土地更溫柔的決定。以下是品牌成立以來,與消費者共同累積的環境足跡。</p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div class="reveal">
+          <p class="stat-num text-5xl md:text-6xl font-semibold text-[var(--sage)]" data-target="1260" data-suffix="萬公升">0</p>
+          <p class="mt-3 text-sm md:text-base text-[var(--cream)]/80">累積節省用水</p>
+        </div>
+        <div class="reveal" style="transition-delay:0.1s;">
+          <p class="stat-num text-5xl md:text-6xl font-semibold text-[var(--sage)]" data-target="86" data-suffix="公噸">0</p>
+          <p class="mt-3 text-sm md:text-base text-[var(--cream)]/80">減少碳排放</p>
+        </div>
+        <div class="reveal" style="transition-delay:0.2s;">
+          <p class="stat-num text-5xl md:text-6xl font-semibold text-[var(--sage)]" data-target="32" data-suffix="公頃">0</p>
+          <p class="mt-3 text-sm md:text-base text-[var(--cream)]/80">友善契作耕地</p>
+        </div>
+        <div class="reveal" style="transition-delay:0.3s;">
+          <p class="stat-num text-5xl md:text-6xl font-semibold text-[var(--sage)]" data-target="4850" data-suffix="件">0</p>
+          <p class="mt-3 text-sm md:text-base text-[var(--cream)]/80">舊衣回收再製</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CLOSING CTA ============ -->
+  <section id="cta" class="relative py-28 md:py-36 overflow-hidden" style="background:#f5f1e8;">
+    <div class="blob absolute -top-20 left-1/4 w-80 h-80 opacity-40" style="background: radial-gradient(circle,#8fbc8f,#3e4a32 80%);"></div>
+    <div class="blob-alt absolute -bottom-24 right-1/5 w-72 h-72 opacity-40" style="background: radial-gradient(circle,#d8cba4,#b08a5e 80%);"></div>
+
+    <div class="relative max-w-3xl mx-auto px-6 text-center reveal">
+      <p class="tracked text-xs uppercase text-[var(--clay)] mb-5 font-semibold">Join the Movement</p>
+      <h2 class="serif text-4xl md:text-6xl font-semibold text-[var(--forest-deep)] mb-7 leading-tight">
+        與我們一起,<br class="md:hidden">讓時尚<span class="italic">慢下來</span>
+      </h2>
+      <p class="text-[var(--ink)]/80 text-lg mb-10 max-w-xl mx-auto leading-relaxed">
+        每一件歸樸服裝,都乘載一段土地的故事。加入我們的訂閱名單,搶先收到新一季植物染系列與限量開賣通知。
+      </p>
+      <form class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-lg mx-auto mb-6" onsubmit="return false;">
+        <input type="email" required placeholder="輸入您的電子信箱"
+          class="w-full sm:flex-1 px-6 py-4 rounded-full border border-[var(--forest)]/25 bg-white/70 focus:outline-none focus:ring-2 focus:ring-[var(--sage-deep)] text-[var(--ink)] placeholder:text-[var(--ink)]/40">
+        <button type="submit" class="btn-primary w-full sm:w-auto px-8 py-4 rounded-full serif italic text-lg whitespace-nowrap">
+          加入歸樸行動
+        </button>
+      </form>
+      <p class="text-xs text-[var(--ink)]/50">我們重視您的隱私,絕不轉售個人資料。</p>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="py-14 border-t border-[var(--forest)]/15" style="background:#eee6d4;">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+      <p class="serif text-xl italic text-[var(--forest-deep)]">歸樸 <span class="not-italic text-xs tracking-widest text-[var(--clay)] align-middle">ReNature</span></p>
+      <div class="flex flex-wrap justify-center gap-6 text-sm text-[var(--ink)]/70">
+        <a href="#story" class="hover:text-[var(--forest)] transition">品牌故事</a>
+        <a href="#materials" class="hover:text-[var(--forest)] transition">材質工藝</a>
+        <a href="#impact" class="hover:text-[var(--forest)] transition">環境足跡</a>
+        <a href="#cta" class="hover:text-[var(--forest)] transition">訂閱最新消息</a>
+      </div>
+      <p class="text-xs text-[var(--ink)]/50">© 2026 歸樸 ReNature．版權所有</p>
+    </div>
+  </footer>
+
+<script>
+  // scroll reveal
+  (function(){
+    var items = document.querySelectorAll('.reveal');
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    items.forEach(function(el){ io.observe(el); });
+  })();
+
+  // counting stat animation
+  (function(){
+    var stats = document.querySelectorAll('.stat-num');
+    var animated = false;
+    function animate(){
+      if(animated) return;
+      animated = true;
+      stats.forEach(function(el){
+        var target = parseInt(el.getAttribute('data-target'), 10);
+        var suffix = el.getAttribute('data-suffix') || '';
+        var duration = 1600;
+        var start = null;
+        function step(ts){
+          if(!start) start = ts;
+          var progress = Math.min((ts - start) / duration, 1);
+          var eased = 1 - Math.pow(1 - progress, 3);
+          var value = Math.floor(eased * target);
+          el.textContent = value.toLocaleString('zh-Hant') + suffix;
+          if(progress < 1){ requestAnimationFrame(step); }
+        }
+        requestAnimationFrame(step);
+      });
+    }
+    var impactSection = document.getElementById('impact');
+    if(impactSection){
+      var io2 = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){ animate(); io2.disconnect(); }
+        });
+      }, { threshold: 0.3 });
+      io2.observe(impactSection);
+    }
+  })();
+</script>
+</body>
+</html>

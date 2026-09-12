@@ -1,0 +1,670 @@
+<!-- style #08 Accessible / Ethical -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>安心約診 EasyVisit｜無障礙醫療掛號平台</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --blue:#0066cc;
+    --blue-dark:#004a99;
+    --red:#d32f2f;
+    --red-dark:#a91f1f;
+    --ink:#000000;
+    --paper:#ffffff;
+  }
+
+  *{
+    font-family:'Lexend', 'Noto Sans TC', sans-serif !important;
+  }
+
+  html{
+    scroll-behavior:smooth;
+  }
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-size:var(--base-size, 19px);
+    line-height:1.8;
+    letter-spacing:0.01em;
+  }
+
+  h1,h2,h3,h4{
+    line-height:1.35;
+    font-weight:700;
+    letter-spacing:0.005em;
+  }
+
+  /* Generous, obviously-visible focus states everywhere */
+  a, button, input, select, textarea, [tabindex]{
+    outline: none;
+  }
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  [tabindex]:focus-visible{
+    outline: 4px solid var(--blue) !important;
+    outline-offset: 3px !important;
+    border-radius: 4px;
+  }
+  /* extra-strong focus for primary red actions, keeps contrast against red bg */
+  .focus-on-red:focus-visible{
+    outline: 4px solid #000000 !important;
+    outline-offset: 3px !important;
+    box-shadow: 0 0 0 4px #ffffff;
+  }
+
+  .skip-link{
+    position:absolute;
+    left:-9999px;
+    top:0;
+    background:var(--ink);
+    color:var(--paper);
+    padding:16px 24px;
+    font-size:20px;
+    font-weight:700;
+    z-index:100;
+    border-radius:0 0 8px 0;
+  }
+  .skip-link:focus{
+    left:0;
+  }
+
+  .btn-primary{
+    background:var(--blue);
+    color:#ffffff;
+    border:3px solid var(--blue);
+    transition:background .15s ease, transform .1s ease;
+  }
+  .btn-primary:hover{
+    background:var(--blue-dark);
+    border-color:var(--blue-dark);
+  }
+  .btn-primary:active{
+    transform:scale(0.98);
+  }
+
+  .btn-danger{
+    background:var(--red);
+    color:#ffffff;
+    border:3px solid var(--red);
+  }
+  .btn-danger:hover{
+    background:var(--red-dark);
+    border-color:var(--red-dark);
+  }
+
+  .btn-outline{
+    background:#ffffff;
+    color:var(--ink);
+    border:3px solid var(--ink);
+  }
+  .btn-outline:hover{
+    background:var(--ink);
+    color:#ffffff;
+  }
+
+  .card-border{
+    border:3px solid var(--ink);
+  }
+
+  .step-active{
+    background:var(--blue);
+    color:#ffffff;
+    border:3px solid var(--blue);
+  }
+  .step-done{
+    background:var(--ink);
+    color:#ffffff;
+    border:3px solid var(--ink);
+  }
+  .step-todo{
+    background:#ffffff;
+    color:var(--ink);
+    border:3px solid var(--ink);
+  }
+
+  .tag-red{
+    background:var(--red);
+    color:#ffffff;
+  }
+  .tag-blue{
+    background:var(--blue);
+    color:#ffffff;
+  }
+
+  ::selection{
+    background:var(--blue);
+    color:#ffffff;
+  }
+
+  /* font-size control affects the whole page proportionally */
+  .scalable{
+    font-size: 1em;
+  }
+</style>
+</head>
+<body class="scalable">
+
+<a href="#main-content" class="skip-link">跳到主要內容</a>
+
+<!-- Top utility bar: real accessibility controls, not decorative -->
+<div class="w-full bg-black text-white">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+    <p class="text-base font-medium m-0">
+      政府認證無障礙醫療服務・衛生福利部合作平台
+    </p>
+    <div class="flex items-center gap-2 flex-wrap">
+      <span class="text-base font-medium mr-1">字級調整：</span>
+      <button id="font-decrease" type="button"
+        class="btn-outline bg-white text-black px-4 py-2 text-lg font-bold rounded-md"
+        aria-label="縮小字級">A－</button>
+      <button id="font-reset" type="button"
+        class="btn-outline bg-white text-black px-4 py-2 text-lg font-bold rounded-md"
+        aria-label="重設字級為預設大小">A</button>
+      <button id="font-increase" type="button"
+        class="btn-outline bg-white text-black px-4 py-2 text-lg font-bold rounded-md"
+        aria-label="放大字級">A＋</button>
+      <button id="contrast-toggle" type="button"
+        class="btn-outline bg-white text-black px-4 py-2 text-lg font-bold rounded-md ml-1"
+        aria-pressed="false">
+        高對比模式
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Header / Nav -->
+<header class="w-full bg-white border-b-4 border-black sticky top-0 z-40">
+  <div class="max-w-6xl mx-auto px-4 py-5 flex flex-wrap items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <div class="w-14 h-14 rounded-full tag-blue flex items-center justify-center text-2xl font-bold border-3 border-black" style="border-width:3px;">
+        安
+      </div>
+      <div>
+        <p class="text-2xl font-bold m-0 leading-tight">安心約診 EasyVisit</p>
+        <p class="text-base m-0 leading-tight">人人都能安心看診的掛號平台</p>
+      </div>
+    </div>
+    <nav aria-label="主選單" class="flex flex-wrap gap-2">
+      <a href="#booking" class="px-4 py-3 text-lg font-semibold rounded-md border-3 border-black hover:bg-black hover:text-white" style="border-width:3px;">立即掛號</a>
+      <a href="#features" class="px-4 py-3 text-lg font-semibold rounded-md border-3 border-black hover:bg-black hover:text-white" style="border-width:3px;">無障礙功能</a>
+      <a href="#trust" class="px-4 py-3 text-lg font-semibold rounded-md border-3 border-black hover:bg-black hover:text-white" style="border-width:3px;">使用者心聲</a>
+      <a href="#support" class="px-4 py-3 text-lg font-semibold rounded-md border-3 border-black hover:bg-black hover:text-white" style="border-width:3px;">客服協助</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main-content">
+
+  <!-- HERO -->
+  <section class="w-full bg-white">
+    <div class="max-w-6xl mx-auto px-4 py-16 grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <p class="inline-block tag-red text-lg font-bold px-4 py-2 rounded-md mb-6">
+          為長輩、視障與行動不便者打造
+        </p>
+        <h1 class="text-5xl md:text-6xl font-extrabold mb-6 leading-tight">
+          看診掛號，<br>不該是一件困難的事。
+        </h1>
+        <p class="text-2xl mb-8 leading-relaxed">
+          安心約診 EasyVisit 是專為長者、視覺障礙者與行動不便朋友設計的醫療掛號平台。
+          大字體、高對比、螢幕報讀完全支援，三步驟就能完成掛號，
+          全程都有真人客服陪伴。
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#booking" class="btn-primary focus-on-red px-8 py-5 text-2xl font-bold rounded-xl inline-block">
+            開始掛號 →
+          </a>
+          <a href="#support" class="btn-outline px-8 py-5 text-2xl font-bold rounded-xl inline-block">
+            我需要協助
+          </a>
+        </div>
+        <p class="text-lg mt-6">
+          已有 <strong>68,000</strong> 位長者與身心障礙朋友使用安心約診完成掛號
+        </p>
+      </div>
+
+      <div class="card-border rounded-2xl p-8 bg-white">
+        <h2 class="text-2xl font-bold mb-4">今日看診人次統計</h2>
+        <ul class="space-y-4">
+          <li class="flex items-center justify-between text-xl border-b-2 border-black pb-3">
+            <span>螢幕報讀使用者</span>
+            <strong class="tag-blue px-3 py-1 rounded-md">3,214 人</strong>
+          </li>
+          <li class="flex items-center justify-between text-xl border-b-2 border-black pb-3">
+            <span>語音客服協助掛號</span>
+            <strong class="tag-blue px-3 py-1 rounded-md">1,875 通</strong>
+          </li>
+          <li class="flex items-center justify-between text-xl border-b-2 border-black pb-3">
+            <span>陪同掛號到院服務</span>
+            <strong class="tag-red px-3 py-1 rounded-md">452 件</strong>
+          </li>
+          <li class="flex items-center justify-between text-xl">
+            <span>平均掛號完成時間</span>
+            <strong class="tag-red px-3 py-1 rounded-md">2 分 40 秒</strong>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- MISSION STATEMENT STRIP -->
+  <section class="w-full bg-black text-white">
+    <div class="max-w-6xl mx-auto px-4 py-10">
+      <p class="text-2xl md:text-3xl font-semibold leading-relaxed">
+        「我們相信，看醫生不應該因為看不清螢幕、聽不清語音、或行動不便，而變得更困難。
+        安心約診的每一個設計決定，都以『這個功能，我的爸爸媽媽用得順手嗎？』作為第一標準。」
+      </p>
+      <p class="text-lg mt-4">— 安心約診 EasyVisit 產品團隊</p>
+    </div>
+  </section>
+
+  <!-- BOOKING FLOW MOCKUP -->
+  <section id="booking" class="w-full bg-white">
+    <div class="max-w-6xl mx-auto px-4 py-16">
+      <div class="mb-10">
+        <p class="tag-blue inline-block text-lg font-bold px-4 py-2 rounded-md mb-4">掛號流程示範</p>
+        <h2 class="text-4xl font-extrabold mb-4">只要四個步驟，安心完成掛號</h2>
+        <p class="text-xl leading-relaxed max-w-3xl">
+          每一步都會用清楚的文字與語音朗讀說明目前進度，按鈕夠大、間距夠寬，
+          不怕按錯，也不用擔心看不清楚。
+        </p>
+      </div>
+
+      <!-- Stepper -->
+      <ol class="flex flex-wrap gap-4 mb-10" aria-label="掛號步驟進度">
+        <li class="step-done rounded-xl px-6 py-4 text-xl font-bold flex items-center gap-3">
+          <span class="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center text-base">✓</span>
+          選擇科別
+        </li>
+        <li class="step-done rounded-xl px-6 py-4 text-xl font-bold flex items-center gap-3">
+          <span class="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center text-base">✓</span>
+          選擇醫師
+        </li>
+        <li class="step-active rounded-xl px-6 py-4 text-xl font-bold flex items-center gap-3">
+          <span class="w-8 h-8 rounded-full bg-white text-blue-700 flex items-center justify-center text-base font-extrabold">3</span>
+          選擇時段
+        </li>
+        <li class="step-todo rounded-xl px-6 py-4 text-xl font-bold flex items-center gap-3">
+          <span class="w-8 h-8 rounded-full border-2 border-black flex items-center justify-center text-base">4</span>
+          確認掛號
+        </li>
+      </ol>
+
+      <div class="grid lg:grid-cols-3 gap-8">
+        <!-- Left: selections so far -->
+        <div class="card-border rounded-2xl p-6 bg-white lg:col-span-1">
+          <h3 class="text-2xl font-bold mb-5">您目前的選擇</h3>
+          <div class="mb-5 pb-5 border-b-2 border-black">
+            <p class="text-lg font-semibold mb-1">科別</p>
+            <p class="text-xl">眼科</p>
+          </div>
+          <div class="mb-5 pb-5 border-b-2 border-black">
+            <p class="text-lg font-semibold mb-1">醫師</p>
+            <p class="text-xl">林靜宜 醫師</p>
+            <p class="text-base mt-1">白內障、青光眼專長・提供台語問診</p>
+          </div>
+          <div>
+            <p class="text-lg font-semibold mb-1">看診地點</p>
+            <p class="text-xl">安心眼科診所（台北市中山院區）</p>
+            <p class="text-base mt-1">近捷運中山站 2 號出口，設有無障礙坡道</p>
+          </div>
+          <button type="button" class="btn-outline w-full mt-6 py-3 text-lg font-bold rounded-lg">
+            重新選擇
+          </button>
+        </div>
+
+        <!-- Right: time slot picker -->
+        <div class="card-border rounded-2xl p-6 bg-white lg:col-span-2">
+          <h3 class="text-2xl font-bold mb-2">請選擇看診時段</h3>
+          <p class="text-lg mb-6">時段以大字顯示，選定後會用語音複誦確認</p>
+
+          <div class="mb-6">
+            <p class="text-xl font-bold mb-3">9 月 15 日（星期二）</p>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <button type="button" class="border-3 border-black rounded-lg py-4 text-xl font-semibold hover:tag-blue hover:bg-blue-700 hover:text-white" style="border-width:3px;">上午 09:00</button>
+              <button type="button" class="btn-primary rounded-lg py-4 text-xl font-bold" aria-pressed="true">上午 09:30（已選）</button>
+              <button type="button" class="border-3 border-black rounded-lg py-4 text-xl font-semibold" style="border-width:3px;">上午 10:00</button>
+              <button type="button" class="border-3 border-black rounded-lg py-4 text-xl font-semibold opacity-40 cursor-not-allowed" style="border-width:3px;" disabled>上午 10:30（額滿）</button>
+              <button type="button" class="border-3 border-black rounded-lg py-4 text-xl font-semibold" style="border-width:3px;">下午 02:00</button>
+              <button type="button" class="border-3 border-black rounded-lg py-4 text-xl font-semibold" style="border-width:3px;">下午 02:30</button>
+            </div>
+          </div>
+
+          <div class="tag-blue rounded-xl p-5 mb-6">
+            <p class="text-lg font-semibold mb-1">貼心提醒</p>
+            <p class="text-lg leading-relaxed">
+              您選擇的時段將自動加入「陪同掛號提醒簡訊」，
+              若需要志工陪同到院，可在下一步免費申請。
+            </p>
+          </div>
+
+          <div class="flex flex-wrap gap-4">
+            <a href="#" class="btn-primary focus-on-red px-8 py-4 text-xl font-bold rounded-xl inline-block">
+              下一步：確認掛號 →
+            </a>
+            <a href="#" class="btn-outline px-8 py-4 text-xl font-bold rounded-xl inline-block">
+              上一步
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCESSIBILITY FEATURES -->
+  <section id="features" class="w-full bg-black text-white">
+    <div class="max-w-6xl mx-auto px-4 py-16">
+      <p class="tag-red inline-block text-lg font-bold px-4 py-2 rounded-md mb-4">無障礙功能</p>
+      <h2 class="text-4xl font-extrabold mb-4">為每一種需求，準備真正好用的功能</h2>
+      <p class="text-xl leading-relaxed max-w-3xl mb-12">
+        這些功能不是點綴，而是安心約診的核心設計。我們與視障團體、
+        長照機構及職能治療師合作測試，確保每一項都真正派得上用場。
+      </p>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="border-3 border-white rounded-2xl p-6" style="border-width:3px;">
+          <div class="w-14 h-14 rounded-full bg-white text-black flex items-center justify-center text-2xl font-bold mb-5">
+            👁
+          </div>
+          <h3 class="text-2xl font-bold mb-3">螢幕報讀支援</h3>
+          <p class="text-lg leading-relaxed">
+            完整支援 VoiceOver、TalkBack 等螢幕報讀軟體，
+            所有按鈕與欄位皆有清楚語音標籤，操作順序不跳躍。
+          </p>
+        </div>
+
+        <div class="border-3 border-white rounded-2xl p-6" style="border-width:3px;">
+          <div class="w-14 h-14 rounded-full bg-white text-black flex items-center justify-center text-2xl font-bold mb-5">
+            A+
+          </div>
+          <h3 class="text-2xl font-bold mb-3">字級可調整</h3>
+          <p class="text-lg leading-relaxed">
+            一鍵放大至 200%，版面自動重新排列，
+            不會出現文字被裁切或重疊的問題。
+          </p>
+        </div>
+
+        <div class="border-3 border-white rounded-2xl p-6" style="border-width:3px;">
+          <div class="w-14 h-14 rounded-full bg-white text-black flex items-center justify-center text-2xl font-bold mb-5">
+            ☎
+          </div>
+          <h3 class="text-2xl font-bold mb-3">語音客服</h3>
+          <p class="text-lg leading-relaxed">
+            不想用手機操作嗎？撥打 0800-123-456，
+            真人客服可直接幫您完成掛號，服務時間到晚上 9 點。
+          </p>
+        </div>
+
+        <div class="border-3 border-white rounded-2xl p-6" style="border-width:3px;">
+          <div class="w-14 h-14 rounded-full bg-white text-black flex items-center justify-center text-2xl font-bold mb-5">
+            🤝
+          </div>
+          <h3 class="text-2xl font-bold mb-3">陪同掛號</h3>
+          <p class="text-lg leading-relaxed">
+            行動不便或獨居長者可申請志工陪同，
+            從交通接送到診間報到，全程有人協助。
+          </p>
+        </div>
+
+        <div class="border-3 border-white rounded-2xl p-6" style="border-width:3px;">
+          <div class="w-14 h-14 rounded-full bg-white text-black flex items-center justify-center text-2xl font-bold mb-5">
+            ⌨
+          </div>
+          <h3 class="text-2xl font-bold mb-3">完整鍵盤操作</h3>
+          <p class="text-lg leading-relaxed">
+            所有功能皆可不使用滑鼠、純鍵盤完成，
+            焦點所在位置以清楚外框標示，絕不遺失方向。
+          </p>
+        </div>
+
+        <div class="border-3 border-white rounded-2xl p-6" style="border-width:3px;">
+          <div class="w-14 h-14 rounded-full bg-white text-black flex items-center justify-center text-2xl font-bold mb-5">
+            🈶
+          </div>
+          <h3 class="text-2xl font-bold mb-3">簡明用語設計</h3>
+          <p class="text-lg leading-relaxed">
+            避免醫療術語與英文縮寫，所有說明皆以
+            日常口語撰寫，並提供台語、客語語音選項。
+          </p>
+        </div>
+
+        <div class="border-3 border-white rounded-2xl p-6" style="border-width:3px;">
+          <div class="w-14 h-14 rounded-full bg-white text-black flex items-center justify-center text-2xl font-bold mb-5">
+            🔔
+          </div>
+          <h3 class="text-2xl font-bold mb-3">多重提醒管道</h3>
+          <p class="text-lg leading-relaxed">
+            看診前一天以簡訊、語音電話雙重提醒，
+            避免因忘記時間而白跑一趟或錯過看診。
+          </p>
+        </div>
+
+        <div class="border-3 border-white rounded-2xl p-6" style="border-width:3px;">
+          <div class="w-14 h-14 rounded-full bg-white text-black flex items-center justify-center text-2xl font-bold mb-5">
+            🛡
+          </div>
+          <h3 class="text-2xl font-bold mb-3">個資安心保護</h3>
+          <p class="text-lg leading-relaxed">
+            通過衛福部醫療資訊安全稽核，
+            就診紀錄僅供本人與授權家屬查詢。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST / TESTIMONIALS -->
+  <section id="trust" class="w-full bg-white">
+    <div class="max-w-6xl mx-auto px-4 py-16">
+      <p class="tag-blue inline-block text-lg font-bold px-4 py-2 rounded-md mb-4">使用者心聲</p>
+      <h2 class="text-4xl font-extrabold mb-4">來自真實使用者的回饋</h2>
+      <p class="text-xl leading-relaxed max-w-3xl mb-12">
+        我們每季邀請視障團體與長照機構進行實際操作測試，
+        以下是部分使用者分享的真實經驗。
+      </p>
+
+      <div class="grid md:grid-cols-3 gap-8 mb-12">
+        <blockquote class="card-border rounded-2xl p-6">
+          <p class="text-xl leading-relaxed mb-6">
+            「我全盲十二年了，以前約診都要拜託鄰居幫忙。
+            現在用 VoiceOver 自己就能完成掛號，
+            第一次感覺自己也能『獨立』看病。」
+          </p>
+          <footer class="text-lg font-semibold">
+            陳先生・65 歲・視覺障礙使用者
+          </footer>
+        </blockquote>
+
+        <blockquote class="card-border rounded-2xl p-6">
+          <p class="text-xl leading-relaxed mb-6">
+            「字真的很大，眼睛不好也看得清楚。
+            打電話給客服的時候，對方講話很慢很清楚，
+            一步一步教我，完全不會不耐煩。」
+          </p>
+          <footer class="text-lg font-semibold">
+            黃奶奶・78 歲・獨居長者
+          </footer>
+        </blockquote>
+
+        <blockquote class="card-border rounded-2xl p-6">
+          <p class="text-xl leading-relaxed mb-6">
+            「我媽媽坐輪椅，以前每次掛號都很緊張。
+            現在用陪同掛號服務，志工會提前確認診所的
+            無障礙動線，帶她去完全不用擔心。」
+          </p>
+          <footer class="text-lg font-semibold">
+            林小姐・42 歲・照顧者
+          </footer>
+        </blockquote>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="tag-blue rounded-2xl p-6 text-center">
+          <p class="text-4xl font-extrabold mb-2">4.9 / 5</p>
+          <p class="text-lg">無障礙易用度評分</p>
+        </div>
+        <div class="tag-red rounded-2xl p-6 text-center">
+          <p class="text-4xl font-extrabold mb-2">120+</p>
+          <p class="text-lg">合作醫療院所</p>
+        </div>
+        <div class="border-3 border-black rounded-2xl p-6 text-center" style="border-width:3px;">
+          <p class="text-4xl font-extrabold mb-2">AAA</p>
+          <p class="text-lg">WCAG 對比達成等級</p>
+        </div>
+        <div class="border-3 border-black rounded-2xl p-6 text-center" style="border-width:3px;">
+          <p class="text-4xl font-extrabold mb-2">24 小時</p>
+          <p class="text-lg">陪同申請回覆時間</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUPPORT / CTA -->
+  <section id="support" class="w-full bg-black text-white">
+    <div class="max-w-6xl mx-auto px-4 py-16 grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <h2 class="text-4xl font-extrabold mb-6">不知道怎麼開始也沒關係</h2>
+        <p class="text-xl leading-relaxed mb-8">
+          安心約診提供多種協助管道，無論您習慣打電話、
+          請家人陪同操作，或直接請志工到府協助，
+          我們都會用最有耐心的方式陪您完成掛號。
+        </p>
+        <ul class="space-y-4 text-xl">
+          <li class="flex items-start gap-3">
+            <span class="tag-red rounded-full w-8 h-8 flex items-center justify-center text-base font-bold flex-shrink-0 mt-1">1</span>
+            <span>撥打免付費專線 <strong>0800-123-456</strong>，服務時間週一至週日 08:00–21:00</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="tag-red rounded-full w-8 h-8 flex items-center justify-center text-base font-bold flex-shrink-0 mt-1">2</span>
+            <span>使用網站右上角的語音客服按鈕，立即與真人客服視訊</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="tag-red rounded-full w-8 h-8 flex items-center justify-center text-base font-bold flex-shrink-0 mt-1">3</span>
+            <span>申請「陪同掛號」志工到府協助，最快隔日到府服務</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="bg-white text-black rounded-2xl p-8 border-3 border-white" style="border-width:3px;">
+        <h3 class="text-2xl font-bold mb-6">留下聯絡方式，客服將主動致電</h3>
+        <form class="space-y-5" onsubmit="return false;">
+          <div>
+            <label for="name" class="block text-lg font-semibold mb-2">您的姓名</label>
+            <input id="name" type="text" placeholder="例如：王大明"
+              class="w-full border-3 border-black rounded-lg px-4 py-4 text-xl" style="border-width:3px;">
+          </div>
+          <div>
+            <label for="phone" class="block text-lg font-semibold mb-2">聯絡電話</label>
+            <input id="phone" type="tel" placeholder="例如：0912-345-678"
+              class="w-full border-3 border-black rounded-lg px-4 py-4 text-xl" style="border-width:3px;">
+          </div>
+          <div>
+            <label for="need" class="block text-lg font-semibold mb-2">需要哪一種協助？</label>
+            <select id="need" class="w-full border-3 border-black rounded-lg px-4 py-4 text-xl bg-white" style="border-width:3px;">
+              <option>電話協助掛號</option>
+              <option>陪同到院掛號</option>
+              <option>操作教學（視訊或到府）</option>
+              <option>其他問題諮詢</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-danger focus-on-red w-full py-4 text-xl font-bold rounded-xl">
+            送出，請客服與我聯絡
+          </button>
+          <p class="text-base leading-relaxed">
+            我們將於 24 小時內致電回覆，您的資料僅用於本次聯繫，
+            不會用於任何行銷用途。
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="w-full bg-white border-t-4 border-black">
+  <div class="max-w-6xl mx-auto px-4 py-12 grid md:grid-cols-3 gap-8">
+    <div>
+      <p class="text-2xl font-bold mb-3">安心約診 EasyVisit</p>
+      <p class="text-lg leading-relaxed">
+        由財團法人安心醫療服務基金會與衛生福利部共同輔導成立，
+        致力於讓每一位民眾都能平等、安心地取得醫療資源。
+      </p>
+    </div>
+    <div>
+      <p class="text-xl font-bold mb-3">快速連結</p>
+      <ul class="space-y-2 text-lg">
+        <li><a href="#booking" class="underline hover:no-underline">立即掛號</a></li>
+        <li><a href="#features" class="underline hover:no-underline">無障礙功能說明</a></li>
+        <li><a href="#trust" class="underline hover:no-underline">使用者心聲</a></li>
+        <li><a href="#" class="underline hover:no-underline">無障礙聲明</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="text-xl font-bold mb-3">聯絡我們</p>
+      <p class="text-lg mb-2">免付費專線：0800-123-456</p>
+      <p class="text-lg mb-2">服務時間：週一至週日 08:00–21:00</p>
+      <p class="text-lg">電子郵件：service@easyvisit.org.tw</p>
+    </div>
+  </div>
+  <div class="border-t-2 border-black">
+    <div class="max-w-6xl mx-auto px-4 py-6">
+      <p class="text-base">© 2026 安心約診 EasyVisit．本網站通過 WCAG 2.1 AAA 無障礙檢測</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var sizes = [16, 19, 22, 26, 30]; // px, matches --base-size scale
+    var current = 1; // default index -> 19px
+
+    function applySize() {
+      document.body.style.setProperty('--base-size', sizes[current] + 'px');
+      document.body.style.fontSize = sizes[current] + 'px';
+    }
+
+    document.getElementById('font-increase').addEventListener('click', function () {
+      if (current < sizes.length - 1) current++;
+      applySize();
+    });
+    document.getElementById('font-decrease').addEventListener('click', function () {
+      if (current > 0) current--;
+      applySize();
+    });
+    document.getElementById('font-reset').addEventListener('click', function () {
+      current = 1;
+      applySize();
+    });
+
+    var contrastBtn = document.getElementById('contrast-toggle');
+    var highContrast = false;
+    contrastBtn.addEventListener('click', function () {
+      highContrast = !highContrast;
+      contrastBtn.setAttribute('aria-pressed', String(highContrast));
+      if (highContrast) {
+        document.body.style.filter = 'contrast(1.25) saturate(1.1)';
+        contrastBtn.textContent = '高對比模式（已開啟）';
+      } else {
+        document.body.style.filter = '';
+        contrastBtn.textContent = '高對比模式';
+      }
+    });
+
+    applySize();
+  })();
+</script>
+
+</body>
+</html>

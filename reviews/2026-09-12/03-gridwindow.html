@@ -1,0 +1,399 @@
+<!-- style #53 Bento Grids -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>格窗 GridWindow — 團隊協作，一目了然</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --bg: #f4f2ee;
+    --panel: #ffffff;
+    --panel-2: #fbfaf8;
+    --ink: #201d1a;
+    --ink-soft: #5c574f;
+    --ink-faint: #948d80;
+    --line: #e7e2d9;
+    --accent: #d9663b;
+    --accent-ink: #ffffff;
+    --accent-soft: #fbe6dc;
+    --ring: rgba(217,102,59,0.35);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--ink);
+  }
+
+  body {
+    font-family: 'Karla', 'Noto Sans TC', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 0.005em;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Sora', 'Noto Sans TC', sans-serif;
+    letter-spacing: -0.01em;
+  }
+
+  .tag-mono {
+    font-family: 'Sora', 'Noto Sans TC', sans-serif;
+    letter-spacing: 0.14em;
+  }
+
+  .bg-noise {
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(32,29,26,0.05) 1px, transparent 0);
+    background-size: 22px 22px;
+  }
+
+  .cell {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 26px;
+    box-shadow: 0 1px 2px rgba(32,29,26,0.03), 0 10px 24px -18px rgba(32,29,26,0.18);
+    transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease, border-color .35s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cell:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 10px rgba(32,29,26,0.04), 0 24px 40px -20px rgba(32,29,26,0.22);
+    border-color: #ded7ca;
+  }
+
+  .cell-accent {
+    background: linear-gradient(155deg, #212019 0%, #2c2a23 100%);
+    color: #f7f4ee;
+    border: 1px solid #2c2a23;
+  }
+
+  .cell-accent:hover { border-color: #3a3830; }
+
+  .dot-accent { background: var(--accent); }
+
+  .chip {
+    border: 1px solid var(--line);
+    background: var(--panel-2);
+    color: var(--ink-soft);
+  }
+
+  .btn-primary {
+    background: var(--ink);
+    color: #f7f4ee;
+    transition: background .25s ease, transform .2s ease;
+  }
+  .btn-primary:hover { background: #35322c; transform: translateY(-1px); }
+
+  .btn-ghost {
+    border: 1px solid var(--line);
+    color: var(--ink);
+    background: transparent;
+    transition: border-color .25s ease, background .25s ease;
+  }
+  .btn-ghost:hover { border-color: var(--ink-faint); background: var(--panel-2); }
+
+  .kanban-col {
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+  }
+
+  .kanban-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+  }
+
+  .pulse-dot {
+    box-shadow: 0 0 0 0 rgba(217,102,59,0.55);
+    animation: pulse 2.2s infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(217,102,59,0.45); }
+    70%  { box-shadow: 0 0 0 9px rgba(217,102,59,0); }
+    100% { box-shadow: 0 0 0 0 rgba(217,102,59,0); }
+  }
+
+  .avatar-ring {
+    box-shadow: 0 0 0 3px var(--panel);
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    animation: reveal .7s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  @keyframes reveal {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fine-line {
+    background: repeating-linear-gradient(to right, var(--line) 0, var(--line) 6px, transparent 6px, transparent 12px);
+    height: 1px;
+  }
+
+  ::selection { background: var(--accent-soft); color: var(--ink); }
+
+  @media (max-width: 640px) {
+    .cell { border-radius: 20px; }
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <!-- Nav -->
+  <header class="sticky top-0 z-40 backdrop-blur-md bg-[#f4f2eecc] border-b" style="border-color: var(--line);">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <span class="w-8 h-8 rounded-xl grid place-items-center" style="background: var(--ink);">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <rect x="1" y="1" width="6" height="6" rx="1.5" fill="#f7f4ee"/>
+            <rect x="9" y="1" width="6" height="9" rx="1.5" fill="#d9663b"/>
+            <rect x="1" y="9" width="6" height="6" rx="1.5" fill="#f7f4ee" fill-opacity="0.55"/>
+            <rect x="9" y="12" width="6" height="3" rx="1.5" fill="#f7f4ee" fill-opacity="0.55"/>
+          </svg>
+        </span>
+        <span class="font-display font-semibold text-[17px]">格窗<span style="color: var(--ink-faint); font-weight:500;"> GridWindow</span></span>
+      </div>
+      <nav class="hidden md:flex items-center gap-8 text-[14px]" style="color: var(--ink-soft);">
+        <a href="#features" class="hover:text-[var(--ink)] transition-colors">功能</a>
+        <a href="#workflow" class="hover:text-[var(--ink)] transition-colors">工作流程</a>
+        <a href="#pricing" class="hover:text-[var(--ink)] transition-colors">方案價格</a>
+        <a href="#testimonial" class="hover:text-[var(--ink)] transition-colors">客戶案例</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <a href="#" class="hidden sm:inline text-[14px]" style="color: var(--ink-soft);">登入</a>
+        <a href="#cta" class="btn-primary text-[14px] font-medium px-4 py-2 rounded-full">免費開始使用</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-5 sm:px-8 py-10 sm:py-14">
+
+    <!-- Intro -->
+    <div class="mb-8 reveal" style="animation-delay:.02s">
+      <span class="tag-mono inline-flex items-center gap-2 text-[11px] uppercase px-3 py-1 rounded-full chip">
+        <span class="w-1.5 h-1.5 rounded-full dot-accent"></span>
+        團隊協作工具・現已支援繁體中文介面
+      </span>
+    </div>
+
+    <!-- Bento Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-4 auto-rows-[minmax(120px,auto)] gap-4 sm:gap-5">
+
+      <!-- Hero cell: wide, tall -->
+      <div class="cell col-span-2 md:col-span-3 row-span-2 p-7 sm:p-10 flex flex-col justify-between reveal" style="animation-delay:.05s">
+        <div>
+          <h1 class="font-display text-[30px] sm:text-[42px] leading-[1.15] font-semibold max-w-lg">
+            把散落的工作，<br/>收進同一扇窗。
+          </h1>
+          <p class="mt-4 text-[15px] sm:text-[16px] max-w-md" style="color: var(--ink-soft);">
+            格窗把即時訊息、任務看板、檔案與行事曆整理成一張清楚的工作視圖，
+            讓團隊不再在五個分頁之間來回切換。
+          </p>
+        </div>
+        <div class="mt-8 flex flex-wrap items-center gap-3">
+          <a href="#cta" class="btn-primary text-[14px] font-medium px-5 py-2.5 rounded-full">免費建立團隊空間</a>
+          <a href="#workflow" class="btn-ghost text-[14px] font-medium px-5 py-2.5 rounded-full">觀看產品導覽</a>
+          <div class="flex items-center -space-x-2 ml-1">
+            <img class="w-7 h-7 rounded-full avatar-ring" src="https://i.pravatar.cc/56?img=32" alt="使用者頭像">
+            <img class="w-7 h-7 rounded-full avatar-ring" src="https://i.pravatar.cc/56?img=47" alt="使用者頭像">
+            <img class="w-7 h-7 rounded-full avatar-ring" src="https://i.pravatar.cc/56?img=15" alt="使用者頭像">
+            <span class="w-7 h-7 rounded-full avatar-ring grid place-items-center text-[10px] font-medium" style="background: var(--accent-soft); color:#a2431f;">+2k</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats cell -->
+      <div class="cell cell-accent col-span-1 md:col-span-1 row-span-2 p-6 flex flex-col justify-between reveal" style="animation-delay:.1s">
+        <div class="flex items-center justify-between">
+          <span class="tag-mono text-[10px] uppercase tracking-widest opacity-60">每週節省</span>
+          <span class="pulse-dot w-2 h-2 rounded-full" style="background: var(--accent);"></span>
+        </div>
+        <div>
+          <div class="font-display text-[44px] font-bold leading-none">4.6<span class="text-[20px] font-medium opacity-70"> 小時</span></div>
+          <p class="mt-3 text-[13px] opacity-70 leading-relaxed">
+            使用格窗的團隊平均減少往返確認訊息的時間，把心力留給真正重要的工作。
+          </p>
+        </div>
+      </div>
+
+      <!-- Feature: 即時協作 -->
+      <div id="features" class="cell col-span-2 md:col-span-2 p-6 flex flex-col justify-between min-h-[168px] reveal" style="animation-delay:.14s">
+        <div class="w-10 h-10 rounded-xl grid place-items-center" style="background: var(--accent-soft);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a2431f" stroke-width="1.8"><path d="M8 12h8M8 16h5M6 20l-2 2V6a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H8z"/></svg>
+        </div>
+        <div>
+          <h3 class="font-display font-semibold text-[16px]">即時協作</h3>
+          <p class="mt-1.5 text-[13.5px]" style="color: var(--ink-soft);">
+            多人同時編輯同一份文件與白板，游標即時同步，修改軌跡自動保存。
+          </p>
+        </div>
+      </div>
+
+      <!-- Feature: 任務看板 -->
+      <div class="cell col-span-2 md:col-span-2 p-6 reveal" style="animation-delay:.18s">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="font-display font-semibold text-[16px]">任務看板</h3>
+          <span class="chip text-[11px] px-2.5 py-1 rounded-full">拖曳排序</span>
+        </div>
+        <div class="grid grid-cols-3 gap-2">
+          <div class="kanban-col rounded-xl p-2.5">
+            <p class="text-[10px] mb-2 tag-mono uppercase tracking-wide" style="color: var(--ink-faint);">待處理</p>
+            <div class="kanban-card rounded-lg px-2 py-2 text-[11px] mb-1.5">介面走查</div>
+            <div class="kanban-card rounded-lg px-2 py-2 text-[11px]">API 對接</div>
+          </div>
+          <div class="kanban-col rounded-xl p-2.5">
+            <p class="text-[10px] mb-2 tag-mono uppercase tracking-wide" style="color: var(--ink-faint);">進行中</p>
+            <div class="kanban-card rounded-lg px-2 py-2 text-[11px]" style="border-color:#e8c4b3;">季度報告</div>
+          </div>
+          <div class="kanban-col rounded-xl p-2.5">
+            <p class="text-[10px] mb-2 tag-mono uppercase tracking-wide" style="color: var(--ink-faint);">已完成</p>
+            <div class="kanban-card rounded-lg px-2 py-2 text-[11px] opacity-60 line-through">需求訪談</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature: 檔案共享 (square) -->
+      <div class="cell col-span-1 p-6 flex flex-col justify-between min-h-[168px] reveal" style="animation-delay:.22s">
+        <div class="w-10 h-10 rounded-xl grid place-items-center" style="background: var(--panel-2); border:1px solid var(--line);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5c574f" stroke-width="1.8"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+        </div>
+        <div>
+          <h3 class="font-display font-semibold text-[16px]">檔案共享</h3>
+          <p class="mt-1.5 text-[13.5px]" style="color: var(--ink-soft);">版本自動保留，權限一鍵設定。</p>
+        </div>
+      </div>
+
+      <!-- Feature: 團隊行事曆 (square) -->
+      <div class="cell col-span-1 p-6 flex flex-col justify-between min-h-[168px] reveal" style="animation-delay:.26s">
+        <div class="w-10 h-10 rounded-xl grid place-items-center" style="background: var(--panel-2); border:1px solid var(--line);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5c574f" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+        </div>
+        <div>
+          <h3 class="font-display font-semibold text-[16px]">團隊行事曆</h3>
+          <p class="mt-1.5 text-[13.5px]" style="color: var(--ink-soft);">會議與排休一目了然，自動避開衝突。</p>
+        </div>
+      </div>
+
+      <!-- Feature: 訊息通知 wide -->
+      <div id="workflow" class="cell col-span-2 p-6 flex flex-col justify-between min-h-[168px] reveal" style="animation-delay:.3s">
+        <div class="flex items-start justify-between">
+          <div class="w-10 h-10 rounded-xl grid place-items-center" style="background: var(--accent-soft);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a2431f" stroke-width="1.8"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+          </div>
+          <span class="chip text-[11px] px-2.5 py-1 rounded-full">智慧摘要</span>
+        </div>
+        <div>
+          <h3 class="font-display font-semibold text-[16px]">訊息通知</h3>
+          <p class="mt-1.5 text-[13.5px]" style="color: var(--ink-soft);">
+            將分散在各群組的重要訊息彙整成每日摘要，重要事項不再被淹沒。
+          </p>
+        </div>
+      </div>
+
+      <!-- Feature: 整合工具 -->
+      <div class="cell col-span-2 md:col-span-2 p-6 flex flex-col justify-between min-h-[168px] reveal" style="animation-delay:.34s">
+        <div class="flex items-center justify-between">
+          <h3 class="font-display font-semibold text-[16px]">整合工具</h3>
+          <span class="chip text-[11px] px-2.5 py-1 rounded-full">30+ 服務</span>
+        </div>
+        <div class="flex items-center gap-2 mt-2">
+          <span class="w-9 h-9 rounded-lg grid place-items-center text-[11px] font-semibold chip">Slack</span>
+          <span class="w-9 h-9 rounded-lg grid place-items-center text-[11px] font-semibold chip">Git</span>
+          <span class="w-9 h-9 rounded-lg grid place-items-center text-[11px] font-semibold chip">雲端</span>
+          <span class="w-9 h-9 rounded-lg grid place-items-center text-[11px] font-semibold chip" style="color: var(--ink-faint);">+27</span>
+        </div>
+      </div>
+
+      <!-- Testimonial cell -->
+      <div id="testimonial" class="cell col-span-2 md:col-span-2 row-span-2 p-7 flex flex-col justify-between reveal" style="animation-delay:.38s">
+        <svg width="26" height="20" viewBox="0 0 26 20" fill="none" style="color: var(--accent-soft);">
+          <path d="M0 20V11.4C0 4.8 4 .8 10.8 0l1 3.4C7.6 4.6 5.6 7 5.4 10h5.4V20H0zm14.6 0V11.4c0-6.6 4-10.6 10.8-11.4l1 3.4c-4.2 1.2-6.2 3.6-6.4 6.6h5.4V20H14.6z" fill="currentColor"/>
+        </svg>
+        <p class="font-display text-[19px] sm:text-[21px] leading-snug mt-4">
+          「導入格窗之後，我們的跨部門專案終於不用靠截圖跟接龍訊息對進度了。」
+        </p>
+        <div class="mt-6 flex items-center gap-3">
+          <img class="w-10 h-10 rounded-full" src="https://i.pravatar.cc/64?img=44" alt="客戶頭像">
+          <div>
+            <p class="text-[14px] font-medium">林亭儀</p>
+            <p class="text-[12.5px]" style="color: var(--ink-faint);">品牌行銷部協理・沐光設計</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Small stat cell -->
+      <div class="cell col-span-1 p-6 flex flex-col justify-center reveal" style="animation-delay:.42s">
+        <p class="font-display text-[30px] font-bold">98%</p>
+        <p class="mt-1 text-[12.5px]" style="color: var(--ink-soft);">團隊續訂率</p>
+      </div>
+
+      <!-- Small stat cell -->
+      <div class="cell col-span-1 p-6 flex flex-col justify-center reveal" style="animation-delay:.46s">
+        <p class="font-display text-[30px] font-bold">2,300+</p>
+        <p class="mt-1 text-[12.5px]" style="color: var(--ink-soft);">使用中團隊</p>
+      </div>
+
+      <!-- CTA cell wide -->
+      <div id="cta" class="cell cell-accent col-span-2 md:col-span-4 p-8 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 reveal" style="animation-delay:.5s">
+        <div>
+          <h3 class="font-display text-[22px] sm:text-[26px] font-semibold">準備好整理團隊的工作視窗了嗎？</h3>
+          <p class="mt-2 text-[14px] opacity-70 max-w-md">14 天完整功能試用，不需要信用卡，隨時可以取消。</p>
+        </div>
+        <div class="flex items-center gap-3 shrink-0">
+          <a href="#" class="text-[14px] font-medium px-5 py-2.5 rounded-full" style="background: var(--accent); color: var(--accent-ink);">立即免費試用</a>
+          <a href="#" class="text-[14px] font-medium px-5 py-2.5 rounded-full border border-white/20 opacity-80 hover:opacity-100 transition-opacity">預約產品展示</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-14 pt-8" style="border-top: 1px solid var(--line);">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <p class="text-[12.5px]" style="color: var(--ink-faint);">© 2026 格窗 GridWindow・版權所有</p>
+        <div class="flex items-center gap-5 text-[12.5px]" style="color: var(--ink-faint);">
+          <a href="#" class="hover:text-[var(--ink)] transition-colors">服務條款</a>
+          <a href="#" class="hover:text-[var(--ink)] transition-colors">隱私權政策</a>
+          <a href="#" class="hover:text-[var(--ink)] transition-colors">聯絡我們</a>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    // Staggered reveal is CSS-driven; add a subtle tilt-on-hover for the hero cell only.
+    (function () {
+      var cells = document.querySelectorAll('.cell');
+      cells.forEach(function (cell) {
+        cell.addEventListener('mousemove', function (e) {
+          var rect = cell.getBoundingClientRect();
+          var x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+          var y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+          cell.style.setProperty('--mx', x.toFixed(2));
+          cell.style.setProperty('--my', y.toFixed(2));
+        });
+      });
+
+      // Simple kanban drag-to-highlight interaction (visual only).
+      document.querySelectorAll('.kanban-card').forEach(function (card) {
+        card.addEventListener('click', function () {
+          card.style.borderColor = '#d9663b';
+          setTimeout(function () { card.style.borderColor = ''; }, 600);
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>
