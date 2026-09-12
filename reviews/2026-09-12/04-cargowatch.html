@@ -1,0 +1,931 @@
+<!-- style #28 Data-Dense Dashboard -->
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>貨艙通 CargoWatch｜倉儲運輸監控儀表板</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+TC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0e14;
+    --bg-side:#0c1017;
+    --surface:#121821;
+    --surface-2:#161d28;
+    --surface-3:#1b2330;
+    --border:#232c3a;
+    --border-soft:#1a212c;
+    --text-1:#e7eaf0;
+    --text-2:#9aa4b8;
+    --text-3:#616d82;
+    --accent:#6d7cf7;
+    --accent-soft:rgba(109,124,247,0.14);
+    --green:#10b981;
+    --green-soft:rgba(16,185,129,0.13);
+    --red:#ef4444;
+    --red-soft:rgba(239,68,68,0.13);
+    --amber:#f59e0b;
+    --amber-soft:rgba(245,158,11,0.13);
+    --blue:#38bdf8;
+    --blue-soft:rgba(56,189,248,0.13);
+  }
+  *{box-sizing:border-box;}
+  html,body{background:var(--bg);}
+  body{
+    font-family:'IBM Plex Sans','IBM Plex Sans TC',-apple-system,sans-serif;
+    color:var(--text-1);
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono-num{
+    font-family:'JetBrains Mono','IBM Plex Sans TC',monospace;
+    font-variant-numeric:tabular-nums;
+    letter-spacing:-0.01em;
+  }
+  ::-webkit-scrollbar{width:8px;height:8px;}
+  ::-webkit-scrollbar-track{background:transparent;}
+  ::-webkit-scrollbar-thumb{background:#2a3342;border-radius:8px;}
+  ::-webkit-scrollbar-thumb:hover{background:#38445a;}
+
+  .side-link{
+    display:flex;align-items:center;gap:10px;
+    padding:9px 14px;border-radius:8px;
+    color:var(--text-2);font-size:13.5px;font-weight:500;
+    border:1px solid transparent;
+    transition:background .15s,color .15s,border-color .15s;
+    cursor:pointer;
+  }
+  .side-link:hover{background:var(--surface-2);color:var(--text-1);}
+  .side-link.active{
+    background:var(--accent-soft);
+    color:#c3caff;
+    border-color:rgba(109,124,247,0.35);
+  }
+  .side-link .dot{width:6px;height:6px;border-radius:99px;background:currentColor;opacity:0;transition:opacity .15s;}
+  .side-link.active .dot{opacity:1;}
+
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:12px;
+    transition:border-color .15s,transform .15s,box-shadow .15s;
+  }
+  .card:hover{border-color:#33405a;box-shadow:0 4px 22px -8px rgba(0,0,0,0.55);}
+
+  .kpi-card{
+    background:linear-gradient(180deg,var(--surface-2) 0%, var(--surface) 100%);
+    border:1px solid var(--border);
+    border-radius:14px;
+  }
+
+  .badge{
+    display:inline-flex;align-items:center;gap:5px;
+    font-size:11.5px;font-weight:600;
+    padding:3px 9px;border-radius:999px;
+    line-height:1.4;
+    white-space:nowrap;
+  }
+  .badge-green{background:var(--green-soft);color:var(--green);}
+  .badge-red{background:var(--red-soft);color:var(--red);}
+  .badge-amber{background:var(--amber-soft);color:var(--amber);}
+  .badge-blue{background:var(--blue-soft);color:var(--blue);}
+  .badge-gray{background:var(--surface-3);color:var(--text-2);}
+
+  .up{color:var(--green);}
+  .down{color:var(--red);}
+
+  .meter{height:6px;border-radius:99px;background:var(--surface-3);overflow:hidden;}
+  .meter > span{display:block;height:100%;border-radius:99px;}
+
+  table.data-table{border-collapse:separate;border-spacing:0;width:100%;}
+  table.data-table th{
+    text-align:left;font-size:11px;font-weight:600;color:var(--text-3);
+    text-transform:uppercase;letter-spacing:.06em;
+    padding:9px 14px;border-bottom:1px solid var(--border);
+    background:var(--surface-2);
+    position:sticky;top:0;
+  }
+  table.data-table td{
+    padding:11px 14px;font-size:13px;color:var(--text-1);
+    border-bottom:1px solid var(--border-soft);
+  }
+  table.data-table tbody tr{transition:background .12s;}
+  table.data-table tbody tr:hover{background:var(--surface-2);}
+
+  .filter-pill{
+    font-size:12px;font-weight:600;padding:5px 12px;border-radius:8px;
+    color:var(--text-2);border:1px solid var(--border);cursor:pointer;
+    transition:all .15s;background:var(--surface);
+  }
+  .filter-pill:hover{color:var(--text-1);border-color:#3a4762;}
+  .filter-pill.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+
+  .tab-section{display:none;}
+  .tab-section.active{display:block;}
+
+  .sev-dot{width:8px;height:8px;border-radius:99px;flex-shrink:0;}
+
+  .scroll-x{overflow-x:auto;}
+  .scroll-x::-webkit-scrollbar{height:6px;}
+
+  .glow-line{
+    background:linear-gradient(90deg, transparent, var(--accent), transparent);
+    height:1px;opacity:.5;
+  }
+</style>
+</head>
+<body class="min-h-screen">
+<div class="flex min-h-screen">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="hidden lg:flex flex-col w-60 shrink-0 border-r" style="background:var(--bg-side);border-color:var(--border);">
+    <div class="flex items-center gap-2.5 px-5 py-5 border-b" style="border-color:var(--border);">
+      <div class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm" style="background:var(--accent);color:#fff;">CW</div>
+      <div>
+        <div class="font-semibold text-[15px] leading-tight">貨艙通</div>
+        <div class="text-[11px] tracking-wide" style="color:var(--text-3);">CargoWatch 營運監控</div>
+      </div>
+    </div>
+
+    <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+      <div class="px-3 pb-1 text-[10.5px] font-semibold tracking-wider" style="color:var(--text-3);">監控中心</div>
+      <div class="side-link active" data-tab="overview" onclick="showTab('overview')">
+        <span class="dot"></span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+        總覽
+      </div>
+      <div class="side-link" data-tab="warehouse" onclick="showTab('warehouse')">
+        <span class="dot"></span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9.5 12 3l9 6.5"/><path d="M5 9v11h14V9"/><path d="M9 20v-6h6v6"/></svg>
+        倉儲
+      </div>
+      <div class="side-link" data-tab="transport" onclick="showTab('transport')">
+        <span class="dot"></span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 16V7a1 1 0 0 1 1-1h9v10"/><path d="M13 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17.5" cy="18" r="2"/></svg>
+        運輸
+      </div>
+      <div class="side-link" data-tab="alerts" onclick="showTab('alerts')">
+        <span class="dot"></span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+        異常警示
+        <span class="ml-auto text-[10px] font-bold px-1.5 py-0.5 rounded-full mono-num" style="background:var(--red-soft);color:var(--red);">3</span>
+      </div>
+      <div class="side-link" data-tab="reports" onclick="showTab('reports')">
+        <span class="dot"></span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"/><path d="M9 13h6M9 17h4"/></svg>
+        報表
+      </div>
+
+      <div class="px-3 pt-5 pb-1 text-[10.5px] font-semibold tracking-wider" style="color:var(--text-3);">系統</div>
+      <div class="side-link">
+        <span class="dot"></span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
+        系統設定
+      </div>
+    </nav>
+
+    <div class="px-3 py-4 border-t" style="border-color:var(--border);">
+      <div class="flex items-center gap-2.5 px-2 py-2 rounded-lg" style="background:var(--surface-2);">
+        <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold" style="background:var(--surface-3);color:var(--text-1);">陳</div>
+        <div class="min-w-0">
+          <div class="text-[12.5px] font-medium truncate">陳詩涵・營運主管</div>
+          <div class="text-[11px] truncate" style="color:var(--text-3);">桃園物流中心</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <div class="flex-1 min-w-0 flex flex-col">
+
+    <!-- TOPBAR -->
+    <header class="flex items-center gap-4 px-4 sm:px-6 py-3.5 border-b sticky top-0 z-20 backdrop-blur" style="border-color:var(--border);background:rgba(10,14,20,0.9);">
+      <div class="lg:hidden font-semibold text-sm">貨艙通</div>
+      <div class="hidden sm:flex items-center gap-2 flex-1 max-w-md">
+        <div class="relative w-full">
+          <svg class="absolute left-3 top-1/2 -translate-y-1/2" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#616d82" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="text" placeholder="搜尋出貨單號、車牌、倉區代碼…" class="w-full pl-9 pr-3 py-2 rounded-lg text-[13px] outline-none" style="background:var(--surface-2);border:1px solid var(--border);color:var(--text-1);">
+        </div>
+      </div>
+      <div class="flex-1 sm:hidden"></div>
+      <div class="flex items-center gap-2 text-[12.5px] px-3 py-1.5 rounded-lg" style="background:var(--surface-2);border:1px solid var(--border);color:var(--text-2);">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        <span>2026/09/12（六）</span>
+      </div>
+      <button class="relative w-9 h-9 rounded-lg flex items-center justify-center" style="background:var(--surface-2);border:1px solid var(--border);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9aa4b8" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+        <span class="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full" style="background:var(--red);"></span>
+      </button>
+      <button class="text-[12.5px] font-semibold px-3.5 py-2 rounded-lg" style="background:var(--accent);color:#fff;">
+        ＋ 建立出貨單
+      </button>
+    </header>
+
+    <main class="flex-1 px-4 sm:px-6 py-5 space-y-5 max-w-[1600px] w-full mx-auto">
+
+      <!-- =================== 總覽 =================== -->
+      <section id="tab-overview" class="tab-section active space-y-5">
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <div>
+            <h1 class="text-[19px] font-semibold">營運總覽</h1>
+            <p class="text-[13px]" style="color:var(--text-3);">最後更新於 2026/09/12 18:42・每 5 分鐘自動同步</p>
+          </div>
+          <div class="flex gap-2">
+            <button class="filter-pill active">今日</button>
+            <button class="filter-pill">近 7 天</button>
+            <button class="filter-pill">近 30 天</button>
+          </div>
+        </div>
+
+        <!-- KPI ROW -->
+        <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4">
+          <div class="kpi-card p-4">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[12.5px]" style="color:var(--text-2);">今日出貨量</span>
+              <span class="badge badge-green">▲ <span class="mono-num">4.2%</span></span>
+            </div>
+            <div class="text-[26px] font-semibold mono-num leading-none">12,847<span class="text-[13px] font-normal ml-1" style="color:var(--text-3);">件</span></div>
+            <div class="text-[11.5px] mt-1.5" style="color:var(--text-3);">較昨日同期 <span class="mono-num up">+518 件</span></div>
+          </div>
+          <div class="kpi-card p-4">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[12.5px]" style="color:var(--text-2);">準時交付率</span>
+              <span class="badge badge-green">▲ <span class="mono-num">0.6pp</span></span>
+            </div>
+            <div class="text-[26px] font-semibold mono-num leading-none">96.8<span class="text-[15px]">%</span></div>
+            <div class="text-[11.5px] mt-1.5" style="color:var(--text-3);">目標值 <span class="mono-num">95.0%</span>・已達標</div>
+          </div>
+          <div class="kpi-card p-4">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[12.5px]" style="color:var(--text-2);">庫存週轉率</span>
+              <span class="badge badge-red">▼ <span class="mono-num">0.3</span></span>
+            </div>
+            <div class="text-[26px] font-semibold mono-num leading-none">8.4<span class="text-[13px] font-normal ml-1" style="color:var(--text-3);">次/月</span></div>
+            <div class="text-[11.5px] mt-1.5" style="color:var(--text-3);">上月 <span class="mono-num">8.7 次/月</span></div>
+          </div>
+          <div class="kpi-card p-4">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[12.5px]" style="color:var(--text-2);">異常件數</span>
+              <span class="badge badge-red">▲ <span class="mono-num">12%</span></span>
+            </div>
+            <div class="text-[26px] font-semibold mono-num leading-none">23<span class="text-[13px] font-normal ml-1" style="color:var(--text-3);">件</span></div>
+            <div class="text-[11.5px] mt-1.5" style="color:var(--text-3);">其中高風險 <span class="mono-num down">2 件</span></div>
+          </div>
+          <div class="kpi-card p-4">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[12.5px]" style="color:var(--text-2);">在途車輛數</span>
+              <span class="badge badge-green">▲ <span class="mono-num">8 輛</span></span>
+            </div>
+            <div class="text-[26px] font-semibold mono-num leading-none">156<span class="text-[13px] font-normal ml-1" style="color:var(--text-3);">輛</span></div>
+            <div class="text-[11.5px] mt-1.5" style="color:var(--text-3);">涵蓋 <span class="mono-num">5</span> 條配送線</div>
+          </div>
+        </div>
+
+        <!-- DENSE GRID: zones + chart + alerts -->
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+          <!-- zone mini grid -->
+          <div class="card p-4 xl:col-span-2">
+            <div class="flex items-center justify-between mb-3">
+              <h2 class="text-[14px] font-semibold">倉區使用率快照</h2>
+              <span class="text-[11.5px]" style="color:var(--text-3);">共 8 個作業倉區</span>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div class="rounded-lg p-3" style="background:var(--surface-2);border:1px solid var(--border-soft);">
+                <div class="text-[12px] mb-1" style="color:var(--text-2);">A區・常溫倉</div>
+                <div class="text-[18px] font-semibold mono-num mb-1.5">92<span class="text-[11px]">%</span></div>
+                <div class="meter"><span style="width:92%;background:var(--red);"></span></div>
+              </div>
+              <div class="rounded-lg p-3" style="background:var(--surface-2);border:1px solid var(--border-soft);">
+                <div class="text-[12px] mb-1" style="color:var(--text-2);">B區・常溫倉</div>
+                <div class="text-[18px] font-semibold mono-num mb-1.5">85<span class="text-[11px]">%</span></div>
+                <div class="meter"><span style="width:85%;background:var(--amber);"></span></div>
+              </div>
+              <div class="rounded-lg p-3" style="background:var(--surface-2);border:1px solid var(--border-soft);">
+                <div class="text-[12px] mb-1" style="color:var(--text-2);">C區・電商倉</div>
+                <div class="text-[18px] font-semibold mono-num mb-1.5">78<span class="text-[11px]">%</span></div>
+                <div class="meter"><span style="width:78%;background:var(--amber);"></span></div>
+              </div>
+              <div class="rounded-lg p-3" style="background:var(--surface-2);border:1px solid var(--border-soft);">
+                <div class="text-[12px] mb-1" style="color:var(--text-2);">D區・快出倉</div>
+                <div class="text-[18px] font-semibold mono-num mb-1.5">88<span class="text-[11px]">%</span></div>
+                <div class="meter"><span style="width:88%;background:var(--amber);"></span></div>
+              </div>
+              <div class="rounded-lg p-3" style="background:var(--surface-2);border:1px solid var(--border-soft);">
+                <div class="text-[12px] mb-1" style="color:var(--text-2);">冷藏區・4°C</div>
+                <div class="text-[18px] font-semibold mono-num mb-1.5">74<span class="text-[11px]">%</span></div>
+                <div class="meter"><span style="width:74%;background:var(--green);"></span></div>
+              </div>
+              <div class="rounded-lg p-3" style="background:var(--surface-2);border:1px solid var(--border-soft);">
+                <div class="text-[12px] mb-1" style="color:var(--text-2);">冷凍區・-18°C</div>
+                <div class="text-[18px] font-semibold mono-num mb-1.5">55<span class="text-[11px]">%</span></div>
+                <div class="meter"><span style="width:55%;background:var(--green);"></span></div>
+              </div>
+              <div class="rounded-lg p-3" style="background:var(--surface-2);border:1px solid var(--border-soft);">
+                <div class="text-[12px] mb-1" style="color:var(--text-2);">危險品倉</div>
+                <div class="text-[18px] font-semibold mono-num mb-1.5">40<span class="text-[11px]">%</span></div>
+                <div class="meter"><span style="width:40%;background:var(--green);"></span></div>
+              </div>
+              <div class="rounded-lg p-3" style="background:var(--surface-2);border:1px solid var(--border-soft);">
+                <div class="text-[12px] mb-1" style="color:var(--text-2);">退貨處理區</div>
+                <div class="text-[18px] font-semibold mono-num mb-1.5">63<span class="text-[11px]">%</span></div>
+                <div class="meter"><span style="width:63%;background:var(--green);"></span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- alerts panel -->
+          <div class="card p-4">
+            <div class="flex items-center justify-between mb-3">
+              <h2 class="text-[14px] font-semibold">最新異常警示</h2>
+              <button onclick="showTab('alerts')" class="text-[12px] font-medium" style="color:var(--accent);">查看全部 →</button>
+            </div>
+            <div class="space-y-3">
+              <div class="flex gap-2.5">
+                <span class="sev-dot mt-1.5" style="background:var(--red);"></span>
+                <div class="min-w-0 flex-1">
+                  <div class="text-[13px] font-medium">冷凍區溫度超標</div>
+                  <div class="text-[11.5px]" style="color:var(--text-3);">-18°C → <span class="mono-num">-9°C</span>・13:42・處理中</div>
+                </div>
+              </div>
+              <div class="flex gap-2.5">
+                <span class="sev-dot mt-1.5" style="background:var(--red);"></span>
+                <div class="min-w-0 flex-1">
+                  <div class="text-[13px] font-medium">CW-88235 貨損通報</div>
+                  <div class="text-[11.5px]" style="color:var(--text-3);">東海物流路線・12:10・待處理</div>
+                </div>
+              </div>
+              <div class="flex gap-2.5">
+                <span class="sev-dot mt-1.5" style="background:var(--amber);"></span>
+                <div class="min-w-0 flex-1">
+                  <div class="text-[13px] font-medium">B區堆高機故障</div>
+                  <div class="text-[11.5px]" style="color:var(--text-3);">編號 FL-07・10:05・處理中</div>
+                </div>
+              </div>
+              <div class="flex gap-2.5">
+                <span class="sev-dot mt-1.5" style="background:var(--amber);"></span>
+                <div class="min-w-0 flex-1">
+                  <div class="text-[13px] font-medium">3312-TB 車輛 GPS 訊號中斷</div>
+                  <div class="text-[11.5px]" style="color:var(--text-3);">中區配送線・15:22・待處理</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- trend chart + on-time sparkline -->
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+          <div class="card p-4 xl:col-span-2">
+            <div class="flex items-center justify-between mb-1">
+              <h2 class="text-[14px] font-semibold">近 7 日出貨量趨勢</h2>
+              <div class="flex items-center gap-1.5 text-[11.5px]" style="color:var(--text-3);">
+                <span class="w-2.5 h-2.5 rounded-sm" style="background:var(--accent);"></span> 出貨件數（件）
+              </div>
+            </div>
+            <svg viewBox="0 0 700 200" class="w-full h-[190px]">
+              <line x1="0" y1="170" x2="700" y2="170" stroke="#232c3a" stroke-width="1"/>
+              <line x1="0" y1="120" x2="700" y2="120" stroke="#1a212c" stroke-width="1"/>
+              <line x1="0" y1="70" x2="700" y2="70" stroke="#1a212c" stroke-width="1"/>
+              <!-- bars: values 10240 9860 11050 11480 10920 12150 12847 scaled to max 13000 -->
+              <g>
+                <rect x="20"  y="70.6" width="60" height="99.4" rx="4" fill="#232c3a"/>
+                <rect x="120" y="76.9" width="60" height="93.1" rx="4" fill="#232c3a"/>
+                <rect x="220" y="59.9" width="60" height="110.1" rx="4" fill="#232c3a"/>
+                <rect x="320" y="53.8" width="60" height="116.2" rx="4" fill="#232c3a"/>
+                <rect x="420" y="65.3" width="60" height="104.7" rx="4" fill="#232c3a"/>
+                <rect x="520" y="42.7" width="60" height="127.3" rx="4" fill="#232c3a"/>
+                <rect x="620" y="26.6" width="60" height="143.4" rx="4" fill="var(--accent)"/>
+              </g>
+              <text x="50"  y="188" text-anchor="middle" font-size="11" fill="#616d82" font-family="IBM Plex Sans TC">09/06</text>
+              <text x="150" y="188" text-anchor="middle" font-size="11" fill="#616d82" font-family="IBM Plex Sans TC">09/07</text>
+              <text x="250" y="188" text-anchor="middle" font-size="11" fill="#616d82" font-family="IBM Plex Sans TC">09/08</text>
+              <text x="350" y="188" text-anchor="middle" font-size="11" fill="#616d82" font-family="IBM Plex Sans TC">09/09</text>
+              <text x="450" y="188" text-anchor="middle" font-size="11" fill="#616d82" font-family="IBM Plex Sans TC">09/10</text>
+              <text x="550" y="188" text-anchor="middle" font-size="11" fill="#616d82" font-family="IBM Plex Sans TC">09/11</text>
+              <text x="650" y="188" text-anchor="middle" font-size="11" fill="#c3caff" font-family="IBM Plex Sans TC" font-weight="600">09/12</text>
+              <text x="650" y="20" text-anchor="middle" font-size="12" fill="#c3caff" font-family="JetBrains Mono" font-weight="600">12,847</text>
+            </svg>
+          </div>
+
+          <div class="card p-4">
+            <h2 class="text-[14px] font-semibold mb-1">準時率走勢</h2>
+            <p class="text-[11.5px] mb-2" style="color:var(--text-3);">近 7 日，單位 %</p>
+            <svg viewBox="0 0 260 120" class="w-full h-[110px]">
+              <polyline points="10,45 50,38 90,52 130,28 170,22 210,25 250,15" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="250" cy="15" r="4" fill="var(--green)"/>
+            </svg>
+            <div class="flex items-baseline justify-between mt-1">
+              <span class="text-[11.5px]" style="color:var(--text-3);">95.1% → </span>
+              <span class="text-[20px] font-semibold mono-num up">96.8%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- shipments table -->
+        <div class="card p-0 overflow-hidden">
+          <div class="flex items-center justify-between px-4 py-3.5 border-b flex-wrap gap-2" style="border-color:var(--border);">
+            <h2 class="text-[14px] font-semibold">最近出貨紀錄</h2>
+            <div class="flex gap-2 flex-wrap">
+              <button class="filter-pill ship-filter active" data-status="all">全部</button>
+              <button class="filter-pill ship-filter" data-status="已送達">已送達</button>
+              <button class="filter-pill ship-filter" data-status="運送中">運送中</button>
+              <button class="filter-pill ship-filter" data-status="延遲">延遲</button>
+              <button class="filter-pill ship-filter" data-status="異常">異常</button>
+            </div>
+          </div>
+          <div class="scroll-x">
+          <table class="data-table" id="shipTable">
+            <thead>
+              <tr>
+                <th>出貨單號</th><th>客戶</th><th>目的地</th><th>配送車輛</th><th>狀態</th><th>預計到達</th><th>準點差異</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-status="已送達">
+                <td class="mono-num" style="color:var(--text-2);">CW-88231</td><td>大立五金行</td><td>新竹市</td><td class="mono-num">9527-TA</td>
+                <td><span class="badge badge-green">已送達</span></td><td class="mono-num">09/12 14:20</td><td class="mono-num up">準時</td>
+              </tr>
+              <tr data-status="運送中">
+                <td class="mono-num" style="color:var(--text-2);">CW-88232</td><td>展鴻食品</td><td>台中市</td><td class="mono-num">3312-TB</td>
+                <td><span class="badge badge-blue">運送中</span></td><td class="mono-num">09/12 16:40</td><td style="color:var(--text-3);">—</td>
+              </tr>
+              <tr data-status="延遲">
+                <td class="mono-num" style="color:var(--text-2);">CW-88233</td><td>昇陽電子</td><td>高雄市</td><td class="mono-num">5588-TC</td>
+                <td><span class="badge badge-amber">延遲</span></td><td class="mono-num">09/12 18:10</td><td class="mono-num down">+42 分鐘</td>
+              </tr>
+              <tr data-status="已送達">
+                <td class="mono-num" style="color:var(--text-2);">CW-88234</td><td>福星超市</td><td>台南市</td><td class="mono-num">7741-TD</td>
+                <td><span class="badge badge-green">已送達</span></td><td class="mono-num">09/12 11:05</td><td class="mono-num up">準時</td>
+              </tr>
+              <tr data-status="異常">
+                <td class="mono-num" style="color:var(--text-2);">CW-88235</td><td>東海物流</td><td>花蓮縣</td><td class="mono-num">2209-TE</td>
+                <td><span class="badge badge-red">異常</span></td><td style="color:var(--text-3);">—</td><td class="mono-num down">貨損通報</td>
+              </tr>
+              <tr data-status="運送中">
+                <td class="mono-num" style="color:var(--text-2);">CW-88236</td><td>群英百貨</td><td>彰化縣</td><td class="mono-num">6634-TF</td>
+                <td><span class="badge badge-blue">運送中</span></td><td class="mono-num">09/12 17:15</td><td style="color:var(--text-3);">—</td>
+              </tr>
+              <tr data-status="已送達">
+                <td class="mono-num" style="color:var(--text-2);">CW-88237</td><td>明日科技</td><td>新北市</td><td class="mono-num">8890-TG</td>
+                <td><span class="badge badge-green">已送達</span></td><td class="mono-num">09/12 09:50</td><td class="mono-num up">提前 12 分鐘</td>
+              </tr>
+              <tr data-status="延遲">
+                <td class="mono-num" style="color:var(--text-2);">CW-88238</td><td>佳美紡織</td><td>桃園市</td><td class="mono-num">4471-TH</td>
+                <td><span class="badge badge-amber">延遲</span></td><td class="mono-num">09/12 19:30</td><td class="mono-num down">+25 分鐘</td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+          <div class="px-4 py-3 text-[11.5px] flex items-center justify-between" style="color:var(--text-3);border-top:1px solid var(--border);">
+            <span>顯示 <span class="mono-num">8</span> / <span class="mono-num">312</span> 筆紀錄</span>
+            <span>資料來源：TMS 運輸管理系統</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================== 倉儲 =================== -->
+      <section id="tab-warehouse" class="tab-section space-y-5">
+        <div>
+          <h1 class="text-[19px] font-semibold">倉儲管理</h1>
+          <p class="text-[13px]" style="color:var(--text-3);">桃園物流中心・8 個作業倉區・總坪數 <span class="mono-num">14,200</span> 坪</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="kpi-card p-4">
+            <div class="text-[12.5px] mb-1.5" style="color:var(--text-2);">庫存總量</div>
+            <div class="text-[24px] font-semibold mono-num">184,320<span class="text-[12px] font-normal ml-1" style="color:var(--text-3);">件</span></div>
+            <div class="text-[11.5px] mt-1 up mono-num">▲ 2.1% 較上週</div>
+          </div>
+          <div class="kpi-card p-4">
+            <div class="text-[12.5px] mb-1.5" style="color:var(--text-2);">平均庫位使用率</div>
+            <div class="text-[24px] font-semibold mono-num">72.1<span class="text-[13px]">%</span></div>
+            <div class="text-[11.5px] mt-1" style="color:var(--text-3);">安全上限 <span class="mono-num">85%</span></div>
+          </div>
+          <div class="kpi-card p-4">
+            <div class="text-[12.5px] mb-1.5" style="color:var(--text-2);">揀貨效率</div>
+            <div class="text-[24px] font-semibold mono-num">96<span class="text-[13px] font-normal ml-1" style="color:var(--text-3);">件/人時</span></div>
+            <div class="text-[11.5px] mt-1 up mono-num">▲ 3 件/人時</div>
+          </div>
+          <div class="kpi-card p-4">
+            <div class="text-[12.5px] mb-1.5" style="color:var(--text-2);">盤點差異率</div>
+            <div class="text-[24px] font-semibold mono-num">0.34<span class="text-[13px]">%</span></div>
+            <div class="text-[11.5px] mt-1 down mono-num">▲ 0.05pp 需留意</div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+          <div class="card p-4">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-[13.5px] font-semibold">A區・常溫倉</h3><span class="badge badge-red">高負載</span>
+            </div>
+            <div class="text-[22px] font-semibold mono-num mb-1">92<span class="text-[12px]">%</span></div>
+            <div class="meter mb-3"><span style="width:92%;background:var(--red);"></span></div>
+            <div class="grid grid-cols-2 gap-y-1 text-[11.5px]" style="color:var(--text-3);">
+              <span>庫位數</span><span class="mono-num text-right" style="color:var(--text-1);">1,840</span>
+              <span>昨日進貨</span><span class="mono-num text-right" style="color:var(--text-1);">1,240</span>
+              <span>昨日出貨</span><span class="mono-num text-right" style="color:var(--text-1);">1,180</span>
+            </div>
+          </div>
+          <div class="card p-4">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-[13.5px] font-semibold">B區・常溫倉</h3><span class="badge badge-amber">偏高</span>
+            </div>
+            <div class="text-[22px] font-semibold mono-num mb-1">85<span class="text-[12px]">%</span></div>
+            <div class="meter mb-3"><span style="width:85%;background:var(--amber);"></span></div>
+            <div class="grid grid-cols-2 gap-y-1 text-[11.5px]" style="color:var(--text-3);">
+              <span>庫位數</span><span class="mono-num text-right" style="color:var(--text-1);">1,620</span>
+              <span>昨日進貨</span><span class="mono-num text-right" style="color:var(--text-1);">960</span>
+              <span>昨日出貨</span><span class="mono-num text-right" style="color:var(--text-1);">1,040</span>
+            </div>
+          </div>
+          <div class="card p-4">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-[13.5px] font-semibold">C區・電商倉</h3><span class="badge badge-amber">偏高</span>
+            </div>
+            <div class="text-[22px] font-semibold mono-num mb-1">78<span class="text-[12px]">%</span></div>
+            <div class="meter mb-3"><span style="width:78%;background:var(--amber);"></span></div>
+            <div class="grid grid-cols-2 gap-y-1 text-[11.5px]" style="color:var(--text-3);">
+              <span>庫位數</span><span class="mono-num text-right" style="color:var(--text-1);">2,210</span>
+              <span>昨日進貨</span><span class="mono-num text-right" style="color:var(--text-1);">2,860</span>
+              <span>昨日出貨</span><span class="mono-num text-right" style="color:var(--text-1);">2,940</span>
+            </div>
+          </div>
+          <div class="card p-4">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-[13.5px] font-semibold">D區・快出倉</h3><span class="badge badge-amber">偏高</span>
+            </div>
+            <div class="text-[22px] font-semibold mono-num mb-1">88<span class="text-[12px]">%</span></div>
+            <div class="meter mb-3"><span style="width:88%;background:var(--amber);"></span></div>
+            <div class="grid grid-cols-2 gap-y-1 text-[11.5px]" style="color:var(--text-3);">
+              <span>庫位數</span><span class="mono-num text-right" style="color:var(--text-1);">980</span>
+              <span>昨日進貨</span><span class="mono-num text-right" style="color:var(--text-1);">1,510</span>
+              <span>昨日出貨</span><span class="mono-num text-right" style="color:var(--text-1);">1,620</span>
+            </div>
+          </div>
+          <div class="card p-4">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-[13.5px] font-semibold">冷藏區・4°C</h3><span class="badge badge-green">正常</span>
+            </div>
+            <div class="text-[22px] font-semibold mono-num mb-1">74<span class="text-[12px]">%</span></div>
+            <div class="meter mb-3"><span style="width:74%;background:var(--green);"></span></div>
+            <div class="grid grid-cols-2 gap-y-1 text-[11.5px]" style="color:var(--text-3);">
+              <span>濕度</span><span class="mono-num text-right" style="color:var(--text-1);">48%</span>
+              <span>昨日進貨</span><span class="mono-num text-right" style="color:var(--text-1);">640</span>
+              <span>昨日出貨</span><span class="mono-num text-right" style="color:var(--text-1);">610</span>
+            </div>
+          </div>
+          <div class="card p-4">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-[13.5px] font-semibold">冷凍區・-18°C</h3><span class="badge badge-red">溫控異常</span>
+            </div>
+            <div class="text-[22px] font-semibold mono-num mb-1">55<span class="text-[12px]">%</span></div>
+            <div class="meter mb-3"><span style="width:55%;background:var(--green);"></span></div>
+            <div class="grid grid-cols-2 gap-y-1 text-[11.5px]" style="color:var(--text-3);">
+              <span>目前溫度</span><span class="mono-num text-right down">-9°C</span>
+              <span>昨日進貨</span><span class="mono-num text-right" style="color:var(--text-1);">320</span>
+              <span>昨日出貨</span><span class="mono-num text-right" style="color:var(--text-1);">295</span>
+            </div>
+          </div>
+          <div class="card p-4">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-[13.5px] font-semibold">危險品倉</h3><span class="badge badge-green">正常</span>
+            </div>
+            <div class="text-[22px] font-semibold mono-num mb-1">40<span class="text-[12px]">%</span></div>
+            <div class="meter mb-3"><span style="width:40%;background:var(--green);"></span></div>
+            <div class="grid grid-cols-2 gap-y-1 text-[11.5px]" style="color:var(--text-3);">
+              <span>濕度</span><span class="mono-num text-right down">65%</span>
+              <span>昨日進貨</span><span class="mono-num text-right" style="color:var(--text-1);">85</span>
+              <span>昨日出貨</span><span class="mono-num text-right" style="color:var(--text-1);">72</span>
+            </div>
+          </div>
+          <div class="card p-4">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-[13.5px] font-semibold">退貨處理區</h3><span class="badge badge-green">正常</span>
+            </div>
+            <div class="text-[22px] font-semibold mono-num mb-1">63<span class="text-[12px]">%</span></div>
+            <div class="meter mb-3"><span style="width:63%;background:var(--green);"></span></div>
+            <div class="grid grid-cols-2 gap-y-1 text-[11.5px]" style="color:var(--text-3);">
+              <span>待處理件數</span><span class="mono-num text-right" style="color:var(--text-1);">214</span>
+              <span>昨日入庫</span><span class="mono-num text-right" style="color:var(--text-1);">98</span>
+              <span>昨日完結</span><span class="mono-num text-right" style="color:var(--text-1);">76</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================== 運輸 =================== -->
+      <section id="tab-transport" class="tab-section space-y-5">
+        <div>
+          <h1 class="text-[19px] font-semibold">運輸調度</h1>
+          <p class="text-[13px]" style="color:var(--text-3);">全台 5 條主要配送線・自有車隊 <span class="mono-num">156</span> 輛</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="kpi-card p-4">
+            <div class="text-[12.5px] mb-1.5" style="color:var(--text-2);">在途車輛</div>
+            <div class="text-[24px] font-semibold mono-num">156<span class="text-[12px] font-normal ml-1" style="color:var(--text-3);">輛</span></div>
+            <div class="text-[11.5px] mt-1 up mono-num">▲ 8 輛較昨日</div>
+          </div>
+          <div class="kpi-card p-4">
+            <div class="text-[12.5px] mb-1.5" style="color:var(--text-2);">整體準時率</div>
+            <div class="text-[24px] font-semibold mono-num">96.8<span class="text-[13px]">%</span></div>
+            <div class="text-[11.5px] mt-1" style="color:var(--text-3);">目標 <span class="mono-num">95.0%</span></div>
+          </div>
+          <div class="kpi-card p-4">
+            <div class="text-[12.5px] mb-1.5" style="color:var(--text-2);">平均配送時長</div>
+            <div class="text-[24px] font-semibold mono-num">2.6<span class="text-[13px] font-normal ml-1" style="color:var(--text-3);">小時</span></div>
+            <div class="text-[11.5px] mt-1 up mono-num">▼ 0.2 小時</div>
+          </div>
+          <div class="kpi-card p-4">
+            <div class="text-[12.5px] mb-1.5" style="color:var(--text-2);">平均油耗</div>
+            <div class="text-[24px] font-semibold mono-num">18.4<span class="text-[12px] font-normal ml-1" style="color:var(--text-3);">公升/百公里</span></div>
+            <div class="text-[11.5px] mt-1 down mono-num">▲ 0.6 較上月</div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+          <div class="card p-4">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-[13.5px] font-semibold">北區配送線</h3><span class="badge badge-green">運作正常</span>
+            </div>
+            <p class="text-[11.5px] mb-3" style="color:var(--text-3);">台北 ⇄ 新竹</p>
+            <div class="grid grid-cols-2 gap-y-2 text-[12px]">
+              <span style="color:var(--text-3);">準時率</span><span class="mono-num text-right up">97.2%</span>
+              <span style="color:var(--text-3);">在途車輛</span><span class="mono-num text-right">34 輛</span>
+              <span style="color:var(--text-3);">今日單量</span><span class="mono-num text-right">4,120 件</span>
+            </div>
+          </div>
+          <div class="card p-4">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-[13.5px] font-semibold">中區配送線</h3><span class="badge badge-green">運作正常</span>
+            </div>
+            <p class="text-[11.5px] mb-3" style="color:var(--text-3);">台中 ⇄ 彰化</p>
+            <div class="grid grid-cols-2 gap-y-2 text-[12px]">
+              <span style="color:var(--text-3);">準時率</span><span class="mono-num text-right up">95.8%</span>
+              <span style="color:var(--text-3);">在途車輛</span><span class="mono-num text-right">28 輛</span>
+              <span style="color:var(--text-3);">今日單量</span><span class="mono-num text-right">3,340 件</span>
+            </div>
+          </div>
+          <div class="card p-4">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-[13.5px] font-semibold">南區配送線</h3><span class="badge badge-amber">壅塞預警</span>
+            </div>
+            <p class="text-[11.5px] mb-3" style="color:var(--text-3);">台南 ⇄ 高雄</p>
+            <div class="grid grid-cols-2 gap-y-2 text-[12px]">
+              <span style="color:var(--text-3);">準時率</span><span class="mono-num text-right down">94.1%</span>
+              <span style="color:var(--text-3);">在途車輛</span><span class="mono-num text-right">41 輛</span>
+              <span style="color:var(--text-3);">今日單量</span><span class="mono-num text-right">4,860 件</span>
+            </div>
+          </div>
+          <div class="card p-4">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-[13.5px] font-semibold">東區配送線</h3><span class="badge badge-amber">路況不佳</span>
+            </div>
+            <p class="text-[11.5px] mb-3" style="color:var(--text-3);">花蓮 ⇄ 台東</p>
+            <div class="grid grid-cols-2 gap-y-2 text-[12px]">
+              <span style="color:var(--text-3);">準時率</span><span class="mono-num text-right down">91.5%</span>
+              <span style="color:var(--text-3);">在途車輛</span><span class="mono-num text-right">12 輛</span>
+              <span style="color:var(--text-3);">今日單量</span><span class="mono-num text-right">980 件</span>
+            </div>
+          </div>
+          <div class="card p-4">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-[13.5px] font-semibold">離島配送線</h3><span class="badge badge-red">延遲風險</span>
+            </div>
+            <p class="text-[11.5px] mb-3" style="color:var(--text-3);">澎湖 海運轉運</p>
+            <div class="grid grid-cols-2 gap-y-2 text-[12px]">
+              <span style="color:var(--text-3);">準時率</span><span class="mono-num text-right down">88.3%</span>
+              <span style="color:var(--text-3);">在途車輛</span><span class="mono-num text-right">6 輛</span>
+              <span style="color:var(--text-3);">今日單量</span><span class="mono-num text-right">210 件</span>
+            </div>
+          </div>
+          <div class="card p-4">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-[13.5px] font-semibold">北區加班線</h3><span class="badge badge-green">運作正常</span>
+            </div>
+            <p class="text-[11.5px] mb-3" style="color:var(--text-3);">桃園 ⇄ 新竹（尖峰加開）</p>
+            <div class="grid grid-cols-2 gap-y-2 text-[12px]">
+              <span style="color:var(--text-3);">準時率</span><span class="mono-num text-right up">96.0%</span>
+              <span style="color:var(--text-3);">在途車輛</span><span class="mono-num text-right">9 輛</span>
+              <span style="color:var(--text-3);">今日單量</span><span class="mono-num text-right">1,120 件</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card p-0 overflow-hidden">
+          <div class="px-4 py-3.5 border-b" style="border-color:var(--border);">
+            <h2 class="text-[14px] font-semibold">車輛即時狀態</h2>
+          </div>
+          <div class="scroll-x">
+          <table class="data-table">
+            <thead><tr><th>車牌</th><th>司機</th><th>路線</th><th>今日里程</th><th>油耗</th><th>狀態</th></tr></thead>
+            <tbody>
+              <tr><td class="mono-num">9527-TA</td><td>林建宏</td><td>北區配送線</td><td class="mono-num">182 公里</td><td class="mono-num">17.2</td><td><span class="badge badge-green">配送中</span></td></tr>
+              <tr><td class="mono-num">3312-TB</td><td>王思婷</td><td>中區配送線</td><td class="mono-num">96 公里</td><td class="mono-num">18.9</td><td><span class="badge badge-amber">GPS 中斷</span></td></tr>
+              <tr><td class="mono-num">5588-TC</td><td>張家豪</td><td>南區配送線</td><td class="mono-num">211 公里</td><td class="mono-num">19.4</td><td><span class="badge badge-amber">延遲</span></td></tr>
+              <tr><td class="mono-num">2209-TE</td><td>吳俊彥</td><td>東區配送線</td><td class="mono-num">154 公里</td><td class="mono-num">20.1</td><td><span class="badge badge-red">貨損通報</span></td></tr>
+              <tr><td class="mono-num">8890-TG</td><td>李佳穎</td><td>北區配送線</td><td class="mono-num">88 公里</td><td class="mono-num">16.8</td><td><span class="badge badge-blue">已收工</span></td></tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================== 異常警示 =================== -->
+      <section id="tab-alerts" class="tab-section space-y-5">
+        <div>
+          <h1 class="text-[19px] font-semibold">異常警示中心</h1>
+          <p class="text-[13px]" style="color:var(--text-3);">今日共 <span class="mono-num">23</span> 件異常，其中 <span class="mono-num down">3</span> 件待處理</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="kpi-card p-4">
+            <div class="text-[12.5px] mb-1.5" style="color:var(--text-2);">高風險</div>
+            <div class="text-[24px] font-semibold mono-num down">2<span class="text-[13px] font-normal ml-1" style="color:var(--text-3);">件</span></div>
+          </div>
+          <div class="kpi-card p-4">
+            <div class="text-[12.5px] mb-1.5" style="color:var(--text-2);">中風險</div>
+            <div class="text-[24px] font-semibold mono-num" style="color:var(--amber);">2<span class="text-[13px] font-normal ml-1" style="color:var(--text-3);">件</span></div>
+          </div>
+          <div class="kpi-card p-4">
+            <div class="text-[12.5px] mb-1.5" style="color:var(--text-2);">低風險</div>
+            <div class="text-[24px] font-semibold mono-num up">2<span class="text-[13px] font-normal ml-1" style="color:var(--text-3);">件</span></div>
+          </div>
+          <div class="kpi-card p-4">
+            <div class="text-[12.5px] mb-1.5" style="color:var(--text-2);">平均處理時長</div>
+            <div class="text-[24px] font-semibold mono-num">38<span class="text-[13px] font-normal ml-1" style="color:var(--text-3);">分鐘</span></div>
+          </div>
+        </div>
+
+        <div class="card p-0 overflow-hidden">
+          <div class="flex items-center justify-between px-4 py-3.5 border-b flex-wrap gap-2" style="border-color:var(--border);">
+            <h2 class="text-[14px] font-semibold">警示清單</h2>
+            <div class="flex gap-2 flex-wrap">
+              <button class="filter-pill alert-filter active" data-sev="all">全部</button>
+              <button class="filter-pill alert-filter" data-sev="high">高風險</button>
+              <button class="filter-pill alert-filter" data-sev="mid">中風險</button>
+              <button class="filter-pill alert-filter" data-sev="low">低風險</button>
+            </div>
+          </div>
+          <div class="scroll-x">
+          <table class="data-table" id="alertTable">
+            <thead><tr><th>嚴重程度</th><th>事件</th><th>發生位置</th><th>時間</th><th>狀態</th></tr></thead>
+            <tbody>
+              <tr data-sev="high">
+                <td><span class="badge badge-red">高</span></td><td>冷凍區溫度超標（-18°C → -9°C）</td><td>冷凍區</td>
+                <td class="mono-num">13:42</td><td><span class="badge badge-amber">處理中</span></td>
+              </tr>
+              <tr data-sev="high">
+                <td><span class="badge badge-red">高</span></td><td>CW-88235 貨損通報</td><td>東海物流路線</td>
+                <td class="mono-num">12:10</td><td><span class="badge badge-red">待處理</span></td>
+              </tr>
+              <tr data-sev="mid">
+                <td><span class="badge badge-amber">中</span></td><td>B區堆高機故障（編號 FL-07）</td><td>B區</td>
+                <td class="mono-num">10:05</td><td><span class="badge badge-amber">處理中</span></td>
+              </tr>
+              <tr data-sev="mid">
+                <td><span class="badge badge-amber">中</span></td><td>3312-TB 車輛 GPS 訊號中斷</td><td>中區配送線</td>
+                <td class="mono-num">15:22</td><td><span class="badge badge-red">待處理</span></td>
+              </tr>
+              <tr data-sev="low">
+                <td><span class="badge badge-gray">低</span></td><td>C區揀貨效率低於門檻（82%）</td><td>C區</td>
+                <td class="mono-num">08:30</td><td><span class="badge badge-green">已排除</span></td>
+              </tr>
+              <tr data-sev="low">
+                <td><span class="badge badge-gray">低</span></td><td>危險品倉濕度略高（65%）</td><td>危險品倉</td>
+                <td class="mono-num">07:15</td><td><span class="badge badge-green">已排除</span></td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================== 報表 =================== -->
+      <section id="tab-reports" class="tab-section space-y-5">
+        <div>
+          <h1 class="text-[19px] font-semibold">報表中心</h1>
+          <p class="text-[13px]" style="color:var(--text-3);">產出、下載並匯出各類營運報表</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+          <div class="card p-4 flex flex-col">
+            <div class="flex items-center justify-between mb-3">
+              <span class="badge badge-blue">每日</span>
+              <span class="text-[11px]" style="color:var(--text-3);">PDF・<span class="mono-num">2.1MB</span></span>
+            </div>
+            <h3 class="text-[14px] font-semibold mb-1">每日營運報表</h3>
+            <p class="text-[12px] mb-4" style="color:var(--text-3);">出貨量、準點率、異常事件摘要</p>
+            <div class="text-[11.5px] mb-3" style="color:var(--text-3);">產生時間：<span class="mono-num">2026/09/12 06:00</span></div>
+            <button onclick="fakeDownload(this)" class="mt-auto text-[12.5px] font-semibold py-2 rounded-lg" style="background:var(--surface-3);color:var(--text-1);">下載報表</button>
+          </div>
+          <div class="card p-4 flex flex-col">
+            <div class="flex items-center justify-between mb-3">
+              <span class="badge badge-blue">每週</span>
+              <span class="text-[11px]" style="color:var(--text-3);">XLSX・<span class="mono-num">4.6MB</span></span>
+            </div>
+            <h3 class="text-[14px] font-semibold mb-1">每週績效報表</h3>
+            <p class="text-[12px] mb-4" style="color:var(--text-3);">倉區使用率、車隊效率、KPI 達成率</p>
+            <div class="text-[11.5px] mb-3" style="color:var(--text-3);">產生時間：<span class="mono-num">2026/09/08 06:00</span></div>
+            <button onclick="fakeDownload(this)" class="mt-auto text-[12.5px] font-semibold py-2 rounded-lg" style="background:var(--surface-3);color:var(--text-1);">下載報表</button>
+          </div>
+          <div class="card p-4 flex flex-col">
+            <div class="flex items-center justify-between mb-3">
+              <span class="badge badge-blue">每月</span>
+              <span class="text-[11px]" style="color:var(--text-3);">PDF・<span class="mono-num">7.8MB</span></span>
+            </div>
+            <h3 class="text-[14px] font-semibold mb-1">月度財務關聯報表</h3>
+            <p class="text-[12px] mb-4" style="color:var(--text-3);">運輸成本、庫存週轉、耗損分析</p>
+            <div class="text-[11.5px] mb-3" style="color:var(--text-3);">產生時間：<span class="mono-num">2026/09/01 06:00</span></div>
+            <button onclick="fakeDownload(this)" class="mt-auto text-[12.5px] font-semibold py-2 rounded-lg" style="background:var(--surface-3);color:var(--text-1);">下載報表</button>
+          </div>
+          <div class="card p-4 flex flex-col">
+            <div class="flex items-center justify-between mb-3">
+              <span class="badge badge-blue">自訂</span>
+              <span class="text-[11px]" style="color:var(--text-3);">CSV・<span class="mono-num">1.4MB</span></span>
+            </div>
+            <h3 class="text-[14px] font-semibold mb-1">客戶服務水準報表</h3>
+            <p class="text-[12px] mb-4" style="color:var(--text-3);">SLA 達成率、客訴案件、賠償金額</p>
+            <div class="text-[11.5px] mb-3" style="color:var(--text-3);">產生時間：<span class="mono-num">2026/09/11 22:00</span></div>
+            <button onclick="fakeDownload(this)" class="mt-auto text-[12.5px] font-semibold py-2 rounded-lg" style="background:var(--surface-3);color:var(--text-1);">下載報表</button>
+          </div>
+        </div>
+
+        <div class="card p-4">
+          <h2 class="text-[14px] font-semibold mb-3">月度 SLA 達成率摘要</h2>
+          <div class="scroll-x">
+          <table class="data-table">
+            <thead><tr><th>指標</th><th>目標值</th><th>本月實際</th><th>差異</th><th>結果</th></tr></thead>
+            <tbody>
+              <tr><td>準時交付率</td><td class="mono-num">95.0%</td><td class="mono-num">96.8%</td><td class="mono-num up">+1.8pp</td><td><span class="badge badge-green">達標</span></td></tr>
+              <tr><td>貨損率</td><td class="mono-num">&lt; 0.50%</td><td class="mono-num">0.41%</td><td class="mono-num up">-0.09pp</td><td><span class="badge badge-green">達標</span></td></tr>
+              <tr><td>訂單處理時效</td><td class="mono-num">&lt; 4 小時</td><td class="mono-num">4.6 小時</td><td class="mono-num down">+0.6 小時</td><td><span class="badge badge-red">未達標</span></td></tr>
+              <tr><td>客訴回覆時效</td><td class="mono-num">&lt; 24 小時</td><td class="mono-num">18.2 小時</td><td class="mono-num up">-5.8 小時</td><td><span class="badge badge-green">達標</span></td></tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="px-6 py-4 text-[11.5px] text-center" style="color:var(--text-3);">
+      貨艙通 CargoWatch 內部營運監控系統・資料僅供內部決策參考・© 2026 桃園物流中心
+    </footer>
+  </div>
+</div>
+
+<script>
+  function showTab(name){
+    document.querySelectorAll('.tab-section').forEach(function(s){ s.classList.remove('active'); });
+    document.getElementById('tab-' + name).classList.add('active');
+    document.querySelectorAll('.side-link').forEach(function(l){ l.classList.remove('active'); });
+    var link = document.querySelector('.side-link[data-tab="' + name + '"]');
+    if(link) link.classList.add('active');
+    window.scrollTo({top:0, behavior:'instant'});
+  }
+
+  // shipment status filter
+  document.querySelectorAll('.ship-filter').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.ship-filter').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      var status = btn.getAttribute('data-status');
+      document.querySelectorAll('#shipTable tbody tr').forEach(function(row){
+        if(status === 'all' || row.getAttribute('data-status') === status){
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // alert severity filter
+  document.querySelectorAll('.alert-filter').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.alert-filter').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      var sev = btn.getAttribute('data-sev');
+      document.querySelectorAll('#alertTable tbody tr').forEach(function(row){
+        if(sev === 'all' || row.getAttribute('data-sev') === sev){
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  function fakeDownload(btn){
+    var original = btn.textContent;
+    btn.textContent = '產生中…';
+    setTimeout(function(){
+      btn.textContent = '已下載 ✓';
+      setTimeout(function(){ btn.textContent = original; }, 1500);
+    }, 600);
+  }
+</script>
+</body>
+</html>
