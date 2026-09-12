@@ -1,0 +1,835 @@
+<!-- style #43 AI-Native -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>言外 BeyondWords｜AI 寫作助手</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --grad-a:#667eea;
+    --grad-b:#764ba2;
+    --bg-0:#0a0a14;
+    --bg-1:#12101f;
+    --card:#151328;
+    --border:rgba(148,133,255,0.18);
+    --text-hi:#f3f1ff;
+    --text-mid:#c9c4e8;
+    --text-lo:#8b84b0;
+  }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    font-family:'Plus Jakarta Sans', sans-serif;
+    background:var(--bg-0);
+    color:var(--text-mid);
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3,h4,h5,h6,.font-display{
+    font-family:'Space Grotesk', sans-serif;
+    letter-spacing:-0.01em;
+  }
+
+  ::selection{ background:var(--grad-a); color:#fff; }
+
+  /* ---------- background atmosphere ---------- */
+  .aurora{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    background:
+      radial-gradient(600px 500px at 15% 8%, rgba(102,126,234,0.28), transparent 60%),
+      radial-gradient(560px 480px at 88% 18%, rgba(118,75,162,0.30), transparent 60%),
+      radial-gradient(700px 600px at 50% 92%, rgba(102,126,234,0.18), transparent 65%);
+  }
+  .noise-grid{
+    position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.5;
+    background-image:
+      linear-gradient(rgba(148,133,255,0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(148,133,255,0.055) 1px, transparent 1px);
+    background-size:56px 56px;
+    mask-image:radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 90%);
+  }
+
+  /* ---------- gradient helpers ---------- */
+  .grad-text{
+    background:linear-gradient(90deg, #a5b4fc, var(--grad-a) 45%, var(--grad-b) 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .grad-bg{ background:linear-gradient(135deg, var(--grad-a), var(--grad-b)); }
+  .grad-border{
+    position:relative;
+    border:1px solid transparent;
+    background:
+      linear-gradient(var(--card), var(--card)) padding-box,
+      linear-gradient(135deg, rgba(102,126,234,0.7), rgba(118,75,162,0.7)) border-box;
+  }
+
+  .btn-primary{
+    background:linear-gradient(135deg, var(--grad-a), var(--grad-b));
+    box-shadow:0 8px 30px -6px rgba(102,126,234,0.55), 0 0 0 1px rgba(255,255,255,0.06) inset;
+    transition:transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s cubic-bezier(.22,1,.36,1), filter .35s;
+  }
+  .btn-primary:hover{
+    transform:translateY(-2px) scale(1.015);
+    box-shadow:0 14px 40px -6px rgba(118,75,162,0.65), 0 0 0 1px rgba(255,255,255,0.1) inset;
+    filter:brightness(1.06);
+  }
+  .btn-ghost{
+    transition:all .35s cubic-bezier(.22,1,.36,1);
+    border:1px solid var(--border);
+  }
+  .btn-ghost:hover{
+    border-color:rgba(168,150,255,0.55);
+    background:rgba(148,133,255,0.08);
+    transform:translateY(-2px);
+  }
+
+  .glow-dot{ box-shadow:0 0 12px 2px rgba(102,126,234,0.9); }
+
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    transition:transform .4s cubic-bezier(.22,1,.36,1), border-color .4s, box-shadow .4s;
+  }
+  .card:hover{
+    transform:translateY(-6px);
+    border-color:rgba(168,150,255,0.45);
+    box-shadow:0 24px 60px -20px rgba(102,126,234,0.45);
+  }
+
+  .fade-up{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1);
+  }
+  .fade-up.in-view{ opacity:1; transform:translateY(0); }
+
+  @keyframes floaty{
+    0%,100%{ transform:translateY(0) rotate(0deg); }
+    50%{ transform:translateY(-14px) rotate(2deg); }
+  }
+  .float-slow{ animation:floaty 7s ease-in-out infinite; }
+  .float-slower{ animation:floaty 9.5s ease-in-out infinite; animation-delay:1.2s; }
+
+  @keyframes pulseGlow{
+    0%,100%{ opacity:.55; transform:scale(1); }
+    50%{ opacity:1; transform:scale(1.15); }
+  }
+  .pulse-glow{ animation:pulseGlow 2.2s ease-in-out infinite; }
+
+  @keyframes shimmer{
+    0%{ background-position:0% 50%; }
+    100%{ background-position:200% 50%; }
+  }
+  .shimmer-text{
+    background:linear-gradient(90deg, var(--text-lo), #fff, var(--text-lo));
+    background-size:200% auto;
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation:shimmer 3.5s linear infinite;
+  }
+
+  @keyframes typingDot{
+    0%,60%,100%{ transform:translateY(0); opacity:.4; }
+    30%{ transform:translateY(-5px); opacity:1; }
+  }
+  .type-dot{ animation:typingDot 1.2s ease-in-out infinite; }
+  .type-dot:nth-child(2){ animation-delay:.15s; }
+  .type-dot:nth-child(3){ animation-delay:.3s; }
+
+  /* chat mock */
+  .chat-window{
+    background:linear-gradient(180deg, rgba(21,19,40,0.95), rgba(10,10,20,0.98));
+    border:1px solid var(--border);
+  }
+  .bubble-ai{
+    background:linear-gradient(135deg, rgba(102,126,234,0.18), rgba(118,75,162,0.18));
+    border:1px solid rgba(148,133,255,0.28);
+  }
+  .bubble-user{
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.08);
+  }
+
+  .marquee-track{
+    display:flex;
+    width:max-content;
+    animation:marquee 26s linear infinite;
+  }
+  @keyframes marquee{
+    from{ transform:translateX(0); }
+    to{ transform:translateX(-50%); }
+  }
+
+  .tab-pill{ transition:all .3s cubic-bezier(.22,1,.36,1); }
+
+  .nav-blur{
+    background:rgba(10,10,20,0.6);
+    backdrop-filter:blur(14px) saturate(140%);
+    -webkit-backdrop-filter:blur(14px) saturate(140%);
+  }
+
+  ::-webkit-scrollbar{ width:10px; }
+  ::-webkit-scrollbar-track{ background:var(--bg-0); }
+  ::-webkit-scrollbar-thumb{ background:linear-gradient(var(--grad-a), var(--grad-b)); border-radius:8px; }
+
+  .price-toggle-knob{ transition:transform .35s cubic-bezier(.22,1,.36,1); }
+</style>
+</head>
+<body class="relative antialiased">
+
+  <div class="aurora"></div>
+  <div class="noise-grid"></div>
+
+  <!-- ================= NAV ================= -->
+  <header class="fixed top-0 inset-x-0 z-50 nav-blur border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+      <a href="#top" class="flex items-center gap-2.5 group">
+        <span class="relative w-8 h-8 rounded-xl grad-bg flex items-center justify-center font-display font-bold text-white text-sm shadow-lg shadow-indigo-900/40">
+          言
+          <span class="absolute -inset-1 rounded-xl grad-bg opacity-40 blur-md group-hover:opacity-70 transition-opacity"></span>
+        </span>
+        <span class="font-display font-semibold text-white text-lg tracking-tight">言外<span class="text-[var(--text-lo)] font-normal ml-0.5">BeyondWords</span></span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8 text-sm text-[var(--text-mid)]">
+        <a href="#features" class="hover:text-white transition-colors">功能特色</a>
+        <a href="#demo" class="hover:text-white transition-colors">產品實錄</a>
+        <a href="#how" class="hover:text-white transition-colors">運作方式</a>
+        <a href="#pricing" class="hover:text-white transition-colors">方案定價</a>
+        <a href="#faq" class="hover:text-white transition-colors">常見問題</a>
+      </nav>
+
+      <div class="hidden md:flex items-center gap-3">
+        <a href="#" class="text-sm text-[var(--text-mid)] hover:text-white transition-colors px-3 py-2">登入</a>
+        <a href="#pricing" class="btn-primary text-sm font-semibold text-white px-4 py-2 rounded-full">免費開始使用</a>
+      </div>
+
+      <button id="menuBtn" class="md:hidden w-9 h-9 flex items-center justify-center rounded-lg border border-white/10 text-white">
+        <svg id="menuIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+
+    <div id="mobileMenu" class="hidden md:hidden border-t border-white/5 px-5 pb-5 pt-2 flex flex-col gap-3 text-sm nav-blur">
+      <a href="#features" class="py-1.5 text-[var(--text-mid)]">功能特色</a>
+      <a href="#demo" class="py-1.5 text-[var(--text-mid)]">產品實錄</a>
+      <a href="#how" class="py-1.5 text-[var(--text-mid)]">運作方式</a>
+      <a href="#pricing" class="py-1.5 text-[var(--text-mid)]">方案定價</a>
+      <a href="#faq" class="py-1.5 text-[var(--text-mid)]">常見問題</a>
+      <a href="#pricing" class="btn-primary text-center font-semibold text-white px-4 py-2.5 rounded-full mt-1">免費開始使用</a>
+    </div>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <section id="top" class="relative pt-36 pb-24 px-5 sm:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid lg:grid-cols-2 gap-14 items-center">
+        <div class="fade-up in-view">
+          <div class="inline-flex items-center gap-2 rounded-full grad-border px-4 py-1.5 text-xs text-[var(--text-mid)] mb-6">
+            <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 pulse-glow"></span>
+            v2.4 上線．新增繁體中文語境校對引擎
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-[3.4rem] font-bold leading-[1.15] text-white mb-6">
+            讓 AI 讀懂<br>
+            你話裡的<span class="grad-text">言外之意</span>
+          </h1>
+
+          <p class="text-lg text-[var(--text-mid)] max-w-xl mb-9 leading-relaxed">
+            言外 BeyondWords 是專為中文使用情境打造的 AI 寫作助手。從行銷文案、商業書信到會議紀錄，
+            五秒生成草稿、一鍵校準語氣，讓每一份文字都精準傳達你真正想說的話。
+          </p>
+
+          <div class="flex flex-wrap items-center gap-4 mb-10">
+            <a href="#pricing" class="btn-primary text-white font-semibold px-7 py-3.5 rounded-full inline-flex items-center gap-2">
+              免費開始使用
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a href="#demo" class="btn-ghost text-white font-medium px-7 py-3.5 rounded-full inline-flex items-center gap-2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              觀看產品實錄
+            </a>
+          </div>
+
+          <p class="text-xs text-[var(--text-lo)] flex items-center gap-2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            不需信用卡．3 分鐘完成設定．隨時可取消
+          </p>
+        </div>
+
+        <!-- floating chat mock -->
+        <div class="relative fade-up in-view" style="transition-delay:.15s">
+          <div class="absolute -top-10 -left-8 w-24 h-24 rounded-3xl grad-bg opacity-20 blur-2xl float-slow"></div>
+          <div class="absolute -bottom-12 -right-6 w-32 h-32 rounded-full grad-bg opacity-25 blur-3xl float-slower"></div>
+
+          <div class="relative chat-window rounded-2xl shadow-2xl shadow-indigo-950/50 overflow-hidden">
+            <div class="flex items-center gap-2 px-5 py-3.5 border-b border-white/5">
+              <span class="w-2.5 h-2.5 rounded-full bg-red-400/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-yellow-400/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-green-400/70"></span>
+              <span class="ml-3 text-xs text-[var(--text-lo)] font-medium">言外助手．行銷文案潤飾</span>
+            </div>
+
+            <div class="p-5 sm:p-6 space-y-4 text-sm">
+              <div class="flex justify-end">
+                <div class="bubble-user rounded-2xl rounded-tr-sm px-4 py-3 max-w-[85%] text-[var(--text-hi)]">
+                  幫我把這句話改得更有說服力：「我們的產品品質不錯，歡迎參考」
+                </div>
+              </div>
+
+              <div class="flex justify-start gap-2.5">
+                <div class="w-7 h-7 rounded-full grad-bg flex-shrink-0 flex items-center justify-center text-[11px] font-bold text-white mt-1">言</div>
+                <div class="bubble-ai rounded-2xl rounded-tl-sm px-4 py-3 max-w-[85%] text-[var(--text-hi)] leading-relaxed">
+                  建議改為：「每一件作品都經過三道品管把關，只為讓你安心入手」——
+                  更聚焦具體行動，也強化了信任感。要不要我再產出兩個語氣版本？
+                </div>
+              </div>
+
+              <div class="flex justify-start gap-2.5" id="typingRow">
+                <div class="w-7 h-7 rounded-full grad-bg flex-shrink-0 flex items-center justify-center text-[11px] font-bold text-white mt-1">言</div>
+                <div class="bubble-ai rounded-2xl rounded-tl-sm px-4 py-3 flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-indigo-300 type-dot"></span>
+                  <span class="w-1.5 h-1.5 rounded-full bg-indigo-300 type-dot"></span>
+                  <span class="w-1.5 h-1.5 rounded-full bg-indigo-300 type-dot"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="px-5 pb-5">
+              <div class="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2.5">
+                <span class="text-xs text-[var(--text-lo)] flex-1">輸入你想調整的句子……</span>
+                <span class="w-8 h-8 rounded-full grad-bg flex items-center justify-center flex-shrink-0">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- stats -->
+      <div class="mt-24 grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 fade-up">
+        <div class="text-center sm:text-left">
+          <div class="font-display text-3xl sm:text-4xl font-bold grad-text">12,000+</div>
+          <div class="text-sm text-[var(--text-lo)] mt-1">團隊與品牌採用</div>
+        </div>
+        <div class="text-center sm:text-left">
+          <div class="font-display text-3xl sm:text-4xl font-bold grad-text">850 萬</div>
+          <div class="text-sm text-[var(--text-lo)] mt-1">每月產出字數</div>
+        </div>
+        <div class="text-center sm:text-left">
+          <div class="font-display text-3xl sm:text-4xl font-bold grad-text">6 小時</div>
+          <div class="text-sm text-[var(--text-lo)] mt-1">平均每週節省時間</div>
+        </div>
+        <div class="text-center sm:text-left">
+          <div class="font-display text-3xl sm:text-4xl font-bold grad-text">4.9 / 5</div>
+          <div class="text-sm text-[var(--text-lo)] mt-1">使用者滿意度評價</div>
+        </div>
+      </div>
+
+      <!-- logo marquee -->
+      <div class="mt-16 fade-up overflow-hidden">
+        <p class="text-center text-xs text-[var(--text-lo)] mb-5 tracking-widest">深受這些團隊信賴</p>
+        <div class="relative overflow-hidden mask-fade">
+          <div class="marquee-track gap-16 items-center opacity-60">
+            <span class="font-display font-semibold text-lg text-white/70 px-4">綠境家居</span>
+            <span class="font-display font-semibold text-lg text-white/70 px-4">早鳥新聞</span>
+            <span class="font-display font-semibold text-lg text-white/70 px-4">雲策科技</span>
+            <span class="font-display font-semibold text-lg text-white/70 px-4">拾光選物</span>
+            <span class="font-display font-semibold text-lg text-white/70 px-4">墨研顧問</span>
+            <span class="font-display font-semibold text-lg text-white/70 px-4">曙光教育</span>
+            <span class="font-display font-semibold text-lg text-white/70 px-4">綠境家居</span>
+            <span class="font-display font-semibold text-lg text-white/70 px-4">早鳥新聞</span>
+            <span class="font-display font-semibold text-lg text-white/70 px-4">雲策科技</span>
+            <span class="font-display font-semibold text-lg text-white/70 px-4">拾光選物</span>
+            <span class="font-display font-semibold text-lg text-white/70 px-4">墨研顧問</span>
+            <span class="font-display font-semibold text-lg text-white/70 px-4">曙光教育</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FEATURES ================= -->
+  <section id="features" class="relative py-24 px-5 sm:px-8 border-t border-white/5">
+    <div class="max-w-7xl mx-auto">
+      <div class="max-w-2xl mx-auto text-center mb-16 fade-up">
+        <span class="text-xs font-semibold tracking-widest text-indigo-300 uppercase">功能特色</span>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mt-3 mb-4">不只是文法檢查，<br class="hidden sm:block">而是真正懂中文語境的助手</h2>
+        <p class="text-[var(--text-mid)]">我們針對繁體中文的用字習慣與語氣細節重新訓練模型，讓建議更貼近台灣的溝通脈絡。</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="card rounded-2xl p-7 fade-up">
+          <div class="w-11 h-11 rounded-xl grad-bg flex items-center justify-center mb-5 shadow-lg shadow-indigo-900/40">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 3v18M3 12h18" stroke-linecap="round"/><circle cx="12" cy="12" r="9"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold text-white mb-2">語境感知潤飾</h3>
+          <p class="text-sm text-[var(--text-mid)] leading-relaxed">不只挑錯字，更能理解上下文語氣與場合，給出真正符合情境的改寫建議。</p>
+        </div>
+
+        <div class="card rounded-2xl p-7 fade-up" style="transition-delay:.05s">
+          <div class="w-11 h-11 rounded-xl grad-bg flex items-center justify-center mb-5 shadow-lg shadow-indigo-900/40">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h16"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold text-white mb-2">多語氣一鍵切換</h3>
+          <p class="text-sm text-[var(--text-mid)] leading-relaxed">正式、親切、簡潔、專業，四種語氣隨場合切換，同一份草稿延伸出多種版本。</p>
+        </div>
+
+        <div class="card rounded-2xl p-7 fade-up" style="transition-delay:.1s">
+          <div class="w-11 h-11 rounded-xl grad-bg flex items-center justify-center mb-5 shadow-lg shadow-indigo-900/40">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 2a5 5 0 015 5v2a5 5 0 01-10 0V7a5 5 0 015-5z"/><path d="M6 12v1a6 6 0 0012 0v-1M12 19v3" stroke-linecap="round"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold text-white mb-2">品牌語調記憶</h3>
+          <p class="text-sm text-[var(--text-mid)] leading-relaxed">上傳既有文案，AI 會學習你的品牌用字習慣，長期維持一致的溝通調性。</p>
+        </div>
+
+        <div class="card rounded-2xl p-7 fade-up">
+          <div class="w-11 h-11 rounded-xl grad-bg flex items-center justify-center mb-5 shadow-lg shadow-indigo-900/40">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold text-white mb-2">即時團隊協作</h3>
+          <p class="text-sm text-[var(--text-mid)] leading-relaxed">團隊成員可同步編輯、留言與標註，文案審核流程從三天縮短到三小時。</p>
+        </div>
+
+        <div class="card rounded-2xl p-7 fade-up" style="transition-delay:.05s">
+          <div class="w-11 h-11 rounded-xl grad-bg flex items-center justify-center mb-5 shadow-lg shadow-indigo-900/40">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M9 16h6M9 8h6"/><rect x="4" y="3" width="16" height="18" rx="2"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold text-white mb-2">長文智慧摘要</h3>
+          <p class="text-sm text-[var(--text-mid)] leading-relaxed">會議紀錄、訪談逐字稿一鍵摘要重點，自動整理成條列式待辦與結論。</p>
+        </div>
+
+        <div class="card rounded-2xl p-7 fade-up" style="transition-delay:.1s">
+          <div class="w-11 h-11 rounded-xl grad-bg flex items-center justify-center mb-5 shadow-lg shadow-indigo-900/40">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold text-white mb-2">多平台無縫整合</h3>
+          <p class="text-sm text-[var(--text-mid)] leading-relaxed">支援 Notion、Slack、Gmail 與 Chrome 外掛，在任何工作場景直接呼叫言外。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DEMO / HOW IT WORKS ================= -->
+  <section id="demo" class="relative py-24 px-5 sm:px-8 border-t border-white/5 overflow-hidden">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full grad-bg opacity-10 blur-[120px] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto relative">
+      <div class="max-w-2xl mb-16 fade-up">
+        <span class="text-xs font-semibold tracking-widest text-indigo-300 uppercase">運作方式</span>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mt-3 mb-4">四個步驟，<br class="hidden sm:block">把想法變成一篇完稿</h2>
+      </div>
+
+      <div id="how" class="grid lg:grid-cols-2 gap-14 items-center">
+        <div class="space-y-8">
+          <div class="flex gap-5 fade-up">
+            <div class="flex flex-col items-center">
+              <span class="w-10 h-10 rounded-full grad-bg flex items-center justify-center font-display font-bold text-white text-sm">01</span>
+              <span class="w-px flex-1 bg-gradient-to-b from-indigo-400/50 to-transparent mt-2"></span>
+            </div>
+            <div class="pb-6">
+              <h3 class="text-white font-semibold text-lg mb-1.5">貼上草稿或直接輸入</h3>
+              <p class="text-sm text-[var(--text-mid)] leading-relaxed">在網頁編輯器、Chrome 外掛或 Slack 指令中，貼上任何你正在寫的文字。</p>
+            </div>
+          </div>
+
+          <div class="flex gap-5 fade-up" style="transition-delay:.08s">
+            <div class="flex flex-col items-center">
+              <span class="w-10 h-10 rounded-full grad-bg flex items-center justify-center font-display font-bold text-white text-sm">02</span>
+              <span class="w-px flex-1 bg-gradient-to-b from-indigo-400/50 to-transparent mt-2"></span>
+            </div>
+            <div class="pb-6">
+              <h3 class="text-white font-semibold text-lg mb-1.5">選擇語氣與風格</h3>
+              <p class="text-sm text-[var(--text-mid)] leading-relaxed">正式書信、社群貼文、廣告文案——挑選最貼近場合的語氣模板。</p>
+            </div>
+          </div>
+
+          <div class="flex gap-5 fade-up" style="transition-delay:.16s">
+            <div class="flex flex-col items-center">
+              <span class="w-10 h-10 rounded-full grad-bg flex items-center justify-center font-display font-bold text-white text-sm">03</span>
+              <span class="w-px flex-1 bg-gradient-to-b from-indigo-400/50 to-transparent mt-2"></span>
+            </div>
+            <div class="pb-6">
+              <h3 class="text-white font-semibold text-lg mb-1.5">即時比對並套用建議</h3>
+              <p class="text-sm text-[var(--text-mid)] leading-relaxed">左右對照原文與潤飾版本，逐句採納或整段套用，全程可回復。</p>
+            </div>
+          </div>
+
+          <div class="flex gap-5 fade-up" style="transition-delay:.24s">
+            <span class="w-10 h-10 rounded-full grad-bg flex items-center justify-center font-display font-bold text-white text-sm">04</span>
+            <div>
+              <h3 class="text-white font-semibold text-lg mb-1.5">存成專屬風格範本</h3>
+              <p class="text-sm text-[var(--text-mid)] leading-relaxed">下次撰寫同類文件時，言外會自動套用你偏好的語氣與用字習慣。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="fade-up" style="transition-delay:.1s">
+          <div class="grad-border rounded-2xl p-6 sm:p-8">
+            <div class="flex items-center justify-between mb-6">
+              <span class="text-xs font-semibold text-[var(--text-lo)] tracking-wide">改寫前後對照</span>
+              <span class="text-xs px-2.5 py-1 rounded-full bg-indigo-500/15 text-indigo-300 border border-indigo-400/20">語氣：專業有說服力</span>
+            </div>
+
+            <div class="space-y-4">
+              <div class="rounded-xl border border-white/8 bg-white/[0.02] p-4">
+                <p class="text-[11px] text-[var(--text-lo)] mb-2">原文</p>
+                <p class="text-sm text-[var(--text-mid)] leading-relaxed line-through decoration-red-400/40">這次活動大家都很努力，成果應該還不錯，麻煩主管抽空看一下。</p>
+              </div>
+              <div class="flex justify-center">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--grad-a)" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+              </div>
+              <div class="rounded-xl bubble-ai p-4">
+                <p class="text-[11px] text-indigo-300 mb-2">言外建議</p>
+                <p class="text-sm text-[var(--text-hi)] leading-relaxed">本次活動團隊投入超過兩週籌備，成果已達預期目標，附上完整報告，敬請主管撥冗審閱並提供指教。</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2 mt-6 text-xs text-[var(--text-lo)]">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg>
+              生成時間：0.8 秒
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TESTIMONIALS ================= -->
+  <section class="relative py-24 px-5 sm:px-8 border-t border-white/5">
+    <div class="max-w-7xl mx-auto">
+      <div class="max-w-2xl mx-auto text-center mb-16 fade-up">
+        <span class="text-xs font-semibold tracking-widest text-indigo-300 uppercase">使用者怎麼說</span>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mt-3">從新創團隊到跨國品牌，<br class="hidden sm:block">都在用言外溝通</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="card rounded-2xl p-7 fade-up">
+          <div class="flex gap-1 text-indigo-300 mb-4">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.2l7.1-.6z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.2l7.1-.6z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.2l7.1-.6z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.2l7.1-.6z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.2l7.1-.6z"/></svg>
+          </div>
+          <p class="text-sm text-[var(--text-mid)] leading-relaxed mb-6">「以前一篇社群文案要來回改三、四次，現在言外第一版就抓到我們想要的語氣，團隊審稿時間少了一半以上。」</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full grad-bg flex items-center justify-center text-white font-display font-semibold text-sm">陳</div>
+            <div>
+              <p class="text-sm text-white font-medium">陳怡君</p>
+              <p class="text-xs text-[var(--text-lo)]">行銷副理．綠境家居</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card rounded-2xl p-7 fade-up" style="transition-delay:.08s">
+          <div class="flex gap-1 text-indigo-300 mb-4">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.2l7.1-.6z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.2l7.1-.6z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.2l7.1-.6z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.2l7.1-.6z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.2l7.1-.6z"/></svg>
+          </div>
+          <p class="text-sm text-[var(--text-mid)] leading-relaxed mb-6">「最喜歡品牌語調記憶功能，新進編輯不用再花時間讀風格指南，寫出來的稿子一看就是我們的調性。」</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full grad-bg flex items-center justify-center text-white font-display font-semibold text-sm">林</div>
+            <div>
+              <p class="text-sm text-white font-medium">林昱翔</p>
+              <p class="text-xs text-[var(--text-lo)]">內容主編．早鳥新聞</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card rounded-2xl p-7 fade-up" style="transition-delay:.16s">
+          <div class="flex gap-1 text-indigo-300 mb-4">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.2l7.1-.6z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.2l7.1-.6z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.2l7.1-.6z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.2l7.1-.6z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" opacity="0.35"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.2l7.1-.6z"/></svg>
+          </div>
+          <p class="text-sm text-[var(--text-mid)] leading-relaxed mb-6">「客服團隊每天要回覆上百封信件，導入言外後範本套用加上語氣調整，平均回覆時間縮短了 40%。」</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full grad-bg flex items-center justify-center text-white font-display font-semibold text-sm">黃</div>
+            <div>
+              <p class="text-sm text-white font-medium">黃思穎</p>
+              <p class="text-xs text-[var(--text-lo)]">客戶成功經理．雲策科技</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PRICING ================= -->
+  <section id="pricing" class="relative py-24 px-5 sm:px-8 border-t border-white/5">
+    <div class="max-w-7xl mx-auto">
+      <div class="max-w-2xl mx-auto text-center mb-10 fade-up">
+        <span class="text-xs font-semibold tracking-widest text-indigo-300 uppercase">方案定價</span>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mt-3 mb-4">找到適合你的方案</h2>
+        <p class="text-[var(--text-mid)]">從個人接案者到百人團隊，皆可隨用量彈性調整。</p>
+      </div>
+
+      <div class="flex items-center justify-center gap-3 mb-14 fade-up">
+        <span id="labelMonthly" class="text-sm text-white font-medium">按月計費</span>
+        <button id="billingToggle" class="relative w-14 h-8 rounded-full grad-bg flex items-center px-1 transition-colors">
+          <span id="toggleKnob" class="price-toggle-knob w-6 h-6 rounded-full bg-white shadow-md"></span>
+        </button>
+        <span id="labelYearly" class="text-sm text-[var(--text-lo)] font-medium">按年計費</span>
+        <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-400/20">年繳省 20%</span>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-6 items-stretch">
+        <div class="card rounded-2xl p-8 flex flex-col fade-up">
+          <h3 class="font-display text-xl font-semibold text-white mb-1">免費版</h3>
+          <p class="text-sm text-[var(--text-lo)] mb-6">適合輕度使用、想先試試手感</p>
+          <div class="mb-6">
+            <span class="text-4xl font-bold text-white font-display">NT$0</span>
+            <span class="text-sm text-[var(--text-lo)]">／月</span>
+          </div>
+          <ul class="space-y-3 text-sm text-[var(--text-mid)] mb-8 flex-1">
+            <li class="flex gap-2.5"><svg class="flex-shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8b84b0" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>每月 5,000 字生成額度</li>
+            <li class="flex gap-2.5"><svg class="flex-shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8b84b0" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>基礎語氣切換（2 種）</li>
+            <li class="flex gap-2.5"><svg class="flex-shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8b84b0" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>Chrome 外掛支援</li>
+            <li class="flex gap-2.5"><svg class="flex-shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8b84b0" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>單人使用</li>
+          </ul>
+          <a href="#" class="btn-ghost text-center text-white font-medium rounded-full py-3">開始免費使用</a>
+        </div>
+
+        <div class="grad-border rounded-2xl p-8 flex flex-col relative fade-up" style="transition-delay:.08s">
+          <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 grad-bg text-white text-xs font-semibold px-4 py-1.5 rounded-full shadow-lg shadow-indigo-900/40">最多人選擇</span>
+          <h3 class="font-display text-xl font-semibold text-white mb-1">專業版</h3>
+          <p class="text-sm text-[var(--text-lo)] mb-6">適合創作者、行銷與內容工作者</p>
+          <div class="mb-6">
+            <span class="price-monthly text-4xl font-bold text-white font-display">NT$390</span>
+            <span class="price-yearly text-4xl font-bold text-white font-display hidden">NT$312</span>
+            <span class="text-sm text-[var(--text-lo)]">／月</span>
+          </div>
+          <ul class="space-y-3 text-sm text-[var(--text-mid)] mb-8 flex-1">
+            <li class="flex gap-2.5"><svg class="flex-shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--grad-a)" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>無限字數生成</li>
+            <li class="flex gap-2.5"><svg class="flex-shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--grad-a)" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>全部語氣模板（12 種以上）</li>
+            <li class="flex gap-2.5"><svg class="flex-shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--grad-a)" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>品牌語調記憶</li>
+            <li class="flex gap-2.5"><svg class="flex-shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--grad-a)" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>Notion／Slack／Gmail 整合</li>
+            <li class="flex gap-2.5"><svg class="flex-shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--grad-a)" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>優先客服回應</li>
+          </ul>
+          <a href="#" class="btn-primary text-center text-white font-semibold rounded-full py-3">立即升級專業版</a>
+        </div>
+
+        <div class="card rounded-2xl p-8 flex flex-col fade-up" style="transition-delay:.16s">
+          <h3 class="font-display text-xl font-semibold text-white mb-1">團隊版</h3>
+          <p class="text-sm text-[var(--text-lo)] mb-6">適合行銷團隊、代理商與企業</p>
+          <div class="mb-6">
+            <span class="price-monthly text-4xl font-bold text-white font-display">NT$1,290</span>
+            <span class="price-yearly text-4xl font-bold text-white font-display hidden">NT$1,032</span>
+            <span class="text-sm text-[var(--text-lo)]">／月起</span>
+          </div>
+          <ul class="space-y-3 text-sm text-[var(--text-mid)] mb-8 flex-1">
+            <li class="flex gap-2.5"><svg class="flex-shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8b84b0" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>涵蓋專業版全部功能</li>
+            <li class="flex gap-2.5"><svg class="flex-shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8b84b0" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>最多 20 位成員協作</li>
+            <li class="flex gap-2.5"><svg class="flex-shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8b84b0" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>團隊管理後台與權限設定</li>
+            <li class="flex gap-2.5"><svg class="flex-shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8b84b0" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>專屬客戶成功經理</li>
+            <li class="flex gap-2.5"><svg class="flex-shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8b84b0" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>API 串接與自訂整合</li>
+          </ul>
+          <a href="#" class="btn-ghost text-center text-white font-medium rounded-full py-3">聯絡業務團隊</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section id="faq" class="relative py-24 px-5 sm:px-8 border-t border-white/5">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-14 fade-up">
+        <span class="text-xs font-semibold tracking-widest text-indigo-300 uppercase">常見問題</span>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mt-3">還有疑問嗎？</h2>
+      </div>
+
+      <div class="space-y-3" id="faqList">
+        <div class="faq-item card rounded-xl overflow-hidden fade-up">
+          <button class="faq-trigger w-full flex items-center justify-between text-left px-6 py-5 text-white font-medium">
+            言外會不會把我的文件內容用來訓練模型？
+            <svg class="faq-icon flex-shrink-0 transition-transform duration-300" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-panel px-6 text-sm text-[var(--text-mid)] leading-relaxed" style="max-height:0; overflow:hidden; transition:max-height .4s cubic-bezier(.22,1,.36,1), padding .4s;">
+            <p class="pb-5">不會。所有文件內容僅用於當次生成建議，預設不會被用於模型訓練，企業與團隊版另提供資料保留天數自訂與端對端加密選項。</p>
+          </div>
+        </div>
+
+        <div class="faq-item card rounded-xl overflow-hidden fade-up" style="transition-delay:.05s">
+          <button class="faq-trigger w-full flex items-center justify-between text-left px-6 py-5 text-white font-medium">
+            支援哪些文字類型？只能寫行銷文案嗎？
+            <svg class="faq-icon flex-shrink-0 transition-transform duration-300" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-panel px-6 text-sm text-[var(--text-mid)] leading-relaxed" style="max-height:0; overflow:hidden; transition:max-height .4s cubic-bezier(.22,1,.36,1), padding .4s;">
+            <p class="pb-5">除了行銷文案，也涵蓋商業書信、會議紀錄、客服回覆、社群貼文與內部溝通訊息，語氣模板可依情境自由組合。</p>
+          </div>
+        </div>
+
+        <div class="faq-item card rounded-xl overflow-hidden fade-up" style="transition-delay:.1s">
+          <button class="faq-trigger w-full flex items-center justify-between text-left px-6 py-5 text-white font-medium">
+            我可以隨時取消訂閱嗎？
+            <svg class="faq-icon flex-shrink-0 transition-transform duration-300" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-panel px-6 text-sm text-[var(--text-mid)] leading-relaxed" style="max-height:0; overflow:hidden; transition:max-height .4s cubic-bezier(.22,1,.36,1), padding .4s;">
+            <p class="pb-5">可以，隨時可在帳戶設定中取消，取消後仍可使用至當期billing週期結束，不會產生額外費用。</p>
+          </div>
+        </div>
+
+        <div class="faq-item card rounded-xl overflow-hidden fade-up" style="transition-delay:.15s">
+          <button class="faq-trigger w-full flex items-center justify-between text-left px-6 py-5 text-white font-medium">
+            團隊版有提供正式發票或採購合約嗎？
+            <svg class="faq-icon flex-shrink-0 transition-transform duration-300" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-panel px-6 text-sm text-[var(--text-mid)] leading-relaxed" style="max-height:0; overflow:hidden; transition:max-height .4s cubic-bezier(.22,1,.36,1), padding .4s;">
+            <p class="pb-5">團隊版與企業客戶皆可開立統一發票，並可簽署正式採購合約，歡迎聯絡業務團隊洽談客製化條款。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FINAL CTA ================= -->
+  <section class="relative py-24 px-5 sm:px-8">
+    <div class="max-w-5xl mx-auto grad-border rounded-3xl px-8 py-16 sm:px-16 text-center relative overflow-hidden fade-up">
+      <div class="absolute -top-24 -right-24 w-64 h-64 rounded-full grad-bg opacity-25 blur-3xl float-slow"></div>
+      <div class="absolute -bottom-20 -left-20 w-56 h-56 rounded-full grad-bg opacity-20 blur-3xl float-slower"></div>
+
+      <h2 class="relative text-3xl sm:text-4xl font-bold text-white mb-5">準備好讓你的文字<br>更有說服力了嗎？</h2>
+      <p class="relative text-[var(--text-mid)] max-w-xl mx-auto mb-9">加入超過 12,000 個團隊的行列，用言外 BeyondWords 把每一次表達都寫到位。</p>
+      <div class="relative flex flex-wrap items-center justify-center gap-4">
+        <a href="#pricing" class="btn-primary text-white font-semibold px-8 py-3.5 rounded-full">免費開始使用</a>
+        <a href="#demo" class="btn-ghost text-white font-medium px-8 py-3.5 rounded-full">預約產品導覽</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="relative border-t border-white/5 pt-16 pb-10 px-5 sm:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-10 mb-14">
+        <div class="lg:col-span-2">
+          <div class="flex items-center gap-2.5 mb-4">
+            <span class="w-8 h-8 rounded-xl grad-bg flex items-center justify-center font-display font-bold text-white text-sm">言</span>
+            <span class="font-display font-semibold text-white text-lg">言外 BeyondWords</span>
+          </div>
+          <p class="text-sm text-[var(--text-lo)] leading-relaxed max-w-xs">為中文使用情境打造的 AI 寫作助手，讓每一次表達都精準到位。</p>
+        </div>
+
+        <div>
+          <h4 class="text-white font-semibold text-sm mb-4">產品</h4>
+          <ul class="space-y-2.5 text-sm text-[var(--text-lo)]">
+            <li><a href="#features" class="hover:text-white transition-colors">功能特色</a></li>
+            <li><a href="#pricing" class="hover:text-white transition-colors">方案定價</a></li>
+            <li><a href="#demo" class="hover:text-white transition-colors">產品實錄</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">更新日誌</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-semibold text-sm mb-4">公司</h4>
+          <ul class="space-y-2.5 text-sm text-[var(--text-lo)]">
+            <li><a href="#" class="hover:text-white transition-colors">關於我們</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">加入我們</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">媒體報導</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">聯絡我們</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-semibold text-sm mb-4">資源</h4>
+          <ul class="space-y-2.5 text-sm text-[var(--text-lo)]">
+            <li><a href="#faq" class="hover:text-white transition-colors">常見問題</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">使用教學</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">開發者文件</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">服務狀態</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-white/5 text-xs text-[var(--text-lo)]">
+        <p>© 2026 言外 BeyondWords．保留一切權利。</p>
+        <div class="flex items-center gap-6">
+          <a href="#" class="hover:text-white transition-colors">隱私權政策</a>
+          <a href="#" class="hover:text-white transition-colors">服務條款</a>
+          <a href="#" class="hover:text-white transition-colors">資訊安全</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // mobile menu
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+    // scroll fade-up reveal
+    const revealEls = document.querySelectorAll('.fade-up');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => io.observe(el));
+
+    // typing dots loop restart (visual only, purely decorative)
+    const typingRow = document.getElementById('typingRow');
+    if (typingRow) {
+      setInterval(() => {
+        typingRow.style.opacity = typingRow.style.opacity === '0.35' ? '1' : '0.35';
+      }, 2600);
+    }
+
+    // pricing billing toggle
+    const billingToggle = document.getElementById('billingToggle');
+    const toggleKnob = document.getElementById('toggleKnob');
+    const labelMonthly = document.getElementById('labelMonthly');
+    const labelYearly = document.getElementById('labelYearly');
+    let yearly = false;
+    billingToggle.addEventListener('click', () => {
+      yearly = !yearly;
+      toggleKnob.style.transform = yearly ? 'translateX(24px)' : 'translateX(0)';
+      labelMonthly.classList.toggle('text-white', !yearly);
+      labelMonthly.classList.toggle('text-[var(--text-lo)]', yearly);
+      labelYearly.classList.toggle('text-white', yearly);
+      labelYearly.classList.toggle('text-[var(--text-lo)]', !yearly);
+      document.querySelectorAll('.price-monthly').forEach(el => el.classList.toggle('hidden', yearly));
+      document.querySelectorAll('.price-yearly').forEach(el => el.classList.toggle('hidden', !yearly));
+    });
+
+    // faq accordion
+    document.querySelectorAll('.faq-trigger').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const panel = btn.nextElementSibling;
+        const icon = btn.querySelector('.faq-icon');
+        const isOpen = panel.style.maxHeight && panel.style.maxHeight !== '0px';
+
+        document.querySelectorAll('.faq-panel').forEach(p => { p.style.maxHeight = '0px'; });
+        document.querySelectorAll('.faq-icon').forEach(i => { i.style.transform = 'rotate(0deg)'; });
+
+        if (!isOpen) {
+          panel.style.maxHeight = panel.scrollHeight + 'px';
+          icon.style.transform = 'rotate(180deg)';
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
