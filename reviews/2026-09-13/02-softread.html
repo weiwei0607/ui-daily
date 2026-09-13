@@ -1,0 +1,191 @@
+<!-- style #19 Soft UI Evolution -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>軟軟 SoftRead｜親子共讀時光</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Quicksand','Zen Maru Gothic',sans-serif;
+    background: linear-gradient(160deg,#fdf6f0,#eaf4ff 60%,#fff0f6);
+    color:#4a4458;
+  }
+  h1,h2,h3,.title-font{ font-family:'Baloo 2','Zen Maru Gothic',sans-serif; }
+  .soft-card{
+    background:#f4f1fb;
+    border-radius: 32px;
+    box-shadow: 10px 10px 24px #d8d4e8, -10px -10px 24px #ffffff;
+  }
+  .soft-card-pink{ background:#fdeef1; box-shadow: 10px 10px 24px #f0d6da, -10px -10px 24px #ffffff; }
+  .soft-card-blue{ background:#eaf4fd; box-shadow: 10px 10px 24px #d3e2ee, -10px -10px 24px #ffffff; }
+  .soft-card-mint{ background:#eefaf3; box-shadow: 10px 10px 24px #d5ede0, -10px -10px 24px #ffffff; }
+  .soft-btn{
+    background:#f4f1fb;
+    border-radius: 999px;
+    box-shadow: 6px 6px 14px #d8d4e8, -6px -6px 14px #ffffff;
+    transition: all .18s ease;
+  }
+  .soft-btn:hover{ box-shadow: 3px 3px 8px #d8d4e8, -3px -3px 8px #ffffff; transform: translateY(1px); }
+  .soft-btn:active, .soft-btn.pressed{
+    box-shadow: inset 4px 4px 10px #d8d4e8, inset -4px -4px 10px #ffffff;
+  }
+  .soft-btn-primary{
+    background: linear-gradient(145deg,#ffc1d6,#ff9fc2);
+    color:#5a2740;
+    box-shadow: 6px 6px 16px #e8a9bd, -6px -6px 16px #ffe0ea;
+  }
+  .toggle-track{
+    width:64px;height:34px;border-radius:999px;
+    background:#eae7f4;
+    box-shadow: inset 4px 4px 8px #d8d4e8, inset -4px -4px 8px #ffffff;
+    position:relative; cursor:pointer;
+    transition: background .3s;
+  }
+  .toggle-dot{
+    width:26px;height:26px;border-radius:50%;
+    background: linear-gradient(145deg,#ffffff,#f0edf9);
+    box-shadow: 3px 3px 6px rgba(0,0,0,0.15);
+    position:absolute; top:4px; left:4px;
+    transition: left .3s;
+  }
+  .toggle-track.on{ background: linear-gradient(145deg,#c9f7dc,#a3edc4); }
+  .toggle-track.on .toggle-dot{ left:34px; }
+  .progress-ring-bg{ fill:none; stroke:#e5e1f2; stroke-width:10; }
+  .progress-ring-fg{ fill:none; stroke:#ffb3c9; stroke-width:10; stroke-linecap:round; transition: stroke-dashoffset 1s ease; }
+  .badge-bubble{
+    width:52px;height:52px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-size:22px;
+    box-shadow: 5px 5px 12px #d8d4e8, -5px -5px 12px #ffffff;
+  }
+</style>
+</head>
+<body class="min-h-screen px-4 py-8 md:px-10">
+
+  <header class="max-w-5xl mx-auto flex items-center justify-between mb-8">
+    <div class="flex items-center gap-3">
+      <div class="badge-bubble" style="background:#fdeef1;">🐰</div>
+      <div>
+        <h1 class="title-font text-2xl font-bold" style="color:#7a5c8a">軟軟 <span class="text-sm font-normal opacity-60">SoftRead</span></h1>
+        <p class="text-xs opacity-50">每天 10 分鐘，陪孩子讀一個故事</p>
+      </div>
+    </div>
+    <button class="soft-btn px-5 py-2 text-sm font-semibold" style="color:#7a5c8a">登入家長帳號</button>
+  </header>
+
+  <section class="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 mb-10 items-stretch">
+    <div class="soft-card p-8 flex flex-col justify-center">
+      <p class="text-xs tracking-wide mb-2" style="color:#ff9fc2">今日推薦繪本</p>
+      <h2 class="title-font text-3xl font-bold mb-3" style="color:#5a4a6a">《月亮忘記睡覺了》</h2>
+      <p class="text-sm opacity-70 leading-relaxed mb-6">一則關於耐心等待與陪伴的溫柔故事，適合睡前共讀，附語音導讀與互動提問卡。</p>
+      <div class="flex gap-3">
+        <button class="soft-btn-primary px-6 py-3 font-bold rounded-full">開始共讀 ▶</button>
+        <button class="soft-btn px-6 py-3 text-sm font-semibold" style="color:#7a5c8a">加入書單</button>
+      </div>
+    </div>
+
+    <div class="soft-card-blue p-8 flex flex-col justify-center items-center">
+      <p class="text-xs mb-4" style="color:#7fa8d1">本週共讀累積時間</p>
+      <div class="relative w-40 h-40">
+        <svg class="w-40 h-40 -rotate-90" viewBox="0 0 140 140">
+          <circle class="progress-ring-bg" cx="70" cy="70" r="60"></circle>
+          <circle class="progress-ring-fg" id="ringFg" cx="70" cy="70" r="60" stroke-dasharray="377" stroke-dashoffset="377"></circle>
+        </svg>
+        <div class="absolute inset-0 flex flex-col items-center justify-center">
+          <span class="title-font text-3xl font-bold" style="color:#5a4a6a" id="ringNum">0</span>
+          <span class="text-xs opacity-50">分鐘</span>
+        </div>
+      </div>
+      <p class="text-xs opacity-50 mt-3">目標 210 分鐘／週</p>
+    </div>
+  </section>
+
+  <section class="max-w-5xl mx-auto mb-10">
+    <h3 class="title-font text-xl font-bold mb-4" style="color:#5a4a6a">孩子的閱讀徽章</h3>
+    <div class="soft-card p-6 flex flex-wrap gap-5">
+      <div class="flex flex-col items-center gap-2">
+        <div class="badge-bubble soft-card-pink">🌙</div>
+        <span class="text-xs opacity-60">睡前小達人</span>
+      </div>
+      <div class="flex flex-col items-center gap-2">
+        <div class="badge-bubble soft-card-mint">📚</div>
+        <span class="text-xs opacity-60">連續 7 天</span>
+      </div>
+      <div class="flex flex-col items-center gap-2">
+        <div class="badge-bubble soft-card-blue">🐢</div>
+        <span class="text-xs opacity-60">慢慢讀完</span>
+      </div>
+      <div class="flex flex-col items-center gap-2 opacity-30">
+        <div class="badge-bubble" style="background:#f4f1fb">🔒</div>
+        <span class="text-xs">再讀 3 本解鎖</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-5xl mx-auto mb-10">
+    <h3 class="title-font text-xl font-bold mb-4" style="color:#5a4a6a">共讀提醒設定</h3>
+    <div class="soft-card p-6 space-y-5">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="font-semibold text-sm" style="color:#5a4a6a">睡前提醒</p>
+          <p class="text-xs opacity-50">每晚 8:30 提醒共讀時間</p>
+        </div>
+        <div class="toggle-track on" onclick="this.classList.toggle('on')"><div class="toggle-dot"></div></div>
+      </div>
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="font-semibold text-sm" style="color:#5a4a6a">語音導讀</p>
+          <p class="text-xs opacity-50">由溫柔口吻的 AI 朗讀故事</p>
+        </div>
+        <div class="toggle-track" onclick="this.classList.toggle('on')"><div class="toggle-dot"></div></div>
+      </div>
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="font-semibold text-sm" style="color:#5a4a6a">週報推送給家長</p>
+          <p class="text-xs opacity-50">每週日整理孩子的閱讀足跡</p>
+        </div>
+        <div class="toggle-track on" onclick="this.classList.toggle('on')"><div class="toggle-dot"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-5xl mx-auto mb-10 grid md:grid-cols-3 gap-5">
+    <div class="soft-card-pink p-6 text-center">
+      <p class="title-font text-2xl font-bold" style="color:#c76b8a">NT$ 0</p>
+      <p class="text-xs opacity-60 mt-1 mb-4">基礎方案・每週 3 本</p>
+      <button class="soft-btn w-full py-2 text-sm font-semibold" style="color:#7a5c8a">目前方案</button>
+    </div>
+    <div class="soft-card-blue p-6 text-center scale-105">
+      <p class="text-xs mb-1" style="color:#7fa8d1">最多家庭選擇</p>
+      <p class="title-font text-2xl font-bold" style="color:#4a7ab0">NT$ 199 <span class="text-xs font-normal">/月</span></p>
+      <p class="text-xs opacity-60 mt-1 mb-4">無限繪本＋語音導讀</p>
+      <button class="soft-btn-primary w-full py-2 text-sm font-bold rounded-full">升級方案</button>
+    </div>
+    <div class="soft-card-mint p-6 text-center">
+      <p class="title-font text-2xl font-bold" style="color:#4a9a72">NT$ 1,999 <span class="text-xs font-normal">/年</span></p>
+      <p class="text-xs opacity-60 mt-1 mb-4">省 17%＋家庭共享 4 人</p>
+      <button class="soft-btn w-full py-2 text-sm font-semibold" style="color:#7a5c8a">選擇年繳</button>
+    </div>
+  </section>
+
+  <footer class="text-center text-xs opacity-40 py-6">© 2026 軟軟 SoftRead．陪每個孩子軟軟地長大</footer>
+
+<script>
+  const circumference = 2 * Math.PI * 60;
+  const ring = document.getElementById('ringFg');
+  const target = 148;
+  const goal = 210;
+  let current = 0;
+  const timer = setInterval(()=>{
+    current += 4;
+    if(current >= target){ current = target; clearInterval(timer); }
+    document.getElementById('ringNum').textContent = current;
+    const offset = circumference - (current/goal)*circumference;
+    ring.style.strokeDashoffset = offset;
+  }, 25);
+</script>
+</body>
+</html>

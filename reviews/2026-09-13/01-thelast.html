@@ -1,0 +1,250 @@
+<!-- style #13 Skeuomorphism -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>楦 The Last｜手工製鞋工作室</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Karla:wght@400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --leather:#6b4226;
+    --leather-dark:#4a2d18;
+    --leather-light:#8a5a3a;
+    --brass:#c9a15a;
+    --cream:#f3e9dc;
+    --stitch:#e8d9c0;
+  }
+  body{
+    font-family:'Karla','Noto Serif TC',serif;
+    background: radial-gradient(ellipse at top, #3a2417, #241409 70%);
+    color:var(--cream);
+  }
+  h1,h2,h3,.serif-title{
+    font-family:'Fraunces','Noto Serif TC',serif;
+    font-optical-sizing:auto;
+  }
+  .leather-panel{
+    background: linear-gradient(155deg, var(--leather-light), var(--leather) 40%, var(--leather-dark));
+    border-radius: 14px;
+    box-shadow:
+      inset 0 2px 4px rgba(255,255,255,0.15),
+      inset 0 -6px 12px rgba(0,0,0,0.45),
+      0 12px 28px rgba(0,0,0,0.5);
+    position: relative;
+  }
+  .leather-panel::before{
+    content:'';
+    position:absolute; inset:8px;
+    border-radius:8px;
+    border: 1.5px dashed rgba(243,233,220,0.25);
+    pointer-events:none;
+  }
+  .wood-bg{
+    background:
+      repeating-linear-gradient(90deg, rgba(0,0,0,0.06) 0 2px, transparent 2px 40px),
+      linear-gradient(180deg, #5a3a22, #3d2513);
+  }
+  .brass-btn{
+    background: linear-gradient(180deg, #e8c988, var(--brass) 45%, #a67c3d);
+    color:#3a2417;
+    font-weight:700;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.6),
+      inset 0 -3px 6px rgba(0,0,0,0.35),
+      0 6px 14px rgba(0,0,0,0.4);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .brass-btn:hover{ transform: translateY(-2px); }
+  .brass-btn:active{
+    transform: translateY(1px);
+    box-shadow:
+      inset 0 3px 8px rgba(0,0,0,0.5),
+      0 2px 6px rgba(0,0,0,0.3);
+  }
+  .stitch-border{
+    border: 2px dashed rgba(232,217,192,0.35);
+    border-radius: 10px;
+  }
+  .knob{
+    width:56px;height:56px;border-radius:50%;
+    background: radial-gradient(circle at 35% 30%, #e8c988, var(--brass) 50%, #7a5a2a 90%);
+    box-shadow:
+      0 4px 10px rgba(0,0,0,0.5),
+      inset 0 -3px 6px rgba(0,0,0,0.4),
+      inset 0 2px 3px rgba(255,255,255,0.5);
+    cursor:pointer;
+    transition: transform .3s ease;
+  }
+  .inset-card{
+    background: linear-gradient(180deg, #2a1a0f, #1a0f08);
+    box-shadow: inset 0 4px 10px rgba(0,0,0,0.6), inset 0 -1px 0 rgba(255,255,255,0.05);
+    border-radius:12px;
+  }
+  .grain::after{
+    content:'';
+    position:absolute; inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events:none;
+    border-radius: inherit;
+  }
+  .tab-active{ background: linear-gradient(180deg, rgba(201,161,90,0.35), rgba(201,161,90,0.1)); }
+</style>
+</head>
+<body class="min-h-screen px-4 py-10 md:px-10">
+
+  <header class="max-w-6xl mx-auto flex items-center justify-between mb-10">
+    <div class="flex items-center gap-3">
+      <div class="knob" id="logoKnob"></div>
+      <div>
+        <h1 class="serif-title text-2xl md:text-3xl font-semibold tracking-wide" style="color:var(--cream)">楦 <span class="text-sm align-middle opacity-70">The Last</span></h1>
+        <p class="text-xs opacity-60 tracking-widest">手工製鞋工作室 · 台南本店</p>
+      </div>
+    </div>
+    <nav class="hidden md:flex gap-6 text-sm opacity-80">
+      <a href="#craft" class="hover:opacity-100">工藝</a>
+      <a href="#custom" class="hover:opacity-100">訂製流程</a>
+      <a href="#materials" class="hover:opacity-100">皮料選擇</a>
+      <a href="#booking" class="hover:opacity-100">預約量腳</a>
+    </nav>
+    <button class="brass-btn px-5 py-2 rounded-full text-sm">預約諮詢</button>
+  </header>
+
+  <section class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center mb-16">
+    <div class="leather-panel p-10 relative grain">
+      <p class="text-xs tracking-[0.3em] uppercase mb-4" style="color:var(--brass)">Bespoke Since 1998</p>
+      <h2 class="serif-title text-4xl md:text-5xl font-bold leading-tight mb-5">
+        一雙鞋，<br/>照著您的腳型而生
+      </h2>
+      <p class="opacity-80 leading-relaxed mb-8">
+        從義大利植鞣皮到手工縫線，每一道工序都由師傅親手完成。我們不做量產，只做「這一雙」——完全依照您的腳型木楦，反覆修整直到合腳為止。
+      </p>
+      <div class="flex gap-4">
+        <button class="brass-btn px-6 py-3 rounded-full">開始訂製</button>
+        <button class="px-6 py-3 rounded-full stitch-border text-sm opacity-80 hover:opacity-100">參觀工坊 →</button>
+      </div>
+    </div>
+
+    <div class="wood-bg leather-panel p-6 relative">
+      <div class="grain absolute inset-0 rounded-2xl"></div>
+      <div class="relative grid grid-cols-2 gap-4">
+        <div class="inset-card p-4 col-span-2">
+          <p class="text-xs opacity-60 mb-1">目前製程階段</p>
+          <div class="flex items-center justify-between">
+            <span class="serif-title text-xl font-semibold" style="color:var(--brass)">木楦削製中</span>
+            <span class="text-2xl">🪵</span>
+          </div>
+          <div class="mt-3 h-2 rounded-full bg-black/40 overflow-hidden">
+            <div class="h-full rounded-full" style="width:62%;background:linear-gradient(90deg,var(--brass),#e8c988)"></div>
+          </div>
+          <p class="text-xs opacity-50 mt-2">預計完工：11 個工作天後</p>
+        </div>
+        <div class="inset-card p-4 flex flex-col items-center justify-center">
+          <div class="knob mb-2" onclick="rotateKnob(this)"></div>
+          <p class="text-xs opacity-60">旋轉查看鞋楦角度</p>
+        </div>
+        <div class="inset-card p-4">
+          <p class="text-xs opacity-60 mb-2">皮革色卡</p>
+          <div class="flex gap-2">
+            <span class="w-7 h-7 rounded-full block" style="background:#6b4226;box-shadow:inset 0 2px 3px rgba(0,0,0,.4)"></span>
+            <span class="w-7 h-7 rounded-full block" style="background:#3d2513;box-shadow:inset 0 2px 3px rgba(0,0,0,.4)"></span>
+            <span class="w-7 h-7 rounded-full block" style="background:#8a5a3a;box-shadow:inset 0 2px 3px rgba(0,0,0,.4)"></span>
+            <span class="w-7 h-7 rounded-full block ring-2 ring-[var(--brass)]" style="background:#1a1a1a;box-shadow:inset 0 2px 3px rgba(0,0,0,.4)"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="craft" class="max-w-6xl mx-auto mb-16">
+    <h3 class="serif-title text-3xl font-semibold text-center mb-10">工藝的每一層</h3>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="leather-panel p-6 grain relative">
+        <div class="text-3xl mb-3">✂️</div>
+        <h4 class="serif-title text-xl font-semibold mb-2">裁皮 Cutting</h4>
+        <p class="text-sm opacity-75 leading-relaxed">師傅親自檢視每張皮革的紋理與瑕疵，手工裁出最合適的部位，減少浪費也確保耐用度。</p>
+      </div>
+      <div class="leather-panel p-6 grain relative">
+        <div class="text-3xl mb-3">🧵</div>
+        <h4 class="serif-title text-xl font-semibold mb-2">縫製 Stitching</h4>
+        <p class="text-sm opacity-75 leading-relaxed">採用哥德式手工縫線工法，每針間距精準一致，鞋身與鞋底結合更為牢固耐磨。</p>
+      </div>
+      <div class="leather-panel p-6 grain relative">
+        <div class="text-3xl mb-3">🔨</div>
+        <h4 class="serif-title text-xl font-semibold mb-2">定型 Lasting</h4>
+        <p class="text-sm opacity-75 leading-relaxed">在專屬木楦上反覆敲打塑型，讓皮革記住腳型的曲線，穿越久越合腳。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="custom" class="max-w-6xl mx-auto mb-16">
+    <div class="leather-panel p-8 md:p-10 grain relative">
+      <h3 class="serif-title text-3xl font-semibold mb-8 text-center">訂製流程</h3>
+      <div class="flex overflow-x-auto gap-3 mb-8 pb-2" id="stepTabs">
+        <button class="stepTab tab-active px-5 py-2 rounded-full text-sm whitespace-nowrap stitch-border" data-step="0">① 量腳測繪</button>
+        <button class="stepTab px-5 py-2 rounded-full text-sm whitespace-nowrap stitch-border" data-step="1">② 選定皮料</button>
+        <button class="stepTab px-5 py-2 rounded-full text-sm whitespace-nowrap stitch-border" data-step="2">③ 木楦製作</button>
+        <button class="stepTab px-5 py-2 rounded-full text-sm whitespace-nowrap stitch-border" data-step="3">④ 手工縫製</button>
+        <button class="stepTab px-5 py-2 rounded-full text-sm whitespace-nowrap stitch-border" data-step="4">⑤ 試穿修整</button>
+      </div>
+      <div class="inset-card p-6 min-h-[140px]" id="stepContent">
+        <p class="text-sm leading-relaxed opacity-85">師傅將以雷射掃描與手工測量雙重方式，記錄您雙腳超過 20 個關鍵數據點，包含足弓高度、腳背厚度與慣用施力角度，作為木楦製作的依據。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="materials" class="max-w-6xl mx-auto mb-16 grid md:grid-cols-3 gap-6">
+    <div class="leather-panel p-6 text-center grain relative">
+      <p class="text-xs opacity-60 mb-2">義大利植鞣革</p>
+      <p class="serif-title text-3xl font-bold" style="color:var(--brass)">NT$ 32,800</p>
+      <p class="text-xs opacity-60 mt-1">起</p>
+    </div>
+    <div class="leather-panel p-6 text-center grain relative" style="background:linear-gradient(155deg,#a67c3d,#6b4226 40%,#3a2417)">
+      <p class="text-xs mb-2" style="color:var(--cream)">頂級鱷魚壓紋</p>
+      <p class="serif-title text-3xl font-bold" style="color:var(--brass)">NT$ 68,000</p>
+      <p class="text-xs opacity-60 mt-1">起</p>
+    </div>
+    <div class="leather-panel p-6 text-center grain relative">
+      <p class="text-xs opacity-60 mb-2">法國小牛皮</p>
+      <p class="serif-title text-3xl font-bold" style="color:var(--brass)">NT$ 45,500</p>
+      <p class="text-xs opacity-60 mt-1">起</p>
+    </div>
+  </section>
+
+  <section id="booking" class="max-w-3xl mx-auto text-center mb-10">
+    <div class="leather-panel p-10 grain relative">
+      <h3 class="serif-title text-2xl font-semibold mb-3">預約您的量腳時段</h3>
+      <p class="text-sm opacity-75 mb-6">每週僅接受 6 組新客預約，請提前登記。</p>
+      <button class="brass-btn px-8 py-3 rounded-full">立即預約 →</button>
+    </div>
+  </section>
+
+  <footer class="text-center text-xs opacity-40 py-6">© 2026 楦 The Last 手工製鞋工作室．保留所有權利</footer>
+
+<script>
+  function rotateKnob(el){
+    let deg = (parseInt(el.dataset.deg||'0')+90);
+    el.dataset.deg = deg;
+    el.style.transform = `rotate(${deg}deg)`;
+  }
+  document.getElementById('logoKnob').addEventListener('click', function(){ rotateKnob(this); });
+
+  const steps = [
+    "師傅將以雷射掃描與手工測量雙重方式，記錄您雙腳超過 20 個關鍵數據點，包含足弓高度、腳背厚度與慣用施力角度，作為木楦製作的依據。",
+    "從 12 款植鞣革、壓紋皮與異國皮料中選擇，我們會依您的穿著場合與預算給予專業建議，並提供實體皮樣供您觸摸比對。",
+    "依測繪數據手工削製專屬木楦，這是整雙鞋合腳與否的關鍵，通常需要 7–10 個工作天反覆修整。",
+    "採哥德式手工縫線，鞋面、鞋底逐層固定，每一針的力道與角度都由師傅掌控，確保結構穩固耐久。",
+    "完成後安排到店試穿，師傅會現場微調楦頭鬆緊與足弓支撐，直到您滿意為止，未來調整終身保固。"
+  ];
+  document.querySelectorAll('.stepTab').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.stepTab').forEach(b=>b.classList.remove('tab-active'));
+      btn.classList.add('tab-active');
+      document.getElementById('stepContent').innerHTML = `<p class="text-sm leading-relaxed opacity-85">${steps[btn.dataset.step]}</p>`;
+    });
+  });
+</script>
+</body>
+</html>

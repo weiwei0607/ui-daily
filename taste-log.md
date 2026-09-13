@@ -21,6 +21,11 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-09-13（6 個，#01–06）
+- ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（agent-proxy 明確回報 `connect_rejected`，host: b-battle-580b5-default-rtdb.firebaseio.com），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
+- 本輪由主流程親自逐一生成 6 個檔案（未派並行子代理），完成後統一用 opencc（s2t）對全部 6 個檔案做逐字元簡繁比對，並用 grep/python 確認 `<html>`/`</html>`/`<body>`/`</body>` 標籤數量皆為 1、`font-family` 宣告中無 Inter/Helvetica 誤用。結果：僅「台→臺」（01/04/05）、「才→纔」（03）、「群→羣」（04）被標記，皆為台灣慣用正體字（非簡體污染，沿用歷輪判例），全數保留。
+- 本批風格挑選依據：先列出近 3 天（09-10/09-11/09-12）用過的風格編號（#02/#04/#06/#08/#12/#14/#18/#20/#21/#25/#28/#30/#34/#39/#42/#43/#45/#47/#53/#56），再用 `grep -oE '#[0-9]+' taste-log.md | sort | uniq -c` 統計歷史提及次數，優先挑最少次數且跨 A/B/C/D 族群的風格：**Skeuomorphism #13**（A 組，避開配方預設 Georgia，改用 Fraunces + Karla 呈現溫暖工藝質感，做成手工製鞋工作室「楦 The Last」，木紋/皮革 CSS 紋理＋內陰影＋黃銅旋鈕可點擊旋轉、訂製流程分頁切換）、**Soft UI Evolution #19**（A 組圓潤家族，套用「已確認偏好」的圓體 Baloo 2 + Quicksand + Zen Maru Gothic，做成親子共讀 App「軟軟 SoftRead」，柔和雙陰影卡片＋可切換開關＋SVG 環形進度動畫）、**Minimal & Direct #23**（B 組結構，避開 Inter，改用 Manrope，做成極簡專注計時器「只做一件事 OnlyOne」，SVG 噪點紋理＋真的會倒數的番茄鐘與圓環進度）、**User Behavior Dashboard #35**（C 組，避開 Inter/JetBrains Mono 常見預設改用 Public Sans + JetBrains Mono 新組合，做成訂閱制影音平台留存分析後台「留看 WatchRetain」，含轉換漏斗長條圖、30 日留存曲線 SVG 折線圖、常見操作路徑）、**Dimensional Layering #46**（D 組，避開 Inter，改用 Sora，做成建築設計工作室作品集「疊境 StrataScape」，z 軸堆疊卡片 hover 時再往外錯位浮起、可運作的分類篩選按鈕）、**HUD / Sci-Fi #51**（D 組，沿用配方 Orbitron + Chakra Petch + Share Tech Mono，做成衛星地面站監控中心「軌跡站 OrbitStation」，螢光青 HUD 邊角刻度＋即時更新的訊號波形 SVG＋每隔幾秒自動新增的警報日誌與即時時鐘）。全數繁體中文文案，皆避免使用 Inter/Helvetica，字體皆依風格美學挑選、未重複使用同一組字體。
+
 ### 2026-09-12（6 個，#01–06）
 - ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（agent-proxy 明確回報 `connect_rejected`，host: b-battle-580b5-default-rtdb.firebaseio.com），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
 - ⚠️ 本輪 Telegram 通知（步驟 8）同樣被環境網路政策擋下（agent-proxy 明確回報 `connect_rejected`，host: api.telegram.org），畫廊已正常生成並發布到 GitHub，改用系統推播通知告知，連結：https://raw.githack.com/weiwei0607/ui-daily/master/reviews/2026-09-12/index.html

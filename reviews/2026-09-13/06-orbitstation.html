@@ -1,0 +1,202 @@
+<!-- style #51 HUD / Sci-Fi -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>軌跡站 OrbitStation｜衛星地面站監控中心</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Chakra+Petch:wght@400;500;600;700&family=Share+Tech+Mono&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Chakra Petch','Noto Sans TC',sans-serif; background:#04080c; color:#8ff3ff; }
+  h1,h2,.disp{ font-family:'Orbitron',sans-serif; }
+  .mono{ font-family:'Share Tech Mono',monospace; }
+  .hud-panel{
+    background: rgba(8,20,26,0.7);
+    border: 1px solid rgba(143,243,255,0.35);
+    position: relative;
+    border-radius: 4px;
+  }
+  .hud-panel::before, .hud-panel::after{
+    content:''; position:absolute; width:14px; height:14px;
+    border: 2px solid #8ff3ff;
+  }
+  .hud-panel::before{ top:-2px; left:-2px; border-right:none; border-bottom:none; }
+  .hud-panel::after{ bottom:-2px; right:-2px; border-left:none; border-top:none; }
+  .scanline{
+    position:fixed; inset:0; pointer-events:none; z-index:50;
+    background: repeating-linear-gradient(0deg, rgba(143,243,255,0.03) 0px, transparent 1px, transparent 3px);
+  }
+  .glow-text{ text-shadow: 0 0 8px rgba(143,243,255,0.7); }
+  .pulse-dot{ animation: pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{ opacity:1; box-shadow:0 0 6px #4ade80;} 50%{ opacity:.4; box-shadow:0 0 2px #4ade80;} }
+  .orbit-ring{ animation: spin 12s linear infinite; transform-origin:center; }
+  .orbit-ring2{ animation: spin 20s linear infinite reverse; transform-origin:center; }
+  @keyframes spin{ from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+  .grid-bg{
+    background-image: linear-gradient(rgba(143,243,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(143,243,255,0.07) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+  .status-ok{ color:#4ade80; } .status-warn{ color:#facc15; } .status-crit{ color:#f87171; }
+  .log-line{ border-left:2px solid rgba(143,243,255,0.25); }
+</style>
+</head>
+<body class="min-h-screen grid-bg">
+  <div class="scanline"></div>
+
+  <header class="max-w-7xl mx-auto flex items-center justify-between px-6 py-5 border-b border-[#8ff3ff]/20">
+    <div class="flex items-center gap-3">
+      <span class="pulse-dot w-2.5 h-2.5 rounded-full bg-[#4ade80] inline-block"></span>
+      <h1 class="disp text-xl font-bold tracking-widest glow-text">軌跡站 <span class="text-xs font-normal opacity-60">ORBITSTATION</span></h1>
+    </div>
+    <div class="mono text-xs opacity-70" id="clock">00:00:00 UTC+8</div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-6 py-6 grid md:grid-cols-3 gap-5">
+
+    <div class="hud-panel p-5 md:col-span-2">
+      <p class="text-xs tracking-widest opacity-60 mb-4">▍即時軌道追蹤 · TRACKING VIEW</p>
+      <div class="relative w-full aspect-square max-w-md mx-auto">
+        <svg viewBox="0 0 300 300" class="w-full h-full">
+          <circle cx="150" cy="150" r="140" fill="none" stroke="#8ff3ff" stroke-opacity="0.15"/>
+          <circle cx="150" cy="150" r="100" fill="none" stroke="#8ff3ff" stroke-opacity="0.15"/>
+          <circle cx="150" cy="150" r="60" fill="none" stroke="#8ff3ff" stroke-opacity="0.2"/>
+          <line x1="150" y1="10" x2="150" y2="290" stroke="#8ff3ff" stroke-opacity="0.1"/>
+          <line x1="10" y1="150" x2="290" y2="150" stroke="#8ff3ff" stroke-opacity="0.1"/>
+          <circle cx="150" cy="150" r="6" fill="#8ff3ff"/>
+          <g class="orbit-ring">
+            <circle cx="150" cy="10" r="5" fill="#4ade80"/>
+          </g>
+          <g class="orbit-ring2">
+            <circle cx="290" cy="150" r="4" fill="#facc15"/>
+          </g>
+        </svg>
+        <div class="absolute top-2 left-2 text-xs mono opacity-60">AZ 214.3°</div>
+        <div class="absolute bottom-2 right-2 text-xs mono opacity-60">EL 47.8°</div>
+      </div>
+      <div class="grid grid-cols-3 gap-4 mt-4 text-center">
+        <div>
+          <p class="text-xs opacity-50">目標衛星</p>
+          <p class="mono text-sm glow-text">FORMOSAT-9A</p>
+        </div>
+        <div>
+          <p class="text-xs opacity-50">訊號強度</p>
+          <p class="mono text-sm status-ok" id="signalVal">-72 dBm</p>
+        </div>
+        <div>
+          <p class="text-xs opacity-50">過境剩餘</p>
+          <p class="mono text-sm" id="passTime">04:32</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="hud-panel p-5">
+      <p class="text-xs tracking-widest opacity-60 mb-4">▍系統狀態 · SYSTEM STATUS</p>
+      <div class="space-y-3 text-sm">
+        <div class="flex justify-between items-center">
+          <span>天線陣列 A</span>
+          <span class="status-ok mono">▲ 正常</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span>天線陣列 B</span>
+          <span class="status-ok mono">▲ 正常</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span>下行頻寬</span>
+          <span class="status-warn mono">◆ 87% 使用</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span>備援電力</span>
+          <span class="status-ok mono">▲ 100%</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span>地面站溫控</span>
+          <span class="status-crit mono">✕ 異常升溫</span>
+        </div>
+      </div>
+      <div class="mt-5 pt-4 border-t border-[#8ff3ff]/20">
+        <p class="text-xs opacity-50 mb-2">訊號強度即時波形</p>
+        <svg viewBox="0 0 240 60" class="w-full h-14">
+          <polyline id="waveLine" fill="none" stroke="#8ff3ff" stroke-width="1.5" points=""/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="hud-panel p-5 md:col-span-2">
+      <p class="text-xs tracking-widest opacity-60 mb-4">▍今日過境排程 · PASS SCHEDULE</p>
+      <table class="w-full text-xs mono">
+        <thead class="opacity-50">
+          <tr class="text-left"><th class="py-1">衛星</th><th>開始時間</th><th>最大仰角</th><th>持續時間</th><th>狀態</th></tr>
+        </thead>
+        <tbody>
+          <tr class="border-t border-[#8ff3ff]/10"><td class="py-2">FORMOSAT-9A</td><td>06:14</td><td>47.8°</td><td>08:12</td><td class="status-ok">追蹤中</td></tr>
+          <tr class="border-t border-[#8ff3ff]/10"><td class="py-2">FORMOSAT-7C</td><td>08:42</td><td>62.1°</td><td>09:47</td><td class="opacity-60">排隊中</td></tr>
+          <tr class="border-t border-[#8ff3ff]/10"><td class="py-2">TRITON-2</td><td>11:05</td><td>31.4°</td><td>06:33</td><td class="opacity-60">排隊中</td></tr>
+          <tr class="border-t border-[#8ff3ff]/10"><td class="py-2">FORMOSAT-9B</td><td>14:27</td><td>55.6°</td><td>10:02</td><td class="opacity-60">排隊中</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="hud-panel p-5">
+      <p class="text-xs tracking-widest opacity-60 mb-4">▍警報日誌 · ALERT LOG</p>
+      <div class="space-y-2 text-xs mono max-h-48 overflow-y-auto pr-1" id="logList">
+        <div class="log-line pl-3 py-1 opacity-80">06:12:03 天線陣列 A 校準完成</div>
+        <div class="log-line pl-3 py-1 opacity-80">06:03:41 地面站溫度 39.2°C</div>
+        <div class="log-line pl-3 py-1 opacity-80">05:58:17 開始追蹤 FORMOSAT-9A</div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="text-center text-xs opacity-30 py-6 mono">ORBITSTATION GROUND CONTROL · 屏東枋寮站</footer>
+
+<script>
+  function pad(n){ return String(n).padStart(2,'0'); }
+  function tickClock(){
+    const d = new Date();
+    document.getElementById('clock').textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())} UTC+8`;
+  }
+  setInterval(tickClock, 1000); tickClock();
+
+  let sig = -72;
+  function drawWave(){
+    let pts = [];
+    for(let i=0;i<=24;i++){
+      const x = i*10;
+      const y = 30 + Math.sin(i*0.6 + Date.now()/300)*14 + (Math.random()*4-2);
+      pts.push(`${x},${y.toFixed(1)}`);
+    }
+    document.getElementById('waveLine').setAttribute('points', pts.join(' '));
+  }
+  setInterval(drawWave, 200); drawWave();
+
+  let passSec = 272;
+  setInterval(()=>{
+    passSec = Math.max(0, passSec-1);
+    const m = Math.floor(passSec/60), s = passSec%60;
+    document.getElementById('passTime').textContent = `${pad(m)}:${pad(s)}`;
+  }, 1000);
+
+  setInterval(()=>{
+    sig = -72 + (Math.random()*6-3);
+    document.getElementById('signalVal').textContent = `${sig.toFixed(0)} dBm`;
+  }, 1500);
+
+  const logs = [
+    "天線陣列 B 訊號穩定", "下行頻寬使用率上升至 89%", "備援電力自動測試通過",
+    "偵測到微弱雜訊，已濾除", "地面站溫控風扇轉速提升"
+  ];
+  let li = 0;
+  setInterval(()=>{
+    const d = new Date();
+    const line = document.createElement('div');
+    line.className = 'log-line pl-3 py-1 opacity-80';
+    line.textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())} ${logs[li % logs.length]}`;
+    const list = document.getElementById('logList');
+    list.prepend(line);
+    li++;
+    while(list.children.length > 8) list.removeChild(list.lastChild);
+  }, 4000);
+</script>
+</body>
+</html>
