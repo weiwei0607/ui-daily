@@ -1,0 +1,170 @@
+<!-- style #38 Neubrutalism -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>炸場 BLASTJAM</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{ --yellow:#ffe156; --pink:#ff6b6b; --cyan:#4ecdc4; --purple:#a388ee; --ink:#111111; }
+  body{ background:#fdfaf0; color:var(--ink); font-family:'Space Grotesk','Noto Sans TC',sans-serif; }
+  .display{ font-family:'Archivo Black','Noto Sans TC',sans-serif; }
+  .brutal{ border:3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); }
+  .brutal-btn{ transition: transform .1s ease, box-shadow .1s ease; }
+  .brutal-btn:hover{ transform: translate(-2px,-2px); box-shadow: 8px 8px 0 var(--ink); }
+  .brutal-btn:active{ transform: translate(2px,2px); box-shadow: 2px 2px 0 var(--ink); }
+  .tilt{ transform: rotate(-1.5deg); }
+  .tilt2{ transform: rotate(1.5deg); }
+  .marquee-track{ display:flex; width:200%; animation: scroll 16s linear infinite; }
+  @keyframes scroll{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+</style>
+</head>
+<body>
+
+  <div class="border-b-3 border-black overflow-hidden py-2" style="background:var(--ink)">
+    <div class="marquee-track display text-sm text-white tracking-wide">
+      <span class="px-6">🛹 早鳥票只到 9/20　★　冠軍賽事全程直播　★　現場設攤試板　★</span>
+      <span class="px-6">🛹 早鳥票只到 9/20　★　冠軍賽事全程直播　★　現場設攤試板　★</span>
+    </div>
+  </div>
+
+  <header class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="brutal display bg-[var(--yellow)] w-11 h-11 flex items-center justify-center text-xl">⚡</div>
+      <span class="display text-xl">炸場 BLASTJAM</span>
+    </div>
+    <button class="brutal brutal-btn display bg-[var(--pink)] px-5 py-2 text-sm">立即購票</button>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6 pb-20">
+
+    <section class="grid md:grid-cols-2 gap-8 items-center py-8">
+      <div>
+        <span class="brutal inline-block bg-[var(--cyan)] px-3 py-1 text-xs display mb-4 tilt">2026 全國街頭滑板巡迴賽</span>
+        <h1 class="display text-4xl md:text-6xl leading-[1.05] mb-5">城市最<br><span class="bg-[var(--yellow)] px-2">炸</span>的一場</h1>
+        <p class="text-neutral-700 mb-6 max-w-sm">三座城市、六個場次，街式與碗池雙賽道，來看選手把水泥地變成舞台。</p>
+        <div class="flex flex-wrap gap-3">
+          <button class="brutal brutal-btn display bg-[var(--pink)] px-6 py-3">搶購早鳥票</button>
+          <button class="brutal brutal-btn bg-white px-6 py-3 text-sm font-bold">看賽程表</button>
+        </div>
+      </div>
+      <div class="brutal bg-[var(--purple)] p-6 tilt2">
+        <div class="grid grid-cols-2 gap-4">
+          <div class="brutal bg-white p-4 text-center">
+            <p class="display text-3xl">6</p>
+            <p class="text-xs font-bold mt-1">場次</p>
+          </div>
+          <div class="brutal bg-white p-4 text-center">
+            <p class="display text-3xl">128</p>
+            <p class="text-xs font-bold mt-1">參賽選手</p>
+          </div>
+          <div class="brutal bg-white p-4 text-center">
+            <p class="display text-3xl">3</p>
+            <p class="text-xs font-bold mt-1">城市巡迴</p>
+          </div>
+          <div class="brutal bg-white p-4 text-center">
+            <p class="display text-3xl">$2萬</p>
+            <p class="text-xs font-bold mt-1">冠軍獎金</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-10">
+      <h2 class="display text-2xl mb-6">選擇你的票種</h2>
+      <div class="grid md:grid-cols-3 gap-6" id="ticketRow">
+        <div class="brutal bg-white p-6 tilt">
+          <p class="display text-lg mb-1">早鳥站票</p>
+          <p class="display text-3xl mb-3">$580</p>
+          <ul class="text-sm space-y-1 mb-5 text-neutral-700">
+            <li>✔ 全區站立觀賽</li>
+            <li>✔ 賽事紀念貼紙包</li>
+          </ul>
+          <button data-ticket="早鳥站票" class="ticket-btn brutal brutal-btn display w-full py-3 bg-[var(--yellow)]">選擇</button>
+        </div>
+        <div class="brutal bg-white p-6" style="background:var(--pink)">
+          <p class="display text-lg mb-1 text-white">滑手席</p>
+          <p class="display text-3xl mb-3 text-white">$1,280</p>
+          <ul class="text-sm space-y-1 mb-5 text-white/90">
+            <li>✔ 近賽道優先席</li>
+            <li>✔ 選手見面會入場</li>
+            <li>✔ 限量周邊 T</li>
+          </ul>
+          <button data-ticket="滑手席" class="ticket-btn brutal brutal-btn display w-full py-3 bg-white">選擇</button>
+        </div>
+        <div class="brutal bg-white p-6 tilt2">
+          <p class="display text-lg mb-1">全通行證</p>
+          <p class="display text-3xl mb-3">$2,680</p>
+          <ul class="text-sm space-y-1 mb-5 text-neutral-700">
+            <li>✔ 六場次全通</li>
+            <li>✔ 後台通行證</li>
+            <li>✔ 冠軍賽 VIP 包廂</li>
+          </ul>
+          <button data-ticket="全通行證" class="ticket-btn brutal brutal-btn display w-full py-3 bg-[var(--cyan)]">選擇</button>
+        </div>
+      </div>
+      <p id="ticketTip" class="mt-5 display text-lg opacity-0 transition-opacity">已加入購物車 →</p>
+    </section>
+
+    <section class="py-10">
+      <h2 class="display text-2xl mb-6">場次地點</h2>
+      <div class="flex flex-wrap gap-3" id="cityFilter">
+        <button data-city="全部" class="city-btn brutal brutal-btn display px-4 py-2 text-sm bg-[var(--yellow)]">全部</button>
+        <button data-city="台北" class="city-btn brutal brutal-btn display px-4 py-2 text-sm bg-white">台北</button>
+        <button data-city="台中" class="city-btn brutal brutal-btn display px-4 py-2 text-sm bg-white">台中</button>
+        <button data-city="高雄" class="city-btn brutal brutal-btn display px-4 py-2 text-sm bg-white">高雄</button>
+      </div>
+      <div class="grid md:grid-cols-3 gap-5 mt-6" id="venueList"></div>
+    </section>
+
+  </main>
+
+  <footer class="border-t-3 border-black py-6 text-center display text-sm">
+    炸場 BLASTJAM © 2026・帶上你的板子，其他交給我們
+  </footer>
+
+<script>
+  document.querySelectorAll('.ticket-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const tip = document.getElementById('ticketTip');
+      tip.textContent = `已加入購物車：${btn.dataset.ticket} →`;
+      tip.style.opacity = 1;
+      setTimeout(()=> tip.style.opacity = 0, 2200);
+    });
+  });
+
+  const venues = [
+    {city:'台北', name:'松山文創園區廣場', date:'10/04（六）14:00', track:'街式賽道'},
+    {city:'台北', name:'華山滑板公園', date:'10/05（日）13:00', track:'碗池賽道'},
+    {city:'台中', name:'審計新村廣場', date:'10/18（六）14:00', track:'街式賽道'},
+    {city:'台中', name:'中央公園滑板場', date:'10/19（日）13:00', track:'碗池賽道'},
+    {city:'高雄', name:'駁二藝術特區', date:'11/01（六）14:00', track:'街式賽道'},
+    {city:'高雄', name:'岡山滑板公園', date:'11/02（日）13:00', track:'冠軍賽・碗池'},
+  ];
+  const venueList = document.getElementById('venueList');
+  function renderVenues(city){
+    venueList.innerHTML = '';
+    venues.filter(v=> city==='全部' || v.city===city).forEach((v,i)=>{
+      const div = document.createElement('div');
+      div.className = 'brutal bg-white p-5' + (i%2===0 ? ' tilt' : ' tilt2');
+      div.innerHTML = `<p class="display text-sm mb-2 bg-[var(--cyan)] inline-block px-2">${v.city}</p>
+        <p class="font-bold text-lg mb-1">${v.name}</p>
+        <p class="text-sm text-neutral-600">${v.date}・${v.track}</p>`;
+      venueList.appendChild(div);
+    });
+  }
+  renderVenues('全部');
+  document.querySelectorAll('.city-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.city-btn').forEach(b=> b.classList.remove('bg-[var(--yellow)]'));
+      document.querySelectorAll('.city-btn').forEach(b=> b.style.background = 'white');
+      btn.style.background = 'var(--yellow)';
+      renderVenues(btn.dataset.city);
+    });
+  });
+</script>
+</body>
+</html>

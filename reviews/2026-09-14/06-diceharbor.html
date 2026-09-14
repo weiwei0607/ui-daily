@@ -1,0 +1,137 @@
+<!-- style #44 Memphis Revival -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>骰子港 DICE HARBOR</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Poppins:wght@400;500;600;700&family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{ --pink:#ff6f91; --yellow:#ffd93d; --teal:#3ec9c0; --purple:#8c6bff; --ink:#1c1c1c; }
+  body{ background:#fffaf0; color:var(--ink); font-family:'Poppins','Noto Sans TC',sans-serif; }
+  .display{ font-family:'Unbounded','Noto Sans TC',sans-serif; }
+  .dot-bg{
+    background-image: radial-gradient(#00000022 1.5px, transparent 1.5px);
+    background-size: 16px 16px;
+  }
+  .zig{ clip-path: polygon(0 0, 100% 0, 100% 85%, 92% 100%, 84% 85%, 76% 100%, 68% 85%, 60% 100%, 52% 85%, 44% 100%, 36% 85%, 28% 100%, 20% 85%, 12% 100%, 4% 85%, 0 100%); }
+  .card-shadow{ box-shadow: 8px 8px 0 var(--ink); border:3px solid var(--ink); }
+  .tilt-l{ transform: rotate(-3deg); }
+  .tilt-r{ transform: rotate(3deg); }
+  .float-shape{ position:absolute; animation: bob 5s ease-in-out infinite; }
+  @keyframes bob{ 0%,100%{transform:translateY(0) rotate(0)} 50%{transform:translateY(-10px) rotate(8deg)} }
+  .marquee-track{ display:flex; width:200%; animation: scroll 14s linear infinite; }
+  @keyframes scroll{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+</style>
+</head>
+<body class="dot-bg">
+
+  <div class="border-y-3 border-black overflow-hidden py-2" style="background:var(--yellow)">
+    <div class="marquee-track display text-xs font-bold tracking-wide">
+      <span class="px-6">🎲 週三新手之夜買一送一　★　週末桌遊擂台賽　★　生日包場 8 折　★</span>
+      <span class="px-6">🎲 週三新手之夜買一送一　★　週末桌遊擂台賽　★　生日包場 8 折　★</span>
+    </div>
+  </div>
+
+  <header class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between relative">
+    <div class="flex items-center gap-3">
+      <div class="card-shadow bg-[var(--pink)] w-11 h-11 flex items-center justify-center text-xl rounded-full">🎲</div>
+      <span class="display font-bold text-lg">骰子港 <span style="color:var(--purple)">DICE HARBOR</span></span>
+    </div>
+    <button class="card-shadow display text-xs font-bold px-5 py-3 rounded-full" style="background:var(--teal)">立即訂位</button>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6 pb-20 relative">
+
+    <div class="float-shape w-10 h-10 rounded-full hidden md:block" style="background:var(--purple); top:120px; left:2%;"></div>
+    <div class="float-shape w-8 h-8 hidden md:block" style="background:var(--yellow); top:260px; right:4%; animation-delay:1s; border:3px solid var(--ink)"></div>
+
+    <section class="grid md:grid-cols-2 gap-8 items-center py-10">
+      <div>
+        <span class="card-shadow inline-block display text-xs font-bold px-3 py-2 mb-5 tilt-l" style="background:var(--teal)">全台最多桌遊藏書的港口</span>
+        <h1 class="display text-4xl md:text-5xl font-black leading-tight mb-5">
+          進來玩一局，<br><span style="color:var(--pink)">忘記</span>時間這件事。
+        </h1>
+        <p class="text-neutral-700 mb-6 max-w-sm">超過 600 款桌遊，從入門派對遊戲到重策略戰棋，還有專業桌長幫你帶新手局。</p>
+        <div class="flex flex-wrap gap-3">
+          <button class="card-shadow display text-sm font-bold px-6 py-3 rounded-full" style="background:var(--pink)">預約座位</button>
+          <button class="card-shadow display text-sm font-bold px-6 py-3 rounded-full bg-white">看今日新手局</button>
+        </div>
+      </div>
+      <div class="card-shadow p-6 tilt-r" style="background:var(--purple)">
+        <div class="grid grid-cols-2 gap-4">
+          <div class="card-shadow bg-white p-4 text-center rounded-2xl">
+            <p class="display text-3xl font-black">600+</p>
+            <p class="text-xs font-bold mt-1">款桌遊</p>
+          </div>
+          <div class="card-shadow bg-white p-4 text-center rounded-2xl">
+            <p class="display text-3xl font-black">12</p>
+            <p class="text-xs font-bold mt-1">位專業桌長</p>
+          </div>
+          <div class="card-shadow bg-white p-4 text-center rounded-2xl">
+            <p class="display text-3xl font-black">45</p>
+            <p class="text-xs font-bold mt-1">個座位</p>
+          </div>
+          <div class="card-shadow bg-white p-4 text-center rounded-2xl">
+            <p class="display text-3xl font-black">4.9</p>
+            <p class="text-xs font-bold mt-1">顆星評價</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-10">
+      <h2 class="display text-2xl font-bold mb-6">選一種玩法</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="card-shadow bg-white p-6 rounded-3xl tilt-l">
+          <div class="w-12 h-12 rounded-full mb-4 flex items-center justify-center text-xl" style="background:var(--yellow)">🃏</div>
+          <h3 class="display font-bold mb-2">派對輕遊戲</h3>
+          <p class="text-sm text-neutral-600 mb-4">15 分鐘一局，適合聚會炒熱氣氛，新手零負擔。</p>
+          <p class="display text-xl font-black">$180<span class="text-xs font-normal">/人</span></p>
+        </div>
+        <div class="card-shadow bg-white p-6 rounded-3xl">
+          <div class="w-12 h-12 rounded-full mb-4 flex items-center justify-center text-xl" style="background:var(--teal)">♟️</div>
+          <h3 class="display font-bold mb-2">策略重戰棋</h3>
+          <p class="text-sm text-neutral-600 mb-4">動輒 2 小時起跳，桌長全程帶領，越玩越上癮。</p>
+          <p class="display text-xl font-black">$260<span class="text-xs font-normal">/人</span></p>
+        </div>
+        <div class="card-shadow bg-white p-6 rounded-3xl tilt-r">
+          <div class="w-12 h-12 rounded-full mb-4 flex items-center justify-center text-xl" style="background:var(--pink)">🎉</div>
+          <h3 class="display font-bold mb-2">生日包場</h3>
+          <p class="text-sm text-neutral-600 mb-4">整區包下來，附桌長客製選題與拍照道具。</p>
+          <p class="display text-xl font-black">$3,800<span class="text-xs font-normal">/場</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-10">
+      <h2 class="display text-2xl font-bold mb-6">今日新手局時段</h2>
+      <div class="grid sm:grid-cols-3 gap-4" id="slotRow">
+        <button data-slot="14:00" class="slot-btn card-shadow bg-white py-4 rounded-2xl display font-bold">14:00・卡坦島</button>
+        <button data-slot="16:30" class="slot-btn card-shadow bg-white py-4 rounded-2xl display font-bold">16:30・璀璨寶石</button>
+        <button data-slot="19:30" class="slot-btn card-shadow bg-white py-4 rounded-2xl display font-bold">19:30・矮人礦坑</button>
+      </div>
+      <p id="slotTip" class="mt-5 display font-bold opacity-0 transition-opacity" style="color:var(--pink)"></p>
+    </section>
+
+  </main>
+
+  <footer class="border-t-3 border-black py-6 text-center display text-xs font-bold zig" style="background:var(--yellow)">
+    骰子港 DICE HARBOR © 2026・台北市大安區和平東路二段 88 號 2 樓
+  </footer>
+
+<script>
+  document.querySelectorAll('.slot-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.slot-btn').forEach(b=> b.style.background = 'white');
+      btn.style.background = '#ffe08a';
+      const tip = document.getElementById('slotTip');
+      tip.textContent = `已預約 ${btn.dataset.slot} 場次的新手局，出發前會提醒你！`;
+      tip.style.opacity = 1;
+    });
+  });
+</script>
+</body>
+</html>

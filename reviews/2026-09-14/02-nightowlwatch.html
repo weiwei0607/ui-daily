@@ -1,0 +1,181 @@
+<!-- style #07 Dark Mode (OLED) -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>夜貓劇聚 NightOwl Watch</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --neon:#39ff14; --bg:#0a0a0a; --card:#121212; }
+  *{font-family:'Sora',sans-serif;}
+  .mono{font-family:'Space Mono',monospace;}
+  body{background:var(--bg); color:#eaeaea;}
+  .glow{ color:var(--neon); text-shadow:0 0 8px rgba(57,255,20,0.6), 0 0 18px rgba(57,255,20,0.25); }
+  .glow-border{ border:1px solid rgba(57,255,20,0.35); box-shadow: 0 0 14px rgba(57,255,20,0.08) inset; }
+  .card{ background:var(--card); border:1px solid #1f1f1f; border-radius:16px; }
+  .card:hover{ border-color:rgba(57,255,20,0.4); }
+  .btn-neon{ background:var(--neon); color:#04140a; font-weight:700; }
+  .btn-neon:hover{ box-shadow:0 0 20px rgba(57,255,20,0.5); }
+  .pulse-dot{ animation: pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{opacity:1} 50%{opacity:.3} }
+  ::-webkit-scrollbar{width:8px} ::-webkit-scrollbar-thumb{background:#222;border-radius:8px}
+  input[type=range]{ accent-color: var(--neon); }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <header class="border-b border-[#1a1a1a] sticky top-0 bg-[#0a0a0a]/95 backdrop-blur z-20">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="text-xl">🦉</span>
+        <span class="font-extrabold text-lg">夜貓劇聚 <span class="glow font-bold">NightOwl</span></span>
+      </div>
+      <nav class="hidden md:flex gap-8 text-sm text-neutral-400">
+        <a class="hover:text-white">正在熱播</a>
+        <a class="hover:text-white">深夜劇評</a>
+        <a class="hover:text-white">我的片單</a>
+      </nav>
+      <button class="btn-neon rounded-full px-5 py-2 text-sm">加入夜聚</button>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6 py-12">
+
+    <section class="grid md:grid-cols-3 gap-6 items-center mb-14">
+      <div class="md:col-span-2">
+        <p class="mono text-xs glow mb-3">// 現在時段 · 凌晨場</p>
+        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4">
+          燈都關了，<br>只剩螢幕跟我們醒著。
+        </h1>
+        <p class="text-neutral-400 mb-6 max-w-md">追劇到深夜的人，都在這裡集合。純黑護眼介面，跟一群同樣睡不著的人一起吐槽劇情。</p>
+        <div class="flex gap-3">
+          <button class="btn-neon rounded-lg px-6 py-3">立即開追</button>
+          <button class="glow-border rounded-lg px-6 py-3 text-sm text-neutral-300">看看今晚討論度</button>
+        </div>
+      </div>
+      <div class="card glow-border p-5">
+        <p class="mono text-xs text-neutral-500 mb-2">ONLINE NOW</p>
+        <p class="text-3xl font-extrabold glow mb-1" id="onlineCount">2,481</p>
+        <p class="text-xs text-neutral-500">正在同步收看的夜貓</p>
+        <div class="mt-4 flex items-center gap-2 text-xs text-neutral-400">
+          <span class="w-2 h-2 rounded-full bg-[var(--neon)] pulse-dot"></span> 即時更新中
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-14">
+      <div class="flex items-center justify-between mb-5">
+        <h2 class="text-xl font-bold">今晚討論度最高</h2>
+        <span class="mono text-xs text-neutral-500">依即時留言數排序</span>
+      </div>
+      <div class="grid md:grid-cols-3 gap-5">
+        <div class="card p-5">
+          <p class="text-xs text-neutral-500 mono mb-2">EP.08</p>
+          <h3 class="font-bold text-lg mb-2">《霧港疑雲》</h3>
+          <p class="text-sm text-neutral-400 mb-4">結局反轉大家都在猜兇手，留言區已經吵翻。</p>
+          <div class="flex items-center justify-between text-xs">
+            <span class="glow mono">🔥 1,204 則討論</span>
+            <button class="text-neutral-400 hover:text-white">進入劇評 →</button>
+          </div>
+        </div>
+        <div class="card p-5">
+          <p class="text-xs text-neutral-500 mono mb-2">EP.03</p>
+          <h3 class="font-bold text-lg mb-2">《深海回聲》</h3>
+          <p class="text-sm text-neutral-400 mb-4">冷門片但氣氛感十足，適合一個人凌晨看。</p>
+          <div class="flex items-center justify-between text-xs">
+            <span class="glow mono">🔥 862 則討論</span>
+            <button class="text-neutral-400 hover:text-white">進入劇評 →</button>
+          </div>
+        </div>
+        <div class="card p-5">
+          <p class="text-xs text-neutral-500 mono mb-2">EP.12・完結</p>
+          <h3 class="font-bold text-lg mb-2">《機器人與詩》</h3>
+          <p class="text-sm text-neutral-400 mb-4">大結局，社群都在哭，慎入雷區。</p>
+          <div class="flex items-center justify-between text-xs">
+            <span class="glow mono">🔥 2,015 則討論</span>
+            <button class="text-neutral-400 hover:text-white">進入劇評 →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card glow-border p-6 md:p-8 grid md:grid-cols-2 gap-8">
+      <div>
+        <h3 class="font-bold text-lg mb-4">護眼夜間設定</h3>
+        <div class="mb-6">
+          <div class="flex justify-between text-sm mb-2">
+            <span class="text-neutral-400">螢幕亮度</span>
+            <span class="mono glow" id="brightVal">22%</span>
+          </div>
+          <input id="brightRange" type="range" min="5" max="60" value="22" class="w-full">
+        </div>
+        <div>
+          <div class="flex justify-between text-sm mb-2">
+            <span class="text-neutral-400">色溫（暖色越低越護眼）</span>
+            <span class="mono glow" id="warmVal">3200K</span>
+          </div>
+          <input id="warmRange" type="range" min="2000" max="5000" step="100" value="3200" class="w-full">
+        </div>
+      </div>
+      <div>
+        <h3 class="font-bold text-lg mb-4">睡前倒數提醒</h3>
+        <p class="text-sm text-neutral-400 mb-4">設定一個時間，時間到會提醒你「該睡了」。</p>
+        <div class="flex items-center gap-3 mb-4">
+          <span class="mono text-4xl font-bold glow" id="countdownDisplay">30:00</span>
+          <span class="text-xs text-neutral-500">分:秒</span>
+        </div>
+        <div class="flex gap-3">
+          <button id="startCountdown" class="btn-neon rounded-lg px-5 py-2 text-sm">開始倒數</button>
+          <button id="resetCountdown" class="glow-border rounded-lg px-5 py-2 text-sm text-neutral-300">重設</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-[#1a1a1a] mt-10 py-8 text-center text-xs text-neutral-600">
+    夜貓劇聚 NightOwl Watch © 2026・晚安，也許明天再睡
+  </footer>
+
+<script>
+  // 線上人數微幅跳動
+  const onlineEl = document.getElementById('onlineCount');
+  setInterval(()=>{
+    const base = 2481;
+    const delta = Math.floor(Math.random()*40)-20;
+    onlineEl.textContent = (base+delta).toLocaleString('zh-Hant-TW');
+  }, 2500);
+
+  const brightRange = document.getElementById('brightRange');
+  const brightVal = document.getElementById('brightVal');
+  brightRange.addEventListener('input', ()=> brightVal.textContent = brightRange.value + '%');
+
+  const warmRange = document.getElementById('warmRange');
+  const warmVal = document.getElementById('warmVal');
+  warmRange.addEventListener('input', ()=> warmVal.textContent = warmRange.value + 'K');
+
+  // 倒數計時
+  let remaining = 30*60;
+  let timer = null;
+  const display = document.getElementById('countdownDisplay');
+  function render(){
+    const m = Math.floor(remaining/60).toString().padStart(2,'0');
+    const s = (remaining%60).toString().padStart(2,'0');
+    display.textContent = `${m}:${s}`;
+  }
+  document.getElementById('startCountdown').addEventListener('click', ()=>{
+    if(timer) return;
+    timer = setInterval(()=>{
+      if(remaining<=0){ clearInterval(timer); timer=null; display.textContent='該睡了 🌙'; return; }
+      remaining--; render();
+    },1000);
+  });
+  document.getElementById('resetCountdown').addEventListener('click', ()=>{
+    clearInterval(timer); timer=null; remaining=30*60; render();
+  });
+</script>
+</body>
+</html>

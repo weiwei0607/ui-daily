@@ -21,6 +21,12 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-09-14（6 個，#01–06）
+- ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（curl -m 10 無回應，exit 56），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
+- ⚠️ 本輪 Telegram 通知（步驟 8）測試同樣被環境網路政策擋下（curl -m 8 無回應，exit 56），與 Firebase 同一機制，改用系統推播通知告知使用者。
+- 本輪由主流程親自逐一生成 6 個檔案，完成後用 grep 確認 `<html>`/`</html>`/`<body>`/`</body>` 標籤數量皆為 1，且 `font-family` 宣告中無 Inter/Helvetica 誤用；另補裝 opencc（s2t）對全部 6 個檔案做逐字元簡繁比對。結果：僅「台→臺」（01/03/05/06）、「吃→喫」（01）、「群→羣」（02）、「布→佈」（03，「專利布局」為台灣常見用詞）被標記，皆為台灣慣用正體字（非簡體污染，沿用歷輪判例），全數保留。
+- 本批風格挑選依據：先列出近 3 天（09-11/09-12/09-13）用過的風格編號（#02/#04/#06/#08/#12/#13/#19/#20/#21/#23/#28/#30/#35/#42/#43/#46/#47/#51/#53/#56），再用 `grep -oE '#[0-9]+ [^ -]*' reviews/*/*.html` 統計歷史提及次數，優先挑最少次數（多為 2 次）且跨 A/B/C/D 族群的風格：**Claymorphism #09**（A 組圓潤家族，套用「已確認偏好」的圓體 Baloo 2 + M PLUS Rounded 1c，做成情緒紀錄 App「心情黏土 MoodClay」，柔和雙陰影黏土球可點擊選擇心情、按下有內陷效果）、**Dark Mode (OLED) #07**（A 組，避開已用過的 Rajdhani/Space Grotesk+JetBrains Mono 組合，改用 Sora + Space Mono 新配對，做成深夜追劇社群 App「夜貓劇聚 NightOwl Watch」，純黑底＋單一螢光綠強調色，含即時跳動線上人數、亮度／色溫滑桿、真的會倒數的睡前提醒計時器）、**Trust & Authority #26**（B 組結構，延續「權威風配報紙體」偏好，避開已用過的 Playfair/Domine/Libre Caslon Text 組合，改用 Source Serif 4 + Noto Serif TC + Karla 新配對，做成智慧財產權法律事務所「衡平智財 EquIP Law」，經典黑白紅配色＋雙線邊框＋可送出的諮詢預約表單）、**Real-Time Monitoring #31**（C 組，她 08-17 明確嫌棄過用 Inter 的舊版本「太有 AI 風」，這次避開已用過的 Barlow Semi Condensed 組合改用 Rajdhani + Roboto Mono，做成城市交通號誌即時監控中心「路況眼 TrafficEye」，含每 3 秒更新的 SVG 車流折線圖、即時新增的警報日誌、路口號誌狀態表）、**Neubrutalism #38**（D 組，沿用她明確稱讚過的 #38 配方 Archivo Black + Space Grotesk，做成街頭滑板賽事售票平台「炸場 BLASTJAM」，糖果色塊＋硬陰影＋歪斜排版，含可點擊切換的票種選擇與城市篩選按鈕）、**Memphis Revival #44**（D 組，避開已用過的 Righteous/Fredoka+Poppins 組合，改用 Unbounded + Poppins 新配對，做成桌遊咖啡廳訂位平台「骰子港 DICE HARBOR」，clip-path 鋸齒邊框＋波點紋理＋歪斜硬陰影卡片＋可點擊預約的新手局時段）。全數繁體中文文案，皆避免使用 Inter/Helvetica，字體皆依風格美學挑選、未重複使用同一組字體。
+
 ### 2026-09-13（6 個，#01–06）
 - ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（agent-proxy 明確回報 `connect_rejected`，host: b-battle-580b5-default-rtdb.firebaseio.com），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
 - ⚠️ 本輪 Telegram 通知（步驟 8）同樣被環境網路政策擋下（agent-proxy 明確回報 `connect_rejected`，host: api.telegram.org），畫廊已正常生成並發布到 GitHub，改用系統推播通知告知，連結：https://raw.githack.com/weiwei0607/ui-daily/master/reviews/2026-09-13/index.html
