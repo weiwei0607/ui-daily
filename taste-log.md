@@ -21,6 +21,12 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-09-15（6 個，#01–06）
+- ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（curl -m 10 無回應，exit 56），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
+- 本輪由主流程親自逐一生成 6 個檔案，完成後用 grep 確認 `<html>`/`</html>`/`<body>`/`</body>` 標籤數量皆為 1，且 `font-family` 宣告中無 Inter/Helvetica 誤用；另用 opencc（s2t）對全部 6 個檔案做逐字元簡繁比對。結果：「郁→鬱」「皂→皁」（01，濃郁/木質皂香）皆為台灣慣用正體字，沿用歷輪判例保留；「占→佔」（04，表格欄位「占比」）依 09-03 判例（「占」用於「佔比」語意時視為誤用）修正為「佔比」。
+- 過程中也發現本機分支曾處於 detached HEAD（落後於 origin/master 的舊 commit 上），已用 `git fetch` 確認 origin/master 與本機最新歷史一致後，用 `git checkout -B master origin/master` 重新接上 master 分支再繼續工作。
+- 本批風格挑選依據：先列出近 3 天（09-12/09-13/09-14）用過的風格編號（#08/#09/#07/#12/#13/#19/#20+#42/#23/#26/#28/#31/#35/#38/#43/#44/#46/#51/#53），再用 `grep -oE '#[0-9]+' reviews/*/*.html` 統計歷史提及次數，優先挑最少次數且跨 A/B/C/D 族群的風格：**Aurora UI #10**（A 組，歷史最低使用次數之一，屬玻璃/漸層家族，套用「已確認偏好」的圓體 Baloo 2 + Zen Maru Gothic，做成香氛體驗訂閱服務「香氣圖書館 AromaLib」，極光漸層背景＋毛玻璃香氛卡片＋可拖曳調整香氣濃度的滑桿即時切換推薦香調）、**Micro-interactions #16**（A 組，避開已用過的 Hanken Grotesk 組合，改用 Schibsted Grotesk + Noto Sans TC 新配對，做成感恩日記 App「感謝日記 ThankYou Diary」，含按鈕漣漪效果、愛心點擊彈跳動畫、打勾完成時的 canvas 彩帶粒子與環形連續天數進度）、**Conversion-Optimized #21**（B 組結構，避開 Inter，改用 Sora + Noto Sans TC，做成會議記錄自動化 SaaS 銷售頁「會議速記 MeetNote AI」，含跑馬燈式客戶 logo 牆、真的會倒數的早鳥優惠計時器、sticky 底部 CTA）、**Drill-Down Dashboard #32**（C 組，避開已用過的 Red Hat Text/Albert Sans 組合，改用 Figtree + Fira Code 新配對，做成電商退貨分析後台「退貨透視 ReturnLens」，含真實可逐層點擊下鑽的分類／商品／退貨原因麵包屑導覽）、**Y2K Revival #40**（D 組，避開已用過的 Wallpoet/Rowdies 組合，改用 Monoton + Rajdhani 新配對，做成復古潮流配件電商「千禧機 MILLENNIUM」，鉻銀漸層文字＋星芒裝飾＋霓虹發光商品卡＋真的會倒數的限時優惠計時器）、**Swiss Modernism 2.0 #50**（D 組，延續她 08-17 明確要求「報紙體」的偏好，避開已用過的 Frank Ruhl Libre 組合，改用 Petrona + Noto Serif TC 新配對，做成財經評論數位雜誌「本位 STANDARD」，黑白紅經典配色＋嚴格網格＋報頭式排版）。全數繁體中文文案，皆避免使用 Inter/Helvetica，字體皆依風格美學挑選、未重複使用同一組字體。
+
 ### 2026-09-14（6 個，#01–06）
 - ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（curl -m 10 無回應，exit 56），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
 - ⚠️ 本輪 Telegram 通知（步驟 8）測試同樣被環境網路政策擋下（curl -m 8 無回應，exit 56），與 Firebase 同一機制，改用系統推播通知告知使用者。

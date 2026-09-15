@@ -1,0 +1,193 @@
+<!-- style #32 Drill-Down Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>退貨透視 ReturnLens</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  body{
+    font-family:'Noto Sans TC','Figtree',sans-serif;
+    background:#f4f5f7;
+    color:#1c1f26;
+    margin:0;
+  }
+  .display{font-family:'Figtree','Noto Sans TC',sans-serif;}
+  .mono{font-family:'Fira Code',monospace;}
+  .sidebar-link{ transition: all .15s ease; }
+  .sidebar-link.active{ background:#eef2ff; color:#4338ca; }
+  .up{ color:#dc2626; }
+  .down{ color:#16a34a; }
+  .expand-row{
+    max-height:0; overflow:hidden; transition: max-height .35s ease;
+  }
+  .expand-row.open{ max-height:600px; }
+  .chevron{ transition: transform .25s ease; }
+  .chevron.open{ transform: rotate(90deg); }
+  .bar{ transition: width .8s ease; }
+  .crumb{ cursor:pointer; }
+  .crumb:hover{ text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="flex min-h-screen">
+  <aside class="w-56 bg-white border-r border-slate-200 hidden md:flex flex-col shrink-0">
+    <div class="display font-extrabold text-lg px-6 py-5 border-b border-slate-100">🔍 ReturnLens</div>
+    <nav class="p-3 space-y-1 text-sm">
+      <a class="sidebar-link active flex items-center gap-2 rounded-lg px-3 py-2 font-medium">退貨下鑽分析</a>
+      <a class="sidebar-link flex items-center gap-2 rounded-lg px-3 py-2 text-slate-500">整體營運總覽</a>
+      <a class="sidebar-link flex items-center gap-2 rounded-lg px-3 py-2 text-slate-500">物流時效</a>
+      <a class="sidebar-link flex items-center gap-2 rounded-lg px-3 py-2 text-slate-500">客服工單</a>
+      <a class="sidebar-link flex items-center gap-2 rounded-lg px-3 py-2 text-slate-500">報表匯出</a>
+    </nav>
+  </aside>
+
+  <main class="flex-1 p-6 md:p-8">
+    <div class="flex items-center justify-between mb-6 flex-wrap gap-3">
+      <div>
+        <h1 class="display text-xl font-extrabold">退貨下鑽分析</h1>
+        <p class="text-xs text-slate-400 mt-1 mono">last updated 2026-09-15 08:12</p>
+      </div>
+      <div class="flex gap-2 text-sm">
+        <select class="border border-slate-200 rounded-lg px-3 py-2 bg-white">
+          <option>近 30 天</option>
+          <option>近 7 天</option>
+          <option>近 90 天</option>
+        </select>
+        <button class="bg-slate-900 text-white rounded-lg px-4 py-2 font-medium">匯出報表</button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <div class="bg-white rounded-xl p-5 border border-slate-100">
+        <p class="text-xs text-slate-400 mb-2">整體退貨率</p>
+        <p class="display text-2xl font-extrabold mono">8.4<span class="text-base">%</span></p>
+        <p class="text-xs up mt-1">▲ 較上月 +1.2%</p>
+      </div>
+      <div class="bg-white rounded-xl p-5 border border-slate-100">
+        <p class="text-xs text-slate-400 mb-2">退貨件數</p>
+        <p class="display text-2xl font-extrabold mono">2,146</p>
+        <p class="text-xs up mt-1">▲ 較上月 +186 件</p>
+      </div>
+      <div class="bg-white rounded-xl p-5 border border-slate-100">
+        <p class="text-xs text-slate-400 mb-2">平均處理時效</p>
+        <p class="display text-2xl font-extrabold mono">2.3<span class="text-base">天</span></p>
+        <p class="text-xs down mt-1">▼ 較上月 -0.4 天</p>
+      </div>
+      <div class="bg-white rounded-xl p-5 border border-slate-100">
+        <p class="text-xs text-slate-400 mb-2">退款總金額</p>
+        <p class="display text-2xl font-extrabold mono">NT$ 1.82M</p>
+        <p class="text-xs up mt-1">▲ 較上月 +9.6%</p>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl border border-slate-100 p-5 mb-6">
+      <div class="flex items-center gap-2 text-sm mb-5">
+        <span class="crumb text-indigo-600 font-medium" onclick="resetDrill()">全部分類</span>
+        <span id="crumbTrail" class="flex items-center gap-2 text-slate-400"></span>
+      </div>
+
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="text-left text-slate-400 border-b border-slate-100">
+            <th class="pb-3 font-medium w-8"></th>
+            <th class="pb-3 font-medium">分類 / 商品 / 退貨原因</th>
+            <th class="pb-3 font-medium text-right">退貨件數</th>
+            <th class="pb-3 font-medium text-right">退貨率</th>
+            <th class="pb-3 font-medium">佔比</th>
+          </tr>
+        </thead>
+        <tbody id="rootRows">
+          <!-- filled by JS -->
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<script>
+const DATA = [
+  { name:'女裝服飾', count:812, rate:11.2, children:[
+      { name:'洋裝系列', count:340, rate:13.5, children:[
+          { name:'尺寸不合', count:180, rate:52.9 },
+          { name:'色差過大', count:96, rate:28.2 },
+          { name:'材質不如預期', count:64, rate:18.9 }
+      ]},
+      { name:'上衣系列', count:280, rate:9.8, children:[
+          { name:'尺寸不合', count:150, rate:53.6 },
+          { name:'收到瑕疵品', count:80, rate:28.6 },
+          { name:'其他', count:50, rate:17.8 }
+      ]},
+  ]},
+  { name:'3C 配件', count:520, rate:6.1, children:[
+      { name:'行動電源', count:210, rate:7.4, children:[
+          { name:'功能異常', count:140, rate:66.7 },
+          { name:'外觀刮傷', count:70, rate:33.3 }
+      ]},
+      { name:'藍牙耳機', count:310, rate:5.4, children:[
+          { name:'配對不穩定', count:190, rate:61.3 },
+          { name:'單耳無聲', count:120, rate:38.7 }
+      ]},
+  ]},
+  { name:'居家生活', count:494, rate:7.8, children:[
+      { name:'收納用品', count:494, rate:7.8, children:[
+          { name:'尺寸誤判', count:260, rate:52.6 },
+          { name:'運送破損', count:234, rate:47.4 }
+      ]}
+  ]},
+  { name:'美妝保養', count:320, rate:5.0, children:[
+      { name:'保養品組合', count:320, rate:5.0, children:[
+          { name:'膚況不適合', count:210, rate:65.6 },
+          { name:'色號不符', count:110, rate:34.4 }
+      ]}
+  ]}
+];
+
+const path = [];
+
+function render(){
+  const level = path.reduce((node, idx) => node.children[idx], {children: DATA});
+  const rows = level.children || level;
+  const maxCount = Math.max(...rows.map(r=>r.count));
+  const tbody = document.getElementById('rootRows');
+  tbody.innerHTML = '';
+  rows.forEach((r, i) => {
+    const tr = document.createElement('tr');
+    tr.className = 'border-b border-slate-50 hover:bg-slate-50 cursor-pointer';
+    tr.onclick = () => { if (r.children){ path.push(i); render(); } };
+    tr.innerHTML = `
+      <td class="py-3 text-slate-300">${r.children ? '▶' : '·'}</td>
+      <td class="py-3 font-medium">${r.name}</td>
+      <td class="py-3 text-right mono">${r.count.toLocaleString()}</td>
+      <td class="py-3 text-right mono ${r.rate>10?'up':''}">${r.rate}%</td>
+      <td class="py-3">
+        <div class="bg-slate-100 rounded-full h-2 w-full max-w-[140px]">
+          <div class="bar bg-indigo-500 h-2 rounded-full" style="width:${(r.count/maxCount*100).toFixed(0)}%"></div>
+        </div>
+      </td>`;
+    tbody.appendChild(tr);
+  });
+
+  const crumbTrail = document.getElementById('crumbTrail');
+  crumbTrail.innerHTML = '';
+  let node = {children: DATA};
+  path.forEach((idx, depth) => {
+    node = node.children[idx];
+    const span = document.createElement('span');
+    span.className = 'crumb font-medium ' + (depth === path.length-1 ? 'text-slate-700' : 'text-indigo-600');
+    span.textContent = ' ›  ' + node.name;
+    span.onclick = () => { path.length = depth+1; render(); };
+    crumbTrail.appendChild(span);
+  });
+}
+
+function resetDrill(){ path.length = 0; render(); }
+
+render();
+</script>
+</body>
+</html>

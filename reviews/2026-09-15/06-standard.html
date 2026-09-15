@@ -1,0 +1,128 @@
+<!-- style #50 Swiss Modernism 2.0 -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>本位 STANDARD</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,500;0,600;0,700;1,500&family=Noto+Serif+TC:wght@400;600;700;900&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  body{
+    font-family:'Noto Serif TC','Petrona',serif;
+    margin:0;
+    background:#f5f1e8;
+    color:#111111;
+  }
+  .sans{ font-family:'Karla',sans-serif; }
+  .serif-display{ font-family:'Petrona','Noto Serif TC',serif; }
+  .grid-line{ border-color:#111111; }
+  .rule{ border-top:3px solid #111111; }
+  .rule-thin{ border-top:1px solid #111111; }
+  .tag-red{ background:#c81e1e; color:#f5f1e8; }
+  article.card{ transition: opacity .2s ease; }
+  article.card:hover{ opacity:.72; cursor:pointer; }
+  .num{ font-family:'Karla',sans-serif; font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+
+<div class="max-w-6xl mx-auto px-6">
+
+  <div class="sans flex items-center justify-between text-xs tracking-widest py-3 border-b grid-line uppercase">
+    <span>2026 年 09 月 15 日・第 412 期</span>
+    <span>財經 ・ 產業 ・ 政策評論</span>
+  </div>
+
+  <header class="flex flex-col items-center py-10 border-b-4 grid-line text-center">
+    <h1 class="serif-display font-black text-5xl md:text-7xl tracking-tight">本位</h1>
+    <p class="sans text-xs tracking-[0.4em] uppercase mt-3 opacity-70">STANDARD — 看懂數字背後的決策</p>
+  </header>
+
+  <nav class="sans flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-sm uppercase tracking-wide py-4 border-b grid-line">
+    <a href="#feature" class="hover:underline">頭條</a>
+    <a href="#market" class="hover:underline">市場脈動</a>
+    <a href="#opinion" class="hover:underline">評論</a>
+    <a href="#archive" class="hover:underline">訂閱方案</a>
+  </nav>
+
+  <section id="feature" class="grid md:grid-cols-3 gap-10 py-12 border-b grid-line">
+    <article class="md:col-span-2">
+      <p class="tag-red inline-block sans text-xs font-bold px-2 py-1 mb-4 uppercase tracking-wide">頭條</p>
+      <h2 class="serif-display text-3xl md:text-4xl font-bold leading-snug mb-4">
+        央行升息半碼之後：企業資本支出為何不減反增？
+      </h2>
+      <p class="sans text-sm leading-relaxed opacity-80 mb-4">
+        多數分析師原先預期升息循環將壓抑製造業擴產意願，然而最新一季法人說明會紀錄顯示，
+        逾六成上市公司仍維持既定資本支出計畫。本刊深入十二家企業財報，還原真正的決策邏輯。
+      </p>
+      <p class="sans text-xs uppercase tracking-widest opacity-60">主筆．周文彥　攝影．林芷萱</p>
+    </article>
+    <aside class="border-l grid-line pl-8">
+      <h3 class="sans text-xs uppercase tracking-widest opacity-60 mb-4">本期數字</h3>
+      <div class="mb-6">
+        <p class="num text-4xl font-bold">62<span class="text-xl">%</span></p>
+        <p class="sans text-xs opacity-70 mt-1">維持資本支出計畫的上市公司比例</p>
+      </div>
+      <div class="mb-6">
+        <p class="num text-4xl font-bold">2.3<span class="text-xl">倍</span></p>
+        <p class="sans text-xs opacity-70 mt-1">半導體設備業海外訂單年增幅</p>
+      </div>
+      <div>
+        <p class="num text-4xl font-bold">14<span class="text-xl">次</span></p>
+        <p class="sans text-xs opacity-70 mt-1">連續升息週期中，本次為第 14 次會議</p>
+      </div>
+    </aside>
+  </section>
+
+  <section id="market" class="py-12 border-b grid-line">
+    <h3 class="sans text-xs uppercase tracking-widest opacity-60 mb-6">市場脈動</h3>
+    <div class="grid md:grid-cols-3 gap-8">
+      <article class="card rule pt-4">
+        <h4 class="serif-display font-bold text-xl mb-2">出口訂單連七月正成長，電子零組件貢獻近半</h4>
+        <p class="sans text-xs opacity-70 leading-relaxed">財政部最新統計顯示，八月出口訂單金額續創同期新高。</p>
+      </article>
+      <article class="card rule pt-4">
+        <h4 class="serif-display font-bold text-xl mb-2">房市交易量連三月下滑，但價格僵固現象未見鬆動</h4>
+        <p class="sans text-xs opacity-70 leading-relaxed">量縮價不跌的格局，讓政策工具的邊際效果備受討論。</p>
+      </article>
+      <article class="card rule pt-4">
+        <h4 class="serif-display font-bold text-xl mb-2">壽險業海外投資避險成本攀升，第三季獲利承壓</h4>
+        <p class="sans text-xs opacity-70 leading-relaxed">新臺幣波動加劇，避險部位的調整牽動全年獲利表現。</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="opinion" class="grid md:grid-cols-2 gap-10 py-12 border-b grid-line">
+    <article>
+      <p class="tag-red inline-block sans text-xs font-bold px-2 py-1 mb-4 uppercase tracking-wide">評論</p>
+      <h3 class="serif-display text-2xl font-bold leading-snug mb-3">補貼式產業政策的邊際效益正在遞減</h3>
+      <p class="sans text-sm leading-relaxed opacity-80">當多數國家都提供類似補貼，比較優勢便回到最初的技術與人才積累──這才是政策制定者該正視的問題。</p>
+    </article>
+    <article>
+      <p class="tag-red inline-block sans text-xs font-bold px-2 py-1 mb-4 uppercase tracking-wide">評論</p>
+      <h3 class="serif-display text-2xl font-bold leading-snug mb-3">中小企業的數位轉型，卡在「工具太多」而非「工具太少」</h3>
+      <p class="sans text-sm leading-relaxed opacity-80">訪談三十家中小企業後發現，真正的瓶頸不是缺乏解決方案，而是缺乏整合與決策的能力。</p>
+    </article>
+  </section>
+
+  <section id="archive" class="py-14 text-center">
+    <h3 class="serif-display text-2xl font-bold mb-3">訂閱本位，掌握每週產業決策脈絡</h3>
+    <p class="sans text-sm opacity-70 mb-8 max-w-lg mx-auto">每週五送達，深度產業分析與獨家數據圖表，不做即時新聞的重複播報。</p>
+    <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
+      <input type="email" placeholder="輸入您的 Email" class="sans border-2 grid-line px-5 py-3 text-sm w-72 bg-transparent focus:outline-none">
+      <button class="sans bg-black text-[#f5f1e8] px-8 py-3 text-sm font-bold uppercase tracking-wide hover:bg-[#c81e1e]">立即訂閱</button>
+    </div>
+    <p class="sans text-xs opacity-50 mt-4">年繳方案 NT$ 1,880／首月體驗價 NT$ 1</p>
+  </section>
+
+  <footer class="sans flex flex-col md:flex-row items-center justify-between gap-2 py-6 border-t-4 grid-line text-xs uppercase tracking-widest opacity-70">
+    <span>© 2026 本位 STANDARD</span>
+    <span>嚴格網格・零裝飾・只做值得閱讀的分析</span>
+  </footer>
+
+</div>
+</body>
+</html>

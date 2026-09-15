@@ -1,0 +1,269 @@
+<!-- style #10 Aurora UI -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>香氣圖書館 AromaLib</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --aurora-1:#0080ff; --aurora-2:#8b00ff; --aurora-3:#ff1493; --aurora-4:#00ffff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:'Zen Maru Gothic','Baloo 2',sans-serif;
+    margin:0;
+    min-height:100vh;
+    color:#241b3a;
+    background:#0d0a1f;
+    overflow-x:hidden;
+  }
+  .display{font-family:'Baloo 2','Zen Maru Gothic',sans-serif;}
+  .aurora-bg{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    background:
+      radial-gradient(circle at 20% 20%, var(--aurora-1) 0%, transparent 45%),
+      radial-gradient(circle at 80% 15%, var(--aurora-2) 0%, transparent 50%),
+      radial-gradient(circle at 70% 75%, var(--aurora-3) 0%, transparent 50%),
+      radial-gradient(circle at 15% 80%, var(--aurora-4) 0%, transparent 45%),
+      #0d0a1f;
+    filter:blur(60px) saturate(140%);
+    background-size:200% 200%;
+    animation:auroraFlow 22s ease-in-out infinite;
+    opacity:0.85;
+  }
+  @keyframes auroraFlow{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+  }
+  .glass{
+    background:rgba(255,255,255,0.10);
+    backdrop-filter:blur(20px) saturate(160%);
+    -webkit-backdrop-filter:blur(20px) saturate(160%);
+    border:1px solid rgba(255,255,255,0.28);
+    box-shadow:0 8px 32px rgba(0,0,0,0.25);
+  }
+  .glass-strong{
+    background:rgba(255,255,255,0.16);
+    backdrop-filter:blur(28px) saturate(180%);
+    -webkit-backdrop-filter:blur(28px) saturate(180%);
+    border:1px solid rgba(255,255,255,0.35);
+  }
+  .scent-card{
+    transition:transform .35s ease, box-shadow .35s ease, background .35s ease;
+  }
+  .scent-card:hover{
+    transform:translateY(-8px) scale(1.02);
+    background:rgba(255,255,255,0.20);
+    box-shadow:0 20px 45px rgba(139,0,255,0.35);
+  }
+  .glow-text{
+    text-shadow:0 0 24px rgba(255,255,255,0.35);
+  }
+  input[type=range]{
+    -webkit-appearance:none;
+    height:8px;
+    border-radius:999px;
+    background:linear-gradient(90deg,var(--aurora-1),var(--aurora-2),var(--aurora-3));
+  }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none;
+    width:24px;height:24px;border-radius:50%;
+    background:white;
+    border:4px solid var(--aurora-2);
+    box-shadow:0 0 16px rgba(255,255,255,0.7);
+    cursor:pointer;
+  }
+  .pill{
+    transition:all .25s ease;
+  }
+  .pill.active{
+    background:rgba(255,255,255,0.9);
+    color:#5b21b6;
+    box-shadow:0 6px 20px rgba(255,255,255,0.4);
+  }
+  .fade-up{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
+  .fade-up.show{opacity:1; transform:translateY(0);}
+</style>
+</head>
+<body class="text-white">
+<div class="aurora-bg"></div>
+
+<nav class="relative z-10 max-w-6xl mx-auto flex items-center justify-between px-6 py-6">
+  <div class="display text-xl font-bold glow-text">🌌 香氣圖書館 <span class="opacity-70 text-sm font-normal">AromaLib</span></div>
+  <div class="hidden md:flex gap-8 text-sm font-medium opacity-90">
+    <a href="#collection" class="hover:opacity-60">香氛選集</a>
+    <a href="#plans" class="hover:opacity-60">訂閱方案</a>
+    <a href="#voices" class="hover:opacity-60">會員回饋</a>
+  </div>
+  <button class="glass rounded-full px-5 py-2 text-sm font-semibold display">立即體驗</button>
+</nav>
+
+<header class="relative z-10 max-w-4xl mx-auto text-center px-6 pt-16 pb-24">
+  <p class="inline-block glass rounded-full px-4 py-1 text-xs tracking-widest mb-6 opacity-90">每月一次的嗅覺旅行</p>
+  <h1 class="display text-4xl md:text-6xl font-extrabold leading-tight glow-text mb-6">
+    把想念的氣味<br class="hidden md:block">收進你的極光書架
+  </h1>
+  <p class="text-base md:text-lg opacity-85 max-w-xl mx-auto mb-10 leading-relaxed">
+    香氣圖書館精選全球獨立調香師作品，依你的心情、季節與場合，
+    每月寄出一份可以「借閱」也可以「收藏」的香氣體驗盒。
+  </p>
+  <div class="flex flex-col sm:flex-row gap-4 justify-center">
+    <button class="glass-strong rounded-full px-8 py-3 font-bold display text-lg hover:scale-105 transition">開始我的香氣旅程</button>
+    <button class="glass rounded-full px-8 py-3 font-semibold display opacity-90 hover:opacity-100">先看看選集</button>
+  </div>
+</header>
+
+<section id="mood" class="relative z-10 max-w-3xl mx-auto px-6 pb-24 fade-up">
+  <div class="glass rounded-3xl p-8 md:p-10">
+    <h2 class="display text-xl md:text-2xl font-bold mb-2">先告訴我們，今天想要什麼樣的氣味濃度</h2>
+    <p class="text-sm opacity-70 mb-6">拖曳滑桿，右側的推薦香調會即時變化</p>
+    <input id="intensitySlider" type="range" min="0" max="100" value="45" class="w-full mb-4">
+    <div class="flex justify-between text-xs opacity-70 mb-6">
+      <span>若有似無</span><span>剛剛好</span><span>存在感十足</span>
+    </div>
+    <div id="moodResult" class="glass rounded-2xl px-6 py-4 text-center display font-bold text-lg transition-all">
+      推薦香調：木質皂香 · 帶一點清晨草地感
+    </div>
+  </div>
+</section>
+
+<section id="collection" class="relative z-10 max-w-6xl mx-auto px-6 pb-24">
+  <h2 class="display text-2xl md:text-3xl font-bold text-center mb-2 glow-text">本月精選香氛選集</h2>
+  <p class="text-center opacity-70 mb-12">四款當期最多人借閱收藏的香氣</p>
+  <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="scent-card glass rounded-3xl p-6 fade-up">
+      <div class="text-4xl mb-4">🌊</div>
+      <h3 class="display font-bold text-lg mb-1">霧海回音</h3>
+      <p class="text-xs opacity-70 mb-4">海鹽・雪松・微鹹木質</p>
+      <div class="flex flex-wrap gap-2 mb-4">
+        <span class="text-[11px] glass rounded-full px-3 py-1">清冷</span>
+        <span class="text-[11px] glass rounded-full px-3 py-1">辦公室友善</span>
+      </div>
+      <button class="w-full glass-strong rounded-full py-2 text-sm font-semibold hover:scale-[1.03] transition">加入書架</button>
+    </div>
+    <div class="scent-card glass rounded-3xl p-6 fade-up" style="transition-delay:.05s">
+      <div class="text-4xl mb-4">🌸</div>
+      <h3 class="display font-bold text-lg mb-1">粉色紀事</h3>
+      <p class="text-xs opacity-70 mb-4">牡丹・粉胡椒・麝香底</p>
+      <div class="flex flex-wrap gap-2 mb-4">
+        <span class="text-[11px] glass rounded-full px-3 py-1">浪漫</span>
+        <span class="text-[11px] glass rounded-full px-3 py-1">約會推薦</span>
+      </div>
+      <button class="w-full glass-strong rounded-full py-2 text-sm font-semibold hover:scale-[1.03] transition">加入書架</button>
+    </div>
+    <div class="scent-card glass rounded-3xl p-6 fade-up" style="transition-delay:.1s">
+      <div class="text-4xl mb-4">🌲</div>
+      <h3 class="display font-bold text-lg mb-1">深林筆記</h3>
+      <p class="text-xs opacity-70 mb-4">松針・煙燻檀香・皮革</p>
+      <div class="flex flex-wrap gap-2 mb-4">
+        <span class="text-[11px] glass rounded-full px-3 py-1">沉穩</span>
+        <span class="text-[11px] glass rounded-full px-3 py-1">秋冬限定</span>
+      </div>
+      <button class="w-full glass-strong rounded-full py-2 text-sm font-semibold hover:scale-[1.03] transition">加入書架</button>
+    </div>
+    <div class="scent-card glass rounded-3xl p-6 fade-up" style="transition-delay:.15s">
+      <div class="text-4xl mb-4">✨</div>
+      <h3 class="display font-bold text-lg mb-1">極光微光</h3>
+      <p class="text-xs opacity-70 mb-4">白麝香・冷冽鳶尾・臭氧感</p>
+      <div class="flex flex-wrap gap-2 mb-4">
+        <span class="text-[11px] glass rounded-full px-3 py-1">通用</span>
+        <span class="text-[11px] glass rounded-full px-3 py-1">本月最熱門</span>
+      </div>
+      <button class="w-full glass-strong rounded-full py-2 text-sm font-semibold hover:scale-[1.03] transition">加入書架</button>
+    </div>
+  </div>
+</section>
+
+<section id="plans" class="relative z-10 max-w-5xl mx-auto px-6 pb-24">
+  <h2 class="display text-2xl md:text-3xl font-bold text-center mb-12 glow-text">選一個適合你的訂閱節奏</h2>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="glass rounded-3xl p-8 text-center fade-up">
+      <h3 class="display font-bold text-lg mb-2">輕嗅方案</h3>
+      <p class="text-3xl font-extrabold display mb-1">NT$ 380</p>
+      <p class="text-xs opacity-60 mb-6">／每月・單一香氣試管組</p>
+      <ul class="text-sm opacity-80 space-y-2 mb-8 text-left">
+        <li>· 每月 1 款試管裝（5ml）</li>
+        <li>· 香調解析卡片</li>
+        <li>· 隨時可暫停</li>
+      </ul>
+      <button class="w-full glass-strong rounded-full py-2 font-semibold">選擇這個方案</button>
+    </div>
+    <div class="glass-strong rounded-3xl p-8 text-center scale-105 border-2 border-white/50 fade-up" style="transition-delay:.05s">
+      <p class="text-xs mb-2 opacity-90">🔥 最多人選擇</p>
+      <h3 class="display font-bold text-lg mb-2">書架方案</h3>
+      <p class="text-3xl font-extrabold display mb-1">NT$ 680</p>
+      <p class="text-xs opacity-70 mb-6">／每月・完整體驗盒</p>
+      <ul class="text-sm opacity-90 space-y-2 mb-8 text-left">
+        <li>· 每月 3 款試管裝＋1 款正貨體驗券</li>
+        <li>· 個人化香氣分析報告</li>
+        <li>· 香氣圖書館活動優先入場</li>
+      </ul>
+      <button class="w-full bg-white text-purple-800 rounded-full py-2 font-bold">選擇這個方案</button>
+    </div>
+    <div class="glass rounded-3xl p-8 text-center fade-up" style="transition-delay:.1s">
+      <h3 class="display font-bold text-lg mb-2">策展方案</h3>
+      <p class="text-3xl font-extrabold display mb-1">NT$ 1,280</p>
+      <p class="text-xs opacity-60 mb-6">／每月・調香師客製</p>
+      <ul class="text-sm opacity-80 space-y-2 mb-8 text-left">
+        <li>· 一對一調香師諮詢</li>
+        <li>· 專屬客製配方一瓶</li>
+        <li>· 全部方案內容皆包含</li>
+      </ul>
+      <button class="w-full glass-strong rounded-full py-2 font-semibold">選擇這個方案</button>
+    </div>
+  </div>
+</section>
+
+<section id="voices" class="relative z-10 max-w-4xl mx-auto px-6 pb-24">
+  <h2 class="display text-2xl font-bold text-center mb-10 glow-text">會員怎麼說</h2>
+  <div class="grid md:grid-cols-2 gap-6">
+    <div class="glass rounded-3xl p-6 fade-up">
+      <p class="text-sm opacity-90 leading-relaxed mb-4">「原本以為香水訂閱都差不多，直到收到『深林筆記』才知道原來有人把煙燻檀香做得這麼細膩。」</p>
+      <p class="text-xs opacity-60">— 婕米，書架方案會員 8 個月</p>
+    </div>
+    <div class="glass rounded-3xl p-6 fade-up" style="transition-delay:.05s">
+      <p class="text-sm opacity-90 leading-relaxed mb-4">「客製配方那次體驗完全值回票價，調香師真的會依照我描述的情境去調整比例。」</p>
+      <p class="text-xs opacity-60">— Ray，策展方案會員 3 個月</p>
+    </div>
+  </div>
+</section>
+
+<footer class="relative z-10 text-center px-6 pb-16 opacity-70 text-xs">
+  © 2026 香氣圖書館 AromaLib．每一款氣味都值得被好好收藏
+</footer>
+
+<script>
+  const slider = document.getElementById('intensitySlider');
+  const result = document.getElementById('moodResult');
+  const suggestions = [
+    {max:20, text:'推薦香調：透明感白麝香 · 幾乎貼近肌膚的低語'},
+    {max:45, text:'推薦香調：木質皂香 · 帶一點清晨草地感'},
+    {max:70, text:'推薦香調：琥珀花香 · 溫暖而有記憶點'},
+    {max:100, text:'推薦香調：濃郁東方調 · 走過都會被記住'}
+  ];
+  slider.addEventListener('input', () => {
+    const v = Number(slider.value);
+    const found = suggestions.find(s => v <= s.max);
+    result.textContent = found.text;
+  });
+
+  const pills = document.querySelectorAll('.pill');
+  pills.forEach(p => p.addEventListener('click', () => {
+    pills.forEach(o => o.classList.remove('active'));
+    p.classList.add('active');
+  }));
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+  }, {threshold:0.15});
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

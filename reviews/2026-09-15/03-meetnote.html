@@ -1,0 +1,173 @@
+<!-- style #21 Conversion-Optimized -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>會議速記 MeetNote AI</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  body{
+    font-family:'Noto Sans TC','Sora',sans-serif;
+    margin:0;
+    color:#101828;
+    background:#ffffff;
+    padding-bottom:76px;
+  }
+  .display{font-family:'Sora','Noto Sans TC',sans-serif;}
+  .grad-text{
+    background:linear-gradient(90deg,#4f46e5,#0ea5e9);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .sticky-cta{
+    position:fixed; bottom:0; left:0; right:0; z-index:40;
+    background:#101828; color:white;
+  }
+  .logo-track{
+    display:flex; gap:3rem; animation: scrollLogos 22s linear infinite;
+    width:max-content;
+  }
+  @keyframes scrollLogos{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+  .pulse-dot{
+    width:8px; height:8px; border-radius:999px; background:#22c55e;
+    animation: pulseDot 1.6s ease-in-out infinite;
+  }
+  @keyframes pulseDot{ 0%,100%{opacity:1;} 50%{opacity:.3;} }
+  .price-card{ transition: transform .25s ease, box-shadow .25s ease; }
+  .price-card:hover{ transform:translateY(-6px); box-shadow:0 20px 40px rgba(16,24,40,.10); }
+</style>
+</head>
+<body>
+
+<nav class="max-w-6xl mx-auto flex items-center justify-between px-6 py-5">
+  <div class="display text-lg font-extrabold">📝 會議速記 <span class="grad-text">MeetNote AI</span></div>
+  <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+    <a href="#features" class="hover:text-slate-900">功能</a>
+    <a href="#pricing" class="hover:text-slate-900">方案</a>
+    <a href="#proof" class="hover:text-slate-900">客戶怎麼說</a>
+  </div>
+  <button class="display bg-slate-900 text-white text-sm font-semibold rounded-lg px-5 py-2.5 hover:bg-slate-800">免費試用 14 天</button>
+</nav>
+
+<header class="max-w-4xl mx-auto text-center px-6 pt-12 pb-16">
+  <div class="inline-flex items-center gap-2 bg-indigo-50 text-indigo-700 text-xs font-semibold rounded-full px-4 py-1.5 mb-6">
+    <span class="pulse-dot"></span> 已有 3,200+ 個團隊在用
+  </div>
+  <h1 class="display text-4xl md:text-5xl font-extrabold leading-tight mb-6">
+    開會不用抄筆記，<br class="hidden md:block">
+    <span class="grad-text">MeetNote</span> 幫你自動整理成任務
+  </h1>
+  <p class="text-slate-600 text-base md:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
+    連接 Zoom、Google Meet、Teams，會議結束當下就收到重點摘要、待辦事項與負責人分派，
+    中文語音辨識準確率達 97%。
+  </p>
+  <div class="flex flex-col sm:flex-row gap-4 justify-center mb-4">
+    <button class="display bg-indigo-600 text-white font-bold rounded-xl px-8 py-4 text-base hover:bg-indigo-700 shadow-lg shadow-indigo-200">免費試用 14 天，不用信用卡</button>
+    <button class="display border border-slate-300 font-semibold rounded-xl px-8 py-4 text-base hover:bg-slate-50">看 2 分鐘產品介紹</button>
+  </div>
+  <p class="text-xs text-slate-400">早鳥優惠倒數：<span id="countdown" class="font-bold text-red-500">05:00</span>　結束後恢復原價</p>
+</header>
+
+<section class="max-w-5xl mx-auto px-6 pb-16 overflow-hidden">
+  <p class="text-center text-xs text-slate-400 mb-6 tracking-widest">深受各行各業團隊信賴</p>
+  <div class="overflow-hidden">
+    <div class="logo-track text-slate-400 font-bold text-xl">
+      <span>雲點科技</span><span>晴天顧問</span><span>方舟設計</span><span>橙室行銷</span><span>北辰資訊</span><span>綠洲人資</span>
+      <span>雲點科技</span><span>晴天顧問</span><span>方舟設計</span><span>橙室行銷</span><span>北辰資訊</span><span>綠洲人資</span>
+    </div>
+  </div>
+</section>
+
+<section id="features" class="max-w-6xl mx-auto px-6 pb-20">
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="bg-slate-50 rounded-2xl p-6">
+      <div class="text-3xl mb-3">🎙️</div>
+      <h3 class="display font-bold mb-2">即時轉錄</h3>
+      <p class="text-sm text-slate-600 leading-relaxed">中英夾雜也能準確辨識，會議結束立刻產出逐字稿。</p>
+    </div>
+    <div class="bg-slate-50 rounded-2xl p-6">
+      <div class="text-3xl mb-3">✅</div>
+      <h3 class="display font-bold mb-2">自動待辦分派</h3>
+      <p class="text-sm text-slate-600 leading-relaxed">AI 自動偵測「誰要做什麼」，直接同步到 Notion、Slack。</p>
+    </div>
+    <div class="bg-slate-50 rounded-2xl p-6">
+      <div class="text-3xl mb-3">📊</div>
+      <h3 class="display font-bold mb-2">會議健康度分析</h3>
+      <p class="text-sm text-slate-600 leading-relaxed">追蹤每場會議的發言比例、時長效率，減少無效會議。</p>
+    </div>
+  </div>
+</section>
+
+<section id="proof" class="max-w-5xl mx-auto px-6 pb-20">
+  <h2 class="display text-2xl font-bold text-center mb-10">團隊導入後怎麼說</h2>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="border border-slate-200 rounded-2xl p-6">
+      <p class="text-sm text-slate-700 mb-4 leading-relaxed">「每週省下至少 3 小時整理會議記錄的時間，待辦事項再也不會漏掉。」</p>
+      <p class="text-xs text-slate-400">— 陳品妤．橙室行銷 專案總監</p>
+    </div>
+    <div class="border border-slate-200 rounded-2xl p-6">
+      <p class="text-sm text-slate-700 mb-4 leading-relaxed">「中文辨識比我試過的其他工具都準，連客戶名字都能正確標記。」</p>
+      <p class="text-xs text-slate-400">— 林昱翔．雲點科技 產品經理</p>
+    </div>
+    <div class="border border-slate-200 rounded-2xl p-6">
+      <p class="text-sm text-slate-700 mb-4 leading-relaxed">「會議健康度報表讓我們砍掉了三分之一的例行會議，效率明顯提升。」</p>
+      <p class="text-xs text-slate-400">— 王思涵．北辰資訊 營運長</p>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" class="max-w-5xl mx-auto px-6 pb-24">
+  <h2 class="display text-2xl font-bold text-center mb-10">簡單透明的方案</h2>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="price-card border border-slate-200 rounded-2xl p-8">
+      <h3 class="display font-bold mb-1">個人方案</h3>
+      <p class="text-3xl font-extrabold display mb-1">NT$ 299</p>
+      <p class="text-xs text-slate-400 mb-6">／月，適合自由工作者</p>
+      <button class="w-full border border-slate-300 rounded-lg py-2.5 font-semibold text-sm">開始試用</button>
+    </div>
+    <div class="price-card bg-indigo-600 text-white rounded-2xl p-8 relative">
+      <p class="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-400 text-slate-900 text-xs font-bold rounded-full px-3 py-1">最多團隊選擇</p>
+      <h3 class="display font-bold mb-1">團隊方案</h3>
+      <p class="text-3xl font-extrabold display mb-1">NT$ 899</p>
+      <p class="text-xs text-indigo-100 mb-6">／月，最多 10 位成員</p>
+      <button class="w-full bg-white text-indigo-700 rounded-lg py-2.5 font-bold text-sm">免費試用 14 天</button>
+    </div>
+    <div class="price-card border border-slate-200 rounded-2xl p-8">
+      <h3 class="display font-bold mb-1">企業方案</h3>
+      <p class="text-3xl font-extrabold display mb-1">洽談報價</p>
+      <p class="text-xs text-slate-400 mb-6">／客製整合與 SSO</p>
+      <button class="w-full border border-slate-300 rounded-lg py-2.5 font-semibold text-sm">聯絡業務</button>
+    </div>
+  </div>
+</section>
+
+<div class="sticky-cta">
+  <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-4 gap-4">
+    <p class="text-sm hidden sm:block">早鳥優惠倒數 <span id="countdown2" class="font-bold text-amber-400">05:00</span>，錯過恢復原價</p>
+    <p class="text-sm sm:hidden">限時優惠中</p>
+    <button class="display bg-white text-slate-900 font-bold rounded-lg px-6 py-2.5 text-sm hover:bg-slate-100">免費試用 14 天</button>
+  </div>
+</div>
+
+<script>
+  function startCountdown(ids){
+    let total = 5*60;
+    setInterval(() => {
+      total = total > 0 ? total - 1 : 5*60;
+      const m = String(Math.floor(total/60)).padStart(2,'0');
+      const s = String(total%60).padStart(2,'0');
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = `${m}:${s}`;
+      });
+    }, 1000);
+  }
+  startCountdown(['countdown','countdown2']);
+</script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!-- style #40 Y2K Revival -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>千禧機 MILLENNIUM</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Monoton&family=Rajdhani:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  body{
+    font-family:'Noto Sans TC','Rajdhani',sans-serif;
+    margin:0;
+    background:
+      radial-gradient(circle at 50% 0%, #2d1b4e 0%, #0a0a1a 55%);
+    color:#f5f5ff;
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  .display{ font-family:'Monoton','Rajdhani',sans-serif; letter-spacing:1px; }
+  .chrome-text{
+    background:linear-gradient(180deg,#ffffff 0%,#c0c0ff 25%,#ff00ff 50%,#00ffff 75%,#ffffff 100%);
+    background-size:100% 300%;
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation: chromeShift 6s ease-in-out infinite;
+    text-shadow: 0 0 30px rgba(255,0,255,0.35);
+  }
+  @keyframes chromeShift{ 0%,100%{background-position:0 0;} 50%{background-position:0 100%;} }
+  .star{
+    position:absolute; color:#ffff00; text-shadow:0 0 10px #ffff00;
+    animation: starTwinkle 2.4s ease-in-out infinite;
+  }
+  @keyframes starTwinkle{ 0%,100%{opacity:.3; transform:scale(.8);} 50%{opacity:1; transform:scale(1.2);} }
+  .neon-card{
+    background:rgba(20,10,40,0.6);
+    border:1px solid rgba(255,0,255,0.4);
+    box-shadow:0 0 24px rgba(255,0,255,0.15), inset 0 0 24px rgba(0,255,255,0.05);
+    transition: all .3s ease;
+  }
+  .neon-card:hover{
+    box-shadow:0 0 40px rgba(0,255,255,0.45), inset 0 0 30px rgba(255,0,255,0.1);
+    transform: translateY(-6px);
+    border-color:#00ffff;
+  }
+  .neon-btn{
+    background:linear-gradient(90deg,#ff00ff,#00ffff);
+    color:#0a0a1a;
+    text-shadow:none;
+    box-shadow:0 0 20px rgba(255,0,255,0.5);
+    transition: all .2s ease;
+  }
+  .neon-btn:hover{ box-shadow:0 0 32px rgba(0,255,255,0.7); transform:scale(1.04); }
+  .grid-floor{
+    position:absolute; inset:auto 0 0 0; height:200px;
+    background-image:
+      linear-gradient(rgba(255,0,255,0.35) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,0,255,0.35) 1px, transparent 1px);
+    background-size:40px 40px;
+    transform: perspective(300px) rotateX(60deg);
+    opacity:.5;
+  }
+  .badge-hot{
+    background:#ffff00; color:#1a0a2a;
+    box-shadow:0 0 16px rgba(255,255,0,0.6);
+  }
+</style>
+</head>
+<body class="relative">
+
+<div class="star text-lg" style="top:8%; left:8%;">✦</div>
+<div class="star text-2xl" style="top:14%; left:80%; animation-delay:.6s;">✧</div>
+<div class="star text-sm" style="top:30%; left:45%; animation-delay:1.2s;">✦</div>
+<div class="star text-xl" style="top:6%; left:55%; animation-delay:.3s;">✧</div>
+
+<nav class="relative z-10 max-w-6xl mx-auto flex items-center justify-between px-6 py-6">
+  <div class="display text-sm chrome-text">MILLENNIUM</div>
+  <div class="hidden md:flex gap-8 text-sm font-semibold" style="font-family:'Rajdhani',sans-serif;">
+    <a href="#shop" class="hover:text-cyan-300">新品</a>
+    <a href="#deal" class="hover:text-cyan-300">限時優惠</a>
+    <a href="#club" class="hover:text-cyan-300">會員俱樂部</a>
+  </div>
+  <button class="neon-btn rounded-full px-5 py-2 text-sm font-bold">進入商店</button>
+</nav>
+
+<header class="relative z-10 max-w-4xl mx-auto text-center px-6 pt-10 pb-24">
+  <p class="text-cyan-300 text-xs tracking-[0.3em] mb-6" style="font-family:'Rajdhani',sans-serif;">Y2K REVIVAL COLLECTION</p>
+  <h1 class="display chrome-text text-3xl md:text-5xl leading-relaxed mb-6">
+    千禧機<br>MILLENNIUM
+  </h1>
+  <p class="text-base md:text-lg opacity-80 max-w-xl mx-auto mb-10" style="font-family:'Rajdhani',sans-serif; font-weight:600;">
+    鉻銀機身、透明果凍殼、閃亮星芒貼飾 —— 把 2000 年的未來幻想，重新戴回你手上。
+  </p>
+  <button class="neon-btn rounded-full px-10 py-4 font-black text-lg" style="font-family:'Rajdhani',sans-serif;">立即搶購新品</button>
+</header>
+
+<section id="deal" class="relative z-10 max-w-4xl mx-auto px-6 pb-16">
+  <div class="neon-card rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div>
+      <p class="badge-hot inline-block text-xs font-black rounded-full px-3 py-1 mb-2">限時快閃</p>
+      <p class="text-lg font-bold" style="font-family:'Rajdhani',sans-serif;">全站千禧配件系列 8 折起</p>
+    </div>
+    <div class="text-3xl font-black text-yellow-300" id="countdown" style="font-family:'Rajdhani',sans-serif;">00:05:00</div>
+  </div>
+</section>
+
+<section id="shop" class="relative z-10 max-w-6xl mx-auto px-6 pb-24">
+  <h2 class="display chrome-text text-xl md:text-2xl text-center mb-12">熱門商品</h2>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="neon-card rounded-2xl p-6">
+      <div class="text-5xl text-center mb-4">📱</div>
+      <h3 class="font-bold mb-1" style="font-family:'Rajdhani',sans-serif;">透明果凍手機殼</h3>
+      <p class="text-xs opacity-60 mb-4">Clear Jelly Case・霓虹邊框</p>
+      <div class="flex items-center justify-between">
+        <span class="text-cyan-300 font-black text-lg">NT$ 590</span>
+        <button class="neon-btn rounded-full px-4 py-1.5 text-xs font-bold">加入購物車</button>
+      </div>
+    </div>
+    <div class="neon-card rounded-2xl p-6">
+      <div class="text-5xl text-center mb-4">💿</div>
+      <h3 class="font-bold mb-1" style="font-family:'Rajdhani',sans-serif;">CD 隨身聽造型耳機</h3>
+      <p class="text-xs opacity-60 mb-4">Retro Disc Earbuds・鉻銀機身</p>
+      <div class="flex items-center justify-between">
+        <span class="text-cyan-300 font-black text-lg">NT$ 1,290</span>
+        <button class="neon-btn rounded-full px-4 py-1.5 text-xs font-bold">加入購物車</button>
+      </div>
+    </div>
+    <div class="neon-card rounded-2xl p-6">
+      <div class="text-5xl text-center mb-4">⭐</div>
+      <h3 class="font-bold mb-1" style="font-family:'Rajdhani',sans-serif;">星芒鉻銀髮夾組</h3>
+      <p class="text-xs opacity-60 mb-4">Star Chrome Clips・5 入組</p>
+      <div class="flex items-center justify-between">
+        <span class="text-cyan-300 font-black text-lg">NT$ 350</span>
+        <button class="neon-btn rounded-full px-4 py-1.5 text-xs font-bold">加入購物車</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="club" class="relative z-10 max-w-3xl mx-auto px-6 pb-32 text-center">
+  <div class="neon-card rounded-3xl p-10">
+    <h2 class="display chrome-text text-lg mb-4">加入千禧俱樂部</h2>
+    <p class="text-sm opacity-70 mb-6" style="font-family:'Rajdhani',sans-serif; font-weight:600;">
+      搶先看新品發售、每月專屬折扣碼、生日禮不定期空投。
+    </p>
+    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+      <input type="email" placeholder="輸入你的 Email" class="bg-black/40 border border-fuchsia-400/50 rounded-full px-5 py-3 text-sm flex-1 max-w-xs text-white placeholder:text-white/40 focus:outline-none">
+      <button class="neon-btn rounded-full px-6 py-3 font-bold text-sm">加入俱樂部</button>
+    </div>
+  </div>
+</section>
+
+<div class="grid-floor"></div>
+
+<script>
+  function startCountdown(){
+    let total = 5*60;
+    const el = document.getElementById('countdown');
+    setInterval(() => {
+      total = total > 0 ? total - 1 : 5*60;
+      const h = '00';
+      const m = String(Math.floor(total/60)).padStart(2,'0');
+      const s = String(total%60).padStart(2,'0');
+      el.textContent = `${h}:${m}:${s}`;
+    }, 1000);
+  }
+  startCountdown();
+</script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!-- style #16 Micro-interactions -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>感謝日記 ThankYou Diary</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  body{
+    font-family:'Noto Sans TC','Schibsted Grotesk',sans-serif;
+    background:#f7f8fb;
+    color:#1e2330;
+    margin:0;
+  }
+  .display{font-family:'Schibsted Grotesk','Noto Sans TC',sans-serif;}
+  .btn-ripple{position:relative; overflow:hidden;}
+  .ripple{
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255,255,255,0.55);
+    transform:scale(0);
+    animation:rippleAnim .6s ease-out;
+    pointer-events:none;
+  }
+  @keyframes rippleAnim{
+    to{ transform:scale(3); opacity:0; }
+  }
+  .heart-btn{ transition: transform .15s ease; }
+  .heart-btn.pop{ animation: heartPop .5s ease; }
+  @keyframes heartPop{
+    0%{transform:scale(1);}
+    30%{transform:scale(1.5);}
+    55%{transform:scale(0.85);}
+    100%{transform:scale(1);}
+  }
+  .check-box{
+    width:26px; height:26px; border-radius:8px;
+    border:2px solid #cbd5e1;
+    display:flex; align-items:center; justify-content:center;
+    transition: all .25s ease;
+    cursor:pointer;
+    flex-shrink:0;
+  }
+  .check-box.done{
+    background:#22c55e; border-color:#22c55e;
+    animation: checkPop .35s ease;
+  }
+  @keyframes checkPop{
+    0%{transform:scale(0.7);}
+    60%{transform:scale(1.15);}
+    100%{transform:scale(1);}
+  }
+  .task-row.done p{ text-decoration: line-through; opacity:.45; }
+  .card-hover{ transition: transform .25s ease, box-shadow .25s ease; }
+  .card-hover:hover{ transform: translateY(-4px); box-shadow: 0 12px 28px rgba(30,35,48,0.10); }
+  .streak-ring{ transition: stroke-dashoffset 1s ease; }
+  .confetti{
+    position:fixed; width:8px; height:8px; top:-10px; z-index:50; pointer-events:none;
+    animation: confettiFall 1.4s ease-in forwards;
+  }
+  @keyframes confettiFall{
+    to{ transform: translateY(100vh) rotate(540deg); opacity:0; }
+  }
+  .toast{
+    position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px);
+    opacity:0; transition: all .3s ease; pointer-events:none;
+  }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<nav class="max-w-3xl mx-auto flex items-center justify-between px-6 py-6">
+  <div class="display text-xl font-extrabold text-blue-600">☺ 感謝日記</div>
+  <div class="text-sm text-slate-500">ThankYou Diary</div>
+</nav>
+
+<header class="max-w-3xl mx-auto px-6 pt-4 pb-10">
+  <div class="bg-white rounded-3xl shadow-sm p-8 card-hover flex items-center justify-between gap-6 flex-wrap">
+    <div>
+      <p class="text-sm text-slate-500 mb-1">你已經連續記錄</p>
+      <p class="display text-4xl font-extrabold text-blue-600" id="streakNum">18 天</p>
+      <p class="text-xs text-slate-400 mt-1">每天寫下 3 件值得感謝的小事</p>
+    </div>
+    <svg width="96" height="96" viewBox="0 0 96 96">
+      <circle cx="48" cy="48" r="40" stroke="#e2e8f0" stroke-width="10" fill="none"/>
+      <circle id="streakCircle" class="streak-ring" cx="48" cy="48" r="40" stroke="#3b82f6" stroke-width="10" fill="none"
+        stroke-linecap="round" stroke-dasharray="251" stroke-dashoffset="251" transform="rotate(-90 48 48)"/>
+      <text x="48" y="54" text-anchor="middle" class="display" font-size="20" font-weight="800" fill="#1e2330">72%</text>
+    </svg>
+  </div>
+</header>
+
+<main class="max-w-3xl mx-auto px-6 pb-6">
+  <h2 class="display text-lg font-bold mb-4">今天，你想感謝的是……</h2>
+  <div class="space-y-3 mb-8">
+    <div class="task-row bg-white rounded-2xl p-4 flex items-center gap-4 card-hover">
+      <div class="check-box" onclick="toggleTask(this)"></div>
+      <p class="text-sm flex-1">謝謝早上幫我留最後一個座位的同事</p>
+      <button class="heart-btn text-xl" onclick="popHeart(this)">🤍</button>
+    </div>
+    <div class="task-row bg-white rounded-2xl p-4 flex items-center gap-4 card-hover">
+      <div class="check-box" onclick="toggleTask(this)"></div>
+      <p class="text-sm flex-1">謝謝今天的天氣，讓通勤變得很舒服</p>
+      <button class="heart-btn text-xl" onclick="popHeart(this)">🤍</button>
+    </div>
+    <div class="task-row bg-white rounded-2xl p-4 flex items-center gap-4 card-hover">
+      <div class="check-box" onclick="toggleTask(this)"></div>
+      <p class="text-sm flex-1">謝謝自己，今天沒有把情緒帶回家</p>
+      <button class="heart-btn text-xl" onclick="popHeart(this)">🤍</button>
+    </div>
+  </div>
+
+  <div class="flex gap-3 mb-10">
+    <input type="text" placeholder="新增一件想感謝的事……" class="flex-1 bg-white rounded-full px-5 py-3 text-sm border border-slate-200 focus:outline-none focus:border-blue-400">
+    <button class="btn-ripple display bg-blue-500 text-white rounded-full px-6 py-3 text-sm font-bold" onclick="addRipple(event); celebrate();">新增並完成</button>
+  </div>
+
+  <h2 class="display text-lg font-bold mb-4">過去的溫暖片刻</h2>
+  <div class="grid sm:grid-cols-2 gap-4 mb-16">
+    <div class="bg-white rounded-2xl p-5 card-hover">
+      <p class="text-xs text-slate-400 mb-2">9 月 12 日</p>
+      <p class="text-sm mb-3">謝謝朋友聽我抱怨了一整個小時還沒有不耐煩</p>
+      <div class="flex items-center justify-between">
+        <span class="text-xs bg-red-50 text-red-500 rounded-full px-3 py-1">❤ 已收藏</span>
+        <button class="btn-ripple text-xs text-slate-400 rounded-full px-3 py-1" onclick="addRipple(event)">分享</button>
+      </div>
+    </div>
+    <div class="bg-white rounded-2xl p-5 card-hover">
+      <p class="text-xs text-slate-400 mb-2">9 月 10 日</p>
+      <p class="text-sm mb-3">謝謝那杯剛剛好溫度的咖啡，讓早晨會議順利很多</p>
+      <div class="flex items-center justify-between">
+        <span class="text-xs bg-slate-100 text-slate-500 rounded-full px-3 py-1">尚未收藏</span>
+        <button class="btn-ripple text-xs text-slate-400 rounded-full px-3 py-1" onclick="addRipple(event)">分享</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div id="toast" class="toast bg-slate-900 text-white text-sm rounded-full px-5 py-3">✓ 已記錄，今天又多了一件值得感謝的事</div>
+
+<script>
+  function addRipple(e){
+    const btn = e.currentTarget;
+    const circle = document.createElement('span');
+    const d = Math.max(btn.clientWidth, btn.clientHeight);
+    circle.className='ripple';
+    circle.style.width = circle.style.height = d+'px';
+    const rect = btn.getBoundingClientRect();
+    circle.style.left = (e.clientX - rect.left - d/2)+'px';
+    circle.style.top = (e.clientY - rect.top - d/2)+'px';
+    btn.appendChild(circle);
+    setTimeout(()=>circle.remove(), 600);
+  }
+
+  function popHeart(btn){
+    const filled = btn.textContent.includes('❤');
+    btn.textContent = filled ? '🤍' : '❤️';
+    btn.classList.remove('pop');
+    void btn.offsetWidth;
+    btn.classList.add('pop');
+  }
+
+  function toggleTask(box){
+    box.classList.toggle('done');
+    box.parentElement.classList.toggle('done');
+    if (box.classList.contains('done')) celebrate();
+  }
+
+  function celebrate(){
+    const colors = ['#3b82f6','#22c55e','#ef4444','#f59e0b'];
+    for(let i=0;i<24;i++){
+      const c = document.createElement('div');
+      c.className='confetti';
+      c.style.left = Math.random()*100+'vw';
+      c.style.background = colors[Math.floor(Math.random()*colors.length)];
+      c.style.animationDelay = (Math.random()*0.3)+'s';
+      document.body.appendChild(c);
+      setTimeout(()=>c.remove(), 1600);
+    }
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(()=>toast.classList.remove('show'), 2000);
+  }
+
+  window.addEventListener('load', () => {
+    const circle = document.getElementById('streakCircle');
+    const circumference = 251;
+    circle.style.strokeDashoffset = circumference - (circumference * 0.72);
+  });
+</script>
+</body>
+</html>
