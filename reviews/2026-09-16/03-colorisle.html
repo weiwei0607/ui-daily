@@ -1,0 +1,95 @@
+<!-- style #20 Hero-Centric x #06 Vibrant Block -->
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>色塊島 ColorIsle</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ background:#fffaf0; color:#1c1c1c; font-family:'Noto Sans TC','Space Grotesk',sans-serif; }
+  .display{ font-family:'Space Grotesk','Noto Sans TC',sans-serif; }
+  .block-cyan{ background:#00ffff; }
+  .block-purple{ background:#bf00ff; color:#fff; }
+  .block-green{ background:#39ff14; }
+  .block-pink{ background:#ff1493; color:#fff; }
+  .btn-pop{ transition: transform .15s ease; }
+  .btn-pop:hover{ transform: translateY(-3px) rotate(-1deg); }
+  .blob{ border-radius: 42% 58% 61% 39% / 45% 40% 60% 55%; }
+</style>
+</head>
+<body>
+
+<header class="max-w-6xl mx-auto px-6 pt-8 flex items-center justify-between">
+  <div class="display font-700 text-xl">色塊島 <span class="text-fuchsia-600">ColorIsle</span></div>
+  <button class="block-purple display font-700 text-sm px-5 py-2 rounded-full btn-pop">免費試玩</button>
+</header>
+
+<section class="max-w-4xl mx-auto px-6 pt-16 pb-20 text-center">
+  <p class="display font-700 text-sm tracking-[0.3em] text-fuchsia-600 mb-6">給 3–8 歲孩子的色彩學習島</p>
+  <h1 class="display font-700 text-5xl md:text-6xl leading-[1.1]">
+    讓孩子<span class="block-green px-3 inline-block rounded-lg -rotate-1">玩</span>出
+    對<span class="block-cyan px-3 inline-block rounded-lg rotate-1">色彩</span>的直覺
+  </h1>
+  <p class="mt-8 text-base text-[#4a4a4a] max-w-xl mx-auto leading-relaxed">
+    色塊島用一整座會呼吸的彩色小島，帶孩子從配色、命名到情緒連結，一步步建立色彩感知。超過 40 個手作風小遊戲，爸媽在旁邊也會忍不住一起玩。
+  </p>
+  <div class="mt-10 flex flex-wrap justify-center gap-4">
+    <button class="block-pink display font-700 px-8 py-4 rounded-full text-lg btn-pop">立即下載 App</button>
+    <button class="border-2 border-black display font-700 px-8 py-4 rounded-full text-lg btn-pop">看 30 秒介紹</button>
+  </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-6 pb-8">
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+    <div class="block-cyan rounded-3xl p-6 h-40 flex flex-col justify-between btn-pop">
+      <span class="display font-700 text-3xl">01</span>
+      <span class="display font-700">配色小廚房</span>
+    </div>
+    <div class="block-purple rounded-3xl p-6 h-40 flex flex-col justify-between btn-pop">
+      <span class="display font-700 text-3xl">02</span>
+      <span class="display font-700">彩虹尋寶記</span>
+    </div>
+    <div class="block-green rounded-3xl p-6 h-40 flex flex-col justify-between btn-pop">
+      <span class="display font-700 text-3xl">03</span>
+      <span class="display font-700">情緒調色盤</span>
+    </div>
+    <div class="block-pink rounded-3xl p-6 h-40 flex flex-col justify-between btn-pop">
+      <span class="display font-700 text-3xl">04</span>
+      <span class="display font-700">畫畫小島民</span>
+    </div>
+  </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-3 gap-8">
+  <div class="text-center">
+    <div class="block-cyan w-20 h-20 mx-auto blob"></div>
+    <h3 class="display font-700 text-lg mt-5">循序漸進的關卡</h3>
+    <p class="text-sm text-[#5a5a5a] mt-2 leading-relaxed">從三原色開始，逐步解鎖漸層與對比色，難度曲線由兒童發展專家設計。</p>
+  </div>
+  <div class="text-center">
+    <div class="block-pink w-20 h-20 mx-auto blob"></div>
+    <h3 class="display font-700 text-lg mt-5">親子共玩模式</h3>
+    <p class="text-sm text-[#5a5a5a] mt-2 leading-relaxed">每週一個「一起塗」任務卡，讓螢幕時間變成真正的陪伴時間。</p>
+  </div>
+  <div class="text-center">
+    <div class="block-green w-20 h-20 mx-auto blob"></div>
+    <h3 class="display font-700 text-lg mt-5">學習成果看得見</h3>
+    <p class="text-sm text-[#5a5a5a] mt-2 leading-relaxed">每次遊玩自動生成「色彩能力小地圖」，爸媽一眼就懂孩子的進步。</p>
+  </div>
+</section>
+
+<section class="max-w-4xl mx-auto px-6 pb-24 text-center">
+  <div class="block-purple rounded-[2.5rem] px-10 py-16">
+    <h2 class="display font-700 text-3xl">今天就讓孩子踏上色塊島</h2>
+    <p class="mt-3 text-sm opacity-90">iOS / Android 同步上架，前 7 天完全免費</p>
+    <button class="mt-8 bg-white text-fuchsia-700 display font-700 px-8 py-4 rounded-full text-lg btn-pop">立即下載 App</button>
+  </div>
+</section>
+
+<footer class="text-center text-xs text-[#8a8a8a] pb-10 display">ColorIsle © 2026 · 一座會呼吸的彩色小島</footer>
+
+</body>
+</html>

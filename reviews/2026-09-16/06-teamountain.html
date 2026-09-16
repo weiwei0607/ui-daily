@@ -1,0 +1,99 @@
+<!-- style #49 Parallax Storytelling -->
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>茶山誌 TeaMountain Chronicle</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Noto+Serif+TC:wght@400;500;600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body{ background:#f6f1e7; color:#2f2a20; font-family:'Noto Serif TC','Fraunces',serif; }
+  .serif{ font-family:'Fraunces','Noto Serif TC',serif; }
+  .ui{ font-family:'Work Sans',sans-serif; letter-spacing:.06em; }
+  .parallax{ position:relative; height:80vh; overflow:hidden; }
+  .layer{ position:absolute; inset:0; will-change:transform; background-repeat:no-repeat; background-size:cover; background-position:center; }
+  .fade{ opacity:0; transform:translateY(24px); transition:opacity 1s ease, transform 1s ease; }
+  .fade.show{ opacity:1; transform:translateY(0); }
+  .divider{ width:40px; height:2px; background:#a9895f; margin:0 auto; }
+</style>
+</head>
+<body>
+
+<header class="fixed top-0 left-0 right-0 z-20 flex justify-between items-center px-8 py-5 mix-blend-difference text-white">
+  <p class="serif text-lg">茶山誌</p>
+  <p class="ui text-xs">TEA MOUNTAIN CHRONICLE</p>
+</header>
+
+<section class="parallax">
+  <div class="layer" id="sky" style="background:linear-gradient(#dce7e0,#f6f1e7); transform:translateY(0)"></div>
+  <div class="layer" id="far" style="background:linear-gradient(180deg, rgba(93,122,101,0) 0%, #7c9484 60%, #5d7a65 100%); clip-path:polygon(0 55%,20% 40%,40% 58%,60% 38%,80% 56%,100% 42%,100% 100%,0 100%);"></div>
+  <div class="layer" id="near" style="background:linear-gradient(180deg, rgba(63,84,60,0) 0%, #45573f 55%, #2f3d29 100%); clip-path:polygon(0 72%,15% 60%,35% 75%,55% 58%,75% 74%,100% 62%,100% 100%,0 100%);"></div>
+  <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
+    <p class="ui text-xs text-[#f6f1e7] tracking-[0.4em] mb-5">三代茶人・海拔 1,400 公尺</p>
+    <h1 class="serif text-white text-5xl md:text-6xl font-medium drop-shadow-lg">霧起的地方<br>就是我們的茶山</h1>
+  </div>
+</section>
+
+<main class="max-w-2xl mx-auto px-6">
+
+  <section class="py-28 text-center fade">
+    <p class="ui text-xs text-[#a9895f] mb-4">序 · 1962</p>
+    <div class="divider mb-8"></div>
+    <p class="serif text-2xl leading-[1.9]">
+      阿公在這片山坡種下第一株茶苗那年，山下還沒有路。他說，好茶不是種出來的，是等出來的——等雲霧、等日照、等一整個季節的耐性。
+    </p>
+  </section>
+
+  <section class="py-16 fade">
+    <p class="ui text-xs text-[#a9895f] mb-4">一 · 手採的堅持</p>
+    <h2 class="serif text-2xl">一心二葉，一次只採一次</h2>
+    <p class="mt-5 text-[17px] leading-[2] text-[#4a4436]">
+      機器採茶快，但會連老葉一起收進去，泡出來的茶湯會帶澀。我們至今仍堅持手採「一心二葉」——只取最嫩的芽尖與下方兩片新葉，一位採茶師一天最多只能採 8 台斤。慢，但這是茶湯清甜的來源。
+    </p>
+  </section>
+
+  <section class="py-16 fade">
+    <p class="ui text-xs text-[#a9895f] mb-4">二 · 看天做茶</p>
+    <h2 class="serif text-2xl">阿爸的鼻子比溫度計準</h2>
+    <p class="mt-5 text-[17px] leading-[2] text-[#4a4436]">
+      萎凋、攪拌、發酵、殺菁——每一步都沒有固定時間表，全靠製茶師傅當下的判斷。阿爸常說，茶葉的香氣會「告訴你」該進到下一步了，這是三十年練出來的直覺，寫不進任何一本教科書。
+    </p>
+  </section>
+
+  <section class="py-16 fade">
+    <p class="ui text-xs text-[#a9895f] mb-4">三 · 交給下一代</p>
+    <h2 class="serif text-2xl">現在，換我學著等待</h2>
+    <p class="mt-5 text-[17px] leading-[2] text-[#4a4436]">
+      我是第三代。城市裡學設計的我，五年前回到山上，把阿公阿爸的手路記錄下來，也試著用更輕的包裝、更誠實的標示，把這片山的味道帶給沒來過的人。茶還是那片茶，只是說故事的方式換了人。
+    </p>
+  </section>
+
+  <section class="py-28 text-center fade">
+    <div class="divider mb-8"></div>
+    <p class="serif text-xl leading-[1.9] text-[#2f2a20]">「一泡好茶，是一整座山願意花上一年，讓你嚐到的耐心。」</p>
+    <button class="ui mt-10 text-xs border border-[#2f2a20] px-8 py-4 rounded-full">認識本季高山烏龍 →</button>
+  </section>
+
+</main>
+
+<footer class="text-center text-xs text-[#a9895f] pb-12 ui">TEA MOUNTAIN CHRONICLE © 2026 · 手作茶園直送</footer>
+
+<script>
+  const sky=document.getElementById('sky'), far=document.getElementById('far'), near=document.getElementById('near');
+  window.addEventListener('scroll', ()=>{
+    const y = window.scrollY;
+    sky.style.transform = `translateY(${y*0.05}px)`;
+    far.style.transform = `translateY(${y*0.15}px)`;
+    near.style.transform = `translateY(${y*0.28}px)`;
+  });
+  const els = document.querySelectorAll('.fade');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('show'); });
+  }, { threshold:.2 });
+  els.forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>

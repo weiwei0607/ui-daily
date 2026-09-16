@@ -1,0 +1,156 @@
+<!-- style #11 Retro-Futurism -->
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>電馭跑者 NEON RUNNER</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=VT323&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{ --cyan:#00ffff; --magenta:#ff006e; --deep:#1a1a2e; }
+  body{ background:var(--deep); color:#eafcff; font-family:'Noto Sans TC',sans-serif; overflow-x:hidden; }
+  .display{ font-family:'Orbitron',sans-serif; }
+  .mono{ font-family:'VT323',monospace; letter-spacing:.03em; }
+  .neon-text{
+    color:#fff;
+    text-shadow: 0 0 6px var(--cyan), 0 0 18px var(--cyan), 0 0 40px rgba(0,255,255,.6);
+  }
+  .neon-text-m{
+    color:#fff;
+    text-shadow: 0 0 6px var(--magenta), 0 0 18px var(--magenta), 0 0 40px rgba(255,0,110,.6);
+  }
+  .grid-floor{
+    position:relative; height:340px; overflow:hidden;
+    background: linear-gradient(#1a1a2e 0%, #2b1b4a 45%, #4a1942 100%);
+  }
+  .grid-floor::before{
+    content:""; position:absolute; inset:0; top:50%;
+    background-image:
+      linear-gradient(rgba(255,0,110,.55) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,255,.55) 1px, transparent 1px);
+    background-size: 60px 60px;
+    transform: perspective(300px) rotateX(65deg);
+    transform-origin: top;
+    animation: scroll-grid 1.4s linear infinite;
+  }
+  .sun{
+    position:absolute; left:50%; top:26%; width:220px; height:220px; border-radius:50%;
+    transform:translateX(-50%);
+    background: repeating-linear-gradient(#ffb347 0 6px, transparent 6px 12px), linear-gradient(#ff5f6d,#ff006e);
+    background-blend-mode:multiply;
+    box-shadow: 0 0 70px 20px rgba(255,95,109,.55);
+  }
+  @keyframes scroll-grid{ from{ background-position: 0 0, 0 0; } to{ background-position: 0 60px, 0 0; } }
+  .scanlines::after{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background: repeating-linear-gradient(rgba(0,0,0,0) 0 2px, rgba(0,0,0,.18) 3px 4px);
+    mix-blend-mode:overlay;
+  }
+  .btn-neon{
+    font-family:'Orbitron',sans-serif; border:2px solid var(--cyan);
+    box-shadow: 0 0 8px var(--cyan), inset 0 0 8px rgba(0,255,255,.3);
+    transition: all .2s ease;
+  }
+  .btn-neon:hover{ box-shadow: 0 0 20px var(--cyan), inset 0 0 16px rgba(0,255,255,.5); transform: translateY(-2px); }
+  .card-vhs{
+    background: linear-gradient(160deg, rgba(0,255,255,.08), rgba(255,0,110,.08));
+    border:1px solid rgba(0,255,255,.35);
+    backdrop-filter: blur(6px);
+  }
+  .badge-mono{ font-family:'VT323',monospace; font-size:1.5rem; }
+</style>
+</head>
+<body>
+
+<header class="max-w-6xl mx-auto px-6 pt-8 flex items-center justify-between">
+  <div class="display font-900 text-xl tracking-widest neon-text">NEON<span class="neon-text-m">RUNNER</span></div>
+  <nav class="hidden md:flex gap-8 text-sm text-cyan-100/80">
+    <a href="#feature" class="hover:text-white">遊戲特色</a>
+    <a href="#rank" class="hover:text-white">全球排行</a>
+    <a href="#price" class="hover:text-white">收藏版</a>
+  </nav>
+  <button class="btn-neon px-4 py-2 rounded text-xs text-cyan-100">立即下載</button>
+</header>
+
+<section class="grid-floor scanlines relative mt-6">
+  <div class="sun"></div>
+  <div class="relative z-10 max-w-3xl mx-auto text-center pt-20 px-6">
+    <p class="mono text-2xl text-pink-300 tracking-[0.3em]">A.D. 2088 · 霓虹公路電馭賽</p>
+    <h1 class="display font-900 text-5xl md:text-7xl mt-4 neon-text leading-[1.05]">在數位公路上<br class="hidden md:block">飆到光速</h1>
+  </div>
+</section>
+
+<section class="max-w-4xl mx-auto px-6 py-10 text-center">
+  <p class="text-cyan-100/80 leading-relaxed">《電馭跑者》是一款向 80 年代未來想像致敬的合成波賽車遊戲。駕駛你的鍍鉻戰車，在無限延伸的霓虹公路上甩尾漂移，用節奏感極強的合成器配樂，找回最純粹的街機快感。</p>
+  <div class="flex flex-wrap justify-center gap-4 mt-8">
+    <button class="btn-neon px-8 py-3 rounded display text-sm text-white">前往 STEAM 頁面</button>
+    <button class="px-8 py-3 rounded display text-sm border-2 border-pink-400 text-pink-200" style="box-shadow:0 0 8px #ff006e">觀看預告片</button>
+  </div>
+</section>
+
+<section id="feature" class="max-w-6xl mx-auto px-6 py-14 grid md:grid-cols-3 gap-6">
+  <div class="card-vhs rounded-xl p-6">
+    <p class="mono text-4xl text-cyan-300">01</p>
+    <h3 class="display font-700 text-lg mt-2 text-white">全息追焦攝影機</h3>
+    <p class="text-sm text-cyan-100/70 mt-3 leading-relaxed">動態電影運鏡跟隨每次甩尾，速度感直接拉滿，過彎瞬間畫面自動切換慢動作特寫。</p>
+  </div>
+  <div class="card-vhs rounded-xl p-6">
+    <p class="mono text-4xl text-pink-300">02</p>
+    <h3 class="display font-700 text-lg mt-2 text-white">原創合成器原聲帶</h3>
+    <p class="text-sm text-cyan-100/70 mt-3 leading-relaxed">14 首全新創作合成波曲目，車速與節拍即時同步，越飆越燃。</p>
+  </div>
+  <div class="card-vhs rounded-xl p-6">
+    <p class="mono text-4xl text-cyan-300">03</p>
+    <h3 class="display font-700 text-lg mt-2 text-white">霓虹車體改裝工坊</h3>
+    <p class="text-sm text-cyan-100/70 mt-3 leading-relaxed">超過 200 種鍍鉻烤漆與發光飾條組合，打造專屬你的賽道形象。</p>
+  </div>
+</section>
+
+<section id="rank" class="max-w-4xl mx-auto px-6 py-14">
+  <h2 class="display font-900 text-2xl neon-text-m text-center mb-8">本週全球排行榜</h2>
+  <div class="card-vhs rounded-xl overflow-hidden">
+    <table class="w-full text-left">
+      <thead>
+        <tr class="text-pink-300 mono text-xl border-b border-cyan-400/30">
+          <th class="py-3 px-5">名次</th><th class="px-5">駕駛員</th><th class="px-5">戰車</th><th class="px-5 text-right">最佳單圈</th>
+        </tr>
+      </thead>
+      <tbody class="badge-mono text-cyan-50">
+        <tr class="border-b border-white/10"><td class="py-3 px-5 text-cyan-300">01</td><td class="px-5">夜行霓虹</td><td class="px-5 text-white/70">幽靈鍍鉻 GT</td><td class="px-5 text-right">00:58:12</td></tr>
+        <tr class="border-b border-white/10"><td class="py-3 px-5 text-cyan-300">02</td><td class="px-5">粉紅震盪</td><td class="px-5 text-white/70">電光旅人</td><td class="px-5 text-right">00:59:04</td></tr>
+        <tr class="border-b border-white/10"><td class="py-3 px-5 text-cyan-300">03</td><td class="px-5">雷射狂徒</td><td class="px-5 text-white/70">音速殘影</td><td class="px-5 text-right">01:00:37</td></tr>
+        <tr><td class="py-3 px-5 text-cyan-300">04</td><td class="px-5">午夜信使</td><td class="px-5 text-white/70">幽靈鍍鉻 GT</td><td class="px-5 text-right">01:01:52</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="price" class="max-w-5xl mx-auto px-6 py-14 grid md:grid-cols-2 gap-6">
+  <div class="card-vhs rounded-xl p-8">
+    <h3 class="display font-700 text-lg text-white">標準版</h3>
+    <p class="mono text-4xl text-cyan-300 mt-3">NT$ 490</p>
+    <ul class="text-sm text-cyan-100/70 mt-4 space-y-2">
+      <li>· 完整主線劇情</li>
+      <li>· 12 條霓虹賽道</li>
+      <li>· 基礎改裝零件</li>
+    </ul>
+  </div>
+  <div class="card-vhs rounded-xl p-8 relative" style="border-color:var(--magenta); box-shadow:0 0 20px rgba(255,0,110,.4)">
+    <span class="absolute -top-3 right-6 mono text-lg text-pink-200 bg-[#1a1a2e] px-3">收藏版</span>
+    <h3 class="display font-700 text-lg text-white">霓虹收藏版</h3>
+    <p class="mono text-4xl text-pink-300 mt-3">NT$ 890</p>
+    <ul class="text-sm text-cyan-100/70 mt-4 space-y-2">
+      <li>· 標準版所有內容</li>
+      <li>· 原聲帶數位專輯</li>
+      <li>· 全部鍍鉻車體塗裝解鎖</li>
+      <li>· 專屬霓虹車尾燈特效</li>
+    </ul>
+  </div>
+</section>
+
+<footer class="text-center text-xs text-cyan-100/40 py-10 mono text-base">NEON RUNNER © 2088 · 保留全部數位權利</footer>
+
+</body>
+</html>
