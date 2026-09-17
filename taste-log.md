@@ -23,6 +23,8 @@
 
 ### 2026-09-17（6 個，#01–06）
 - ⚠️ Firebase ❤️ 讀取本輪再次被環境網路政策擋下（agent-proxy 明確回報 `connect_rejected`，host: b-battle-580b5-default-rtdb.firebaseio.com），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
+- ⚠️ publish.py 直連 GitHub REST API 本輪改回 415 Unsupported Media Type（`git/blobs` 端點），改用 `git push`（HTTPS + GH_TOKEN 當密碼）逐批 commit+push 發布，成功。
+- ⚠️ Telegram 通知（步驟 8）同樣被環境網路政策擋下（agent-proxy 回報 `connect_rejected`，host: api.telegram.org，與 Firebase 同一機制），畫廊已正常生成並發布到 GitHub，改用系統推播通知告知使用者。
 - 本輪由主流程逐一生成 6 個檔案，避開最近 3 天（09-14~09-16）用過的風格，跨 A/B/C/D 四組選了明顯不同的方向：**Glassmorphism #03**（A 組，圓體 Baloo 2 + Quicksand，做成智慧睡眠追蹤 App「光合作息」）、**Storytelling #27**（B 組，襯線報紙體 Newsreader + Noto Serif TC，做成南投茶園品牌故事頁「山韻茶事」）、**Neubrutalism v2 #54**（D 組，粗展示字 Space Grotesk，做成攀岩裝備電商「陡坡俱樂部」）、**Financial Dashboard #36**（C 組，Plus Jakarta Sans + JetBrains Mono 對齊金額，做成個人理財儀表板「錢包助手」）、**Vaporwave #45**（D 組，Press Start 2P + VT323，做成虛擬歌姬演唱會售票頁「電幻俱樂部」）、**Organic Biophilic #42**（A 組，Cormorant Garamond + Nunito，做成植物選品工作室「森之息」）。全數繁體中文文案，皆避免使用 Inter/Helvetica 作為實際渲染字體。
 - 完成後用 grep 確認 `<html>`/`</html>`/`<body>`/`</body>` 標籤數量皆為 1；另補裝 opencc（s2t）對全部 6 個檔案做逐字元簡繁比對，抓到 1 處真的簡體字殘留「柱状仙人掌組」（06），已修正為「柱狀」；其餘標記（台/床/表/岩）皆為台灣慣用寫法（台北、起床、儀表板、攀岩），沿用歷輪判例保留，非簡體污染。
 
