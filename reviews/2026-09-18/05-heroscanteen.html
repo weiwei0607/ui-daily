@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<!-- style #52 Pixel Art / Retro Gaming -->
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>勇者食堂 Hero's Canteen｜像素冒險 RPG</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0f380f; --dark:#0a2a0a; --mid:#306230; --light:#8bac0f; --pale:#d6f5a3;
+    --red:#e94f4f; --gold:#ffd23f; --blue:#4fa8e9;
+  }
+  *{ image-rendering: pixelated; }
+  body{
+    font-family:'Noto Sans TC',sans-serif;
+    background: var(--bg);
+    color: var(--pale);
+    background-image:
+      linear-gradient(0deg, rgba(0,0,0,.15) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,.15) 1px, transparent 1px);
+    background-size: 8px 8px;
+  }
+  .px{ font-family:'Press Start 2P',monospace; }
+  .pixel-border{
+    border: 4px solid var(--light);
+    box-shadow: 0 0 0 4px var(--dark), 6px 6px 0 0 #000;
+    image-rendering: pixelated;
+  }
+  .pixel-btn{
+    font-family:'Press Start 2P',monospace;
+    background: var(--gold); color:#241a00;
+    border:4px solid #7a5c00;
+    box-shadow: 5px 5px 0 0 #000;
+    transition: transform .08s, box-shadow .08s;
+  }
+  .pixel-btn:active{ transform: translate(4px,4px); box-shadow: 1px 1px 0 0 #000; }
+  .pixel-btn:hover{ filter: brightness(1.1); }
+  @keyframes blink{ 0%,49%{ opacity:1;} 50%,100%{ opacity:0;} }
+  .blink{ animation: blink 1s steps(1) infinite; }
+  @keyframes scan{ 0%{ transform: translateY(-100%);} 100%{ transform: translateY(100%);} }
+  .scanline{ position:absolute; inset:0; background:linear-gradient(180deg, transparent, rgba(255,255,255,.06), transparent); animation: scan 3s linear infinite; pointer-events:none; }
+  .hp-bar{ transform-origin:left; transition: transform .5s steps(10); }
+  .coin{ display:inline-block; animation: coinspin 1.2s steps(4) infinite; }
+  @keyframes coinspin{ 0%{ transform:scaleX(1);} 25%{ transform:scaleX(.3);} 50%{ transform:scaleX(1);} 75%{ transform:scaleX(.3);} 100%{ transform:scaleX(1);} }
+  .cloud{ position:absolute; animation: drift 30s linear infinite; }
+  @keyframes drift{ from{ transform:translateX(-10%);} to{ transform:translateX(110vw);} }
+  .shake:hover{ animation: shake .4s; }
+  @keyframes shake{ 0%,100%{ transform:translate(0,0);} 25%{ transform:translate(-2px,2px);} 50%{ transform:translate(2px,-2px);} 75%{ transform:translate(-2px,-2px);} }
+</style>
+</head>
+<body class="antialiased">
+
+<nav class="border-b-4 border-black px-6 py-4 flex items-center justify-between" style="background:var(--dark)">
+  <div class="px text-xs" style="color:var(--gold)">勇者食堂</div>
+  <button class="pixel-btn text-[10px] px-4 py-2">開始遊戲</button>
+</nav>
+
+<header class="relative overflow-hidden py-20 px-6 text-center" style="background:var(--mid)">
+  <div class="cloud text-4xl" style="top:10%;">☁️</div>
+  <div class="cloud text-3xl" style="top:30%;animation-delay:-10s">☁️</div>
+  <div class="scanline"></div>
+  <p class="px text-[10px] mb-6" style="color:var(--light)">A PIXEL RPG · 現正募資中</p>
+  <h1 class="px text-2xl md:text-4xl leading-[2] mb-8" style="color:var(--pale); text-shadow:4px 4px 0 #000;">
+    勇者食堂<span class="blink">_</span>
+  </h1>
+  <p class="mb-10 text-lg max-w-xl mx-auto" style="color:var(--pale)">打完怪別急著走，回食堂點一碗熱湯，恢復的不只是血條，還有夥伴之間的羈絆。</p>
+  <div class="flex flex-wrap justify-center gap-4">
+    <button id="startBtn" class="pixel-btn text-[10px] px-6 py-4">▶ 立即試玩 DEMO</button>
+    <button class="pixel-btn text-[10px] px-6 py-4" style="background:var(--blue);color:#001a2e">加入願望清單</button>
+  </div>
+</header>
+
+<section class="max-w-5xl mx-auto px-6 py-16">
+  <div class="pixel-border p-6 md:p-8" style="background:var(--dark)">
+    <div class="flex items-center justify-between mb-4 px text-[9px]" style="color:var(--gold)">
+      <span>玩家：小麥</span>
+      <span><span class="coin">🪙</span> 金幣 x 2480</span>
+    </div>
+    <div class="mb-2 flex justify-between text-xs" style="color:var(--pale)"><span>HP</span><span>820 / 1000</span></div>
+    <div class="h-5 w-full bg-black border-2 border-black">
+      <div class="hp-bar h-full" style="background:var(--red); transform:scaleX(.82)"></div>
+    </div>
+  </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-6 py-10">
+  <h2 class="px text-sm text-center mb-12" style="color:var(--pale)">今日食堂菜單</h2>
+  <div class="grid md:grid-cols-3 gap-8">
+    <div class="pixel-border shake p-6 text-center" style="background:var(--dark)">
+      <div class="text-6xl mb-4">🍜</div>
+      <h3 class="px text-[10px] mb-3" style="color:var(--gold)">勇氣拉麵</h3>
+      <p class="text-sm" style="color:var(--pale)">攻擊力 +15%，持續 3 場戰鬥</p>
+    </div>
+    <div class="pixel-border shake p-6 text-center" style="background:var(--dark)">
+      <div class="text-6xl mb-4">🍖</div>
+      <h3 class="px text-[10px] mb-3" style="color:var(--gold)">巨人烤腿排</h3>
+      <p class="text-sm" style="color:var(--pale)">HP 上限 +200，持續本次地城</p>
+    </div>
+    <div class="pixel-border shake p-6 text-center" style="background:var(--dark)">
+      <div class="text-6xl mb-4">🍵</div>
+      <h3 class="px text-[10px] mb-3" style="color:var(--gold)">賢者靈茶</h3>
+      <p class="text-sm" style="color:var(--pale)">魔力回復速度 +30%</p>
+    </div>
+  </div>
+</section>
+
+<section class="max-w-4xl mx-auto px-6 py-16">
+  <div class="pixel-border p-8 text-center" style="background:var(--light); color:#0f380f">
+    <p class="px text-[11px] mb-4">🎮 PRESS START</p>
+    <p class="mb-6">Steam 搶先體驗版 9 月上市，加入願望清單獲得限定像素頭像。</p>
+    <button class="pixel-btn text-[10px] px-8 py-4">立即加入願望清單</button>
+  </div>
+</section>
+
+<footer class="text-center py-10 px text-[9px]" style="background:var(--dark); color:var(--light)">
+  © 2026 勇者食堂 HERO'S CANTEEN
+</footer>
+
+<script>
+  document.getElementById('startBtn').addEventListener('click', ()=>{
+    const bar = document.querySelector('.hp-bar');
+    bar.style.transform = 'scaleX(1)';
+    setTimeout(()=>{ bar.style.transform='scaleX(.82)'; }, 900);
+  });
+</script>
+</body>
+</html>

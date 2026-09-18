@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<!-- style #09 Claymorphism -->
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>泡泡島 BubbleIsle｜兒童英語學習 App</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Varela+Round&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink:#ffb6d1; --blue:#a9dcf5; --green:#b8f0c9; --yellow:#ffe29a; --purple:#d9c5f7;
+    --ink:#5a4a6a;
+  }
+  *{ font-family:'Varela Round','Zen Maru Gothic',sans-serif; }
+  h1,h2,h3,.zen{ font-family:'Zen Maru Gothic',sans-serif; }
+  body{ background:linear-gradient(180deg,#fdf6ff 0%,#eaf6ff 100%); color:var(--ink); }
+  .clay{
+    border-radius:36px;
+    box-shadow: 10px 10px 24px rgba(180,150,200,.35), -10px -10px 24px rgba(255,255,255,.9), inset 0 0 0 rgba(0,0,0,0);
+    border: 3px solid rgba(255,255,255,.7);
+  }
+  .clay-btn{
+    border-radius:999px;
+    box-shadow: 6px 6px 14px rgba(180,150,200,.4), -6px -6px 14px rgba(255,255,255,.9);
+    transition: all .15s ease;
+  }
+  .clay-btn:active{
+    box-shadow: inset 4px 4px 10px rgba(180,150,200,.4), inset -4px -4px 10px rgba(255,255,255,.7);
+    transform: translateY(2px) scale(.98);
+  }
+  @keyframes bob{ 0%,100%{ transform:translateY(0) rotate(-2deg);} 50%{ transform:translateY(-14px) rotate(2deg);} }
+  .bob{ animation:bob 4s ease-in-out infinite; }
+  @keyframes bob2{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-10px);} }
+  .bob2{ animation:bob2 3.2s ease-in-out infinite; }
+  .pop{ transition: transform .25s cubic-bezier(.34,1.56,.64,1); }
+  .pop:hover{ transform: scale(1.06) rotate(-1deg); }
+  .star{ position:absolute; opacity:.7; }
+  @keyframes twinkle{ 0%,100%{ opacity:.3; transform:scale(.8);} 50%{ opacity:1; transform:scale(1.2);} }
+  .twinkle{ animation:twinkle 2.5s ease-in-out infinite; }
+  .badge-pop{ transform: scale(0); transition: transform .4s cubic-bezier(.34,1.56,.64,1); }
+  .badge-pop.show{ transform: scale(1); }
+  .confetti{ position:fixed; top:-10px; width:10px; height:10px; border-radius:3px; pointer-events:none; z-index:60; }
+</style>
+</head>
+<body class="antialiased overflow-x-hidden">
+
+<div class="star twinkle" style="top:6%;left:8%;font-size:28px;">⭐</div>
+<div class="star twinkle" style="top:14%;left:88%;font-size:22px;animation-delay:.8s">✨</div>
+<div class="star twinkle" style="top:60%;left:4%;font-size:20px;animation-delay:1.4s">⭐</div>
+
+<nav class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+  <div class="flex items-center gap-2">
+    <span class="text-3xl">🫧</span>
+    <span class="zen font-black text-2xl" style="color:#a97bd4">泡泡島</span>
+  </div>
+  <button class="clay-btn bg-white px-6 py-3 font-bold text-sm" style="color:var(--ink)">家長先看這裡</button>
+</nav>
+
+<header class="max-w-6xl mx-auto px-6 pt-8 pb-20 grid md:grid-cols-2 gap-10 items-center">
+  <div>
+    <span class="inline-block bg-[color:var(--yellow)] px-4 py-2 rounded-full font-bold text-sm mb-6 clay-btn">給 4-9 歲小朋友的英語樂園</span>
+    <h1 class="zen text-4xl md:text-5xl font-black leading-tight mb-6">
+      每天 10 分鐘<br>
+      <span style="color:#ff8fb3">吹出一個</span>英語泡泡
+    </h1>
+    <p class="text-lg mb-8 opacity-80">用遊戲、聲音和貼紙，讓小朋友主動想打開 App 練英語，不用逼、不用吼。</p>
+    <div class="flex flex-wrap gap-4">
+      <button id="tryBtn" class="clay-btn bg-[color:var(--pink)] px-8 py-4 font-black text-lg pop">🎈 免費玩 3 天</button>
+      <button class="clay-btn bg-white px-8 py-4 font-bold pop">▶ 看看怎麼玩</button>
+    </div>
+  </div>
+  <div class="relative flex justify-center">
+    <div class="clay bg-[color:var(--blue)] w-72 h-72 md:w-80 md:h-80 flex items-center justify-center text-8xl bob">🐙</div>
+    <div class="absolute -top-4 -right-2 clay bg-white w-20 h-20 flex items-center justify-center text-3xl bob2" style="animation-delay:.5s">🦜</div>
+    <div class="absolute -bottom-6 -left-4 clay bg-[color:var(--green)] w-24 h-24 flex items-center justify-center text-4xl bob2" style="animation-delay:1s">🐢</div>
+  </div>
+</header>
+
+<section class="max-w-6xl mx-auto px-6 py-16">
+  <h2 class="zen text-3xl font-black text-center mb-12">小朋友最愛的三個小島</h2>
+  <div class="grid md:grid-cols-3 gap-8">
+    <div class="clay bg-[color:var(--pink)]/40 p-8 pop">
+      <div class="clay bg-white w-16 h-16 flex items-center justify-center text-3xl mb-5 bob2">🎤</div>
+      <h3 class="zen font-bold text-xl mb-2">開口說島</h3>
+      <p class="opacity-75 text-sm leading-relaxed">跟著海豚老師錄音跟讀，AI 幫忙聽發音，答對就吹出彩色泡泡。</p>
+    </div>
+    <div class="clay bg-[color:var(--yellow)]/40 p-8 pop">
+      <div class="clay bg-white w-16 h-16 flex items-center justify-center text-3xl mb-5 bob2" style="animation-delay:.3s">🧩</div>
+      <h3 class="zen font-bold text-xl mb-2">拼字冒險島</h3>
+      <p class="opacity-75 text-sm leading-relaxed">拖拉字母拼出單字，越快越準確，收集越多貝殼寶石。</p>
+    </div>
+    <div class="clay bg-[color:var(--green)]/40 p-8 pop">
+      <div class="clay bg-white w-16 h-16 flex items-center justify-center text-3xl mb-5 bob2" style="animation-delay:.6s">📖</div>
+      <h3 class="zen font-bold text-xl mb-2">故事繪本島</h3>
+      <p class="opacity-75 text-sm leading-relaxed">每週更新雙語繪本，睡前 10 分鐘親子共讀好幫手。</p>
+    </div>
+  </div>
+</section>
+
+<section class="max-w-5xl mx-auto px-6 py-16">
+  <div class="clay bg-white p-10 md:p-14 text-center">
+    <h2 class="zen text-2xl md:text-3xl font-black mb-8">點一下，看看小朋友能得到什麼徽章 👇</h2>
+    <div class="flex flex-wrap justify-center gap-6">
+      <button data-badge="🥇" class="badge-btn clay-btn bg-[color:var(--yellow)] w-24 h-24 rounded-full flex items-center justify-center text-4xl pop">🥇</button>
+      <button data-badge="🌟" class="badge-btn clay-btn bg-[color:var(--pink)] w-24 h-24 rounded-full flex items-center justify-center text-4xl pop">🌟</button>
+      <button data-badge="🐬" class="badge-btn clay-btn bg-[color:var(--blue)] w-24 h-24 rounded-full flex items-center justify-center text-4xl pop">🐬</button>
+      <button data-badge="🍭" class="badge-btn clay-btn bg-[color:var(--purple)] w-24 h-24 rounded-full flex items-center justify-center text-4xl pop">🍭</button>
+    </div>
+    <p id="badgeMsg" class="mt-8 font-bold text-lg opacity-0 transition-opacity duration-300">　</p>
+  </div>
+</section>
+
+<section class="max-w-4xl mx-auto px-6 py-16 text-center">
+  <h2 class="zen text-3xl font-black mb-4">給孩子一份不哭鬧的英語習慣</h2>
+  <p class="opacity-70 mb-8">月費 NT$199，隨時可暫停，家長後台隨時看得到學習報告。</p>
+  <button class="clay-btn bg-[color:var(--pink)] px-10 py-5 font-black text-xl pop">🫧 立即加入泡泡島</button>
+</section>
+
+<footer class="text-center py-10 opacity-50 text-sm">© 2026 泡泡島 BubbleIsle · 陪孩子每天玩一點英語</footer>
+
+<script>
+  document.getElementById('tryBtn').addEventListener('click', ()=>{
+    for(let i=0;i<24;i++){
+      const c = document.createElement('div');
+      c.className='confetti';
+      const colors=['#ffb6d1','#a9dcf5','#b8f0c9','#ffe29a','#d9c5f7'];
+      c.style.background = colors[Math.floor(Math.random()*colors.length)];
+      c.style.left = (45 + Math.random()*10) + 'vw';
+      c.style.top = '20vh';
+      document.body.appendChild(c);
+      const dx = (Math.random()-0.5)*400;
+      const dur = 1200 + Math.random()*800;
+      c.animate([
+        { transform:'translate(0,0) rotate(0deg)', opacity:1 },
+        { transform:`translate(${dx}px, 70vh) rotate(${Math.random()*720}deg)`, opacity:0 }
+      ], { duration:dur, easing:'cubic-bezier(.2,.6,.3,1)' });
+      setTimeout(()=>c.remove(), dur);
+    }
+  });
+
+  const msg = document.getElementById('badgeMsg');
+  const names = {'🥇':'冠軍發音獎章！','🌟':'連續七天打卡星星！','🐬':'單字大師海豚勳章！','🍭':'故事時間棒棒糖！'};
+  document.querySelectorAll('.badge-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const emoji = btn.dataset.badge;
+      msg.textContent = `${emoji} ${names[emoji]}`;
+      msg.style.opacity = 1;
+      btn.animate([{transform:'scale(1)'},{transform:'scale(1.3)'},{transform:'scale(1)'}], {duration:400});
+    });
+  });
+</script>
+</body>
+</html>

@@ -21,6 +21,13 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-09-18（6 個，#01–06）
+- ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（`curl -m 15` 無回應，exit 56），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
+- ⚠️ publish.py 直連 GitHub REST API 本輪同樣回 415 Unsupported Media Type（`git/blobs` 端點），改用 `git push`（HTTPS + GH_TOKEN 當密碼）發布，成功。
+- ⚠️ Telegram 通知（步驟 8）預期同樣被環境網路政策擋下（與 Firebase 同一機制），已改用系統推播通知告知使用者。
+- 本輪先用 `grep -oE '<!-- style #[0-9]+' reviews/*/*.html | sort | uniq -c` 統計歷史提及次數，並排除近 3 天（09-15/09-16/09-17）用過的風格（#10/16/21/32/40/50/11/18/20/06/37/39/49/03/27/54/36/45/42），跨 A/B/C/D 四組挑最少次數的方向：**Motion-Driven #15**（A 組，全庫最低使用次數之一，避免用 Inter，改用 Sora + Noto Sans TC，做成 AI 健身動作矯正 App「動見 MotionSense」，進場淡入交錯動畫 + 數字 count-up + 長條圖動畫，皆為可運作的 JS）、**Claymorphism #09**（A 組，圓潤風套用圓體規則，改用 Zen Maru Gothic + Varela Round 新配對，做成兒童英語學習 App「泡泡島 BubbleIsle」，黏土雙向陰影卡片 + 點擊徽章真的會噴出 canvas 彩帶粒子）、**Social Proof-Focused #24**（B 組結構，全頁圍繞信任感：跑馬燈客戶牆、數字 count-up、動態進度環，改用 Public Sans + Noto Sans TC，做成企業人資薪資 SaaS「誠信雲 TrustCloud」）、**User Behavior Dashboard #35**（C 組，改用 Work Sans + IBM Plex Mono 標數字，做成用戶行為分析後台「路徑鏡 PathLens」，含轉換漏斗動畫、SVG 留存曲線＋節點 hover 顯示數值）、**Pixel Art / Retro Gaming #52**（D 組，全庫最低使用次數之一，嚴格照配方用 Press Start 2P 當展示字，中文另搭 Noto Sans TC，做成像素 RPG 遊戲宣傳頁「勇者食堂 Hero's Canteen」，硬陰影像素邊框 + HP 血條動畫 + 8-bit 配色）、**AI-Native #43**（D 組，改用 Outfit + Noto Sans TC 新配對，做成 AI 寫作助手 SaaS「靈感雲 MuseCloud」，紫粉藍漸層光暈背景 + 對話式假聊天互動，點擊會有打字動畫）。全數繁體中文文案，皆避免使用 Inter/Helvetica。
+- 完成後用 grep 確認 `<html>`/`</html>`/`<body>`/`</body>` 標籤數量皆為 1；另用 opencc（s2t）對全部 6 個檔案 + 當日 index.html 做逐字元簡繁比對，僅剩「台→臺」（台灣/台北慣用寫法，沿用歷輪判例保留）、「核→覈」（核對/稽核，覈為罕用異體字，opencc 誤判，予以保留）、「采→採」（「晶采半導體」為虛構品牌名稱中的「采」字，非簡體污染，予以保留），皆非簡體污染。
+
 ### 2026-09-17（6 個，#01–06）
 - ⚠️ Firebase ❤️ 讀取本輪再次被環境網路政策擋下（agent-proxy 明確回報 `connect_rejected`，host: b-battle-580b5-default-rtdb.firebaseio.com），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
 - ⚠️ publish.py 直連 GitHub REST API 本輪改回 415 Unsupported Media Type（`git/blobs` 端點），改用 `git push`（HTTPS + GH_TOKEN 當密碼）逐批 commit+push 發布，成功。

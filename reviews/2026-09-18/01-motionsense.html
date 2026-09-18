@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<!-- style #15 Motion-Driven -->
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>動見 MotionSense｜AI 動作矯正教練</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0f1115; --bg:#f6f5f2; --accent:#ff4d3d; --accent2:#3d6bff;
+  }
+  *{ font-family:'Sora','Noto Sans TC',sans-serif; }
+  body{ background:var(--bg); color:var(--ink); overflow-x:hidden; }
+  .fade-up{ opacity:0; transform:translateY(40px); transition:opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+  .fade-up.show{ opacity:1; transform:translateY(0); }
+  .stagger.show{ transition-delay:calc(var(--i) * 90ms); }
+  @keyframes float{ 0%,100%{ transform:translateY(0) rotate(0deg);} 50%{ transform:translateY(-18px) rotate(3deg);} }
+  .float{ animation:float 5s ease-in-out infinite; }
+  @keyframes pulseRing{ 0%{ box-shadow:0 0 0 0 rgba(255,77,61,.45);} 100%{ box-shadow:0 0 0 24px rgba(255,77,61,0);} }
+  .pulse-ring{ animation:pulseRing 2.2s cubic-bezier(.4,0,.6,1) infinite; }
+  .marquee-track{ display:flex; width:max-content; animation:marquee 18s linear infinite; }
+  @keyframes marquee{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+  .tilt{ transition:transform .35s cubic-bezier(.16,1,.3,1); }
+  .tilt:hover{ transform:perspective(800px) rotateX(4deg) rotateY(-6deg) translateY(-6px); }
+  .bar{ transform-origin:bottom; transform:scaleY(0); transition:transform 1s cubic-bezier(.16,1,.3,1); }
+  .bar.show{ transform:scaleY(1); }
+  .nav-underline{ position:relative; }
+  .nav-underline::after{ content:''; position:absolute; left:0; bottom:-4px; width:0; height:2px; background:var(--ink); transition:width .3s ease; }
+  .nav-underline:hover::after{ width:100%; }
+  .grain{ position:fixed; inset:0; pointer-events:none; opacity:.05; z-index:50; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+</style>
+</head>
+<body class="antialiased">
+<div class="grain"></div>
+
+<nav class="fixed top-0 w-full z-40 backdrop-blur-md bg-[#f6f5f2]/80 border-b border-black/5">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="font-black text-xl tracking-tight">動見<span class="text-[color:var(--accent)]">.</span></div>
+    <div class="hidden md:flex gap-8 text-sm font-medium">
+      <a href="#feature" class="nav-underline">功能</a>
+      <a href="#how" class="nav-underline">怎麼用</a>
+      <a href="#data" class="nav-underline">數據成效</a>
+      <a href="#price" class="nav-underline">方案</a>
+    </div>
+    <button class="bg-[color:var(--ink)] text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:scale-105 active:scale-95 transition-transform">立即體驗</button>
+  </div>
+</nav>
+
+<header class="relative pt-40 pb-28 px-6 max-w-7xl mx-auto">
+  <div class="absolute -right-20 top-24 w-72 h-72 rounded-full bg-[color:var(--accent2)]/10 float"></div>
+  <div class="absolute left-10 bottom-0 w-40 h-40 rounded-full bg-[color:var(--accent)]/10 float" style="animation-delay:-2s"></div>
+
+  <div class="relative fade-up show" style="transition-delay:0ms">
+    <span class="inline-block bg-black text-white text-xs font-bold px-3 py-1 rounded-full mb-6">AI 即時動作偵測 · 每秒 30 幀分析</span>
+    <h1 class="text-5xl md:text-7xl font-black leading-[1.05] tracking-tight max-w-4xl">
+      每一下深蹲，<br>都有人在<span class="relative inline-block">
+        <span class="relative z-10">看著你</span>
+        <span class="absolute bottom-1 left-0 w-full h-4 bg-[color:var(--accent)]/40 -z-0"></span>
+      </span>
+    </h1>
+    <p class="mt-6 text-lg text-black/60 max-w-xl">手機鏡頭就是你的私人教練。動見用姿態辨識即時抓出代償動作，練對比練多更重要。</p>
+    <div class="mt-10 flex flex-wrap gap-4 items-center">
+      <button class="relative bg-[color:var(--accent)] text-white font-bold px-8 py-4 rounded-full pulse-ring hover:brightness-110 active:scale-95 transition">
+        開始 7 天免費試用
+      </button>
+      <button id="playDemo" class="flex items-center gap-3 font-semibold group">
+        <span class="w-12 h-12 rounded-full border-2 border-black flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">▶</span>
+        看 40 秒示範
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="border-y border-black/10 bg-black/[0.03] overflow-hidden py-4">
+  <div class="marquee-track text-sm font-semibold tracking-widest text-black/50 whitespace-nowrap">
+    <span class="px-8">✓ 深蹲角度即時校正</span><span class="px-8">✓ 硬舉背部弧度警示</span><span class="px-8">✓ 訓練量自動記錄</span><span class="px-8">✓ 與教練共享數據</span>
+    <span class="px-8">✓ 深蹲角度即時校正</span><span class="px-8">✓ 硬舉背部弧度警示</span><span class="px-8">✓ 訓練量自動記錄</span><span class="px-8">✓ 與教練共享數據</span>
+  </div>
+</section>
+
+<section id="feature" class="max-w-7xl mx-auto px-6 py-28 grid md:grid-cols-3 gap-6">
+  <div class="fade-up stagger" style="--i:0" data-card>
+    <div class="tilt bg-white rounded-3xl p-8 h-full shadow-sm border border-black/5">
+      <div class="w-12 h-12 rounded-2xl bg-[color:var(--accent)]/15 flex items-center justify-center text-2xl mb-6">🦴</div>
+      <h3 class="text-xl font-bold mb-2">33 個關節即時追蹤</h3>
+      <p class="text-black/60 text-sm leading-relaxed">骨架偵測引擎在裝置端運算，不用上傳影像，練習過程完全在你手機裡完成。</p>
+    </div>
+  </div>
+  <div class="fade-up stagger" style="--i:1" data-card>
+    <div class="tilt bg-[color:var(--ink)] text-white rounded-3xl p-8 h-full shadow-sm">
+      <div class="w-12 h-12 rounded-2xl bg-white/15 flex items-center justify-center text-2xl mb-6">⚡</div>
+      <h3 class="text-xl font-bold mb-2">錯誤動作立即震動提醒</h3>
+      <p class="text-white/60 text-sm leading-relaxed">膝蓋內夾、腰椎過度伸展，動作偏差超過閾值時手機立刻震動，不必等教練回放影片。</p>
+    </div>
+  </div>
+  <div class="fade-up stagger" style="--i:2" data-card>
+    <div class="tilt bg-white rounded-3xl p-8 h-full shadow-sm border border-black/5">
+      <div class="w-12 h-12 rounded-2xl bg-[color:var(--accent2)]/15 flex items-center justify-center text-2xl mb-6">📈</div>
+      <h3 class="text-xl font-bold mb-2">訓練軌跡自動生成週報</h3>
+      <p class="text-black/60 text-sm leading-relaxed">每週自動整理進步曲線與常見錯誤排行，找出你該加強的那一個動作。</p>
+    </div>
+  </div>
+</section>
+
+<section id="how" class="max-w-7xl mx-auto px-6 py-20">
+  <h2 class="fade-up text-3xl md:text-4xl font-black mb-14">三步驟，把鏡頭變教練</h2>
+  <div class="grid md:grid-cols-3 gap-10">
+    <div class="fade-up stagger flex gap-5" style="--i:0">
+      <div class="text-5xl font-black text-black/10">01</div>
+      <div><h4 class="font-bold text-lg mb-1">立起手機</h4><p class="text-black/60 text-sm">與地面呈 90 度，距離約兩公尺，App 會引導你抓好角度。</p></div>
+    </div>
+    <div class="fade-up stagger flex gap-5" style="--i:1">
+      <div class="text-5xl font-black text-black/10">02</div>
+      <div><h4 class="font-bold text-lg mb-1">選擇今日菜單</h4><p class="text-black/60 text-sm">深蹲、硬舉、臥推、肩推，超過 40 種動作範本可選。</p></div>
+    </div>
+    <div class="fade-up stagger flex gap-5" style="--i:2">
+      <div class="text-5xl font-black text-black/10">03</div>
+      <div><h4 class="font-bold text-lg mb-1">開練，即時修正</h4><p class="text-black/60 text-sm">每一下都被記錄評分，練完立刻看到今天的動作品質分數。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="data" class="max-w-7xl mx-auto px-6 py-24">
+  <div class="fade-up bg-white rounded-3xl border border-black/5 p-10 md:p-14">
+    <h2 class="text-3xl font-black mb-2">用數據說話</h2>
+    <p class="text-black/50 mb-12">超過 8,000 位使用者的真實訓練回饋</p>
+    <div class="grid md:grid-cols-4 gap-8 items-end">
+      <div class="flex flex-col items-center gap-3">
+        <div class="text-2xl font-black" data-count="92">0%</div>
+        <div class="w-full h-40 bg-black/5 rounded-xl overflow-hidden flex items-end"><div class="bar w-full bg-[color:var(--accent)] rounded-t-xl" style="height:92%"></div></div>
+        <div class="text-xs text-black/50 text-center">動作代償<br>降低比例</div>
+      </div>
+      <div class="flex flex-col items-center gap-3">
+        <div class="text-2xl font-black" data-count="4.3">0</div>
+        <div class="w-full h-40 bg-black/5 rounded-xl overflow-hidden flex items-end"><div class="bar w-full bg-[color:var(--accent2)] rounded-t-xl" style="height:70%"></div></div>
+        <div class="text-xs text-black/50 text-center">平均每週<br>訓練次數</div>
+      </div>
+      <div class="flex flex-col items-center gap-3">
+        <div class="text-2xl font-black" data-count="8600">0</div>
+        <div class="w-full h-40 bg-black/5 rounded-xl overflow-hidden flex items-end"><div class="bar w-full bg-black rounded-t-xl" style="height:85%"></div></div>
+        <div class="text-xs text-black/50 text-center">累積使用<br>人數</div>
+      </div>
+      <div class="flex flex-col items-center gap-3">
+        <div class="text-2xl font-black" data-count="4.8">0</div>
+        <div class="w-full h-40 bg-black/5 rounded-xl overflow-hidden flex items-end"><div class="bar w-full bg-yellow-400 rounded-t-xl" style="height:96%"></div></div>
+        <div class="text-xs text-black/50 text-center">App 商店<br>平均評分</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="price" class="max-w-4xl mx-auto px-6 py-24 text-center">
+  <h2 class="fade-up text-3xl md:text-4xl font-black mb-4">準備好練對每一下了嗎？</h2>
+  <p class="fade-up text-black/60 mb-10">月費 NT$299，隨時可取消，前 7 天完全免費。</p>
+  <button class="fade-up relative bg-[color:var(--ink)] text-white font-bold px-10 py-5 rounded-full text-lg hover:scale-105 active:scale-95 transition-transform">
+    下載動見，開始第一組訓練
+  </button>
+</section>
+
+<footer class="border-t border-black/10 py-10 px-6 text-center text-sm text-black/40">
+  © 2026 動見 MotionSense · 台灣製造的 AI 健身教練
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); } });
+  }, { threshold:.2 });
+  document.querySelectorAll('.fade-up, .bar').forEach(el=>io.observe(el));
+
+  // count-up
+  const counters = document.querySelectorAll('[data-count]');
+  const cio = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const el = e.target; const target = parseFloat(el.dataset.count);
+        const isFloat = target % 1 !== 0;
+        let cur = 0; const step = target / 40;
+        const tick = () => {
+          cur += step;
+          if(cur >= target){ el.textContent = (isFloat ? target.toFixed(1) : target) + (target>50?'+':''); return; }
+          el.textContent = isFloat ? cur.toFixed(1) : Math.floor(cur);
+          requestAnimationFrame(tick);
+        };
+        tick();
+        cio.unobserve(el);
+      }
+    });
+  }, { threshold:.5 });
+  counters.forEach(el=>cio.observe(el));
+
+  document.getElementById('playDemo').addEventListener('click', ()=>{
+    alert('示範影片播放中（Demo）：深蹲動作即時偵測畫面');
+  });
+</script>
+</body>
+</html>

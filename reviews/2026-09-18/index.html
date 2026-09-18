@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>韡寧的 UI 待審 · 2026-09-18</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Noto Sans TC',sans-serif; background:#f4f2ec; color:#1f2226;}
+  .frame-wrap{
+    width:100%; height:260px; overflow:hidden; position:relative;
+    background:#fff; border-radius:12px;
+  }
+  .frame-wrap iframe{
+    width:200%; height:200%;
+    transform: scale(.5);
+    transform-origin: top left;
+    border:0;
+  }
+  .card{
+    background:#fff; border:1px solid #e5e2d8; border-radius:16px;
+    box-shadow:0 4px 14px rgba(30,30,20,.05);
+    transition: box-shadow .15s ease, transform .15s ease;
+  }
+  .card:hover{ box-shadow:0 10px 26px rgba(30,30,20,.1); transform: translateY(-2px); }
+  .heart{
+    cursor:pointer; user-select:none; font-size:22px;
+    filter: grayscale(1); opacity:.55; transition: all .15s ease;
+  }
+  .heart:hover{ opacity:.85; }
+  .heart.liked{ filter:none; opacity:1; transform: scale(1.15); }
+</style>
+</head>
+<body>
+
+  <header class="max-w-5xl mx-auto px-6 pt-10 pb-6">
+    <p class="text-xs tracking-[0.25em] text-[#9a9484] mb-2">UI / UX DAILY REVIEW</p>
+    <h1 class="text-2xl md:text-3xl font-bold">韡寧的 UI 待審 · 2026-09-18</h1>
+    <p class="text-sm text-[#7a756a] mt-2">今天 6 個風格方向，喜歡的按 ❤️，我會學起來（偏好會累積進 taste-log.md）。</p>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6 pb-16 grid grid-cols-1 md:grid-cols-2 gap-6">
+
+    <div class="card overflow-hidden" data-id="2026-09-18_01">
+      <div class="frame-wrap"><iframe src="01-motionsense.html" loading="lazy"></iframe></div>
+      <div class="p-4 flex items-center justify-between">
+        <div>
+          <p class="font-bold">#15 · Motion-Driven 動畫主導</p>
+          <p class="text-xs text-[#8a8570]">動見 MotionSense · AI 動作矯正教練 App</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="01-motionsense.html" target="_blank" class="text-sm font-semibold text-[#3b4a6b] hover:underline">開啟 ↗</a>
+          <span class="heart" data-id="2026-09-18_01">❤️</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card overflow-hidden" data-id="2026-09-18_02">
+      <div class="frame-wrap"><iframe src="02-bubbleisle.html" loading="lazy"></iframe></div>
+      <div class="p-4 flex items-center justify-between">
+        <div>
+          <p class="font-bold">#09 · Claymorphism 黏土圓潤可愛</p>
+          <p class="text-xs text-[#8a8570]">泡泡島 BubbleIsle · 兒童英語學習 App</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="02-bubbleisle.html" target="_blank" class="text-sm font-semibold text-[#3b4a6b] hover:underline">開啟 ↗</a>
+          <span class="heart" data-id="2026-09-18_02">❤️</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card overflow-hidden" data-id="2026-09-18_03">
+      <div class="frame-wrap"><iframe src="03-trustcloud.html" loading="lazy"></iframe></div>
+      <div class="p-4 flex items-center justify-between">
+        <div>
+          <p class="font-bold">#24 · Social Proof-Focused 信任優先</p>
+          <p class="text-xs text-[#8a8570]">誠信雲 TrustCloud · 企業人資薪資 SaaS</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="03-trustcloud.html" target="_blank" class="text-sm font-semibold text-[#3b4a6b] hover:underline">開啟 ↗</a>
+          <span class="heart" data-id="2026-09-18_03">❤️</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card overflow-hidden" data-id="2026-09-18_04">
+      <div class="frame-wrap"><iframe src="04-pathlens.html" loading="lazy"></iframe></div>
+      <div class="p-4 flex items-center justify-between">
+        <div>
+          <p class="font-bold">#35 · User Behavior 用戶行為後台</p>
+          <p class="text-xs text-[#8a8570]">路徑鏡 PathLens · 用戶行為分析後台</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="04-pathlens.html" target="_blank" class="text-sm font-semibold text-[#3b4a6b] hover:underline">開啟 ↗</a>
+          <span class="heart" data-id="2026-09-18_04">❤️</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card overflow-hidden" data-id="2026-09-18_05">
+      <div class="frame-wrap"><iframe src="05-heroscanteen.html" loading="lazy"></iframe></div>
+      <div class="p-4 flex items-center justify-between">
+        <div>
+          <p class="font-bold">#52 · Pixel Art / Retro Gaming 8-bit 像素</p>
+          <p class="text-xs text-[#8a8570]">勇者食堂 Hero's Canteen · 像素 RPG 宣傳頁</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="05-heroscanteen.html" target="_blank" class="text-sm font-semibold text-[#3b4a6b] hover:underline">開啟 ↗</a>
+          <span class="heart" data-id="2026-09-18_05">❤️</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card overflow-hidden" data-id="2026-09-18_06">
+      <div class="frame-wrap"><iframe src="06-musecloud.html" loading="lazy"></iframe></div>
+      <div class="p-4 flex items-center justify-between">
+        <div>
+          <p class="font-bold">#43 · AI-Native 對話式科技漸層</p>
+          <p class="text-xs text-[#8a8570]">靈感雲 MuseCloud · AI 寫作助手 SaaS</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="06-musecloud.html" target="_blank" class="text-sm font-semibold text-[#3b4a6b] hover:underline">開啟 ↗</a>
+          <span class="heart" data-id="2026-09-18_06">❤️</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="max-w-5xl mx-auto px-6 pb-10 text-center text-xs text-[#a19c8c]">UI Daily · 2026-09-18 · 共 6 個風格</footer>
+
+<script>
+  const DATE = "2026-09-18";
+  const DB = "https://b-battle-580b5-default-rtdb.firebaseio.com/uigallery";
+
+  function setLiked(el, liked){
+    if(liked){ el.classList.add('liked'); } else { el.classList.remove('liked'); }
+  }
+
+  fetch(DB + ".json").then(r => r.json()).then(data => {
+    if(!data) return;
+    document.querySelectorAll('.heart').forEach(h => {
+      const id = h.getAttribute('data-id');
+      if(data[id] === true) setLiked(h, true);
+    });
+  }).catch(() => { /* 網路政策可能擋下 firebase，靜默失敗即可 */ });
+
+  document.querySelectorAll('.heart').forEach(h => {
+    h.addEventListener('click', () => {
+      const id = h.getAttribute('data-id');
+      const nowLiked = !h.classList.contains('liked');
+      setLiked(h, nowLiked);
+      fetch(DB + "/" + id + ".json", {
+        method: "PUT",
+        body: JSON.stringify(nowLiked)
+      }).catch(() => { /* 網路政策可能擋下，UI 狀態仍先切換 */ });
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!-- style #43 AI-Native -->
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>靈感雲 MuseCloud｜AI 寫作助手</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *{ font-family:'Outfit','Noto Sans TC',sans-serif; }
+  body{ background:#0b0b14; color:#f3f2fb; overflow-x:hidden; }
+  .glow-bg{
+    position:fixed; inset:0; z-index:-1;
+    background:
+      radial-gradient(600px circle at 20% 20%, rgba(118,88,255,.35), transparent 60%),
+      radial-gradient(500px circle at 85% 15%, rgba(255,88,199,.25), transparent 60%),
+      radial-gradient(700px circle at 60% 90%, rgba(88,180,255,.2), transparent 60%);
+    animation: hue 14s ease-in-out infinite;
+  }
+  @keyframes hue{ 0%,100%{ filter:hue-rotate(0deg);} 50%{ filter:hue-rotate(25deg);} }
+  .glass{ background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); backdrop-filter: blur(16px); }
+  .grad-text{ background:linear-gradient(90deg,#a78bfa,#f472b6,#60a5fa); -webkit-background-clip:text; background-clip:text; color:transparent; background-size:200% auto; animation: shine 5s linear infinite; }
+  @keyframes shine{ to{ background-position:200% center; } }
+  .bubble{ opacity:0; transform:translateY(10px); animation: rise .5s ease forwards; }
+  @keyframes rise{ to{ opacity:1; transform:translateY(0); } }
+  .typing-dot{ animation: bounce 1.2s ease-in-out infinite; }
+  .typing-dot:nth-child(2){ animation-delay:.15s; }
+  .typing-dot:nth-child(3){ animation-delay:.3s; }
+  @keyframes bounce{ 0%,60%,100%{ transform:translateY(0);} 30%{ transform:translateY(-5px);} }
+  .btn-grad{ background:linear-gradient(90deg,#7c3aed,#db2777); transition: filter .2s, transform .2s; }
+  .btn-grad:hover{ filter:brightness(1.15); transform:translateY(-2px); }
+  .fade-up{ opacity:0; transform:translateY(30px); transition:all .7s cubic-bezier(.16,1,.3,1); }
+  .fade-up.show{ opacity:1; transform:translateY(0); }
+  ::selection{ background:#a78bfa; color:#0b0b14; }
+</style>
+</head>
+<body class="antialiased">
+<div class="glow-bg"></div>
+
+<nav class="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
+  <div class="flex items-center gap-2 font-bold text-lg">
+    <span class="w-8 h-8 rounded-xl grad-text bg-white/5 flex items-center justify-center">✦</span>
+    靈感雲 <span class="grad-text">MuseCloud</span>
+  </div>
+  <div class="hidden md:flex gap-8 text-sm text-white/60">
+    <a href="#demo" class="hover:text-white transition">產品體驗</a>
+    <a href="#feature" class="hover:text-white transition">功能</a>
+    <a href="#price" class="hover:text-white transition">方案</a>
+  </div>
+  <button class="btn-grad text-white text-sm font-semibold px-5 py-2.5 rounded-full">免費開始</button>
+</nav>
+
+<header class="max-w-5xl mx-auto px-6 pt-16 pb-24 text-center">
+  <span class="glass inline-block px-4 py-1.5 rounded-full text-xs text-white/70 mb-6">🪄 新版模型上線，長文生成速度提升 3 倍</span>
+  <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6">
+    讓 AI 陪你<br><span class="grad-text">把靈感寫成作品</span>
+  </h1>
+  <p class="text-white/50 text-lg max-w-xl mx-auto mb-10">從一句想法到完整草稿，靈感雲用對話的方式陪你修出你真正想要的文字。</p>
+  <div class="flex flex-wrap justify-center gap-4">
+    <button class="btn-grad text-white font-semibold px-8 py-4 rounded-full">開始免費寫作</button>
+    <button class="glass text-white/80 font-semibold px-8 py-4 rounded-full hover:bg-white/10 transition">觀看產品介紹</button>
+  </div>
+</header>
+
+<section id="demo" class="max-w-3xl mx-auto px-6 pb-24">
+  <div class="glass rounded-3xl p-6 md:p-8">
+    <div class="flex items-center gap-2 mb-6 text-xs text-white/40">
+      <span class="w-2.5 h-2.5 rounded-full bg-red-400/60"></span>
+      <span class="w-2.5 h-2.5 rounded-full bg-yellow-400/60"></span>
+      <span class="w-2.5 h-2.5 rounded-full bg-green-400/60"></span>
+      <span class="ml-2">靈感雲 · 對話式編輯器</span>
+    </div>
+    <div id="chatLog" class="space-y-4 text-sm min-h-[180px]">
+      <div class="bubble flex justify-end" style="animation-delay:.1s">
+        <div class="bg-white/10 rounded-2xl rounded-tr-sm px-4 py-3 max-w-[80%]">幫我把這段開場白改得更有畫面感，是一篇寫給新創團隊的年度回顧。</div>
+      </div>
+      <div class="bubble flex justify-start" style="animation-delay:.6s">
+        <div class="glass rounded-2xl rounded-tl-sm px-4 py-3 max-w-[85%]">
+          好的，試試這個版本：「這一年，我們把辦公室的白板寫滿又擦掉了十七次——每一次擦掉，都是因為找到了更好的答案。」要我延伸下一段嗎？
+        </div>
+      </div>
+    </div>
+    <button id="askMore" class="mt-6 w-full glass rounded-xl px-4 py-3 text-left text-white/40 text-sm hover:bg-white/10 transition flex items-center justify-between">
+      <span>輸入你的下一個指令…</span>
+      <span class="text-xs">送出 ↵</span>
+    </button>
+  </div>
+</section>
+
+<section id="feature" class="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-3 gap-6">
+  <div class="fade-up glass rounded-3xl p-8">
+    <div class="w-12 h-12 rounded-2xl bg-purple-500/20 flex items-center justify-center text-2xl mb-6">💬</div>
+    <h3 class="font-bold text-lg mb-2">對話式修稿</h3>
+    <p class="text-white/50 text-sm leading-relaxed">不必重寫整段，直接告訴 AI「再幽默一點」「縮短到一半」，它會理解上下文微調。</p>
+  </div>
+  <div class="fade-up glass rounded-3xl p-8" style="transition-delay:.1s">
+    <div class="w-12 h-12 rounded-2xl bg-pink-500/20 flex items-center justify-center text-2xl mb-6">🎨</div>
+    <h3 class="font-bold text-lg mb-2">風格記憶</h3>
+    <p class="text-white/50 text-sm leading-relaxed">記住你慣用的語氣與用詞，寫得越多，AI 越像「你」在寫。</p>
+  </div>
+  <div class="fade-up glass rounded-3xl p-8" style="transition-delay:.2s">
+    <div class="w-12 h-12 rounded-2xl bg-blue-500/20 flex items-center justify-center text-2xl mb-6">⚡</div>
+    <h3 class="font-bold text-lg mb-2">秒級長文生成</h3>
+    <p class="text-white/50 text-sm leading-relaxed">3000 字的提案初稿，平均 8 秒內生成，剩下時間留給你打磨細節。</p>
+  </div>
+</section>
+
+<section id="price" class="max-w-4xl mx-auto px-6 py-20 text-center">
+  <h2 class="fade-up text-3xl md:text-4xl font-bold mb-4">從免費開始，寫到停不下來</h2>
+  <p class="fade-up text-white/50 mb-10">個人版 NT$0 起，團隊版每人每月 NT$390。</p>
+  <button class="fade-up btn-grad text-white font-semibold px-10 py-4 rounded-full text-lg">立即建立我的靈感雲帳號</button>
+</section>
+
+<footer class="text-center py-10 text-white/30 text-sm">© 2026 靈感雲 MuseCloud · 你的 AI 寫作夥伴</footer>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('show'); });
+  }, { threshold:.2 });
+  document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
+
+  const log = document.getElementById('chatLog');
+  document.getElementById('askMore').addEventListener('click', ()=>{
+    const typing = document.createElement('div');
+    typing.className = 'bubble flex justify-end';
+    typing.innerHTML = `<div class="bg-white/10 rounded-2xl rounded-tr-sm px-4 py-3">繼續延伸下一段</div>`;
+    log.appendChild(typing);
+
+    const dots = document.createElement('div');
+    dots.className = 'bubble flex justify-start';
+    dots.innerHTML = `<div class="glass rounded-2xl rounded-tl-sm px-4 py-3 flex gap-1.5">
+      <span class="typing-dot w-2 h-2 rounded-full bg-white/50 inline-block"></span>
+      <span class="typing-dot w-2 h-2 rounded-full bg-white/50 inline-block"></span>
+      <span class="typing-dot w-2 h-2 rounded-full bg-white/50 inline-block"></span>
+    </div>`;
+    log.appendChild(dots);
+    log.scrollIntoView({behavior:'smooth', block:'end'});
+
+    setTimeout(()=>{
+      dots.querySelector('div').innerHTML = '「後來我們才發現，真正的成長不是少走了幾次彎路，而是每次繞回來，都多帶回一點點答案。」要我接著寫結尾嗎？';
+    }, 1400);
+  });
+</script>
+</body>
+</html>
