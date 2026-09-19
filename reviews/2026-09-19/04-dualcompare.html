@@ -1,0 +1,182 @@
+<!-- style #33 Comparative Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>雙店比對 DualCompare</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Space Grotesk','Noto Sans TC',sans-serif;
+    background:#0f1115;
+    color:#e6e8ec;
+  }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+  .panel{ background:#171a21; border:1px solid #262a34; border-radius:1rem; }
+  .up{ color:#22c55e; }
+  .down{ color:#ef4444; }
+  .diff-bar{ height:8px; border-radius:999px; background:#262a34; overflow:hidden; }
+  .diff-fill-a{ background:#3b82f6; }
+  .diff-fill-b{ background:#a855f7; }
+  .store-tab{ transition: all .2s ease; cursor:pointer; }
+  .store-tab.active-a{ background:#3b82f6; color:#fff; }
+  .store-tab.active-b{ background:#a855f7; color:#fff; }
+  th, td{ padding: .65rem .9rem; }
+  .better{ position:relative; }
+  .better::after{
+    content:'✓ 領先'; font-size:.65rem; color:#22c55e; margin-left:.4rem;
+    font-family:'Noto Sans TC',sans-serif; font-weight:700;
+  }
+  svg .barA{ fill:#3b82f6; }
+  svg .barB{ fill:#a855f7; }
+</style>
+</head>
+<body class="min-h-screen">
+  <div class="max-w-6xl mx-auto px-6 py-8">
+    <header class="flex flex-wrap items-center justify-between gap-4 mb-8">
+      <div>
+        <div class="text-xs mono text-white/40 mb-1">DUALCOMPARE / OPS DASHBOARD</div>
+        <h1 class="text-2xl font-bold">雙店比對 DualCompare</h1>
+      </div>
+      <div class="flex items-center gap-3 text-sm">
+        <span class="text-white/50">比對區間</span>
+        <select class="panel px-3 py-2 text-sm bg-[#171a21]">
+          <option>本週 vs 上週</option>
+          <option>本月 vs 上月</option>
+          <option>本季 vs 去年同季</option>
+        </select>
+      </div>
+    </header>
+
+    <div class="grid md:grid-cols-2 gap-4 mb-8">
+      <div class="panel p-5">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="w-3 h-3 rounded-full" style="background:#3b82f6"></span>
+          <span class="font-bold">A 店｜信義門市</span>
+        </div>
+        <div class="text-3xl font-bold mono">NT$ 486,200</div>
+        <div class="text-sm up mono">▲ 12.4% 較上期</div>
+      </div>
+      <div class="panel p-5">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="w-3 h-3 rounded-full" style="background:#a855f7"></span>
+          <span class="font-bold">B 店｜大安門市</span>
+        </div>
+        <div class="text-3xl font-bold mono">NT$ 401,850</div>
+        <div class="text-sm down mono">▼ 3.1% 較上期</div>
+      </div>
+    </div>
+
+    <div class="panel p-6 mb-8">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="font-bold text-lg">核心指標並排比較</h2>
+        <span class="text-xs text-white/40">差異以綠色標示領先方</span>
+      </div>
+      <div class="space-y-5">
+        <div>
+          <div class="flex justify-between text-sm mb-1">
+            <span class="better">單日平均營收</span>
+            <span class="mono">A NT$69,457　·　B NT$57,407</span>
+          </div>
+          <div class="diff-bar"><div class="diff-fill-a h-full" style="width:69%"></div></div>
+        </div>
+        <div>
+          <div class="flex justify-between text-sm mb-1">
+            <span>來客數</span>
+            <span class="mono">A 1,842　·　<span class="up">B 1,960 ✓ 領先</span></span>
+          </div>
+          <div class="diff-bar"><div class="diff-fill-b h-full" style="width:52%"></div></div>
+        </div>
+        <div>
+          <div class="flex justify-between text-sm mb-1">
+            <span class="better">客單價</span>
+            <span class="mono">A NT$264　·　B NT$205</span>
+          </div>
+          <div class="diff-bar"><div class="diff-fill-a h-full" style="width:64%"></div></div>
+        </div>
+        <div>
+          <div class="flex justify-between text-sm mb-1">
+            <span>顧客滿意度</span>
+            <span class="mono">A 4.6　·　<span class="up">B 4.8 ✓ 領先</span></span>
+          </div>
+          <div class="diff-bar"><div class="diff-fill-b h-full" style="width:55%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6 mb-8">
+      <div class="panel p-6">
+        <h2 class="font-bold mb-4">近 7 日營收走勢</h2>
+        <svg viewBox="0 0 300 140" class="w-full h-40" id="chartSvg">
+          <line x1="0" y1="120" x2="300" y2="120" stroke="#262a34" stroke-width="1"/>
+        </svg>
+        <div class="flex justify-center gap-6 mt-3 text-xs">
+          <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full inline-block" style="background:#3b82f6"></span>A 店</span>
+          <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full inline-block" style="background:#a855f7"></span>B 店</span>
+        </div>
+      </div>
+      <div class="panel p-6">
+        <h2 class="font-bold mb-4">分類切換：選擇比較維度</h2>
+        <div class="flex gap-2 mb-5" id="tabGroup">
+          <div class="store-tab active-a panel px-4 py-2 text-sm rounded-full" data-view="revenue">營收</div>
+          <div class="store-tab panel px-4 py-2 text-sm rounded-full" data-view="traffic">來客</div>
+          <div class="store-tab panel px-4 py-2 text-sm rounded-full" data-view="rating">滿意度</div>
+        </div>
+        <div id="tabContent" class="text-sm text-white/70 leading-relaxed mono">
+          A 店本期營收領先 B 店 21.0%，主要來自客單價較高的商業午餐時段；建議 B 店可參考 A 店的加購推薦話術。
+        </div>
+      </div>
+    </div>
+
+    <div class="panel p-6">
+      <h2 class="font-bold mb-4">高風險落差清單</h2>
+      <table class="w-full text-sm">
+        <thead class="text-white/40 text-xs uppercase">
+          <tr><th class="text-left">項目</th><th class="text-right">A 店</th><th class="text-right">B 店</th><th class="text-right">落差</th></tr>
+        </thead>
+        <tbody class="divide-y divide-white/5">
+          <tr><td>外送準時率</td><td class="text-right mono">96%</td><td class="text-right mono">88%</td><td class="text-right mono down">-8%</td></tr>
+          <tr><td>庫存損耗率</td><td class="text-right mono">1.2%</td><td class="text-right mono">3.4%</td><td class="text-right mono down">+2.2%</td></tr>
+          <tr><td>員工排班達成率</td><td class="text-right mono">100%</td><td class="text-right mono">91%</td><td class="text-right mono down">-9%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+<script>
+  const tabs = document.querySelectorAll('.store-tab');
+  const content = document.getElementById('tabContent');
+  const texts = {
+    revenue: 'A 店本期營收領先 B 店 21.0%，主要來自客單價較高的商業午餐時段；建議 B 店可參考 A 店的加購推薦話術。',
+    traffic: 'B 店來客數領先 A 店 6.4%，鄰近捷運站帶來較高人流，但客單價偏低，建議加強套餐加購引導。',
+    rating: 'B 店顧客滿意度 4.8 分略高於 A 店 4.6 分，主要反映在出餐速度與環境整潔度評分。'
+  };
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active-a','active-b'));
+      tab.classList.add('active-a');
+      content.textContent = texts[tab.dataset.view];
+    });
+  });
+
+  const svg = document.getElementById('chartSvg');
+  const dataA = [60,72,55,80,68,90,86];
+  const dataB = [48,58,62,50,66,60,74];
+  const w = 300, h = 140, pad = 10;
+  const stepX = (w - pad*2) / (dataA.length - 1);
+  function toPoints(data){
+    return data.map((v,i) => `${pad + i*stepX},${h - 20 - v}`).join(' ');
+  }
+  const polyA = document.createElementNS('http://www.w3.org/2000/svg','polyline');
+  polyA.setAttribute('points', toPoints(dataA));
+  polyA.setAttribute('fill','none'); polyA.setAttribute('stroke','#3b82f6'); polyA.setAttribute('stroke-width','2.5');
+  const polyB = document.createElementNS('http://www.w3.org/2000/svg','polyline');
+  polyB.setAttribute('points', toPoints(dataB));
+  polyB.setAttribute('fill','none'); polyB.setAttribute('stroke','#a855f7'); polyB.setAttribute('stroke-width','2.5');
+  svg.appendChild(polyA); svg.appendChild(polyB);
+</script>
+</body>
+</html>

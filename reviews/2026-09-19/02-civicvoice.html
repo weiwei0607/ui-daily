@@ -1,0 +1,182 @@
+<!-- style #17 Inclusive Design -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>眾聲 CivicVoice</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Atkinson Hyperlegible','Noto Sans TC',sans-serif;
+    background:#fdfaf3;
+    color:#0b1d33;
+  }
+  .navy{ background:#003366; }
+  .navy-text{ color:#003366; }
+  .accent{ background:#e8590c; }
+  .accent-text{ color:#e8590c; }
+  a, button, .tap-target{ min-height:44px; }
+  .focus-ring:focus-visible{
+    outline: 4px solid #e8590c;
+    outline-offset: 3px;
+  }
+  .big-btn{
+    font-size:1.05rem; font-weight:700; padding: .9rem 1.8rem; border-radius:.75rem;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .big-btn:hover{ transform: translateY(-2px); }
+  .card{
+    border: 2px solid #0b1d33;
+    border-radius: 1rem;
+    background:#fff;
+  }
+  .progress-track{ background:#dbe4ee; border-radius:999px; height:14px; }
+  .progress-fill{ background:#003366; border-radius:999px; height:14px; transition: width .6s ease; }
+  .high-contrast body, body.hc{
+    background:#000 !important; color:#fff !important;
+  }
+  body.hc .card{ background:#111 !important; border-color:#fff !important; color:#fff; }
+  body.hc .navy{ background:#000 !important; border-bottom:3px solid #fff; }
+  body.hc .accent{ background:#ffd400 !important; color:#000 !important; }
+  body.hc .progress-track{ background:#333; }
+  body.hc .progress-fill{ background:#ffd400; }
+  .fs-adjust{ transition: font-size .2s ease; }
+</style>
+</head>
+<body class="fs-adjust">
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-white text-black px-4 py-2 rounded font-bold z-50">跳到主要內容</a>
+
+  <div class="navy text-white">
+    <div class="max-w-5xl mx-auto px-5 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="font-bold text-lg flex items-center gap-2">
+        <span class="w-8 h-8 rounded-full accent flex items-center justify-center text-sm font-black">聲</span>
+        眾聲 CivicVoice
+      </div>
+      <div class="flex items-center gap-4 text-sm">
+        <div class="flex items-center gap-2 tap-target" role="group" aria-label="調整字級">
+          <span>字級</span>
+          <button id="fsDown" class="focus-ring bg-white/10 hover:bg-white/20 px-3 py-1 rounded font-bold" aria-label="縮小字級">A-</button>
+          <button id="fsUp" class="focus-ring bg-white/10 hover:bg-white/20 px-3 py-1 rounded font-bold" aria-label="放大字級">A+</button>
+        </div>
+        <button id="hcToggle" class="focus-ring bg-white/10 hover:bg-white/20 px-3 py-2 rounded font-bold tap-target">高對比模式</button>
+      </div>
+    </div>
+  </div>
+
+  <main id="main" class="max-w-5xl mx-auto px-5 py-12">
+    <section class="text-center max-w-2xl mx-auto mb-14">
+      <p class="accent-text font-bold tracking-wide mb-3">人人都能被聽見的公共平台</p>
+      <h1 class="text-3xl md:text-5xl font-black leading-tight navy-text mb-5">
+        提出你關心的議題<br>讓更多人一起連署
+      </h1>
+      <p class="text-lg leading-relaxed">
+        眾聲致力於讓每一位公民──不論視力、聽力或行動能力──都能清楚理解議案內容、輕鬆完成連署。
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
+        <button class="focus-ring big-btn accent text-white">發起一項連署</button>
+        <button class="focus-ring big-btn card navy-text">瀏覽進行中議案</button>
+      </div>
+    </section>
+
+    <section class="mb-16" aria-labelledby="petitions-heading">
+      <h2 id="petitions-heading" class="text-2xl font-black navy-text mb-6">進行中的連署</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <article class="card p-6">
+          <h3 class="text-xl font-bold mb-2">增設住宅區無障礙坡道補助</h3>
+          <p class="mb-4">提案要求市府擴大老舊公寓無障礙改建補助範圍，讓行動不便者也能自由進出住家。</p>
+          <div class="progress-track mb-2" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" aria-label="連署進度 72%">
+            <div class="progress-fill" style="width:72%"></div>
+          </div>
+          <div class="flex justify-between text-sm font-bold mb-4">
+            <span>7,200 人已連署</span>
+            <span>目標 10,000 人</span>
+          </div>
+          <button class="focus-ring big-btn accent text-white w-full sign-btn" data-target="72" data-count="7200">我要連署</button>
+        </article>
+
+        <article class="card p-6">
+          <h3 class="text-xl font-bold mb-2">公車站牌加註點字與語音報站</h3>
+          <p class="mb-4">要求交通局於三年內完成全市公車站牌點字標示與到站語音廣播系統建置。</p>
+          <div class="progress-track mb-2" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" aria-label="連署進度 45%">
+            <div class="progress-fill" style="width:45%"></div>
+          </div>
+          <div class="flex justify-between text-sm font-bold mb-4">
+            <span>4,500 人已連署</span>
+            <span>目標 10,000 人</span>
+          </div>
+          <button class="focus-ring big-btn accent text-white w-full sign-btn" data-target="45" data-count="4500">我要連署</button>
+        </article>
+      </div>
+    </section>
+
+    <section class="mb-16" aria-labelledby="steps-heading">
+      <h2 id="steps-heading" class="text-2xl font-black navy-text mb-6">怎麼參與？三個步驟</h2>
+      <ol class="grid md:grid-cols-3 gap-6">
+        <li class="card p-6">
+          <div class="text-3xl font-black accent-text mb-3">1</div>
+          <p class="font-bold text-lg mb-1">找到你關心的議案</p>
+          <p>用清楚的白話文說明，搭配重點條列，不用猜也看得懂。</p>
+        </li>
+        <li class="card p-6">
+          <div class="text-3xl font-black accent-text mb-3">2</div>
+          <p class="font-bold text-lg mb-1">填寫身分驗證</p>
+          <p>大按鈕、大字級表單，支援螢幕報讀軟體全程操作。</p>
+        </li>
+        <li class="card p-6">
+          <div class="text-3xl font-black accent-text mb-3">3</div>
+          <p class="font-bold text-lg mb-1">追蹤後續進度</p>
+          <p>議案通過各階段門檻時，會主動發送通知給你。</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="card p-8 text-center" aria-labelledby="cta-heading">
+      <h2 id="cta-heading" class="text-2xl font-black navy-text mb-3">你的一票，決定議案能不能被看見</h2>
+      <p class="mb-6">超過 10,000 人連署的議案，將由市府正式排入議程回應。</p>
+      <button class="focus-ring big-btn accent text-white">立即註冊帳號</button>
+    </section>
+  </main>
+
+  <footer class="navy text-white text-center py-8 mt-12">
+    <p class="font-bold">眾聲 CivicVoice</p>
+    <p class="text-sm text-white/70 mt-1">通過 WCAG AAA 對比標準設計．讓每個人都能參與公共討論</p>
+  </footer>
+
+<script>
+  let fontScale = 1;
+  const root = document.documentElement;
+  document.getElementById('fsUp').addEventListener('click', () => {
+    fontScale = Math.min(1.4, fontScale + 0.1);
+    root.style.fontSize = (fontScale * 16) + 'px';
+  });
+  document.getElementById('fsDown').addEventListener('click', () => {
+    fontScale = Math.max(0.85, fontScale - 0.1);
+    root.style.fontSize = (fontScale * 16) + 'px';
+  });
+
+  document.getElementById('hcToggle').addEventListener('click', (e) => {
+    document.body.classList.toggle('hc');
+    const active = document.body.classList.contains('hc');
+    e.target.textContent = active ? '恢復標準對比' : '高對比模式';
+    e.target.setAttribute('aria-pressed', active);
+  });
+
+  document.querySelectorAll('.sign-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.disabled) return;
+      const count = parseInt(btn.dataset.count, 10) + 1;
+      btn.dataset.count = count;
+      btn.textContent = '已完成連署 ✓';
+      btn.disabled = true;
+      btn.classList.add('opacity-70');
+      const card = btn.closest('article');
+      const countText = card.querySelector('.flex.justify-between.text-sm span');
+      if (countText) countText.textContent = count.toLocaleString('zh-Hant-TW') + ' 人已連署';
+    });
+  });
+</script>
+</body>
+</html>

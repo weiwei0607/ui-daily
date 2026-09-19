@@ -1,0 +1,256 @@
+<!-- style #10 Aurora UI -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>極光冥想 AuroraCalm</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@400;500&family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --aurora1:#0080ff; --aurora2:#8b00ff; --aurora3:#ff1493; --aurora4:#00ffff;
+  }
+  body{
+    font-family:'M PLUS Rounded 1c','Kiwi Maru',sans-serif;
+    background:#0b0620;
+    color:#f4f0ff;
+    overflow-x:hidden;
+  }
+  .serif-title{ font-family:'Kiwi Maru', serif; }
+  .aurora-bg{
+    position:fixed; inset:0; z-index:0; overflow:hidden;
+  }
+  .aurora-bg::before, .aurora-bg::after{
+    content:''; position:absolute; width:140vw; height:140vw; border-radius:50%;
+    filter:blur(90px); opacity:.55;
+    animation: drift 22s ease-in-out infinite alternate;
+  }
+  .aurora-bg::before{
+    background: radial-gradient(circle at 30% 30%, var(--aurora1), transparent 60%),
+                radial-gradient(circle at 70% 70%, var(--aurora2), transparent 60%);
+    top:-40vw; left:-40vw;
+  }
+  .aurora-bg::after{
+    background: radial-gradient(circle at 60% 40%, var(--aurora3), transparent 60%),
+                radial-gradient(circle at 20% 80%, var(--aurora4), transparent 60%);
+    bottom:-50vw; right:-40vw;
+    animation-delay: -11s;
+  }
+  @keyframes drift{
+    0%{ transform: translate(0,0) scale(1) rotate(0deg); }
+    100%{ transform: translate(6%, 4%) scale(1.15) rotate(20deg); }
+  }
+  .glass{
+    background: rgba(255,255,255,.08);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,.22);
+  }
+  .glass-strong{
+    background: rgba(255,255,255,.14);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,.3);
+  }
+  .glow-btn{
+    background: linear-gradient(135deg, var(--aurora1), var(--aurora2));
+    box-shadow: 0 0 30px rgba(139,0,255,.55);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .glow-btn:hover{ transform: translateY(-2px); box-shadow: 0 0 45px rgba(139,0,255,.8); }
+  .scene-card{ transition: transform .3s ease, box-shadow .3s ease; cursor:pointer; }
+  .scene-card:hover{ transform: translateY(-6px) scale(1.02); }
+  .scene-card.active{
+    outline: 2px solid rgba(255,255,255,.7);
+    box-shadow: 0 0 40px rgba(0, 255, 255, .35);
+  }
+  input[type=range]{ -webkit-appearance:none; height:6px; border-radius:999px; background:rgba(255,255,255,.25); }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none; width:20px; height:20px; border-radius:50%;
+    background: linear-gradient(135deg, var(--aurora4), var(--aurora2));
+    box-shadow:0 0 12px rgba(0,255,255,.8); cursor:pointer;
+  }
+  .breath-ring{
+    animation: breathe 8s ease-in-out infinite;
+  }
+  @keyframes breathe{
+    0%,100%{ transform: scale(1); opacity:.7; }
+    50%{ transform: scale(1.15); opacity:1; }
+  }
+</style>
+</head>
+<body class="relative min-h-screen">
+  <div class="aurora-bg"></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-6 py-10">
+    <nav class="flex items-center justify-between mb-14">
+      <div class="flex items-center gap-2">
+        <div class="w-9 h-9 rounded-full glow-btn"></div>
+        <span class="serif-title text-xl font-bold tracking-wide">極光冥想 AuroraCalm</span>
+      </div>
+      <div class="hidden md:flex items-center gap-8 text-sm text-white/80">
+        <a href="#scenes" class="hover:text-white">情境音景</a>
+        <a href="#breathe" class="hover:text-white">呼吸練習</a>
+        <a href="#plan" class="hover:text-white">方案</a>
+      </div>
+      <button class="glow-btn px-5 py-2 rounded-full text-sm font-bold">開始七日體驗</button>
+    </nav>
+
+    <header class="text-center max-w-2xl mx-auto mb-20">
+      <p class="text-sm tracking-[0.3em] text-white/60 mb-4">EVERY NIGHT, A QUIET SKY</p>
+      <h1 class="serif-title text-4xl md:text-6xl font-bold leading-tight mb-6">
+        讓思緒像極光<br class="hidden md:block">一樣，緩緩流動
+      </h1>
+      <p class="text-white/70 text-base md:text-lg leading-relaxed">
+        結合聲景設計與呼吸節奏引導，陪你在睡前十分鐘，把緊繃的一天，輕輕放下。
+      </p>
+      <div class="mt-8 flex items-center justify-center gap-4">
+        <button class="glow-btn px-8 py-3 rounded-full font-bold">免費下載</button>
+        <button class="glass px-8 py-3 rounded-full font-bold">觀看介紹影片 ▸</button>
+      </div>
+    </header>
+
+    <section id="scenes" class="mb-24">
+      <div class="flex items-end justify-between mb-6">
+        <h2 class="serif-title text-2xl md:text-3xl font-bold">今晚，想去哪座極光</h2>
+        <span class="text-white/50 text-sm">點選卡片切換播放情境</span>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-5" id="sceneGrid">
+        <div class="scene-card glass rounded-3xl p-5 active" data-name="冰島夜語" data-desc="極光下的風聲與遠方冰川低鳴">
+          <div class="text-3xl mb-3">🌌</div>
+          <div class="font-bold mb-1">冰島夜語</div>
+          <div class="text-xs text-white/60">風聲・冰裂聲</div>
+        </div>
+        <div class="scene-card glass rounded-3xl p-5" data-name="森林深呼吸" data-desc="雨後松林與遠處溪流交織">
+          <div class="text-3xl mb-3">🌲</div>
+          <div class="font-bold mb-1">森林深呼吸</div>
+          <div class="text-xs text-white/60">溪流・鳥鳴</div>
+        </div>
+        <div class="scene-card glass rounded-3xl p-5" data-name="星艦漂浮" data-desc="低頻嗡鳴模擬太空艙的靜謐">
+          <div class="text-3xl mb-3">🛰️</div>
+          <div class="font-bold mb-1">星艦漂浮</div>
+          <div class="text-xs text-white/60">低頻・靜謐</div>
+        </div>
+        <div class="scene-card glass rounded-3xl p-5" data-name="潮汐紫夜" data-desc="海浪節奏與紫色暮光同步律動">
+          <div class="text-3xl mb-3">🌊</div>
+          <div class="font-bold mb-1">潮汐紫夜</div>
+          <div class="text-xs text-white/60">海浪・暮光</div>
+        </div>
+      </div>
+
+      <div class="glass-strong rounded-3xl p-6 mt-6 flex flex-col md:flex-row items-center gap-6">
+        <div class="w-16 h-16 rounded-full glow-btn flex items-center justify-center text-2xl cursor-pointer shrink-0" id="playBtn">▶</div>
+        <div class="flex-1 w-full">
+          <div class="flex justify-between text-sm mb-1">
+            <span id="nowPlaying" class="font-bold">正在播放：冰島夜語</span>
+            <span id="nowDesc" class="text-white/50">風聲・冰裂聲</span>
+          </div>
+          <input type="range" min="0" max="100" value="30" class="w-full" id="volumeRange">
+          <div class="flex justify-between text-xs text-white/50 mt-1">
+            <span>音量濃度</span>
+            <span id="volVal">30%</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="breathe" class="mb-24 grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <h2 class="serif-title text-2xl md:text-3xl font-bold mb-4">478 呼吸法引導</h2>
+        <p class="text-white/70 leading-relaxed mb-6">
+          吸氣 4 秒、閉氣 7 秒、吐氣 8 秒。跟著光暈的漲縮，讓自律神經慢慢切換到休息模式。
+        </p>
+        <ul class="space-y-3 text-sm text-white/70">
+          <li class="flex gap-2"><span>✦</span>睡前使用可縮短入睡時間</li>
+          <li class="flex gap-2"><span>✦</span>搭配情境音景效果更佳</li>
+          <li class="flex gap-2"><span>✦</span>每回練習約 4 分鐘</li>
+        </ul>
+      </div>
+      <div class="flex justify-center">
+        <div class="relative w-56 h-56 flex items-center justify-center">
+          <div class="absolute inset-0 rounded-full breath-ring" style="background:radial-gradient(circle, rgba(0,255,255,.35), rgba(139,0,255,.25) 60%, transparent 75%);"></div>
+          <div class="glass-strong rounded-full w-40 h-40 flex items-center justify-center text-center">
+            <span class="text-sm font-bold" id="breathText">吸氣</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="plan" class="mb-16">
+      <h2 class="serif-title text-2xl md:text-3xl font-bold text-center mb-10">選擇適合你的方案</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="glass rounded-3xl p-8">
+          <div class="font-bold text-lg mb-2">體驗版</div>
+          <div class="text-3xl font-bold mb-4">NT$0</div>
+          <p class="text-white/60 text-sm mb-6">3 個情境音景、每日一次呼吸練習</p>
+          <button class="w-full glass py-3 rounded-full font-bold">立即開始</button>
+        </div>
+        <div class="glass-strong rounded-3xl p-8 scale-105 border-2" style="border-color:rgba(0,255,255,.5)">
+          <div class="text-xs tracking-widest text-cyan-300 mb-2">最多人選擇</div>
+          <div class="font-bold text-lg mb-2">寧靜方案</div>
+          <div class="text-3xl font-bold mb-4">NT$149<span class="text-sm text-white/50">/月</span></div>
+          <p class="text-white/70 text-sm mb-6">全部音景、無限呼吸練習、睡眠報告</p>
+          <button class="w-full glow-btn py-3 rounded-full font-bold">升級寧靜方案</button>
+        </div>
+        <div class="glass rounded-3xl p-8">
+          <div class="font-bold text-lg mb-2">家庭方案</div>
+          <div class="text-3xl font-bold mb-4">NT$299<span class="text-sm text-white/50">/月</span></div>
+          <p class="text-white/60 text-sm mb-6">最多 5 位成員共享所有內容</p>
+          <button class="w-full glass py-3 rounded-full font-bold">了解詳情</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="text-center text-white/40 text-xs pb-6">
+      © 2026 AuroraCalm 極光冥想．在夜色裡，找回呼吸的節奏
+    </footer>
+  </div>
+
+<script>
+  const scenes = document.querySelectorAll('.scene-card');
+  const nowPlaying = document.getElementById('nowPlaying');
+  const nowDesc = document.getElementById('nowDesc');
+  const playBtn = document.getElementById('playBtn');
+  let playing = true;
+
+  scenes.forEach(card => {
+    card.addEventListener('click', () => {
+      scenes.forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      nowPlaying.textContent = '正在播放：' + card.dataset.name;
+      nowDesc.textContent = card.dataset.desc;
+    });
+  });
+
+  playBtn.addEventListener('click', () => {
+    playing = !playing;
+    playBtn.textContent = playing ? '▶' : '❚❚';
+    playBtn.style.opacity = playing ? '1' : '.6';
+  });
+
+  const volumeRange = document.getElementById('volumeRange');
+  const volVal = document.getElementById('volVal');
+  volumeRange.addEventListener('input', e => {
+    volVal.textContent = e.target.value + '%';
+  });
+
+  const breathText = document.getElementById('breathText');
+  const phases = [
+    { text: '吸氣', duration: 4000 },
+    { text: '閉氣', duration: 7000 },
+    { text: '吐氣', duration: 8000 },
+  ];
+  let phaseIndex = 0;
+  function nextPhase(){
+    breathText.textContent = phases[phaseIndex].text;
+    setTimeout(() => {
+      phaseIndex = (phaseIndex + 1) % phases.length;
+      nextPhase();
+    }, phases[phaseIndex].duration);
+  }
+  nextPhase();
+</script>
+</body>
+</html>

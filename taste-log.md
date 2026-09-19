@@ -21,6 +21,11 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-09-19（6 個，#01–06）
+- ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（`curl -m 15` 無回應，exit 56），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
+- 本輪先用 `grep -ohE '<!-- style #[0-9]+' reviews/*/*.html | sort | uniq -c` 統計歷史提及次數，並列出近 3 天（09-16/09-17/09-18）用過的風格（#18/#37/#39/#49/#03/#27/#54/#36/#45/#42/#15/#09/#24/#35/#52/#43）予以排除，優先挑全庫最低使用次數且跨 A/B/C/D 四組的方向：**Aurora UI #10**（A 組，全庫最低使用次數，改用 Kiwi Maru + M PLUS Rounded 1c 新圓體配對，做成睡前聲景冥想 App「極光冥想 AuroraCalm」，極光漸層背景流動動畫＋毛玻璃聲景卡片可點擊切換播放＋478 呼吸法引導的漲縮光暈動畫）、**Inclusive Design #17**（A 組，沿用配方 Atkinson Hyperlegible + Noto Sans TC，做成公民議題連署平台「眾聲 CivicVoice」，AAA 高對比＋大按鈕點擊區＋可即時調整的字級與高對比模式切換＋連署進度條會隨點擊即時更新）、**Minimal & Direct #23**（B 組結構，改用 Manrope + Noto Sans TC，做成接案者極簡開票工具「一鍵請款 QuickInvoice」，SVG 噪點紋理背景＋單頁填表即產生請款單預覽，無登入門檻）、**Comparative Dashboard #33**（C 組，避開 Inter，改用 Space Grotesk + JetBrains Mono 標數字，做成連鎖門市營運比較後台「雙店比對 DualCompare」，含並排差異長條圖、SVG 雙線走勢圖、可點擊切換比較維度的分頁）、**Exaggerated Minimalism #47**（D 組，沿用她稱讚過的 Archivo Black 巨型展示字，做成室內設計工作室作品集「留白 MARGIN Studio」，黑白純粹＋跑馬燈式服務項目＋自訂游標互動放大效果）、**Spatial UI #55**（D 組，避開 Inter/SF Pro 配方，改用 Plus Jakarta Sans，做成智慧會議室預約系統「空間辦公 SpatialOffice」，3D perspective 卡片 hover 時懸浮景深效果＋毛玻璃會議室狀態卡＋四種場景模式可點擊切換說明文字）。全數繁體中文文案，皆避免使用 Inter/Helvetica。
+- 完成後用 grep 確認 `<html>`/`</html>`/`<body>`/`</body>`/`<head>`/`</head>` 標籤數量皆為 1，且無 `font-family` 誤用 Inter/Helvetica；另安裝 opencc-python-reimplemented 對全部 6 個檔案做逐字元簡繁比對，僅剩「了→瞭」（01，「了解」為正確詞彙非「瞭解」誤判）、「台→臺」（02/03/05，台灣慣用寫法，沿用歷輪判例保留）、「家/具→傢/俱」（05，「家具」為標準台灣用詞，非「傢俱」誤判）、「干→幹」（06，「干擾」為正確繁體用詞，非「幹擾」，opencc 誤判），皆非簡體污染，全數保留。
+
 ### 2026-09-18（6 個，#01–06）
 - ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（`curl -m 15` 無回應，exit 56），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
 - ⚠️ publish.py 直連 GitHub REST API 本輪同樣回 415 Unsupported Media Type（`git/blobs` 端點），改用 `git push`（HTTPS + GH_TOKEN 當密碼）發布，成功。
