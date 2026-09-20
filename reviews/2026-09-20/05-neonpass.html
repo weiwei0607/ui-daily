@@ -1,0 +1,189 @@
+<!-- style #41 Cyberpunk -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>夜城通行証｜NEON PASS</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --magenta:#ff2bd6;
+    --cyan:#2bf3ff;
+    --bg:#08060d;
+  }
+  body{
+    font-family:'Noto Sans TC',sans-serif;
+    background:var(--bg);
+    color:#e8e6ff;
+    overflow-x:hidden;
+    position:relative;
+  }
+  .orbitron{font-family:'Orbitron',sans-serif;}
+  .mono{font-family:'Share Tech Mono',monospace;}
+  .scanlines::before{
+    content:'';
+    position:fixed;inset:0;pointer-events:none;z-index:50;
+    background:repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0px, transparent 1px, transparent 3px);
+  }
+  .grid-bg{
+    background-image:
+      linear-gradient(rgba(43,243,255,.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(43,243,255,.08) 1px, transparent 1px);
+    background-size:36px 36px;
+  }
+  .neon-text-m{color:var(--magenta);text-shadow:0 0 6px var(--magenta),0 0 18px rgba(255,43,214,.6),0 0 36px rgba(255,43,214,.3);}
+  .neon-text-c{color:var(--cyan);text-shadow:0 0 6px var(--cyan),0 0 18px rgba(43,243,255,.6),0 0 36px rgba(43,243,255,.3);}
+  .neon-border{border:1px solid var(--cyan);box-shadow:0 0 12px rgba(43,243,255,.35), inset 0 0 12px rgba(43,243,255,.08);}
+  .panel{background:rgba(20,14,32,.7);backdrop-filter:blur(6px);border:1px solid rgba(255,43,214,.25);border-radius:4px;}
+  .btn-cyber{
+    background:linear-gradient(90deg, var(--magenta), var(--cyan));
+    color:#08060d;font-weight:700;
+    clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);
+  }
+  .btn-cyber:hover{filter:brightness(1.15);}
+  @keyframes glitch{
+    0%,100%{transform:translate(0,0);}
+    20%{transform:translate(-2px,1px);}
+    40%{transform:translate(2px,-1px);}
+    60%{transform:translate(-1px,-1px);}
+    80%{transform:translate(1px,1px);}
+  }
+  .glitch-title{animation:glitch 3.2s infinite steps(2,end);}
+  .glitch-title:hover{animation-duration:.25s;}
+  @keyframes flicker{
+    0%,19%,21%,23%,80%,100%{opacity:1;}
+    20%,22%,79%{opacity:.4;}
+  }
+  .flicker{animation:flicker 6s infinite;}
+  .ticket-stub{
+    background:#0e0a18;
+    border:1px dashed rgba(43,243,255,.4);
+  }
+  .countdown-digit{
+    background:#120c1f;border:1px solid var(--magenta);
+    box-shadow:0 0 10px rgba(255,43,214,.4);
+    border-radius:6px;
+  }
+</style>
+</head>
+<body class="scanlines min-h-screen grid-bg">
+
+  <header class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+    <div class="orbitron font-black text-xl">
+      <span class="neon-text-c">NEON</span><span class="neon-text-m">PASS</span>
+    </div>
+    <nav class="hidden md:flex gap-8 text-sm mono text-[#a89bd8]">
+      <a href="#" class="hover:text-white">場次總覽</a>
+      <a href="#" class="hover:text-white">VIP 通行証</a>
+      <a href="#" class="hover:text-white">會員系統</a>
+    </nav>
+    <button class="btn-cyber px-5 py-2 text-sm">立即入場</button>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6 pb-24">
+
+    <section class="text-center pt-10 pb-16">
+      <p class="mono neon-text-c text-xs tracking-[0.4em] mb-4 flicker">// SYSTEM ONLINE · TAIPEI SECTOR 7</p>
+      <h1 class="orbitron glitch-title text-4xl md:text-6xl font-black leading-tight mb-6">
+        <span class="neon-text-m">午夜</span>過後，<br>
+        城市才真正<span class="neon-text-c">醒來</span>。
+      </h1>
+      <p class="mono text-[#a89bd8] max-w-xl mx-auto mb-10">全息掃描入場・區塊鏈票券防偽・全台唯一地下電子音樂夜城通行証</p>
+      <div class="flex items-center justify-center gap-4">
+        <button class="btn-cyber px-8 py-3">掃描取得通行証</button>
+        <button class="mono text-[#a89bd8] hover:text-white text-sm underline underline-offset-4">查看場地地圖 →</button>
+      </div>
+    </section>
+
+    <section class="panel neon-border p-8 mb-16">
+      <div class="flex items-center justify-between mb-6">
+        <p class="orbitron font-bold neon-text-c">距離下一場「暗頻 SUBFREQ」開場</p>
+        <span class="mono text-xs text-[#a89bd8]">場地：西門地下聲域</span>
+      </div>
+      <div class="flex gap-4 justify-center mb-6" id="countdown"></div>
+      <div class="grid grid-cols-3 gap-4 text-center mono text-sm">
+        <div><p class="neon-text-m text-2xl font-bold" id="ticketsLeft">247</p><p class="text-[#a89bd8] text-xs mt-1">剩餘通行証</p></div>
+        <div><p class="neon-text-c text-2xl font-bold">03:00</p><p class="text-[#a89bd8] text-xs mt-1">開場時間</p></div>
+        <div><p class="neon-text-m text-2xl font-bold">18+</p><p class="text-[#a89bd8] text-xs mt-1">入場限制</p></div>
+      </div>
+    </section>
+
+    <section class="grid md:grid-cols-3 gap-6 mb-16">
+      <div class="ticket-stub p-6 rounded" id="tier1">
+        <p class="orbitron neon-text-c font-bold mb-2">STANDARD</p>
+        <p class="mono text-3xl font-bold mb-2">$980</p>
+        <p class="text-[#a89bd8] text-sm mb-4">全場自由入場・置物櫃一次</p>
+        <button data-tier="STANDARD" data-price="980" class="select-tier w-full btn-cyber py-2 text-sm">選擇此通行証</button>
+      </div>
+      <div class="ticket-stub p-6 rounded border-2" style="border-color:var(--magenta)">
+        <p class="orbitron neon-text-m font-bold mb-2">VIP</p>
+        <p class="mono text-3xl font-bold mb-2">$2,280</p>
+        <p class="text-[#a89bd8] text-sm mb-4">專屬包廂・免排隊・迎賓調酒一杯</p>
+        <button data-tier="VIP" data-price="2280" class="select-tier w-full btn-cyber py-2 text-sm">選擇此通行証</button>
+      </div>
+      <div class="ticket-stub p-6 rounded">
+        <p class="orbitron neon-text-c font-bold mb-2">全季通行</p>
+        <p class="mono text-3xl font-bold mb-2">$8,800</p>
+        <p class="text-[#a89bd8] text-sm mb-4">本季全部場次・專屬社群頻道</p>
+        <button data-tier="全季通行" data-price="8800" class="select-tier w-full btn-cyber py-2 text-sm">選擇此通行証</button>
+      </div>
+    </section>
+
+    <section id="selectedPanel" class="panel neon-border p-6 mb-16 hidden">
+      <p class="mono text-[#a89bd8] text-sm mb-2">已選擇：</p>
+      <p class="orbitron neon-text-m text-xl font-bold" id="selectedText">—</p>
+    </section>
+
+    <section class="text-center">
+      <h2 class="orbitron text-2xl md:text-3xl font-black mb-4 neon-text-c">通行証即身分，掃描即入場。</h2>
+      <p class="mono text-[#a89bd8] mb-8">每張票券皆為唯一加密序號，無法轉售偽造。</p>
+      <button class="btn-cyber px-10 py-4 text-lg">立即取得我的 NEON PASS</button>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-[#2a1f42] py-8 text-center text-[#6b5f8f] mono text-xs">
+    © 2026 NEON PASS・地下夜城通行系統
+  </footer>
+
+<script>
+  function pad(n){return String(n).padStart(2,'0');}
+  const target = new Date().getTime() + (5*3600 + 42*60 + 18)*1000;
+  const countdownEl = document.getElementById('countdown');
+  function renderCountdown(){
+    const diff = Math.max(0, target - new Date().getTime());
+    const h = Math.floor(diff/3600000);
+    const m = Math.floor((diff%3600000)/60000);
+    const s = Math.floor((diff%60000)/1000);
+    countdownEl.innerHTML = [h,m,s].map((v,i)=>`
+      <div class="countdown-digit px-4 py-3 orbitron text-2xl font-bold neon-text-m">${pad(v)}</div>
+      ${i<2?'<span class="orbitron text-2xl neon-text-c self-center">:</span>':''}
+    `).join('');
+  }
+  renderCountdown();
+  setInterval(renderCountdown, 1000);
+
+  let left = 247;
+  setInterval(()=>{
+    if(left>180){
+      left -= Math.random()<0.5?1:0;
+      document.getElementById('ticketsLeft').textContent = left;
+    }
+  }, 4000);
+
+  const selectedPanel = document.getElementById('selectedPanel');
+  const selectedText = document.getElementById('selectedText');
+  document.querySelectorAll('.select-tier').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      selectedPanel.classList.remove('hidden');
+      selectedText.textContent = `${btn.dataset.tier} · NT$${Number(btn.dataset.price).toLocaleString()}`;
+      selectedPanel.scrollIntoView({behavior:'smooth', block:'center'});
+    });
+  });
+</script>
+</body>
+</html>

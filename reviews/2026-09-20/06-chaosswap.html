@@ -1,0 +1,198 @@
+<!-- style #57 Gen Z Chaos -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>亂拼 ChaosSwap｜大學二手交換</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,900&family=Space+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal:#4ecdc4; --coral:#ff6b6b; --yellow:#ffe66d; --purple:#a388ee;
+  }
+  body{
+    font-family:'Bricolage Grotesque','Noto Sans TC',sans-serif;
+    background:var(--yellow);
+    background-image:radial-gradient(circle at 1px 1px, rgba(0,0,0,.08) 1px, transparent 0);
+    background-size:22px 22px;
+    color:#161616;
+    overflow-x:hidden;
+  }
+  .mono{font-family:'Space Mono',monospace;}
+  .sticker{
+    border:3px solid #161616; border-radius:16px;
+    box-shadow:5px 5px 0 #161616;
+  }
+  .tilt-1{transform:rotate(-2.5deg);}
+  .tilt-2{transform:rotate(1.8deg);}
+  .tilt-3{transform:rotate(-1deg);}
+  .tilt-4{transform:rotate(2.2deg);}
+  .badge{
+    border:2px dashed #161616; border-radius:999px;
+    display:inline-block;
+  }
+  .btn-chaos{
+    background:var(--coral); border:3px solid #161616; border-radius:12px;
+    box-shadow:4px 4px 0 #161616; font-weight:700;
+    transition:transform .1s, box-shadow .1s;
+  }
+  .btn-chaos:hover{transform:translate(2px,2px); box-shadow:2px 2px 0 #161616;}
+  .btn-chaos:active{transform:translate(4px,4px); box-shadow:0 0 0 #161616;}
+  .marker-underline{
+    background:linear-gradient(120deg, var(--teal) 0%, var(--teal) 100%);
+    background-repeat:no-repeat; background-size:100% 40%; background-position:0 88%;
+  }
+  @keyframes wiggle{
+    0%,100%{transform:rotate(-2.5deg);}
+    50%{transform:rotate(2deg);}
+  }
+  .wiggle{animation:wiggle 2.4s ease-in-out infinite;}
+  .tag-strip{border-top:3px dashed #161616;}
+  .scribble-x{position:relative;}
+  .scribble-x::after{
+    content:'✕'; position:absolute; top:-10px; right:-10px;
+    color:var(--purple); font-size:28px; font-weight:900;
+  }
+  .polaroid{background:#fff; border:3px solid #161616; box-shadow:5px 5px 0 #161616; padding:10px 10px 32px;}
+  .confetti{position:fixed; width:10px; height:10px; opacity:0; pointer-events:none; z-index:60;}
+</style>
+</head>
+<body class="min-h-screen relative">
+
+  <header class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between flex-wrap gap-4">
+    <div class="sticker bg-white px-4 py-2 tilt-1 wiggle">
+      <span class="text-xl font-black">亂拼 <span class="mono text-sm">ChaosSwap</span></span>
+    </div>
+    <nav class="flex gap-3 text-sm mono font-bold">
+      <span class="badge px-3 py-1 bg-[var(--teal)]">#二手課本</span>
+      <span class="badge px-3 py-1 bg-[var(--purple)] text-white">#宿舍神器</span>
+      <span class="badge px-3 py-1 bg-white">#拼團</span>
+    </nav>
+    <button class="btn-chaos px-5 py-2 tilt-2">開始亂拼 →</button>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6 pb-24">
+
+    <section class="text-center py-14 relative">
+      <h1 class="text-4xl md:text-6xl font-black leading-tight mb-6">
+        你不要的，<span class="marker-underline">別人搶著要。</span><br>
+        <span class="tilt-2 inline-block text-[var(--coral)]">宿舍限定</span> 二手拼團市集
+      </h1>
+      <p class="mono max-w-xl mx-auto mb-8 text-sm">拍照上架 30 秒・面交地點自動抓校內熱點・湊團滿額直接分帳</p>
+      <div class="flex items-center justify-center gap-4 flex-wrap">
+        <button class="btn-chaos px-8 py-3 text-lg tilt-1">立刻上架我的雜物</button>
+        <span class="badge px-4 py-2 mono text-xs bg-white tilt-3">已有 8,842 位同學在用</span>
+      </div>
+    </section>
+
+    <section class="grid md:grid-cols-4 gap-6 mb-16">
+      <div class="polaroid tilt-1">
+        <div class="h-32 bg-[var(--teal)] rounded mb-3 flex items-center justify-center text-4xl">📚</div>
+        <p class="font-bold text-sm">微積分課本＋題庫</p>
+        <p class="mono text-xs text-gray-500">$250・還剩 2 本</p>
+      </div>
+      <div class="polaroid tilt-2 scribble-x">
+        <div class="h-32 bg-[var(--coral)] rounded mb-3 flex items-center justify-center text-4xl">🛋️</div>
+        <p class="font-bold text-sm">懶人沙發（已被搶）</p>
+        <p class="mono text-xs text-gray-500">已完成交換</p>
+      </div>
+      <div class="polaroid tilt-3">
+        <div class="h-32 bg-[var(--purple)] rounded mb-3 flex items-center justify-center text-4xl">🎮</div>
+        <p class="font-bold text-sm">Switch 一起拼團買</p>
+        <p class="mono text-xs text-gray-500">湊 3 人・已 2 人</p>
+      </div>
+      <div class="polaroid tilt-4">
+        <div class="h-32 bg-[var(--yellow)] rounded mb-3 flex items-center justify-center text-4xl">☕</div>
+        <p class="font-bold text-sm">美式咖啡機</p>
+        <p class="mono text-xs text-gray-500">$680・免運面交</p>
+      </div>
+    </section>
+
+    <section class="sticker bg-white p-8 mb-16 tilt-1">
+      <h2 class="text-2xl font-black mb-6 text-center">拼團進度即時看板</h2>
+      <div class="space-y-4" id="poolList"></div>
+    </section>
+
+    <section class="mb-16">
+      <h2 class="text-2xl font-black mb-6 text-center tilt-2 inline-block w-full">上架一件東西，三步搞定</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="sticker bg-[var(--teal)] p-6 tilt-1">
+          <p class="mono font-bold text-3xl mb-2">01</p>
+          <p class="font-bold">拍照，隨手拍就好</p>
+        </div>
+        <div class="sticker bg-[var(--purple)] text-white p-6 tilt-3">
+          <p class="mono font-bold text-3xl mb-2">02</p>
+          <p class="font-bold">寫個價格，或標「以物易物」</p>
+        </div>
+        <div class="sticker bg-[var(--coral)] p-6 tilt-2">
+          <p class="mono font-bold text-3xl mb-2">03</p>
+          <p class="font-bold">等通知，約在宿舍門口面交</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="text-center">
+      <h2 class="text-3xl font-black mb-4">別讓雜物一路睡到畢業。</h2>
+      <button id="ctaBtn" class="btn-chaos px-10 py-4 text-lg tilt-1">馬上上架，湊一團</button>
+    </section>
+
+  </main>
+
+  <footer class="tag-strip py-8 text-center mono text-xs">
+    © 2026 ChaosSwap・校園限定二手拼團
+  </footer>
+
+<script>
+  const pools = [
+    { name:'Switch 拼團', need:3, have:2, color:'var(--purple)' },
+    { name:'宿舍除濕機拼團', need:4, have:1, color:'var(--teal)' },
+    { name:'期末衝刺能量飲拼團', need:6, have:5, color:'var(--coral)' },
+  ];
+  const poolList = document.getElementById('poolList');
+  pools.forEach(p=>{
+    const pct = Math.round((p.have/p.need)*100);
+    const row = document.createElement('div');
+    row.innerHTML = `
+      <div class="flex justify-between mono text-sm font-bold mb-1">
+        <span>${p.name}</span><span>${p.have}/${p.need} 人</span>
+      </div>
+      <div class="h-4 bg-[#eee] rounded-full border-2 border-[#161616] overflow-hidden">
+        <div class="h-full rounded-full" style="width:0%;background:${p.color};transition:width 1s ease" data-w="${pct}"></div>
+      </div>
+    `;
+    poolList.appendChild(row);
+  });
+  requestAnimationFrame(()=>{
+    setTimeout(()=>{
+      poolList.querySelectorAll('[data-w]').forEach(el=> el.style.width = el.dataset.w+'%');
+    },150);
+  });
+
+  function burstConfetti(x,y){
+    const colors = ['#4ecdc4','#ff6b6b','#ffe66d','#a388ee'];
+    for(let i=0;i<18;i++){
+      const el = document.createElement('div');
+      el.className = 'confetti';
+      el.style.left = x+'px'; el.style.top = y+'px';
+      el.style.background = colors[i%colors.length];
+      el.style.opacity = 1;
+      document.body.appendChild(el);
+      const angle = Math.random()*Math.PI*2;
+      const dist = 60 + Math.random()*80;
+      const tx = Math.cos(angle)*dist, ty = Math.sin(angle)*dist - 40;
+      el.animate([
+        { transform:'translate(0,0) rotate(0deg)', opacity:1 },
+        { transform:`translate(${tx}px,${ty}px) rotate(${Math.random()*360}deg)`, opacity:0 }
+      ], { duration:800+Math.random()*400, easing:'ease-out' });
+      setTimeout(()=> el.remove(), 1300);
+    }
+  }
+  document.getElementById('ctaBtn').addEventListener('click', (e)=>{
+    burstConfetti(e.clientX, e.clientY);
+  });
+</script>
+</body>
+</html>

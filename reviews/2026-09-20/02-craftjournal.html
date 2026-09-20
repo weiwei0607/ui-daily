@@ -1,0 +1,189 @@
+<!-- style #13 Skeuomorphism -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>匠心札記｜手工皮革筆記本工坊</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --leather:#6b4226;
+    --leather-dark:#4a2c17;
+    --leather-light:#8a5a35;
+    --stitch:#e8d5b5;
+    --paper:#f3e9d8;
+    --paper2:#eaddc4;
+    --wood:#3e2a1c;
+    --brass:#c9a24b;
+  }
+  body{
+    font-family:Georgia,'Noto Serif TC',serif;
+    background:var(--wood);
+    background-image:
+      radial-gradient(ellipse at top, rgba(255,255,255,.04), transparent 60%),
+      repeating-linear-gradient(90deg, rgba(0,0,0,.08) 0px, transparent 2px, transparent 4px);
+    color:#3a2a1c;
+  }
+  .leather-panel{
+    background:
+      linear-gradient(135deg, var(--leather-light), var(--leather) 40%, var(--leather-dark) 100%);
+    border-radius:8px;
+    box-shadow:
+      0 20px 40px rgba(0,0,0,.5),
+      inset 0 2px 4px rgba(255,255,255,.15),
+      inset 0 -6px 12px rgba(0,0,0,.4);
+    position:relative;
+  }
+  .stitch-border{
+    position:absolute;inset:14px;
+    border:2px dashed var(--stitch);
+    border-radius:4px;
+    opacity:.55;
+    pointer-events:none;
+  }
+  .paper-card{
+    background:
+      linear-gradient(180deg, var(--paper), var(--paper2));
+    border-radius:4px;
+    box-shadow:
+      0 8px 20px rgba(0,0,0,.35),
+      inset 0 1px 0 rgba(255,255,255,.6),
+      inset 0 -20px 30px rgba(0,0,0,.03);
+    border:1px solid rgba(0,0,0,.08);
+  }
+  .btn-brass{
+    background:linear-gradient(180deg,#e0bc6a,var(--brass) 45%,#8a6a2c);
+    box-shadow:
+      0 4px 10px rgba(0,0,0,.4),
+      inset 0 1px 1px rgba(255,255,255,.6),
+      inset 0 -3px 4px rgba(0,0,0,.3);
+    color:#3a2a10;
+    text-shadow:0 1px 0 rgba(255,255,255,.3);
+    border:1px solid #6b5222;
+  }
+  .btn-brass:active{
+    box-shadow:
+      inset 0 3px 6px rgba(0,0,0,.5),
+      inset 0 1px 1px rgba(255,255,255,.2);
+    transform:translateY(1px);
+  }
+  .inset-well{
+    background:linear-gradient(180deg,#d8c7a4,#efe3c8);
+    box-shadow:inset 0 3px 8px rgba(0,0,0,.25), inset 0 -1px 0 rgba(255,255,255,.5);
+    border-radius:6px;
+  }
+  .brass-corner{
+    width:22px;height:22px;
+    background:radial-gradient(circle at 35% 30%, #f0d896, var(--brass) 55%, #7a5c22 100%);
+    border-radius:50%;
+    box-shadow:0 2px 4px rgba(0,0,0,.5), inset 0 1px 1px rgba(255,255,255,.5);
+  }
+  .divider-carve{
+    height:2px;
+    background:linear-gradient(90deg,transparent, rgba(0,0,0,.25), transparent);
+    box-shadow:0 1px 0 rgba(255,255,255,.4);
+  }
+  .cover-flip{
+    transition:transform .6s cubic-bezier(.4,0,.2,1);
+    transform-style:preserve-3d;
+  }
+  .cover-flip.flipped{transform:rotateY(-25deg);}
+</style>
+</head>
+<body class="min-h-screen">
+
+  <header class="max-w-5xl mx-auto px-6 pt-8 pb-4 flex items-center justify-between text-[#e8d5b5]">
+    <div class="flex items-center gap-2">
+      <div class="brass-corner"></div>
+      <span class="text-xl font-bold tracking-wide">匠心札記</span>
+    </div>
+    <nav class="hidden md:flex gap-8 text-sm text-[#d8c7a4]">
+      <a href="#" class="hover:text-white transition">工藝故事</a>
+      <a href="#" class="hover:text-white transition">客製選項</a>
+      <a href="#" class="hover:text-white transition">保養指南</a>
+    </nav>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6 pb-24">
+
+    <section class="pt-8 pb-14 text-center text-[#f0e6d2]">
+      <p class="tracking-[0.25em] text-xs text-[var(--brass)] mb-4">HAND-STITCHED SINCE 2009</p>
+      <h1 class="text-3xl md:text-5xl font-bold leading-relaxed mb-6">
+        一本會隨著你老去的筆記本，<br>
+        用得越久，越有味道。
+      </h1>
+      <p class="text-[#cbb992] max-w-xl mx-auto mb-8 leading-loose">
+        植鞣皮革、手工打洞、蠟線縫製。每一本都由老師傅親手裁切，紋理與色澤隨使用時間自然變化，是能傳承的日用品。
+      </p>
+      <button class="btn-brass px-8 py-3 rounded-md font-semibold text-lg">預約客製丈量</button>
+    </section>
+
+    <section class="grid md:grid-cols-2 gap-10 items-center mb-20">
+      <div class="leather-panel p-10 cover-flip" id="coverCard">
+        <div class="stitch-border"></div>
+        <div class="flex flex-col items-center justify-center h-64">
+          <div class="brass-corner mb-4"></div>
+          <p class="text-[#f0e6d2] text-2xl font-bold mb-1">札 記</p>
+          <p class="text-[#d8c7a4] text-xs tracking-widest">A5・植鞣牛皮・活頁式</p>
+        </div>
+      </div>
+      <div>
+        <h2 class="text-2xl font-bold text-[#f0e6d2] mb-4">翻開，就是一次真實的觸感</h2>
+        <p class="text-[#cbb992] leading-loose mb-6">
+          我們不用合成皮，堅持植物鞣製的全粒面牛皮。點擊左側封面，感受開合的重量感——這是機器印刷的紙本永遠模仿不來的細節。
+        </p>
+        <button id="flipBtn" class="btn-brass px-6 py-2 rounded-md text-sm">輕觸翻開封面</button>
+      </div>
+    </section>
+
+    <div class="divider-carve mb-16"></div>
+
+    <section class="mb-20">
+      <h2 class="text-2xl font-bold text-[#f0e6d2] text-center mb-10">內頁紙感試算</h2>
+      <div class="paper-card p-10 max-w-2xl mx-auto">
+        <p class="text-sm text-[#6b4226] mb-6">選擇你的內頁紙張，右側即時預覽書寫觸感描述：</p>
+        <div class="flex gap-3 mb-6" id="paperOptions">
+          <button data-desc="米黃道林紙，書寫沙沙聲明顯，適合鋼筆與鉛筆。" class="inset-well px-4 py-2 text-sm font-medium">道林紙</button>
+          <button data-desc="象牙白棉漿紙，吸墨快、不暈染，適合鋼筆愛好者。" class="inset-well px-4 py-2 text-sm font-medium">棉漿紙</button>
+          <button data-desc="牛皮紙感內頁，粗獷厚實，適合鉛筆速寫與拓印。" class="inset-well px-4 py-2 text-sm font-medium">牛皮紙</button>
+        </div>
+        <p id="paperDesc" class="text-[#4a2c17] leading-loose border-t border-[#c9b389] pt-4">
+          米黃道林紙，書寫沙沙聲明顯，適合鋼筆與鉛筆。
+        </p>
+      </div>
+    </section>
+
+    <section class="text-center text-[#f0e6d2]">
+      <h2 class="text-2xl md:text-3xl font-bold mb-4">用一本札記，記下十年後還想重讀的字。</h2>
+      <p class="text-[#cbb992] mb-8">現貨與客製訂單皆手工製作，需 14 個工作天。</p>
+      <button class="btn-brass px-10 py-4 rounded-md font-bold text-lg">開始訂製我的札記</button>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-[#5a3d24] py-8 text-center text-[#b39a72] text-sm">
+    © 2026 匠心札記・南投竹山手工皮革工坊
+  </footer>
+
+<script>
+  const cover = document.getElementById('coverCard');
+  const flipBtn = document.getElementById('flipBtn');
+  flipBtn.addEventListener('click', ()=>{
+    cover.classList.toggle('flipped');
+    flipBtn.textContent = cover.classList.contains('flipped') ? '輕觸闔上封面' : '輕觸翻開封面';
+  });
+
+  const buttons = document.querySelectorAll('#paperOptions button');
+  const desc = document.getElementById('paperDesc');
+  buttons.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      desc.textContent = btn.dataset.desc;
+    });
+  });
+</script>
+</body>
+</html>

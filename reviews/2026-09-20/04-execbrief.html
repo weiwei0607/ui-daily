@@ -1,0 +1,158 @@
+<!-- style #30 Executive Summary -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>營運長晨報｜Exec Brief</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'IBM Plex Sans','Noto Sans TC',sans-serif;background:#f4f5f7;color:#1c1e26;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .card{background:#fff;border:1px solid #e5e7ec;border-radius:12px;}
+  .up{color:#0f9d58;}
+  .down{color:#d64545;}
+  .kpi-num{font-family:'IBM Plex Mono',monospace;letter-spacing:-0.02em;}
+  .sidebar-link{transition:.15s;}
+  .sidebar-link:hover{background:#f0f1f5;}
+  .sidebar-link.active{background:#1c1e26;color:#fff;}
+  .bar-fill{transition:width 1s cubic-bezier(.4,0,.2,1);}
+  .sparkline{opacity:.9;}
+</style>
+</head>
+<body class="min-h-screen">
+
+  <div class="flex">
+    <aside class="hidden md:flex flex-col w-56 h-screen sticky top-0 border-r border-[#e5e7ec] bg-white px-4 py-6">
+      <div class="flex items-center gap-2 px-2 mb-8">
+        <div class="w-7 h-7 rounded bg-[#1c1e26] flex items-center justify-center text-white text-xs font-bold mono">EB</div>
+        <span class="font-semibold text-sm">Exec Brief</span>
+      </div>
+      <nav class="flex flex-col gap-1 text-sm">
+        <a class="sidebar-link active px-3 py-2 rounded-lg font-medium">今日晨報</a>
+        <a class="sidebar-link px-3 py-2 rounded-lg text-gray-500">營收全貌</a>
+        <a class="sidebar-link px-3 py-2 rounded-lg text-gray-500">客戶健康度</a>
+        <a class="sidebar-link px-3 py-2 rounded-lg text-gray-500">團隊效率</a>
+        <a class="sidebar-link px-3 py-2 rounded-lg text-gray-500">風險警示</a>
+      </nav>
+      <div class="mt-auto text-xs text-gray-400 px-2">
+        <p class="mono">最後更新</p>
+        <p class="mono font-medium text-gray-600">2026-09-20 07:02</p>
+      </div>
+    </aside>
+
+    <main class="flex-1 px-6 md:px-10 py-8 max-w-5xl">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <h1 class="text-2xl font-bold">早安，營運長。這是今天最需要知道的三件事。</h1>
+          <p class="text-gray-500 text-sm mt-1">系統已自動篩掉次要指標，只留下需要你決策的內容。</p>
+        </div>
+        <button class="mono text-xs bg-[#1c1e26] text-white px-4 py-2 rounded-lg">匯出 PDF</button>
+      </div>
+
+      <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="card p-5">
+          <p class="text-xs text-gray-400 mb-2">本月營收</p>
+          <p class="kpi-num text-3xl font-semibold">$8.42M</p>
+          <p class="text-xs up mt-1 mono">▲ 12.4% 對比上月</p>
+        </div>
+        <div class="card p-5">
+          <p class="text-xs text-gray-400 mb-2">毛利率</p>
+          <p class="kpi-num text-3xl font-semibold">34.8%</p>
+          <p class="text-xs down mt-1 mono">▼ 1.2 個百分點</p>
+        </div>
+        <div class="card p-5">
+          <p class="text-xs text-gray-400 mb-2">流失率</p>
+          <p class="kpi-num text-3xl font-semibold">2.1%</p>
+          <p class="text-xs up mt-1 mono">▲ 改善 0.4 個百分點</p>
+        </div>
+        <div class="card p-5">
+          <p class="text-xs text-gray-400 mb-2">現金跑道</p>
+          <p class="kpi-num text-3xl font-semibold">19<span class="text-base font-normal text-gray-400"> 個月</span></p>
+          <p class="text-xs text-gray-400 mt-1 mono">與上月持平</p>
+        </div>
+      </section>
+
+      <section class="card p-6 mb-8">
+        <div class="flex items-center justify-between mb-5">
+          <h2 class="font-semibold">三個需要你今天決定的事</h2>
+          <span class="mono text-xs text-gray-400">優先度排序</span>
+        </div>
+        <div class="space-y-3" id="decisionList"></div>
+      </section>
+
+      <section class="grid md:grid-cols-2 gap-6">
+        <div class="card p-6">
+          <h3 class="font-semibold mb-4">部門營收占比</h3>
+          <div class="space-y-4" id="deptBars"></div>
+        </div>
+        <div class="card p-6">
+          <h3 class="font-semibold mb-4">近 12 週營收走勢</h3>
+          <svg viewBox="0 0 300 120" class="w-full h-32 sparkline">
+            <polyline id="trendLine" fill="none" stroke="#1c1e26" stroke-width="2" points=""/>
+            <polygon id="trendFill" fill="#1c1e26" opacity="0.06" points=""/>
+          </svg>
+          <p class="text-xs text-gray-400 mt-2 mono">週均成長 +3.1%，第 9 週有一次性促銷高峰</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+<script>
+  const decisions = [
+    { label:'企業版續約談判（客戶：晶采科技）', tag:'高風險', color:'#d64545', bg:'#fbeaea' },
+    { label:'第三方物流合約到期，需簽新條款', tag:'待簽核', color:'#c98a1c', bg:'#fbf1e2' },
+    { label:'區域經理職缺面試已完成，待你確認錄取', tag:'一般', color:'#1c1e26', bg:'#eef0f5' },
+  ];
+  const decisionList = document.getElementById('decisionList');
+  decisions.forEach(d=>{
+    const row = document.createElement('div');
+    row.className = 'flex items-center justify-between px-4 py-3 rounded-lg border border-[#eceef2]';
+    row.innerHTML = `
+      <span class="text-sm">${d.label}</span>
+      <span class="mono text-xs font-medium px-2 py-1 rounded" style="color:${d.color};background:${d.bg}">${d.tag}</span>
+    `;
+    decisionList.appendChild(row);
+  });
+
+  const depts = [
+    { name:'企業解決方案', pct:42 },
+    { name:'中小企業訂閱', pct:31 },
+    { name:'API 用量計費', pct:18 },
+    { name:'顧問服務', pct:9 },
+  ];
+  const deptBars = document.getElementById('deptBars');
+  depts.forEach(d=>{
+    const row = document.createElement('div');
+    row.innerHTML = `
+      <div class="flex justify-between text-sm mb-1">
+        <span>${d.name}</span><span class="mono text-gray-500">${d.pct}%</span>
+      </div>
+      <div class="h-2 bg-[#eceef2] rounded-full overflow-hidden">
+        <div class="bar-fill h-full bg-[#1c1e26] rounded-full" style="width:0%" data-w="${d.pct}"></div>
+      </div>
+    `;
+    deptBars.appendChild(row);
+  });
+  requestAnimationFrame(()=>{
+    setTimeout(()=>{
+      document.querySelectorAll('.bar-fill').forEach(b=> b.style.width = b.dataset.w + '%');
+    }, 150);
+  });
+
+  const points = [40,42,38,45,50,48,55,60,72,58,64,70];
+  const max = Math.max(...points), min = Math.min(...points);
+  const coords = points.map((v,i)=>{
+    const x = (i/(points.length-1))*300;
+    const y = 110 - ((v-min)/(max-min))*90;
+    return `${x},${y}`;
+  });
+  document.getElementById('trendLine').setAttribute('points', coords.join(' '));
+  document.getElementById('trendFill').setAttribute('points', `0,120 ${coords.join(' ')} 300,120`);
+</script>
+</body>
+</html>

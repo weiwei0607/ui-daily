@@ -1,0 +1,212 @@
+<!-- style #07 Dark Mode (OLED) -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>夜貓專注 NightOwl Focus</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;600;900&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0a;
+    --panel:#121212;
+    --panel2:#161616;
+    --line:#242424;
+    --neon:#31e1ff;
+    --neon-dim:#0f5c68;
+    --text:#e8e8e8;
+    --sub:#8a8a8a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Chivo','Noto Sans TC',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:'JetBrains Mono',monospace;}
+  .glow-text{
+    color:var(--neon);
+    text-shadow:0 0 6px rgba(49,225,255,.65),0 0 18px rgba(49,225,255,.35),0 0 36px rgba(49,225,255,.15);
+  }
+  .glow-border{
+    border:1px solid var(--neon-dim);
+    box-shadow:0 0 0 1px rgba(49,225,255,.05) inset,0 0 24px rgba(49,225,255,.08);
+  }
+  .panel{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:14px;
+  }
+  .dot-pulse{
+    width:8px;height:8px;border-radius:999px;background:var(--neon);
+    box-shadow:0 0 8px var(--neon),0 0 16px var(--neon);
+    animation:pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{opacity:1;transform:scale(1);}
+    50%{opacity:.4;transform:scale(.8);}
+  }
+  .ring{
+    stroke:var(--neon);
+    filter:drop-shadow(0 0 6px rgba(49,225,255,.7));
+    transition:stroke-dashoffset 1s linear;
+  }
+  .btn-neon{
+    background:transparent;
+    border:1px solid var(--neon);
+    color:var(--neon);
+    text-shadow:0 0 8px rgba(49,225,255,.6);
+    transition:all .2s ease;
+  }
+  .btn-neon:hover{
+    background:rgba(49,225,255,.08);
+    box-shadow:0 0 24px rgba(49,225,255,.35);
+  }
+  .divider{
+    height:1px;
+    background:linear-gradient(90deg,transparent,var(--line),transparent);
+  }
+  ::selection{background:rgba(49,225,255,.3);}
+  .noise{
+    background-image:radial-gradient(rgba(255,255,255,.02) 1px,transparent 1px);
+    background-size:3px 3px;
+  }
+</style>
+</head>
+<body class="noise min-h-screen">
+
+  <header class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="dot-pulse"></div>
+      <span class="text-lg font-black tracking-wide">夜貓專注 <span class="text-sm font-normal text-[var(--sub)]">NightOwl Focus</span></span>
+    </div>
+    <nav class="hidden md:flex items-center gap-8 text-sm text-[var(--sub)]">
+      <a href="#" class="hover:text-white transition">功能</a>
+      <a href="#" class="hover:text-white transition">節律報告</a>
+      <a href="#" class="hover:text-white transition">定價</a>
+    </nav>
+    <button class="btn-neon px-4 py-2 rounded-full text-sm font-medium">開始今晚的專注</button>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6 pb-24">
+
+    <section class="pt-10 pb-16 text-center">
+      <p class="mono text-xs tracking-[0.3em] text-[var(--neon)] mb-4">DESIGNED FOR NOCTURNAL MINDS</p>
+      <h1 class="text-4xl md:text-6xl font-black leading-tight mb-6">
+        螢幕再暗一點，<br class="hidden md:block">
+        專注<span class="glow-text">再亮一點</span>。
+      </h1>
+      <p class="text-[var(--sub)] max-w-xl mx-auto mb-10">
+        純黑 OLED 介面，深夜工作也不刺眼。追蹤你的深夜產出節律，用一道微光提醒你：現在，是心流時間。
+      </p>
+      <div class="flex items-center justify-center gap-4">
+        <button class="btn-neon px-8 py-3 rounded-full font-semibold">免費開始追蹤</button>
+        <button class="text-[var(--sub)] hover:text-white transition text-sm">觀看 40 秒介紹 →</button>
+      </div>
+    </section>
+
+    <section class="grid md:grid-cols-3 gap-6 mb-16">
+      <div class="panel glow-border p-8 md:col-span-1 flex flex-col items-center justify-center">
+        <svg width="160" height="160" viewBox="0 0 160 160">
+          <circle cx="80" cy="80" r="70" fill="none" stroke="#1e1e1e" stroke-width="10"/>
+          <circle id="ringProgress" class="ring" cx="80" cy="80" r="70" fill="none" stroke-width="10"
+            stroke-linecap="round" stroke-dasharray="439.8" stroke-dashoffset="140" transform="rotate(-90 80 80)"/>
+        </svg>
+        <p class="mono text-4xl font-bold mt-4" id="timerText">28:41</p>
+        <p class="text-[var(--sub)] text-sm mt-1">第 3 段深夜心流</p>
+        <button id="toggleBtn" class="btn-neon mt-6 px-6 py-2 rounded-full text-sm">暫停</button>
+      </div>
+
+      <div class="panel p-8 md:col-span-2">
+        <h3 class="font-bold text-lg mb-6">本週深夜節律</h3>
+        <div class="space-y-4" id="weekBars">
+          <!-- filled by JS -->
+        </div>
+      </div>
+    </section>
+
+    <div class="divider mb-16"></div>
+
+    <section class="grid md:grid-cols-3 gap-6 mb-16">
+      <div class="panel p-6">
+        <p class="mono text-3xl font-bold glow-text mb-1">02:14</p>
+        <p class="text-[var(--sub)] text-sm">今晚最長心流</p>
+      </div>
+      <div class="panel p-6">
+        <p class="mono text-3xl font-bold glow-text mb-1">17</p>
+        <p class="text-[var(--sub)] text-sm">連續深夜專注天數</p>
+      </div>
+      <div class="panel p-6">
+        <p class="mono text-3xl font-bold glow-text mb-1">91%</p>
+        <p class="text-[var(--sub)] text-sm">午夜後不分心比例</p>
+      </div>
+    </section>
+
+    <section class="text-center">
+      <h2 class="text-2xl md:text-3xl font-black mb-4">單一亮色，不干擾你的夜。</h2>
+      <p class="text-[var(--sub)] max-w-lg mx-auto mb-8">沒有多餘顏色、沒有推播轟炸。夜貓專注只用一道微光告訴你：時間到了，或者，還可以再深潛一段。</p>
+      <button class="btn-neon px-10 py-4 rounded-full font-semibold">加入夜貓，今晚就開始</button>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-[var(--line)] py-8 text-center text-[var(--sub)] text-sm">
+    © 2026 NightOwl Focus・為深夜工作者打造
+  </footer>
+
+<script>
+  // countdown ring + timer
+  let total = 30*60, remain = 28*60+41, running = true;
+  const ring = document.getElementById('ringProgress');
+  const circumference = 439.8;
+  const timerText = document.getElementById('timerText');
+  const toggleBtn = document.getElementById('toggleBtn');
+
+  function render(){
+    const pct = remain/total;
+    ring.style.strokeDashoffset = circumference*(1-pct);
+    const m = String(Math.floor(remain/60)).padStart(2,'0');
+    const s = String(remain%60).padStart(2,'0');
+    timerText.textContent = `${m}:${s}`;
+  }
+  render();
+
+  setInterval(()=>{
+    if(!running) return;
+    remain = remain>0 ? remain-1 : total;
+    render();
+  },1000);
+
+  toggleBtn.addEventListener('click', ()=>{
+    running = !running;
+    toggleBtn.textContent = running ? '暫停' : '繼續';
+  });
+
+  // week bars
+  const week = [
+    {d:'一', v:62},{d:'二', v:80},{d:'三', v:45},
+    {d:'四', v:95},{d:'五', v:70},{d:'六', v:30},{d:'日', v:88},
+  ];
+  const container = document.getElementById('weekBars');
+  week.forEach(item=>{
+    const row = document.createElement('div');
+    row.className = 'flex items-center gap-4';
+    row.innerHTML = `
+      <span class="mono text-xs text-[var(--sub)] w-4">${item.d}</span>
+      <div class="flex-1 h-3 bg-[#1c1c1c] rounded-full overflow-hidden">
+        <div class="h-full rounded-full" style="width:0%;background:var(--neon);box-shadow:0 0 10px rgba(49,225,255,.6);transition:width 1.2s ease"></div>
+      </div>
+      <span class="mono text-xs text-[var(--sub)] w-10 text-right">${item.v}%</span>
+    `;
+    container.appendChild(row);
+    requestAnimationFrame(()=>{
+      setTimeout(()=>{ row.querySelector('div > div').style.width = item.v+'%'; }, 100);
+    });
+  });
+</script>
+</body>
+</html>

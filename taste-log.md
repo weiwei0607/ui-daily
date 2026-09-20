@@ -21,6 +21,13 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-09-20（6 個，#01–06）
+- ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（agent-proxy 明確回報 `connect_rejected` / 403 policy denial，host: b-battle-580b5-default-rtdb.firebaseio.com），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
+- ⚠️ publish.py 直連 GitHub REST API 本輪同樣回 415 Unsupported Media Type（`git/blobs` 端點），改用 `git push`（HTTPS + GH_TOKEN 當密碼）發布，成功；本機分支曾為 detached HEAD（與 origin/master 一致），已用 `git checkout -B master origin/master` 重新接上再推送。
+- ⚠️ Telegram 通知（步驟 8）同樣被環境網路政策擋下（agent-proxy 回報 `connect_rejected`，host: api.telegram.org，與 Firebase 同一機制），畫廊已正常生成並發布到 GitHub，改用系統推播通知告知使用者。
+- 本輪先用 `grep -ohE '<!-- style #[0-9]+' reviews/*/*.html | sort | uniq -c` 統計歷史提及次數，並列出近 3 天（09-17/09-18/09-19）用過的風格（#03/#09/#10/#15/#17/#23/#24/#27/#33/#35/#36/#42/#43/#45/#47/#52/#54/#55）予以排除，優先挑全庫最低使用次數（多為 3 次）且跨 A/B/C/D 四組的方向：**Dark Mode (OLED) #07**（A 組，避開 Inter，改用 Chivo + JetBrains Mono + Noto Sans TC 新配對，做成深夜自由工作者專注 App「夜貓專注 NightOwl Focus」，純黑底 + 單一電光藍 `#31e1ff` 發光強調色，含可運作的番茄鐘倒數環與週節律長條圖動畫）、**Skeuomorphism #13**（A 組，全庫最低使用次數之一，嚴格照配方用 Georgia + Noto Serif TC，做成手工皮革筆記本客製工坊「匠心札記」，植鞣皮革雙向陰影 + 黃銅按鈕 inset 質感 + 可點擊翻頁的封面 3D 翻轉效果 + 紙張材質即時切換描述）、**Interactive Demo #25**（B 組結構，改用 Poppins + JetBrains Mono + Noto Sans TC，做成 API 串接測試工具「串接實驗室 API Playground」，可切換端點/開關參數並即時產生假 JSON 回應的真實互動 demo）、**Executive Summary #30**（C 組，避開 Inter，改用 IBM Plex Sans + IBM Plex Mono 標數字，做成營運長晨報儀表板「營運長晨報 Exec Brief」，大字 KPI + 三件待決策事項清單 + 部門營收占比長條圖動畫）、**Cyberpunk #41**（D 組，嚴格照配方用 Orbitron + Share Tech Mono + Noto Sans TC，做成地下電子音樂夜城通行証售票頁「夜城通行証 NEON PASS」，霓虹洋紅+青雙色 + 真實倒數計時 + 掃描線動畫 + 可點選票種）、**Gen Z Chaos #57**（D 組，全庫最低使用次數之一，改用 Bricolage Grotesque + Space Mono + Noto Sans TC 新配對，做成大學生二手拼團市集「亂拼 ChaosSwap」，貼紙感硬陰影卡片 + 歪斜排版 + 點擊 CTA 會噴出 canvas 彩帶粒子 + 拼團進度即時長條圖）。全數繁體中文文案，皆避免使用 Inter/Helvetica。
+- 完成後用 grep 確認 `<html>`/`</html>`/`<body>`/`</body>`/`<head>`/`</head>` 標籤數量皆為 1；另安裝 opencc-python-reimplemented 對全部 6 個檔案做逐字元簡繁比對，僅剩「干→幹」（01，「干擾」為正確繁體用詞，非「幹擾」，opencc 誤判）、「占→佔／峰→峯／采→採」（04，「占比」為台灣慣用寫法、「採」誤判自虛構品牌名「晶采科技」的「采」字，非動詞）、「台→臺／群→羣」（05，台灣慣用寫法與現代標準用字，沿用歷輪判例保留），皆非簡體污染，全數保留。
+
 ### 2026-09-19（6 個，#01–06）
 - ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（`curl -m 15` 無回應，exit 56），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
 - ⚠️ publish.py 直連 GitHub REST API 本輪同樣回 415 Unsupported Media Type（`git/blobs` 端點），改用 `git push`（HTTPS + GH_TOKEN 當密碼）發布，成功；本機分支曾為 detached HEAD（與 origin/master 一致），已用 `git checkout -B master origin/master` 重新接上再推送。
