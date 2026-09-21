@@ -1,0 +1,211 @@
+<!-- style #14 Liquid Glass -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>流光 FluidHome · 智慧居家情境</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Kiwi+Maru:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'M PLUS Rounded 1c','Kiwi Maru',sans-serif;
+    min-height:100vh;
+    background: linear-gradient(120deg,#667eea,#764ba2,#f093fb,#667eea);
+    background-size: 300% 300%;
+    animation: flow 18s ease infinite;
+    color:#20143a;
+    overflow-x:hidden;
+  }
+  @keyframes flow{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+  }
+  .glass{
+    background: rgba(255,255,255,0.22);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.45);
+    box-shadow: 0 8px 32px rgba(31,20,70,0.18);
+  }
+  .glass-strong{
+    background: rgba(255,255,255,0.35);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,0.55);
+  }
+  .glow{
+    position:absolute; border-radius:9999px; filter:blur(60px);
+    animation: drift 14s ease-in-out infinite;
+  }
+  @keyframes drift{
+    0%,100%{transform:translate(0,0) scale(1);}
+    50%{transform:translate(30px,-30px) scale(1.15);}
+  }
+  .scene-card{
+    transition: transform .25s ease, background .25s ease;
+    cursor:pointer;
+  }
+  .scene-card:hover{ transform: translateY(-6px); }
+  .scene-card.active{
+    background: rgba(255,255,255,0.55);
+    box-shadow: 0 12px 40px rgba(31,20,70,0.25);
+  }
+  .toggle{
+    width:56px; height:32px; border-radius:9999px;
+    background: rgba(255,255,255,0.4);
+    position:relative; cursor:pointer; transition: background .2s;
+  }
+  .toggle.on{ background: rgba(255,255,255,0.9); }
+  .toggle .dot{
+    position:absolute; top:3px; left:3px; width:26px; height:26px;
+    border-radius:9999px; background:#764ba2;
+    transition: left .2s ease;
+  }
+  .toggle.on .dot{ left:27px; background:#f093fb; }
+  input[type=range]{ -webkit-appearance:none; height:8px; border-radius:9999px; background:rgba(255,255,255,0.4); }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none; width:22px; height:22px; border-radius:9999px;
+    background:#fff; box-shadow:0 2px 8px rgba(0,0,0,0.3); cursor:pointer;
+  }
+</style>
+</head>
+<body class="relative">
+
+<div class="glow w-80 h-80 bg-fuchsia-300/40 -top-10 -left-10"></div>
+<div class="glow w-96 h-96 bg-indigo-300/40 top-1/3 -right-20"></div>
+<div class="glow w-72 h-72 bg-purple-200/40 bottom-0 left-1/4"></div>
+
+<header class="relative z-10 max-w-6xl mx-auto px-6 py-8 flex items-center justify-between">
+  <div class="flex items-center gap-3">
+    <div class="glass-strong w-12 h-12 rounded-2xl flex items-center justify-center font-extrabold text-xl">流</div>
+    <div>
+      <p class="font-extrabold text-2xl">流光 <span class="font-medium text-base">FluidHome</span></p>
+      <p class="text-sm opacity-80">用一句話切換你的居家情境</p>
+    </div>
+  </div>
+  <div class="glass rounded-full px-5 py-2 font-bold text-sm">🏠 晚安小窩 · 台北</div>
+</header>
+
+<main class="relative z-10 max-w-6xl mx-auto px-6 pb-20 space-y-12">
+
+  <section class="glass-strong rounded-[2rem] p-10 text-center">
+    <p class="text-sm font-bold opacity-70 mb-3">今天想要什麼感覺？</p>
+    <h1 class="font-extrabold leading-tight mb-4" style="font-size:2.4rem">
+      一鍵切換，家就跟著你的心情走
+    </h1>
+    <p class="max-w-xl mx-auto opacity-80 mb-6" style="line-height:1.9">
+      流光把燈光、音樂、香氛與溫度整合成「情境」，點一下卡片，全屋設備跟著流動的漸層一起變化。
+    </p>
+    <button id="wakeBtn" class="glass-strong rounded-full px-8 py-4 font-extrabold hover:scale-105 transition">
+      ✨ 喚醒流光
+    </button>
+  </section>
+
+  <section>
+    <h2 class="font-extrabold text-xl mb-5">四種情境卡片</h2>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div class="scene-card glass rounded-3xl p-6 active" data-scene="晨光喚醒" data-desc="暖白燈漸亮 + 輕爵士 + 26°C">
+        <p class="text-3xl mb-3">🌅</p>
+        <p class="font-extrabold mb-1">晨光喚醒</p>
+        <p class="text-sm opacity-75">暖白燈漸亮・輕爵士・26°C</p>
+      </div>
+      <div class="scene-card glass rounded-3xl p-6" data-scene="專注工作" data-desc="冷白燈全亮 + 無人聲白噪音 + 23°C">
+        <p class="text-3xl mb-3">💡</p>
+        <p class="font-extrabold mb-1">專注工作</p>
+        <p class="text-sm opacity-75">冷白燈全亮・白噪音・23°C</p>
+      </div>
+      <div class="scene-card glass rounded-3xl p-6" data-scene="電影時光" data-desc="紫調氛圍燈 + 環繞音效 + 22°C">
+        <p class="text-3xl mb-3">🎬</p>
+        <p class="font-extrabold mb-1">電影時光</p>
+        <p class="text-sm opacity-75">紫調氛圍燈・環繞音效・22°C</p>
+      </div>
+      <div class="scene-card glass rounded-3xl p-6" data-scene="晚安小窩" data-desc="燭光暖橘 + 白噪音雨聲 + 24°C">
+        <p class="text-3xl mb-3">🌙</p>
+        <p class="font-extrabold mb-1">晚安小窩</p>
+        <p class="text-sm opacity-75">燭光暖橘・雨聲・24°C</p>
+      </div>
+    </div>
+    <div class="glass rounded-2xl p-5 mt-5">
+      <p class="font-bold" id="activeSceneLabel">目前情境：晨光喚醒 — 暖白燈漸亮 + 輕爵士 + 26°C</p>
+    </div>
+  </section>
+
+  <section class="grid md:grid-cols-2 gap-6">
+    <div class="glass rounded-3xl p-7">
+      <p class="font-extrabold text-lg mb-5">設備快速控制</p>
+      <div class="space-y-5">
+        <div class="flex items-center justify-between">
+          <span class="font-bold">客廳主燈</span>
+          <div class="toggle on" data-toggle></div>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="font-bold">香氛擴香機</span>
+          <div class="toggle" data-toggle></div>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="font-bold">環境音樂</span>
+          <div class="toggle on" data-toggle></div>
+        </div>
+        <div>
+          <div class="flex justify-between mb-2">
+            <span class="font-bold">燈光亮度</span>
+            <span id="brightVal" class="font-bold">72%</span>
+          </div>
+          <input type="range" min="0" max="100" value="72" class="w-full" id="brightRange">
+        </div>
+      </div>
+    </div>
+
+    <div class="glass rounded-3xl p-7">
+      <p class="font-extrabold text-lg mb-5">今日居家節律</p>
+      <div class="flex items-end gap-3 h-40">
+        <div class="flex-1 bg-white/50 rounded-t-xl" style="height:35%"></div>
+        <div class="flex-1 bg-white/50 rounded-t-xl" style="height:55%"></div>
+        <div class="flex-1 bg-white/70 rounded-t-xl" style="height:80%"></div>
+        <div class="flex-1 bg-white/90 rounded-t-xl" style="height:95%"></div>
+        <div class="flex-1 bg-white/70 rounded-t-xl" style="height:60%"></div>
+        <div class="flex-1 bg-white/50 rounded-t-xl" style="height:40%"></div>
+        <div class="flex-1 bg-white/40 rounded-t-xl" style="height:20%"></div>
+      </div>
+      <div class="flex justify-between text-xs opacity-70 mt-2">
+        <span>6時</span><span>9時</span><span>12時</span><span>15時</span><span>18時</span><span>21時</span><span>24時</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="relative z-10 max-w-6xl mx-auto px-6 py-8 text-center text-sm opacity-70">
+  流光 FluidHome © 2026 · 讓家隨心情流動
+</footer>
+
+<script>
+  document.querySelectorAll('.scene-card').forEach(card=>{
+    card.addEventListener('click', ()=>{
+      document.querySelectorAll('.scene-card').forEach(c=>c.classList.remove('active'));
+      card.classList.add('active');
+      document.getElementById('activeSceneLabel').textContent =
+        `目前情境：${card.dataset.scene} — ${card.dataset.desc}`;
+    });
+  });
+
+  document.querySelectorAll('[data-toggle]').forEach(t=>{
+    t.addEventListener('click', ()=> t.classList.toggle('on'));
+  });
+
+  const brightRange = document.getElementById('brightRange');
+  const brightVal = document.getElementById('brightVal');
+  brightRange.addEventListener('input', e=>{
+    brightVal.textContent = e.target.value + '%';
+  });
+
+  const wakeBtn = document.getElementById('wakeBtn');
+  wakeBtn.addEventListener('click', ()=>{
+    wakeBtn.textContent = '🌟 流光已喚醒，情境同步中…';
+    setTimeout(()=>{ wakeBtn.textContent = '✨ 喚醒流光'; }, 2000);
+  });
+</script>
+</body>
+</html>

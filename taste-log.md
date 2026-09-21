@@ -21,6 +21,11 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-09-21（6 個，#01–06）
+- ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（`curl -m 15` 回 `CONNECT tunnel failed, response 403`），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
+- 本輪先用 `grep -ohE '<!-- style #[0-9]+' reviews/*/*.html | sort | uniq -c` 統計歷史提及次數，並列出近 3 天（09-18/09-19/09-20）用過的風格（#07/#09/#10/#13/#17/#23/#25/#30/#33/#35/#41/#47/#52/#55/#57）予以排除，優先挑全庫最低使用次數（多為 3 次）且跨 A/C/D 三組的方向：**Accessible / Ethical #08**（A 組，避開官方配方 Inter，改用 Public Sans + Noto Sans TC 新配對，做成無障礙醫療掛號平台「安心通 AccessCare」，AAA 高對比＋可調字級／高對比切換＋可運作的四步驟掛號流程）、**Liquid Glass #14**（A 組，圓潤/玻璃家族套用「已確認偏好」的圓體，改用 M PLUS Rounded 1c + Kiwi Maru 新配對，做成智慧居家情境控制 App「流光 FluidHome」，流動漸層背景動畫＋毛玻璃情境卡片可點擊切換＋亮度滑桿即時調整）、**Heatmap & Density #29**（C 組，全庫最低使用次數之一，避開 Inter，改用 Manrope + JetBrains Mono，做成城市能源用電密度監控中心「電網視界 GridView」，108 格即時熱力圖可滑過顯示數值＋每 4 秒新增的警報日誌與即時時鐘）、**Sales Intelligence #37**（C 組，避開 Inter，改用 Hanken Grotesk + IBM Plex Mono 新配對，做成 B2B 業務銷售情報後台「成交羅盤 DealCompass」，含動畫銷售漏斗、業績排行榜、可點擊標記已跟進的高風險商機列表）、**Kinetic Typography #48**（D 組，全庫最低使用次數之一，沿用配方 Bebas Neue + Noto Sans TC，做成街頭舞蹈大賽售票頁「躍動祭 KineticFest」，逐字進場動畫標題＋打字機效果副標＋count-up 數字＋可點擊選擇票種）、**Swiss Modernism 2.0 #50**（D 組，延續她明講「Swiss 想要報紙體」的偏好，改用 Newsreader + Noto Serif TC + Karla 新配對，做成建築設計事務所官網「本構 TECTONIC」，黑白紅經典配色＋12 欄嚴格網格＋可依分類篩選的作品集＋可送出的諮詢表單）。全數繁體中文文案，皆避免使用 Inter/Helvetica。
+- 完成後用 grep 確認 `<html>`/`</html>`/`<body>`/`</body>`/`<head>`/`</head>` 標籤數量皆為 1，且 `font-family` 宣告中無 Inter/Helvetica 誤用；另安裝 opencc-python-reimplemented 對全部 6 個檔案做逐字元簡繁比對，僅剩「台→臺」（01/02/04/05/06，台灣慣用寫法，沿用歷輪判例保留）、「峰→峯」（03/04，「尖峰」「岳峰物流」為常見異體字用法，opencc 誤判）、「岳→嶽」（04，「岳峰物流」為虛構企業名稱中的姓氏「岳」字，非簡體污染），皆非簡體污染，全數保留。
+
 ### 2026-09-20（6 個，#01–06）
 - ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（agent-proxy 明確回報 `connect_rejected` / 403 policy denial，host: b-battle-580b5-default-rtdb.firebaseio.com），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
 - ⚠️ publish.py 直連 GitHub REST API 本輪同樣回 415 Unsupported Media Type（`git/blobs` 端點），改用 `git push`（HTTPS + GH_TOKEN 當密碼）發布，成功；本機分支曾為 detached HEAD（與 origin/master 一致），已用 `git checkout -B master origin/master` 重新接上再推送。

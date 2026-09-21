@@ -1,0 +1,212 @@
+<!-- style #37 Sales Intelligence -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>成交羅盤 DealCompass · 業務銷售情報後台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Hanken Grotesk','Noto Sans TC',sans-serif;
+    background:#f4f5f7;
+    color:#1a1d29;
+  }
+  .mono{ font-family:'IBM Plex Mono','Noto Sans TC',monospace; }
+  .card{
+    background:#fff;
+    border:1px solid #e5e7eb;
+    border-radius:0.9rem;
+  }
+  .nav-item{
+    border-radius:0.6rem;
+    transition: background .15s ease;
+  }
+  .nav-item:hover{ background:#eef1ff; }
+  .nav-item.active{ background:#4338ca; color:#fff; }
+  .stage-bar{ transition: width .6s ease; }
+  .funnel-step{
+    transition: transform .2s ease;
+  }
+  .funnel-step:hover{ transform: translateX(4px); }
+  .rank-row:hover{ background:#f8f9ff; }
+  .risk-high{ color:#dc2626; background:#fef2f2; }
+  .risk-med{ color:#d97706; background:#fffbeb; }
+  .risk-low{ color:#16a34a; background:#f0fdf4; }
+</style>
+</head>
+<body>
+
+<div class="flex min-h-screen">
+  <aside class="w-60 border-r border-gray-200 bg-white hidden lg:flex flex-col">
+    <div class="px-5 py-6 flex items-center gap-2">
+      <div class="w-9 h-9 rounded-lg flex items-center justify-center font-extrabold text-white" style="background:#4338ca">◎</div>
+      <p class="font-extrabold">成交羅盤</p>
+    </div>
+    <nav class="px-3 space-y-1 flex-1">
+      <a class="nav-item active flex items-center gap-2 px-3 py-2.5 font-semibold text-sm">📊 業務總覽</a>
+      <a class="nav-item flex items-center gap-2 px-3 py-2.5 font-semibold text-sm text-gray-600">🧭 管線分析</a>
+      <a class="nav-item flex items-center gap-2 px-3 py-2.5 font-semibold text-sm text-gray-600">🏆 業績排行</a>
+      <a class="nav-item flex items-center gap-2 px-3 py-2.5 font-semibold text-sm text-gray-600">⚠️ 風險商機</a>
+      <a class="nav-item flex items-center gap-2 px-3 py-2.5 font-semibold text-sm text-gray-600">👥 客戶名單</a>
+    </nav>
+    <div class="px-5 py-4 border-t border-gray-100 mono text-xs text-gray-400">v2.4.1 · 資料同步中</div>
+  </aside>
+
+  <main class="flex-1 p-6 lg:p-8 space-y-6">
+    <div class="flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <h1 class="font-extrabold text-2xl">業務銷售情報後台</h1>
+        <p class="text-sm text-gray-500 mt-1">2026 年第三季 · 更新於 09:14</p>
+      </div>
+      <div class="flex gap-2">
+        <button class="card px-4 py-2 font-semibold text-sm">匯出報表</button>
+        <button class="px-4 py-2 rounded-lg font-semibold text-sm text-white" style="background:#4338ca">+ 新增商機</button>
+      </div>
+    </div>
+
+    <section class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="card p-5">
+        <p class="text-xs text-gray-500 mb-2">本季管線總額</p>
+        <p class="font-extrabold text-2xl mono">NT$ 68.4M</p>
+        <p class="text-xs mt-1 text-green-600">▲ 12.5% 較上季</p>
+      </div>
+      <div class="card p-5">
+        <p class="text-xs text-gray-500 mb-2">目標達成率</p>
+        <p class="font-extrabold text-2xl mono" style="color:#4338ca">73%</p>
+        <div class="w-full h-1.5 bg-gray-100 rounded-full mt-2 overflow-hidden">
+          <div class="stage-bar h-full" style="width:73%; background:#4338ca"></div>
+        </div>
+      </div>
+      <div class="card p-5">
+        <p class="text-xs text-gray-500 mb-2">平均成交週期</p>
+        <p class="font-extrabold text-2xl mono">21 <span class="text-sm font-normal text-gray-400">天</span></p>
+        <p class="text-xs mt-1 text-green-600">▼ 縮短 3 天</p>
+      </div>
+      <div class="card p-5">
+        <p class="text-xs text-gray-500 mb-2">高風險商機數</p>
+        <p class="font-extrabold text-2xl mono" style="color:#dc2626">5 <span class="text-sm font-normal text-gray-400">筆</span></p>
+        <p class="text-xs mt-1 text-red-600">需優先跟進</p>
+      </div>
+    </section>
+
+    <section class="grid lg:grid-cols-3 gap-6">
+      <div class="card p-6 lg:col-span-2">
+        <p class="font-extrabold mb-5">銷售漏斗</p>
+        <div class="space-y-3" id="funnelWrap"></div>
+      </div>
+      <div class="card p-6">
+        <p class="font-extrabold mb-5">本月業績排行榜</p>
+        <div class="space-y-3" id="rankWrap"></div>
+      </div>
+    </section>
+
+    <section class="card p-6">
+      <div class="flex items-center justify-between mb-5">
+        <p class="font-extrabold">高風險商機列表</p>
+        <span class="text-xs text-gray-400 mono">點擊列可標記已跟進</span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="text-left text-gray-500 border-b border-gray-100">
+              <th class="py-2 pr-4">客戶</th>
+              <th class="py-2 pr-4">金額</th>
+              <th class="py-2 pr-4">階段</th>
+              <th class="py-2 pr-4">停滯天數</th>
+              <th class="py-2 pr-4">風險</th>
+              <th class="py-2">狀態</th>
+            </tr>
+          </thead>
+          <tbody id="riskTable"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  const funnelData = [
+    {label:'潛在名單', value:420, color:'#c7d2fe'},
+    {label:'初步接洽', value:268, color:'#a5b4fc'},
+    {label:'需求確認', value:154, color:'#818cf8'},
+    {label:'報價議約', value:82, color:'#6366f1'},
+    {label:'成交簽約', value:39, color:'#4338ca'},
+  ];
+  const funnelWrap = document.getElementById('funnelWrap');
+  const maxVal = funnelData[0].value;
+  funnelData.forEach(d=>{
+    const row = document.createElement('div');
+    row.className = 'funnel-step';
+    row.innerHTML = `
+      <div class="flex justify-between text-sm mb-1">
+        <span class="font-semibold">${d.label}</span>
+        <span class="mono text-gray-500">${d.value} 筆</span>
+      </div>
+      <div class="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
+        <div class="stage-bar h-full rounded-full" style="width:0%; background:${d.color}"></div>
+      </div>`;
+    funnelWrap.appendChild(row);
+    requestAnimationFrame(()=>{
+      setTimeout(()=>{
+        row.querySelector('.stage-bar').style.width = (d.value/maxVal*100)+'%';
+      }, 100);
+    });
+  });
+
+  const rankData = [
+    {name:'林嘉玲', amount:'NT$ 12.8M', avatar:'林'},
+    {name:'陳柏宇', amount:'NT$ 10.4M', avatar:'陳'},
+    {name:'黃詩涵', amount:'NT$ 9.1M', avatar:'黃'},
+    {name:'吳冠廷', amount:'NT$ 7.6M', avatar:'吳'},
+    {name:'鄭雅文', amount:'NT$ 6.9M', avatar:'鄭'},
+  ];
+  const rankWrap = document.getElementById('rankWrap');
+  rankData.forEach((r,i)=>{
+    const row = document.createElement('div');
+    row.className = 'rank-row flex items-center gap-3 p-2 rounded-lg';
+    row.innerHTML = `
+      <span class="w-6 text-center font-extrabold ${i<3 ? 'text-indigo-600' : 'text-gray-400'}">${i+1}</span>
+      <div class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-white text-sm" style="background:#4338ca">${r.avatar}</div>
+      <span class="flex-1 font-semibold text-sm">${r.name}</span>
+      <span class="mono text-sm text-gray-600">${r.amount}</span>`;
+    rankWrap.appendChild(row);
+  });
+
+  const riskData = [
+    {name:'昇陽電子', amount:'NT$ 3.2M', stage:'報價議約', days:18, risk:'high'},
+    {name:'綠川生技', amount:'NT$ 2.1M', stage:'需求確認', days:14, risk:'high'},
+    {name:'岳峰物流', amount:'NT$ 4.5M', stage:'報價議約', days:11, risk:'med'},
+    {name:'星野零售', amount:'NT$ 1.8M', stage:'初步接洽', days:9, risk:'med'},
+    {name:'鴻興營造', amount:'NT$ 2.9M', stage:'需求確認', days:6, risk:'low'},
+  ];
+  const riskLabel = {high:'高風險', med:'中風險', low:'低風險'};
+  const riskClass = {high:'risk-high', med:'risk-med', low:'risk-low'};
+  const riskTable = document.getElementById('riskTable');
+  riskData.forEach(r=>{
+    const tr = document.createElement('tr');
+    tr.className = 'border-b border-gray-50 cursor-pointer hover:bg-gray-50';
+    tr.innerHTML = `
+      <td class="py-3 pr-4 font-semibold">${r.name}</td>
+      <td class="py-3 pr-4 mono">${r.amount}</td>
+      <td class="py-3 pr-4 text-gray-600">${r.stage}</td>
+      <td class="py-3 pr-4 mono">${r.days} 天</td>
+      <td class="py-3 pr-4"><span class="px-2 py-0.5 rounded-full text-xs font-bold ${riskClass[r.risk]}">${riskLabel[r.risk]}</span></td>
+      <td class="py-3 status-cell text-gray-400 text-xs">未跟進</td>`;
+    tr.addEventListener('click', ()=>{
+      const cell = tr.querySelector('.status-cell');
+      if(cell.textContent === '未跟進'){
+        cell.textContent = '✓ 已跟進';
+        cell.className = 'py-3 status-cell text-green-600 text-xs font-bold';
+      } else {
+        cell.textContent = '未跟進';
+        cell.className = 'py-3 status-cell text-gray-400 text-xs';
+      }
+    });
+    riskTable.appendChild(tr);
+  });
+</script>
+</body>
+</html>

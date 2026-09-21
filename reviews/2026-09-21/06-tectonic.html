@@ -1,0 +1,203 @@
+<!-- style #50 Swiss Modernism 2.0 -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>本構 TECTONIC · 建築設計事務所</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+TC:wght@400;500;600;700;900&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Newsreader','Noto Serif TC',serif;
+    background:#f7f5f0;
+    color:#111;
+  }
+  .sans{ font-family:'Karla','Noto Sans TC',sans-serif; }
+  .rule{ border-color:#111; }
+  .grid-line{
+    background-image: linear-gradient(to right, rgba(0,0,0,0.06) 1px, transparent 1px);
+    background-size: calc(100%/12) 100%;
+  }
+  .accent-red{ color:#b3261e; }
+  .bg-accent-red{ background:#b3261e; }
+  .project-card{
+    transition: opacity .3s ease;
+  }
+  .project-card:hover .project-img{ filter: grayscale(0); }
+  .project-img{ filter: grayscale(1); transition: filter .4s ease; }
+  .fade-in{
+    opacity:0; transform: translateY(16px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .fade-in.visible{ opacity:1; transform: translateY(0); }
+  .tab-btn{ border-bottom: 2px solid transparent; }
+  .tab-btn.active{ border-color:#111; font-weight:700; }
+  .num{ font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+
+<header class="border-b-2 rule">
+  <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+    <p class="font-semibold text-2xl tracking-tight">本構 <span class="sans text-sm font-medium align-middle">TECTONIC</span></p>
+    <nav class="sans flex gap-8 text-sm font-medium">
+      <a href="#work" class="hover:accent-red">作品</a>
+      <a href="#practice" class="hover:accent-red">理念</a>
+      <a href="#journal" class="hover:accent-red">札記</a>
+      <a href="#contact" class="hover:accent-red">聯繫</a>
+    </nav>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-6">
+
+  <section class="grid-line grid grid-cols-12 py-16 md:py-24 border-b rule">
+    <div class="col-span-12 md:col-span-8">
+      <p class="sans text-sm tracking-widest uppercase mb-4 accent-red">建築設計事務所 · 台北</p>
+      <h1 class="font-medium leading-tight" style="font-size:clamp(2.2rem,5vw,4rem)">
+        結構誠實，<br>空間才會說真話。
+      </h1>
+    </div>
+    <div class="col-span-12 md:col-span-4 flex items-end">
+      <p class="sans text-sm leading-relaxed text-gray-600">
+        本構成立於 2014 年，專注於住宅、文化空間與都市再生案。
+        我們相信好的建築從結構誠實開始，不用裝飾掩蓋邏輯。
+      </p>
+    </div>
+  </section>
+
+  <section id="work" class="grid-line grid grid-cols-12 py-16 border-b rule">
+    <div class="col-span-12 flex items-end justify-between mb-10">
+      <h2 class="font-medium text-3xl">代表作品</h2>
+      <div class="sans flex gap-6 text-sm" id="tabRow">
+        <button class="tab-btn active pb-1" data-cat="全部">全部</button>
+        <button class="tab-btn pb-1" data-cat="住宅">住宅</button>
+        <button class="tab-btn pb-1" data-cat="文化空間">文化空間</button>
+        <button class="tab-btn pb-1" data-cat="都市再生">都市再生</button>
+      </div>
+    </div>
+    <div class="col-span-12 grid md:grid-cols-3 gap-x-8 gap-y-12" id="workGrid"></div>
+  </section>
+
+  <section id="practice" class="grid-line grid grid-cols-12 py-16 border-b rule">
+    <div class="col-span-12 md:col-span-4">
+      <h2 class="font-medium text-3xl mb-4">設計理念</h2>
+      <p class="sans text-sm accent-red font-semibold">三個原則</p>
+    </div>
+    <div class="col-span-12 md:col-span-8 grid sm:grid-cols-3 gap-8">
+      <div>
+        <p class="num text-4xl font-medium mb-3 accent-red">01</p>
+        <p class="font-medium text-lg mb-2">結構誠實</p>
+        <p class="sans text-sm text-gray-600 leading-relaxed">承重構件不隱藏，讓使用者看得懂空間如何站立。</p>
+      </div>
+      <div>
+        <p class="num text-4xl font-medium mb-3 accent-red">02</p>
+        <p class="font-medium text-lg mb-2">在地紋理</p>
+        <p class="sans text-sm text-gray-600 leading-relaxed">材料與尺度回應基地氣候與街廓紋理，不複製異地形式。</p>
+      </div>
+      <div>
+        <p class="num text-4xl font-medium mb-3 accent-red">03</p>
+        <p class="font-medium text-lg mb-2">長期使用</p>
+        <p class="sans text-sm text-gray-600 leading-relaxed">設計思考跨越 30 年使用週期，優先考量維護與變化彈性。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="journal" class="grid-line grid grid-cols-12 py-16 border-b rule">
+    <h2 class="col-span-12 font-medium text-3xl mb-10">最新札記</h2>
+    <div class="col-span-12 md:col-span-6 fade-in">
+      <p class="sans text-xs text-gray-500 mb-2">2026.09.12</p>
+      <p class="font-medium text-xl mb-2">清水模的呼吸：談混凝土的溫度感</p>
+      <p class="sans text-sm text-gray-600 leading-relaxed">從模板工藝到養護週期，一篇關於清水混凝土如何在台灣濕熱氣候中被正確對待的紀錄。</p>
+    </div>
+    <div class="col-span-12 md:col-span-6 fade-in" style="transition-delay:0.1s">
+      <p class="sans text-xs text-gray-500 mb-2">2026.08.03</p>
+      <p class="font-medium text-xl mb-2">老屋再生不是懷舊，是結構對話</p>
+      <p class="sans text-sm text-gray-600 leading-relaxed">大稻埕街屋改造案側記：如何在保留原始磚牆承重系統的前提下置入新機能。</p>
+    </div>
+  </section>
+
+  <section id="contact" class="grid-line grid grid-cols-12 py-16">
+    <div class="col-span-12 md:col-span-6">
+      <h2 class="font-medium text-3xl mb-4">討論你的基地</h2>
+      <p class="sans text-sm text-gray-600 leading-relaxed mb-6">歡迎攜帶地籍圖與需求前來，我們提供第一次諮詢免費現勘評估。</p>
+      <div class="sans text-sm space-y-1 text-gray-700">
+        <p>台北市大同區迪化街一段 156 號 3 樓</p>
+        <p>02-2555-8871 · studio@tectonic-arch.tw</p>
+      </div>
+    </div>
+    <form class="col-span-12 md:col-span-6 sans space-y-4" id="contactForm">
+      <div>
+        <label class="text-sm font-medium block mb-1">姓名</label>
+        <input required class="w-full border rule bg-transparent px-3 py-2 text-sm" type="text">
+      </div>
+      <div>
+        <label class="text-sm font-medium block mb-1">案件類型</label>
+        <select class="w-full border rule bg-transparent px-3 py-2 text-sm">
+          <option>住宅新建</option>
+          <option>老屋改造</option>
+          <option>文化空間</option>
+          <option>都市再生規劃</option>
+        </select>
+      </div>
+      <div>
+        <label class="text-sm font-medium block mb-1">基地概述</label>
+        <textarea class="w-full border rule bg-transparent px-3 py-2 text-sm h-24"></textarea>
+      </div>
+      <button type="submit" class="bg-accent-red text-white px-6 py-3 text-sm font-semibold">送出諮詢邀約</button>
+      <p id="formMsg" class="text-sm accent-red hidden">已收到您的邀約，我們將於 3 個工作天內回覆。</p>
+    </form>
+  </section>
+</main>
+
+<footer class="border-t-2 rule sans text-sm text-gray-500">
+  <div class="max-w-6xl mx-auto px-6 py-8">© 2026 本構 TECTONIC Architecture Studio</div>
+</footer>
+
+<script>
+  const projects = [
+    {name:'淡水崖線之家', cat:'住宅', img:'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=60'},
+    {name:'迪化街屋再生', cat:'都市再生', img:'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=60'},
+    {name:'港町美術館', cat:'文化空間', img:'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=600&q=60'},
+    {name:'觀音山清水模宅', cat:'住宅', img:'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=600&q=60'},
+    {name:'社區共讀空間', cat:'文化空間', img:'https://images.unsplash.com/photo-1524230572899-a752b3835840?w=600&q=60'},
+    {name:'三重舊市場改造', cat:'都市再生', img:'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&q=60'},
+  ];
+  const workGrid = document.getElementById('workGrid');
+  function renderWork(filter){
+    workGrid.innerHTML = '';
+    projects.filter(p => filter === '全部' || p.cat === filter).forEach(p=>{
+      const div = document.createElement('div');
+      div.className = 'project-card';
+      div.innerHTML = `
+        <div class="overflow-hidden mb-3">
+          <img src="${p.img}" class="project-img w-full h-56 object-cover" alt="${p.name}">
+        </div>
+        <p class="font-medium">${p.name}</p>
+        <p class="sans text-xs text-gray-500">${p.cat}</p>`;
+      workGrid.appendChild(div);
+    });
+  }
+  renderWork('全部');
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      renderWork(btn.dataset.cat);
+    });
+  });
+
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, {threshold:0.2});
+  document.querySelectorAll('.fade-in').forEach(el=>io.observe(el));
+
+  document.getElementById('contactForm').addEventListener('submit', e=>{
+    e.preventDefault();
+    document.getElementById('formMsg').classList.remove('hidden');
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!-- style #29 Heatmap & Density -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>電網視界 GridView · 城市用電密度監控</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Manrope','Noto Sans TC',sans-serif;
+    background:#0b1220;
+    color:#e2e8f0;
+  }
+  .mono{ font-family:'JetBrains Mono','Noto Sans TC',monospace; }
+  .panel{
+    background:#111a2e;
+    border:1px solid #1e2a45;
+    border-radius:1rem;
+  }
+  .cell{
+    aspect-ratio:1/1;
+    border-radius:4px;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .cell:hover{
+    transform: scale(1.15);
+    box-shadow: 0 0 16px rgba(56,189,248,0.6);
+    z-index:5;
+  }
+  .heat-0{ background:#1e293b; }
+  .heat-1{ background:#1e3a5f; }
+  .heat-2{ background:#1d5a8a; }
+  .heat-3{ background:#1487ad; }
+  .heat-4{ background:#0eaec2; }
+  .heat-5{ background:#38bdf8; }
+  .heat-6{ background:#7dd3fc; }
+  .pulse-dot{
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ opacity:1; }
+    50%{ opacity:0.4; }
+  }
+  .tab-btn.active{
+    background:#38bdf8; color:#0b1220; font-weight:800;
+  }
+  ::-webkit-scrollbar{ height:6px; width:6px; }
+  ::-webkit-scrollbar-thumb{ background:#38bdf8; border-radius:9999px; }
+</style>
+</head>
+<body>
+
+<header class="border-b border-[#1e2a45] sticky top-0 z-20" style="background:rgba(11,18,32,0.92); backdrop-filter:blur(8px)">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-lg flex items-center justify-center font-black" style="background:#38bdf8; color:#0b1220">⚡</div>
+      <div>
+        <p class="font-extrabold text-lg">電網視界 <span class="font-medium text-sm opacity-70">GridView</span></p>
+        <p class="text-xs opacity-60">全市用電密度即時監控中心</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2 mono text-xs">
+      <span class="pulse-dot w-2 h-2 rounded-full inline-block" style="background:#4ade80"></span>
+      <span id="clock">--:--:--</span>
+      <span class="opacity-50">· 系統正常</span>
+    </div>
+  </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-6 py-8 space-y-8">
+
+  <section class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="panel p-5">
+      <p class="text-xs opacity-60 mb-2">全市總負載</p>
+      <p class="mono font-bold text-2xl" style="color:#38bdf8">4,286 <span class="text-sm font-normal opacity-60">MW</span></p>
+      <p class="text-xs mt-1" style="color:#4ade80">▲ 較昨日同時段 +3.2%</p>
+    </div>
+    <div class="panel p-5">
+      <p class="text-xs opacity-60 mb-2">尖峰預估時間</p>
+      <p class="mono font-bold text-2xl">14:30</p>
+      <p class="text-xs mt-1 opacity-60">距離現在 1 小時 42 分</p>
+    </div>
+    <div class="panel p-5">
+      <p class="text-xs opacity-60 mb-2">高密度區域數</p>
+      <p class="mono font-bold text-2xl" style="color:#fbbf24">7 <span class="text-sm font-normal opacity-60">/ 36 區</span></p>
+      <p class="text-xs mt-1 opacity-60">超過 85% 容量警戒</p>
+    </div>
+    <div class="panel p-5">
+      <p class="text-xs opacity-60 mb-2">備轉容量率</p>
+      <p class="mono font-bold text-2xl" style="color:#4ade80">6.8%</p>
+      <p class="text-xs mt-1 opacity-60">供電穩定</p>
+    </div>
+  </section>
+
+  <section class="panel p-6">
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-5">
+      <p class="font-extrabold text-lg">全市用電密度熱力圖</p>
+      <div class="flex gap-2 text-xs mono">
+        <button class="tab-btn active px-3 py-1.5 rounded-lg" data-view="now">即時</button>
+        <button class="tab-btn px-3 py-1.5 rounded-lg border border-[#1e2a45]" data-view="peak">昨日尖峰</button>
+        <button class="tab-btn px-3 py-1.5 rounded-lg border border-[#1e2a45]" data-view="avg">週平均</button>
+      </div>
+    </div>
+    <div id="heatGrid" class="grid grid-cols-6 sm:grid-cols-9 md:grid-cols-12 gap-1.5"></div>
+    <div class="flex items-center gap-2 mt-5 text-xs opacity-70">
+      <span>低</span>
+      <div class="flex gap-1">
+        <div class="w-5 h-3 rounded heat-0"></div>
+        <div class="w-5 h-3 rounded heat-1"></div>
+        <div class="w-5 h-3 rounded heat-2"></div>
+        <div class="w-5 h-3 rounded heat-3"></div>
+        <div class="w-5 h-3 rounded heat-4"></div>
+        <div class="w-5 h-3 rounded heat-5"></div>
+        <div class="w-5 h-3 rounded heat-6"></div>
+      </div>
+      <span>高</span>
+      <span id="hoverInfo" class="ml-auto mono">滑過格子查看該區負載</span>
+    </div>
+  </section>
+
+  <section class="grid md:grid-cols-3 gap-4">
+    <div class="panel p-5 md:col-span-2">
+      <p class="font-extrabold mb-4">高負載區域排行</p>
+      <div class="space-y-3 mono text-sm">
+        <div class="flex items-center gap-3">
+          <span class="w-6 opacity-60">01</span>
+          <span class="flex-1">信義區・商辦密集帶</span>
+          <div class="w-32 h-2 rounded-full bg-[#1e293b] overflow-hidden"><div class="h-full" style="width:94%; background:#7dd3fc"></div></div>
+          <span style="color:#7dd3fc">94%</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="w-6 opacity-60">02</span>
+          <span class="flex-1">內湖科技園區</span>
+          <div class="w-32 h-2 rounded-full bg-[#1e293b] overflow-hidden"><div class="h-full" style="width:89%; background:#38bdf8"></div></div>
+          <span style="color:#38bdf8">89%</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="w-6 opacity-60">03</span>
+          <span class="flex-1">板橋車站商圈</span>
+          <div class="w-32 h-2 rounded-full bg-[#1e293b] overflow-hidden"><div class="h-full" style="width:86%; background:#0eaec2"></div></div>
+          <span style="color:#0eaec2">86%</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="w-6 opacity-60">04</span>
+          <span class="flex-1">南港生技園區</span>
+          <div class="w-32 h-2 rounded-full bg-[#1e293b] overflow-hidden"><div class="h-full" style="width:81%; background:#1487ad"></div></div>
+          <span style="color:#1487ad">81%</span>
+        </div>
+      </div>
+    </div>
+    <div class="panel p-5">
+      <p class="font-extrabold mb-4">警報日誌</p>
+      <div id="logList" class="space-y-2 mono text-xs"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="max-w-7xl mx-auto px-6 py-8 text-xs opacity-50 mono">
+  GridView © 2026 · 資料每 5 分鐘更新一次
+</footer>
+
+<script>
+  // 時鐘
+  function tick(){
+    const now = new Date();
+    document.getElementById('clock').textContent = now.toLocaleTimeString('zh-TW',{hour12:false});
+  }
+  tick(); setInterval(tick, 1000);
+
+  // 熱力圖
+  const grid = document.getElementById('heatGrid');
+  const cells = [];
+  const total = 108;
+  for(let i=0;i<total;i++){
+    const div = document.createElement('div');
+    const level = Math.floor(Math.random()*7);
+    div.className = 'cell heat-'+level;
+    div.dataset.level = level;
+    div.addEventListener('mouseenter', ()=>{
+      const load = 40 + level*9 + Math.floor(Math.random()*5);
+      document.getElementById('hoverInfo').textContent = `區塊 #${String(i+1).padStart(3,'0')} · 負載 ${load}%`;
+    });
+    grid.appendChild(div);
+    cells.push(div);
+  }
+
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.tab-btn').forEach(b=>{
+        b.classList.remove('active');
+        b.classList.add('border','border-[#1e2a45]');
+      });
+      btn.classList.add('active');
+      btn.classList.remove('border','border-[#1e2a45]');
+      cells.forEach(c=>{
+        const level = Math.floor(Math.random()*7);
+        c.className = 'cell heat-'+level;
+      });
+    });
+  });
+
+  // 警報日誌
+  const logMsgs = [
+    '信義區 A12 變電站負載達 94%',
+    '內湖科技園區用電量攀升中',
+    '板橋車站商圈備轉容量偏低',
+    '南港生技園區偵測到異常尖峰',
+    '大安區住宅密集帶進入穩定區間'
+  ];
+  const logList = document.getElementById('logList');
+  function addLog(){
+    const now = new Date().toLocaleTimeString('zh-TW',{hour12:false});
+    const msg = logMsgs[Math.floor(Math.random()*logMsgs.length)];
+    const div = document.createElement('div');
+    div.className = 'flex gap-2 opacity-90';
+    div.innerHTML = `<span class="opacity-50">${now}</span><span>${msg}</span>`;
+    logList.prepend(div);
+    while(logList.children.length > 6) logList.removeChild(logList.lastChild);
+  }
+  addLog(); addLog(); addLog();
+  setInterval(addLog, 4000);
+</script>
+</body>
+</html>

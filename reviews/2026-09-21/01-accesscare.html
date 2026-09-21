@@ -1,0 +1,295 @@
+<!-- style #08 Accessible / Ethical -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>安心通 AccessCare · 無障礙醫療掛號</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#0066cc;
+    --red:#d32f2f;
+    --ink:#0a0a0a;
+    --paper:#ffffff;
+  }
+  html[data-contrast="high"]{
+    --blue:#003b82;
+    --red:#a30000;
+    --ink:#000000;
+    --paper:#ffffff;
+  }
+  body{
+    font-family:'Public Sans','Noto Sans TC',sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+  }
+  .fs-md{font-size:1rem}
+  .fs-lg{font-size:1.2rem}
+  .fs-xl{font-size:1.45rem}
+  *:focus-visible{
+    outline:4px solid var(--blue);
+    outline-offset:3px;
+    border-radius:4px;
+  }
+  .btn-primary{
+    background:var(--blue);
+    color:#fff;
+    transition:transform .12s ease, background .12s ease;
+  }
+  .btn-primary:hover{background:#004c99; transform:translateY(-2px);}
+  .btn-primary:active{transform:translateY(0);}
+  .btn-danger{background:var(--red); color:#fff;}
+  .step-dot{
+    width:1.1rem;height:1.1rem;border-radius:9999px;
+    border:3px solid var(--ink);
+  }
+  .step-dot.active{background:var(--blue); border-color:var(--blue);}
+  .step-dot.done{background:var(--ink); border-color:var(--ink);}
+  .card{
+    border:3px solid var(--ink);
+    border-radius:1rem;
+  }
+  html[data-contrast="high"] .card{border-width:4px;}
+  .skip-link{
+    position:absolute; left:-9999px; top:0;
+    background:var(--ink); color:#fff; padding:1rem 1.5rem;
+    z-index:100; font-weight:700;
+  }
+  .skip-link:focus{left:1rem; top:1rem;}
+</style>
+</head>
+<body class="fs-md min-h-screen">
+
+<a href="#main" class="skip-link">跳到主要內容</a>
+
+<header class="border-b-4" style="border-color:var(--ink)">
+  <div class="max-w-5xl mx-auto px-6 py-5 flex flex-wrap items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-white font-black text-xl" style="background:var(--blue)">安</div>
+      <div>
+        <p class="font-extrabold text-2xl leading-tight">安心通 <span class="font-medium text-base align-middle">AccessCare</span></p>
+        <p class="text-sm font-medium" style="color:#444">人人都能安心掛號的醫療平台</p>
+      </div>
+    </div>
+    <div class="flex flex-wrap items-center gap-3" role="group" aria-label="無障礙設定">
+      <fieldset class="flex items-center gap-2 border-2 rounded-xl px-3 py-2" style="border-color:var(--ink)">
+        <legend class="sr-only">文字大小</legend>
+        <span class="font-bold text-sm">Aa 字級</span>
+        <button data-fs="fs-md" class="fs-btn px-3 py-1 rounded-lg font-bold border-2" style="border-color:var(--ink)">標準</button>
+        <button data-fs="fs-lg" class="fs-btn px-3 py-1 rounded-lg font-bold border-2" style="border-color:var(--ink)">大</button>
+        <button data-fs="fs-xl" class="fs-btn px-3 py-1 rounded-lg font-bold border-2" style="border-color:var(--ink)">特大</button>
+      </fieldset>
+      <button id="contrastToggle" class="px-4 py-2 rounded-xl font-bold border-2" style="border-color:var(--ink)" aria-pressed="false">
+        🌓 高對比模式
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="max-w-5xl mx-auto px-6 py-10 space-y-14">
+
+  <section class="grid md:grid-cols-2 gap-8 items-center">
+    <div>
+      <h1 class="font-extrabold leading-tight mb-4" style="font-size:2.6em">
+        看診掛號，<br>不該讓任何人卡關。
+      </h1>
+      <p class="mb-6" style="font-size:1.15em; color:#222; line-height:1.9">
+        安心通為長輩、視障、聽障與行動不便的朋友設計：大按鈕、高對比、清楚語音提示，
+        四步驟就能完成掛號，全程符合 AAA 級無障礙標準。
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a href="#booking" class="btn-primary px-8 py-4 rounded-2xl font-extrabold" style="font-size:1.2em">
+          立即開始掛號 →
+        </a>
+        <a href="#help" class="px-8 py-4 rounded-2xl font-extrabold border-2" style="border-color:var(--ink); font-size:1.2em">
+          需要真人協助
+        </a>
+      </div>
+    </div>
+    <div class="card p-6 bg-white">
+      <p class="font-bold mb-4" style="font-size:1.2em">三個承諾</p>
+      <ul class="space-y-4">
+        <li class="flex gap-3 items-start">
+          <span class="font-black text-2xl" style="color:var(--blue)">1</span>
+          <span>對比度全站達 AAA 級（7:1 以上），弱視也看得清楚。</span>
+        </li>
+        <li class="flex gap-3 items-start">
+          <span class="font-black text-2xl" style="color:var(--blue)">2</span>
+          <span>所有按鈕點擊區至少 48×48px，手抖也點得中。</span>
+        </li>
+        <li class="flex gap-3 items-start">
+          <span class="font-black text-2xl" style="color:var(--blue)">3</span>
+          <span>鍵盤與螢幕報讀器完整支援，Tab 鍵可走完全流程。</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="booking" class="card p-8 bg-white">
+    <h2 class="font-extrabold mb-2" style="font-size:1.8em">四步驟掛號</h2>
+    <p class="mb-6" style="color:#333">目前進度：<span id="stepLabel" class="font-bold">第 1 步 · 選擇科別</span></p>
+
+    <div class="flex items-center gap-3 mb-8" role="list" aria-label="掛號步驟進度">
+      <div class="step-dot active" data-step="1" role="listitem"></div>
+      <div class="flex-1 h-1" style="background:#ccc"><div id="track1" class="h-1" style="background:var(--ink); width:0%"></div></div>
+      <div class="step-dot" data-step="2" role="listitem"></div>
+      <div class="flex-1 h-1" style="background:#ccc"><div id="track2" class="h-1" style="background:var(--ink); width:0%"></div></div>
+      <div class="step-dot" data-step="3" role="listitem"></div>
+      <div class="flex-1 h-1" style="background:#ccc"><div id="track3" class="h-1" style="background:var(--ink); width:0%"></div></div>
+      <div class="step-dot" data-step="4" role="listitem"></div>
+    </div>
+
+    <div id="stepPanels">
+      <div class="step-panel" data-panel="1">
+        <p class="font-bold mb-4" style="font-size:1.15em">請選擇科別</p>
+        <div class="grid sm:grid-cols-3 gap-4">
+          <button class="dept-btn card p-5 text-left font-bold" data-dept="家醫科">🩺 家醫科<br><span class="font-normal text-sm" style="color:#444">一般不適、慢性病</span></button>
+          <button class="dept-btn card p-5 text-left font-bold" data-dept="眼科">👁️ 眼科<br><span class="font-normal text-sm" style="color:#444">視力、白內障</span></button>
+          <button class="dept-btn card p-5 text-left font-bold" data-dept="耳鼻喉科">👂 耳鼻喉科<br><span class="font-normal text-sm" style="color:#444">聽力、鼻過敏</span></button>
+        </div>
+      </div>
+      <div class="step-panel hidden" data-panel="2">
+        <p class="font-bold mb-4" style="font-size:1.15em">請選擇時段</p>
+        <div class="grid sm:grid-cols-3 gap-4">
+          <button class="time-btn card p-5 text-left font-bold" data-time="上午 9:00">🌤️ 上午 9:00</button>
+          <button class="time-btn card p-5 text-left font-bold" data-time="下午 2:30">☀️ 下午 2:30</button>
+          <button class="time-btn card p-5 text-left font-bold" data-time="傍晚 6:00">🌆 傍晚 6:00</button>
+        </div>
+      </div>
+      <div class="step-panel hidden" data-panel="3">
+        <p class="font-bold mb-4" style="font-size:1.15em">請填寫聯絡電話</p>
+        <label for="phone" class="block font-bold mb-2">電話號碼</label>
+        <input id="phone" type="tel" inputmode="numeric" placeholder="0912-345-678"
+          class="w-full card px-5 py-4 font-bold" style="font-size:1.2em">
+        <p class="mt-2 text-sm" style="color:#444">我們會在掛號成功後發送簡訊提醒。</p>
+      </div>
+      <div class="step-panel hidden" data-panel="4">
+        <p class="font-bold mb-4" style="font-size:1.15em">確認掛號資訊</p>
+        <div class="card p-5" style="background:#f5f8ff">
+          <p class="mb-2"><strong>科別：</strong><span id="confirmDept">—</span></p>
+          <p class="mb-2"><strong>時段：</strong><span id="confirmTime">—</span></p>
+          <p><strong>電話：</strong><span id="confirmPhone">—</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-between mt-8">
+      <button id="prevBtn" class="px-6 py-3 rounded-2xl font-extrabold border-2 disabled:opacity-40" style="border-color:var(--ink)" disabled>← 上一步</button>
+      <button id="nextBtn" class="btn-primary px-8 py-3 rounded-2xl font-extrabold">下一步 →</button>
+    </div>
+
+    <div id="successMsg" class="hidden mt-6 card p-6" style="background:#eefbea; border-color:#1a7a1a">
+      <p class="font-extrabold" style="font-size:1.3em; color:#1a7a1a">✅ 掛號成功！我們已將確認簡訊送出。</p>
+    </div>
+  </section>
+
+  <section id="help" class="grid md:grid-cols-3 gap-6">
+    <div class="card p-6">
+      <p class="font-extrabold mb-2" style="font-size:1.2em">📞 真人客服</p>
+      <p style="color:#333">0800-123-456（每日 8:00–22:00，免付費）</p>
+    </div>
+    <div class="card p-6">
+      <p class="font-extrabold mb-2" style="font-size:1.2em">🔤 手語視訊客服</p>
+      <p style="color:#333">週一至週五 9:00–18:00 提供手語翻譯協助掛號。</p>
+    </div>
+    <div class="card p-6">
+      <p class="font-extrabold mb-2" style="font-size:1.2em">🏠 到府協助登記</p>
+      <p style="color:#333">行動不便者可預約志工到府協助完成掛號流程。</p>
+    </div>
+  </section>
+</main>
+
+<footer class="border-t-4 mt-16" style="border-color:var(--ink)">
+  <div class="max-w-5xl mx-auto px-6 py-8 text-sm" style="color:#444">
+    © 2026 安心通 AccessCare · 通過 WCAG 2.1 AAA 級無障礙檢測
+  </div>
+</footer>
+
+<script>
+  // 字級切換
+  document.querySelectorAll('.fs-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.body.classList.remove('fs-md','fs-lg','fs-xl');
+      document.body.classList.add(btn.dataset.fs);
+      document.querySelectorAll('.fs-btn').forEach(b=>b.setAttribute('aria-pressed','false'));
+      btn.setAttribute('aria-pressed','true');
+    });
+  });
+
+  // 高對比切換
+  const contrastBtn = document.getElementById('contrastToggle');
+  contrastBtn.addEventListener('click', ()=>{
+    const isHigh = document.documentElement.getAttribute('data-contrast') === 'high';
+    document.documentElement.setAttribute('data-contrast', isHigh ? 'normal' : 'high');
+    contrastBtn.setAttribute('aria-pressed', String(!isHigh));
+    contrastBtn.textContent = isHigh ? '🌓 高對比模式' : '🌓 高對比模式（已開啟）';
+  });
+
+  // 掛號步驟邏輯
+  let step = 1;
+  const total = 4;
+  let selection = {dept:null, time:null, phone:null};
+
+  function renderStep(){
+    document.querySelectorAll('.step-panel').forEach(p=>{
+      p.classList.toggle('hidden', Number(p.dataset.panel) !== step);
+    });
+    document.querySelectorAll('.step-dot').forEach(d=>{
+      const n = Number(d.dataset.step);
+      d.classList.toggle('active', n === step);
+      d.classList.toggle('done', n < step);
+    });
+    for(let i=1;i<total;i++){
+      const track = document.getElementById('track'+i);
+      if(track) track.style.width = (i < step) ? '100%' : '0%';
+    }
+    const labels = {1:'選擇科別',2:'選擇時段',3:'填寫電話',4:'確認資訊'};
+    document.getElementById('stepLabel').textContent = `第 ${step} 步 · ${labels[step]}`;
+    document.getElementById('prevBtn').disabled = step === 1;
+    document.getElementById('nextBtn').textContent = step === total ? '確認送出 ✓' : '下一步 →';
+    document.getElementById('successMsg').classList.add('hidden');
+
+    if(step === 4){
+      document.getElementById('confirmDept').textContent = selection.dept || '未選擇';
+      document.getElementById('confirmTime').textContent = selection.time || '未選擇';
+      document.getElementById('confirmPhone').textContent = selection.phone || '未填寫';
+    }
+  }
+
+  document.querySelectorAll('.dept-btn').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      selection.dept = b.dataset.dept;
+      document.querySelectorAll('.dept-btn').forEach(x=>x.style.background='');
+      b.style.background = '#eaf2ff';
+    });
+  });
+  document.querySelectorAll('.time-btn').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      selection.time = b.dataset.time;
+      document.querySelectorAll('.time-btn').forEach(x=>x.style.background='');
+      b.style.background = '#eaf2ff';
+    });
+  });
+  document.getElementById('phone').addEventListener('input', e=>{
+    selection.phone = e.target.value;
+  });
+
+  document.getElementById('nextBtn').addEventListener('click', ()=>{
+    if(step < total){
+      step++;
+      renderStep();
+    } else {
+      document.getElementById('successMsg').classList.remove('hidden');
+    }
+  });
+  document.getElementById('prevBtn').addEventListener('click', ()=>{
+    if(step > 1){ step--; renderStep(); }
+  });
+
+  renderStep();
+</script>
+</body>
+</html>
