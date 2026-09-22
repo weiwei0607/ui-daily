@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<!-- style #40 Y2K Revival -->
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>千禧幻境 MillenniumMall · Y2K 選物店</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  body{
+    background: radial-gradient(circle at 20% 10%, #ffe6fb 0%, #dff6ff 35%, #fffbe0 70%, #ffe6fb 100%);
+    font-family:'Baloo 2',cursive;
+    color:#3a1c5c;
+    overflow-x:hidden;
+  }
+  .font-y2k{ font-family:'Orbitron',sans-serif; }
+
+  .chrome-text{
+    font-family:'Orbitron',sans-serif;
+    background: linear-gradient(180deg, #ffffff 0%, #c0c0e8 35%, #8e8ec9 50%, #ffffff 65%, #b8b8e0 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-stroke: 1px #7a5cff;
+    filter: drop-shadow(0 4px 0 #ff71ce) drop-shadow(0 -2px 6px #00ffff);
+  }
+
+  .sparkle{
+    position:absolute;
+    font-size: 1.4rem;
+    animation: twinkle 2.4s ease-in-out infinite;
+  }
+  @keyframes twinkle{
+    0%,100%{ opacity:0.3; transform:scale(0.8) rotate(0deg); }
+    50%{ opacity:1; transform:scale(1.2) rotate(20deg); }
+  }
+
+  .bubble-card{
+    background: rgba(255,255,255,0.75);
+    border: 2px solid #ffffff;
+    border-radius: 28px;
+    box-shadow: 0 10px 0 rgba(255,113,206,0.35), 0 20px 40px rgba(122,92,255,0.2);
+    backdrop-filter: blur(6px);
+  }
+
+  .btn-y2k{
+    font-family:'Orbitron',sans-serif;
+    background: linear-gradient(135deg, #ff71ce, #b967ff 50%, #00ffff);
+    color:#fff;
+    border-radius: 9999px;
+    box-shadow: 0 6px 0 #7a3ca8, 0 10px 24px rgba(185,103,255,0.4);
+    transition: transform .15s;
+  }
+  .btn-y2k:active{ transform: translateY(4px); box-shadow: 0 2px 0 #7a3ca8; }
+
+  .tag-chip{
+    background: linear-gradient(135deg,#fff9c4,#ffe066);
+    border: 2px solid #fff;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.08);
+  }
+
+  .marquee{
+    display:flex; white-space:nowrap;
+    animation: scroll-left 18s linear infinite;
+  }
+  @keyframes scroll-left{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(-50%); }
+  }
+
+  .holo{
+    background: linear-gradient(115deg, #ff71ce, #b967ff, #00ffff, #fffb96, #ff71ce);
+    background-size: 300% 300%;
+    animation: holo-move 6s ease infinite;
+  }
+  @keyframes holo-move{
+    0%{ background-position: 0% 50%; }
+    50%{ background-position: 100% 50%; }
+    100%{ background-position: 0% 50%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Marquee bar -->
+<div class="holo text-white text-xs font-y2k py-2 overflow-hidden">
+  <div class="marquee">
+    <span class="px-6">✦ 新品上架 星芒項鍊 ✦ 千禧特賣進行中 ✦ 滿 2000 免運 ✦ 新品上架 星芒項鍊 ✦ 千禧特賣進行中 ✦ 滿 2000 免運 ✦</span>
+    <span class="px-6">✦ 新品上架 星芒項鍊 ✦ 千禧特賣進行中 ✦ 滿 2000 免運 ✦ 新品上架 星芒項鍊 ✦ 千禧特賣進行中 ✦ 滿 2000 免運 ✦</span>
+  </div>
+</div>
+
+<nav class="max-w-6xl mx-auto flex items-center justify-between px-6 py-6">
+  <div class="chrome-text text-2xl font-black tracking-wide">MillenniumMall</div>
+  <div class="hidden md:flex gap-8 font-bold text-sm text-[#5c3c96]">
+    <a href="#new">新品</a>
+    <a href="#category">分類選物</a>
+    <a href="#club">會員星動計畫</a>
+  </div>
+  <div class="flex items-center gap-3">
+    <span class="text-2xl">🛍️</span>
+    <span class="bg-[#ff71ce] text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">3</span>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="relative max-w-6xl mx-auto px-6 pt-10 pb-24">
+  <span class="sparkle" style="top:5%; left:8%;">✦</span>
+  <span class="sparkle" style="top:20%; left:85%; animation-delay:.5s;">✧</span>
+  <span class="sparkle" style="top:60%; left:4%; animation-delay:1s;">✦</span>
+  <span class="sparkle" style="top:75%; left:90%; animation-delay:1.5s;">✧</span>
+
+  <div class="grid md:grid-cols-2 gap-10 items-center">
+    <div class="text-center md:text-left">
+      <span class="tag-chip inline-block px-4 py-1.5 rounded-full text-xs font-bold mb-6">千禧年回歸 · Y2K CAPSULE</span>
+      <h1 class="chrome-text text-5xl md:text-6xl font-black leading-tight mb-4">千禧幻境</h1>
+      <p class="text-lg font-bold text-[#5c3c96] mb-6">把 2000 年的未來感，穿回你身上</p>
+      <p class="text-[#6b4fa0] leading-relaxed mb-8 max-w-md mx-auto md:mx-0">
+        金屬感提袋、透明果凍配件、蝴蝶結項鍊——千禧幻境重新詮釋 Y2K 美學，用鉻銀與螢光色，找回那個充滿未來想像的年代。
+      </p>
+      <button class="btn-y2k px-8 py-3.5 font-bold">✦ 進入選物店 ✦</button>
+    </div>
+    <div class="bubble-card p-8">
+      <p class="font-y2k text-sm text-[#b967ff] font-bold mb-4">本週鉻銀嚴選</p>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="bg-white/60 rounded-2xl p-4 text-center">
+          <div class="text-4xl mb-2">👜</div>
+          <p class="text-sm font-bold">果凍手提包</p>
+          <p class="text-xs text-[#b967ff] font-bold">NT$1,680</p>
+        </div>
+        <div class="bg-white/60 rounded-2xl p-4 text-center">
+          <div class="text-4xl mb-2">🕶️</div>
+          <p class="text-sm font-bold">星芒太陽眼鏡</p>
+          <p class="text-xs text-[#b967ff] font-bold">NT$980</p>
+        </div>
+        <div class="bg-white/60 rounded-2xl p-4 text-center">
+          <div class="text-4xl mb-2">📿</div>
+          <p class="text-sm font-bold">蝴蝶結項鍊</p>
+          <p class="text-xs text-[#b967ff] font-bold">NT$1,280</p>
+        </div>
+        <div class="bg-white/60 rounded-2xl p-4 text-center">
+          <div class="text-4xl mb-2">💿</div>
+          <p class="text-sm font-bold">鏡面小提袋</p>
+          <p class="text-xs text-[#b967ff] font-bold">NT$2,180</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- New -->
+<section id="new" class="max-w-6xl mx-auto px-6 py-16">
+  <h2 class="chrome-text text-3xl font-black text-center mb-2">✦ 本週新品 ✦</h2>
+  <p class="text-center text-[#6b4fa0] mb-12">每週三固定上架，手刀搶購限量色</p>
+  <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
+    <div class="bubble-card p-5 text-center">
+      <div class="text-5xl mb-3">💎</div>
+      <p class="font-bold text-sm">水鑽髮夾組</p>
+      <p class="text-xs text-[#b967ff] font-bold mt-1">NT$620</p>
+    </div>
+    <div class="bubble-card p-5 text-center">
+      <div class="text-5xl mb-3">👛</div>
+      <p class="font-bold text-sm">透明果凍錢包</p>
+      <p class="text-xs text-[#b967ff] font-bold mt-1">NT$780</p>
+    </div>
+    <div class="bubble-card p-5 text-center">
+      <div class="text-5xl mb-3">📱</div>
+      <p class="font-bold text-sm">鉻銀手機吊繩</p>
+      <p class="text-xs text-[#b967ff] font-bold mt-1">NT$450</p>
+    </div>
+    <div class="bubble-card p-5 text-center">
+      <div class="text-5xl mb-3">👑</div>
+      <p class="font-bold text-sm">星芒皇冠髮箍</p>
+      <p class="text-xs text-[#b967ff] font-bold mt-1">NT$560</p>
+    </div>
+  </div>
+</section>
+
+<!-- Category -->
+<section id="category" class="max-w-6xl mx-auto px-6 py-16">
+  <h2 class="chrome-text text-3xl font-black text-center mb-12">分類選物</h2>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="bubble-card p-8 text-center holo bg-clip-padding">
+      <p class="text-white font-y2k font-bold text-xl drop-shadow">配件小物</p>
+      <p class="text-white/90 text-sm mt-2">128 件商品</p>
+    </div>
+    <div class="bubble-card p-8 text-center">
+      <p class="font-y2k font-bold text-xl text-[#5c3c96]">包袋提籃</p>
+      <p class="text-sm mt-2 text-[#6b4fa0]">64 件商品</p>
+    </div>
+    <div class="bubble-card p-8 text-center">
+      <p class="font-y2k font-bold text-xl text-[#5c3c96]">科技配件</p>
+      <p class="text-sm mt-2 text-[#6b4fa0]">42 件商品</p>
+    </div>
+  </div>
+</section>
+
+<!-- Club -->
+<section id="club" class="max-w-4xl mx-auto px-6 py-16 text-center">
+  <div class="bubble-card p-10">
+    <h2 class="chrome-text text-3xl font-black mb-4">會員星動計畫</h2>
+    <p class="text-[#6b4fa0] mb-8">加入即贈 200 點星幣，消費累積點數兌換限量周邊</p>
+    <div class="flex flex-col sm:flex-row gap-3 max-w-sm mx-auto">
+      <input class="flex-1 rounded-full border-2 border-white bg-white/70 px-5 py-3 text-sm placeholder:text-[#b19ad6]" placeholder="輸入你的 Email">
+      <button class="btn-y2k px-6 py-3 font-bold whitespace-nowrap">立即加入</button>
+    </div>
+  </div>
+</section>
+
+<footer class="text-center py-10 text-sm text-[#6b4fa0]">
+  ✦ 千禧幻境 MillenniumMall · 找回未來的自己 · © 2026 ✦
+</footer>
+
+</body>
+</html>

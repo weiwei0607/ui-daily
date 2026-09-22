@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<!-- style #22 Feature-Rich Showcase 結構 + #42 Organic Biophilic 皮膚 -->
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>森語 ForestTalk · 智慧農場管理平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --forest:#3e4a32;
+    --sage:#8fbc8f;
+    --cream:#f5f1e8;
+    --clay:#c9a876;
+  }
+  body{
+    background: var(--cream);
+    font-family:'Nunito',sans-serif;
+    color: var(--forest);
+  }
+  .font-serif-organic{font-family:'Cormorant Garamond', serif;}
+
+  .blob{
+    border-radius: 62% 38% 55% 45% / 45% 55% 45% 55%;
+  }
+  .blob-2{
+    border-radius: 40% 60% 65% 35% / 55% 40% 60% 45%;
+  }
+  .leaf-shadow{
+    box-shadow: 0 20px 50px -20px rgba(62,74,50,0.35);
+  }
+
+  .organic-wave{
+    position:relative;
+  }
+  .organic-wave::after{
+    content:"";
+    position:absolute; left:0; right:0; bottom:-1px; height:80px;
+    background: var(--cream);
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    transform: scaleX(1.4);
+  }
+
+  .card-organic{
+    background: #fffdf8;
+    border: 1px solid rgba(62,74,50,0.12);
+    transition: transform .3s ease, box-shadow .3s ease;
+  }
+  .card-organic:hover{
+    transform: translateY(-6px);
+    box-shadow: 0 24px 40px -20px rgba(62,74,50,0.3);
+  }
+
+  .btn-organic{
+    background: var(--forest);
+    color: var(--cream);
+    border-radius: 9999px;
+    transition: all .25s;
+  }
+  .btn-organic:hover{
+    background: #2e3826;
+    transform: scale(1.03);
+  }
+
+  .dot-texture{
+    background-image: radial-gradient(rgba(62,74,50,0.15) 1.5px, transparent 1.5px);
+    background-size: 16px 16px;
+  }
+
+  @keyframes sway{
+    0%,100%{ transform: rotate(-2deg); }
+    50%{ transform: rotate(2deg); }
+  }
+  .sway{ animation: sway 6s ease-in-out infinite; transform-origin: bottom center; }
+</style>
+</head>
+<body>
+
+<nav class="max-w-6xl mx-auto flex items-center justify-between px-6 py-6">
+  <div class="flex items-center gap-2">
+    <span class="text-2xl">🌿</span>
+    <span class="font-serif-organic text-2xl font-semibold" style="color:var(--forest)">森語 ForestTalk</span>
+  </div>
+  <div class="hidden md:flex gap-8 text-sm font-semibold text-[#5a6650]">
+    <a href="#features">核心功能</a>
+    <a href="#story">關於農場</a>
+    <a href="#pricing">方案</a>
+  </div>
+  <button class="btn-organic px-6 py-2.5 text-sm font-bold">免費試種 30 天</button>
+</nav>
+
+<!-- Hero -->
+<section class="organic-wave relative overflow-hidden">
+  <div class="absolute -top-10 -right-16 w-80 h-80 blob opacity-30" style="background: var(--sage);"></div>
+  <div class="absolute top-40 -left-20 w-64 h-64 blob-2 opacity-20" style="background: var(--clay);"></div>
+
+  <div class="max-w-6xl mx-auto px-6 pt-16 pb-32 relative grid md:grid-cols-2 gap-12 items-center">
+    <div>
+      <span class="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-wide" style="background:rgba(143,188,143,0.25); color:var(--forest)">為友善土地的耕作者而生</span>
+      <h1 class="font-serif-organic text-5xl md:text-6xl font-semibold mt-6 leading-tight">
+        聆聽土地的<br/>每一次呼吸
+      </h1>
+      <p class="mt-6 text-lg text-[#5a6650] leading-relaxed max-w-md">
+        森語 ForestTalk 結合土壤感測、氣候預報與作物履歷，讓小農也能用數據耕作，同時保留手作的溫度。
+      </p>
+      <div class="mt-8 flex gap-4">
+        <button class="btn-organic px-8 py-3.5 font-bold">開始使用</button>
+        <button class="px-8 py-3.5 font-bold rounded-full border-2" style="border-color:var(--forest); color:var(--forest)">預約農場導覽</button>
+      </div>
+      <div class="mt-10 flex items-center gap-6 text-sm text-[#5a6650]">
+        <div><p class="font-serif-organic text-2xl font-semibold" style="color:var(--forest)">1,280+</p><p>合作農場</p></div>
+        <div><p class="font-serif-organic text-2xl font-semibold" style="color:var(--forest)">32%</p><p>平均節水率</p></div>
+      </div>
+    </div>
+    <div class="relative">
+      <div class="card-organic blob leaf-shadow p-10 sway">
+        <p class="font-serif-organic text-xl font-semibold mb-4">今日田間報告</p>
+        <div class="space-y-3 text-sm">
+          <div class="flex justify-between"><span>土壤濕度</span><span class="font-bold" style="color:var(--forest)">62%</span></div>
+          <div class="flex justify-between"><span>日照時數</span><span class="font-bold" style="color:var(--forest)">6.4 小時</span></div>
+          <div class="flex justify-between"><span>預估降雨</span><span class="font-bold" style="color:var(--forest)">明日午後</span></div>
+          <div class="flex justify-between"><span>建議動作</span><span class="font-bold" style="color:var(--clay)">延後灌溉</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Feature-rich showcase -->
+<section id="features" class="max-w-6xl mx-auto px-6 py-24">
+  <div class="text-center max-w-xl mx-auto mb-16">
+    <h2 class="font-serif-organic text-4xl font-semibold">四個核心，陪你走過一整季</h2>
+    <p class="mt-4 text-[#5a6650]">從播種到採收，森語把繁瑣的紀錄變成一目了然的節奏。</p>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-10 items-center mb-20">
+    <div class="order-2 md:order-1">
+      <span class="text-sm font-bold" style="color:var(--clay)">01 · 土壤與氣候感測</span>
+      <h3 class="font-serif-organic text-3xl font-semibold mt-2 mb-4">把每一寸田都裝上耳朵</h3>
+      <p class="text-[#5a6650] leading-relaxed">
+        埋入田間的感測樁每十分鐘回報一次濕度、地溫與導電度，結合中央氣象署預報，提前三天預警乾旱與寒害。
+      </p>
+      <ul class="mt-4 space-y-2 text-sm">
+        <li class="flex items-center gap-2">🌱 <span>低電量續航 180 天</span></li>
+        <li class="flex items-center gap-2">🌦️ <span>降雨機率超過 70% 自動關閉灌溉</span></li>
+      </ul>
+    </div>
+    <div class="order-1 md:order-2 card-organic blob-2 leaf-shadow p-8 h-64 flex items-center justify-center">
+      <div class="grid grid-cols-3 gap-4 w-full">
+        <div class="text-center"><p class="text-2xl font-bold" style="color:var(--forest)">62%</p><p class="text-xs">濕度</p></div>
+        <div class="text-center"><p class="text-2xl font-bold" style="color:var(--forest)">24°C</p><p class="text-xs">地溫</p></div>
+        <div class="text-center"><p class="text-2xl font-bold" style="color:var(--forest)">良好</p><p class="text-xs">導電度</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-10 items-center mb-20">
+    <div class="card-organic blob leaf-shadow p-8 h-64 flex flex-col justify-center">
+      <p class="font-serif-organic text-xl font-semibold mb-3">作物生長履歷</p>
+      <div class="flex gap-2">
+        <span class="px-3 py-1 rounded-full text-xs" style="background:rgba(143,188,143,0.3)">育苗</span>
+        <span class="px-3 py-1 rounded-full text-xs font-bold" style="background:var(--forest); color:var(--cream)">定植中</span>
+        <span class="px-3 py-1 rounded-full text-xs" style="background:rgba(143,188,143,0.3)">開花</span>
+        <span class="px-3 py-1 rounded-full text-xs" style="background:rgba(143,188,143,0.3)">採收</span>
+      </div>
+      <p class="text-sm mt-4 text-[#5a6650]">高山高麗菜 · 第 34 天 · 預估採收於 10/18</p>
+    </div>
+    <div>
+      <span class="text-sm font-bold" style="color:var(--clay)">02 · 作物生長履歷</span>
+      <h3 class="font-serif-organic text-3xl font-semibold mt-2 mb-4">給消費者看得見的安心</h3>
+      <p class="text-[#5a6650] leading-relaxed">
+        每批作物自動生成生長時間軸與用藥紀錄，掃描包裝上的 QR code 即可回溯產地與栽種故事，讓信任成為最好的行銷。
+      </p>
+    </div>
+  </div>
+
+  <div class="grid sm:grid-cols-3 gap-6">
+    <div class="card-organic rounded-3xl p-6">
+      <p class="text-3xl mb-3">💧</p>
+      <p class="font-serif-organic text-xl font-semibold mb-2">智慧灌溉排程</p>
+      <p class="text-sm text-[#5a6650]">依土壤濕度自動排程，平均節省 32% 用水量。</p>
+    </div>
+    <div class="card-organic rounded-3xl p-6">
+      <p class="text-3xl mb-3">📦</p>
+      <p class="font-serif-organic text-xl font-semibold mb-2">產銷媒合</p>
+      <p class="text-sm text-[#5a6650]">直接對接鄰近市集與餐廳採購,縮短中間通路。</p>
+    </div>
+    <div class="card-organic rounded-3xl p-6">
+      <p class="text-3xl mb-3">🐝</p>
+      <p class="font-serif-organic text-xl font-semibold mb-2">生態友善評分</p>
+      <p class="text-sm text-[#5a6650]">記錄授粉昆蟲與土壤有機質變化，累積永續認證。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Story -->
+<section id="story" class="dot-texture py-24 px-6" style="background:rgba(143,188,143,0.12)">
+  <div class="max-w-4xl mx-auto text-center">
+    <p class="font-serif-organic text-2xl md:text-3xl leading-relaxed" style="color:var(--forest)">
+      「我們相信土地會說話，只是需要一套懂得傾聽的工具。森語從一座三分地的家族茶園開始，陪著它長成現在的樣子。」
+    </p>
+    <p class="mt-6 font-bold">— 林郁婷，森語 ForestTalk 創辦人</p>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section id="pricing" class="max-w-5xl mx-auto px-6 py-24">
+  <h2 class="font-serif-organic text-4xl font-semibold text-center mb-12">選一個陪你耕作的方案</h2>
+  <div class="grid md:grid-cols-3 gap-8">
+    <div class="card-organic rounded-3xl p-8">
+      <p class="font-serif-organic text-2xl font-semibold mb-2">幼苗方案</p>
+      <p class="text-3xl font-bold mb-4">NT$0<span class="text-sm font-normal text-[#5a6650]">/月</span></p>
+      <p class="text-sm text-[#5a6650] mb-6">適合單一田區的小農試用</p>
+      <button class="w-full py-3 rounded-full border-2 font-bold" style="border-color:var(--forest); color:var(--forest)">立即開始</button>
+    </div>
+    <div class="card-organic rounded-3xl p-8 ring-2" style="border-color:transparent; --tw-ring-color: var(--forest);">
+      <p class="text-xs font-bold mb-2" style="color:var(--clay)">最多農場選擇</p>
+      <p class="font-serif-organic text-2xl font-semibold mb-2">成長方案</p>
+      <p class="text-3xl font-bold mb-4">NT$1,280<span class="text-sm font-normal text-[#5a6650]">/月</span></p>
+      <p class="text-sm text-[#5a6650] mb-6">含 5 個田區與產銷媒合功能</p>
+      <button class="btn-organic w-full py-3 font-bold">選擇此方案</button>
+    </div>
+    <div class="card-organic rounded-3xl p-8">
+      <p class="font-serif-organic text-2xl font-semibold mb-2">合作社方案</p>
+      <p class="text-3xl font-bold mb-4">洽談報價</p>
+      <p class="text-sm text-[#5a6650] mb-6">為農會與合作社客製整合</p>
+      <button class="w-full py-3 rounded-full border-2 font-bold" style="border-color:var(--forest); color:var(--forest)">聯絡我們</button>
+    </div>
+  </div>
+</section>
+
+<footer class="py-10 px-6 text-center text-sm" style="background:var(--forest); color:var(--cream)">
+  <p class="font-serif-organic text-lg mb-1">森語 ForestTalk</p>
+  <p class="opacity-70">與土地一起呼吸的耕作夥伴 · © 2026</p>
+</footer>
+
+</body>
+</html>

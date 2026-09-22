@@ -21,6 +21,11 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-09-22（6 個，#01–06）
+- ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（`curl -m 12` 無回應，exit 56），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
+- 本輪先用 `grep -ohE '<!-- style #[0-9]+' reviews/*/*.html | sort | uniq -c` 統計歷史提及次數，排除近 3 天（09-19/09-20/09-21）用過的風格（#07/#08/#10/#13/#14/#17/#23/#25/#29/#30/#33/#37/#41/#47/#48/#50/#55/#57），從全庫最低使用次數（3 次）且跨 A/B/C/D 族群的方向挑選：**Retro-Futurism #11**（A 組，配方字體 Orbitron，做成智慧居所控制系統「星際艙 NEBULA」，青洋紅漸層太陽＋透視網格地平線動畫＋掃描線＋可視化即時能源曲線）、**Feature-Rich Showcase #22 結構 + Organic Biophilic #42 皮膚**（B 組結構搭 A 組皮膚，避開 Inter，改用 Cormorant Garamond + Nunito 新配對，做成智慧農場管理平台「森語 ForestTalk」，有機 blob 形狀卡片＋大地色系＋分區功能展示）、**Data-Dense Dashboard #28**（C 組，官方配方為 Inter+JetBrains Mono，依「避免每個都用 Inter」規則改用 Manrope + Space Mono 新配對，做成供應鏈管控中心「貨脈 CargoPulse」，側邊欄導航＋KPI 卡片列＋出貨明細表＋異常事件通報＋倉儲密度熱力格）、**Drill-Down #32**（C 組，同樣避開 Inter，改用 Plus Jakarta Sans + Roboto Mono 新配對，做成零售營運分析平台「鑽石視角 DrillView」，可展開的區域>門市>品項下鑽樹狀結構＋麵包屑）、**Y2K Revival #40**（D 組，沿用配方 Orbitron 標題 + 改用 Baloo 2 做圓潤內文呼應鉻銀氣泡卡片，做成千禧風選物店「千禧幻境 MillenniumMall」，鉻銀漸層文字＋全息滾動跑馬燈＋氣泡感商品卡）、**Memphis Revival #44**（D 組，沿用配方 Archivo Black + Poppins，做成兒童創意工作坊報名平台「玩色實驗室 ColorLab」，clip-path 幾何色塊＋硬陰影卡片＋撞色圓點背景）。全數繁體中文文案，皆避免使用 Inter/Helvetica。
+- 完成後用 grep 確認 `<html>`/`</html>`/`<head>`/`</head>`/`<body>`/`</body>` 標籤數量皆為 1（真實 `<head>` 計數以精確比對，排除 `<header>` 誤判），且 `font-family` 宣告中無 Inter/Helvetica；另用 opencc-python-reimplemented 以 s2t 定點比對法（找出「轉繁體後仍不同」的字元，避免 t2s 方向誤判所有繁體字）逐字元檢查全部 6 個檔案：修正 02 檔案 HTML 註解中誤寫的簡體字「皮肤→皮膚」（僅出現在開發註解，非使用者可見文案），其餘「峰/郁/岩/栗」皆為合法繁體字（尖峰、林郁婷人名、岩鹽、栗子塔），非簡體污染，予以保留。
+
 ### 2026-09-21（6 個，#01–06）
 - ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（`curl -m 15` 回 `CONNECT tunnel failed, response 403`），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
 - ⚠️ publish.py 直連 GitHub REST API 本輪同樣回 415 Unsupported Media Type（`git/blobs` 端點），改用 `git push`（HTTPS + GH_TOKEN 當密碼）發布，成功；本機分支曾為 detached HEAD（與 origin/master 一致），已用 `git checkout -B master origin/master` 重新接上再推送，並用 `git fetch` 驗證 origin/master 已更新到含本輪 6 個檔案＋畫廊索引＋taste-log 的 commit 9064278。

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<!-- style #32 Drill-Down Dashboard -->
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>鑽石視角 DrillView · 零售營運分析</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{
+    background:#f7f8fb;
+    font-family:'Plus Jakarta Sans',sans-serif;
+    color:#1c1f2b;
+  }
+  .font-num{ font-family:'Roboto Mono',monospace; }
+  .card{
+    background:#fff;
+    border:1px solid #e6e8f0;
+    box-shadow: 0 1px 2px rgba(20,25,45,0.04);
+  }
+  .crumb{
+    color:#6b7280;
+  }
+  .crumb.active{
+    color:#4338ca;
+    font-weight:700;
+  }
+  .row-expand{
+    transition: background .15s;
+    cursor:pointer;
+  }
+  .row-expand:hover{ background:#f5f5ff; }
+  .bar-bg{ background:#eef0f7; }
+  .bar-fill{ background: linear-gradient(90deg,#6366f1,#818cf8); }
+  details > summary{ list-style:none; cursor:pointer; }
+  details > summary::-webkit-details-marker{ display:none; }
+  .chev{ transition: transform .2s; }
+  details[open] .chev{ transform: rotate(90deg); }
+</style>
+</head>
+<body>
+
+<div class="max-w-7xl mx-auto px-6 py-8">
+  <div class="flex items-center justify-between mb-6">
+    <div>
+      <div class="flex items-center gap-1 text-sm mb-2 font-num">
+        <span class="crumb">全公司</span>
+        <span class="crumb">›</span>
+        <span class="crumb">北區</span>
+        <span class="crumb">›</span>
+        <span class="crumb active">信義門市</span>
+      </div>
+      <h1 class="text-2xl font-extrabold">鑽石視角 DrillView</h1>
+      <p class="text-sm text-gray-500 mt-1">逐層下鑽的零售營運分析平台 · 信義門市 · 2026年9月</p>
+    </div>
+    <div class="flex gap-2">
+      <select class="card rounded-lg px-3 py-2 text-sm">
+        <option>本月</option>
+        <option>本季</option>
+        <option>本年</option>
+      </select>
+      <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm px-4 py-2 rounded-lg">匯出報表</button>
+    </div>
+  </div>
+
+  <!-- KPI -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+    <div class="card rounded-xl p-5">
+      <p class="text-xs text-gray-500 mb-2">本月營收</p>
+      <p class="font-num text-2xl font-bold">NT$ 4,820,600</p>
+      <p class="text-xs text-emerald-600 font-num mt-1">▲ 12.4% 較上月</p>
+    </div>
+    <div class="card rounded-xl p-5">
+      <p class="text-xs text-gray-500 mb-2">客單價</p>
+      <p class="font-num text-2xl font-bold">NT$ 1,384</p>
+      <p class="text-xs text-emerald-600 font-num mt-1">▲ 3.1%</p>
+    </div>
+    <div class="card rounded-xl p-5">
+      <p class="text-xs text-gray-500 mb-2">來客數</p>
+      <p class="font-num text-2xl font-bold">3,483</p>
+      <p class="text-xs text-rose-600 font-num mt-1">▼ 1.8%</p>
+    </div>
+    <div class="card rounded-xl p-5">
+      <p class="text-xs text-gray-500 mb-2">庫存周轉天數</p>
+      <p class="font-num text-2xl font-bold">18.2 天</p>
+      <p class="text-xs text-emerald-600 font-num mt-1">▼ 2.4 天（更快）</p>
+    </div>
+  </div>
+
+  <div class="grid lg:grid-cols-3 gap-6">
+    <!-- Drilldown tree -->
+    <div class="lg:col-span-2 card rounded-xl p-6">
+      <p class="font-bold mb-1">依區域逐層下鑽</p>
+      <p class="text-xs text-gray-500 mb-4">點擊展開查看門市與品項明細</p>
+
+      <details class="border-b py-3" open>
+        <summary class="flex items-center justify-between">
+          <span class="flex items-center gap-2 font-semibold"><span class="chev">▸</span> 北區（6 家門市）</span>
+          <span class="font-num text-sm">NT$ 18,240,000</span>
+        </summary>
+        <div class="pl-6 mt-3 space-y-2">
+          <details class="border-b border-dashed py-2" open>
+            <summary class="flex items-center justify-between text-sm">
+              <span class="flex items-center gap-2"><span class="chev">▸</span> 信義門市</span>
+              <span class="font-num">NT$ 4,820,600</span>
+            </summary>
+            <div class="pl-6 mt-2 space-y-1.5 text-sm text-gray-600">
+              <div class="row-expand flex justify-between py-1.5 px-2 rounded"><span>咖啡與飲品</span><span class="font-num">NT$ 1,680,200</span></div>
+              <div class="row-expand flex justify-between py-1.5 px-2 rounded"><span>烘焙點心</span><span class="font-num">NT$ 1,140,300</span></div>
+              <div class="row-expand flex justify-between py-1.5 px-2 rounded"><span>季節限定商品</span><span class="font-num">NT$ 980,500</span></div>
+              <div class="row-expand flex justify-between py-1.5 px-2 rounded"><span>周邊商品</span><span class="font-num">NT$ 1,019,600</span></div>
+            </div>
+          </details>
+          <details class="py-2">
+            <summary class="flex items-center justify-between text-sm">
+              <span class="flex items-center gap-2"><span class="chev">▸</span> 天母門市</span>
+              <span class="font-num">NT$ 3,150,200</span>
+            </summary>
+          </details>
+          <details class="py-2">
+            <summary class="flex items-center justify-between text-sm">
+              <span class="flex items-center gap-2"><span class="chev">▸</span> 內湖門市</span>
+              <span class="font-num">NT$ 2,940,800</span>
+            </summary>
+          </details>
+        </div>
+      </details>
+
+      <details class="border-b py-3">
+        <summary class="flex items-center justify-between">
+          <span class="flex items-center gap-2 font-semibold"><span class="chev">▸</span> 中區（4 家門市）</span>
+          <span class="font-num text-sm">NT$ 11,860,000</span>
+        </summary>
+      </details>
+
+      <details class="py-3">
+        <summary class="flex items-center justify-between">
+          <span class="flex items-center gap-2 font-semibold"><span class="chev">▸</span> 南區（5 家門市）</span>
+          <span class="font-num text-sm">NT$ 9,420,000</span>
+        </summary>
+      </details>
+    </div>
+
+    <!-- Side: top products at current drill level -->
+    <div class="card rounded-xl p-6">
+      <p class="font-bold mb-4">信義門市 · 熱銷品項</p>
+      <div class="space-y-4">
+        <div>
+          <div class="flex justify-between text-sm mb-1.5"><span>厚岩鹽拿鐵</span><span class="font-num">NT$ 312,400</span></div>
+          <div class="bar-bg h-2 rounded-full"><div class="bar-fill h-2 rounded-full" style="width:88%"></div></div>
+        </div>
+        <div>
+          <div class="flex justify-between text-sm mb-1.5"><span>季節限定栗子塔</span><span class="font-num">NT$ 268,900</span></div>
+          <div class="bar-bg h-2 rounded-full"><div class="bar-fill h-2 rounded-full" style="width:76%"></div></div>
+        </div>
+        <div>
+          <div class="flex justify-between text-sm mb-1.5"><span>經典可頌</span><span class="font-num">NT$ 210,300</span></div>
+          <div class="bar-bg h-2 rounded-full"><div class="bar-fill h-2 rounded-full" style="width:60%"></div></div>
+        </div>
+        <div>
+          <div class="flex justify-between text-sm mb-1.5"><span>手沖濾掛組</span><span class="font-num">NT$ 154,700</span></div>
+          <div class="bar-bg h-2 rounded-full"><div class="bar-fill h-2 rounded-full" style="width:44%"></div></div>
+        </div>
+      </div>
+      <button class="mt-6 w-full text-center text-sm font-bold text-indigo-600 hover:text-indigo-800">查看完整品項清單 →</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

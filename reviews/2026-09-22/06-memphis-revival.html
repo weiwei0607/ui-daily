@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<!-- style #44 Memphis Revival -->
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>玩色實驗室 ColorLab · 兒童創意工作坊</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  body{
+    background:#fef6e4;
+    font-family:'Poppins',sans-serif;
+    color:#211a3d;
+    overflow-x:hidden;
+  }
+  .font-display{ font-family:'Archivo Black',sans-serif; }
+
+  .dots-bg{
+    background-image: radial-gradient(#211a3d 2px, transparent 2px);
+    background-size: 20px 20px;
+    opacity:0.15;
+  }
+  .stripes{
+    background: repeating-linear-gradient(45deg, #ff5d5d, #ff5d5d 10px, #ffd23f 10px, #ffd23f 20px);
+  }
+
+  .shape-tri{
+    width:0; height:0;
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    border-bottom: 70px solid #4ecdc4;
+  }
+  .shape-blob{
+    clip-path: polygon(20% 0%, 80% 10%, 100% 45%, 85% 100%, 30% 95%, 0% 60%);
+  }
+  .shape-zigzag{
+    clip-path: polygon(0 0, 20% 100%, 40% 0, 60% 100%, 80% 0, 100% 100%, 100% 0);
+  }
+
+  .card-memphis{
+    background:#fff;
+    border: 3px solid #211a3d;
+    border-radius: 20px;
+    box-shadow: 8px 8px 0 #211a3d;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .card-memphis:hover{
+    transform: translate(-3px,-3px);
+    box-shadow: 11px 11px 0 #211a3d;
+  }
+
+  .btn-memphis{
+    font-family:'Archivo Black',sans-serif;
+    background:#ffd23f;
+    border: 3px solid #211a3d;
+    border-radius: 9999px;
+    box-shadow: 5px 5px 0 #211a3d;
+    transition: all .15s;
+  }
+  .btn-memphis:hover{
+    transform: translate(-2px,-2px);
+    box-shadow: 7px 7px 0 #211a3d;
+  }
+  .btn-memphis:active{
+    transform: translate(3px,3px);
+    box-shadow: 2px 2px 0 #211a3d;
+  }
+
+  @keyframes float-slow{
+    0%,100%{ transform: translateY(0) rotate(0deg); }
+    50%{ transform: translateY(-14px) rotate(8deg); }
+  }
+  .float{ animation: float-slow 5s ease-in-out infinite; }
+
+  .squiggle{
+    position:relative;
+  }
+  .squiggle::after{
+    content:"";
+    position:absolute; left:0; bottom:-8px; width:60px; height:10px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='10'%3E%3Cpath d='M0 5 Q 7.5 0 15 5 T 30 5 T 45 5 T 60 5' stroke='%23ff5d5d' stroke-width='3' fill='none'/%3E%3C/svg%3E");
+  }
+</style>
+</head>
+<body class="relative">
+
+<div class="fixed inset-0 dots-bg pointer-events-none"></div>
+<div class="stripes h-2 w-full"></div>
+
+<nav class="max-w-6xl mx-auto flex items-center justify-between px-6 py-6 relative z-10">
+  <div class="flex items-center gap-2">
+    <div class="w-10 h-10 rounded-full bg-[#ff5d5d] border-3 flex items-center justify-center font-display text-white" style="border:3px solid #211a3d;">C</div>
+    <span class="font-display text-xl">玩色實驗室</span>
+  </div>
+  <div class="hidden md:flex gap-8 font-bold text-sm">
+    <a href="#courses">課程一覽</a>
+    <a href="#camp">夏令營</a>
+    <a href="#teacher">師資介紹</a>
+  </div>
+  <button class="btn-memphis px-5 py-2 text-xs">立即報名</button>
+</nav>
+
+<!-- Hero -->
+<section class="relative max-w-6xl mx-auto px-6 pt-10 pb-24">
+  <div class="absolute top-4 right-10 float"><div class="shape-tri"></div></div>
+  <div class="absolute bottom-10 left-4 w-16 h-16 rounded-full bg-[#a388ee] border-4 float" style="border-color:#211a3d; animation-delay:1s;"></div>
+  <div class="absolute top-1/2 right-1/4 w-10 h-10 bg-[#4ecdc4] shape-zigzag float" style="animation-delay:2s;"></div>
+
+  <div class="grid md:grid-cols-2 gap-10 items-center relative z-10">
+    <div>
+      <span class="inline-block bg-[#4ecdc4] border-3 px-4 py-1.5 rounded-full text-xs font-bold mb-6" style="border:3px solid #211a3d;">給 6–12 歲孩子的創意冒險</span>
+      <h1 class="font-display text-4xl md:text-6xl leading-tight mb-6">
+        讓顏色<br/><span class="squiggle">亂</span>七八糟地<br/>長出想法
+      </h1>
+      <p class="text-[#4a4270] leading-relaxed mb-8 max-w-md">
+        玩色實驗室不教「畫得像」，我們教孩子大膽混色、拼貼與動手做，從一堂課開始練習：世界可以不只一種標準答案。
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <button class="btn-memphis px-8 py-3.5">免費體驗一堂課</button>
+        <button class="px-8 py-3.5 font-bold rounded-full border-3" style="border:3px solid #211a3d;">查看課表</button>
+      </div>
+    </div>
+    <div class="card-memphis p-6 relative">
+      <p class="font-display text-sm mb-4">本週熱門課程</p>
+      <div class="space-y-3">
+        <div class="flex items-center justify-between bg-[#fef6e4] rounded-xl p-3 border-2" style="border-color:#211a3d;">
+          <span class="font-bold text-sm">拼貼怪獸實驗室</span>
+          <span class="text-xs font-bold text-[#ff5d5d]">剩 3 位</span>
+        </div>
+        <div class="flex items-center justify-between bg-[#fef6e4] rounded-xl p-3 border-2" style="border-color:#211a3d;">
+          <span class="font-bold text-sm">撞色黏土動物園</span>
+          <span class="text-xs font-bold text-[#4ecdc4]">開放報名</span>
+        </div>
+        <div class="flex items-center justify-between bg-[#fef6e4] rounded-xl p-3 border-2" style="border-color:#211a3d;">
+          <span class="font-bold text-sm">故障感版畫工作坊</span>
+          <span class="text-xs font-bold text-[#4ecdc4]">開放報名</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Courses -->
+<section id="courses" class="max-w-6xl mx-auto px-6 py-16 relative z-10">
+  <h2 class="font-display text-3xl text-center mb-2">課程一覽</h2>
+  <p class="text-center text-[#4a4270] mb-12">三個系列，陪孩子練習用色彩表達自己</p>
+  <div class="grid md:grid-cols-3 gap-8">
+    <div class="card-memphis p-6">
+      <div class="w-14 h-14 rounded-full bg-[#ff5d5d] border-3 flex items-center justify-center text-2xl mb-4" style="border:3px solid #211a3d;">🎨</div>
+      <p class="font-display text-lg mb-2">撞色練習課</p>
+      <p class="text-sm text-[#4a4270] mb-4">每週六 · 90 分鐘 · 用高飽和色彩打破「配色要協調」的規則</p>
+      <p class="font-display text-xl">NT$980<span class="text-xs font-normal">/堂</span></p>
+    </div>
+    <div class="card-memphis p-6">
+      <div class="w-14 h-14 rounded-full bg-[#4ecdc4] border-3 flex items-center justify-center text-2xl mb-4" style="border:3px solid #211a3d;">✂️</div>
+      <p class="font-display text-lg mb-2">拼貼與立體</p>
+      <p class="text-sm text-[#4a4270] mb-4">每週日 · 120 分鐘 · 從紙材到回收物，堆疊出屬於自己的怪獸</p>
+      <p class="font-display text-xl">NT$1,180<span class="text-xs font-normal">/堂</span></p>
+    </div>
+    <div class="card-memphis p-6">
+      <div class="w-14 h-14 rounded-full bg-[#a388ee] border-3 flex items-center justify-center text-2xl mb-4" style="border:3px solid #211a3d;">🖨️</div>
+      <p class="font-display text-lg mb-2">版畫與圖案</p>
+      <p class="text-sm text-[#4a4270] mb-4">每週三 · 90 分鐘 · 學習重複與錯位圖案，做出自己的花布</p>
+      <p class="font-display text-xl">NT$1,080<span class="text-xs font-normal">/堂</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- Camp -->
+<section id="camp" class="relative py-20 px-6 z-10" style="background:#211a3d;">
+  <div class="max-w-4xl mx-auto text-center text-white">
+    <h2 class="font-display text-3xl mb-4">2026 冬季創意夏令營</h2>
+    <p class="opacity-80 mb-8">五天四夜，從撞色到裝置藝術，孩子將完成一件屬於自己的大型作品</p>
+    <div class="grid sm:grid-cols-3 gap-6 mb-10">
+      <div class="bg-white/10 rounded-2xl p-5 border-2 border-white/30">
+        <p class="font-display text-2xl mb-1">5 天</p>
+        <p class="text-xs opacity-70">完整創作營期</p>
+      </div>
+      <div class="bg-white/10 rounded-2xl p-5 border-2 border-white/30">
+        <p class="font-display text-2xl mb-1">12 人</p>
+        <p class="text-xs opacity-70">每梯小班制</p>
+      </div>
+      <div class="bg-white/10 rounded-2xl p-5 border-2 border-white/30">
+        <p class="font-display text-2xl mb-1">3 位</p>
+        <p class="text-xs opacity-70">駐營美術老師</p>
+      </div>
+    </div>
+    <button class="btn-memphis px-10 py-4">搶先預約名額</button>
+  </div>
+</section>
+
+<!-- Teacher -->
+<section id="teacher" class="max-w-5xl mx-auto px-6 py-20 relative z-10">
+  <h2 class="font-display text-3xl text-center mb-12">師資介紹</h2>
+  <div class="grid sm:grid-cols-3 gap-8 text-center">
+    <div>
+      <div class="w-24 h-24 rounded-full bg-[#ffd23f] border-3 mx-auto mb-4 flex items-center justify-center text-3xl" style="border:3px solid #211a3d;">🧑‍🎨</div>
+      <p class="font-display text-sm">陳小澄</p>
+      <p class="text-xs text-[#4a4270] mt-1">主理老師 · 視覺傳達背景</p>
+    </div>
+    <div>
+      <div class="w-24 h-24 rounded-full bg-[#ff5d5d] border-3 mx-auto mb-4 flex items-center justify-center text-3xl" style="border:3px solid #211a3d;">🧑‍🏫</div>
+      <p class="font-display text-sm">林拓也</p>
+      <p class="text-xs text-[#4a4270] mt-1">版畫與拼貼老師</p>
+    </div>
+    <div>
+      <div class="w-24 h-24 rounded-full bg-[#4ecdc4] border-3 mx-auto mb-4 flex items-center justify-center text-3xl" style="border:3px solid #211a3d;">🧑‍🎓</div>
+      <p class="font-display text-sm">阿薰</p>
+      <p class="text-xs text-[#4a4270] mt-1">兒童美術輔導老師</p>
+    </div>
+  </div>
+</section>
+
+<footer class="text-center py-10 relative z-10">
+  <p class="font-display text-sm">玩色實驗室 ColorLab</p>
+  <p class="text-xs text-[#4a4270] mt-1">讓每個孩子都敢用色彩犯規 · © 2026</p>
+</footer>
+
+</body>
+</html>

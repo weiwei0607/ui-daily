@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<!-- style #11 Retro-Futurism -->
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星際艙 NEBULA · 智慧居所控制系統</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cyan:#00ffff;
+    --magenta:#ff006e;
+    --navy:#1a1a2e;
+    --navy2:#0f0f1e;
+  }
+  *{box-sizing:border-box}
+  body{
+    background:var(--navy2);
+    font-family:'Noto Sans TC','Share Tech Mono',monospace;
+    color:#e8e8f5;
+    overflow-x:hidden;
+  }
+  .font-display{font-family:'Orbitron',sans-serif;}
+  .font-mono{font-family:'Share Tech Mono',monospace;}
+
+  .horizon-bg{
+    position:relative;
+    background:
+      radial-gradient(ellipse at 50% 120%, rgba(255,0,110,0.35), transparent 60%),
+      linear-gradient(180deg, var(--navy2) 0%, var(--navy) 55%, #26123a 100%);
+    overflow:hidden;
+  }
+  .grid-horizon{
+    position:absolute;
+    left:0; right:0; bottom:0; height:60%;
+    background-image:
+      linear-gradient(rgba(0,255,255,0.5) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,255,0.5) 1px, transparent 1px);
+    background-size: 60px 40px;
+    transform: perspective(300px) rotateX(60deg);
+    transform-origin: bottom;
+    mask-image: linear-gradient(to top, black 20%, transparent 90%);
+    -webkit-mask-image: linear-gradient(to top, black 20%, transparent 90%);
+    animation: gridmove 3s linear infinite;
+  }
+  @keyframes gridmove{
+    from{background-position: 0 0, 0 0;}
+    to{background-position: 0 40px, 0 0;}
+  }
+  .sun{
+    position:absolute; left:50%; top:14%; transform:translateX(-50%);
+    width:220px; height:220px; border-radius:9999px;
+    background: linear-gradient(180deg, var(--cyan), var(--magenta));
+    box-shadow: 0 0 80px rgba(0,255,255,0.5), 0 0 160px rgba(255,0,110,0.4);
+    opacity:0.85;
+  }
+  .sun::after{
+    content:"";
+    position:absolute; inset:0;
+    background: repeating-linear-gradient(0deg, var(--navy2) 0px, var(--navy2) 6px, transparent 6px, transparent 14px);
+    opacity:0.9;
+  }
+
+  .neon-text{
+    text-shadow: 0 0 6px currentColor, 0 0 18px currentColor, 0 0 36px currentColor;
+  }
+  .neon-cyan{ color: var(--cyan); }
+  .neon-magenta{ color: var(--magenta); }
+
+  .scanlines{
+    position:relative;
+  }
+  .scanlines::before{
+    content:"";
+    position:absolute; inset:0;
+    background: repeating-linear-gradient(0deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 3px);
+    pointer-events:none;
+    animation: scan 6s linear infinite;
+  }
+  @keyframes scan{
+    0%{ background-position-y: 0; }
+    100%{ background-position-y: 100px; }
+  }
+
+  .hud-card{
+    background: linear-gradient(160deg, rgba(26,26,46,0.85), rgba(15,15,30,0.9));
+    border: 1px solid rgba(0,255,255,0.35);
+    box-shadow: 0 0 0 1px rgba(255,0,110,0.08) inset, 0 8px 30px rgba(0,0,0,0.5);
+    position:relative;
+  }
+  .hud-card::before{
+    content:"";
+    position:absolute; top:0; left:0; width:16px; height:16px;
+    border-top:2px solid var(--cyan); border-left:2px solid var(--cyan);
+  }
+  .hud-card::after{
+    content:"";
+    position:absolute; bottom:0; right:0; width:16px; height:16px;
+    border-bottom:2px solid var(--magenta); border-right:2px solid var(--magenta);
+  }
+
+  .btn-neon{
+    font-family:'Orbitron',sans-serif;
+    border:1px solid var(--cyan);
+    color:var(--cyan);
+    background: rgba(0,255,255,0.06);
+    transition: all .2s;
+  }
+  .btn-neon:hover{
+    background: var(--cyan);
+    color: var(--navy2);
+    box-shadow: 0 0 24px rgba(0,255,255,0.8);
+  }
+
+  .dial{
+    width:110px;height:110px;border-radius:9999px;
+    border:3px solid rgba(0,255,255,0.3);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;
+  }
+  .dial .fill{
+    position:absolute; inset:-3px;
+    border-radius:9999px;
+    border:3px solid var(--magenta);
+    clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 50% 100%);
+    filter: drop-shadow(0 0 6px var(--magenta));
+  }
+
+  @keyframes blink{
+    0%,100%{opacity:1;}
+    50%{opacity:.25;}
+  }
+  .status-dot{ animation: blink 1.6s ease-in-out infinite; }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="horizon-bg scanlines min-h-[92vh] flex flex-col">
+  <div class="grid-horizon"></div>
+  <div class="sun"></div>
+
+  <nav class="relative z-10 max-w-7xl mx-auto w-full flex items-center justify-between px-6 py-6">
+    <div class="font-display text-lg tracking-[0.3em] neon-cyan neon-text">NEBULA</div>
+    <div class="hidden md:flex items-center gap-8 font-mono text-sm text-cyan-100/80">
+      <a href="#control" class="hover:text-cyan-300">控制中樞</a>
+      <a href="#monitor" class="hover:text-cyan-300">能源監測</a>
+      <a href="#log" class="hover:text-cyan-300">任務日誌</a>
+    </div>
+    <button class="btn-neon px-4 py-2 text-xs tracking-widest">登入艙室</button>
+  </nav>
+
+  <div class="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6">
+    <p class="font-mono text-xs tracking-[0.4em] neon-magenta neon-text mb-6">SYSTEM ONLINE · 2088.09.22</p>
+    <h1 class="font-display text-4xl md:text-7xl font-black tracking-wide neon-cyan neon-text leading-tight">
+      星際艙 NEBULA
+    </h1>
+    <p class="font-display text-lg md:text-2xl mt-4 tracking-widest text-fuchsia-300 neon-text">未來已至的居所作業系統</p>
+    <p class="max-w-xl mt-6 text-cyan-100/70 leading-relaxed">
+      一套指令，喚醒整個艙室。溫控、能源、安防與情境燈光，全數交由 NEBULA 的中樞智慧調度，如同駕駛一艘停泊在地表的太空艙。
+    </p>
+    <div class="mt-10 flex flex-col sm:flex-row gap-4">
+      <button class="btn-neon px-8 py-3 tracking-[0.2em] text-sm">啟動艙室</button>
+      <button class="px-8 py-3 tracking-[0.2em] text-sm font-mono border border-fuchsia-400/50 text-fuchsia-300 hover:bg-fuchsia-500/10">觀看展示</button>
+    </div>
+  </div>
+</section>
+
+<!-- Control -->
+<section id="control" class="bg-[#0f0f1e] py-24 px-6">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="font-display text-3xl neon-cyan neon-text tracking-wide mb-2">控制中樞</h2>
+    <p class="font-mono text-cyan-100/50 mb-12">CTRL // 即時操作艙內所有系統</p>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="hud-card rounded-lg p-6">
+        <div class="flex items-center justify-between mb-6">
+          <span class="font-display text-sm tracking-widest text-cyan-200">主艙溫控</span>
+          <span class="w-2 h-2 rounded-full bg-cyan-400 status-dot"></span>
+        </div>
+        <div class="flex items-center gap-6">
+          <div class="dial"><div class="fill"></div>
+            <span class="font-mono text-2xl text-cyan-200">23°</span>
+          </div>
+          <div class="font-mono text-sm text-cyan-100/60 space-y-1">
+            <p>目標溫度 <span class="text-cyan-300">23.0°C</span></p>
+            <p>艙外溫度 <span class="text-fuchsia-300">31.4°C</span></p>
+            <p>模式 <span class="text-cyan-300">自動節能</span></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="hud-card rounded-lg p-6">
+        <div class="flex items-center justify-between mb-6">
+          <span class="font-display text-sm tracking-widest text-cyan-200">安防護盾</span>
+          <span class="w-2 h-2 rounded-full bg-fuchsia-400 status-dot"></span>
+        </div>
+        <ul class="font-mono text-sm space-y-3 text-cyan-100/70">
+          <li class="flex justify-between"><span>艙門感應器</span><span class="text-cyan-300">已鎖定</span></li>
+          <li class="flex justify-between"><span>窗面震動偵測</span><span class="text-cyan-300">正常</span></li>
+          <li class="flex justify-between"><span>外部攝影陣列</span><span class="text-cyan-300">4 路在線</span></li>
+          <li class="flex justify-between"><span>異常通報</span><span class="text-fuchsia-300">0 件</span></li>
+        </ul>
+      </div>
+
+      <div class="hud-card rounded-lg p-6">
+        <div class="flex items-center justify-between mb-6">
+          <span class="font-display text-sm tracking-widest text-cyan-200">情境燈光</span>
+          <span class="w-2 h-2 rounded-full bg-cyan-400 status-dot"></span>
+        </div>
+        <div class="grid grid-cols-2 gap-3 font-mono text-xs">
+          <button class="btn-neon rounded py-3">深空休眠</button>
+          <button class="btn-neon rounded py-3">星雲聚焦</button>
+          <button class="btn-neon rounded py-3">日出模擬</button>
+          <button class="btn-neon rounded py-3">會客模式</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Monitor -->
+<section id="monitor" class="bg-[#1a1a2e] py-24 px-6 border-t border-cyan-500/10">
+  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <h2 class="font-display text-3xl neon-magenta neon-text tracking-wide mb-4">能源監測</h2>
+      <p class="text-cyan-100/70 leading-relaxed mb-8">
+        NEBULA 即時追蹤太陽能板、儲能艙與各分區用電，並以曲線呈現尖峰時段，讓每一度電都被妥善調度，而非浪費在待機的黑暗中。
+      </p>
+      <div class="grid grid-cols-2 gap-4 font-mono">
+        <div class="hud-card rounded-lg p-5">
+          <p class="text-xs text-cyan-100/50 mb-1">今日發電量</p>
+          <p class="text-2xl text-cyan-300">18.6 kWh</p>
+        </div>
+        <div class="hud-card rounded-lg p-5">
+          <p class="text-xs text-cyan-100/50 mb-1">儲能艙容量</p>
+          <p class="text-2xl text-fuchsia-300">76%</p>
+        </div>
+        <div class="hud-card rounded-lg p-5">
+          <p class="text-xs text-cyan-100/50 mb-1">今日用電</p>
+          <p class="text-2xl text-cyan-300">11.2 kWh</p>
+        </div>
+        <div class="hud-card rounded-lg p-5">
+          <p class="text-xs text-cyan-100/50 mb-1">碳排放節省</p>
+          <p class="text-2xl text-fuchsia-300">4.3 kg</p>
+        </div>
+      </div>
+    </div>
+    <div class="hud-card rounded-lg p-6">
+      <p class="font-display text-sm tracking-widest text-cyan-200 mb-6">24 小時用電曲線</p>
+      <svg viewBox="0 0 300 120" class="w-full h-40">
+        <polyline points="0,90 25,70 50,80 75,40 100,55 125,20 150,35 175,15 200,45 225,30 250,60 275,50 300,70"
+          fill="none" stroke="#00ffff" stroke-width="2" style="filter:drop-shadow(0 0 6px #00ffff)"/>
+        <polyline points="0,100 25,95 50,92 75,85 100,88 125,80 150,82 175,78 200,84 225,80 250,90 275,88 300,95"
+          fill="none" stroke="#ff006e" stroke-width="2" style="filter:drop-shadow(0 0 6px #ff006e)"/>
+      </svg>
+      <div class="flex justify-between font-mono text-xs text-cyan-100/50 mt-2">
+        <span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>24:00</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Log -->
+<section id="log" class="bg-[#0f0f1e] py-24 px-6">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="font-display text-3xl neon-cyan neon-text tracking-wide mb-10">任務日誌</h2>
+    <div class="space-y-4 font-mono text-sm">
+      <div class="hud-card rounded-lg p-4 flex justify-between items-center">
+        <span class="text-cyan-100/80">18:42 — 情境燈光已切換為「星雲聚焦」</span>
+        <span class="text-cyan-300">完成</span>
+      </div>
+      <div class="hud-card rounded-lg p-4 flex justify-between items-center">
+        <span class="text-cyan-100/80">14:10 — 偵測到艙外溫度上升，自動啟動節能降溫</span>
+        <span class="text-cyan-300">完成</span>
+      </div>
+      <div class="hud-card rounded-lg p-4 flex justify-between items-center">
+        <span class="text-cyan-100/80">09:05 — 安防護盾完成每日自檢，4 路攝影陣列正常</span>
+        <span class="text-cyan-300">完成</span>
+      </div>
+      <div class="hud-card rounded-lg p-4 flex justify-between items-center">
+        <span class="text-fuchsia-200/90">07:30 — 儲能艙容量低於 20%，已切換市電備援</span>
+        <span class="text-fuchsia-300">已排除</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="bg-[#0a0a16] py-10 px-6 text-center font-mono text-xs text-cyan-100/40">
+  NEBULA HOME OS · 停泊於地表的智慧艙室 · © 2088
+</footer>
+
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', e=>{
+      e.preventDefault();
+      document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
+    });
+  });
+</script>
+</body>
+</html>
