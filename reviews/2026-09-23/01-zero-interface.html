@@ -1,0 +1,384 @@
+<!-- style #18 Zero Interface -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>留白 Blank｜沉浸式寫作工具</title>
+<meta name="description" content="留白 Blank——為作家、記者與深度閱讀者打造的沉浸式寫作工具。隱形介面,只留下你與文字。">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Noto+Serif+TC:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+  :root{
+    --bg: #fafafa;
+    --bg-warm: #f5f1e8;
+    --ink: #2b2a26;
+    --ink-soft: #6f6a5e;
+    --ink-faint: #a39d8e;
+    --hairline: rgba(43,42,38,0.08);
+    --hairline-soft: rgba(43,42,38,0.05);
+    --accent: #8a7a5c;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Noto Serif TC', 'Newsreader', serif;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 0.01em;
+  }
+
+  .font-en{ font-family: 'Newsreader', serif; }
+  .font-sans{ font-family: 'Manrope', sans-serif; letter-spacing: 0.04em; }
+
+  .hairline{ border-color: var(--hairline); }
+
+  /* 淡入捲動效果 */
+  .reveal{
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 1.1s cubic-bezier(.2,.6,.2,1), transform 1.1s cubic-bezier(.2,.6,.2,1);
+  }
+  .reveal.is-visible{
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* 隱形連結:底線在互動時才浮現 */
+  .ghost-link{
+    position: relative;
+    display: inline-block;
+    color: var(--ink);
+    text-decoration: none;
+    padding-bottom: 2px;
+  }
+  .ghost-link::after{
+    content: "";
+    position: absolute;
+    left: 0; right: 100%;
+    bottom: 0;
+    height: 1px;
+    background: var(--ink);
+    opacity: 0.5;
+    transition: right 0.55s cubic-bezier(.2,.7,.2,1);
+  }
+  .ghost-link:hover::after{ right: 0; }
+
+  .ghost-btn{
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--ink);
+    text-decoration: none;
+    font-family: 'Manrope', sans-serif;
+    letter-spacing: 0.08em;
+    padding: 0.2rem 0;
+    border-bottom: 1px solid var(--hairline);
+    transition: border-color 0.5s ease, letter-spacing 0.5s ease, padding 0.5s ease;
+  }
+  .ghost-btn:hover{
+    border-color: var(--ink-soft);
+    letter-spacing: 0.12em;
+  }
+  .ghost-btn .arrow{
+    display: inline-block;
+    transition: transform 0.5s cubic-bezier(.2,.7,.2,1);
+  }
+  .ghost-btn:hover .arrow{ transform: translateX(6px); }
+
+  /* 游標閃爍 */
+  @keyframes blink{
+    0%, 45%{ opacity: 1; }
+    50%, 95%{ opacity: 0; }
+    100%{ opacity: 1; }
+  }
+  .caret{
+    display: inline-block;
+    width: 1px;
+    height: 1.1em;
+    background: var(--ink-soft);
+    vertical-align: -0.15em;
+    animation: blink 1.3s step-end infinite;
+  }
+
+  /* 卡片極淡陰影與呼吸感 */
+  .paper{
+    background: #ffffff;
+    border: 1px solid var(--hairline-soft);
+    transition: box-shadow 0.6s ease, transform 0.6s ease, border-color 0.6s ease;
+  }
+  .paper:hover{
+    box-shadow: 0 20px 60px -30px rgba(43,42,38,0.18);
+    transform: translateY(-2px);
+    border-color: var(--hairline);
+  }
+
+  .dot{
+    width: 5px; height: 5px; border-radius: 999px;
+    background: var(--ink-faint);
+  }
+
+  .num{
+    font-family: 'Newsreader', serif;
+    font-variant-numeric: oldstyle-nums;
+  }
+
+  ::selection{
+    background: var(--bg-warm);
+    color: var(--ink);
+  }
+
+  .nav-wrap{
+    backdrop-filter: blur(6px);
+    background: rgba(250,250,250,0.72);
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <!-- Nav：極簡,近乎不存在 -->
+  <header class="nav-wrap fixed top-0 left-0 right-0 z-30 border-b hairline">
+    <div class="max-w-6xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
+      <a href="#top" class="font-en text-lg tracking-wide" style="letter-spacing:0.08em;">留白　<span class="text-sm font-sans" style="color:var(--ink-soft); letter-spacing:0.15em;">BLANK</span></a>
+      <nav class="hidden md:flex items-center gap-10 font-sans text-sm" style="color: var(--ink-soft);">
+        <a href="#philosophy" class="ghost-link">理念</a>
+        <a href="#product" class="ghost-link">介面預覽</a>
+        <a href="#features" class="ghost-link">功能</a>
+        <a href="#voices" class="ghost-link">使用者怎麼說</a>
+        <a href="#start" class="ghost-link">開始使用</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="top" class="relative pt-40 pb-32 px-6 md:px-10">
+    <div class="max-w-5xl mx-auto">
+      <p class="reveal font-sans text-xs mb-8" style="color: var(--ink-faint); letter-spacing:0.28em;">給作家・記者・深度閱讀者的寫作空間</p>
+      <h1 class="reveal text-[2.4rem] leading-[1.35] md:text-6xl md:leading-[1.28] font-normal max-w-4xl" style="color: var(--ink);">
+        世界安靜下來,<br class="hidden md:block">
+        才聽得見自己的句子<span class="caret ml-2"></span>
+      </h1>
+      <p class="reveal mt-10 text-lg md:text-xl leading-loose max-w-2xl" style="color: var(--ink-soft); transition-delay: .12s;">
+        留白 是一款幾乎沒有介面的寫作工具。沒有多餘的按鈕,沒有跳出的通知,
+        沒有需要學習的操作邏輯——只有一片安靜的頁面,與正在成形的文字。
+      </p>
+      <div class="reveal mt-14 flex flex-wrap items-center gap-x-12 gap-y-6" style="transition-delay: .22s;">
+        <a href="#start" class="ghost-btn text-sm">免費開始書寫 <span class="arrow">→</span></a>
+        <a href="#product" class="ghost-link font-sans text-sm" style="color: var(--ink-soft);">觀看介面預覽</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Philosophy -->
+  <section id="philosophy" class="px-6 md:px-10 py-28" style="background: var(--bg-warm);">
+    <div class="max-w-4xl mx-auto text-center">
+      <p class="reveal font-sans text-xs mb-6" style="color: var(--ink-faint); letter-spacing:0.28em;">我們相信</p>
+      <h2 class="reveal text-2xl md:text-4xl leading-relaxed" style="color: var(--ink);">
+        最好的介面,是感覺不到介面的存在。<br>
+        工具應該安靜地退到文字身後。
+      </h2>
+      <p class="reveal mt-10 text-base md:text-lg leading-loose max-w-2xl mx-auto" style="color: var(--ink-soft); transition-delay:.1s;">
+        我們拿掉了浮動工具列、拿掉了裝飾性的圖示、拿掉了每一個會讓視線分心的元素。
+        剩下的留白,不是「還沒設計完」,而是刻意留給你的思考空間。
+      </p>
+    </div>
+  </section>
+
+  <!-- Product Preview -->
+  <section id="product" class="px-6 md:px-10 py-32">
+    <div class="max-w-5xl mx-auto">
+      <div class="reveal mb-14 text-center">
+        <p class="font-sans text-xs mb-4" style="color: var(--ink-faint); letter-spacing:0.28em;">介面預覽</p>
+        <h2 class="text-2xl md:text-3xl" style="color: var(--ink);">這是留白的寫作畫面——是的,幾乎沒有東西</h2>
+      </div>
+
+      <div class="reveal paper rounded-sm mx-auto max-w-3xl px-8 md:px-16 py-14 md:py-20">
+        <div class="flex items-center justify-between mb-12 font-sans text-xs" style="color: var(--ink-faint); letter-spacing:0.12em;">
+          <span>手記・第三章</span>
+          <span>已自動儲存・剛剛</span>
+        </div>
+
+        <div class="space-y-7 text-[1.05rem] md:text-lg leading-loose" style="color: var(--ink);">
+          <p>
+            那年冬天特別長,長到她開始懷疑,是不是有些等待本來就沒有終點。
+          </p>
+          <p>
+            她把筆記本闔上,又打開。文字這種東西很奇怪——寫得越少,
+            反而越靠近真正想說的話。<span class="caret"></span>
+          </p>
+        </div>
+
+        <div class="mt-14 pt-6 border-t hairline flex items-center justify-between font-sans text-xs" style="color: var(--ink-faint); letter-spacing:0.1em;">
+          <span>共 <span class="num">812</span> 字</span>
+          <span class="flex items-center gap-2"><span class="dot"></span> 專注模式 已開啟</span>
+        </div>
+      </div>
+
+      <p class="reveal mt-10 text-center font-sans text-xs" style="color: var(--ink-faint); letter-spacing:0.12em;">
+        滑鼠移到畫面邊緣,工具列才會極輕地浮現;移開後,一切重新歸於安靜。
+      </p>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="px-6 md:px-10 py-28 border-t hairline">
+    <div class="max-w-5xl mx-auto">
+      <div class="reveal mb-16">
+        <p class="font-sans text-xs mb-4" style="color: var(--ink-faint); letter-spacing:0.28em;">功能,但盡量少提</p>
+        <h2 class="text-2xl md:text-3xl max-w-xl" style="color: var(--ink);">我們相信,好用的工具不需要被大聲宣傳</h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-x-16 gap-y-16">
+        <div class="reveal">
+          <p class="font-en text-sm mb-4" style="color: var(--ink-faint);">01</p>
+          <h3 class="text-xl mb-4" style="color: var(--ink);">全螢幕沉浸模式</h3>
+          <p class="leading-loose" style="color: var(--ink-soft);">
+            一鍵隱藏選單、狀態列與所有裝飾元素,螢幕上只剩下游標與正在書寫的段落。
+            切換過程極其輕柔,不打斷你的思路。
+          </p>
+        </div>
+        <div class="reveal" style="transition-delay:.06s;">
+          <p class="font-en text-sm mb-4" style="color: var(--ink-faint);">02</p>
+          <h3 class="text-xl mb-4" style="color: var(--ink);">智慧留白排版</h3>
+          <p class="leading-loose" style="color: var(--ink-soft);">
+            依段落長度自動調整邊界、行距與段間距,讓每一頁的呼吸感都恰到好處,
+            不需要你手動微調任何一個數字。
+          </p>
+        </div>
+        <div class="reveal" style="transition-delay:.12s;">
+          <p class="font-en text-sm mb-4" style="color: var(--ink-faint);">03</p>
+          <h3 class="text-xl mb-4" style="color: var(--ink);">離線優先,隨時可寫</h3>
+          <p class="leading-loose" style="color: var(--ink-soft);">
+            沒有網路也能繼續書寫,不需要等待轉圈的同步圖示。連線恢復後,
+            所有版本安靜地在背景合併完成。
+          </p>
+        </div>
+        <div class="reveal" style="transition-delay:.18s;">
+          <p class="font-en text-sm mb-4" style="color: var(--ink-faint);">04</p>
+          <h3 class="text-xl mb-4" style="color: var(--ink);">安靜的版本回溯</h3>
+          <p class="leading-loose" style="color: var(--ink-soft);">
+            每一次修改都被悄悄記錄,需要時可以輕輕翻回昨天、上週,
+            或半年前的那個段落,不會有任何彈窗打擾你。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Data proof -->
+  <section class="px-6 md:px-10 py-24" style="background: var(--bg-warm);">
+    <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-10 text-center">
+      <div class="reveal">
+        <p class="font-en text-4xl md:text-5xl" style="color: var(--ink);">8,400<span class="text-xl align-top">+</span></p>
+        <p class="mt-3 font-sans text-xs" style="color: var(--ink-soft); letter-spacing:0.1em;">位作者正在使用</p>
+      </div>
+      <div class="reveal" style="transition-delay:.05s;">
+        <p class="font-en text-4xl md:text-5xl" style="color: var(--ink);">42<span class="text-xl align-top">%</span></p>
+        <p class="mt-3 font-sans text-xs" style="color: var(--ink-soft); letter-spacing:0.1em;">平均專注時長提升</p>
+      </div>
+      <div class="reveal" style="transition-delay:.1s;">
+        <p class="font-en text-4xl md:text-5xl" style="color: var(--ink);">126<span class="text-xl align-top">萬</span></p>
+        <p class="mt-3 font-sans text-xs" style="color: var(--ink-soft); letter-spacing:0.1em;">每日新增字數</p>
+      </div>
+      <div class="reveal" style="transition-delay:.15s;">
+        <p class="font-en text-4xl md:text-5xl" style="color: var(--ink);">0</p>
+        <p class="mt-3 font-sans text-xs" style="color: var(--ink-soft); letter-spacing:0.1em;">主要介面按鈕數量</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Voices -->
+  <section id="voices" class="px-6 md:px-10 py-28">
+    <div class="max-w-5xl mx-auto">
+      <div class="reveal mb-16 text-center">
+        <p class="font-sans text-xs mb-4" style="color: var(--ink-faint); letter-spacing:0.28em;">使用者怎麼說</p>
+        <h2 class="text-2xl md:text-3xl" style="color: var(--ink);">他們原本只是想試用一天</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-10">
+        <figure class="reveal paper rounded-sm p-8">
+          <blockquote class="leading-loose text-[0.98rem]" style="color: var(--ink);">
+            「拿掉了所有讓我分心的東西之後,我才發現自己其實可以寫得更快、更誠實。」
+          </blockquote>
+          <figcaption class="mt-8 font-sans text-xs" style="color: var(--ink-faint); letter-spacing:0.06em;">
+            林筱涵・資深調查記者
+          </figcaption>
+        </figure>
+        <figure class="reveal paper rounded-sm p-8" style="transition-delay:.06s;">
+          <blockquote class="leading-loose text-[0.98rem]" style="color: var(--ink);">
+            「留白 讓我想起早年用紙筆寫作的專注感,但多了搜尋、備份與版本紀錄的安心。」
+          </blockquote>
+          <figcaption class="mt-8 font-sans text-xs" style="color: var(--ink-faint); letter-spacing:0.06em;">
+            陳彥廷・小說作家《潮汐之間》作者
+          </figcaption>
+        </figure>
+        <figure class="reveal paper rounded-sm p-8" style="transition-delay:.12s;">
+          <blockquote class="leading-loose text-[0.98rem]" style="color: var(--ink);">
+            「介面幾乎不存在,存在的只有我的稿子。這句話聽起來很玄,用過就懂了。」
+          </blockquote>
+          <figcaption class="mt-8 font-sans text-xs" style="color: var(--ink-faint); letter-spacing:0.06em;">
+            周雅築・自由撰稿人
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer CTA -->
+  <section id="start" class="px-6 md:px-10 py-36 border-t hairline text-center">
+    <div class="max-w-2xl mx-auto">
+      <p class="reveal font-sans text-xs mb-8" style="color: var(--ink-faint); letter-spacing:0.28em;">現在就開始</p>
+      <h2 class="reveal text-3xl md:text-5xl leading-snug" style="color: var(--ink);">
+        把螢幕還給文字,<br>把注意力還給自己。
+      </h2>
+      <p class="reveal mt-8 text-base md:text-lg leading-loose" style="color: var(--ink-soft); transition-delay:.08s;">
+        免費試用十四天,不需要信用卡,也不會有任何推播通知打擾你。
+      </p>
+      <div class="reveal mt-12" style="transition-delay:.16s;">
+        <a href="#top" class="ghost-btn text-sm">免費試用 14 天 <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="px-6 md:px-10 py-12 border-t hairline">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 font-sans text-xs" style="color: var(--ink-faint); letter-spacing:0.06em;">
+      <p>留白 Blank・給書寫者的安靜空間</p>
+      <div class="flex items-center gap-8">
+        <a href="#" class="ghost-link">隱私權說明</a>
+        <a href="#" class="ghost-link">使用條款</a>
+        <a href="#" class="ghost-link">聯絡我們</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      var items = document.querySelectorAll('.reveal');
+      if(!('IntersectionObserver' in window)){
+        items.forEach(function(el){ el.classList.add('is-visible'); });
+        return;
+      }
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      items.forEach(function(el){ io.observe(el); });
+    })();
+  </script>
+
+</body>
+</html>
