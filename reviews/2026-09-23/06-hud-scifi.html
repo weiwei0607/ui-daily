@@ -1,0 +1,570 @@
+<!-- style #51 HUD / Sci-Fi -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>深空站 DeepStation ‧ 即時監控中心</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Share+Tech+Mono&family=Noto+Sans+TC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --bg-void: #0a0e14;
+    --bg-panel: #0d141c;
+    --bg-panel-2: #0f1a24;
+    --cyan: #00fff0;
+    --cyan-dim: #0aa9a0;
+    --blue: #2fb2ff;
+    --amber: #ffb020;
+    --red: #ff3b5c;
+    --line: rgba(0,255,240,0.25);
+    --line-soft: rgba(0,255,240,0.12);
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin:0;
+    padding:0;
+    background: var(--bg-void);
+    color: #d6fbf8;
+    font-family: 'Noto Sans TC', 'Share Tech Mono', monospace;
+    overflow-x: hidden;
+  }
+
+  .font-hud{ font-family: 'Orbitron', 'Noto Sans TC', sans-serif; }
+  .font-mono{ font-family: 'Share Tech Mono', 'Noto Sans TC', monospace; }
+  .font-tc{ font-family: 'Noto Sans TC', sans-serif; }
+
+  /* ---------- 背景紋理 ---------- */
+  .bg-grid{
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background-image:
+      linear-gradient(rgba(0,255,240,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,240,0.05) 1px, transparent 1px);
+    background-size: 42px 42px;
+    pointer-events: none;
+  }
+  .bg-vignette{
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(0,255,240,0.06), transparent 55%),
+      radial-gradient(ellipse at 50% 100%, rgba(47,178,255,0.08), transparent 60%);
+  }
+
+  /* ---------- 掃描線動畫 ---------- */
+  .scanline-wrap{
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .scanline{
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 140px;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0,255,240,0.09) 40%,
+      rgba(0,255,240,0.22) 50%,
+      rgba(0,255,240,0.09) 60%,
+      transparent 100%
+    );
+    animation: scan-move 7s linear infinite;
+    box-shadow: 0 0 40px 6px rgba(0,255,240,0.08);
+  }
+  @keyframes scan-move{
+    0%   { transform: translateY(-160px); }
+    100% { transform: translateY(110vh); }
+  }
+
+  .scanline-hair{
+    position: absolute;
+    left:0; right:0;
+    height: 2px;
+    background: rgba(0,255,240,0.55);
+    box-shadow: 0 0 14px 2px rgba(0,255,240,0.6);
+    animation: scan-move 7s linear infinite;
+  }
+
+  /* ---------- 邊角刻度框 corner brackets ---------- */
+  .hud-panel{
+    position: relative;
+    background: linear-gradient(180deg, var(--bg-panel), var(--bg-panel-2));
+    border: 1px solid var(--line-soft);
+    box-shadow: inset 0 0 24px rgba(0,255,240,0.03);
+  }
+  .hud-panel::before,
+  .hud-panel::after,
+  .hud-panel .br-tr,
+  .hud-panel .br-bl{
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+  }
+  .hud-panel::before{ /* top-left */
+    top: -1px; left: -1px;
+    border-top: 2px solid var(--cyan);
+    border-left: 2px solid var(--cyan);
+    filter: drop-shadow(0 0 4px rgba(0,255,240,0.8));
+  }
+  .hud-panel::after{ /* bottom-right */
+    bottom: -1px; right: -1px;
+    border-bottom: 2px solid var(--cyan);
+    border-right: 2px solid var(--cyan);
+    filter: drop-shadow(0 0 4px rgba(0,255,240,0.8));
+  }
+  .hud-panel .br-tr{ /* top-right */
+    top: -1px; right: -1px;
+    border-top: 2px solid var(--cyan-dim);
+    border-right: 2px solid var(--cyan-dim);
+  }
+  .hud-panel .br-bl{ /* bottom-left */
+    bottom: -1px; left: -1px;
+    border-bottom: 2px solid var(--cyan-dim);
+    border-left: 2px solid var(--cyan-dim);
+  }
+
+  .hud-panel-alert::before,
+  .hud-panel-alert::after{
+    border-color: var(--amber);
+    filter: drop-shadow(0 0 4px rgba(255,176,32,0.8));
+  }
+
+  /* ---------- 發光文字 / 邊框 ---------- */
+  .glow-text{
+    text-shadow: 0 0 6px rgba(0,255,240,0.85), 0 0 16px rgba(0,255,240,0.35);
+  }
+  .glow-text-blue{
+    text-shadow: 0 0 6px rgba(47,178,255,0.85), 0 0 16px rgba(47,178,255,0.35);
+  }
+  .glow-text-amber{
+    text-shadow: 0 0 6px rgba(255,176,32,0.85), 0 0 14px rgba(255,176,32,0.3);
+  }
+  .glow-text-red{
+    text-shadow: 0 0 6px rgba(255,59,92,0.9), 0 0 16px rgba(255,59,92,0.4);
+  }
+  .glow-border{
+    box-shadow: 0 0 0 1px rgba(0,255,240,0.3), 0 0 18px rgba(0,255,240,0.12);
+  }
+  .glow-btn{
+    box-shadow: 0 0 10px rgba(0,255,240,0.35), inset 0 0 10px rgba(0,255,240,0.08);
+  }
+
+  /* ---------- 狀態燈 ---------- */
+  .pulse-dot{
+    width: 8px; height: 8px; border-radius: 999px;
+    background: var(--cyan);
+    box-shadow: 0 0 6px 2px rgba(0,255,240,0.9);
+    animation: pulse-dot 1.8s ease-in-out infinite;
+  }
+  .pulse-dot.amber{ background: var(--amber); box-shadow: 0 0 6px 2px rgba(255,176,32,0.9); }
+  .pulse-dot.red{ background: var(--red); box-shadow: 0 0 6px 2px rgba(255,59,92,0.9); }
+  @keyframes pulse-dot{
+    0%,100%{ opacity: 1; transform: scale(1); }
+    50%{ opacity: .45; transform: scale(0.8); }
+  }
+
+  /* ---------- 數據環 ---------- */
+  .ring-svg circle{
+    transition: stroke-dashoffset 0.6s cubic-bezier(.4,0,.2,1);
+  }
+  .ring-glow-cyan{ filter: drop-shadow(0 0 5px rgba(0,255,240,0.75)); }
+  .ring-glow-blue{ filter: drop-shadow(0 0 5px rgba(47,178,255,0.75)); }
+  .ring-glow-amber{ filter: drop-shadow(0 0 5px rgba(255,176,32,0.75)); }
+
+  /* ---------- 進度條 ---------- */
+  .bar-track{
+    background: rgba(0,255,240,0.08);
+    border: 1px solid rgba(0,255,240,0.18);
+  }
+  .bar-fill{
+    background: linear-gradient(90deg, var(--cyan-dim), var(--cyan));
+    box-shadow: 0 0 8px rgba(0,255,240,0.7);
+    transition: width 0.8s cubic-bezier(.4,0,.2,1);
+  }
+  .bar-fill.blue{
+    background: linear-gradient(90deg, #1f6fa8, var(--blue));
+    box-shadow: 0 0 8px rgba(47,178,255,0.7);
+  }
+  .bar-fill.amber{
+    background: linear-gradient(90deg, #a86f14, var(--amber));
+    box-shadow: 0 0 8px rgba(255,176,32,0.7);
+  }
+  .bar-fill.red{
+    background: linear-gradient(90deg, #a8102a, var(--red));
+    box-shadow: 0 0 8px rgba(255,59,92,0.7);
+  }
+
+  .tick{ letter-spacing: 0.08em; }
+
+  ::selection{ background: rgba(0,255,240,0.3); color: #04211f; }
+
+  ::-webkit-scrollbar{ width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track{ background: #0a1218; }
+  ::-webkit-scrollbar-thumb{ background: rgba(0,255,240,0.35); border-radius: 4px; }
+
+  .divider-glow{
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,255,240,0.5), transparent);
+  }
+
+  .blink{ animation: blink-op 1.4s steps(1) infinite; }
+  @keyframes blink-op{ 50%{ opacity: 0.15; } }
+
+  .module-card:hover{
+    border-color: rgba(0,255,240,0.45);
+  }
+</style>
+</head>
+<body class="relative min-h-screen">
+
+  <div class="bg-grid"></div>
+  <div class="bg-vignette"></div>
+  <div class="scanline-wrap">
+    <div class="scanline"></div>
+    <div class="scanline-hair"></div>
+  </div>
+
+  <div class="relative z-10 max-w-[1400px] mx-auto px-4 md:px-8 py-6">
+
+    <!-- ===== 頂部標題列 ===== -->
+    <header class="hud-panel glow-border rounded-sm px-5 py-4 mb-6 flex flex-wrap items-center justify-between gap-4">
+      <div class="br-tr"></div><div class="br-bl"></div>
+      <div class="flex items-center gap-4">
+        <div class="w-11 h-11 rounded-sm border border-cyan-300/30 flex items-center justify-center" style="box-shadow: 0 0 14px rgba(0,255,240,0.35), inset 0 0 10px rgba(0,255,240,0.15);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="ring-glow-cyan">
+            <circle cx="12" cy="12" r="9" stroke="#00fff0" stroke-width="1.4" opacity="0.6"/>
+            <circle cx="12" cy="12" r="3.2" stroke="#00fff0" stroke-width="1.4"/>
+            <path d="M12 1V4M12 20V23M1 12H4M20 12H23" stroke="#00fff0" stroke-width="1.4"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="font-hud text-2xl md:text-3xl font-800 tracking-widest glow-text text-[#e8fffd]">深空站 <span class="text-[#00fff0]">DEEPSTATION</span></h1>
+          <p class="font-mono text-[11px] md:text-xs tracking-[0.25em] text-cyan-300/70 mt-1">軌道即時監控中心　REAL-TIME ORBITAL MONITORING CENTER</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-6 font-mono">
+        <div class="text-right">
+          <div class="text-[10px] tracking-widest text-cyan-300/50">任務日</div>
+          <div id="mission-day" class="text-sm text-cyan-100">MD 0412</div>
+        </div>
+        <div class="text-right">
+          <div class="text-[10px] tracking-widest text-cyan-300/50">格林威治標準時間 UTC</div>
+          <div id="clock-utc" class="text-lg glow-text text-[#00fff0]">00:00:00</div>
+        </div>
+        <div class="flex items-center gap-2 pl-4 border-l border-cyan-300/20">
+          <span class="pulse-dot"></span>
+          <span class="text-xs tracking-widest text-cyan-200">系統運作正常</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===== 主要內容區 ===== -->
+    <main class="grid grid-cols-1 xl:grid-cols-[1fr_360px] gap-6">
+
+      <!-- 左側：艙段資料 + 數據環 -->
+      <div class="flex flex-col gap-6">
+
+        <!-- 全站數據環 -->
+        <section class="hud-panel glow-border rounded-sm p-5">
+          <div class="br-tr"></div><div class="br-bl"></div>
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="font-hud text-sm tracking-[0.2em] text-cyan-200">全站核心系統概況　CORE SYSTEMS OVERVIEW</h2>
+            <span class="font-mono text-[10px] text-cyan-300/50 tick">SYS-CORE // LIVE</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 place-items-center py-2">
+
+            <!-- 環 1：氧氣 -->
+            <div class="flex flex-col items-center gap-2">
+              <svg class="ring-svg ring-glow-cyan" width="140" height="140" viewBox="0 0 140 140">
+                <circle cx="70" cy="70" r="58" fill="none" stroke="rgba(0,255,240,0.12)" stroke-width="10"/>
+                <circle id="ring-o2" cx="70" cy="70" r="58" fill="none" stroke="#00fff0" stroke-width="10"
+                  stroke-linecap="round" stroke-dasharray="364.4" stroke-dashoffset="364.4"
+                  transform="rotate(-90 70 70)"/>
+                <text x="70" y="65" text-anchor="middle" fill="#e8fffd" font-family="Orbitron" font-size="22" font-weight="700" id="ring-o2-text">--%</text>
+                <text x="70" y="84" text-anchor="middle" fill="#00fff0" font-family="Share Tech Mono" font-size="9" letter-spacing="1">O2 LEVEL</text>
+              </svg>
+              <div class="font-tc text-xs text-cyan-200 tracking-wider">全站氧氣存量</div>
+            </div>
+
+            <!-- 環 2：電力 -->
+            <div class="flex flex-col items-center gap-2">
+              <svg class="ring-svg ring-glow-blue" width="140" height="140" viewBox="0 0 140 140">
+                <circle cx="70" cy="70" r="58" fill="none" stroke="rgba(47,178,255,0.12)" stroke-width="10"/>
+                <circle id="ring-power" cx="70" cy="70" r="58" fill="none" stroke="#2fb2ff" stroke-width="10"
+                  stroke-linecap="round" stroke-dasharray="364.4" stroke-dashoffset="364.4"
+                  transform="rotate(-90 70 70)"/>
+                <text x="70" y="65" text-anchor="middle" fill="#e8fffd" font-family="Orbitron" font-size="22" font-weight="700" id="ring-power-text">--%</text>
+                <text x="70" y="84" text-anchor="middle" fill="#2fb2ff" font-family="Share Tech Mono" font-size="9" letter-spacing="1">PWR OUT</text>
+              </svg>
+              <div class="font-tc text-xs text-cyan-200 tracking-wider">主電力系統輸出</div>
+            </div>
+
+            <!-- 環 3：通訊 -->
+            <div class="flex flex-col items-center gap-2">
+              <svg class="ring-svg ring-glow-amber" width="140" height="140" viewBox="0 0 140 140">
+                <circle cx="70" cy="70" r="58" fill="none" stroke="rgba(255,176,32,0.12)" stroke-width="10"/>
+                <circle id="ring-comm" cx="70" cy="70" r="58" fill="none" stroke="#ffb020" stroke-width="10"
+                  stroke-linecap="round" stroke-dasharray="364.4" stroke-dashoffset="364.4"
+                  transform="rotate(-90 70 70)"/>
+                <text x="70" y="65" text-anchor="middle" fill="#e8fffd" font-family="Orbitron" font-size="22" font-weight="700" id="ring-comm-text">--%</text>
+                <text x="70" y="84" text-anchor="middle" fill="#ffb020" font-family="Share Tech Mono" font-size="9" letter-spacing="1">COMM SIG</text>
+              </svg>
+              <div class="font-tc text-xs text-cyan-200 tracking-wider">對地通訊訊號強度</div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- 艙段列表 -->
+        <section class="hud-panel glow-border rounded-sm p-5">
+          <div class="br-tr"></div><div class="br-bl"></div>
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="font-hud text-sm tracking-[0.2em] text-cyan-200">艙段狀態列表　MODULE STATUS ARRAY</h2>
+            <span class="font-mono text-[10px] text-cyan-300/50 tick">6 MODULES ONLINE</span>
+          </div>
+
+          <div id="module-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+        </section>
+
+      </div>
+
+      <!-- 右側：警示日誌 + 任務時間軸 -->
+      <div class="flex flex-col gap-6">
+
+        <!-- 系統警示 -->
+        <section class="hud-panel hud-panel-alert glow-border rounded-sm p-5">
+          <div class="br-tr"></div><div class="br-bl"></div>
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="font-hud text-sm tracking-[0.2em] text-amber-200">系統警示日誌　ALERT LOG</h2>
+            <span class="pulse-dot amber"></span>
+          </div>
+          <ul id="alert-log" class="flex flex-col gap-3 font-mono text-[12px] leading-relaxed"></ul>
+        </section>
+
+        <!-- 對接狀態摘要 -->
+        <section class="hud-panel glow-border rounded-sm p-5">
+          <div class="br-tr"></div><div class="br-bl"></div>
+          <h2 class="font-hud text-sm tracking-[0.2em] text-cyan-200 mb-4">對接介面總覽　DOCKING INTERFACE</h2>
+          <div class="space-y-3 font-mono text-xs">
+            <div class="flex items-center justify-between">
+              <span class="text-cyan-100/80 font-tc">對接埠 A ‧ 聯盟號 MS-27</span>
+              <span class="flex items-center gap-1 text-[#00fff0] glow-text"><span class="pulse-dot"></span>已鎖定 LOCKED</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-cyan-100/80 font-tc">對接埠 B ‧ 貨運補給船</span>
+              <span class="flex items-center gap-1 text-amber-300 glow-text-amber"><span class="pulse-dot amber"></span>接近中 APPROACHING</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-cyan-100/80 font-tc">氣閘艙外部艙門</span>
+              <span class="flex items-center gap-1 text-cyan-100/60">閉鎖 SEALED</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 任務時間軸 -->
+        <section class="hud-panel glow-border rounded-sm p-5 flex-1">
+          <div class="br-tr"></div><div class="br-bl"></div>
+          <h2 class="font-hud text-sm tracking-[0.2em] text-cyan-200 mb-4">任務時間軸　MISSION TIMELINE</h2>
+          <ol class="relative border-l border-cyan-300/25 ml-2 space-y-5 font-mono text-xs">
+            <li class="pl-4 relative">
+              <span class="absolute -left-[7px] top-1 w-3 h-3 rounded-full bg-[#00fff0]" style="box-shadow:0 0 6px 2px rgba(0,255,240,.8)"></span>
+              <div class="text-cyan-300/60">06:00 UTC</div>
+              <div class="text-cyan-100 font-tc">晨間系統自檢完成，全艙段回報正常</div>
+            </li>
+            <li class="pl-4 relative">
+              <span class="absolute -left-[7px] top-1 w-3 h-3 rounded-full bg-[#00fff0]" style="box-shadow:0 0 6px 2px rgba(0,255,240,.8)"></span>
+              <div class="text-cyan-300/60">08:42 UTC</div>
+              <div class="text-cyan-100 font-tc">聯盟號 MS-27 完成對接，三名太空人交接</div>
+            </li>
+            <li class="pl-4 relative">
+              <span class="absolute -left-[7px] top-1 w-3 h-3 rounded-full bg-amber-400" style="box-shadow:0 0 6px 2px rgba(255,176,32,.8)"></span>
+              <div class="text-cyan-300/60">12:15 UTC</div>
+              <div class="text-cyan-100 font-tc">太陽能板陣列角度調整，追蹤太陽方位</div>
+            </li>
+            <li class="pl-4 relative">
+              <span class="absolute -left-[7px] top-1 w-3 h-3 rounded-full bg-amber-400 blink" style="box-shadow:0 0 6px 2px rgba(255,176,32,.8)"></span>
+              <div class="text-cyan-300/60">14:30 UTC</div>
+              <div class="text-cyan-100 font-tc">排定艙外活動（EVA）開始，氣閘艙洩壓準備</div>
+            </li>
+            <li class="pl-4 relative">
+              <span class="absolute -left-[7px] top-1 w-3 h-3 rounded-full bg-cyan-300/40"></span>
+              <div class="text-cyan-300/60">18:00 UTC</div>
+              <div class="text-cyan-100/70 font-tc">與地面控制中心排定通訊視窗</div>
+            </li>
+          </ol>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- ===== 底部狀態列 ===== -->
+    <footer class="mt-6 hud-panel glow-border rounded-sm px-5 py-3 flex flex-wrap items-center justify-between gap-3 font-mono text-[11px] text-cyan-300/60">
+      <div class="br-tr"></div><div class="br-bl"></div>
+      <div class="tick">軌道高度 ALT 408.2 KM　∙　軌道速度 VEL 7.66 KM/S　∙　艙內壓力 101.3 KPA</div>
+      <div class="flex items-center gap-2">
+        <span class="pulse-dot"></span>
+        <span class="tracking-widest">資料鏈路穩定 DATA LINK STABLE</span>
+      </div>
+    </footer>
+
+  </div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---------- 時鐘 ----------
+  const clockEl = document.getElementById('clock-utc');
+  function tickClock(){
+    const now = new Date();
+    const hh = String(now.getUTCHours()).padStart(2,'0');
+    const mm = String(now.getUTCMinutes()).padStart(2,'0');
+    const ss = String(now.getUTCSeconds()).padStart(2,'0');
+    clockEl.textContent = hh + ':' + mm + ':' + ss;
+  }
+  tickClock();
+  setInterval(tickClock, 1000);
+
+  // ---------- 艙段資料 ----------
+  const modules = [
+    { name:'指揮艙', code:'CMD-01', o2:98, power:100, temp:21.3, dock:'主節點已鎖定', status:'ok' },
+    { name:'居住艙', code:'HAB-01', o2:96, power:94,  temp:22.1, dock:'無對接需求', status:'ok' },
+    { name:'實驗艙', code:'LAB-02', o2:91, power:88,  temp:19.8, dock:'無對接需求', status:'warn' },
+    { name:'對接艙 A', code:'DOCK-A', o2:99, power:97, temp:20.5, dock:'聯盟號 MS-27 已鎖定', status:'ok' },
+    { name:'對接艙 B', code:'DOCK-B', o2:97, power:95, temp:20.9, dock:'等待補給船接近', status:'warn' },
+    { name:'氣閘艙', code:'ALK-01', o2:85, power:90,  temp:18.2, dock:'艙外活動準備中', status:'warn' },
+  ];
+
+  const grid = document.getElementById('module-grid');
+  modules.forEach((m, idx) => {
+    const dotClass = m.status === 'ok' ? '' : (m.status === 'warn' ? 'amber' : 'red');
+    const barClass = m.status === 'ok' ? '' : (m.status === 'warn' ? 'amber' : 'red');
+    const card = document.createElement('div');
+    card.className = 'module-card hud-panel rounded-sm p-4 transition-colors';
+    card.innerHTML = `
+      <div class="br-tr"></div><div class="br-bl"></div>
+      <div class="flex items-center justify-between mb-3">
+        <div class="flex items-center gap-2">
+          <span class="pulse-dot ${dotClass}"></span>
+          <span class="font-tc text-sm text-cyan-100 tracking-wide">${m.name}</span>
+        </div>
+        <span class="font-mono text-[10px] text-cyan-300/50 tick">${m.code}</span>
+      </div>
+
+      <div class="grid grid-cols-3 gap-3 mb-3">
+        <div>
+          <div class="font-mono text-[9px] text-cyan-300/50 tracking-widest mb-1">氧氣 O2</div>
+          <div class="bar-track h-1.5 rounded-full overflow-hidden">
+            <div class="bar-fill ${barClass} h-full rounded-full" style="width:${m.o2}%" data-field="o2"></div>
+          </div>
+          <div class="font-mono text-xs text-cyan-100 mt-1" data-value="o2">${m.o2}%</div>
+        </div>
+        <div>
+          <div class="font-mono text-[9px] text-cyan-300/50 tracking-widest mb-1">電力 PWR</div>
+          <div class="bar-track h-1.5 rounded-full overflow-hidden">
+            <div class="bar-fill blue h-full rounded-full" style="width:${m.power}%" data-field="power"></div>
+          </div>
+          <div class="font-mono text-xs text-cyan-100 mt-1" data-value="power">${m.power}%</div>
+        </div>
+        <div>
+          <div class="font-mono text-[9px] text-cyan-300/50 tracking-widest mb-1">溫度 TEMP</div>
+          <div class="font-mono text-xs text-cyan-100 mt-4" data-value="temp">${m.temp.toFixed(1)}°C</div>
+        </div>
+      </div>
+
+      <div class="divider-glow mb-2"></div>
+      <div class="font-tc text-[11px] text-cyan-200/70">對接狀態：<span class="text-cyan-100">${m.dock}</span></div>
+    `;
+    grid.appendChild(card);
+    m._el = card;
+  });
+
+  // 模擬即時數據輕微跳動
+  setInterval(() => {
+    modules.forEach(m => {
+      m.o2 = clamp(m.o2 + jitter(0.6), 78, 100);
+      m.power = clamp(m.power + jitter(0.8), 80, 100);
+      m.temp = clamp(m.temp + jitter(0.15), 16, 26);
+
+      const o2Fill = m._el.querySelector('[data-field="o2"]');
+      const powerFill = m._el.querySelector('[data-field="power"]');
+      o2Fill.style.width = m.o2.toFixed(0) + '%';
+      powerFill.style.width = m.power.toFixed(0) + '%';
+      m._el.querySelector('[data-value="o2"]').textContent = m.o2.toFixed(0) + '%';
+      m._el.querySelector('[data-value="power"]').textContent = m.power.toFixed(0) + '%';
+      m._el.querySelector('[data-value="temp"]').textContent = m.temp.toFixed(1) + '°C';
+    });
+  }, 2600);
+
+  function jitter(range){ return (Math.random() - 0.5) * 2 * range; }
+  function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
+
+  // ---------- 數據環 ----------
+  const RING_C = 364.4; // 2 * PI * 58
+  function setRing(circleId, textId, value){
+    const circle = document.getElementById(circleId);
+    const text = document.getElementById(textId);
+    const offset = RING_C - (RING_C * value / 100);
+    circle.style.strokeDashoffset = offset;
+    text.textContent = Math.round(value) + '%';
+  }
+
+  let ringState = { o2: 94, power: 92, comm: 87 };
+  function renderRings(){
+    setRing('ring-o2', 'ring-o2-text', ringState.o2);
+    setRing('ring-power', 'ring-power-text', ringState.power);
+    setRing('ring-comm', 'ring-comm-text', ringState.comm);
+  }
+  // 初始由 0 動畫到目標值
+  requestAnimationFrame(() => requestAnimationFrame(renderRings));
+
+  setInterval(() => {
+    ringState.o2 = clamp(ringState.o2 + jitter(1.2), 82, 99);
+    ringState.power = clamp(ringState.power + jitter(1.5), 78, 99);
+    ringState.comm = clamp(ringState.comm + jitter(3), 60, 99);
+    renderRings();
+  }, 3200);
+
+  // ---------- 系統警示日誌 ----------
+  const alerts = [
+    { level:'警告', text:'實驗艙 LAB-02 溫度感測器讀值波動，已排入校準排程', color:'text-amber-300', dot:'amber' },
+    { level:'注意', text:'太陽能板陣列 B 側效能下降 3%，疑似微隕石撞擊所致', color:'text-amber-300', dot:'amber' },
+    { level:'正常', text:'對接艙 A 對接介面鎖定完成，聯盟號 MS-27 狀態穩定', color:'text-[#00fff0]', dot:'' },
+    { level:'注意', text:'氣閘艙氣壓即將調降，艙外活動準備程序已啟動', color:'text-amber-300', dot:'amber' },
+    { level:'正常', text:'主電力系統輸出穩定，電池組充電效率維持在標準範圍', color:'text-[#00fff0]', dot:'' },
+  ];
+  const logEl = document.getElementById('alert-log');
+  alerts.forEach(a => {
+    const li = document.createElement('li');
+    li.className = 'flex items-start gap-2 pb-3 border-b border-cyan-300/10 last:border-none';
+    li.innerHTML = `
+      <span class="pulse-dot ${a.dot} mt-1 shrink-0"></span>
+      <span>
+        <span class="${a.color} font-semibold">〔${a.level}〕</span>
+        <span class="text-cyan-100/85 font-tc">${a.text}</span>
+      </span>
+    `;
+    logEl.appendChild(li);
+  });
+
+})();
+</script>
+
+</body>
+</html>
