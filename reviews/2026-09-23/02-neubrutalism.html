@@ -1,0 +1,439 @@
+<!-- style #38 Neubrutalism -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>重拍 Backbeat｜黑膠首發預購＆音樂節售票</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --coral:#ff6b6b;
+    --yellow:#ffe66d;
+    --teal:#4ecdc4;
+    --cream:#faf3e8;
+    --ink:#1a1a1a;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Space Grotesk','Poppins','Noto Sans TC',sans-serif;
+    overflow-x:hidden;
+  }
+  .font-display{
+    font-family:'Archivo Black','Noto Sans TC',sans-serif;
+    letter-spacing:-0.01em;
+  }
+  .font-zh{
+    font-family:'Noto Sans TC','Space Grotesk',sans-serif;
+  }
+  .brutal-border{
+    border:4px solid var(--ink);
+  }
+  .brutal-shadow{
+    box-shadow:6px 6px 0 #000;
+  }
+  .brutal-shadow-sm{
+    box-shadow:4px 4px 0 #000;
+  }
+  .brutal-shadow-lg{
+    box-shadow:10px 10px 0 #000;
+  }
+  .brutal-btn{
+    transition: transform .1s ease, box-shadow .1s ease;
+  }
+  .brutal-btn:hover{
+    transform: translate(3px,3px);
+    box-shadow:3px 3px 0 #000;
+  }
+  .brutal-btn:active{
+    transform: translate(6px,6px);
+    box-shadow:0 0 0 #000;
+  }
+  .card-btn{
+    transition: transform .12s ease, box-shadow .12s ease, background-color .12s ease;
+  }
+  .card-btn:hover{
+    transform: translate(2px,2px) rotate(0deg) !important;
+    box-shadow:4px 4px 0 #000;
+  }
+  .tilt-1{ transform: rotate(-1.5deg); }
+  .tilt-2{ transform: rotate(1.5deg); }
+  .tilt-3{ transform: rotate(-1deg); }
+  .tilt-4{ transform: rotate(1deg); }
+  .dotted-bg{
+    background-image: radial-gradient(#1a1a1a 2px, transparent 2px);
+    background-size: 22px 22px;
+    opacity: 0.12;
+  }
+  .marquee-track{
+    display:flex;
+    width:200%;
+    animation: marquee 18s linear infinite;
+  }
+  @keyframes marquee{
+    0%{ transform: translateX(0); }
+    100%{ transform: translateX(-50%); }
+  }
+  .ticket-selected{
+    outline: 4px solid var(--ink);
+    outline-offset: -4px;
+  }
+  ::selection{ background: var(--yellow); color:#000; }
+</style>
+</head>
+<body class="font-zh">
+
+  <!-- ===== NAVBAR ===== -->
+  <header class="sticky top-0 z-50 bg-[var(--cream)] brutal-border border-t-0 border-l-0 border-r-0">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-5 py-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-[var(--coral)] brutal-border flex items-center justify-center font-display text-lg">重</div>
+        <span class="font-display text-xl md:text-2xl">重拍 BACKBEAT</span>
+      </div>
+      <nav class="hidden md:flex items-center gap-6 text-sm font-semibold">
+        <a href="#album" class="hover:underline decoration-4 decoration-[var(--coral)]">黑膠專輯</a>
+        <a href="#tickets" class="hover:underline decoration-4 decoration-[var(--teal)]">購票</a>
+        <a href="#fans" class="hover:underline decoration-4 decoration-[var(--yellow)]">粉絲留言</a>
+      </nav>
+      <a href="#tickets" class="brutal-btn brutal-border brutal-shadow-sm bg-[var(--yellow)] px-4 py-2 font-bold text-sm">立即搶票</a>
+    </div>
+  </header>
+
+  <!-- ===== MARQUEE STRIP ===== -->
+  <div class="brutal-border border-l-0 border-r-0 bg-[var(--ink)] text-[var(--cream)] py-2 overflow-hidden">
+    <div class="marquee-track font-display text-sm md:text-base whitespace-nowrap">
+      <span class="px-6">★ 黑膠現正預購中 ★ 早鳥票倒數計時 ★ 11/14 台北舉辦 ★ 限量 1000 張手感壓紋黑膠 ★</span>
+      <span class="px-6">★ 黑膠現正預購中 ★ 早鳥票倒數計時 ★ 11/14 台北舉辦 ★ 限量 1000 張手感壓紋黑膠 ★</span>
+    </div>
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <section class="relative max-w-6xl mx-auto px-5 pt-14 pb-20 overflow-hidden">
+    <div class="absolute inset-0 dotted-bg pointer-events-none"></div>
+
+    <div class="relative grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <span class="inline-block brutal-border brutal-shadow-sm bg-[var(--teal)] px-3 py-1 font-bold text-sm mb-5 tilt-2">首張同名黑膠．現正預購</span>
+        <h1 class="font-display text-5xl sm:text-6xl md:text-7xl leading-[0.95] mb-6">
+          重拍<br>
+          <span class="text-[var(--coral)]" style="-webkit-text-stroke:2px #000;">BACKBEAT</span>
+        </h1>
+        <p class="text-lg md:text-xl font-medium mb-3 font-zh">
+          每一首歌都是一次心跳的重音。台北車庫出身的三人編制，
+          用粗糙的吉他噪音包住細膩的情歌，唱給每個深夜還醒著的人。
+        </p>
+        <p class="text-base text-[var(--ink)]/70 mb-8 font-zh">
+          首張同名黑膠《晚班公車》11 月正式發行，音樂節售票同步開跑，
+          搶先聽 Demo、拿限量周邊，就在這一頁。
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#tickets" class="brutal-btn brutal-border brutal-shadow bg-[var(--coral)] px-7 py-4 font-display text-base">搶購音樂節門票</a>
+          <a href="#album" class="brutal-btn brutal-border brutal-shadow bg-white px-7 py-4 font-display text-base">預購黑膠唱片</a>
+        </div>
+      </div>
+
+      <div class="relative flex justify-center md:justify-end">
+        <div class="relative w-72 h-72 md:w-80 md:h-80">
+          <div class="absolute inset-0 rounded-full bg-[var(--ink)]"></div>
+          <div class="absolute inset-6 rounded-full brutal-border bg-[var(--ink)]" style="background:repeating-radial-gradient(circle, #2a2a2a 0px, #2a2a2a 2px, #1a1a1a 3px, #1a1a1a 5px);"></div>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="w-24 h-24 rounded-full bg-[var(--yellow)] brutal-border flex items-center justify-center font-display text-xs text-center p-2">
+              晚班<br>公車
+            </div>
+          </div>
+          <div class="absolute -top-6 -right-6 w-28 h-28 brutal-border brutal-shadow bg-[var(--yellow)] rotate-6 flex items-center justify-center font-display text-sm text-center p-3">
+            限量<br>1000 張
+          </div>
+          <div class="absolute -bottom-8 -left-8 brutal-border brutal-shadow bg-white px-4 py-3 -rotate-3">
+            <p class="font-display text-2xl leading-none">NT$680</p>
+            <p class="text-xs font-bold mt-1">起・含運費</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT BAND ===== -->
+  <section class="max-w-6xl mx-auto px-5 py-16">
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="brutal-border brutal-shadow bg-[var(--yellow)] p-6 tilt-1 card-btn">
+        <p class="font-display text-4xl mb-2">01</p>
+        <h3 class="font-display text-xl mb-2">關於樂團</h3>
+        <p class="font-zh text-sm leading-relaxed">
+          2019 年成軍於公館一間快要倒閉的練團室，
+          主唱班將原本是計程車司機，貝斯手阿凱教吉他維生，
+          鼓手小夜是夜班護理師——三個人的共同點，是都討厭準時上班。
+        </p>
+      </div>
+      <div class="brutal-border brutal-shadow bg-[var(--teal)] p-6 tilt-2 card-btn">
+        <p class="font-display text-4xl mb-2">02</p>
+        <h3 class="font-display text-xl mb-2">聲音風格</h3>
+        <p class="font-zh text-sm leading-relaxed">
+          車庫搖滾的粗噪吉他，混著台式流行歌的旋律感，
+          歌詞寫的是收據、末班車、租屋處的漏水天花板——
+          很直白，卻意外地戳心。
+        </p>
+      </div>
+      <div class="brutal-border brutal-shadow bg-[var(--coral)] p-6 tilt-3 card-btn">
+        <p class="font-display text-4xl mb-2">03</p>
+        <h3 class="font-display text-xl mb-2">現場實力</h3>
+        <p class="font-zh text-sm leading-relaxed">
+          巡演超過 60 場，從河岸留言到大港開唱都上過台，
+          最出名的紀錄是曾經在暴雨中把整個西門紅樓的觀眾留到最後一首。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ALBUM / TRACKLIST ===== -->
+  <section id="album" class="max-w-6xl mx-auto px-5 py-16">
+    <div class="flex items-center gap-4 mb-10">
+      <h2 class="font-display text-3xl md:text-4xl">黑膠專輯《晚班公車》</h2>
+      <div class="h-1 flex-1 bg-[var(--ink)]"></div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-10">
+      <div class="brutal-border brutal-shadow-lg bg-white p-6">
+        <div class="brutal-border bg-[var(--ink)] aspect-square mb-4 flex items-center justify-center relative overflow-hidden">
+          <div class="absolute inset-8 rounded-full border-4 border-[var(--yellow)]/40"></div>
+          <div class="absolute inset-16 rounded-full border-4 border-[var(--teal)]/50"></div>
+          <p class="font-display text-[var(--cream)] text-4xl text-center leading-tight relative z-10">晚班<br>公車</p>
+        </div>
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="font-display text-lg">重拍 Backbeat</p>
+            <p class="text-sm font-zh text-[var(--ink)]/60">180 克重量黑膠・限量編號</p>
+          </div>
+          <span class="brutal-border bg-[var(--yellow)] px-3 py-1 text-xs font-bold">2026 首發</span>
+        </div>
+      </div>
+
+      <div class="brutal-border brutal-shadow bg-white p-6">
+        <h3 class="font-display text-xl mb-4">曲目清單</h3>
+        <ol class="space-y-2 font-zh text-sm">
+          <li class="flex justify-between border-b-2 border-dashed border-[var(--ink)]/30 pb-2"><span>01　晚班公車</span><span class="text-[var(--ink)]/50">4:12</span></li>
+          <li class="flex justify-between border-b-2 border-dashed border-[var(--ink)]/30 pb-2"><span>02　城市失眠症</span><span class="text-[var(--ink)]/50">3:45</span></li>
+          <li class="flex justify-between border-b-2 border-dashed border-[var(--ink)]/30 pb-2"><span>03　收據</span><span class="text-[var(--ink)]/50">3:02</span></li>
+          <li class="flex justify-between border-b-2 border-dashed border-[var(--ink)]/30 pb-2"><span>04　房間裡的鯨魚</span><span class="text-[var(--ink)]/50">5:01</span></li>
+          <li class="flex justify-between border-b-2 border-dashed border-[var(--ink)]/30 pb-2"><span>05　早餐店的貓</span><span class="text-[var(--ink)]/50">2:58</span></li>
+          <li class="flex justify-between border-b-2 border-dashed border-[var(--ink)]/30 pb-2"><span>06　重拍（同名曲）</span><span class="text-[var(--ink)]/50">4:33</span></li>
+          <li class="flex justify-between border-b-2 border-dashed border-[var(--ink)]/30 pb-2"><span>07　淡水線末班車</span><span class="text-[var(--ink)]/50">3:19</span></li>
+          <li class="flex justify-between pb-1"><span>08　給十年後的你</span><span class="text-[var(--ink)]/50">4:47</span></li>
+        </ol>
+        <p class="mt-5 text-xs font-zh text-[var(--ink)]/60">全長 31 分 37 秒・附贈歌詞本＋手寫明信片一張</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== COUNTDOWN + PROGRESS ===== -->
+  <section class="max-w-6xl mx-auto px-5 py-16">
+    <div class="brutal-border brutal-shadow-lg bg-[var(--ink)] text-[var(--cream)] p-8 md:p-10">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-8">
+        <div>
+          <p class="font-display text-sm text-[var(--yellow)] mb-2">早鳥優惠倒數</p>
+          <h3 class="font-display text-2xl md:text-3xl mb-1">音樂節開演日：11 月 14 日</h3>
+          <p class="font-zh text-sm text-[var(--cream)]/70">早鳥票只到倒數歸零為止，之後恢復原價，售完不加開。</p>
+        </div>
+        <div id="countdown" class="flex gap-3">
+          <div class="brutal-border bg-[var(--coral)] text-[var(--ink)] w-16 md:w-20 py-3 text-center">
+            <p id="cd-days" class="font-display text-2xl md:text-3xl">--</p>
+            <p class="text-[10px] font-bold">天</p>
+          </div>
+          <div class="brutal-border bg-[var(--yellow)] text-[var(--ink)] w-16 md:w-20 py-3 text-center">
+            <p id="cd-hours" class="font-display text-2xl md:text-3xl">--</p>
+            <p class="text-[10px] font-bold">時</p>
+          </div>
+          <div class="brutal-border bg-[var(--teal)] text-[var(--ink)] w-16 md:w-20 py-3 text-center">
+            <p id="cd-mins" class="font-display text-2xl md:text-3xl">--</p>
+            <p class="text-[10px] font-bold">分</p>
+          </div>
+          <div class="brutal-border bg-white text-[var(--ink)] w-16 md:w-20 py-3 text-center">
+            <p id="cd-secs" class="font-display text-2xl md:text-3xl">--</p>
+            <p class="text-[10px] font-bold">秒</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8">
+        <div class="flex justify-between text-sm font-zh font-bold mb-2">
+          <span>銷售進度</span>
+          <span id="progress-label">823／1000 張已售出</span>
+        </div>
+        <div class="brutal-border bg-white h-7 p-0.5">
+          <div id="progress-bar" class="h-full bg-[var(--coral)] flex items-center justify-end pr-2" style="width:0%;">
+          </div>
+        </div>
+        <p class="font-zh text-xs text-[var(--cream)]/60 mt-2">剩餘票數即時更新，手刀衝刺中的樂迷已經超過 800 位。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TICKETS ===== -->
+  <section id="tickets" class="max-w-6xl mx-auto px-5 py-16">
+    <div class="flex items-center gap-4 mb-4">
+      <h2 class="font-display text-3xl md:text-4xl">選擇你的票種</h2>
+      <div class="h-1 flex-1 bg-[var(--ink)]"></div>
+    </div>
+    <p class="font-zh text-sm text-[var(--ink)]/60 mb-10">點選卡片即可切換選擇，結帳按鈕會顯示你目前選的方案。</p>
+
+    <div class="grid md:grid-cols-3 gap-6">
+
+      <button type="button" data-ticket="early" data-price="980" data-name="早鳥黑膠套票"
+        class="ticket-card card-btn text-left brutal-border brutal-shadow bg-[var(--yellow)] p-6 tilt-1">
+        <p class="font-display text-xs bg-[var(--ink)] text-[var(--cream)] inline-block px-2 py-1 mb-4">最多人選</p>
+        <h3 class="font-display text-xl mb-1">早鳥黑膠套票</h3>
+        <p class="font-display text-3xl mb-4">NT$980</p>
+        <ul class="font-zh text-sm space-y-1.5 mb-4">
+          <li>✓ 音樂節入場一張</li>
+          <li>✓ 黑膠唱片《晚班公車》一張</li>
+          <li>✓ 專屬入場貼紙一組</li>
+        </ul>
+        <p class="font-zh text-xs text-[var(--ink)]/60">數量有限，售完即恢復原價</p>
+      </button>
+
+      <button type="button" data-ticket="general" data-price="650" data-name="一般入場券"
+        class="ticket-card card-btn text-left brutal-border brutal-shadow bg-[var(--teal)] p-6 -rotate-1">
+        <p class="font-display text-xs bg-white text-[var(--ink)] brutal-border inline-block px-2 py-1 mb-4">入門首選</p>
+        <h3 class="font-display text-xl mb-1">一般入場券</h3>
+        <p class="font-display text-3xl mb-4">NT$650</p>
+        <ul class="font-zh text-sm space-y-1.5 mb-4">
+          <li>✓ 音樂節入場一張</li>
+          <li>✓ 現場周邊優先購買資格</li>
+          <li>✓ 站區自由活動</li>
+        </ul>
+        <p class="font-zh text-xs text-[var(--ink)]/60">適合第一次認識重拍的你</p>
+      </button>
+
+      <button type="button" data-ticket="vip" data-price="1880" data-name="VIP 見面會套票"
+        class="ticket-card card-btn text-left brutal-border brutal-shadow bg-[var(--coral)] p-6 rotate-1">
+        <p class="font-display text-xs bg-[var(--ink)] text-[var(--cream)] inline-block px-2 py-1 mb-4">限量 50 組</p>
+        <h3 class="font-display text-xl mb-1">VIP 見面會套票</h3>
+        <p class="font-display text-3xl mb-4">NT$1,880</p>
+        <ul class="font-zh text-sm space-y-1.5 mb-4">
+          <li>✓ 簽名黑膠唱片一張</li>
+          <li>✓ 演出前搶先入場＋搖滾區</li>
+          <li>✓ 團員合照＋手寫小卡</li>
+        </ul>
+        <p class="font-zh text-xs text-[var(--ink)]/60">給願意排隊只為了一張合照的人</p>
+      </button>
+
+    </div>
+
+    <div class="mt-10 brutal-border brutal-shadow bg-white p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="font-zh">
+        <p class="text-sm text-[var(--ink)]/60">目前選擇</p>
+        <p id="selected-name" class="font-display text-xl">請選擇一種票種</p>
+      </div>
+      <div class="flex items-center gap-4">
+        <p id="selected-price" class="font-display text-2xl">NT$0</p>
+        <button type="button" id="checkout-btn" class="brutal-btn brutal-border brutal-shadow bg-[var(--ink)] text-[var(--cream)] px-6 py-3 font-display text-sm">加入購票車</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAN COMMENTS ===== -->
+  <section id="fans" class="max-w-6xl mx-auto px-5 py-16">
+    <div class="flex items-center gap-4 mb-10">
+      <h2 class="font-display text-3xl md:text-4xl">樂迷留言牆</h2>
+      <div class="h-1 flex-1 bg-[var(--ink)]"></div>
+    </div>
+
+    <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-5">
+      <div class="brutal-border brutal-shadow-sm bg-[var(--yellow)] p-5 tilt-2">
+        <p class="font-zh text-sm mb-4">「〈收據〉這首歌根本在寫我，聽第一次就哭在公車上，超丟臉但超值得。」</p>
+        <p class="font-display text-xs">— 阿珊，台南</p>
+      </div>
+      <div class="brutal-border brutal-shadow-sm bg-[var(--teal)] p-5 -rotate-2">
+        <p class="font-zh text-sm mb-4">「去年在大港開唱看過現場，鼓手小夜打到斷了一根鼓棒，全場尖叫。這次一定要衝黑膠。」</p>
+        <p class="font-display text-xs">— Ray，高雄</p>
+      </div>
+      <div class="brutal-border brutal-shadow-sm bg-[var(--coral)] p-5 rotate-1">
+        <p class="font-zh text-sm mb-4">「已經預購兩張了，一張自己聽、一張要送給總是等末班車的室友。」</p>
+        <p class="font-display text-xs">— 小蔓，新北</p>
+      </div>
+      <div class="brutal-border brutal-shadow-sm bg-white p-5 -rotate-1">
+        <p class="font-zh text-sm mb-4">「VIP 場真的值得，班將會記得你點的歌，還會問你今天過得好不好。」</p>
+        <p class="font-display text-xs">— Wei，台北</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER CTA ===== -->
+  <footer class="relative overflow-hidden">
+    <div class="max-w-6xl mx-auto px-5 py-16 text-center relative">
+      <h2 class="font-display text-4xl md:text-5xl mb-4">別讓末班車，<br class="sm:hidden">錯過這場演出。</h2>
+      <p class="font-zh text-base text-[var(--ink)]/70 mb-8">黑膠預購與音樂節門票同步開賣，數量有限，賣完不補。</p>
+      <a href="#tickets" class="inline-block brutal-btn brutal-border brutal-shadow-lg bg-[var(--coral)] px-10 py-5 font-display text-xl">立即搶購 →</a>
+
+      <div class="mt-14 pt-8 border-t-4 border-[var(--ink)] flex flex-col sm:flex-row items-center justify-between gap-4 text-sm font-zh">
+        <p>© 2026 重拍 Backbeat．保留所有權利</p>
+        <div class="flex gap-4 font-semibold">
+          <a href="#" class="hover:underline">Instagram</a>
+          <a href="#" class="hover:underline">Facebook</a>
+          <a href="#" class="hover:underline">聯絡經紀公司</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // 倒數計時：目標日期 2026/11/14 19:00
+    const targetDate = new Date('2026-11-14T19:00:00+08:00').getTime();
+    function updateCountdown(){
+      const now = new Date().getTime();
+      let diff = targetDate - now;
+      if(diff < 0) diff = 0;
+      const days = Math.floor(diff / (1000*60*60*24));
+      const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+      const mins = Math.floor((diff % (1000*60*60)) / (1000*60));
+      const secs = Math.floor((diff % (1000*60)) / 1000);
+      document.getElementById('cd-days').textContent = String(days).padStart(2,'0');
+      document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
+      document.getElementById('cd-mins').textContent = String(mins).padStart(2,'0');
+      document.getElementById('cd-secs').textContent = String(secs).padStart(2,'0');
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // 銷售進度條動畫
+    window.addEventListener('DOMContentLoaded', () => {
+      const bar = document.getElementById('progress-bar');
+      requestAnimationFrame(() => {
+        setTimeout(() => { bar.style.transition = 'width 1.2s ease'; bar.style.width = '82.3%'; }, 200);
+      });
+    });
+
+    // 票種選擇
+    const ticketCards = document.querySelectorAll('.ticket-card');
+    const selectedName = document.getElementById('selected-name');
+    const selectedPrice = document.getElementById('selected-price');
+    const checkoutBtn = document.getElementById('checkout-btn');
+
+    ticketCards.forEach(card => {
+      card.addEventListener('click', () => {
+        ticketCards.forEach(c => c.classList.remove('ticket-selected'));
+        card.classList.add('ticket-selected');
+        selectedName.textContent = card.dataset.name;
+        selectedPrice.textContent = 'NT$' + Number(card.dataset.price).toLocaleString('zh-Hant-TW');
+      });
+    });
+
+    checkoutBtn.addEventListener('click', () => {
+      const chosen = document.querySelector('.ticket-selected');
+      if(!chosen){
+        checkoutBtn.textContent = '請先選票種！';
+        setTimeout(() => { checkoutBtn.textContent = '加入購票車'; }, 1500);
+        return;
+      }
+      checkoutBtn.textContent = '已加入：' + chosen.dataset.name + ' ✓';
+      setTimeout(() => { checkoutBtn.textContent = '加入購票車'; }, 2000);
+    });
+  </script>
+
+</body>
+</html>
