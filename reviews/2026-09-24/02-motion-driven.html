@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<!-- style #15 Motion-Driven -->
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>動起來 MoveMatch｜找到會一起動的教練</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Noto Sans TC','Outfit',sans-serif; background:#fafaf7; color:#141412; }
+  .display{ font-family:'Outfit','Noto Sans TC',sans-serif; }
+  .fade-up{ opacity:0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+  .fade-up.in{ opacity:1; transform: translateY(0); }
+  .stagger > * { transition-delay: calc(var(--i) * 90ms); }
+  .accent{ color:#ff5a36; }
+  .bg-accent{ background:#ff5a36; }
+  .pulse-dot{ animation: pulse 1.8s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{ transform:scale(1); opacity:1;} 50%{ transform:scale(1.4); opacity:.5;} }
+  .btn-move{ transition: transform .25s ease, box-shadow .25s ease; }
+  .btn-move:hover{ transform: translateY(-3px); box-shadow: 0 14px 30px rgba(255,90,54,.35); }
+  .track-bar{ height:8px; border-radius:999px; background:#eee; overflow:hidden; }
+  .track-fill{ height:100%; background: linear-gradient(90deg,#ff5a36,#ffb238); width:0%; transition: width 1.4s cubic-bezier(.2,.8,.2,1); }
+  .card-rise{ transition: transform .4s ease, box-shadow .4s ease; }
+  .card-rise:hover{ transform: translateY(-8px) rotate(-.5deg); box-shadow: 0 20px 40px rgba(0,0,0,.12); }
+  .marquee-wrap{ overflow:hidden; white-space:nowrap; }
+  .marquee-track{ display:inline-block; animation: marquee 22s linear infinite; }
+  @keyframes marquee{ from{ transform: translateX(0);} to{ transform: translateX(-50%);} }
+  .num{ font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<nav class="max-w-6xl mx-auto flex items-center justify-between px-6 py-6">
+  <div class="display font-extrabold text-xl">動起來<span class="accent">.</span></div>
+  <div class="hidden md:flex gap-8 text-sm text-black/60">
+    <a href="#how" class="hover:text-black transition">怎麼配對</a>
+    <a href="#coaches" class="hover:text-black transition">教練陣容</a>
+    <a href="#stats" class="hover:text-black transition">成效數據</a>
+  </div>
+  <button class="bg-black text-white px-5 py-2.5 rounded-full text-sm font-medium btn-move">免費配對</button>
+</nav>
+
+<header class="max-w-5xl mx-auto px-6 pt-14 pb-20 text-center">
+  <div class="fade-up in inline-flex items-center gap-2 bg-orange-50 text-orange-600 text-xs px-4 py-1.5 rounded-full mb-6" style="--i:0">
+    <span class="w-2 h-2 rounded-full bg-orange-500 pulse-dot"></span>
+    本週已配對 1,284 組運動夥伴
+  </div>
+  <h1 class="fade-up in display text-5xl md:text-7xl font-extrabold leading-[1.05] mb-6" style="--i:1">
+    找到會<span class="accent">陪你動</span>的<br>私人教練
+  </h1>
+  <p class="fade-up in text-lg text-black/60 max-w-xl mx-auto mb-10" style="--i:2">
+    根據你的目標、時段與運動風格智慧配對，第一堂課不合適全額退費。
+  </p>
+  <div class="fade-up in flex items-center justify-center gap-4" style="--i:3">
+    <button class="bg-accent text-white px-8 py-4 rounded-full font-medium btn-move">立即開始配對</button>
+    <button class="border border-black/15 px-8 py-4 rounded-full font-medium hover:bg-black/5 transition">看教練故事</button>
+  </div>
+</header>
+
+<div class="marquee-wrap border-y border-black/10 py-4 bg-white">
+  <div class="marquee-track text-black/30 font-medium text-sm">
+    <span class="mx-8">重量訓練</span><span class="mx-8">跑步陪跑</span><span class="mx-8">瑜伽伸展</span><span class="mx-8">拳擊有氧</span><span class="mx-8">游泳矯正</span><span class="mx-8">體態雕塑</span>
+    <span class="mx-8">重量訓練</span><span class="mx-8">跑步陪跑</span><span class="mx-8">瑜伽伸展</span><span class="mx-8">拳擊有氧</span><span class="mx-8">游泳矯正</span><span class="mx-8">體態雕塑</span>
+  </div>
+</div>
+
+<section id="how" class="max-w-6xl mx-auto px-6 py-20">
+  <h2 class="fade-up display text-3xl font-bold text-center mb-14">三步驟開始，平均 90 秒配對成功</h2>
+  <div class="grid md:grid-cols-3 gap-8 stagger">
+    <div class="fade-up card-rise bg-white rounded-3xl p-8 border border-black/5" style="--i:1">
+      <div class="display text-5xl font-extrabold text-orange-100 mb-4">01</div>
+      <h3 class="font-bold text-lg mb-2">填寫運動目標</h3>
+      <p class="text-black/60 text-sm leading-relaxed">增肌、減脂、賽事準備，或單純想動起來，告訴我們妳的節奏。</p>
+    </div>
+    <div class="fade-up card-rise bg-white rounded-3xl p-8 border border-black/5" style="--i:2">
+      <div class="display text-5xl font-extrabold text-orange-100 mb-4">02</div>
+      <h3 class="font-bold text-lg mb-2">系統智慧配對</h3>
+      <p class="text-black/60 text-sm leading-relaxed">依專長、可預約時段、教學風格，推薦 3 位最適合的教練。</p>
+    </div>
+    <div class="fade-up card-rise bg-white rounded-3xl p-8 border border-black/5" style="--i:3">
+      <div class="display text-5xl font-extrabold text-orange-100 mb-4">03</div>
+      <h3 class="font-bold text-lg mb-2">體驗第一堂課</h3>
+      <p class="text-black/60 text-sm leading-relaxed">感覺不對？24 小時內免費重新配對，全額退費零風險。</p>
+    </div>
+  </div>
+</section>
+
+<section id="coaches" class="max-w-6xl mx-auto px-6 py-20">
+  <h2 class="fade-up display text-3xl font-bold text-center mb-4">本月新加入教練</h2>
+  <p class="fade-up text-center text-black/50 mb-14">每位都經過體能證照與試教評核</p>
+  <div class="grid md:grid-cols-4 gap-6 stagger">
+    <div class="fade-up card-rise bg-white rounded-2xl p-6 text-center border border-black/5" style="--i:1">
+      <div class="w-16 h-16 rounded-full bg-orange-100 mx-auto mb-4"></div>
+      <h3 class="font-semibold">教練　禹丞</h3>
+      <p class="text-xs text-black/50">重量訓練・體態雕塑</p>
+    </div>
+    <div class="fade-up card-rise bg-white rounded-2xl p-6 text-center border border-black/5" style="--i:2">
+      <div class="w-16 h-16 rounded-full bg-orange-100 mx-auto mb-4"></div>
+      <h3 class="font-semibold">教練　思穎</h3>
+      <p class="text-xs text-black/50">瑜伽伸展・孕產調理</p>
+    </div>
+    <div class="fade-up card-rise bg-white rounded-2xl p-6 text-center border border-black/5" style="--i:3">
+      <div class="w-16 h-16 rounded-full bg-orange-100 mx-auto mb-4"></div>
+      <h3 class="font-semibold">教練　柏諺</h3>
+      <p class="text-xs text-black/50">拳擊有氧・減脂計畫</p>
+    </div>
+    <div class="fade-up card-rise bg-white rounded-2xl p-6 text-center border border-black/5" style="--i:4">
+      <div class="w-16 h-16 rounded-full bg-orange-100 mx-auto mb-4"></div>
+      <h3 class="font-semibold">教練　欣妤</h3>
+      <p class="text-xs text-black/50">跑步陪跑・馬拉松訓練</p>
+    </div>
+  </div>
+</section>
+
+<section id="stats" class="max-w-5xl mx-auto px-6 py-20">
+  <div class="fade-up bg-black text-white rounded-[2.5rem] p-10 md:p-14">
+    <h2 class="display text-3xl font-bold text-center mb-12">會員平均三個月的改變</h2>
+    <div class="grid md:grid-cols-3 gap-10 text-center mb-10">
+      <div>
+        <div class="display text-5xl font-extrabold num"><span id="count-1">0</span>%</div>
+        <p class="text-white/50 text-sm mt-2">持續運動超過 90 天</p>
+      </div>
+      <div>
+        <div class="display text-5xl font-extrabold num"><span id="count-2">0</span></div>
+        <p class="text-white/50 text-sm mt-2">平均配對等待秒數</p>
+      </div>
+      <div>
+        <div class="display text-5xl font-extrabold num"><span id="count-3">0</span>+</div>
+        <p class="text-white/50 text-sm mt-2">認證教練，遍及全台</p>
+      </div>
+    </div>
+    <div class="space-y-4">
+      <div>
+        <div class="flex justify-between text-sm text-white/60 mb-1"><span>目標達成率</span><span>87%</span></div>
+        <div class="track-bar bg-white/10"><div class="track-fill" data-target="87"></div></div>
+      </div>
+      <div>
+        <div class="flex justify-between text-sm text-white/60 mb-1"><span>教練回應速度</span><span>96%</span></div>
+        <div class="track-bar bg-white/10"><div class="track-fill" data-target="96"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="max-w-6xl mx-auto px-6 py-14 text-center">
+  <h2 class="fade-up display text-3xl font-bold mb-6">準備好，開始動了嗎？</h2>
+  <button class="fade-up bg-accent text-white px-10 py-4 rounded-full font-medium btn-move">免費開始配對</button>
+  <p class="text-black/30 text-xs mt-10">動起來 MoveMatch © 2026．台灣運動教練媒合平台</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  function countUp(el, target, duration=1600){
+    const start = performance.now();
+    function tick(now){
+      const p = Math.min((now-start)/duration, 1);
+      el.textContent = Math.floor(p * target);
+      if (p < 1) requestAnimationFrame(tick);
+      else el.textContent = target;
+    }
+    requestAnimationFrame(tick);
+  }
+
+  const statObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        countUp(document.getElementById('count-1'), 78);
+        countUp(document.getElementById('count-2'), 90);
+        countUp(document.getElementById('count-3'), 320);
+        document.querySelectorAll('.track-fill').forEach(bar => {
+          bar.style.width = bar.dataset.target + '%';
+        });
+        statObserver.disconnect();
+      }
+    });
+  }, { threshold: 0.3 });
+  statObserver.observe(document.getElementById('count-1'));
+</script>
+</body>
+</html>

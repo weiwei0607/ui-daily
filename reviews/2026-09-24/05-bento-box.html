@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<!-- style #39 Bento Box -->
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>拼圖筆記 PuzzleNote｜把想法收進格子裡</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Noto Sans TC','Hanken Grotesk',sans-serif; background:#f4f2ec; color:#191714; }
+  .display{ font-family:'Hanken Grotesk','Noto Sans TC',sans-serif; }
+  .bento{ border-radius: 1.75rem; transition: transform .3s ease, box-shadow .3s ease; }
+  .bento:hover{ transform: translateY(-5px); box-shadow: 0 18px 34px rgba(25,23,20,.12); }
+  .accent-lime{ background:#d7f26d; }
+  .accent-ink{ background:#191714; color:#f4f2ec; }
+  .accent-peach{ background:#ffd9b8; }
+  .accent-sky{ background:#c9e4ff; }
+  .ring-progress{ transform: rotate(-90deg); }
+  .btn-note{ transition: transform .2s ease; }
+  .btn-note:hover{ transform: scale(1.04); }
+  .dot-grid{
+    background-image: radial-gradient(circle, rgba(25,23,20,.15) 1px, transparent 1px);
+    background-size: 14px 14px;
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+<nav class="max-w-6xl mx-auto flex items-center justify-between px-6 py-6">
+  <div class="display font-extrabold text-xl">拼圖筆記</div>
+  <div class="hidden md:flex gap-8 text-sm text-black/60">
+    <a href="#features" class="hover:text-black transition">功能格</a>
+    <a href="#plans" class="hover:text-black transition">方案</a>
+  </div>
+  <button class="accent-ink px-5 py-2.5 rounded-full text-sm font-medium btn-note">免費開始</button>
+</nav>
+
+<header class="max-w-6xl mx-auto px-6 pt-8 pb-4">
+  <h1 class="display text-4xl md:text-5xl font-extrabold leading-tight mb-3">把散落的想法，<br class="hidden md:block">拼回一張完整的格子</h1>
+  <p class="text-black/60 max-w-xl">筆記、待辦、習慣追蹤、靈感收集，全部收進一格一格的便當盒裡，一眼就能看懂今天。</p>
+</header>
+
+<section id="features" class="max-w-6xl mx-auto px-6 py-8">
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-5 auto-rows-[140px]">
+
+    <div class="bento accent-ink p-6 col-span-2 row-span-2 flex flex-col justify-between">
+      <div>
+        <p class="text-xs text-white/50 mb-2">今日焦點</p>
+        <h3 class="display text-2xl font-bold">完成提案簡報</h3>
+      </div>
+      <div class="flex items-center gap-3">
+        <svg width="52" height="52" class="ring-progress">
+          <circle cx="26" cy="26" r="22" stroke="rgba(255,255,255,.15)" stroke-width="6" fill="none"/>
+          <circle cx="26" cy="26" r="22" stroke="#d7f26d" stroke-width="6" fill="none"
+            stroke-dasharray="138.2" stroke-dashoffset="41" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <p class="text-sm font-semibold">70%</p>
+          <p class="text-xs text-white/40">已完成 3/4 段落</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bento accent-lime p-6 flex flex-col justify-between">
+      <p class="text-xs text-black/50">連續紀錄</p>
+      <div>
+        <p class="display text-3xl font-extrabold" id="streak-num">18</p>
+        <p class="text-xs text-black/50">天每日筆記</p>
+      </div>
+    </div>
+
+    <div class="bento accent-peach p-6 flex flex-col justify-between">
+      <p class="text-xs text-black/50">本週靈感</p>
+      <p class="display text-3xl font-extrabold">24</p>
+    </div>
+
+    <div class="bento bg-white border border-black/5 p-6 col-span-2 flex flex-col justify-between dot-grid">
+      <p class="text-xs text-black/40">快速待辦</p>
+      <div class="space-y-2" id="todo-list">
+        <label class="flex items-center gap-2 text-sm cursor-pointer">
+          <input type="checkbox" class="w-4 h-4 accent-black" checked>
+          <span class="line-through text-black/40">整理讀書會筆記</span>
+        </label>
+        <label class="flex items-center gap-2 text-sm cursor-pointer">
+          <input type="checkbox" class="w-4 h-4 accent-black">
+          <span>回覆客戶提案信件</span>
+        </label>
+        <label class="flex items-center gap-2 text-sm cursor-pointer">
+          <input type="checkbox" class="w-4 h-4 accent-black">
+          <span>安排下週會議室</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="bento accent-sky p-6 col-span-2 flex items-center justify-between">
+      <div>
+        <p class="text-xs text-black/50 mb-1">跨裝置同步</p>
+        <p class="display font-bold text-lg">手機・平板・電腦</p>
+      </div>
+      <div class="w-12 h-12 rounded-full bg-white/60 flex items-center justify-center text-xl">⇄</div>
+    </div>
+
+    <div class="bento bg-white border border-black/5 p-6 col-span-2 flex flex-col justify-between">
+      <p class="text-xs text-black/40">最近筆記本</p>
+      <div class="flex flex-wrap gap-2">
+        <span class="text-xs bg-black/5 px-3 py-1.5 rounded-full">產品發想</span>
+        <span class="text-xs bg-black/5 px-3 py-1.5 rounded-full">讀書筆記</span>
+        <span class="text-xs bg-black/5 px-3 py-1.5 rounded-full">旅行計畫</span>
+        <span class="text-xs bg-black/5 px-3 py-1.5 rounded-full">會議記錄</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="plans" class="max-w-6xl mx-auto px-6 py-16">
+  <h2 class="display text-3xl font-bold text-center mb-10">選一格適合你的方案</h2>
+  <div class="grid md:grid-cols-3 gap-5">
+    <div class="bento bg-white border border-black/5 p-7">
+      <p class="text-xs text-black/40 mb-2">個人版</p>
+      <p class="display text-3xl font-extrabold mb-4">免費</p>
+      <p class="text-sm text-black/60 mb-6">無限筆記・3 個筆記本・基礎同步</p>
+      <button class="w-full border border-black/15 py-3 rounded-full text-sm font-medium btn-note">立即使用</button>
+    </div>
+    <div class="bento accent-ink p-7">
+      <p class="text-xs text-white/50 mb-2">專業版・最受歡迎</p>
+      <p class="display text-3xl font-extrabold mb-4">NT$149<span class="text-sm font-normal text-white/50">/月</span></p>
+      <p class="text-sm text-white/60 mb-6">無限筆記本・習慣追蹤・跨裝置即時同步</p>
+      <button class="w-full bg-white text-black py-3 rounded-full text-sm font-medium btn-note">升級專業版</button>
+    </div>
+    <div class="bento bg-white border border-black/5 p-7">
+      <p class="text-xs text-black/40 mb-2">團隊版</p>
+      <p class="display text-3xl font-extrabold mb-4">NT$399<span class="text-sm font-normal text-black/40">/月</span></p>
+      <p class="text-sm text-black/60 mb-6">共享工作區・權限管理・團隊儀表板</p>
+      <button class="w-full border border-black/15 py-3 rounded-full text-sm font-medium btn-note">聯絡我們</button>
+    </div>
+  </div>
+</section>
+
+<footer class="max-w-6xl mx-auto px-6 py-10 text-center text-black/30 text-xs">
+  拼圖筆記 PuzzleNote © 2026．台灣製造的生產力工具
+</footer>
+
+<script>
+  document.querySelectorAll('#todo-list input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', function(){
+      const span = this.nextElementSibling;
+      span.classList.toggle('line-through', this.checked);
+      span.classList.toggle('text-black/40', this.checked);
+    });
+  });
+
+  let streak = 18;
+  const streakEl = document.getElementById('streak-num');
+  setInterval(() => {
+    streakEl.textContent = streak;
+  }, 3000);
+</script>
+</body>
+</html>

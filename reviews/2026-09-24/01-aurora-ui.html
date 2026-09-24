@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<!-- style #10 Aurora UI -->
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>極光肌因 AuroraSkin｜會發光的保養儀式</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --aurora-1:#7c3aed; --aurora-2:#ec4899; --aurora-3:#22d3ee; --aurora-4:#818cf8;
+  }
+  body{
+    font-family:'Zen Maru Gothic','Fredoka',sans-serif;
+    background:#0b0a1a;
+    color:#fdf4ff;
+    overflow-x:hidden;
+  }
+  .display{font-family:'Fredoka','Zen Maru Gothic',sans-serif;}
+  .aurora-bg{
+    position:fixed; inset:0; z-index:-2;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 10%, rgba(124,58,237,.55), transparent 60%),
+      radial-gradient(ellipse 70% 50% at 80% 20%, rgba(236,72,153,.5), transparent 60%),
+      radial-gradient(ellipse 60% 60% at 50% 80%, rgba(34,211,238,.4), transparent 60%),
+      #0b0a1a;
+    animation: drift 18s ease-in-out infinite alternate;
+    filter: blur(40px);
+  }
+  @keyframes drift{
+    0%{ background-position: 0% 0%, 0% 0%, 0% 0%; }
+    100%{ background-position: 10% 15%, -10% -10%, 5% -15%; }
+  }
+  .glass{
+    background: rgba(255,255,255,.08);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,.18);
+  }
+  .glass-strong{
+    background: rgba(255,255,255,.12);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,.25);
+  }
+  .glow-text{
+    background: linear-gradient(90deg,#f0abfc,#c4b5fd,#67e8f9);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .slider-track{
+    -webkit-appearance:none; appearance:none;
+    height:6px; border-radius:999px;
+    background: linear-gradient(90deg, var(--aurora-3), var(--aurora-4), var(--aurora-2));
+  }
+  .slider-track::-webkit-slider-thumb{
+    -webkit-appearance:none; appearance:none;
+    width:22px; height:22px; border-radius:50%;
+    background:#fff; box-shadow:0 0 12px rgba(255,255,255,.9), 0 0 24px rgba(236,72,153,.6);
+    cursor:pointer; border:2px solid #fff;
+  }
+  .card-hover{ transition: transform .35s ease, box-shadow .35s ease; }
+  .card-hover:hover{ transform: translateY(-6px); box-shadow: 0 20px 60px rgba(124,58,237,.35); }
+  .btn-aurora{
+    background: linear-gradient(90deg,var(--aurora-1),var(--aurora-2));
+    transition: filter .25s ease, transform .25s ease;
+  }
+  .btn-aurora:hover{ filter: brightness(1.15); transform: translateY(-2px); }
+  ::selection{ background: rgba(236,72,153,.4); }
+</style>
+</head>
+<body class="min-h-screen">
+<div class="aurora-bg"></div>
+
+<nav class="max-w-6xl mx-auto flex items-center justify-between px-6 py-6">
+  <div class="display text-xl font-semibold glow-text">極光肌因 AuroraSkin</div>
+  <div class="hidden md:flex items-center gap-8 text-sm text-white/70">
+    <a href="#formula" class="hover:text-white transition">配方哲學</a>
+    <a href="#ritual" class="hover:text-white transition">保養儀式</a>
+    <a href="#reviews" class="hover:text-white transition">使用心得</a>
+  </div>
+  <button class="glass px-5 py-2 rounded-full text-sm font-medium hover:bg-white/20 transition">立即訂閱</button>
+</nav>
+
+<header class="max-w-5xl mx-auto text-center px-6 pt-16 pb-24">
+  <p class="text-sm tracking-[0.3em] text-white/50 mb-4">AURORA RITUAL · 極光保養儀式</p>
+  <h1 class="display text-5xl md:text-7xl font-semibold leading-tight mb-6">
+    讓肌膚<span class="glow-text">發光</span>的<br class="hidden md:block">每一夜
+  </h1>
+  <p class="text-lg text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed">
+    融合冰島極光藻萃取與玻尿酸微晶球，隨每月月相調配濃度，
+    讓保養像極光一樣，緩緩地、真實地在肌膚上流動。
+  </p>
+  <div class="flex items-center justify-center gap-4">
+    <button class="btn-aurora text-white px-8 py-4 rounded-full font-medium shadow-lg shadow-purple-500/30">
+      開始 14 天體驗
+    </button>
+    <button class="glass px-8 py-4 rounded-full font-medium hover:bg-white/20 transition">
+      看成分故事
+    </button>
+  </div>
+</header>
+
+<section id="formula" class="max-w-6xl mx-auto px-6 py-16">
+  <div class="glass-strong rounded-[2.5rem] p-10 md:p-14 card-hover">
+    <div class="grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <h2 class="display text-3xl font-semibold mb-4">濃度，由妳親手調</h2>
+        <p class="text-white/70 leading-relaxed mb-8">
+          拖曳滑桿，模擬妳今晚想要的保養強度——從輕盈保濕到深層修護，
+          我們會依據妳的選擇，客製當月配方比例。
+        </p>
+        <div class="space-y-6">
+          <div>
+            <div class="flex justify-between text-sm mb-2 text-white/60">
+              <span>玻尿酸微晶球濃度</span>
+              <span id="hyaluronic-val" class="glow-text font-semibold">62%</span>
+            </div>
+            <input id="hyaluronic" type="range" min="10" max="95" value="62" class="w-full slider-track">
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-2 text-white/60">
+              <span>極光藻修護因子</span>
+              <span id="algae-val" class="glow-text font-semibold">40%</span>
+            </div>
+            <input id="algae" type="range" min="10" max="95" value="40" class="w-full slider-track">
+          </div>
+        </div>
+      </div>
+      <div class="rounded-3xl overflow-hidden glass p-8 flex flex-col items-center justify-center min-h-[280px]" style="background:radial-gradient(circle at 50% 30%, rgba(236,72,153,.25), transparent 70%)">
+        <div id="preview-swirl" class="w-40 h-40 rounded-full mb-6 transition-all duration-500" style="background:conic-gradient(from 90deg, #67e8f9, #c4b5fd, #f0abfc, #67e8f9); filter: blur(2px);"></div>
+        <p class="text-sm text-white/60">本月配方預覽</p>
+        <p id="preview-name" class="display text-xl font-semibold glow-text">平衡光感型</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ritual" class="max-w-6xl mx-auto px-6 py-16">
+  <h2 class="display text-3xl font-semibold text-center mb-4">三步驟，開始妳的極光儀式</h2>
+  <p class="text-center text-white/60 mb-12">每晚十分鐘，讓保養成為一種安靜的儀式感</p>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="glass rounded-3xl p-8 card-hover">
+      <div class="w-12 h-12 rounded-2xl glass-strong flex items-center justify-center mb-5 text-xl">1</div>
+      <h3 class="display font-semibold text-lg mb-2">卸淨　喚醒</h3>
+      <p class="text-white/60 text-sm leading-relaxed">溫感卸妝油溶解一整天的疲憊，喚醒肌膚的接受度。</p>
+    </div>
+    <div class="glass rounded-3xl p-8 card-hover">
+      <div class="w-12 h-12 rounded-2xl glass-strong flex items-center justify-center mb-5 text-xl">2</div>
+      <h3 class="display font-semibold text-lg mb-2">導入　流動</h3>
+      <p class="text-white/60 text-sm leading-relaxed">極光精華液以打圈手法導入，感受微晶球在肌膚上化開。</p>
+    </div>
+    <div class="glass rounded-3xl p-8 card-hover">
+      <div class="w-12 h-12 rounded-2xl glass-strong flex items-center justify-center mb-5 text-xl">3</div>
+      <h3 class="display font-semibold text-lg mb-2">封存　入夢</h3>
+      <p class="text-white/60 text-sm leading-relaxed">夜間凍膜鎖住水分，讓修護持續到隔天清晨。</p>
+    </div>
+  </div>
+</section>
+
+<section id="reviews" class="max-w-6xl mx-auto px-6 py-16">
+  <h2 class="display text-3xl font-semibold text-center mb-12">使用者的極光時刻</h2>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="glass rounded-3xl p-7 card-hover">
+      <p class="text-white/80 text-sm leading-relaxed mb-4">「第一次覺得保養不是任務，是每天最期待的十分鐘。」</p>
+      <p class="text-white/50 text-xs">— 芯妤，敏感肌兩年使用者</p>
+    </div>
+    <div class="glass rounded-3xl p-7 card-hover">
+      <p class="text-white/80 text-sm leading-relaxed mb-4">「客製濃度這件事真的有差，冬天調高保濕，夏天調輕盈，很聰明。」</p>
+      <p class="text-white/50 text-xs">— 子涵，訂閱第 8 個月</p>
+    </div>
+    <div class="glass rounded-3xl p-7 card-hover">
+      <p class="text-white/80 text-sm leading-relaxed mb-4">「瓶身在浴室的燈光下真的會微微反光，質感遠超過價格。」</p>
+      <p class="text-white/50 text-xs">— 品叡，新客戶</p>
+    </div>
+  </div>
+</section>
+
+<footer class="max-w-6xl mx-auto px-6 py-16 text-center">
+  <h2 class="display text-3xl font-semibold mb-4">今晚，讓肌膚開始發光</h2>
+  <button class="btn-aurora text-white px-10 py-4 rounded-full font-medium shadow-lg shadow-purple-500/30 mb-8">
+    立即開始 14 天體驗
+  </button>
+  <p class="text-white/40 text-xs">極光肌因 AuroraSkin © 2026．台灣自有品牌，皮膚科醫師共同研發</p>
+</footer>
+
+<script>
+  const hyaluronic = document.getElementById('hyaluronic');
+  const algae = document.getElementById('algae');
+  const hVal = document.getElementById('hyaluronic-val');
+  const aVal = document.getElementById('algae-val');
+  const swirl = document.getElementById('preview-swirl');
+  const previewName = document.getElementById('preview-name');
+
+  function updatePreview(){
+    const h = parseInt(hyaluronic.value);
+    const a = parseInt(algae.value);
+    hVal.textContent = h + '%';
+    aVal.textContent = a + '%';
+    const scale = 0.8 + (h + a) / 400;
+    swirl.style.transform = `scale(${scale})`;
+    swirl.style.opacity = 0.6 + (h + a) / 400;
+
+    let name = '平衡光感型';
+    if (h > 70 && a < 40) name = '深層水潤型';
+    else if (a > 70 && h < 40) name = '極光修護型';
+    else if (h > 70 && a > 70) name = '雙效強化型';
+    else if (h < 30 && a < 30) name = '輕盈初曉型';
+    previewName.textContent = name;
+  }
+
+  hyaluronic.addEventListener('input', updatePreview);
+  algae.addEventListener('input', updatePreview);
+  updatePreview();
+</script>
+</body>
+</html>

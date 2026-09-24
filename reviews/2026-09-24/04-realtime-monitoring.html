@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<!-- style #31 Real-Time Monitoring -->
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>運籌眼 LogiWatch｜全台貨運即時監控中心</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Noto Sans TC','Space Grotesk',sans-serif; background:#0d1117; color:#e6edf3; }
+  .display{ font-family:'Space Grotesk','Noto Sans TC',sans-serif; }
+  .mono{ font-family:'IBM Plex Mono',monospace; font-variant-numeric: tabular-nums; }
+  .panel{ background:#151b23; border:1px solid #262d38; }
+  .status-dot{ box-shadow:0 0 0 3px rgba(0,0,0,0); }
+  .status-live{ background:#3fb950; box-shadow:0 0 8px #3fb950; animation: blink 1.6s ease-in-out infinite; }
+  .status-warn{ background:#d29922; box-shadow:0 0 8px #d29922; }
+  .status-alert{ background:#f85149; box-shadow:0 0 8px #f85149; animation: blink .9s ease-in-out infinite; }
+  @keyframes blink{ 0%,100%{opacity:1;} 50%{opacity:.4;} }
+  .grid-line{ stroke:#262d38; stroke-width:1; }
+  table th{ font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:.05em; font-size:.68rem; color:#7d8590; }
+  .row-flash{ animation: flash 1s ease; }
+  @keyframes flash{ from{ background:rgba(63,185,80,.18);} to{ background:transparent; } }
+  .scrollbar-thin::-webkit-scrollbar{ width:6px; }
+  .scrollbar-thin::-webkit-scrollbar-thumb{ background:#30363d; border-radius:3px; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between border-b border-[#262d38]">
+  <div class="flex items-center gap-3">
+    <div class="display font-bold text-lg">運籌眼 <span class="text-[#3fb950]">LogiWatch</span></div>
+    <span class="mono text-xs text-[#7d8590] px-2 py-1 rounded bg-[#151b23] border border-[#262d38]">全台監控中心</span>
+  </div>
+  <div class="flex items-center gap-6 mono text-sm text-[#7d8590]">
+    <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full status-live"></span>系統運行中</span>
+    <span id="clock">--:--:--</span>
+  </div>
+</div>
+
+<div class="max-w-7xl mx-auto px-6 py-6 grid grid-cols-1 md:grid-cols-4 gap-4">
+  <div class="panel rounded-xl p-5">
+    <p class="text-xs text-[#7d8590] mb-2">今日在途車輛</p>
+    <p class="display mono text-3xl font-bold" id="kpi-vehicles">--</p>
+    <p class="text-xs text-[#3fb950] mt-1">▲ 較昨日 +4.2%</p>
+  </div>
+  <div class="panel rounded-xl p-5">
+    <p class="text-xs text-[#7d8590] mb-2">準時到貨率</p>
+    <p class="display mono text-3xl font-bold" id="kpi-ontime">--%</p>
+    <p class="text-xs text-[#3fb950] mt-1">▲ 高於目標值 92%</p>
+  </div>
+  <div class="panel rounded-xl p-5">
+    <p class="text-xs text-[#7d8590] mb-2">異常事件（本日）</p>
+    <p class="display mono text-3xl font-bold text-[#d29922]" id="kpi-alerts">--</p>
+    <p class="text-xs text-[#7d8590] mt-1">3 件已處理</p>
+  </div>
+  <div class="panel rounded-xl p-5">
+    <p class="text-xs text-[#7d8590] mb-2">平均配送時速</p>
+    <p class="display mono text-3xl font-bold" id="kpi-speed">-- <span class="text-sm font-normal text-[#7d8590]">km/h</span></p>
+    <p class="text-xs text-[#7d8590] mt-1">全區平均</p>
+  </div>
+</div>
+
+<div class="max-w-7xl mx-auto px-6 pb-6 grid grid-cols-1 lg:grid-cols-3 gap-4">
+  <div class="panel rounded-xl p-5 lg:col-span-2">
+    <div class="flex items-center justify-between mb-4">
+      <p class="text-sm font-medium">即時車流量（近 60 分鐘）</p>
+      <span class="mono text-xs text-[#7d8590]">每 3 秒更新</span>
+    </div>
+    <svg viewBox="0 0 600 200" class="w-full h-48">
+      <g>
+        <line x1="0" y1="40" x2="600" y2="40" class="grid-line"/>
+        <line x1="0" y1="90" x2="600" y2="90" class="grid-line"/>
+        <line x1="0" y1="140" x2="600" y2="140" class="grid-line"/>
+        <line x1="0" y1="190" x2="600" y2="190" class="grid-line"/>
+      </g>
+      <polyline id="flow-line" fill="none" stroke="#3fb950" stroke-width="2.5" points=""/>
+      <polygon id="flow-fill" fill="url(#flowGrad)" opacity="0.25" points=""/>
+      <defs>
+        <linearGradient id="flowGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#3fb950"/>
+          <stop offset="100%" stop-color="#3fb950" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+
+  <div class="panel rounded-xl p-5">
+    <p class="text-sm font-medium mb-4">分區配送狀態</p>
+    <div class="space-y-3">
+      <div class="flex items-center justify-between text-sm">
+        <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full status-live"></span>北部轉運中心</span>
+        <span class="mono text-[#3fb950]">正常</span>
+      </div>
+      <div class="flex items-center justify-between text-sm">
+        <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full status-live"></span>中部轉運中心</span>
+        <span class="mono text-[#3fb950]">正常</span>
+      </div>
+      <div class="flex items-center justify-between text-sm">
+        <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full status-warn"></span>南部轉運中心</span>
+        <span class="mono text-[#d29922]">延遲 12 分</span>
+      </div>
+      <div class="flex items-center justify-between text-sm">
+        <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full status-live"></span>東部轉運中心</span>
+        <span class="mono text-[#3fb950]">正常</span>
+      </div>
+      <div class="flex items-center justify-between text-sm">
+        <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full status-alert"></span>桃園機場貨運站</span>
+        <span class="mono text-[#f85149]">通關異常</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="max-w-7xl mx-auto px-6 pb-10">
+  <div class="panel rounded-xl p-5">
+    <div class="flex items-center justify-between mb-4">
+      <p class="text-sm font-medium">即時警報日誌</p>
+      <span class="mono text-xs text-[#7d8590]" id="log-count">0 筆</span>
+    </div>
+    <div class="overflow-y-auto max-h-64 scrollbar-thin">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="text-left border-b border-[#262d38]">
+            <th class="py-2 pr-4">時間</th>
+            <th class="py-2 pr-4">車輛編號</th>
+            <th class="py-2 pr-4">路段</th>
+            <th class="py-2">狀態</th>
+          </tr>
+        </thead>
+        <tbody id="log-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  function pad(n){ return n.toString().padStart(2,'0'); }
+  function tick(){
+    const now = new Date();
+    document.getElementById('clock').textContent = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+  }
+  setInterval(tick, 1000); tick();
+
+  function randRange(min, max){ return Math.random() * (max - min) + min; }
+
+  document.getElementById('kpi-vehicles').textContent = 1042;
+  document.getElementById('kpi-ontime').textContent = '94.6%';
+  document.getElementById('kpi-alerts').textContent = 7;
+  document.getElementById('kpi-speed').innerHTML = '38.2 <span class="text-sm font-normal text-[#7d8590]">km/h</span>';
+
+  let flowData = Array.from({length: 30}, () => randRange(60, 160));
+  function renderFlow(){
+    const w = 600, h = 200, step = w / (flowData.length - 1);
+    const max = 200, min = 20;
+    const points = flowData.map((v,i) => {
+      const x = i * step;
+      const y = h - ((v - min) / (max - min)) * h;
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    });
+    document.getElementById('flow-line').setAttribute('points', points.join(' '));
+    const fillPoints = ['0,' + h, ...points, (w) + ',' + h];
+    document.getElementById('flow-fill').setAttribute('points', fillPoints.join(' '));
+  }
+  renderFlow();
+
+  const routes = ['國道一號 北上 45K', '國道三號 南下 112K', '台北車站轉運站', '台中港貨櫃區', '高雄前鎮碼頭', '桃園機場貨運站', '新竹科學園區'];
+  const statuses = [
+    { label:'正常配送', cls:'text-[#3fb950]' },
+    { label:'延遲通報', cls:'text-[#d29922]' },
+    { label:'需人工處理', cls:'text-[#f85149]' },
+  ];
+  let logCount = 0;
+  const logBody = document.getElementById('log-body');
+
+  function addLog(){
+    const now = new Date();
+    const time = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+    const vehicle = 'TRK-' + Math.floor(randRange(1000,9999));
+    const route = routes[Math.floor(Math.random()*routes.length)];
+    const status = statuses[Math.floor(Math.random()*statuses.length)];
+    const tr = document.createElement('tr');
+    tr.className = 'row-flash border-b border-[#1c232c]';
+    tr.innerHTML = `<td class="py-2 pr-4 mono text-[#7d8590]">${time}</td><td class="py-2 pr-4 mono">${vehicle}</td><td class="py-2 pr-4">${route}</td><td class="py-2 ${status.cls} mono">${status.label}</td>`;
+    logBody.prepend(tr);
+    logCount++;
+    document.getElementById('log-count').textContent = logCount + ' 筆';
+    while (logBody.children.length > 12) logBody.removeChild(logBody.lastChild);
+  }
+
+  for (let i=0;i<5;i++) addLog();
+
+  setInterval(() => {
+    flowData.shift();
+    flowData.push(randRange(60,160));
+    renderFlow();
+  }, 3000);
+
+  setInterval(addLog, 4000);
+</script>
+</body>
+</html>
