@@ -1,0 +1,153 @@
+<!-- style #45 Vaporwave -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>霓虹電馭 NEON DRIVE｜復古派對售票</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=DotGothic16&display=swap" rel="stylesheet">
+<style>
+  :root{ --pink:#ff71ce; --cyan:#01cdfe; --purple:#b967ff; --yellow:#fffb96; }
+  *{ font-family:'DotGothic16', sans-serif; }
+  .vt{ font-family:'VT323', monospace; }
+  body{
+    background: linear-gradient(180deg, #1a0b2e 0%, #2d1150 45%, #4a1a5c 100%);
+    color:#fdf1ff; overflow-x:hidden; min-height:100vh;
+  }
+  .grid-floor{
+    position:absolute; bottom:0; left:0; width:100%; height:45vh;
+    background-image:
+      linear-gradient(90deg, rgba(255,113,206,.5) 1px, transparent 1px),
+      linear-gradient(0deg, rgba(255,113,206,.5) 1px, transparent 1px);
+    background-size: 60px 60px;
+    transform: perspective(300px) rotateX(60deg);
+    transform-origin: bottom;
+    animation: gridMove 3s linear infinite;
+    opacity:.55;
+  }
+  @keyframes gridMove{ from{ background-position: 0 0; } to{ background-position: 0 60px; } }
+  .sun{
+    width:220px; height:220px; border-radius:50%; margin:0 auto;
+    background: repeating-linear-gradient(0deg, var(--yellow) 0 6px, var(--pink) 6px 12px, var(--purple) 12px 18px);
+    box-shadow: 0 0 80px 10px rgba(255,113,206,.5);
+  }
+  .chrome-text{
+    background: linear-gradient(180deg, #fff 0%, #b3d9ff 25%, #ff71ce 50%, #01cdfe 75%, #fff 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    text-shadow: 0 2px 20px rgba(255,113,206,.4);
+    letter-spacing:.04em;
+  }
+  .glitch{ position:relative; }
+  .glitch:hover{ animation: glitchAnim .25s steps(2) infinite; }
+  @keyframes glitchAnim{
+    0%{ clip-path: inset(0 0 80% 0); transform:translate(-2px,0); }
+    50%{ clip-path: inset(40% 0 30% 0); transform:translate(2px,0); }
+    100%{ clip-path: inset(80% 0 0 0); transform:translate(-1px,0); }
+  }
+  .star-badge{
+    background: repeating-conic-gradient(var(--cyan) 0deg 10deg, var(--pink) 10deg 20deg);
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    width:70px; height:70px;
+  }
+  .ticket-card{
+    background: linear-gradient(135deg, rgba(255,113,206,.15), rgba(1,205,254,.15));
+    border: 1px solid rgba(255,255,255,.25); backdrop-filter: blur(6px);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .ticket-card:hover{ transform: translateY(-6px) scale(1.02); box-shadow: 0 0 30px rgba(255,113,206,.4); }
+  .ticket-card.selected{ border-color: var(--cyan); box-shadow: 0 0 0 2px var(--cyan), 0 0 30px rgba(1,205,254,.5); }
+  .neon-btn{
+    background: linear-gradient(90deg, var(--pink), var(--purple), var(--cyan));
+    box-shadow: 0 0 20px rgba(255,113,206,.6);
+    transition: transform .15s ease;
+  }
+  .neon-btn:hover{ transform: scale(1.03); }
+  .scanline{
+    position:fixed; inset:0; pointer-events:none; z-index:40; opacity:.06;
+    background: repeating-linear-gradient(0deg, #fff 0px, transparent 2px, transparent 4px);
+  }
+</style>
+</head>
+<body class="relative">
+<div class="scanline"></div>
+<div class="grid-floor"></div>
+
+<div class="relative z-10 max-w-3xl mx-auto px-6 pt-10 pb-16 text-center">
+
+  <p class="vt text-xl text-cyan-300 mb-2">＊ 1989 ｰ 2026 ＊ REVIVAL NIGHT ＊</p>
+  <div class="sun mb-6"></div>
+  <h1 class="glitch chrome-text text-5xl md:text-6xl font-black mb-3 -mt-16 relative">霓虹電馭</h1>
+  <p class="vt text-3xl text-pink-200 mb-6">N E O N 　 D R I V E</p>
+  <p class="text-sm text-purple-200 mb-8 leading-relaxed">
+    一場獻給類比時代的復古電子派對<br>合成器音牆 × 鐳射光束 × 整夜不打烊的舞池
+  </p>
+
+  <div class="flex justify-center gap-6 mb-10 vt text-xl">
+    <div class="text-center"><div class="star-badge mx-auto mb-1"></div>DJ 陣容</div>
+    <div class="text-center"><div class="star-badge mx-auto mb-1"></div>雷射秀</div>
+    <div class="text-center"><div class="star-badge mx-auto mb-1"></div>限定周邊</div>
+  </div>
+
+  <div class="bg-black/30 rounded-xl p-5 mb-10 border border-pink-400/30">
+    <p class="text-xs text-cyan-200 mb-2">距離開場倒數</p>
+    <div class="vt text-4xl text-yellow-200 tracking-widest" id="countdown">00:00:00:00</div>
+  </div>
+
+  <h2 class="text-lg font-bold text-cyan-200 mb-4">選擇你的票種</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+    <div class="ticket-card rounded-2xl p-5 cursor-pointer" data-price="880" data-name="一般站票">
+      <p class="vt text-2xl text-pink-200 mb-1">一般站票</p>
+      <p class="text-sm text-purple-200 mb-3">自由站區，含入場飲品</p>
+      <p class="vt text-3xl text-yellow-200">$880</p>
+    </div>
+    <div class="ticket-card selected rounded-2xl p-5 cursor-pointer" data-price="1580" data-name="VIP 特區">
+      <p class="vt text-2xl text-cyan-200 mb-1">VIP 特區</p>
+      <p class="text-sm text-purple-200 mb-3">前排視野，含限定周邊</p>
+      <p class="vt text-3xl text-yellow-200">$1,580</p>
+    </div>
+    <div class="ticket-card rounded-2xl p-5 cursor-pointer" data-price="2680" data-name="雙人套票">
+      <p class="vt text-2xl text-pink-200 mb-1">雙人套票</p>
+      <p class="text-sm text-purple-200 mb-3">兩張入場＋合照機會</p>
+      <p class="vt text-3xl text-yellow-200">$2,680</p>
+    </div>
+  </div>
+
+  <button id="buyBtn" class="neon-btn text-black font-black vt text-2xl px-10 py-4 rounded-full">
+    購買「VIP 特區」－ $1,580
+  </button>
+  <p id="buyMsg" class="vt text-lg text-cyan-200 mt-4 h-6"></p>
+</div>
+
+<script>
+document.querySelectorAll('.ticket-card').forEach(card=>{
+  card.addEventListener('click', ()=>{
+    document.querySelectorAll('.ticket-card').forEach(c=>c.classList.remove('selected'));
+    card.classList.add('selected');
+    const price = Number(card.dataset.price).toLocaleString();
+    document.getElementById('buyBtn').textContent = `購買「${card.dataset.name}」－ $${price}`;
+  });
+});
+
+document.getElementById('buyBtn').addEventListener('click', ()=>{
+  document.getElementById('buyMsg').textContent = '✧ 已加入購物車，準備前往結帳 ✧';
+});
+
+const target = new Date();
+target.setDate(target.getDate() + 12);
+target.setHours(20,0,0,0);
+function tick(){
+  const diff = Math.max(0, target - new Date());
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor(diff % 86400000 / 3600000);
+  const m = Math.floor(diff % 3600000 / 60000);
+  const s = Math.floor(diff % 60000 / 1000);
+  document.getElementById('countdown').textContent =
+    `${String(d).padStart(2,'0')}:${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+tick();
+setInterval(tick, 1000);
+</script>
+</body>
+</html>

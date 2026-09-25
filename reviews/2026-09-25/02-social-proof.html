@@ -1,0 +1,157 @@
+<!-- style #24 Social Proof-Focused -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>任務雲 TaskCloud｜企業導入案例</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *{font-family:'Libre Franklin','Noto Sans TC',sans-serif;}
+  body{background:#fbfbfa;}
+  .marquee-track{ display:flex; gap:64px; animation: scroll 22s linear infinite; width:max-content; }
+  .marquee-track:hover{ animation-play-state: paused; }
+  @keyframes scroll{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+  .stat-num{ font-weight:900; letter-spacing:-.02em; }
+  .quote-card{ transition: transform .3s ease, box-shadow .3s ease; }
+  .quote-card:hover{ transform: translateY(-4px); box-shadow: 0 20px 40px -12px rgba(15,23,42,.12); }
+  .badge-dot{ width:8px; height:8px; border-radius:50%; background:#16a34a; box-shadow:0 0 0 3px rgba(22,163,74,.2); }
+  .fade-up{ opacity:0; transform:translateY(16px); animation: fadeUp .7s ease forwards; }
+  @keyframes fadeUp{ to{ opacity:1; transform:translateY(0);} }
+</style>
+</head>
+<body class="text-slate-900">
+
+<header class="border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+    <div class="flex items-center gap-2 font-black text-xl">
+      <span class="inline-block w-3 h-3 rounded-full bg-indigo-600"></span> 任務雲 TaskCloud
+    </div>
+    <nav class="hidden md:flex gap-8 text-sm font-semibold text-slate-500">
+      <a href="#" class="hover:text-slate-900">產品</a>
+      <a href="#" class="hover:text-slate-900">案例</a>
+      <a href="#" class="hover:text-slate-900">價格</a>
+      <a href="#" class="hover:text-slate-900">部落格</a>
+    </nav>
+    <button class="bg-slate-900 text-white text-sm font-bold px-5 py-2.5 rounded-lg hover:bg-slate-700 transition">預約 Demo</button>
+  </div>
+</header>
+
+<section class="max-w-6xl mx-auto px-6 pt-16 pb-10 text-center">
+  <div class="inline-flex items-center gap-2 bg-indigo-50 text-indigo-600 text-xs font-bold px-3 py-1.5 rounded-full mb-5 fade-up">
+    <span class="badge-dot"></span> 已服務超過 1,200 家企業團隊
+  </div>
+  <h1 class="fade-up text-4xl md:text-5xl font-black tracking-tight leading-tight mb-5" style="animation-delay:.1s">
+    連跨國團隊都在用的<br class="hidden md:block"> 任務協作平台
+  </h1>
+  <p class="fade-up text-slate-500 text-lg max-w-xl mx-auto mb-8" style="animation-delay:.2s">
+    從新創到上市公司，超過 30 萬名工作者每天在任務雲上完成交付、追蹤進度。
+  </p>
+  <div class="fade-up flex items-center justify-center gap-4" style="animation-delay:.3s">
+    <button class="bg-indigo-600 text-white font-bold px-7 py-3.5 rounded-lg hover:bg-indigo-700 transition shadow-lg shadow-indigo-200">免費開始使用</button>
+    <button class="text-slate-600 font-bold px-6 py-3.5 rounded-lg border border-slate-200 hover:border-slate-400 transition">觀看客戶案例 →</button>
+  </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center border-y border-slate-200">
+  <div>
+    <p class="stat-num text-4xl text-indigo-600" data-target="1200" id="s1">0</p>
+    <p class="text-sm text-slate-500 mt-1 font-semibold">合作企業團隊</p>
+  </div>
+  <div>
+    <p class="stat-num text-4xl text-indigo-600" data-target="98" id="s2">0</p>
+    <p class="text-sm text-slate-500 mt-1 font-semibold">客戶續約率 %</p>
+  </div>
+  <div>
+    <p class="stat-num text-4xl text-indigo-600" data-target="42" id="s3">0</p>
+    <p class="text-sm text-slate-500 mt-1 font-semibold">平均交付縮短 %</p>
+  </div>
+  <div>
+    <p class="stat-num text-4xl text-indigo-600" data-target="4.9" id="s4">0</p>
+    <p class="text-sm text-slate-500 mt-1 font-semibold">App Store 評分</p>
+  </div>
+</section>
+
+<section class="py-12 overflow-hidden">
+  <p class="text-center text-xs font-bold tracking-widest text-slate-400 mb-8">深受這些團隊信任</p>
+  <div class="marquee-track text-2xl font-black text-slate-300">
+    <span>永固建設</span><span>晨曦生技</span><span>藍海物流</span><span>星辰金融</span><span>浩宇科技</span><span>綠芽農業</span><span>方舟顧問</span>
+    <span>永固建設</span><span>晨曦生技</span><span>藍海物流</span><span>星辰金融</span><span>浩宇科技</span><span>綠芽農業</span><span>方舟顧問</span>
+  </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-6 py-10">
+  <h2 class="text-2xl font-black text-center mb-10">客戶怎麼說</h2>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="quote-card bg-white border border-slate-200 rounded-2xl p-6">
+      <div class="flex text-amber-400 mb-3">★★★★★</div>
+      <p class="text-slate-700 mb-5 leading-relaxed">「導入任務雲之後，跨部門的交付延遲從平均 4 天降到 1.5 天，會議也少了一半。」</p>
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center font-bold text-indigo-600">陳</div>
+        <div>
+          <p class="font-bold text-sm">陳映婷</p>
+          <p class="text-xs text-slate-400">永固建設・專案總監</p>
+        </div>
+      </div>
+    </div>
+    <div class="quote-card bg-white border border-slate-200 rounded-2xl p-6">
+      <div class="flex text-amber-400 mb-3">★★★★★</div>
+      <p class="text-slate-700 mb-5 leading-relaxed">「客服跟業務終於用同一套系統看進度，客戶滿意度調查直接漲了 20 分。」</p>
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center font-bold text-indigo-600">林</div>
+        <div>
+          <p class="font-bold text-sm">林柏宇</p>
+          <p class="text-xs text-slate-400">藍海物流・營運副總</p>
+        </div>
+      </div>
+    </div>
+    <div class="quote-card bg-white border border-slate-200 rounded-2xl p-6">
+      <div class="flex text-amber-400 mb-3">★★★★★</div>
+      <p class="text-slate-700 mb-5 leading-relaxed">「介面單純到新人第一天就能上手，不用再花一週在教育訓練上。」</p>
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center font-bold text-indigo-600">黃</div>
+        <div>
+          <p class="font-bold text-sm">黃詩涵</p>
+          <p class="text-xs text-slate-400">晨曦生技・人資長</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="max-w-4xl mx-auto px-6 py-16 text-center">
+  <h3 class="text-2xl font-black mb-4">加入超過 1,200 家企業的選擇</h3>
+  <p class="text-slate-500 mb-6">14 天免費試用，不需要信用卡</p>
+  <button class="bg-indigo-600 text-white font-bold px-8 py-4 rounded-lg hover:bg-indigo-700 transition shadow-lg shadow-indigo-200">立即免費試用</button>
+</section>
+
+<footer class="border-t border-slate-200 py-8 text-center text-sm text-slate-400">
+  © 2026 任務雲 TaskCloud．保留一切權利
+</footer>
+
+<script>
+function animateCount(el, target, decimals=0){
+  let cur = 0;
+  const step = target / 60;
+  const iv = setInterval(()=>{
+    cur += step;
+    if(cur >= target){ cur = target; clearInterval(iv); }
+    el.textContent = decimals ? cur.toFixed(1) : Math.floor(cur).toLocaleString();
+  }, 20);
+}
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const el = entry.target;
+      const target = parseFloat(el.dataset.target);
+      animateCount(el, target, el.id === 's4' ? 1 : 0);
+      observer.unobserve(el);
+    }
+  });
+}, { threshold: .5 });
+document.querySelectorAll('.stat-num').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!-- style #56 E-Ink / Paper -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>墨痕 InkTrace｜數位文學誌</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,72,400;0,72,500;0,72,600;0,72,700;1,72,500&family=Noto+Serif+TC:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f5f1eb; --ink:#1a1a1a; --line:#d8d2c4; --accent:#8a8578;
+  }
+  *{font-family:'Newsreader','Noto Serif TC',serif;}
+  .mono{ font-family:'JetBrains Mono', monospace; }
+  body{
+    background-color: var(--paper); color: var(--ink);
+    background-image:
+      radial-gradient(rgba(0,0,0,.015) 1px, transparent 1px);
+    background-size: 3px 3px;
+  }
+  .rule{ border-top:1px solid var(--line); }
+  .rule-thick{ border-top:2px solid var(--ink); }
+  .drop-cap::first-letter{
+    font-family:'Noto Serif TC', serif; font-weight:900; font-size:3.6rem; line-height:.8;
+    float:left; margin:.02em .1em 0 0; color:var(--ink);
+  }
+  .article-link{ transition: opacity .2s ease; }
+  .article-link:hover{ opacity:.6; }
+  .page-flip{ transition: opacity .4s ease; }
+  .toc-num{ font-family:'JetBrains Mono', monospace; color: var(--accent); }
+  .bookmark{ transition: transform .2s ease; cursor:pointer; }
+  .bookmark:hover{ transform: translateY(-2px); }
+  .bookmark.active .bm-icon{ color:#8a3324; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="max-w-3xl mx-auto px-6 py-10">
+
+  <header class="text-center mb-8">
+    <p class="mono text-xs tracking-widest text-[--accent] mb-2">2026 年 9 月號 · 第 47 期</p>
+    <h1 class="text-5xl font-black tracking-tight mb-2">墨痕 InkTrace</h1>
+    <p class="text-sm text-[--accent] italic" style="font-style:italic;">一份給慢讀者的數位文學誌</p>
+  </header>
+
+  <div class="rule-thick mb-1"></div>
+  <div class="rule mb-6"></div>
+
+  <nav class="flex flex-wrap justify-between text-sm mb-10 gap-3">
+    <span class="toc-num">01 卷頭語</span>
+    <span class="toc-num">02 散文：〈城市的間隙〉</span>
+    <span class="toc-num">03 訪談：與裝幀師談紙</span>
+    <span class="toc-num">04 詩選三首</span>
+  </nav>
+
+  <article class="mb-10">
+    <p class="mono text-xs text-[--accent] mb-2">卷頭語</p>
+    <h2 class="text-3xl font-bold mb-4">在螢幕裡，留一頁給紙的重量</h2>
+    <p class="drop-cap text-lg leading-relaxed mb-4">
+      我們始終相信，閱讀不必因為載體換成螢幕，就失去它原本的節奏。墨痕想做的，是把紙本閱讀的呼吸感——留白、字距、墨色的深淺——原封不動地搬進這塊發光的玻璃裡。你可以把手機轉成飛航模式，把這頁當作一本安靜的雜誌來翻。
+    </p>
+    <p class="text-lg leading-relaxed text-[--ink]/85">
+      本期收錄一篇關於城市縫隙的散文、一場與裝幀師的深夜對話，以及三首關於等待的詩。願你在其中找到片刻的停留。
+    </p>
+  </article>
+
+  <div class="rule mb-10"></div>
+
+  <article class="mb-10">
+    <p class="mono text-xs text-[--accent] mb-2">散文</p>
+    <h2 class="text-2xl font-bold mb-1">城市的間隙</h2>
+    <p class="text-sm text-[--accent] mb-4">文｜林薺 　攝影｜未署名</p>
+    <p class="leading-relaxed mb-4 text-[--ink]/90">
+      巷口的早餐店在七點準時掀開鐵門，油鍋的聲音蓋過整條街的安靜。我常在等紅燈的三十秒裡，看見一整個城市的縫隙——騎樓下曬著的棉被、便利商店玄關的貓、公車站牌旁被風吹翻的日曆。這些細小的、不被設計進城市規劃裡的片刻，才是真正屬於我們的風景。
+    </p>
+    <p class="leading-relaxed text-[--ink]/90">
+      我開始習慣在通勤路上放慢五分鐘，不是為了效率，而是為了記住——這座城市偶爾也會對我們露出溫柔的一面。
+    </p>
+    <a href="#" class="article-link inline-block mt-4 text-sm font-semibold underline">閱讀全文（約 8 分鐘）→</a>
+  </article>
+
+  <div class="rule mb-10"></div>
+
+  <article class="mb-10">
+    <p class="mono text-xs text-[--accent] mb-2">詩選</p>
+    <h2 class="text-2xl font-bold mb-5">三首關於等待</h2>
+    <div class="space-y-6">
+      <div>
+        <p class="italic text-lg leading-loose" style="font-style:italic;">車站的鐘停在／某個沒人記得的下午／我們卻還在等／那個永遠不會來的班次</p>
+        <p class="text-sm text-[--accent] mt-2">——〈末班車〉</p>
+      </div>
+      <div>
+        <p class="italic text-lg leading-loose" style="font-style:italic;">雨落在昨天的傘上／今天撐開的／是一場新的潮濕</p>
+        <p class="text-sm text-[--accent] mt-2">——〈傘〉</p>
+      </div>
+    </div>
+  </article>
+
+  <div class="rule-thick mb-6"></div>
+
+  <footer class="flex items-center justify-between text-sm">
+    <div class="flex gap-6">
+      <button class="bookmark flex items-center gap-1.5" data-bm="1">
+        <span class="bm-icon text-lg">☐</span> 收藏本期
+      </button>
+      <button class="bookmark flex items-center gap-1.5" data-bm="2">
+        <span class="bm-icon text-lg">✎</span> 寫下讀後
+      </button>
+    </div>
+    <span class="mono text-xs text-[--accent]" id="pageNum">第 1 頁 / 共 12 頁</span>
+  </footer>
+
+</div>
+
+<script>
+document.querySelectorAll('.bookmark').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    btn.classList.toggle('active');
+    const icon = btn.querySelector('.bm-icon');
+    if(btn.dataset.bm === '1'){
+      icon.textContent = btn.classList.contains('active') ? '☑' : '☐';
+    } else {
+      icon.textContent = btn.classList.contains('active') ? '✓' : '✎';
+    }
+  });
+});
+
+// simple page-turn simulation via scroll depth
+let page = 1;
+window.addEventListener('scroll', ()=>{
+  const scrolled = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+  const newPage = Math.min(12, Math.max(1, Math.round(scrolled * 11) + 1));
+  if(newPage !== page){
+    page = newPage;
+    document.getElementById('pageNum').textContent = `第 ${page} 頁 / 共 12 頁`;
+  }
+});
+</script>
+</body>
+</html>

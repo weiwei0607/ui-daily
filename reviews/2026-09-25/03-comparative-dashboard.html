@@ -1,0 +1,153 @@
+<!-- style #33 Comparative -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>廣告視界 AdCompare｜投放比較後台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *{font-family:'Work Sans','Noto Sans TC',sans-serif;}
+  .mono{ font-family:'JetBrains Mono', monospace; }
+  body{ background:#0f1115; color:#e2e8f0; }
+  .panel{ background:#171a21; border:1px solid #262b36; border-radius:16px; }
+  .better{ color:#4ade80; }
+  .worse{ color:#f87171; }
+  .diff-bar{ transition: width 1s cubic-bezier(.2,.9,.3,1); }
+  .row-hover:hover{ background:#1d212b; }
+  .glow-a{ box-shadow: 0 0 0 1px rgba(99,102,241,.4) inset; }
+  .glow-b{ box-shadow: 0 0 0 1px rgba(244,114,182,.4) inset; }
+  ::-webkit-scrollbar{ height:6px; }
+  ::-webkit-scrollbar-thumb{ background:#333844; border-radius:3px; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="max-w-6xl mx-auto px-6 py-8">
+  <header class="flex flex-wrap items-center justify-between gap-4 mb-8">
+    <div>
+      <p class="text-xs font-bold tracking-widest text-indigo-400 mb-1">投放比較分析</p>
+      <h1 class="text-2xl font-extrabold">廣告視界 <span class="text-slate-400">AdCompare</span></h1>
+    </div>
+    <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 panel px-4 py-2 glow-a">
+        <span class="w-2.5 h-2.5 rounded-full bg-indigo-400"></span>
+        <span class="text-sm font-semibold">方案 A・母親節限定組</span>
+      </div>
+      <span class="text-slate-500 font-bold">vs</span>
+      <div class="flex items-center gap-2 panel px-4 py-2 glow-b">
+        <span class="w-2.5 h-2.5 rounded-full bg-pink-400"></span>
+        <span class="text-sm font-semibold">方案 B・經典熱銷組</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="grid md:grid-cols-4 gap-4 mb-8">
+    <div class="panel p-5">
+      <p class="text-xs text-slate-400 font-semibold mb-2">總花費</p>
+      <div class="flex items-baseline justify-between">
+        <span class="mono text-xl font-bold text-indigo-300">$182,400</span>
+        <span class="mono text-sm text-slate-500">$176,900</span>
+      </div>
+    </div>
+    <div class="panel p-5">
+      <p class="text-xs text-slate-400 font-semibold mb-2">轉換率</p>
+      <div class="flex items-baseline justify-between">
+        <span class="mono text-xl font-bold better">4.82%</span>
+        <span class="mono text-sm text-slate-500">3.15%</span>
+      </div>
+    </div>
+    <div class="panel p-5">
+      <p class="text-xs text-slate-400 font-semibold mb-2">每次轉換成本</p>
+      <div class="flex items-baseline justify-between">
+        <span class="mono text-xl font-bold better">$47.6</span>
+        <span class="mono text-sm text-slate-500">$68.2</span>
+      </div>
+    </div>
+    <div class="panel p-5">
+      <p class="text-xs text-slate-400 font-semibold mb-2">ROAS</p>
+      <div class="flex items-baseline justify-between">
+        <span class="mono text-xl font-bold better">5.4x</span>
+        <span class="mono text-sm text-slate-500">3.8x</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel p-6 mb-8">
+    <h2 class="text-sm font-bold text-slate-300 mb-5">核心指標逐項比較</h2>
+    <div class="space-y-5" id="compareList"></div>
+  </section>
+
+  <section class="grid md:grid-cols-2 gap-6">
+    <div class="panel p-6">
+      <h3 class="text-sm font-bold text-slate-300 mb-4">7 日曝光趨勢</h3>
+      <svg viewBox="0 0 300 100" class="w-full h-28">
+        <polyline points="0,70 40,60 80,65 120,45 160,50 200,30 240,35 280,15" fill="none" stroke="#818cf8" stroke-width="2.5"/>
+        <polyline points="0,80 40,78 80,75 120,72 160,74 200,68 240,70 280,60" fill="none" stroke="#f472b6" stroke-width="2.5"/>
+      </svg>
+      <div class="flex gap-4 mt-2 text-xs text-slate-400">
+        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-indigo-400"></span> 方案 A</span>
+        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-pink-400"></span> 方案 B</span>
+      </div>
+    </div>
+    <div class="panel p-6">
+      <h3 class="text-sm font-bold text-slate-300 mb-4">受眾年齡分布差異</h3>
+      <div class="space-y-3">
+        <div>
+          <div class="flex justify-between text-xs text-slate-400 mb-1"><span>18–24 歲</span><span class="mono">A 32% ／ B 18%</span></div>
+          <div class="h-2 rounded-full bg-[#20242e] overflow-hidden"><div class="h-full bg-indigo-400" style="width:32%"></div></div>
+        </div>
+        <div>
+          <div class="flex justify-between text-xs text-slate-400 mb-1"><span>25–34 歲</span><span class="mono">A 41% ／ B 39%</span></div>
+          <div class="h-2 rounded-full bg-[#20242e] overflow-hidden"><div class="h-full bg-indigo-400" style="width:41%"></div></div>
+        </div>
+        <div>
+          <div class="flex justify-between text-xs text-slate-400 mb-1"><span>35 歲以上</span><span class="mono">A 27% ／ B 43%</span></div>
+          <div class="h-2 rounded-full bg-[#20242e] overflow-hidden"><div class="h-full bg-pink-400" style="width:43%"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+const metrics = [
+  { name:'點擊率 CTR', a:3.4, b:2.1, unit:'%', max:5 },
+  { name:'頁面停留時間', a:58, b:41, unit:'秒', max:80 },
+  { name:'加購物車率', a:12.8, b:8.9, unit:'%', max:20 },
+  { name:'完成結帳率', a:6.2, b:4.4, unit:'%', max:10 },
+];
+
+const list = document.getElementById('compareList');
+list.innerHTML = metrics.map(m=>{
+  const aBetter = m.a >= m.b;
+  return `
+  <div class="row-hover -mx-3 px-3 py-2 rounded-lg">
+    <div class="flex justify-between text-sm mb-1.5">
+      <span class="text-slate-300 font-medium">${m.name}</span>
+      <span class="mono ${aBetter?'better':''}">${m.a}${m.unit}</span>
+    </div>
+    <div class="h-2 rounded-full bg-[#20242e] overflow-hidden mb-1.5">
+      <div class="diff-bar h-full bg-indigo-400 rounded-full" style="width:0%" data-w="${(m.a/m.max*100)}"></div>
+    </div>
+    <div class="h-2 rounded-full bg-[#20242e] overflow-hidden">
+      <div class="diff-bar h-full bg-pink-400 rounded-full" style="width:0%" data-w="${(m.b/m.max*100)}"></div>
+    </div>
+    <div class="flex justify-end mt-1">
+      <span class="mono text-xs ${!aBetter?'worse':'text-slate-500'}">${m.b}${m.unit}</span>
+    </div>
+  </div>`;
+}).join('');
+
+requestAnimationFrame(()=>{
+  setTimeout(()=>{
+    document.querySelectorAll('.diff-bar').forEach(bar=>{
+      bar.style.width = bar.dataset.w + '%';
+    });
+  }, 150);
+});
+</script>
+</body>
+</html>
