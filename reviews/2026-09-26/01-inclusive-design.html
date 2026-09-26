@@ -1,0 +1,115 @@
+<!-- style #17 Inclusive Design -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>安心銀行 EasyBank｜高齡友善行動銀行</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#003366;
+    --orange:#e65100;
+    --bg:#fafafa;
+  }
+  body{font-family:'Atkinson Hyperlegible','Noto Sans TC',sans-serif;background:var(--bg);}
+  .font-display{font-family:'Atkinson Hyperlegible','Noto Sans TC',sans-serif;}
+  .focus-ring:focus-visible{outline:4px solid var(--orange);outline-offset:3px;}
+  .big-target{min-height:64px;min-width:64px;}
+  body.high-contrast{--bg:#000000;background:#000;color:#fff;}
+  body.high-contrast .card{background:#111;border-color:#fff;color:#fff;}
+  body.high-contrast .navy-bg{background:#000;border:3px solid #ffcc00;}
+  body.high-contrast a, body.high-contrast .orange-text{color:#ffcc00 !important;}
+  body.text-lg-mode{font-size:1.25rem;}
+  body.text-lg-mode h1{font-size:3rem !important;}
+  .skip-link{position:absolute;left:-9999px;top:0;background:var(--orange);color:#fff;padding:1rem;z-index:100;}
+  .skip-link:focus{left:1rem;top:1rem;}
+</style>
+</head>
+<body class="text-[#1a1a1a] leading-relaxed">
+<a href="#main" class="skip-link focus-ring rounded">跳到主要內容</a>
+
+<header class="navy-bg text-white" style="background:var(--navy);">
+  <div class="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between flex-wrap gap-4">
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-2xl font-black" style="color:var(--navy);">安</div>
+      <span class="text-2xl font-bold font-display">安心銀行 EasyBank</span>
+    </div>
+    <nav class="flex items-center gap-3 flex-wrap">
+      <button id="btnContrast" class="focus-ring big-target px-5 py-3 rounded-lg border-2 border-white font-bold text-base hover:bg-white hover:text-[#003366] transition">切換高對比</button>
+      <button id="btnTextSize" class="focus-ring big-target px-5 py-3 rounded-lg border-2 border-white font-bold text-base hover:bg-white hover:text-[#003366] transition">放大文字</button>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="max-w-5xl mx-auto px-6 py-12">
+  <section class="text-center mb-16">
+    <h1 class="text-5xl font-black mb-6 font-display" style="color:var(--navy);">銀行服務，人人都看得懂、用得順手</h1>
+    <p class="text-xl max-w-2xl mx-auto mb-8">大字清楚、對比鮮明、按鈕夠大——安心銀行讓長輩與所有人都能安心自己操作，不必請人幫忙。</p>
+    <a href="#steps" class="focus-ring big-target inline-flex items-center justify-center px-10 py-4 rounded-lg text-white text-xl font-bold shadow-lg orange-text" style="background:var(--orange);">立即開始轉帳 →</a>
+  </section>
+
+  <section class="grid md:grid-cols-3 gap-6 mb-16">
+    <div class="card big-target p-6 rounded-xl border-2 bg-white" style="border-color:var(--navy);">
+      <div class="text-4xl mb-3">🔎</div>
+      <h2 class="text-xl font-bold mb-2 font-display" style="color:var(--navy);">大字放大鏡</h2>
+      <p class="text-lg">一鍵放大所有文字，眼睛不用瞇著看螢幕。</p>
+    </div>
+    <div class="card big-target p-6 rounded-xl border-2 bg-white" style="border-color:var(--navy);">
+      <div class="text-4xl mb-3">🎧</div>
+      <h2 class="text-xl font-bold mb-2 font-display" style="color:var(--navy);">語音報讀</h2>
+      <p class="text-lg">每個畫面都能請它念給您聽，不怕看錯數字。</p>
+    </div>
+    <div class="card big-target p-6 rounded-xl border-2 bg-white" style="border-color:var(--navy);">
+      <div class="text-4xl mb-3">☎️</div>
+      <h2 class="text-xl font-bold mb-2 font-display" style="color:var(--navy);">真人客服一鍵接通</h2>
+      <p class="text-lg">操作卡住了？按一下就有真人幫您，不用轉語音選單。</p>
+    </div>
+  </section>
+
+  <section id="steps" class="mb-16">
+    <h2 class="text-3xl font-black mb-8 text-center font-display" style="color:var(--navy);">四步驟完成轉帳</h2>
+    <ol class="space-y-4">
+      <li class="card flex items-center gap-4 p-5 rounded-xl bg-white border-2" style="border-color:var(--navy);">
+        <span class="flex-shrink-0 w-12 h-12 rounded-full text-white font-black text-xl flex items-center justify-center orange-text" style="background:var(--orange);">1</span>
+        <span class="text-lg font-bold">輸入收款人手機號碼</span>
+      </li>
+      <li class="card flex items-center gap-4 p-5 rounded-xl bg-white border-2" style="border-color:var(--navy);">
+        <span class="flex-shrink-0 w-12 h-12 rounded-full text-white font-black text-xl flex items-center justify-center orange-text" style="background:var(--orange);">2</span>
+        <span class="text-lg font-bold">輸入要轉的金額</span>
+      </li>
+      <li class="card flex items-center gap-4 p-5 rounded-xl bg-white border-2" style="border-color:var(--navy);">
+        <span class="flex-shrink-0 w-12 h-12 rounded-full text-white font-black text-xl flex items-center justify-center orange-text" style="background:var(--orange);">3</span>
+        <span class="text-lg font-bold">系統念出金額給您確認</span>
+      </li>
+      <li class="card flex items-center gap-4 p-5 rounded-xl bg-white border-2" style="border-color:var(--navy);">
+        <span class="flex-shrink-0 w-12 h-12 rounded-full text-white font-black text-xl flex items-center justify-center orange-text" style="background:var(--orange);">4</span>
+        <span class="text-lg font-bold">按下指紋，完成轉帳</span>
+      </li>
+    </ol>
+  </section>
+
+  <section class="card p-8 rounded-xl bg-white border-2 text-center" style="border-color:var(--navy);">
+    <h2 class="text-2xl font-black mb-3 font-display" style="color:var(--navy);">還是不放心？</h2>
+    <p class="text-lg mb-5">打這支專線，真人客服平均 15 秒接聽，說台語、國語都通。</p>
+    <a href="tel:0800123456" class="focus-ring big-target inline-flex items-center justify-center px-8 py-4 rounded-lg text-white text-xl font-bold orange-text" style="background:var(--orange);">📞 0800-123-456</a>
+  </section>
+</main>
+
+<footer class="navy-bg text-white text-center py-8 mt-10" style="background:var(--navy);">
+  <p>安心銀行 EasyBank © 2026・通過 AAA 無障礙檢測</p>
+</footer>
+
+<script>
+  const body = document.body;
+  document.getElementById('btnContrast').addEventListener('click', () => {
+    body.classList.toggle('high-contrast');
+  });
+  document.getElementById('btnTextSize').addEventListener('click', () => {
+    body.classList.toggle('text-lg-mode');
+  });
+</script>
+</body>
+</html>

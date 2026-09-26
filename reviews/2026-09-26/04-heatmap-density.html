@@ -1,0 +1,144 @@
+<!-- style #29 Heatmap & Density -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>機房眼 DataCoolView｜機房溫度熱區監控</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Noto Sans TC','Hanken Grotesk',sans-serif;background:#0b1220;color:#dbeafe;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  .cell{aspect-ratio:1;border-radius:4px;transition:transform .15s;}
+  .cell:hover{transform:scale(1.15);z-index:10;position:relative;box-shadow:0 0 0 2px #fff;}
+  .card{background:#111c30;border:1px solid #1e3358;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+  .live-dot{animation:pulse 1.5s infinite;}
+</style>
+</head>
+<body class="min-h-screen">
+<div class="max-w-6xl mx-auto px-6 py-6">
+
+  <header class="flex items-center justify-between mb-6 flex-wrap gap-3">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded bg-sky-500 flex items-center justify-center font-black">眼</div>
+      <div>
+        <h1 class="text-xl font-bold">機房眼 DataCoolView</h1>
+        <p class="text-xs text-blue-300">板橋一號機房・機櫃溫度即時熱區</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-4 text-sm mono">
+      <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-400 live-dot"></span>連線中</span>
+      <span id="clock" class="text-blue-300">--:--:--</span>
+    </div>
+  </header>
+
+  <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+    <div class="card rounded-xl p-4">
+      <p class="text-xs text-blue-300 mb-1">平均溫度</p>
+      <p class="mono text-2xl font-bold">24.6°C</p>
+    </div>
+    <div class="card rounded-xl p-4">
+      <p class="text-xs text-blue-300 mb-1">最高溫機櫃</p>
+      <p class="mono text-2xl font-bold text-orange-400">A-07・31.2°C</p>
+    </div>
+    <div class="card rounded-xl p-4">
+      <p class="text-xs text-blue-300 mb-1">警戒機櫃數</p>
+      <p class="mono text-2xl font-bold text-red-400">3 台</p>
+    </div>
+    <div class="card rounded-xl p-4">
+      <p class="text-xs text-blue-300 mb-1">冷卻系統負載</p>
+      <p class="mono text-2xl font-bold">78%</p>
+    </div>
+  </section>
+
+  <section class="grid md:grid-cols-3 gap-6">
+    <div class="card rounded-xl p-5 md:col-span-2">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="font-bold">機房熱力圖（108 個感測點）</h2>
+        <div class="flex items-center gap-1 text-xs mono">
+          <span>低溫</span>
+          <span class="w-4 h-3 rounded" style="background:#1e3a8a"></span>
+          <span class="w-4 h-3 rounded" style="background:#0891b2"></span>
+          <span class="w-4 h-3 rounded" style="background:#38bdf8"></span>
+          <span class="w-4 h-3 rounded" style="background:#facc15"></span>
+          <span class="w-4 h-3 rounded" style="background:#f97316"></span>
+          <span class="w-4 h-3 rounded" style="background:#dc2626"></span>
+          <span>高溫</span>
+        </div>
+      </div>
+      <div id="grid" class="grid grid-cols-12 gap-1.5"></div>
+      <p class="text-xs text-blue-300 mt-3">滑過格子檢視即時溫度・每 4 秒自動更新</p>
+    </div>
+
+    <div class="card rounded-xl p-5">
+      <h2 class="font-bold mb-3">警報日誌</h2>
+      <ul id="log" class="space-y-2 text-sm mono max-h-80 overflow-y-auto"></ul>
+    </div>
+  </section>
+
+  <div id="tooltip" class="fixed hidden bg-slate-900 border border-sky-500 rounded px-3 py-1.5 text-xs mono pointer-events-none z-50"></div>
+</div>
+
+<script>
+  const colors = ['#1e3a8a','#0891b2','#38bdf8','#facc15','#f97316','#dc2626'];
+  const gridEl = document.getElementById('grid');
+  const tooltip = document.getElementById('tooltip');
+  const cells = [];
+
+  for(let i=0;i<108;i++){
+    const div = document.createElement('div');
+    div.className = 'cell';
+    const level = Math.random();
+    const colorIdx = Math.min(5, Math.floor(level*6));
+    div.style.background = colors[colorIdx];
+    const temp = (18 + level*16).toFixed(1);
+    div.dataset.temp = temp;
+    div.dataset.id = 'R'+(Math.floor(i/12)+1)+'-C'+(i%12+1);
+    div.addEventListener('mousemove', (e)=>{
+      tooltip.style.left = e.pageX+12+'px';
+      tooltip.style.top = e.pageY+12+'px';
+      tooltip.textContent = div.dataset.id+'　'+div.dataset.temp+'°C';
+      tooltip.classList.remove('hidden');
+    });
+    div.addEventListener('mouseleave', ()=> tooltip.classList.add('hidden'));
+    gridEl.appendChild(div);
+    cells.push(div);
+  }
+
+  function tick(){
+    document.getElementById('clock').textContent = new Date().toLocaleTimeString('zh-TW',{hour12:false});
+  }
+  tick(); setInterval(tick,1000);
+
+  const alerts = [
+    'A-07 機櫃溫度超過 30°C 警戒值',
+    'B-12 感測器回報延遲，已重新連線',
+    'C-03 冷卻風扇轉速異常降低',
+    '機房整體濕度回穩至 45%',
+    'A-07 溫度持續上升，已通知值班人員'
+  ];
+  const logEl = document.getElementById('log');
+  function addLog(){
+    const li = document.createElement('li');
+    const t = new Date().toLocaleTimeString('zh-TW',{hour12:false});
+    li.className = 'border-b border-blue-900/50 pb-2';
+    li.innerHTML = `<span class="text-blue-400">${t}</span><br><span class="text-blue-100">${alerts[Math.floor(Math.random()*alerts.length)]}</span>`;
+    logEl.prepend(li);
+    while(logEl.children.length > 8) logEl.removeChild(logEl.lastChild);
+  }
+  addLog();
+  setInterval(addLog, 4000);
+
+  setInterval(()=>{
+    const idx = Math.floor(Math.random()*cells.length);
+    const level = Math.random();
+    const colorIdx = Math.min(5, Math.floor(level*6));
+    cells[idx].style.background = colors[colorIdx];
+    cells[idx].dataset.temp = (18+level*16).toFixed(1);
+  }, 600);
+</script>
+</body>
+</html>

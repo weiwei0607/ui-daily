@@ -1,0 +1,134 @@
+<!-- style #22 Feature-Rich Showcase -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>轉單雷達 OrderRadar｜電商訂單管理 SaaS</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Noto Sans TC','Sora',sans-serif;}
+  .font-head{font-family:'Sora','Noto Sans TC',sans-serif;}
+  .grad-text{background:linear-gradient(90deg,#2563eb,#0891b2);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .feature-row:nth-child(even) .feature-img{order:2;}
+  .glow-card{box-shadow:0 10px 40px -10px rgba(37,99,235,.25);}
+</style>
+</head>
+<body class="bg-white text-slate-800">
+
+<header class="border-b sticky top-0 bg-white/90 backdrop-blur z-20">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-500"></div>
+      <span class="font-head font-bold text-xl">轉單雷達 <span class="text-slate-400 font-normal">OrderRadar</span></span>
+    </div>
+    <nav class="hidden md:flex gap-8 text-sm font-medium text-slate-600">
+      <a href="#features" class="hover:text-blue-600">功能</a>
+      <a href="#integrate" class="hover:text-blue-600">串接</a>
+      <a href="#pricing" class="hover:text-blue-600">方案</a>
+    </nav>
+    <a href="#pricing" class="font-head bg-slate-900 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-slate-700">免費試用 14 天</a>
+  </div>
+</header>
+
+<section class="max-w-6xl mx-auto px-6 pt-20 pb-16 text-center">
+  <span class="inline-block text-xs font-bold tracking-wide text-blue-600 bg-blue-50 px-3 py-1 rounded-full mb-5">跨蝦皮／MOMO／官網 一站整合</span>
+  <h1 class="font-head text-5xl font-extrabold mb-6 leading-tight">把七個平台的訂單<br><span class="grad-text">變成一張儀表板</span></h1>
+  <p class="text-lg text-slate-500 max-w-xl mx-auto mb-8">轉單雷達自動同步各通路訂單、庫存與出貨狀態，讓小電商團隊也能像大型物流中心一樣運作。</p>
+  <div class="flex items-center justify-center gap-4">
+    <a href="#pricing" class="font-head bg-blue-600 text-white px-7 py-3.5 rounded-lg font-semibold hover:bg-blue-700 shadow-lg shadow-blue-200">開始 14 天免費試用</a>
+    <a href="#features" class="font-head px-7 py-3.5 rounded-lg font-semibold border border-slate-300 hover:border-slate-500">看功能介紹 ↓</a>
+  </div>
+</section>
+
+<section id="features" class="max-w-6xl mx-auto px-6 py-10 space-y-24">
+
+  <div class="feature-row grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <span class="text-blue-600 font-bold text-sm">訂單整合</span>
+      <h2 class="font-head text-3xl font-bold mt-2 mb-4">七大通路訂單，三秒同步一次</h2>
+      <p class="text-slate-500 mb-4">蝦皮、MOMO、PChome、官網 Shopify、LINE 購物⋯⋯轉單雷達每 3 秒輪詢一次，訂單自動落地成統一格式，不再開七個分頁核對。</p>
+      <ul class="space-y-2 text-slate-700">
+        <li class="flex gap-2"><span class="text-cyan-600">✓</span>自動去除重複訂單</li>
+        <li class="flex gap-2"><span class="text-cyan-600">✓</span>缺貨自動標記並通知客服</li>
+      </ul>
+    </div>
+    <div class="feature-img glow-card rounded-2xl p-6 bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-100">
+      <div class="bg-white rounded-xl shadow p-4 space-y-2">
+        <div class="flex justify-between text-sm font-semibold border-b pb-2"><span>今日新訂單</span><span class="text-blue-600">248 筆</span></div>
+        <div class="flex justify-between text-sm py-1"><span>蝦皮</span><span class="font-mono">112</span></div>
+        <div class="flex justify-between text-sm py-1"><span>MOMO</span><span class="font-mono">76</span></div>
+        <div class="flex justify-between text-sm py-1"><span>官網</span><span class="font-mono">60</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="feature-row grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <span class="text-cyan-600 font-bold text-sm">出貨自動化</span>
+      <h2 class="font-head text-3xl font-bold mt-2 mb-4">一鍵列印出貨單，物流狀態即時回填</h2>
+      <p class="text-slate-500 mb-4">串接黑貓、新竹物流、7-11 交貨便，出貨單批次列印，貨態變化自動回寫到訂單，客戶查詢不用等客服。</p>
+      <ul class="space-y-2 text-slate-700">
+        <li class="flex gap-2"><span class="text-cyan-600">✓</span>批次列印節省 80% 人力</li>
+        <li class="flex gap-2"><span class="text-cyan-600">✓</span>異常件自動轉派專人處理</li>
+      </ul>
+    </div>
+    <div class="feature-img glow-card rounded-2xl p-6 bg-gradient-to-br from-cyan-50 to-blue-50 border border-cyan-100">
+      <div class="bg-white rounded-xl shadow p-4 space-y-3">
+        <div class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-emerald-500"></span><span class="text-sm">已配達・198 筆</span></div>
+        <div class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-amber-500"></span><span class="text-sm">運送中・35 筆</span></div>
+        <div class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-red-500"></span><span class="text-sm">異常件・2 筆</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="feature-row grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <span class="text-blue-600 font-bold text-sm">數據分析</span>
+      <h2 class="font-head text-3xl font-bold mt-2 mb-4">商品毛利、通路成本，一眼看穿</h2>
+      <p class="text-slate-500 mb-4">自動計算各通路抽成與物流成本後的真實毛利，找出真正賺錢的商品與通路組合。</p>
+    </div>
+    <div class="feature-img glow-card rounded-2xl p-6 bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-100">
+      <div class="bg-white rounded-xl shadow p-4">
+        <div class="flex items-end gap-2 h-24">
+          <div class="bg-blue-500 rounded w-6" style="height:60%"></div>
+          <div class="bg-blue-500 rounded w-6" style="height:85%"></div>
+          <div class="bg-cyan-400 rounded w-6" style="height:40%"></div>
+          <div class="bg-blue-500 rounded w-6" style="height:95%"></div>
+          <div class="bg-cyan-400 rounded w-6" style="height:55%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" class="max-w-4xl mx-auto px-6 py-20">
+  <h2 class="font-head text-3xl font-bold text-center mb-10">簡單透明的方案</h2>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="border rounded-2xl p-6">
+      <h3 class="font-head font-bold text-lg mb-1">起步版</h3>
+      <p class="text-3xl font-extrabold mb-4">NT$990<span class="text-sm font-normal text-slate-400">/月</span></p>
+      <p class="text-sm text-slate-500 mb-4">適合月訂單 500 筆以下</p>
+      <button class="w-full py-2.5 rounded-lg border font-semibold hover:bg-slate-50">選擇方案</button>
+    </div>
+    <div class="border-2 border-blue-600 rounded-2xl p-6 relative glow-card">
+      <span class="absolute -top-3 left-6 bg-blue-600 text-white text-xs px-3 py-1 rounded-full">最受歡迎</span>
+      <h3 class="font-head font-bold text-lg mb-1">成長版</h3>
+      <p class="text-3xl font-extrabold mb-4">NT$2,490<span class="text-sm font-normal text-slate-400">/月</span></p>
+      <p class="text-sm text-slate-500 mb-4">適合月訂單 5,000 筆以下</p>
+      <button class="w-full py-2.5 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700">選擇方案</button>
+    </div>
+    <div class="border rounded-2xl p-6">
+      <h3 class="font-head font-bold text-lg mb-1">企業版</h3>
+      <p class="text-3xl font-extrabold mb-4">洽談</p>
+      <p class="text-sm text-slate-500 mb-4">客製串接與專屬客服</p>
+      <button class="w-full py-2.5 rounded-lg border font-semibold hover:bg-slate-50">聯絡業務</button>
+    </div>
+  </div>
+</section>
+
+<footer class="border-t py-8 text-center text-sm text-slate-400">轉單雷達 OrderRadar © 2026</footer>
+</body>
+</html>
