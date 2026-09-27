@@ -1,0 +1,101 @@
+<!-- style #27 Storytelling -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>歸巷 The Alley Home · 老宅改造故事</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Noto+Serif+TC:wght@400;600;700&family=Karla:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Karla','Noto Serif TC',serif; color:#2b2620; background:#faf6ef; }
+  .serif{ font-family:'Fraunces','Noto Serif TC',serif; }
+  .dropcap::first-letter{
+    font-family:'Fraunces','Noto Serif TC',serif;
+    float:left; font-size:4.2rem; line-height:0.8; padding-right:.5rem; padding-top:.3rem;
+    color:#7a3b2e; font-weight:600;
+  }
+  .fade-in{ opacity:0; transform:translateY(24px); transition:opacity .8s ease, transform .8s ease; }
+  .fade-in.in{ opacity:1; transform:translateY(0); }
+  .chapter-num{ font-family:'Fraunces','Noto Serif TC',serif; }
+  .divider{ height:1px; background:linear-gradient(to right, transparent, #c9a98a, transparent); }
+</style>
+</head>
+<body>
+
+  <header class="max-w-3xl mx-auto px-6 pt-16 pb-10 text-center">
+    <p class="chapter-num text-sm tracking-widest text-[#a17552] mb-4">一段關於留下與重生的故事</p>
+    <h1 class="serif text-5xl md:text-6xl font-600 mb-6">歸巷<br><span class="text-2xl md:text-3xl text-[#7a3b2e]">The Alley Home</span></h1>
+    <p class="text-lg text-[#5b5347]">迪化街後巷那棟閒置四十年的木造町屋，如何在三代人手中，重新成為有人生活的地方。</p>
+  </header>
+
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="divider mb-16"></div>
+  </div>
+
+  <main class="max-w-2xl mx-auto px-6 pb-20 space-y-20">
+
+    <section class="fade-in">
+      <p class="chapter-num text-sm text-[#a17552] mb-2">第一章</p>
+      <h2 class="serif text-3xl mb-5">阿嬤留下的鑰匙</h2>
+      <p class="dropcap text-lg leading-loose">阿嬤過世那年，這棟町屋的鑰匙輾轉交到我手上。木門早已歪斜，屋瓦漏了三個洞，鄰居都說「這麼舊的房子，拆掉重建比較快」。但推開門那一刻，陽光從天井灑進來，落在磨石子地板上，我忽然明白，有些東西比效率更重要。</p>
+    </section>
+
+    <figure class="fade-in">
+      <div class="aspect-[16/9] rounded-sm bg-gradient-to-br from-[#e8dcc8] to-[#c9a98a] flex items-center justify-center text-[#7a3b2e] text-sm">
+        （老屋天井修復前後對照 · 示意）
+      </div>
+      <figcaption class="text-sm text-[#8a8072] mt-3 text-center serif italic">2019 年冬，屋頂拆解到只剩下木構架的那一天</figcaption>
+    </figure>
+
+    <section class="fade-in">
+      <p class="chapter-num text-sm text-[#a17552] mb-2">第二章</p>
+      <h2 class="serif text-3xl mb-5">找回一根梁的重量</h2>
+      <p class="text-lg leading-loose">修復團隊花了三個月，只做一件事：把可以留下的木料一根一根編號、除蟲、加固。有師傅說，這根檀木梁撐了七十年還很直，「新木頭反而不一定比它可靠」。我們決定把新舊工法並置——舊梁繼續撐著屋頂，新的鋼構藏在看不見的角落補強地震規範。</p>
+      <blockquote class="serif text-2xl italic text-[#7a3b2e] border-l-4 border-[#c9a98a] pl-6 my-8">
+        「修老房子不是把它變新，是幫它把想繼續說的話，說完。」
+      </blockquote>
+    </section>
+
+    <section class="fade-in">
+      <p class="chapter-num text-sm text-[#a17552] mb-2">第三章</p>
+      <h2 class="serif text-3xl mb-5">巷子重新有了聲音</h2>
+      <p class="text-lg leading-loose">2023 年開幕那天，隔壁賣了四十年潤餅的阿伯特地繞過來看。他站在天井下抬頭看了很久，說這裡的光跟他小時候一樣。現在歸巷是六間房的民宿，也是巷口老鄰居會進來喝茶的地方——我們留了一間對外的茶室，每天下午三點不收費，只收故事。</p>
+    </section>
+
+    <section class="fade-in grid grid-cols-3 gap-4 text-center py-6">
+      <div>
+        <p class="serif text-3xl text-[#7a3b2e]">73</p>
+        <p class="text-sm text-[#8a8072] mt-1">年屋齡</p>
+      </div>
+      <div>
+        <p class="serif text-3xl text-[#7a3b2e]">86%</p>
+        <p class="text-sm text-[#8a8072] mt-1">原始木料留用</p>
+      </div>
+      <div>
+        <p class="serif text-3xl text-[#7a3b2e]">6</p>
+        <p class="text-sm text-[#8a8072] mt-1">房型對外營運</p>
+      </div>
+    </section>
+
+    <section class="fade-in text-center pt-10">
+      <p class="text-lg mb-6">想親自走進這條巷子，聽完剩下的故事嗎？</p>
+      <a href="#" class="serif inline-block border-2 border-[#7a3b2e] text-[#7a3b2e] px-8 py-3 text-lg hover:bg-[#7a3b2e] hover:text-white transition-colors">預約留宿 · 或只是喝杯茶</a>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-[#e3d6c2] py-8 text-center text-sm text-[#8a8072]">
+    歸巷 The Alley Home · 迪化街後巷 47 號
+  </footer>
+
+<script>
+  const els = document.querySelectorAll('.fade-in');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); } });
+  }, { threshold: 0.15 });
+  els.forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

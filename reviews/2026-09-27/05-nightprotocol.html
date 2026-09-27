@@ -1,0 +1,157 @@
+<!-- style #41 Cyberpunk -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>夜戰協議 NIGHT PROTOCOL · 地下電競夜間錦標賽</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Noto Sans TC','Share Tech Mono',monospace;
+    background:#08060f; color:#e8e6f5; min-height:100vh; overflow-x:hidden;
+    background-image:
+      linear-gradient(rgba(255,0,200,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,255,0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+  .display{ font-family:'Orbitron',sans-serif; }
+  .mono{ font-family:'Share Tech Mono',monospace; }
+  .neon-magenta{ color:#ff2bd6; text-shadow:0 0 6px #ff2bd6, 0 0 22px rgba(255,43,214,.6); }
+  .neon-cyan{ color:#26f6ff; text-shadow:0 0 6px #26f6ff, 0 0 22px rgba(38,246,255,.55); }
+  .glitch{ position:relative; }
+  .glitch::before, .glitch::after{
+    content: attr(data-text); position:absolute; left:0; top:0; width:100%; height:100%;
+    opacity:.7; clip-path: inset(0 0 0 0);
+  }
+  .glitch::before{ color:#26f6ff; animation: glitchTop 3.2s infinite linear; }
+  .glitch::after{ color:#ff2bd6; animation: glitchBot 2.6s infinite linear; }
+  @keyframes glitchTop{ 0%,92%,100%{clip-path:inset(0 0 100% 0); transform:translate(0)} 93%{clip-path:inset(0 0 60% 0); transform:translate(-3px,-1px)} 95%{clip-path:inset(30% 0 40% 0); transform:translate(3px,1px)} }
+  @keyframes glitchBot{ 0%,88%,100%{clip-path:inset(100% 0 0 0); transform:translate(0)} 89%{clip-path:inset(50% 0 10% 0); transform:translate(2px,1px)} 91%{clip-path:inset(70% 0 5% 0); transform:translate(-2px,-1px)} }
+  .scanline{
+    position:fixed; inset:0; pointer-events:none; z-index:40;
+    background:repeating-linear-gradient(to bottom, rgba(255,255,255,.03) 0px, rgba(255,255,255,.03) 1px, transparent 2px, transparent 4px);
+  }
+  .card{ background:rgba(20,14,34,.75); border:1px solid rgba(255,43,214,.35); backdrop-filter:blur(6px); }
+  .btn-cta{
+    background:linear-gradient(90deg,#ff2bd6,#26f6ff); color:#08060f; font-weight:900;
+    box-shadow:0 0 24px rgba(255,43,214,.5);
+    transition:transform .15s ease;
+  }
+  .btn-cta:hover{ transform:translateY(-2px) scale(1.02); }
+  .ticket-opt{ border:1px solid rgba(38,246,255,.3); transition:all .2s ease; cursor:pointer; }
+  .ticket-opt.selected{ border-color:#26f6ff; box-shadow:0 0 18px rgba(38,246,255,.4); background:rgba(38,246,255,.06); }
+</style>
+</head>
+<body>
+<div class="scanline"></div>
+
+<header class="max-w-5xl mx-auto px-5 pt-8 pb-4 flex items-center justify-between">
+  <div class="display neon-magenta text-lg tracking-widest">NIGHT_PROTOCOL</div>
+  <div class="mono neon-cyan text-sm" id="clock">--:--:--</div>
+</header>
+
+<main class="max-w-5xl mx-auto px-5">
+
+  <section class="text-center py-14">
+    <p class="mono neon-cyan text-sm mb-4 tracking-widest">// UNDERGROUND ARENA · 台北 · 限額入場</p>
+    <h1 class="glitch display text-5xl md:text-7xl font-900 neon-magenta mb-6" data-text="夜戰協議">夜戰協議</h1>
+    <p class="display text-xl md:text-2xl neon-cyan mb-8">NIGHT PROTOCOL // 地下電競夜間錦標賽</p>
+    <div class="flex justify-center gap-4 mb-10">
+      <div class="card px-5 py-3 text-center">
+        <p id="dd" class="display text-2xl neon-cyan">00</p><p class="text-xs mono opacity-70">DAYS</p>
+      </div>
+      <div class="card px-5 py-3 text-center">
+        <p id="hh" class="display text-2xl neon-cyan">00</p><p class="text-xs mono opacity-70">HRS</p>
+      </div>
+      <div class="card px-5 py-3 text-center">
+        <p id="mm" class="display text-2xl neon-cyan">00</p><p class="text-xs mono opacity-70">MIN</p>
+      </div>
+      <div class="card px-5 py-3 text-center">
+        <p id="ss" class="display text-2xl neon-cyan">00</p><p class="text-xs mono opacity-70">SEC</p>
+      </div>
+    </div>
+    <a href="#tickets" class="btn-cta inline-block px-10 py-4 rounded-sm display tracking-wide">立即搶票 ENTER</a>
+  </section>
+
+  <section class="grid md:grid-cols-3 gap-5 mb-16">
+    <div class="card p-6">
+      <p class="mono neon-magenta text-sm mb-2">// 賽制</p>
+      <h3 class="display text-xl mb-2">單敗淘汰 · 32 強</h3>
+      <p class="text-sm opacity-80">跨區戰隊資格賽晉級，決賽採五局三勝。</p>
+    </div>
+    <div class="card p-6">
+      <p class="mono neon-magenta text-sm mb-2">// 場地</p>
+      <h3 class="display text-xl mb-2">華山廢棄鍋爐間</h3>
+      <p class="text-sm opacity-80">沉浸式霓虹燈場，僅開放單日限量入場。</p>
+    </div>
+    <div class="card p-6">
+      <p class="mono neon-magenta text-sm mb-2">// 獎金池</p>
+      <h3 class="display text-xl mb-2">NT$ 500,000</h3>
+      <p class="text-sm opacity-80">冠軍戰隊獨得 60%，另設最佳操作獎。</p>
+    </div>
+  </section>
+
+  <section id="tickets" class="pb-20">
+    <h2 class="display text-2xl neon-cyan mb-6 text-center">選擇你的入場憑證</h2>
+    <div class="grid md:grid-cols-3 gap-5">
+      <div class="ticket-opt card p-6 selected" onclick="selectTicket(this,'觀戰席','800')">
+        <p class="display text-lg neon-cyan mb-1">觀戰席</p>
+        <p class="mono text-2xl mb-3">NT$ 800</p>
+        <p class="text-sm opacity-75">開放式看台區，含入場飲品一杯</p>
+      </div>
+      <div class="ticket-opt card p-6" onclick="selectTicket(this,'前排戰術席','1500')">
+        <p class="display text-lg neon-magenta mb-1">前排戰術席</p>
+        <p class="mono text-2xl mb-3">NT$ 1,500</p>
+        <p class="text-sm opacity-75">近距離觀賽區，附戰隊應援燈牌</p>
+      </div>
+      <div class="ticket-opt card p-6" onclick="selectTicket(this,'VIP 控制室','3200')">
+        <p class="display text-lg neon-cyan mb-1">VIP 控制室</p>
+        <p class="mono text-2xl mb-3">NT$ 3,200</p>
+        <p class="text-sm opacity-75">選手後台參訪 + 賽後見面會資格</p>
+      </div>
+    </div>
+    <div class="text-center mt-8">
+      <p class="mono text-sm opacity-80 mb-3">已選擇：<span id="selName" class="neon-cyan">觀戰席</span> · <span id="selPrice" class="neon-magenta">NT$ 800</span></p>
+      <a href="#" class="btn-cta inline-block px-10 py-4 rounded-sm display tracking-wide">確認購票</a>
+    </div>
+  </section>
+</main>
+
+<footer class="text-center mono text-xs opacity-60 pb-10">NIGHT_PROTOCOL © 2026 · 未經授權禁止轉播</footer>
+
+<script>
+  document.querySelectorAll('.ticket-opt').forEach(el=>{
+    el.dataset.name = el.querySelector('p').textContent;
+  });
+  function selectTicket(el, name, price){
+    document.querySelectorAll('.ticket-opt').forEach(o=>o.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('selName').textContent = name;
+    document.getElementById('selPrice').textContent = 'NT$ ' + Number(price).toLocaleString();
+  }
+
+  function tick(){
+    const now = new Date();
+    document.getElementById('clock').textContent = now.toLocaleTimeString('zh-TW', {hour12:false});
+  }
+  setInterval(tick, 1000); tick();
+
+  const target = new Date(Date.now() + (6*24*3600 + 8*3600 + 41*60)*1000);
+  function countdown(){
+    const diff = Math.max(0, target - new Date());
+    const d = Math.floor(diff/86400000);
+    const h = Math.floor(diff%86400000/3600000);
+    const m = Math.floor(diff%3600000/60000);
+    const s = Math.floor(diff%60000/1000);
+    document.getElementById('dd').textContent = String(d).padStart(2,'0');
+    document.getElementById('hh').textContent = String(h).padStart(2,'0');
+    document.getElementById('mm').textContent = String(m).padStart(2,'0');
+    document.getElementById('ss').textContent = String(s).padStart(2,'0');
+  }
+  setInterval(countdown, 1000); countdown();
+</script>
+</body>
+</html>

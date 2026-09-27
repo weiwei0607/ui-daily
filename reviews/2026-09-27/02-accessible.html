@@ -1,0 +1,149 @@
+<!-- style #08 Accessible / Ethical -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>眾易處 AllAccess · 社會福利申請入口</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{ --blue:#0066cc; --red:#d32f2f; --ink:#0a0a0a; --paper:#ffffff; --fs-scale:1; }
+  html{ font-size: calc(16px * var(--fs-scale)); }
+  body{
+    font-family:'Atkinson Hyperlegible','Noto Sans TC',sans-serif;
+    color:var(--ink); background:var(--paper);
+    line-height:1.7;
+  }
+  .skip-link{
+    position:absolute; left:-9999px; top:0; z-index:100;
+    background:var(--ink); color:#fff; padding:.75rem 1.25rem; font-weight:700;
+  }
+  .skip-link:focus{ left:1rem; top:1rem; }
+  a, button{ }
+  a:focus-visible, button:focus-visible, input:focus-visible{
+    outline: 4px solid var(--blue); outline-offset: 2px;
+  }
+  .high-contrast{ --paper:#000000; --ink:#ffffff; }
+  .high-contrast .card{ background:#000; border:2px solid #fff; }
+  .high-contrast .btn-primary{ background:#ffff00; color:#000; border-color:#000; }
+  .high-contrast a{ color:#ffff00; }
+  .btn-primary{
+    background:var(--blue); color:#fff; font-weight:700;
+    padding:1rem 1.75rem; border-radius:.5rem; border:3px solid transparent;
+    min-height:56px; font-size:1.125rem;
+  }
+  .btn-primary:hover{ background:#004c99; }
+  .btn-outline{
+    border:3px solid var(--ink); color:var(--ink); font-weight:700;
+    padding:1rem 1.75rem; border-radius:.5rem; min-height:56px; font-size:1.125rem;
+  }
+  .card{ border:2px solid #d6d6d6; border-radius:.75rem; background:#fff; }
+  .step-dot{ width:2.25rem; height:2.25rem; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; border:3px solid var(--ink); }
+  .step-dot.done{ background:var(--blue); color:#fff; border-color:var(--blue); }
+  .step-dot.active{ background:var(--red); color:#fff; border-color:var(--red); }
+</style>
+</head>
+<body class="high-contrast-target">
+<a href="#main" class="skip-link">跳到主要內容</a>
+
+<header class="border-b-4" style="border-color:var(--ink);">
+  <div class="max-w-4xl mx-auto px-5 py-5 flex flex-wrap items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <div class="w-11 h-11 rounded-full flex items-center justify-center text-white font-bold text-lg" style="background:var(--blue)">易</div>
+      <span class="text-2xl font-bold">眾易處 <span style="color:var(--blue)">AllAccess</span></span>
+    </div>
+    <div class="flex items-center gap-3 flex-wrap">
+      <button class="btn-outline text-sm px-4 py-2" onclick="changeFont(-1)" aria-label="縮小字級">A－</button>
+      <button class="btn-outline text-sm px-4 py-2" onclick="changeFont(1)" aria-label="放大字級">A＋</button>
+      <button id="hcToggle" class="btn-outline text-sm px-4 py-2" onclick="toggleContrast()" aria-pressed="false">高對比模式</button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="max-w-4xl mx-auto px-5 py-10">
+  <h1 class="text-4xl font-bold mb-3">申請中低收入戶生活補助</h1>
+  <p class="text-lg mb-8" style="color:#333">全程 4 步驟，平均 12 分鐘完成。所有欄位皆可用鍵盤操作，畫面唸讀軟體全面相容。</p>
+
+  <!-- 步驟列 -->
+  <div class="flex items-center gap-2 mb-10 flex-wrap" role="list" aria-label="申請進度">
+    <div class="flex items-center gap-2" role="listitem">
+      <span class="step-dot done" aria-hidden="true">✓</span>
+      <span class="font-bold">身分驗證</span>
+    </div>
+    <span class="text-2xl" aria-hidden="true">－</span>
+    <div class="flex items-center gap-2" role="listitem">
+      <span class="step-dot active" aria-hidden="true">2</span>
+      <span class="font-bold">填寫資料</span>
+    </div>
+    <span class="text-2xl" aria-hidden="true">－</span>
+    <div class="flex items-center gap-2" role="listitem">
+      <span class="step-dot" aria-hidden="true">3</span>
+      <span>上傳文件</span>
+    </div>
+    <span class="text-2xl" aria-hidden="true">－</span>
+    <div class="flex items-center gap-2" role="listitem">
+      <span class="step-dot" aria-hidden="true">4</span>
+      <span>送出確認</span>
+    </div>
+  </div>
+
+  <form class="card p-6 md:p-8 mb-10" onsubmit="return false;">
+    <h2 class="text-2xl font-bold mb-6">第 2 步：填寫申請人資料</h2>
+
+    <div class="mb-6">
+      <label for="name" class="block font-bold mb-2 text-lg">姓名 <span style="color:var(--red)">（必填）</span></label>
+      <input id="name" type="text" required class="w-full border-2 rounded-lg px-4 py-3 text-lg" style="border-color:var(--ink)" placeholder="請輸入身分證上的全名">
+    </div>
+
+    <div class="mb-6">
+      <label for="id" class="block font-bold mb-2 text-lg">身分證號 <span style="color:var(--red)">（必填）</span></label>
+      <input id="id" type="text" required class="w-full border-2 rounded-lg px-4 py-3 text-lg" style="border-color:var(--ink)" placeholder="A123456789">
+      <p class="text-sm mt-2" style="color:#333">格式：一個大寫字母加九位數字。</p>
+    </div>
+
+    <div class="mb-8">
+      <label for="income" class="block font-bold mb-2 text-lg">家庭月收入區間 <span style="color:var(--red)">（必填）</span></label>
+      <select id="income" required class="w-full border-2 rounded-lg px-4 py-3 text-lg" style="border-color:var(--ink)">
+        <option value="">請選擇</option>
+        <option>2 萬元以下</option>
+        <option>2 萬至 3.5 萬元</option>
+        <option>3.5 萬至 5 萬元</option>
+        <option>5 萬元以上</option>
+      </select>
+    </div>
+
+    <div class="flex flex-wrap gap-4">
+      <button type="button" class="btn-outline">上一步</button>
+      <button type="submit" class="btn-primary" onclick="alert('已為您儲存並前往下一步（此為靜態示範）')">下一步：上傳文件</button>
+    </div>
+  </form>
+
+  <section class="card p-6 md:p-8" aria-labelledby="help-h">
+    <h2 id="help-h" class="text-2xl font-bold mb-4">需要協助？</h2>
+    <ul class="space-y-3 text-lg">
+      <li class="flex gap-3"><span aria-hidden="true">📞</span><span>免付費專線 <strong>0800-000-123</strong>，週一至週五 08:00–20:00。</span></li>
+      <li class="flex gap-3"><span aria-hidden="true">🧑‍🤝‍🧑</span><span>可請家人、社工或里幹事代為操作，欄位皆可暫存後續填寫。</span></li>
+      <li class="flex gap-3"><span aria-hidden="true">🗣️</span><span>提供手語視訊客服，請點選右下角「手語協助」按鈕。</span></li>
+    </ul>
+  </section>
+</main>
+
+<footer class="border-t-4 mt-10 py-6 text-center" style="border-color:var(--ink)">
+  <p class="text-base">眾易處 AllAccess · 每一個人都值得被好好對待</p>
+</footer>
+
+<script>
+  let scale = 1;
+  function changeFont(dir){
+    scale = Math.max(0.85, Math.min(1.6, scale + dir*0.1));
+    document.documentElement.style.setProperty('--fs-scale', scale);
+  }
+  function toggleContrast(){
+    const on = document.body.classList.toggle('high-contrast');
+    document.getElementById('hcToggle').setAttribute('aria-pressed', on);
+  }
+</script>
+</body>
+</html>
