@@ -1,0 +1,180 @@
+<!-- style #01 Minimalism / Swiss -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>格物顧問 GeWu Consulting</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+TC:wght@400;500;600;700&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#111111; --paper:#f5f1e8; --line:#111111; --red:#b3261e;
+  }
+  body{background:var(--paper); color:var(--ink); font-family:'Karla','Noto Serif TC',serif;}
+  .serif{font-family:'Newsreader','Noto Serif TC',serif;}
+  .rule{border-color:var(--ink);}
+  .grid-12{display:grid; grid-template-columns:repeat(12,1fr); gap:0;}
+  .dropcap:first-letter{
+    font-family:'Newsreader','Noto Serif TC',serif;
+    float:left; font-size:4.2rem; line-height:0.8; padding-right:0.5rem; padding-top:0.3rem;
+    font-weight:600;
+  }
+  .masthead{letter-spacing:0.02em;}
+  .num{font-variant-numeric: tabular-nums;}
+  .link-underline{text-underline-offset:4px; text-decoration-thickness:1px;}
+</style>
+</head>
+<body class="min-h-screen">
+
+  <!-- Masthead -->
+  <header class="border-b-2 rule">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="text-xs tracking-[0.3em] uppercase">創立於 2011 年</div>
+      <div class="text-xs tracking-[0.3em] uppercase">台北・上海・新加坡</div>
+    </div>
+    <div class="max-w-6xl mx-auto px-6 pb-6 border-b rule text-center">
+      <h1 class="serif masthead text-6xl md:text-8xl font-semibold">格物顧問</h1>
+      <p class="text-sm tracking-[0.25em] uppercase mt-2">GEWU CONSULTING — 企業策略與組織轉型顧問</p>
+    </div>
+    <nav class="max-w-6xl mx-auto px-6 py-3 flex flex-wrap gap-x-8 gap-y-2 text-sm uppercase tracking-widest justify-center">
+      <a href="#work" class="link-underline hover:underline">案例</a>
+      <a href="#method" class="link-underline hover:underline">方法論</a>
+      <a href="#people" class="link-underline hover:underline">團隊</a>
+      <a href="#contact" class="link-underline hover:underline">聯絡我們</a>
+    </nav>
+  </header>
+
+  <!-- Lead story -->
+  <section class="max-w-6xl mx-auto px-6 py-14 grid-12 gap-8">
+    <div class="col-span-12 md:col-span-8 border-r-0 md:border-r rule md:pr-8">
+      <p class="text-xs uppercase tracking-[0.25em] text-[var(--red)] mb-3">封面故事</p>
+      <h2 class="serif text-4xl md:text-5xl font-medium leading-tight mb-6">
+        當企業成長超過組織能承受的速度，該先修的不是流程，是決策的顆粒度。
+      </h2>
+      <p class="dropcap text-lg leading-relaxed max-w-3xl">
+        過去十二年，我們陪伴超過一百四十家台灣中大型企業走過擴張、轉型與接班的關鍵時刻。多數企業的問題不在缺乏策略，而在策略被切成太多層級後，早已面目全非。我們的工作，是把董事會的意圖，原封不動地送到第一線。這聽起來簡單，做起來卻是整套組織設計、會議節奏與決策授權的重新校準。
+      </p>
+      <p class="leading-relaxed max-w-3xl mt-4 text-[15px]">
+        我們不賣簡報，也不留下一份束之高閣的報告。每個專案結束時，客戶得到的是一套已經跑起來、被驗證過的營運節奏——這是我們與傳統管理顧問最大的不同。
+      </p>
+      <div class="mt-8 flex items-center gap-4 text-sm">
+        <a href="#contact" class="border-2 rule px-5 py-2 uppercase tracking-widest hover:bg-black hover:text-[var(--paper)] transition-colors">預約策略諮詢</a>
+        <span class="text-xs text-gray-500">首次會談約 45 分鐘，不收費</span>
+      </div>
+    </div>
+
+    <aside class="col-span-12 md:col-span-4 md:pl-8">
+      <p class="text-xs uppercase tracking-[0.25em] mb-3 border-b rule pb-2">本季數據</p>
+      <div class="space-y-5">
+        <div>
+          <div class="serif text-4xl num font-semibold">147</div>
+          <div class="text-xs uppercase tracking-wider text-gray-600 mt-1">已完成之組織轉型專案</div>
+        </div>
+        <div>
+          <div class="serif text-4xl num font-semibold">92%</div>
+          <div class="text-xs uppercase tracking-wider text-gray-600 mt-1">專案結案後仍持續合作之客戶比例</div>
+        </div>
+        <div>
+          <div class="serif text-4xl num font-semibold">6.4 週</div>
+          <div class="text-xs uppercase tracking-wider text-gray-600 mt-1">平均決策流程縮短時間</div>
+        </div>
+      </div>
+      <p class="text-xs uppercase tracking-[0.25em] mt-8 mb-3 border-b rule pb-2">近期出版</p>
+      <ul class="text-sm space-y-2 leading-relaxed">
+        <li class="serif italic">《決策顆粒度：中型企業的組織體檢》</li>
+        <li class="serif italic">《接班不是換人，是換一套決策系統》</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- Method section -->
+  <section id="method" class="border-t-2 rule">
+    <div class="max-w-6xl mx-auto px-6 py-14">
+      <div class="flex items-baseline justify-between border-b rule pb-3 mb-8">
+        <h3 class="serif text-2xl font-semibold">方法論　METHOD</h3>
+        <span class="text-xs uppercase tracking-widest text-gray-500">三個階段</span>
+      </div>
+      <div class="grid-12 gap-8">
+        <div class="col-span-12 md:col-span-4 border-t-2 rule pt-4">
+          <div class="text-xs num text-gray-500 mb-2">01</div>
+          <h4 class="serif text-xl font-medium mb-2">診斷：找出真正的瓶頸</h4>
+          <p class="text-sm leading-relaxed text-gray-700">兩週內完成組織訪談與決策流程地圖，標出資訊在哪一層開始失真。</p>
+        </div>
+        <div class="col-span-12 md:col-span-4 border-t-2 rule pt-4">
+          <div class="text-xs num text-gray-500 mb-2">02</div>
+          <h4 class="serif text-xl font-medium mb-2">重構：設計新的節奏</h4>
+          <p class="text-sm leading-relaxed text-gray-700">重新劃分授權邊界，設計每週、每月、每季的決策會議節奏表。</p>
+        </div>
+        <div class="col-span-12 md:col-span-4 border-t-2 rule pt-4">
+          <div class="text-xs num text-gray-500 mb-2">03</div>
+          <h4 class="serif text-xl font-medium mb-2">陪跑：直到它成為習慣</h4>
+          <p class="text-sm leading-relaxed text-gray-700">連續三個月坐在會議室裡，直到新的決策節奏內化為組織本能。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Case studies -->
+  <section id="work" class="border-t-2 rule bg-[#efe9dc]">
+    <div class="max-w-6xl mx-auto px-6 py-14">
+      <h3 class="serif text-2xl font-semibold border-b rule pb-3 mb-8">案例　SELECTED WORK</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-10">
+        <article class="border-t-2 rule pt-4">
+          <p class="text-xs uppercase tracking-widest text-gray-500 mb-2">製造業・組織重整</p>
+          <h4 class="serif text-lg font-medium mb-2 leading-snug">三代接班的機械廠，如何在十八個月內完成決策權轉移</h4>
+          <p class="text-sm text-gray-700 leading-relaxed">從家族會議到董事會治理，重建一套所有股東都能信任的決策機制。</p>
+          <a href="#" class="text-xs uppercase tracking-widest link-underline hover:underline mt-3 inline-block">閱讀全文 →</a>
+        </article>
+        <article class="border-t-2 rule pt-4">
+          <p class="text-xs uppercase tracking-widest text-gray-500 mb-2">零售連鎖・營運效率</p>
+          <h4 class="serif text-lg font-medium mb-2 leading-snug">從 32 家門市到 210 家，總部如何不變成瓶頸</h4>
+          <p class="text-sm text-gray-700 leading-relaxed">重新設計區域授權與月會節奏，讓總部從審核者變成支援者。</p>
+          <a href="#" class="text-xs uppercase tracking-widest link-underline hover:underline mt-3 inline-block">閱讀全文 →</a>
+        </article>
+        <article class="border-t-2 rule pt-4">
+          <p class="text-xs uppercase tracking-widest text-gray-500 mb-2">科技新創・成長陣痛</p>
+          <h4 class="serif text-lg font-medium mb-2 leading-snug">A 輪到 C 輪之間，組織圖畫了五次卻沒有一次順</h4>
+          <p class="text-sm text-gray-700 leading-relaxed">用季度目標校準取代不斷重畫的組織圖，讓成長不再是混亂的代名詞。</p>
+          <a href="#" class="text-xs uppercase tracking-widest link-underline hover:underline mt-3 inline-block">閱讀全文 →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="border-t-2 rule">
+    <div class="max-w-6xl mx-auto px-6 py-14 grid-12 gap-8">
+      <div class="col-span-12 md:col-span-6">
+        <h3 class="serif text-3xl font-semibold mb-4">開始一場對話</h3>
+        <p class="text-sm text-gray-700 leading-relaxed max-w-md">留下您的組織現況，我們會在兩個工作天內回覆，並安排一次不收費的策略會談。</p>
+      </div>
+      <form class="col-span-12 md:col-span-6 space-y-4" onsubmit="event.preventDefault(); document.getElementById('form-ok').classList.remove('hidden'); this.reset();">
+        <div>
+          <label class="text-xs uppercase tracking-widest block mb-1">姓名</label>
+          <input required type="text" class="w-full bg-transparent border-b-2 rule py-2 focus:outline-none focus:border-[var(--red)]" placeholder="您的姓名">
+        </div>
+        <div>
+          <label class="text-xs uppercase tracking-widest block mb-1">公司 / 職稱</label>
+          <input required type="text" class="w-full bg-transparent border-b-2 rule py-2 focus:outline-none focus:border-[var(--red)]" placeholder="公司名稱與職稱">
+        </div>
+        <div>
+          <label class="text-xs uppercase tracking-widest block mb-1">想討論的議題</label>
+          <textarea required rows="3" class="w-full bg-transparent border-b-2 rule py-2 focus:outline-none focus:border-[var(--red)]" placeholder="簡述目前遇到的組織或決策問題"></textarea>
+        </div>
+        <button class="border-2 rule px-6 py-2 uppercase tracking-widest text-sm hover:bg-black hover:text-[var(--paper)] transition-colors">送出邀約</button>
+        <p id="form-ok" class="hidden text-sm text-[var(--red)] pt-2">已收到，我們會在兩個工作天內與您聯繫。</p>
+      </form>
+    </div>
+  </section>
+
+  <footer class="border-t-2 rule">
+    <div class="max-w-6xl mx-auto px-6 py-6 flex flex-col md:flex-row justify-between items-center text-xs uppercase tracking-widest text-gray-600 gap-2">
+      <span>© 2026 格物顧問 GeWu Consulting</span>
+      <span>台北市大安區敦化南路二段 77 號 12 樓</span>
+    </div>
+  </footer>
+
+</body>
+</html>

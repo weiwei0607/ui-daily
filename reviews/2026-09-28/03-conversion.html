@@ -1,0 +1,203 @@
+<!-- style #21 Conversion-Optimized -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>職涯加速器 CareerBoost</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Hanken Grotesk','Noto Sans TC',sans-serif; background:#0d1117; color:#eef1f6;}
+  .display{font-family:'Hanken Grotesk','Noto Sans TC',sans-serif; font-weight:800;}
+  .accent{color:#ffb545;}
+  .grad-btn{ background:linear-gradient(90deg,#ffb545,#ff7a45); }
+  .card{ background:#161b24; border:1px solid #232a36; }
+  .marquee-track{ display:flex; gap:3rem; animation: scroll 22s linear infinite; }
+  @keyframes scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+  .sticky-cta{ position:sticky; bottom:0; z-index:40; }
+</style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <header class="border-b border-[#232a36]">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="display text-lg">職涯<span class="accent">加速器</span></div>
+      <a href="#enroll" class="grad-btn text-[#0d1117] font-bold text-sm px-4 py-2 rounded-full">立即報名</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="max-w-5xl mx-auto px-6 pt-16 pb-10 text-center">
+    <span class="inline-block bg-[#232a36] text-[#ffb545] text-xs font-bold px-3 py-1 rounded-full mb-5">🔥 第 14 期・僅剩 23 個名額</span>
+    <h1 class="display text-4xl md:text-6xl leading-tight mb-5">
+      6 週，把你的履歷<br class="hidden md:block"> 從「已讀」變成<span class="accent">「錄取」</span>
+    </h1>
+    <p class="text-[#9aa4b2] text-lg max-w-2xl mx-auto mb-8">
+      職涯加速器是專為 3-8 年資歷工作者設計的轉職訓練營，用真實面試官視角重寫你的履歷與故事線，平均縮短求職時間 41%。
+    </p>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
+      <a href="#enroll" class="grad-btn text-[#0d1117] font-bold text-base px-8 py-4 rounded-full">搶先預約名額 →</a>
+      <a href="#demo" class="border border-[#3a4453] text-sm px-6 py-4 rounded-full hover:bg-[#161b24]">先看 3 分鐘課程簡介</a>
+    </div>
+    <p class="text-xs text-[#657085]">已有 2,847 位學員完成訓練・30 天不滿意全額退費</p>
+  </section>
+
+  <!-- Countdown bar -->
+  <section class="bg-[#161b24] border-y border-[#232a36]">
+    <div class="max-w-5xl mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-3">
+      <p class="text-sm text-[#9aa4b2]">早鳥優惠倒數結束：</p>
+      <div id="countdown" class="display text-2xl accent tracking-widest">00:00:00:00</div>
+    </div>
+  </section>
+
+  <!-- Logos marquee -->
+  <section class="py-8 overflow-hidden border-b border-[#232a36]">
+    <p class="text-center text-xs text-[#657085] mb-4 uppercase tracking-widest">我們的學員後來加入了</p>
+    <div class="marquee-track text-2xl font-bold text-[#3a4453] whitespace-nowrap">
+      <span>台積電</span><span>國泰金控</span><span>Shopee</span><span>玉山銀行</span><span>研華科技</span><span>91APP</span><span>KKday</span>
+      <span>台積電</span><span>國泰金控</span><span>Shopee</span><span>玉山銀行</span><span>研華科技</span><span>91APP</span><span>KKday</span>
+    </div>
+  </section>
+
+  <!-- Social proof stats -->
+  <section class="max-w-5xl mx-auto px-6 py-14 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+    <div>
+      <div class="display text-4xl accent" data-count="2847">0</div>
+      <p class="text-xs text-[#9aa4b2] mt-1">累計學員</p>
+    </div>
+    <div>
+      <div class="display text-4xl accent" data-count="41">0</div>
+      <p class="text-xs text-[#9aa4b2] mt-1">%平均縮短求職天數</p>
+    </div>
+    <div>
+      <div class="display text-4xl accent" data-count="4.9">0</div>
+      <p class="text-xs text-[#9aa4b2] mt-1">/5 課程滿意度</p>
+    </div>
+    <div>
+      <div class="display text-4xl accent" data-count="86">0</div>
+      <p class="text-xs text-[#9aa4b2] mt-1">%三個月內收到 offer</p>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="max-w-6xl mx-auto px-6 py-10">
+    <h2 class="display text-2xl text-center mb-8">學員怎麼說</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="card rounded-2xl p-6">
+        <p class="text-sm text-[#c7cedb] leading-relaxed mb-4">「原本投了 40 家都石沉大海，重寫履歷後兩週內收到 3 個面試邀約，最後拿到理想中的 PM 職位。」</p>
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-[#ffb545] flex items-center justify-center text-[#0d1117] font-bold text-sm">陳</div>
+          <div><p class="text-sm font-semibold">陳品妤</p><p class="text-xs text-[#657085]">產品經理・轉職成功</p></div>
+        </div>
+      </div>
+      <div class="card rounded-2xl p-6">
+        <p class="text-sm text-[#c7cedb] leading-relaxed mb-4">「顧問直接指出我履歷裡『聽起來很努力但看不出成果』的問題，改完之後回覆率明顯提升。」</p>
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-[#ffb545] flex items-center justify-center text-[#0d1117] font-bold text-sm">林</div>
+          <div><p class="text-sm font-semibold">林昱丞</p><p class="text-xs text-[#657085]">數據分析師・轉職成功</p></div>
+        </div>
+      </div>
+      <div class="card rounded-2xl p-6">
+        <p class="text-sm text-[#c7cedb] leading-relaxed mb-4">「模擬面試環節超實用，回饋很直接，讓我在真正面試時反而更放鬆。」</p>
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-[#ffb545] flex items-center justify-center text-[#0d1117] font-bold text-sm">黃</div>
+          <div><p class="text-sm font-semibold">黃思琪</p><p class="text-xs text-[#657085]">行銷主管・轉職成功</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="max-w-3xl mx-auto px-6 py-14">
+    <h2 class="display text-2xl text-center mb-8">常見問題</h2>
+    <div class="space-y-3" id="faq">
+      <div class="card rounded-xl overflow-hidden">
+        <button class="faq-q w-full text-left px-5 py-4 flex justify-between items-center font-semibold">
+          需要先離職才能上課嗎？<span class="faq-icon">＋</span>
+        </button>
+        <div class="faq-a hidden px-5 pb-4 text-sm text-[#9aa4b2]">不需要，課程為每週兩次晚間直播 + 隨選錄影，多數學員都是在職進修。</div>
+      </div>
+      <div class="card rounded-xl overflow-hidden">
+        <button class="faq-q w-full text-left px-5 py-4 flex justify-between items-center font-semibold">
+          沒有面試經驗也能報名嗎？<span class="faq-icon">＋</span>
+        </button>
+        <div class="faq-a hidden px-5 pb-4 text-sm text-[#9aa4b2]">可以，我們會從履歷診斷開始，逐步建立你的求職策略與模擬面試練習。</div>
+      </div>
+      <div class="card rounded-xl overflow-hidden">
+        <button class="faq-q w-full text-left px-5 py-4 flex justify-between items-center font-semibold">
+          如果上完課沒有拿到 offer 怎麼辦？<span class="faq-icon">＋</span>
+        </button>
+        <div class="faq-a hidden px-5 pb-4 text-sm text-[#9aa4b2]">結業後 90 天內提供免費一對一加強諮詢，直到你拿到滿意的 offer 為止。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enroll -->
+  <section id="enroll" class="max-w-3xl mx-auto px-6 py-14 text-center">
+    <div class="card rounded-3xl p-10">
+      <h2 class="display text-3xl mb-3">第 14 期・10 月 6 日開課</h2>
+      <p class="text-[#9aa4b2] mb-6">早鳥價 NT$ 12,800（原價 NT$ 18,000），僅剩 23 個名額</p>
+      <a href="#" class="grad-btn text-[#0d1117] font-bold text-lg px-10 py-4 rounded-full inline-block">立即搶名額</a>
+      <p class="text-xs text-[#657085] mt-4">30 天不滿意，全額退費</p>
+    </div>
+  </section>
+
+  <!-- Sticky CTA -->
+  <div class="sticky-cta bg-[#161b24] border-t border-[#232a36] px-6 py-3 flex items-center justify-between">
+    <span class="text-sm text-[#9aa4b2] hidden sm:block">早鳥優惠即將結束・僅剩 23 個名額</span>
+    <a href="#enroll" class="grad-btn text-[#0d1117] font-bold text-sm px-6 py-3 rounded-full w-full sm:w-auto text-center">立即報名 →</a>
+  </div>
+
+<script>
+  // countdown to a fixed future point (24h rolling demo)
+  const end = new Date().getTime() + (2*24*60*60*1000) + (7*60*60*1000) + (32*60*1000);
+  function pad(n){ return String(n).padStart(2,'0'); }
+  function tick(){
+    const now = new Date().getTime();
+    let diff = Math.max(0, end - now);
+    const d = Math.floor(diff/(1000*60*60*24));
+    const h = Math.floor((diff/(1000*60*60))%24);
+    const m = Math.floor((diff/(1000*60))%60);
+    const s = Math.floor((diff/1000)%60);
+    document.getElementById('countdown').textContent = `${pad(d)}天 ${pad(h)}:${pad(m)}:${pad(s)}`;
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  // count-up stats on scroll into view
+  const counters = document.querySelectorAll('[data-count]');
+  const seen = new Set();
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting && !seen.has(entry.target)){
+        seen.add(entry.target);
+        const target = parseFloat(entry.target.dataset.count);
+        const isDecimal = target % 1 !== 0;
+        let cur = 0;
+        const step = target / 40;
+        const timer = setInterval(()=>{
+          cur += step;
+          if(cur >= target){ cur = target; clearInterval(timer); }
+          entry.target.textContent = isDecimal ? cur.toFixed(1) : Math.floor(cur);
+        }, 25);
+      }
+    });
+  }, {threshold:0.5});
+  counters.forEach(c=>io.observe(c));
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const a = btn.nextElementSibling;
+      const icon = btn.querySelector('.faq-icon');
+      a.classList.toggle('hidden');
+      icon.textContent = a.classList.contains('hidden') ? '＋' : '－';
+    });
+  });
+</script>
+
+</body>
+</html>

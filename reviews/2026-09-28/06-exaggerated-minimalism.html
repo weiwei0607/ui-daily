@@ -1,0 +1,153 @@
+<!-- style #47 Exaggerated Minimalism -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>思辨場 THINK LOUD</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Zen Kaku Gothic New','Space Grotesk',sans-serif; background:#fff; color:#0a0a0a; }
+  .display{ font-family:'Space Grotesk','Zen Kaku Gothic New',sans-serif; }
+  .huge{ font-weight:700; letter-spacing:-0.03em; line-height:0.92; }
+  .hairline{ border-color:#0a0a0a; }
+  .num-tag{ font-family:'Space Grotesk',monospace; }
+  .marquee{ white-space: nowrap; }
+  .marquee-inner{ display:inline-block; animation: mq 16s linear infinite; }
+  @keyframes mq{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+  .speaker-row{ transition: background .2s ease; }
+  .speaker-row:hover{ background:#0a0a0a; color:#fff; }
+  .speaker-row:hover .sub{ color:#bbb; }
+</style>
+</head>
+<body>
+
+  <header class="hairline border-b-2 flex items-center justify-between px-6 py-4">
+    <span class="display font-bold text-xl tracking-tight">THINK LOUD</span>
+    <a href="#tickets" class="display text-sm font-bold border-2 hairline px-4 py-2 hover:bg-black hover:text-white transition-colors">搶票</a>
+  </header>
+
+  <!-- Giant hero -->
+  <section class="px-6 pt-10 pb-6">
+    <h1 class="huge display text-[15vw] md:text-[9vw]">思辨場</h1>
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-2">
+      <p class="display text-2xl md:text-4xl huge">THINK LOUD VOL.09</p>
+      <p class="text-sm max-w-xs md:text-right">一年一度，六位思考者用 18 分鐘，逼你重新想一次你以為早就想通的事。</p>
+    </div>
+  </section>
+
+  <!-- Marquee -->
+  <section class="hairline border-y-2 py-3 overflow-hidden">
+    <div class="marquee">
+      <span class="marquee-inner display font-bold text-2xl md:text-3xl">
+        11 月 22 日・台北流行音樂中心　★　六位講者　★　現場開放提問　★　11 月 22 日・台北流行音樂中心　★　六位講者　★　現場開放提問　★
+      </span>
+    </div>
+  </section>
+
+  <!-- Big stat -->
+  <section class="px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="hairline border-2 p-6">
+      <p class="display huge text-6xl">18</p>
+      <p class="text-sm mt-2">分鐘・每位講者的時間限制，逼出最濃縮的觀點</p>
+    </div>
+    <div class="hairline border-2 p-6">
+      <p class="display huge text-6xl">06</p>
+      <p class="text-sm mt-2">位講者・橫跨科學、藝術、商業與社會運動</p>
+    </div>
+    <div class="hairline border-2 p-6">
+      <p class="display huge text-6xl">01</p>
+      <p class="text-sm mt-2">個晚上・沒有錄影重播，只有這一場</p>
+    </div>
+  </section>
+
+  <!-- Speaker list -->
+  <section class="px-0">
+    <div class="hairline border-t-2">
+      <div class="speaker-row hairline border-b-2 px-6 py-6 flex items-center justify-between cursor-pointer">
+        <div class="flex items-center gap-6">
+          <span class="num-tag text-sm">01</span>
+          <span class="display font-bold text-2xl md:text-4xl">陳貞妤</span>
+        </div>
+        <span class="sub text-sm text-gray-500 hidden md:block">深海生物學家・「黑暗裡的光，不是隱喻」</span>
+      </div>
+      <div class="speaker-row hairline border-b-2 px-6 py-6 flex items-center justify-between cursor-pointer">
+        <div class="flex items-center gap-6">
+          <span class="num-tag text-sm">02</span>
+          <span class="display font-bold text-2xl md:text-4xl">柯宇軒</span>
+        </div>
+        <span class="sub text-sm text-gray-500 hidden md:block">獨立建築師・「蓋一棟會呼吸的房子」</span>
+      </div>
+      <div class="speaker-row hairline border-b-2 px-6 py-6 flex items-center justify-between cursor-pointer">
+        <div class="flex items-center gap-6">
+          <span class="num-tag text-sm">03</span>
+          <span class="display font-bold text-2xl md:text-4xl">江雨柔</span>
+        </div>
+        <span class="sub text-sm text-gray-500 hidden md:block">社會運動組織者・「憤怒是可以被設計的」</span>
+      </div>
+      <div class="speaker-row hairline border-b-2 px-6 py-6 flex items-center justify-between cursor-pointer">
+        <div class="flex items-center gap-6">
+          <span class="num-tag text-sm">04</span>
+          <span class="display font-bold text-2xl md:text-4xl">鄭博文</span>
+        </div>
+        <span class="sub text-sm text-gray-500 hidden md:block">前科技公司財務長・「為什麼公司賺錢還是會倒」</span>
+      </div>
+      <div class="speaker-row hairline border-b-2 px-6 py-6 flex items-center justify-between cursor-pointer">
+        <div class="flex items-center gap-6">
+          <span class="num-tag text-sm">05</span>
+          <span class="display font-bold text-2xl md:text-4xl">游敏慈</span>
+        </div>
+        <span class="sub text-sm text-gray-500 hidden md:block">陶藝家・「手做的東西，為什麼比較貴」</span>
+      </div>
+      <div class="speaker-row px-6 py-6 flex items-center justify-between cursor-pointer">
+        <div class="flex items-center gap-6">
+          <span class="num-tag text-sm">06</span>
+          <span class="display font-bold text-2xl md:text-4xl">周立誠</span>
+        </div>
+        <span class="sub text-sm text-gray-500 hidden md:block">退休法官・「判決之後，正義才剛開始」</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ticket tiers -->
+  <section id="tickets" class="px-6 py-14">
+    <h2 class="display huge text-5xl md:text-7xl mb-8">選一張票</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <button class="ticket-btn hairline border-2 p-6 text-left hover:bg-black hover:text-white transition-colors" data-tier="一般席" data-price="1,280">
+        <p class="display font-bold text-xl mb-2">一般席</p>
+        <p class="display huge text-4xl mb-3">NT$1,280</p>
+        <p class="text-sm">自由入座區・含節目冊</p>
+      </button>
+      <button class="ticket-btn hairline border-2 p-6 text-left hover:bg-black hover:text-white transition-colors" data-tier="前排席" data-price="2,280">
+        <p class="display font-bold text-xl mb-2">前排席</p>
+        <p class="display huge text-4xl mb-3">NT$2,280</p>
+        <p class="text-sm">前十排指定座・會後茶會</p>
+      </button>
+      <button class="ticket-btn hairline border-2 p-6 text-left hover:bg-black hover:text-white transition-colors" data-tier="講者夜宴席" data-price="4,800">
+        <p class="display font-bold text-xl mb-2">講者夜宴席</p>
+        <p class="display huge text-4xl mb-3">NT$4,800</p>
+        <p class="text-sm">與六位講者共進晚餐・限量 20 席</p>
+      </button>
+    </div>
+    <p id="ticketResult" class="display text-2xl mt-8 huge"></p>
+  </section>
+
+  <footer class="hairline border-t-2 px-6 py-6 flex flex-col md:flex-row justify-between items-center text-xs">
+    <span class="display font-bold">THINK LOUD © 2026</span>
+    <span>台北市信義區忠孝東路五段 508 號</span>
+  </footer>
+
+<script>
+  document.querySelectorAll('.ticket-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.ticket-btn').forEach(b=>b.classList.remove('bg-black','text-white'));
+      btn.classList.add('bg-black','text-white');
+      document.getElementById('ticketResult').textContent = `已選擇「${btn.dataset.tier}」— NT$${btn.dataset.price}`;
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!-- style #55 Spatial UI -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>凝鏡 MetaFit</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Outfit','Noto Sans TC',sans-serif;
+    background: radial-gradient(circle at 20% 10%, #2a3550 0%, #10131f 45%, #05060a 100%);
+    color:#e8ecf5;
+    min-height:100vh;
+    perspective: 1400px;
+    overflow-x:hidden;
+  }
+  .scene{ transform-style: preserve-3d; }
+  .glass{
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid rgba(255,255,255,0.14);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.15);
+  }
+  .float-panel{
+    transition: transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease;
+  }
+  .float-panel:hover{
+    transform: translateZ(40px) translateY(-6px) rotateX(2deg);
+    box-shadow: 0 30px 70px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.2);
+  }
+  .depth-1{ transform: translateZ(0px); }
+  .depth-2{ transform: translateZ(20px); }
+  .orb{
+    position:absolute; border-radius:999px; filter: blur(60px); opacity:0.5; pointer-events:none;
+  }
+  .ring-track{ stroke: rgba(255,255,255,0.12); }
+  .ring-fill{ stroke: url(#grad); stroke-linecap: round; }
+</style>
+</head>
+<body>
+
+  <div class="orb w-72 h-72 bg-indigo-500 top-[-4rem] left-[-4rem]"></div>
+  <div class="orb w-72 h-72 bg-cyan-400 bottom-[-6rem] right-[-4rem]"></div>
+
+  <div class="max-w-6xl mx-auto px-6 py-10 relative scene">
+
+    <header class="flex items-center justify-between mb-8">
+      <div>
+        <h1 class="text-2xl font-semibold tracking-tight">凝鏡 <span class="text-cyan-300 font-light">MetaFit</span></h1>
+        <p class="text-sm text-white/50">空間感智慧健身鏡・今天也要動起來</p>
+      </div>
+      <div class="glass float-panel rounded-2xl px-4 py-2 text-sm flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 inline-block"></span> 鏡面已連線
+      </div>
+    </header>
+
+    <!-- Layered hero -->
+    <section class="relative mb-10">
+      <div class="glass float-panel depth-2 rounded-3xl p-8 md:p-10 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+        <div class="md:col-span-2">
+          <p class="text-cyan-300 text-xs uppercase tracking-widest mb-2">今日課表</p>
+          <h2 class="text-3xl font-semibold mb-3">空間瑜伽・深層伸展 28 分鐘</h2>
+          <p class="text-white/60 text-sm leading-relaxed mb-6 max-w-md">教練會即時疊加在鏡面上矯正你的姿勢，適合久坐後的肩頸與髖關節放鬆。</p>
+          <button onclick="startSession()" class="glass float-panel rounded-full px-6 py-3 text-sm font-semibold bg-cyan-400/20 border-cyan-300/40">▶ 開始今日課程</button>
+        </div>
+        <div class="relative w-40 h-40 mx-auto">
+          <svg viewBox="0 0 120 120" class="w-full h-full -rotate-90">
+            <defs>
+              <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#67e8f9"/>
+                <stop offset="100%" stop-color="#818cf8"/>
+              </linearGradient>
+            </defs>
+            <circle cx="60" cy="60" r="52" fill="none" stroke-width="8" class="ring-track"></circle>
+            <circle id="progressRing" cx="60" cy="60" r="52" fill="none" stroke-width="8" class="ring-fill"
+              stroke-dasharray="326.7" stroke-dashoffset="228.7"></circle>
+          </svg>
+          <div class="absolute inset-0 flex flex-col items-center justify-center">
+            <span class="text-2xl font-semibold" id="progressPct">30%</span>
+            <span class="text-xs text-white/50">本週目標</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Floating widget grid -->
+    <section class="grid grid-cols-2 md:grid-cols-4 gap-5">
+      <div class="glass float-panel rounded-2xl p-5">
+        <p class="text-xs text-white/50 mb-1">心率</p>
+        <p class="text-2xl font-semibold text-rose-300" id="heartRate">96</p>
+        <p class="text-xs text-white/40">bpm・穩定區間</p>
+      </div>
+      <div class="glass float-panel rounded-2xl p-5">
+        <p class="text-xs text-white/50 mb-1">燃燒熱量</p>
+        <p class="text-2xl font-semibold text-amber-300">184</p>
+        <p class="text-xs text-white/40">大卡</p>
+      </div>
+      <div class="glass float-panel rounded-2xl p-5">
+        <p class="text-xs text-white/50 mb-1">姿勢準確度</p>
+        <p class="text-2xl font-semibold text-emerald-300">92%</p>
+        <p class="text-xs text-white/40">AI 即時偵測</p>
+      </div>
+      <div class="glass float-panel rounded-2xl p-5">
+        <p class="text-xs text-white/50 mb-1">本月連續天數</p>
+        <p class="text-2xl font-semibold text-cyan-300">9</p>
+        <p class="text-xs text-white/40">天</p>
+      </div>
+    </section>
+
+    <!-- Second depth layer: workout selector -->
+    <section class="mt-8">
+      <p class="text-sm text-white/60 mb-4">選擇空間場景</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5" id="scenes">
+        <button class="scene-btn glass float-panel rounded-2xl p-5 text-left" data-scene="海濱日出">
+          <p class="font-semibold mb-1">🌅 海濱日出瑜伽</p>
+          <p class="text-xs text-white/50">環景投影・25 分鐘</p>
+        </button>
+        <button class="scene-btn glass float-panel rounded-2xl p-5 text-left" data-scene="森林重訓">
+          <p class="font-semibold mb-1">🌲 森林力量訓練</p>
+          <p class="text-xs text-white/50">環景投影・40 分鐘</p>
+        </button>
+        <button class="scene-btn glass float-panel rounded-2xl p-5 text-left" data-scene="星空拉伸">
+          <p class="font-semibold mb-1">✨ 星空深層拉伸</p>
+          <p class="text-xs text-white/50">環景投影・15 分鐘</p>
+        </button>
+      </div>
+      <p id="sceneResult" class="text-sm text-cyan-300 mt-4 h-5"></p>
+    </section>
+
+  </div>
+
+<script>
+  let pct = 30;
+  const circumference = 326.7;
+  function startSession(){
+    pct = Math.min(100, pct + 12);
+    const offset = circumference * (1 - pct/100);
+    document.getElementById('progressRing').style.strokeDashoffset = offset;
+    document.getElementById('progressPct').textContent = pct + '%';
+  }
+
+  function pulseHeart(){
+    const base = 90 + Math.floor(Math.random()*14);
+    document.getElementById('heartRate').textContent = base;
+  }
+  setInterval(pulseHeart, 2500);
+
+  document.querySelectorAll('.scene-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.getElementById('sceneResult').textContent = `已切換至「${btn.dataset.scene}」場景，鏡面投影載入中…`;
+    });
+  });
+
+  // subtle parallax on mouse move
+  document.addEventListener('mousemove', (e)=>{
+    const x = (e.clientX / window.innerWidth - 0.5) * 6;
+    const y = (e.clientY / window.innerHeight - 0.5) * 6;
+    document.querySelector('.scene').style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
+  });
+</script>
+
+</body>
+</html>

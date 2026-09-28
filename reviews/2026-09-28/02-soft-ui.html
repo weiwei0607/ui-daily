@@ -1,0 +1,200 @@
+<!-- style #19 Soft UI Evolution -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>呼吸角落 BreathCorner</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Zen Maru Gothic','Comfortaa',sans-serif;
+    background: linear-gradient(160deg,#eef3fb 0%, #f7f0f7 50%, #fdf3ef 100%);
+    color:#4a4560;
+  }
+  .display{font-family:'Comfortaa','Zen Maru Gothic',sans-serif;}
+  .soft-card{
+    background:#f2eef8;
+    border-radius:28px;
+    box-shadow: 9px 9px 18px #d9d4e3, -9px -9px 18px #ffffff;
+  }
+  .soft-card-inset{
+    background:#f2eef8;
+    border-radius:20px;
+    box-shadow: inset 6px 6px 12px #d9d4e3, inset -6px -6px 12px #ffffff;
+  }
+  .soft-btn{
+    background:#f2eef8;
+    border-radius:999px;
+    box-shadow: 6px 6px 12px #d9d4e3, -6px -6px 12px #ffffff;
+    transition: box-shadow .15s ease, transform .15s ease;
+  }
+  .soft-btn:active{
+    box-shadow: inset 4px 4px 8px #d9d4e3, inset -4px -4px 8px #ffffff;
+    transform: scale(0.98);
+  }
+  .toggle{
+    width:56px; height:30px; border-radius:999px;
+    background:#e6e1f0;
+    box-shadow: inset 4px 4px 8px #d3cee0, inset -4px -4px 8px #ffffff;
+    position:relative; cursor:pointer;
+  }
+  .toggle .knob{
+    position:absolute; top:3px; left:3px; width:24px; height:24px; border-radius:999px;
+    background:linear-gradient(145deg,#ffffff,#eae6f4);
+    box-shadow: 3px 3px 6px #cfc9dd;
+    transition: left .2s ease, background .2s ease;
+  }
+  .toggle.on{background:#e3ecfa;}
+  .toggle.on .knob{ left:29px; background:linear-gradient(145deg,#a9c5f7,#7fa8f0);}
+  .breath-circle{
+    animation: breathe 8s ease-in-out infinite;
+  }
+  @keyframes breathe{
+    0%,100%{ transform: scale(0.85); }
+    50%{ transform: scale(1.08); }
+  }
+  .ring-track{ stroke:#e2ddec; }
+  .ring-progress{ stroke:#b9a4e8; stroke-linecap:round; transition: stroke-dashoffset 1s ease; }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <div class="max-w-5xl mx-auto px-5 py-10">
+
+    <header class="flex items-center justify-between mb-8">
+      <div>
+        <h1 class="display text-2xl font-bold text-[#5c527f]">呼吸角落</h1>
+        <p class="text-sm text-[#8a80a8]">BreathCorner・給忙碌的你，三分鐘就好</p>
+      </div>
+      <div class="soft-btn w-12 h-12 flex items-center justify-center text-xl">🌙</div>
+    </header>
+
+    <!-- Hero breathing card -->
+    <section class="soft-card p-8 md:p-10 flex flex-col md:flex-row items-center gap-8 mb-8">
+      <div class="relative w-44 h-44 flex items-center justify-center shrink-0">
+        <svg viewBox="0 0 120 120" class="w-full h-full -rotate-90">
+          <circle cx="60" cy="60" r="52" fill="none" stroke-width="10" class="ring-track"></circle>
+          <circle id="ring" cx="60" cy="60" r="52" fill="none" stroke-width="10" class="ring-progress"
+            stroke-dasharray="326.7" stroke-dashoffset="326.7"></circle>
+        </svg>
+        <div class="breath-circle absolute w-24 h-24 rounded-full" style="background:radial-gradient(circle at 35% 30%, #ffffff, #cfe0fb 60%, #b9cdf2);"></div>
+        <div id="breathLabel" class="absolute display text-sm font-bold text-[#5c527f]">吸氣</div>
+      </div>
+      <div class="flex-1 text-center md:text-left">
+        <p class="text-xs uppercase tracking-widest text-[#a99bd1] mb-1">今日練習</p>
+        <h2 class="display text-2xl font-bold mb-2">4-7-8 放鬆呼吸法</h2>
+        <p class="text-sm text-[#8a80a8] leading-relaxed mb-4">吸氣 4 秒、閉氣 7 秒、吐氣 8 秒，重複 4 個循環，幫助你在會議之間快速找回平靜。</p>
+        <div class="flex items-center gap-3 justify-center md:justify-start">
+          <button onclick="startBreath()" class="soft-btn px-6 py-3 display font-bold text-[#6a5fa0]">開始練習</button>
+          <button onclick="resetBreath()" class="soft-btn px-5 py-3 text-sm text-[#8a80a8]">重設</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Grid: mood + streak + settings -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <div class="soft-card p-6">
+        <p class="display font-bold text-[#5c527f] mb-4">今天感覺如何？</p>
+        <div class="flex justify-between" id="moods">
+          <button data-mood="😔" class="mood-btn soft-btn w-12 h-12 text-xl flex items-center justify-center">😔</button>
+          <button data-mood="😐" class="mood-btn soft-btn w-12 h-12 text-xl flex items-center justify-center">😐</button>
+          <button data-mood="🙂" class="mood-btn soft-btn w-12 h-12 text-xl flex items-center justify-center">🙂</button>
+          <button data-mood="😄" class="mood-btn soft-btn w-12 h-12 text-xl flex items-center justify-center">😄</button>
+          <button data-mood="🥰" class="mood-btn soft-btn w-12 h-12 text-xl flex items-center justify-center">🥰</button>
+        </div>
+        <p id="moodResult" class="text-sm text-[#8a80a8] mt-4 h-5"></p>
+      </div>
+
+      <div class="soft-card p-6 flex flex-col items-center justify-center">
+        <p class="display font-bold text-[#5c527f] mb-3">連續練習天數</p>
+        <div class="soft-card-inset w-28 h-28 flex flex-col items-center justify-center">
+          <span class="display text-4xl font-bold text-[#7fa8f0]">12</span>
+          <span class="text-xs text-[#8a80a8]">天</span>
+        </div>
+        <p class="text-xs text-[#a99bd1] mt-3">再 3 天解鎖「安定徽章」🏅</p>
+      </div>
+
+      <div class="soft-card p-6">
+        <p class="display font-bold text-[#5c527f] mb-4">提醒設定</p>
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-sm text-[#6a5fa0]">午間提醒</span>
+            <div class="toggle on" onclick="this.classList.toggle('on')"><div class="knob"></div></div>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-sm text-[#6a5fa0]">睡前放鬆音</span>
+            <div class="toggle" onclick="this.classList.toggle('on')"><div class="knob"></div></div>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-sm text-[#6a5fa0]">震動回饋</span>
+            <div class="toggle on" onclick="this.classList.toggle('on')"><div class="knob"></div></div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<script>
+  const ring = document.getElementById('ring');
+  const circumference = 326.7;
+  const label = document.getElementById('breathLabel');
+  let breathTimer = null;
+
+  function startBreath(){
+    resetBreath();
+    const phases = [
+      {name:'吸氣', dur:4},
+      {name:'閉氣', dur:7},
+      {name:'吐氣', dur:8},
+    ];
+    let cycle = 0;
+    let progress = 0;
+    const totalCycles = 4;
+    let phaseIndex = 0;
+    let elapsed = 0;
+
+    function tick(){
+      const phase = phases[phaseIndex];
+      label.textContent = phase.name;
+      elapsed += 0.1;
+      progress += (0.1 / (phases.reduce((a,p)=>a+p.dur,0) * totalCycles));
+      const offset = circumference * (1 - Math.min(progress,1));
+      ring.style.strokeDashoffset = offset;
+      if(elapsed >= phase.dur){
+        elapsed = 0;
+        phaseIndex++;
+        if(phaseIndex >= phases.length){
+          phaseIndex = 0;
+          cycle++;
+        }
+      }
+      if(cycle < totalCycles){
+        breathTimer = setTimeout(tick, 100);
+      } else {
+        label.textContent = '完成 ✨';
+      }
+    }
+    tick();
+  }
+
+  function resetBreath(){
+    clearTimeout(breathTimer);
+    ring.style.strokeDashoffset = circumference;
+    label.textContent = '準備好了嗎';
+  }
+
+  document.querySelectorAll('.mood-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.getElementById('moodResult').textContent = '已記錄今天的心情：' + btn.dataset.mood;
+    });
+  });
+</script>
+
+</body>
+</html>
