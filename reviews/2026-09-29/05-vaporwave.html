@@ -1,0 +1,123 @@
+<!-- style #45 Vaporwave -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>深夜頻道 MIDNIGHT CHANNEL</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'VT323','Noto Sans TC',monospace;
+    background: linear-gradient(#1a1a2e, #2d1b4e 60%, #ff71ce);
+    color:#fdf0ff;
+    overflow-x:hidden;
+    min-height:100vh;
+  }
+  .pixel{font-family:'Press Start 2P','Noto Sans TC',monospace;}
+  .neon-pink{color:#ff71ce; text-shadow:0 0 8px #ff71ce, 0 0 20px #ff71ce;}
+  .neon-cyan{color:#01cdfe; text-shadow:0 0 8px #01cdfe, 0 0 20px #01cdfe;}
+  .grid-floor{
+    position:absolute; bottom:0; left:0; right:0; height:45vh;
+    background-image:
+      linear-gradient(rgba(1,205,254,.5) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(1,205,254,.5) 1px, transparent 1px);
+    background-size: 60px 40px;
+    transform: perspective(300px) rotateX(60deg);
+    transform-origin: bottom;
+    opacity:.6;
+  }
+  .sun{
+    position:absolute; width:220px; height:220px; border-radius:50%;
+    background: linear-gradient(#ffea00, #ff71ce 55%, #c0c0c0);
+    box-shadow: 0 0 60px #ff71ce;
+  }
+  .scanlines::before{
+    content:""; position:fixed; inset:0; pointer-events:none;
+    background: repeating-linear-gradient(0deg, rgba(0,0,0,.15) 0px, rgba(0,0,0,.15) 1px, transparent 2px, transparent 3px);
+    z-index:50;
+  }
+  .glitch{position:relative;}
+  .glitch:hover{animation: glitchy .4s steps(2) infinite;}
+  @keyframes glitchy{
+    0%{ transform: translate(0,0) }
+    25%{ transform: translate(-2px,1px) }
+    50%{ transform: translate(2px,-1px) }
+    75%{ transform: translate(-1px,2px) }
+    100%{ transform: translate(0,0) }
+  }
+  .chrome-border{border:2px solid #c0c0c0; box-shadow: 0 0 0 1px #ff71ce, 0 0 20px rgba(255,113,206,.5);}
+</style>
+</head>
+<body class="scanlines relative">
+
+<div class="relative max-w-5xl mx-auto px-6 pt-10 pb-16 min-h-[70vh] overflow-hidden">
+  <div class="sun top-16 left-1/2 -translate-x-1/2"></div>
+  <div class="grid-floor"></div>
+
+  <!-- Nav -->
+  <nav class="relative z-10 flex items-center justify-between mb-16">
+    <div class="pixel text-sm neon-pink">深夜頻道</div>
+    <div class="pixel text-[10px] neon-cyan hidden md:block">MIDNIGHT CHANNEL ﾎﾟｯﾄﾞｷｬｽﾄ</div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="relative z-10 text-center">
+    <div class="pixel text-xs neon-cyan mb-6">ＮＯＷ ＰＬＡＹＩＮＧ・２４Ｈ ネオン電台</div>
+    <h1 class="glitch pixel text-3xl md:text-5xl leading-relaxed neon-pink mb-8">
+      深夜頻道
+    </h1>
+    <p class="text-2xl md:text-3xl mb-10">在城市睡著之後，用復古電子聲陪你醒著。</p>
+    <div class="flex flex-wrap justify-center gap-5">
+      <button class="chrome-border pixel text-[11px] px-6 py-4 bg-black/40 neon-pink">▶ 立即收聽</button>
+      <button class="chrome-border pixel text-[11px] px-6 py-4 bg-black/40 neon-cyan">下載 App</button>
+    </div>
+  </div>
+</div>
+
+<!-- Player card -->
+<section class="relative z-10 max-w-3xl mx-auto px-6 -mt-6 pb-16">
+  <div class="chrome-border rounded-none bg-black/50 p-6">
+    <div class="flex items-center justify-between mb-4">
+      <span class="pixel text-[10px] neon-cyan">EP.114 - 東京灣的雨</span>
+      <span class="text-2xl">01:12:44</span>
+    </div>
+    <div class="w-full h-3 bg-black/60 chrome-border mb-4">
+      <div class="h-full bg-gradient-to-r from-[#ff71ce] to-[#01cdfe]" style="width:38%"></div>
+    </div>
+    <div class="flex justify-center gap-6 text-3xl">
+      <span>⏮</span><span class="neon-pink">⏸</span><span>⏭</span>
+    </div>
+  </div>
+</section>
+
+<!-- Channels -->
+<section class="relative z-10 max-w-5xl mx-auto px-6 pb-20">
+  <h2 class="pixel text-lg neon-pink text-center mb-10">熱門頻道</h2>
+  <div class="grid md:grid-cols-3 gap-6 text-center">
+    <div class="chrome-border bg-black/40 p-6">
+      <div class="text-4xl mb-3">🌆</div>
+      <div class="pixel text-xs neon-cyan mb-2">賽博夜市</div>
+      <p class="text-xl">合成器 × 台灣夜市環境音混音</p>
+    </div>
+    <div class="chrome-border bg-black/40 p-6">
+      <div class="text-4xl mb-3">📼</div>
+      <div class="pixel text-xs neon-cyan mb-2">錄影帶回憶</div>
+      <p class="text-xl">90 年代 City Pop 慢速重製</p>
+    </div>
+    <div class="chrome-border bg-black/40 p-6">
+      <div class="text-4xl mb-3">🌴</div>
+      <div class="pixel text-xs neon-cyan mb-2">熱帶終端機</div>
+      <p class="text-xl">Lo-fi 打字聲配棕櫚樹落日</p>
+    </div>
+  </div>
+</section>
+
+<footer class="relative z-10 text-center pixel text-[10px] neon-pink pb-10">
+  © ２０２６ ＭＩＤＮＩＧＨＴ ＣＨＡＮＮＥＬ
+</footer>
+
+</body>
+</html>

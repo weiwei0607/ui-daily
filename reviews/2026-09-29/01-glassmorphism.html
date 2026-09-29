@@ -1,0 +1,157 @@
+<!-- style #03 Glassmorphism -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>光年帳本 · 智能記帳 App</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg1:#667eea; --bg2:#764ba2; --bg3:#f093fb;
+  }
+  body{
+    font-family:'Zen Maru Gothic','Baloo 2',sans-serif;
+    background: radial-gradient(circle at 15% 20%, var(--bg3), transparent 45%),
+                radial-gradient(circle at 85% 15%, var(--bg1), transparent 50%),
+                linear-gradient(135deg, var(--bg1), var(--bg2) 55%, var(--bg3));
+    background-attachment: fixed;
+    min-height:100vh;
+    color:#2b2140;
+  }
+  .display{font-family:'Baloo 2','Zen Maru Gothic',sans-serif;}
+  .glass{
+    background: rgba(255,255,255,0.28);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid rgba(255,255,255,0.45);
+    box-shadow: 0 8px 32px rgba(50,20,90,0.18);
+  }
+  .glass-strong{
+    background: rgba(255,255,255,0.42);
+    backdrop-filter: blur(24px) saturate(150%);
+    -webkit-backdrop-filter: blur(24px) saturate(150%);
+    border: 1px solid rgba(255,255,255,0.55);
+  }
+  .blob{
+    position:absolute; border-radius:50%; filter: blur(40px); opacity:.55; z-index:-1;
+  }
+  .float{animation: floaty 6s ease-in-out infinite;}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+</style>
+</head>
+<body class="relative overflow-x-hidden">
+
+<div class="blob w-72 h-72 bg-pink-300 top-10 left-[-40px]"></div>
+<div class="blob w-96 h-96 bg-indigo-300 top-60 right-[-60px]"></div>
+<div class="blob w-60 h-60 bg-purple-300 bottom-10 left-1/3"></div>
+
+<!-- Nav -->
+<nav class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between relative z-10">
+  <div class="flex items-center gap-2">
+    <div class="w-9 h-9 rounded-2xl glass-strong grid place-items-center text-lg">🌙</div>
+    <span class="display font-extrabold text-xl text-white drop-shadow">光年帳本</span>
+  </div>
+  <div class="hidden md:flex gap-8 text-white/90 font-medium">
+    <a href="#" class="hover:text-white">功能</a>
+    <a href="#" class="hover:text-white">方案</a>
+    <a href="#" class="hover:text-white">使用心得</a>
+  </div>
+  <button class="glass-strong px-5 py-2 rounded-full text-white font-bold">免費下載</button>
+</nav>
+
+<!-- Hero -->
+<header class="max-w-5xl mx-auto px-6 pt-16 pb-24 text-center relative z-10">
+  <div class="glass inline-block px-4 py-1.5 rounded-full text-sm text-white/90 mb-6 font-medium">✨ 已有 42 萬人養成記帳習慣</div>
+  <h1 class="display text-5xl md:text-6xl font-extrabold text-white drop-shadow-lg leading-tight mb-6">
+    把每一筆花費<br class="md:hidden"> 變成一朵雲
+  </h1>
+  <p class="text-lg text-white/85 max-w-xl mx-auto mb-10">
+    拍發票、對股票、看趨勢，光年帳本用 AI 幫你自動分類，記帳這件事，從今天起變輕、變透明。
+  </p>
+  <div class="flex flex-wrap justify-center gap-4">
+    <button class="glass-strong px-8 py-3.5 rounded-full text-white font-bold text-lg shadow-lg hover:scale-105 transition">開始免費體驗</button>
+    <button class="glass px-8 py-3.5 rounded-full text-white/90 font-semibold text-lg hover:bg-white/20 transition">看看功能介紹</button>
+  </div>
+
+  <!-- floating preview card -->
+  <div class="float glass-strong mt-16 mx-auto max-w-md rounded-3xl p-6 text-left">
+    <div class="flex items-center justify-between mb-4">
+      <span class="text-white font-bold">九月結餘</span>
+      <span class="text-white/70 text-sm">即時同步</span>
+    </div>
+    <div class="display text-4xl font-extrabold text-white mb-4">NT$ 28,450</div>
+    <div class="space-y-2">
+      <div class="flex items-center justify-between glass rounded-xl px-4 py-2.5">
+        <span class="text-white/90">🍜 早午餐</span><span class="text-white font-semibold">-NT$120</span>
+      </div>
+      <div class="flex items-center justify-between glass rounded-xl px-4 py-2.5">
+        <span class="text-white/90">🚌 悠遊卡儲值</span><span class="text-white font-semibold">-NT$500</span>
+      </div>
+      <div class="flex items-center justify-between glass rounded-xl px-4 py-2.5">
+        <span class="text-white/90">💰 薪資入帳</span><span class="text-white font-semibold">+NT$52,000</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Features -->
+<section class="max-w-6xl mx-auto px-6 py-16 relative z-10">
+  <h2 class="display text-3xl font-extrabold text-white text-center mb-12 drop-shadow">為什麼是光年帳本</h2>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="glass rounded-3xl p-7">
+      <div class="w-12 h-12 rounded-2xl glass-strong grid place-items-center text-2xl mb-4">📸</div>
+      <h3 class="display font-bold text-xl text-white mb-2">拍照自動記帳</h3>
+      <p class="text-white/80">發票、收據拍一下，AI 三秒內幫你分類金額與店家，不用手動輸入。</p>
+    </div>
+    <div class="glass rounded-3xl p-7">
+      <div class="w-12 h-12 rounded-2xl glass-strong grid place-items-center text-2xl mb-4">📊</div>
+      <h3 class="display font-bold text-xl text-white mb-2">花費趨勢一眼懂</h3>
+      <p class="text-white/80">用漂亮的圖表看每月消費變化，超支前提前提醒你收手。</p>
+    </div>
+    <div class="glass rounded-3xl p-7">
+      <div class="w-12 h-12 rounded-2xl glass-strong grid place-items-center text-2xl mb-4">🔗</div>
+      <h3 class="display font-bold text-xl text-white mb-2">多帳戶自動同步</h3>
+      <p class="text-white/80">銀行、信用卡、電子錢包全部串接，餘額不用自己對，一目瞭然。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section class="max-w-4xl mx-auto px-6 py-16 relative z-10">
+  <h2 class="display text-3xl font-extrabold text-white text-center mb-12 drop-shadow">選一個適合你的方案</h2>
+  <div class="grid md:grid-cols-2 gap-6">
+    <div class="glass rounded-3xl p-8">
+      <h3 class="display font-bold text-2xl text-white mb-1">輕鬆版</h3>
+      <p class="text-white/70 mb-6">給剛開始記帳的你</p>
+      <div class="display text-4xl font-extrabold text-white mb-6">免費</div>
+      <ul class="space-y-2 text-white/85 mb-8">
+        <li>✓ 手動與拍照記帳</li>
+        <li>✓ 單一帳戶同步</li>
+        <li>✓ 基本月報表</li>
+      </ul>
+      <button class="w-full glass-strong py-3 rounded-full text-white font-bold">開始使用</button>
+    </div>
+    <div class="glass-strong rounded-3xl p-8 ring-2 ring-white/60">
+      <h3 class="display font-bold text-2xl text-white mb-1">星辰版</h3>
+      <p class="text-white/80 mb-6">給認真理財的你</p>
+      <div class="display text-4xl font-extrabold text-white mb-6">NT$99<span class="text-lg font-medium">/月</span></div>
+      <ul class="space-y-2 text-white/90 mb-8">
+        <li>✓ 無限帳戶同步</li>
+        <li>✓ AI 消費預測</li>
+        <li>✓ 家庭共享帳本</li>
+        <li>✓ 客製化報表匯出</li>
+      </ul>
+      <button class="w-full bg-white text-purple-700 py-3 rounded-full font-bold hover:bg-white/90 transition">升級星辰版</button>
+    </div>
+  </div>
+</section>
+
+<footer class="text-center text-white/70 py-10 relative z-10">
+  © 2026 光年帳本 LightYear Ledger · 用一點透明，換一點安心
+</footer>
+
+</body>
+</html>

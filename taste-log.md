@@ -21,6 +21,11 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-09-29（6 個，#03 Glassmorphism / #26 Trust & Authority / #34 Predictive Dashboard / #44 Memphis Revival / #45 Vaporwave / #24 Social Proof-Focused）
+- ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（agent-proxy 回報 `connect_rejected`／gateway 403 CONNECT to b-battle-580b5-default-rtdb.firebaseio.com:443），無法讀取上一批按讚結果，沿用「已確認偏好」規則挑選並生成，等下次能連線時再回補。
+- 本輪避開最近 3 天（09-26～09-28）已用過的 18 種風格，刻意跨 A/B/C/D 四大族群選出 6 個方向。
+- 字體選擇嚴格照配方：Glassmorphism 用圓體 Zen Maru Gothic + Baloo 2；Trust & Authority 用襯線報紙體 Noto Serif TC + Playfair Display；Predictive Dashboard 用科技感 Space Grotesk + Inter + JetBrains Mono（數字用等寬）；Memphis Revival 用粗展示字 Archivo Black + Poppins；Vaporwave 用像素/復古 Press Start 2P + VT323；Social Proof 用溫暖襯線 Newsreader + Work Sans。避免全部用 Inter/Helvetica。
+
 ### 2026-09-28（6 個，#01–06）
 - ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（`curl -m 15` 無回應，HTTP code 000），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。
 - ⚠️ publish.py 直連 GitHub REST API 本輪同樣回 415 Unsupported Media Type（`git/blobs` 端點，同歷輪已知問題），改用本地 `git checkout -B master origin/master`（本機分支同樣為 detached HEAD，已重新接上）+ `git commit` + `git push`（HTTPS + GH_TOKEN 當密碼）成功推上 `66eb564..8002ac5`，已用 `git fetch` 驗證 origin/master 一致。

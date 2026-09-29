@@ -1,0 +1,132 @@
+<!-- style #34 Predictive Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>遠見 Forecast · 銷售預測儀表板</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Inter',sans-serif; background:#0b1120; color:#e2e8f0;}
+  .display{font-family:'Space Grotesk',sans-serif;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  .card{background:#111a2e; border:1px solid #1f2b45;}
+  .actual{stroke:#3b82f6; stroke-width:3; fill:none;}
+  .predicted{stroke:#a855f7; stroke-width:3; fill:none; stroke-dasharray:6 6;}
+  .band{fill:#a855f7; opacity:.12;}
+  .pulse-dot{animation:pulse 2s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="max-w-7xl mx-auto px-6 py-6">
+
+  <!-- Top bar -->
+  <div class="flex items-center justify-between mb-6">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 grid place-items-center display font-bold">遠</div>
+      <div>
+        <div class="display font-bold text-lg">遠見 Forecast</div>
+        <div class="text-xs text-slate-400">銷售預測儀表板</div>
+      </div>
+    </div>
+    <div class="flex items-center gap-4 text-sm text-slate-400">
+      <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400 pulse-dot"></span>模型即時更新中</span>
+      <span class="mono">最後更新 09:41:07</span>
+    </div>
+  </div>
+
+  <!-- KPI row -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+    <div class="card rounded-xl p-5">
+      <div class="text-xs text-slate-400 mb-2">本月實際營收</div>
+      <div class="mono display text-2xl font-bold text-blue-400">NT$ 18.2M</div>
+      <div class="text-xs text-emerald-400 mt-1">↑ 12.4% 較上月</div>
+    </div>
+    <div class="card rounded-xl p-5 border-dashed" style="border-style:dashed;border-color:#a855f7;">
+      <div class="text-xs text-slate-400 mb-2">Q4 預測營收</div>
+      <div class="mono display text-2xl font-bold text-purple-400">NT$ 61.5M</div>
+      <div class="text-xs text-slate-400 mt-1">信賴區間 ±8.2%</div>
+    </div>
+    <div class="card rounded-xl p-5">
+      <div class="text-xs text-slate-400 mb-2">預測準確率</div>
+      <div class="mono display text-2xl font-bold">94.7%</div>
+      <div class="text-xs text-slate-400 mt-1">過去 6 期平均</div>
+    </div>
+    <div class="card rounded-xl p-5">
+      <div class="text-xs text-slate-400 mb-2">風險警示</div>
+      <div class="mono display text-2xl font-bold text-amber-400">2 項</div>
+      <div class="text-xs text-slate-400 mt-1">供應鏈延遲、匯率波動</div>
+    </div>
+  </div>
+
+  <!-- Chart -->
+  <div class="card rounded-xl p-6 mb-6">
+    <div class="flex items-center justify-between mb-4">
+      <div>
+        <div class="display font-bold text-lg">營收趨勢與未來三個月預測</div>
+        <div class="text-xs text-slate-400 mt-1">
+          <span class="inline-block w-3 h-0.5 bg-blue-400 align-middle mr-1"></span>實際值
+          <span class="inline-block w-3 h-0.5 bg-purple-400 align-middle mr-1 ml-4" style="border-top:2px dashed #a855f7;background:none;"></span>預測值
+        </div>
+      </div>
+      <select class="card rounded-lg px-3 py-1.5 text-sm">
+        <option>依季度檢視</option>
+        <option>依月檢視</option>
+      </select>
+    </div>
+    <svg viewBox="0 0 760 260" class="w-full h-64">
+      <line x1="0" y1="65" x2="760" y2="65" stroke="#1f2b45"/>
+      <line x1="0" y1="130" x2="760" y2="130" stroke="#1f2b45"/>
+      <line x1="0" y1="195" x2="760" y2="195" stroke="#1f2b45"/>
+      <line x1="480" y1="0" x2="480" y2="260" stroke="#334155" stroke-dasharray="3 3"/>
+      <text x="486" y="18" fill="#94a3b8" font-size="11" font-family="Inter">預測起點 →</text>
+      <polygon class="band" points="480,150 540,120 600,95 660,70 720,50 720,180 660,190 600,200 540,210 480,220"/>
+      <polyline class="actual" points="20,220 100,205 180,190 260,175 340,160 400,150 480,150"/>
+      <polyline class="predicted" points="480,150 540,120 600,95 660,70 720,50"/>
+      <circle cx="480" cy="150" r="5" fill="#3b82f6"/>
+      <circle cx="720" cy="50" r="5" fill="#a855f7"/>
+    </svg>
+  </div>
+
+  <!-- Drill down table -->
+  <div class="card rounded-xl p-6">
+    <div class="display font-bold text-lg mb-4">依產品線下鉆</div>
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="text-slate-400 text-left border-b border-[#1f2b45]">
+          <th class="pb-3 font-medium">產品線</th>
+          <th class="pb-3 font-medium mono text-right">本月實際</th>
+          <th class="pb-3 font-medium mono text-right">Q4 預測</th>
+          <th class="pb-3 font-medium text-right">趨勢</th>
+        </tr>
+      </thead>
+      <tbody class="mono">
+        <tr class="border-b border-[#1f2b45]/60">
+          <td class="py-3 font-sans">智慧家電系列</td>
+          <td class="py-3 text-right">NT$ 7.4M</td>
+          <td class="py-3 text-right text-purple-400">NT$ 24.1M</td>
+          <td class="py-3 text-right text-emerald-400">↑ 9.2%</td>
+        </tr>
+        <tr class="border-b border-[#1f2b45]/60">
+          <td class="py-3 font-sans">個人穿戴裝置</td>
+          <td class="py-3 text-right">NT$ 5.1M</td>
+          <td class="py-3 text-right text-purple-400">NT$ 16.8M</td>
+          <td class="py-3 text-right text-rose-400">↓ 2.1%</td>
+        </tr>
+        <tr>
+          <td class="py-3 font-sans">企業訂閱服務</td>
+          <td class="py-3 text-right">NT$ 5.7M</td>
+          <td class="py-3 text-right text-purple-400">NT$ 20.6M</td>
+          <td class="py-3 text-right text-emerald-400">↑ 15.6%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</body>
+</html>
