@@ -21,6 +21,11 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-09-30（6 個，#07 Dark Mode (OLED) / #12 Flat Design 2.0 / #23 Minimal & Direct / #35 User Behavior / #43 AI-Native / #51 HUD / Sci-Fi）
+- ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（agent-proxy 回報 `connect_rejected` / gateway 403 CONNECT to b-battle-580b5-default-rtdb.firebaseio.com:443），無法讀取上一批按讚結果，沿用「已確認偏好」規則挑選並生成，等下次能連線時再回補。
+- 本輪先用 `grep -ohE '<!-- style #[0-9]+' reviews/*/*.html | sed -E 's/.*#//' | sort -n | uniq -c` 統計歷史提及次數，排除近 3 天（09-27/09-28/09-29）用過的風格（#02/#08/#27/#37/#41/#48/#01/#19/#21/#32/#55/#47/#03/#26/#34/#44/#45/#24），從全庫最低使用次數（4 次）且跨 A/B/C/D 四組的方向挑選：**Dark Mode (OLED) #07**（A 組，避開 Inter，改用 Instrument Sans + IBM Plex Mono 新配對，做成居家保全監控主控台「夜衛 NightGuard」，純黑 `#121212` 底 + 單一螢光綠強調色，含 6 個純 CSS 模擬監視器縮圖、可點擊真實切換的武裝/解除警戒大按鈕）、**Flat Design 2.0 #12**（A 組，沿用配方 Open Sans，做成居家植物電商「綠洲植物 GreenOasis」，明快色塊 + 純 SVG 繪製盆栽圖形、可運作的加入購物車徽章累加）、**Minimal & Direct #23**（B 組結構，改用 Karla + JetBrains Mono 新配對，做成開發者工具一頁式介紹「純 API PureAPI」，米色底噪點紋理 + 一屏講完 + 可運作的複製到剪貼簿按鈕）、**User Behavior #35**（C 組 BI 儀表板，依「避免每個都用 Inter」規則改用 DM Sans + Space Mono 新配對，做成使用者行為分析後台「行為透鏡 BehaviorLens」，含純 SVG 手繪轉換漏斗、留存曲線、使用者路徑圖）、**AI-Native #43**（D 組，改用 Plus Jakarta Sans + JetBrains Mono 新配對，做成 AI 寫作助理「靈感引擎 MuseEngine」，紫藍漸層 + 對話式介面逐字打字機效果展示）、**HUD / Sci-Fi #51**（D 組，嚴格照配方用 Orbitron + Share Tech Mono，做成衛星監控中心「軌道哨 OrbitWatch」，純黑 + 螢光青，四角刻度框 + 掃描線動畫 + SVG 數據環 + 即時更新系統日誌）。全數繁體中文文案，皆避免使用 Inter/Helvetica，字體皆依風格美學挑選、未重複使用同一組字體。
+- 本輪採用並行子代理（同時派 6 個 agent 各生成一個風格檔案，prompt 中明確指定字體配方、內容主題、技術要求），全數順利完成並自行回報標籤數量、字體、簡體字自檢結果。主流程完成後另安裝 opencc-python-reimplemented 對全部 6 個檔案做逐字元簡繁比對（s2t 定點比對法）二次覆核：僅剩「台→臺」（01/02/04/06，台灣慣用寫法，沿用歷輪判例保留）、「群→羣」（02/04/05，「群組」「社群」為標準台灣用詞，opencc 誤判為應轉「羣」，實際「群」才是常用正字，保留）、「斗→鬥」（04，「漏斗」為正確繁體詞彙，opencc 誤判，保留）、「干→幹」（05，「不相干」為正確用詞非「不相幹」，opencc 誤判，保留）、「里→裏」（06，「公里」為正確度量單位用字，opencc 誤判，保留），皆非簡體污染，全數保留。另用 grep 確認全部 6 個檔案的 `<html>`/`</html>`/`<head>`/`</head>`/`<body>`/`</body>` 標籤數量皆為 1，且 font-family/Google Font 連結中無 Inter/Helvetica。
+
 ### 2026-09-29（6 個，#03 Glassmorphism / #26 Trust & Authority / #34 Predictive Dashboard / #44 Memphis Revival / #45 Vaporwave / #24 Social Proof-Focused）
 - ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（agent-proxy 回報 `connect_rejected`／gateway 403 CONNECT to b-battle-580b5-default-rtdb.firebaseio.com:443），無法讀取上一批按讚結果，沿用「已確認偏好」規則挑選並生成，等下次能連線時再回補。
 - 本輪避開最近 3 天（09-26～09-28）已用過的 18 種風格，刻意跨 A/B/C/D 四大族群選出 6 個方向。

@@ -1,0 +1,436 @@
+<!-- style #43 AI-Native -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>靈感引擎 MuseEngine｜讓靈感，不再等待</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --grad-a:#667eea;
+    --grad-b:#764ba2;
+    --grad-c:#8ec5fc;
+    --ink:#1a1533;
+    --ink-soft:#544f70;
+    --surface:#ffffff;
+    --surface-soft:#f6f5fb;
+    --border:#e6e3f5;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Plus Jakarta Sans','Noto Sans TC',sans-serif;
+    background:var(--surface);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .mono{
+    font-family:'JetBrains Mono',monospace;
+  }
+  .grad-bg{
+    background:linear-gradient(135deg, var(--grad-a) 0%, var(--grad-b) 55%, #5b3a8f 100%);
+    position:relative;
+    overflow:hidden;
+  }
+  .grad-bg::before,
+  .grad-bg::after{
+    content:'';
+    position:absolute;
+    border-radius:50%;
+    filter:blur(60px);
+    opacity:0.55;
+    animation:breathe 7s ease-in-out infinite;
+    pointer-events:none;
+  }
+  .grad-bg::before{
+    width:420px;height:420px;
+    background:radial-gradient(circle, rgba(142,197,252,0.9), transparent 70%);
+    top:-120px; right:-100px;
+    animation-delay:0s;
+  }
+  .grad-bg::after{
+    width:360px;height:360px;
+    background:radial-gradient(circle, rgba(255,255,255,0.5), transparent 70%);
+    bottom:-140px; left:-80px;
+    animation-delay:2.2s;
+  }
+  @keyframes breathe{
+    0%,100%{ transform:scale(1); opacity:0.4; }
+    50%{ transform:scale(1.15); opacity:0.65; }
+  }
+  .grad-text{
+    background:linear-gradient(90deg,#8ec5fc 0%, #ffffff 45%, #d9c6ff 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    background-size:200% 100%;
+    animation:shimmer 6s ease-in-out infinite;
+  }
+  @keyframes shimmer{
+    0%,100%{ background-position:0% 50%; }
+    50%{ background-position:100% 50%; }
+  }
+  .fade-up{
+    animation:fadeUp 0.9s ease both;
+  }
+  @keyframes fadeUp{
+    from{ opacity:0; transform:translateY(18px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  .delay-1{ animation-delay:0.15s; }
+  .delay-2{ animation-delay:0.3s; }
+  .delay-3{ animation-delay:0.45s; }
+
+  .cta-btn{
+    background:linear-gradient(90deg,#8ec5fc,#e0c3fc);
+    color:#2c1a52;
+    font-weight:700;
+    transition:transform 0.35s ease, box-shadow 0.35s ease;
+    box-shadow:0 8px 30px -8px rgba(142,197,252,0.6);
+  }
+  .cta-btn:hover{
+    transform:translateY(-3px) scale(1.02);
+    box-shadow:0 14px 40px -8px rgba(142,197,252,0.85);
+  }
+
+  .glow-orb{
+    position:absolute;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(118,75,162,0.18), transparent 70%);
+    filter:blur(40px);
+    animation:breathe 8s ease-in-out infinite;
+  }
+
+  /* 對話區塊 */
+  .chat-shell{
+    background:var(--surface-soft);
+    border:1px solid var(--border);
+    border-radius:24px;
+  }
+  .bubble{
+    max-width:78%;
+    padding:14px 18px;
+    border-radius:18px;
+    line-height:1.7;
+    font-size:0.98rem;
+    box-shadow:0 6px 18px -10px rgba(30,20,60,0.25);
+  }
+  .bubble-user{
+    background:#ffffff;
+    border:1px solid var(--border);
+    color:var(--ink);
+    border-bottom-right-radius:6px;
+    margin-left:auto;
+  }
+  .bubble-ai{
+    background:linear-gradient(135deg, var(--grad-a), var(--grad-b));
+    color:#fff;
+    border-bottom-left-radius:6px;
+    position:relative;
+  }
+  .bubble-ai::before{
+    content:'';
+    position:absolute;
+    inset:-2px;
+    border-radius:20px;
+    background:linear-gradient(135deg, rgba(142,197,252,0.5), rgba(224,195,252,0.5));
+    filter:blur(10px);
+    z-index:-1;
+    opacity:0.7;
+  }
+  .cursor{
+    display:inline-block;
+    width:2px;
+    height:1em;
+    background:rgba(255,255,255,0.9);
+    margin-left:2px;
+    vertical-align:-2px;
+    animation:blink 0.9s step-start infinite;
+  }
+  @keyframes blink{
+    50%{ opacity:0; }
+  }
+  .avatar{
+    width:34px;height:34px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:0.75rem;font-weight:700;flex-shrink:0;
+  }
+  .avatar-user{
+    background:var(--surface);
+    border:1px solid var(--border);
+    color:var(--ink-soft);
+  }
+  .avatar-ai{
+    background:linear-gradient(135deg, var(--grad-a), var(--grad-b));
+    color:#fff;
+  }
+
+  .switch-btn{
+    transition:all 0.3s ease;
+  }
+  .switch-btn:hover{
+    background:linear-gradient(90deg, var(--grad-a), var(--grad-b));
+    color:#fff;
+    border-color:transparent;
+  }
+
+  /* 功能卡片 */
+  .feature-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:20px;
+    position:relative;
+    transition:transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+    overflow:hidden;
+  }
+  .feature-card::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:linear-gradient(135deg, rgba(102,126,234,0.12), rgba(118,75,162,0.12));
+    opacity:0;
+    transition:opacity 0.4s ease;
+    pointer-events:none;
+  }
+  .feature-card:hover{
+    transform:translateY(-6px);
+    border-color:transparent;
+    box-shadow:0 22px 50px -20px rgba(102,126,234,0.45);
+  }
+  .feature-card:hover::before{
+    opacity:1;
+  }
+  .icon-wrap{
+    width:52px;height:52px;
+    border-radius:14px;
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg, var(--grad-a), var(--grad-b));
+    color:#fff;
+  }
+
+  .tag-mono{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.72rem;
+    letter-spacing:0.04em;
+  }
+
+  footer a{ color:var(--ink-soft); }
+</style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <section class="grad-bg text-white">
+    <nav class="max-w-6xl mx-auto px-6 pt-8 flex items-center justify-between relative z-10">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-white/15 flex items-center justify-center">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="white"/></svg>
+        </div>
+        <span class="font-bold tracking-wide">靈感引擎 <span class="mono text-xs text-white/70">MuseEngine</span></span>
+      </div>
+      <div class="hidden sm:flex items-center gap-6 text-sm text-white/80">
+        <a href="#demo" class="hover:text-white transition">產品體驗</a>
+        <a href="#features" class="hover:text-white transition">功能特點</a>
+      </div>
+    </nav>
+
+    <div class="max-w-6xl mx-auto px-6 pt-20 pb-28 relative z-10 text-center">
+      <span class="fade-up inline-block mono text-xs px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white/80 mb-6">AI WRITING COPILOT</span>
+      <h1 class="fade-up delay-1 text-4xl sm:text-6xl font-extrabold leading-tight grad-text">
+        讓靈感，不再等待
+      </h1>
+      <p class="fade-up delay-2 mt-6 text-base sm:text-lg text-white/85 max-w-2xl mx-auto leading-relaxed">
+        靈感引擎 MuseEngine 是專為忙碌工作者打造的 AI 寫作助理，從提案信、會議摘要到社群文案，只要用一句話告訴它你想要的方向，它就能陪你把草稿寫到你滿意為止。
+      </p>
+      <div class="fade-up delay-3 mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button class="cta-btn px-8 py-3.5 rounded-full text-base">免費開始使用</button>
+        <a href="#demo" class="px-8 py-3.5 rounded-full text-base font-semibold text-white/90 border border-white/30 hover:bg-white/10 transition">看看它怎麼寫</a>
+      </div>
+      <p class="fade-up delay-3 mt-5 text-xs text-white/60">不需要信用卡，每天有 20 次免費對話額度</p>
+    </div>
+  </section>
+
+  <!-- Demo -->
+  <section id="demo" class="relative py-24 px-6 max-w-5xl mx-auto">
+    <div class="glow-orb w-72 h-72 -top-10 -left-16 -z-10"></div>
+    <div class="glow-orb w-64 h-64 bottom-0 right-0 -z-10"></div>
+
+    <div class="text-center mb-10">
+      <span class="mono text-xs text-[var(--grad-b)] font-semibold">LIVE PREVIEW</span>
+      <h2 class="text-3xl sm:text-4xl font-bold mt-3">看它如何跟你一起把稿子改好</h2>
+      <p class="text-[var(--ink-soft)] mt-3">這是真實使用情境的示範對話，點擊下方按鈕可以切換成另一組情境。</p>
+    </div>
+
+    <div class="chat-shell p-5 sm:p-8">
+      <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#ff6961]"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-[#ffc233]"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-[#61d345]"></span>
+          <span class="mono text-xs text-[var(--ink-soft)] ml-2" id="scenario-label">情境一・提案信開頭</span>
+        </div>
+        <button id="switch-btn" class="switch-btn text-sm font-semibold px-4 py-2 rounded-full border border-[var(--border)] text-[var(--ink-soft)]">
+          換一個提示範例 ↻
+        </button>
+      </div>
+
+      <div id="chat-window" class="flex flex-col gap-5 min-h-[360px]"></div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="py-24 px-6 max-w-6xl mx-auto">
+    <div class="text-center mb-14">
+      <span class="mono text-xs text-[var(--grad-b)] font-semibold">CORE FEATURES</span>
+      <h2 class="text-3xl sm:text-4xl font-bold mt-3">為每一次動筆設計的三個能力</h2>
+    </div>
+
+    <div class="grid sm:grid-cols-3 gap-6">
+      <div class="feature-card p-7">
+        <div class="icon-wrap mb-5">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 5h16a1 1 0 011 1v9a1 1 0 01-1 1H9l-4 4v-4H4a1 1 0 01-1-1V6a1 1 0 011-1z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/><circle cx="8" cy="10.5" r="1" fill="white"/><circle cx="12" cy="10.5" r="1" fill="white"/><circle cx="16" cy="10.5" r="1" fill="white"/></svg>
+        </div>
+        <h3 class="text-lg font-bold mb-2">像聊天一樣改稿</h3>
+        <p class="text-sm text-[var(--ink-soft)] leading-relaxed">不需要重新輸入整段文字，只要告訴 MuseEngine 想調整的方向，例如語氣、長度或用詞，它會直接在原本的草稿上修改，而不是生成一份不相干的新內容。</p>
+      </div>
+
+      <div class="feature-card p-7">
+        <div class="icon-wrap mb-5">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 7h9M4 12h16M4 17h9" stroke="white" stroke-width="1.8" stroke-linecap="round"/><circle cx="16" cy="7" r="2.2" fill="white"/><circle cx="19" cy="17" r="2.2" fill="white"/></svg>
+        </div>
+        <h3 class="text-lg font-bold mb-2">語氣一鍵切換</h3>
+        <p class="text-sm text-[var(--ink-soft)] leading-relaxed">從正式公文到口語化的內部備忘，MuseEngine 內建十多種語氣模板，讓同一份內容能快速套用到不同場合，不用自己重新斟酌用字。</p>
+      </div>
+
+      <div class="feature-card p-7">
+        <div class="icon-wrap mb-5">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 3h9l4 4v13a1 1 0 01-1 1H6a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/><path d="M14 3v4h4" stroke="white" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 12h8M8 15.5h5" stroke="white" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <h3 class="text-lg font-bold mb-2">段落即時草稿</h3>
+        <p class="text-sm text-[var(--ink-soft)] leading-relaxed">只要給幾個關鍵詞或情境描述，MuseEngine 就能生成完整段落草稿，並保留可編輯的區塊，讓你在既有基礎上快速修改，而不是從空白頁開始。</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="border-t border-[var(--border)] py-10 px-6 text-center">
+    <p class="text-sm text-[var(--ink-soft)]">靈感引擎 MuseEngine　·　為每一次文字工作，多留一點靈感的空間</p>
+  </footer>
+
+<script>
+(function(){
+  var scenarios = [
+    {
+      label: "情境一・提案信開頭",
+      turns: [
+        { role: "user", text: "幫我寫一封提案信的開頭" },
+        { role: "ai", text: "您好，感謝您抽空閱讀這份提案。我們注意到貴公司近期在數位轉型上有相當積極的規劃，因此想針對這個方向，提出一套可以在三個月內看到成效的合作方案，希望能有機會與您進一步討論細節。" },
+        { role: "user", text: "語氣可以再正式一點嗎？" },
+        { role: "ai", text: "敬啟者：感謝貴公司給予撥冗閱覽本提案之機會。有鑑於貴公司於數位轉型領域之積極布局，本團隊特擬具一套預期於三個月內展現具體成效之合作方案，盼能獲得與貴公司進一步洽談之機會，共商合作細節。" },
+        { role: "user", text: "幫我加一句提到我們過去的成功案例" },
+        { role: "ai", text: "敬啟者：感謝貴公司給予撥冗閱覽本提案之機會。本團隊過去已協助逾十家企業完成類似規模之數位轉型專案，平均為客戶提升三成營運效率。有鑑於貴公司於此領域之積極布局，特擬具一套預期於三個月內展現具體成效之合作方案，盼能獲得進一步洽談之機會。" }
+      ]
+    },
+    {
+      label: "情境二・會議記錄整理",
+      turns: [
+        { role: "user", text: "幫我把這段會議記錄整理成重點摘要" },
+        { role: "ai", text: "已為您整理三項重點：一、行銷團隊將於下週提出新的社群內容排程；二、產品部門確認下一版本將延後兩週上線，以完成完整的迴歸測試；三、雙方同意每兩週召開一次進度同步會議。" },
+        { role: "user", text: "可以幫我用更口語一點的方式重寫嗎？" },
+        { role: "ai", text: "簡單來說啦：行銷那邊下週會給新的社群發文排程、產品要延後兩週上版是為了把測試做完整、然後大家決定之後每兩週開一次會追進度，這樣比較不會斷聯。" },
+        { role: "user", text: "幫我加上下一步的行動建議" },
+        { role: "ai", text: "簡單來說啦：行銷那邊下週會給新的社群發文排程、產品要延後兩週上版是為了把測試做完整、然後大家決定之後每兩週開一次會追進度。建議下一步：先請行銷把排程草稿於週三前送出，產品同步更新測試進度看板，方便下次會議直接對焦。" }
+      ]
+    }
+  ];
+
+  var current = 0;
+  var chatWindow = document.getElementById('chat-window');
+  var scenarioLabel = document.getElementById('scenario-label');
+  var switchBtn = document.getElementById('switch-btn');
+  var typing = false;
+
+  function makeAvatar(role){
+    var d = document.createElement('div');
+    d.className = 'avatar ' + (role === 'user' ? 'avatar-user' : 'avatar-ai');
+    d.textContent = role === 'user' ? '你' : 'AI';
+    return d;
+  }
+
+  function renderTurn(turn, index, onDone){
+    var row = document.createElement('div');
+    row.className = 'flex items-start gap-3 fade-up' + (turn.role === 'user' ? ' flex-row-reverse' : '');
+    row.style.animationDelay = (index * 0.05) + 's';
+
+    var bubble = document.createElement('div');
+    bubble.className = 'bubble ' + (turn.role === 'user' ? 'bubble-user' : 'bubble-ai');
+
+    row.appendChild(makeAvatar(turn.role));
+    row.appendChild(bubble);
+    chatWindow.appendChild(row);
+
+    if(turn.role === 'user'){
+      bubble.textContent = turn.text;
+      onDone();
+      return;
+    }
+
+    // AI：逐字打字機效果
+    var i = 0;
+    var cursor = document.createElement('span');
+    cursor.className = 'cursor';
+    bubble.appendChild(document.createTextNode(''));
+
+    function step(){
+      if(i <= turn.text.length){
+        bubble.textContent = turn.text.slice(0, i);
+        bubble.appendChild(cursor);
+        i++;
+        setTimeout(step, 22);
+      } else {
+        cursor.remove();
+        onDone();
+      }
+    }
+    step();
+  }
+
+  function playScenario(idx){
+    if(typing) return;
+    typing = true;
+    switchBtn.disabled = true;
+    chatWindow.innerHTML = '';
+    scenarioLabel.textContent = scenarios[idx].label;
+
+    var turns = scenarios[idx].turns;
+    var t = 0;
+
+    function next(){
+      if(t >= turns.length){
+        typing = false;
+        switchBtn.disabled = false;
+        return;
+      }
+      var turn = turns[t];
+      t++;
+      renderTurn(turn, t, function(){
+        setTimeout(next, turn.role === 'user' ? 260 : 420);
+      });
+    }
+    next();
+  }
+
+  switchBtn.addEventListener('click', function(){
+    current = (current + 1) % scenarios.length;
+    playScenario(current);
+  });
+
+  playScenario(current);
+})();
+</script>
+</body>
+</html>

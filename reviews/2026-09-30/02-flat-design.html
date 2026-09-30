@@ -1,0 +1,423 @@
+<!-- style #12 Flat Design 2.0 -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>綠洲植物 GreenOasis｜居家植物電商</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --blue:#3498db;
+    --red:#e74c3c;
+    --green:#27ae60;
+    --orange:#f39c12;
+    --ink:#2c3e50;
+    --gray:#7f8c8d;
+    --bg:#f7f9fa;
+  }
+  *{ font-family: 'Open Sans', 'Noto Sans TC', sans-serif; }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+  }
+  .shadow-flat{ box-shadow: 0 2px 6px rgba(44,62,80,0.08); }
+  .shadow-flat-lg{ box-shadow: 0 4px 10px rgba(44,62,80,0.10); }
+  .btn-press{ transition: transform .12s ease, background-color .15s ease; }
+  .btn-press:active{ transform: translateY(1px) scale(0.98); }
+  .card-hover{ transition: transform .18s ease, box-shadow .18s ease; }
+  .card-hover:hover{ transform: translateY(-4px); box-shadow: 0 8px 16px rgba(44,62,80,0.12); }
+  .badge-pop{ animation: pop .3s ease; }
+  @keyframes pop{
+    0%{ transform: scale(1); }
+    40%{ transform: scale(1.35); }
+    100%{ transform: scale(1); }
+  }
+  .fade-in{ animation: fadeIn .5s ease both; }
+  @keyframes fadeIn{
+    from{ opacity:0; transform: translateY(10px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+  .dot-nav{ width:8px; height:8px; border-radius:50%; }
+</style>
+</head>
+<body>
+
+  <!-- ===== 頂部導覽 ===== -->
+  <header class="bg-white shadow-flat sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="flex items-center justify-between h-16">
+        <!-- 品牌 -->
+        <div class="flex items-center gap-2">
+          <svg width="34" height="34" viewBox="0 0 34 34">
+            <circle cx="17" cy="17" r="17" fill="#27ae60"/>
+            <path d="M17 24 C17 24 17 16 17 12" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+            <path d="M17 15 C17 15 12 12 9 15 C9 19 14 19 17 15 Z" fill="#ffffff"/>
+            <path d="M17 18 C17 18 22 15 25 18 C25 22 20 22 17 18 Z" fill="#ffffff"/>
+          </svg>
+          <span class="text-xl font-extrabold" style="color:#27ae60;">綠洲植物 <span style="color:var(--ink);">GreenOasis</span></span>
+        </div>
+
+        <!-- 分類選單（桌面） -->
+        <nav class="hidden md:flex items-center gap-8 font-semibold text-sm">
+          <a href="#products" class="hover:text-[#27ae60] transition-colors">多肉植物</a>
+          <a href="#products" class="hover:text-[#3498db] transition-colors">觀葉植物</a>
+          <a href="#products" class="hover:text-[#f39c12] transition-colors">花藝盆器</a>
+          <a href="#guarantee" class="hover:text-[#e74c3c] transition-colors">到貨保證</a>
+        </nav>
+
+        <!-- 購物車 -->
+        <div class="flex items-center gap-4">
+          <button id="cartBtn" class="relative flex items-center gap-2 bg-[#f7f9fa] hover:bg-[#eef2f3] rounded-full px-4 py-2 transition-colors">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M3 4h2l2.4 12.4a2 2 0 0 0 2 1.6h7.2a2 2 0 0 0 2-1.6L20 8H6" stroke="#2c3e50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="9" cy="21" r="1.5" fill="#2c3e50"/>
+              <circle cx="17" cy="21" r="1.5" fill="#2c3e50"/>
+            </svg>
+            <span class="text-sm font-semibold hidden sm:inline">購物車</span>
+            <span id="cartCount" class="absolute -top-2 -right-2 bg-[#e74c3c] text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="max-w-6xl mx-auto px-6 pt-14 pb-16">
+    <div class="grid md:grid-cols-2 gap-10 items-center">
+      <div class="fade-in">
+        <p class="inline-block bg-[#eafaf1] text-[#27ae60] font-bold text-sm px-3 py-1 rounded-full mb-4">全台低溫宅配・活體植物專送</p>
+        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4">
+          把一片<span style="color:#27ae60;">綠意</span>，<br>種進你的日常裡
+        </h1>
+        <p class="text-lg text-[var(--gray)] mb-8">
+          精選台灣中部苗園直送的多肉植物、觀葉植物與花藝盆器，每一盆都經過三道品管檢核，讓新手也能輕鬆養出好氣色的家。
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#products" class="btn-press bg-[#27ae60] hover:bg-[#229954] text-white font-bold text-base px-8 py-3 rounded-lg shadow-flat">
+            立即選購
+          </a>
+          <a href="#guarantee" class="btn-press bg-white hover:bg-[#f7f9fa] text-[var(--ink)] font-bold text-base px-8 py-3 rounded-lg shadow-flat">
+            了解到貨保證
+          </a>
+        </div>
+        <div class="flex gap-6 mt-10 text-sm font-semibold text-[var(--gray)]">
+          <span>★★★★★ 4.9 分（2,341 則評價）</span>
+        </div>
+      </div>
+
+      <!-- Hero 幾何插畫：純 SVG 盆栽群組 -->
+      <div class="flex justify-center fade-in">
+        <svg width="360" height="320" viewBox="0 0 360 320">
+          <ellipse cx="180" cy="300" rx="150" ry="14" fill="#eafaf1"/>
+
+          <!-- 左：多肉植物 -->
+          <g transform="translate(40,150)">
+            <path d="M0 130 L14 60 L64 60 L78 130 Z" fill="#f39c12"/>
+            <rect x="0" y="120" width="78" height="14" fill="#e08e0b"/>
+            <circle cx="39" cy="40" r="34" fill="#27ae60"/>
+            <circle cx="20" cy="30" r="14" fill="#2ecc71"/>
+            <circle cx="55" cy="30" r="14" fill="#2ecc71"/>
+            <circle cx="39" cy="14" r="14" fill="#2ecc71"/>
+          </g>
+
+          <!-- 中：觀葉植物龍血樹風格 -->
+          <g transform="translate(150,60)">
+            <path d="M10 220 L26 120 L94 120 L110 220 Z" fill="#3498db"/>
+            <rect x="10" y="208" width="100" height="14" fill="#2f86bf"/>
+            <path d="M60 120 C60 90 40 70 30 30" stroke="#27ae60" stroke-width="10" stroke-linecap="round" fill="none"/>
+            <path d="M60 120 C60 85 70 55 60 10" stroke="#27ae60" stroke-width="10" stroke-linecap="round" fill="none"/>
+            <path d="M60 120 C60 90 85 75 100 40" stroke="#27ae60" stroke-width="10" stroke-linecap="round" fill="none"/>
+          </g>
+
+          <!-- 右：白鶴芋風格小盆 -->
+          <g transform="translate(270,170)">
+            <path d="M0 110 L10 60 L54 60 L64 110 Z" fill="#e74c3c"/>
+            <rect x="0" y="100" width="64" height="12" fill="#cf4436"/>
+            <path d="M32 60 C20 40 22 15 32 5 C42 15 44 40 32 60 Z" fill="#27ae60"/>
+            <path d="M18 60 C10 45 12 28 20 20 C26 30 26 46 18 60 Z" fill="#2ecc71"/>
+            <path d="M46 60 C54 45 52 28 44 20 C38 30 38 46 46 60 Z" fill="#2ecc71"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 商品區 ===== -->
+  <section id="products" class="max-w-6xl mx-auto px-6 pb-16">
+    <div class="flex items-end justify-between mb-8">
+      <div>
+        <h2 class="text-3xl font-extrabold mb-1">本週人氣植物</h2>
+        <p class="text-[var(--gray)]">每一盆都附贈養護說明卡，新手也能輕鬆上手</p>
+      </div>
+    </div>
+
+    <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </section>
+
+  <!-- ===== 到貨保證 / 品牌介紹 ===== -->
+  <section id="guarantee" class="bg-white py-16">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-8 text-center mb-16">
+        <div class="fade-in">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style="background:#eaf4fc;">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#3498db" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3 class="font-bold text-lg mb-2">7 天到貨保證</h3>
+          <p class="text-[var(--gray)] text-sm">植物若因運送過程受損或枯萎，7 天內免費補寄或全額退款。</p>
+        </div>
+        <div class="fade-in">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style="background:#eafaf1;">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z" fill="#27ae60"/></svg>
+          </div>
+          <h3 class="font-bold text-lg mb-2">產地直送品質</h3>
+          <p class="text-[var(--gray)] text-sm">與南投、彰化苗園長期合作，出貨前逐盆檢查葉況與根系。</p>
+        </div>
+        <div class="fade-in">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style="background:#fdf2e3;">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" rx="2" stroke="#f39c12" stroke-width="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="#f39c12" stroke-width="2"/></svg>
+          </div>
+          <h3 class="font-bold text-lg mb-2">全台低溫宅配</h3>
+          <p class="text-[var(--gray)] text-sm">採用透氣抗震包材與低溫車隊配送，離島地區亦可安排出貨。</p>
+        </div>
+      </div>
+
+      <div class="bg-[#f7f9fa] rounded-2xl p-10 grid md:grid-cols-2 gap-8 items-center">
+        <div>
+          <h3 class="text-2xl font-extrabold mb-3">關於綠洲植物</h3>
+          <p class="text-[var(--gray)] leading-relaxed">
+            綠洲植物 GreenOasis 成立於 2019 年，是一間專注於居家綠植與花藝盆器的線上商店。我們相信，照顧一株植物是忙碌生活裡最療癒的小事。從選種、包裝到售後諮詢，團隊皆由具備園藝背景的夥伴親自把關，至今已服務超過 12,000 位居家綠手指。
+          </p>
+        </div>
+        <div class="grid grid-cols-3 gap-4 text-center">
+          <div>
+            <p class="text-3xl font-extrabold" style="color:#27ae60;">12,000+</p>
+            <p class="text-sm text-[var(--gray)] mt-1">服務客戶</p>
+          </div>
+          <div>
+            <p class="text-3xl font-extrabold" style="color:#3498db;">98%</p>
+            <p class="text-sm text-[var(--gray)] mt-1">存活滿意度</p>
+          </div>
+          <div>
+            <p class="text-3xl font-extrabold" style="color:#f39c12;">6 年</p>
+            <p class="text-sm text-[var(--gray)] mt-1">品牌經營</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="bg-[#2c3e50] text-white py-10">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between gap-6">
+      <div>
+        <p class="font-extrabold text-lg mb-2">綠洲植物 GreenOasis</p>
+        <p class="text-sm text-gray-300">台北市大安區植光街 27 號 1 樓　客服信箱：hello@greenoasis.tw</p>
+      </div>
+      <div class="text-sm text-gray-300">
+        <p>客服專線：0800-266-266（週一至週五 09:00-18:00）</p>
+        <p class="mt-1">© 2026 GreenOasis 綠洲植物有限公司　版權所有</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== 加入購物車成功提示（Toast） ===== -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-[#2c3e50] text-white text-sm font-semibold px-5 py-3 rounded-lg shadow-flat-lg opacity-0 pointer-events-none transition-opacity duration-300 z-50">
+    已加入購物車
+  </div>
+
+  <script>
+    // 商品資料
+    const products = [
+      {
+        name: "龍血樹",
+        sub: "淨化空氣・低照顧需求",
+        price: 890,
+        accent: "#3498db",
+        pot: "#3498db",
+        potShadow: "#2f86bf",
+        leaf: "line" // 直立線條葉
+      },
+      {
+        name: "魔法藤",
+        sub: "垂墜型觀葉・適合吊掛",
+        price: 650,
+        accent: "#27ae60",
+        pot: "#f39c12",
+        potShadow: "#e08e0b",
+        leaf: "vine"
+      },
+      {
+        name: "白鶴芋",
+        sub: "耐陰室內植物・淨化甲醛",
+        price: 780,
+        accent: "#e74c3c",
+        pot: "#e74c3c",
+        potShadow: "#cf4436",
+        leaf: "spathe"
+      },
+      {
+        name: "月兔耳多肉組",
+        sub: "三入組合・陽台首選",
+        price: 450,
+        accent: "#f39c12",
+        pot: "#27ae60",
+        potShadow: "#229954",
+        leaf: "succulent"
+      },
+      {
+        name: "琴葉榕",
+        sub: "大型觀葉・客廳主景",
+        price: 1680,
+        accent: "#3498db",
+        pot: "#3498db",
+        potShadow: "#2f86bf",
+        leaf: "fig"
+      },
+      {
+        name: "尤加利花藝盆器組",
+        sub: "乾燥花藝・免澆水",
+        price: 980,
+        accent: "#27ae60",
+        pot: "#e74c3c",
+        potShadow: "#cf4436",
+        leaf: "eucalyptus"
+      }
+    ];
+
+    function leafSVG(type, accent){
+      switch(type){
+        case "line":
+          return `
+            <path d="M50 95 C48 70 40 55 34 30" stroke="${accent}" stroke-width="8" stroke-linecap="round" fill="none"/>
+            <path d="M50 95 C50 68 55 48 50 20" stroke="${accent}" stroke-width="8" stroke-linecap="round" fill="none"/>
+            <path d="M50 95 C52 70 60 58 66 32" stroke="${accent}" stroke-width="8" stroke-linecap="round" fill="none"/>
+          `;
+        case "vine":
+          return `
+            <path d="M50 95 C50 70 25 60 20 40" stroke="${accent}" stroke-width="7" stroke-linecap="round" fill="none"/>
+            <circle cx="20" cy="40" r="9" fill="${accent}"/>
+            <path d="M50 95 C50 65 75 58 78 36" stroke="${accent}" stroke-width="7" stroke-linecap="round" fill="none"/>
+            <circle cx="78" cy="36" r="9" fill="${accent}"/>
+            <circle cx="50" cy="55" r="10" fill="${accent}"/>
+          `;
+        case "spathe":
+          return `
+            <path d="M50 95 C34 75 36 45 50 30 C64 45 66 75 50 95 Z" fill="${accent}"/>
+            <path d="M32 95 C20 78 22 55 32 45 C40 58 40 78 32 95 Z" fill="${accent}" opacity="0.75"/>
+            <path d="M68 95 C80 78 78 55 68 45 C60 58 60 78 68 95 Z" fill="${accent}" opacity="0.75"/>
+          `;
+        case "succulent":
+          return `
+            <circle cx="50" cy="55" r="30" fill="${accent}"/>
+            <circle cx="30" cy="42" r="13" fill="${accent}" opacity="0.85"/>
+            <circle cx="70" cy="42" r="13" fill="${accent}" opacity="0.85"/>
+            <circle cx="50" cy="24" r="13" fill="${accent}" opacity="0.85"/>
+          `;
+        case "fig":
+          return `
+            <path d="M50 95 C50 75 45 60 50 45" stroke="${accent}" stroke-width="7" stroke-linecap="round" fill="none"/>
+            <ellipse cx="50" cy="35" rx="26" ry="22" fill="${accent}"/>
+            <ellipse cx="30" cy="55" rx="16" ry="13" fill="${accent}" opacity="0.8"/>
+            <ellipse cx="70" cy="55" rx="16" ry="13" fill="${accent}" opacity="0.8"/>
+          `;
+        case "eucalyptus":
+          return `
+            <path d="M50 95 C50 70 30 60 24 38" stroke="${accent}" stroke-width="5" stroke-linecap="round" fill="none"/>
+            <path d="M50 95 C50 66 70 58 76 34" stroke="${accent}" stroke-width="5" stroke-linecap="round" fill="none"/>
+            <circle cx="24" cy="38" r="6" fill="${accent}"/>
+            <circle cx="34" cy="50" r="6" fill="${accent}"/>
+            <circle cx="76" cy="34" r="6" fill="${accent}"/>
+            <circle cx="66" cy="46" r="6" fill="${accent}"/>
+            <circle cx="50" cy="60" r="6" fill="${accent}"/>
+          `;
+        default:
+          return "";
+      }
+    }
+
+    function potSVG(fill, shadow){
+      return `
+        <path d="M22 90 L30 60 L70 60 L78 90 Z" fill="${fill}"/>
+        <rect x="20" y="88" width="60" height="10" rx="2" fill="${shadow}"/>
+      `;
+    }
+
+    const grid = document.getElementById("productGrid");
+
+    products.forEach((p, idx) => {
+      const card = document.createElement("div");
+      card.className = "card-hover bg-white rounded-2xl shadow-flat p-6 flex flex-col fade-in";
+
+      card.innerHTML = `
+        <div class="rounded-xl mb-4 flex items-center justify-center" style="background:#f7f9fa; height:180px;">
+          <svg width="140" height="140" viewBox="0 0 100 100">
+            ${leafSVG(p.leaf, p.accent)}
+            ${potSVG(p.pot, p.potShadow)}
+          </svg>
+        </div>
+        <h3 class="font-bold text-lg mb-1">${p.name}</h3>
+        <p class="text-sm text-[var(--gray)] mb-4">${p.sub}</p>
+        <div class="flex items-center justify-between mt-auto">
+          <span class="text-xl font-extrabold" style="color:${p.accent};">NT$ ${p.price.toLocaleString('zh-Hant-TW')}</span>
+          <button data-idx="${idx}" class="add-to-cart btn-press text-white font-bold text-sm px-4 py-2 rounded-lg" style="background:${p.accent};">
+            加入購物車
+          </button>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    // 購物車互動
+    let cartCount = 0;
+    const cartCountEl = document.getElementById("cartCount");
+    const toastEl = document.getElementById("toast");
+    let toastTimer = null;
+
+    function showToast(text){
+      toastEl.textContent = text;
+      toastEl.classList.remove("opacity-0");
+      toastEl.classList.add("opacity-100");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toastEl.classList.remove("opacity-100");
+        toastEl.classList.add("opacity-0");
+      }, 1800);
+    }
+
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest(".add-to-cart");
+      if(!btn) return;
+
+      const idx = btn.getAttribute("data-idx");
+      const product = products[idx];
+
+      // 累加購物車數量
+      cartCount += 1;
+      cartCountEl.textContent = cartCount;
+      cartCountEl.classList.remove("badge-pop");
+      // 觸發重新播放動畫
+      void cartCountEl.offsetWidth;
+      cartCountEl.classList.add("badge-pop");
+
+      // 按鈕文字暫時變化
+      const originalText = btn.textContent;
+      const originalBg = btn.style.background;
+      btn.disabled = true;
+      btn.textContent = "已加入 ✓";
+      btn.style.background = "#27ae60";
+
+      showToast(`已將「${product.name}」加入購物車`);
+
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.style.background = originalBg;
+        btn.disabled = false;
+      }, 1400);
+    });
+  </script>
+</body>
+</html>

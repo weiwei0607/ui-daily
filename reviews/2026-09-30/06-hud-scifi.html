@@ -1,0 +1,407 @@
+<!-- style #51 HUD / Sci-Fi -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>軌道哨 OrbitWatch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Share+Tech+Mono&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --bg:#0a0a0a;
+    --cyan:#00fff2;
+    --cyan-dim:#00b3ab;
+    --line:#1c2426;
+    --line-bright:#2c3a3d;
+    --danger:#ff3b5c;
+    --warn:#ffcc33;
+  }
+  *{ box-sizing:border-box; }
+  html,body{
+    background:var(--bg);
+    color:var(--cyan);
+    font-family:'Orbitron','Noto Sans TC',sans-serif;
+    margin:0;
+    overflow-x:hidden;
+  }
+  .mono{ font-family:'Share Tech Mono','Noto Sans TC',monospace; }
+  .txt-glow{ text-shadow:0 0 6px rgba(0,255,242,0.85), 0 0 16px rgba(0,255,242,0.35); }
+  .box-glow{
+    box-shadow:0 0 12px rgba(0,255,242,0.25), inset 0 0 24px rgba(0,255,242,0.05);
+  }
+  .panel{
+    background:linear-gradient(180deg, rgba(0,255,242,0.04), rgba(0,0,0,0));
+    border:1px solid var(--line-bright);
+    position:relative;
+  }
+  /* 四角刻度框角標 */
+  .hud-corner::before, .hud-corner::after,
+  .hud-corner-wrap > .c-tl, .hud-corner-wrap > .c-tr,
+  .hud-corner-wrap > .c-bl, .hud-corner-wrap > .c-br{
+    content:'';
+  }
+  .hud-corner-wrap{ position:relative; }
+  .hud-corner-wrap .corner{
+    position:absolute;
+    width:18px;
+    height:18px;
+    border-color:var(--cyan);
+    opacity:0.85;
+    filter: drop-shadow(0 0 4px rgba(0,255,242,0.8));
+  }
+  .corner.tl{ top:-1px; left:-1px; border-top:2px solid; border-left:2px solid; }
+  .corner.tr{ top:-1px; right:-1px; border-top:2px solid; border-right:2px solid; }
+  .corner.bl{ bottom:-1px; left:-1px; border-bottom:2px solid; border-left:2px solid; }
+  .corner.br{ bottom:-1px; right:-1px; border-bottom:2px solid; border-right:2px solid; }
+
+  /* 主畫面四角大型刻度框角標 */
+  .frame-corner{
+    position:fixed;
+    width:64px;
+    height:64px;
+    pointer-events:none;
+    z-index:40;
+    opacity:0.9;
+  }
+  .frame-corner span{
+    position:absolute;
+    display:block;
+  }
+  .frame-corner .l1{ width:64px; height:2px; background:var(--cyan); box-shadow:0 0 8px var(--cyan); }
+  .frame-corner .l2{ width:2px; height:64px; background:var(--cyan); box-shadow:0 0 8px var(--cyan); }
+  .frame-corner .tick{ width:10px; height:2px; background:var(--cyan-dim); }
+
+  .fc-tl{ top:14px; left:14px; }
+  .fc-tl .l1{ top:0; left:0; }
+  .fc-tl .l2{ top:0; left:0; }
+  .fc-tl .tick{ top:14px; left:0; }
+
+  .fc-tr{ top:14px; right:14px; }
+  .fc-tr .l1{ top:0; right:0; }
+  .fc-tr .l2{ top:0; right:0; }
+  .fc-tr .tick{ top:14px; right:0; }
+
+  .fc-bl{ bottom:14px; left:14px; }
+  .fc-bl .l1{ bottom:0; left:0; }
+  .fc-bl .l2{ bottom:0; left:0; }
+  .fc-bl .tick{ bottom:14px; left:0; }
+
+  .fc-br{ bottom:14px; right:14px; }
+  .fc-br .l1{ bottom:0; right:0; }
+  .fc-br .l2{ bottom:0; right:0; }
+  .fc-br .tick{ bottom:14px; right:0; }
+
+  /* 掃描線動畫 */
+  .scanline{
+    position:fixed;
+    left:0; right:0;
+    height:2px;
+    background:linear-gradient(90deg, transparent, rgba(0,255,242,0.9), transparent);
+    box-shadow:0 0 20px 4px rgba(0,255,242,0.6);
+    animation: scan-move 6s linear infinite;
+    z-index:30;
+    pointer-events:none;
+  }
+  @keyframes scan-move{
+    0%{ top:0%; opacity:0; }
+    5%{ opacity:1; }
+    95%{ opacity:1; }
+    100%{ top:100%; opacity:0; }
+  }
+
+  /* 全域細微掃描格線紋理 */
+  .scan-overlay{
+    position:fixed; inset:0; z-index:5; pointer-events:none;
+    background-image:repeating-linear-gradient(0deg, rgba(0,255,242,0.025) 0px, rgba(0,255,242,0.025) 1px, transparent 1px, transparent 3px);
+    mix-blend-mode:screen;
+  }
+
+  .gauge-ring-bg{ stroke:#15201f; }
+  .gauge-ring-fg{
+    stroke:var(--cyan);
+    filter: drop-shadow(0 0 6px rgba(0,255,242,0.9));
+    transition: stroke-dashoffset 1.2s cubic-bezier(.2,.8,.2,1);
+  }
+
+  .blip{
+    fill:var(--cyan);
+    filter: drop-shadow(0 0 5px rgba(0,255,242,1));
+  }
+  .radar-sweep{
+    transform-origin: 50% 50%;
+    animation: radar-spin 4s linear infinite;
+  }
+  @keyframes radar-spin{
+    from{ transform:rotate(0deg); }
+    to{ transform:rotate(360deg); }
+  }
+
+  .blink{ animation: blink-op 1.6s ease-in-out infinite; }
+  @keyframes blink-op{ 0%,100%{opacity:1;} 50%{opacity:0.25;} }
+
+  .log-enter{
+    animation: log-in 0.5s ease-out;
+  }
+  @keyframes log-in{
+    from{ opacity:0; transform:translateY(-6px); background:rgba(0,255,242,0.12); }
+    to{ opacity:1; transform:translateY(0); background:transparent; }
+  }
+
+  ::-webkit-scrollbar{ width:6px; }
+  ::-webkit-scrollbar-thumb{ background:var(--cyan-dim); }
+  ::-webkit-scrollbar-track{ background:#0f1414; }
+
+  .status-dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--cyan);
+    box-shadow:0 0 8px var(--cyan);
+  }
+
+  .divider-line{
+    height:1px;
+    background:linear-gradient(90deg, transparent, var(--cyan-dim), transparent);
+    opacity:0.5;
+  }
+</style>
+</head>
+<body class="min-h-screen relative">
+
+  <!-- 全畫面四角刻度框角標 -->
+  <div class="frame-corner fc-tl"><span class="l1"></span><span class="l2"></span><span class="tick"></span></div>
+  <div class="frame-corner fc-tr"><span class="l1"></span><span class="l2"></span><span class="tick"></span></div>
+  <div class="frame-corner fc-bl"><span class="l1"></span><span class="l2"></span><span class="tick"></span></div>
+  <div class="frame-corner fc-br"><span class="l1"></span><span class="l2"></span><span class="tick"></span></div>
+
+  <div class="scanline"></div>
+  <div class="scan-overlay"></div>
+
+  <main class="max-w-6xl mx-auto px-6 sm:px-10 py-10 relative z-10">
+
+    <!-- 頂部標題區 -->
+    <header class="hud-corner-wrap panel px-6 py-5 mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+      <div>
+        <div class="flex items-center gap-3">
+          <span class="status-dot"></span>
+          <h1 class="text-2xl sm:text-3xl font-bold tracking-widest txt-glow">軌道哨 OrbitWatch</h1>
+        </div>
+        <p class="mono text-xs sm:text-sm text-cyan-200/60 mt-2 tracking-wide" style="color:#5fd6cf;">衛星 / 無人機聯合監控中心　//　地面站代號 GS-07　台北</p>
+      </div>
+      <div class="text-right">
+        <div id="clock" class="mono text-3xl sm:text-4xl font-bold txt-glow">00:00:00</div>
+        <div id="dateline" class="mono text-xs mt-1" style="color:#5fd6cf;">2026-09-30</div>
+      </div>
+    </header>
+
+    <!-- 三個數據環儀表 -->
+    <section class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+
+      <div class="hud-corner-wrap panel px-4 py-6 flex flex-col items-center">
+        <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+        <div class="text-xs tracking-widest mb-3" style="color:#5fd6cf;">訊號強度 SIGNAL</div>
+        <svg width="140" height="140" viewBox="0 0 140 140">
+          <circle cx="70" cy="70" r="58" fill="none" stroke-width="8" class="gauge-ring-bg"></circle>
+          <circle id="ring-signal" cx="70" cy="70" r="58" fill="none" stroke-width="8" class="gauge-ring-fg"
+            stroke-linecap="round" stroke-dasharray="364.4" stroke-dashoffset="364.4"
+            transform="rotate(-90 70 70)"></circle>
+          <text x="70" y="66" text-anchor="middle" class="mono" fill="#00fff2" font-size="26" font-weight="700" id="signal-num">0</text>
+          <text x="70" y="86" text-anchor="middle" class="mono" fill="#5fd6cf" font-size="11">%</text>
+        </svg>
+        <div class="mono text-[11px] mt-2" style="color:#3f8f89;">頻段 X-BAND 8.4GHz</div>
+      </div>
+
+      <div class="hud-corner-wrap panel px-4 py-6 flex flex-col items-center">
+        <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+        <div class="text-xs tracking-widest mb-3" style="color:#5fd6cf;">電池電量 BATTERY</div>
+        <svg width="140" height="140" viewBox="0 0 140 140">
+          <circle cx="70" cy="70" r="58" fill="none" stroke-width="8" class="gauge-ring-bg"></circle>
+          <circle id="ring-battery" cx="70" cy="70" r="58" fill="none" stroke-width="8" class="gauge-ring-fg"
+            stroke-linecap="round" stroke-dasharray="364.4" stroke-dashoffset="364.4"
+            transform="rotate(-90 70 70)"></circle>
+          <text x="70" y="66" text-anchor="middle" class="mono" fill="#00fff2" font-size="26" font-weight="700" id="battery-num">0</text>
+          <text x="70" y="86" text-anchor="middle" class="mono" fill="#5fd6cf" font-size="11">%</text>
+        </svg>
+        <div class="mono text-[11px] mt-2" style="color:#3f8f89;">太陽能板 輸出正常</div>
+      </div>
+
+      <div class="hud-corner-wrap panel px-4 py-6 flex flex-col items-center">
+        <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+        <div class="text-xs tracking-widest mb-3" style="color:#5fd6cf;">軌道高度 ALTITUDE</div>
+        <svg width="140" height="140" viewBox="0 0 140 140">
+          <circle cx="70" cy="70" r="58" fill="none" stroke-width="8" class="gauge-ring-bg"></circle>
+          <circle id="ring-altitude" cx="70" cy="70" r="58" fill="none" stroke-width="8" class="gauge-ring-fg"
+            stroke-linecap="round" stroke-dasharray="364.4" stroke-dashoffset="364.4"
+            transform="rotate(-90 70 70)"></circle>
+          <text x="70" y="64" text-anchor="middle" class="mono" fill="#00fff2" font-size="22" font-weight="700" id="altitude-num">0</text>
+          <text x="70" y="84" text-anchor="middle" class="mono" fill="#5fd6cf" font-size="10">公里</text>
+        </svg>
+        <div class="mono text-[11px] mt-2" style="color:#3f8f89;">近地軌道 LEO 標準區間</div>
+      </div>
+
+    </section>
+
+    <!-- 雷達追蹤 + 系統日誌 -->
+    <section class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+
+      <!-- 雷達 -->
+      <div class="hud-corner-wrap panel px-4 py-5 lg:col-span-2 flex flex-col items-center">
+        <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+        <div class="w-full flex items-center justify-between mb-3">
+          <span class="text-xs tracking-widest" style="color:#5fd6cf;">追蹤雷達 TRACKING</span>
+          <span class="mono text-[11px] blink" style="color:#00fff2;">● 掃描中</span>
+        </div>
+        <svg width="260" height="260" viewBox="0 0 260 260">
+          <circle cx="130" cy="130" r="118" fill="#060909" stroke="#1c2426" stroke-width="1"></circle>
+          <circle cx="130" cy="130" r="90" fill="none" stroke="#1c2426" stroke-width="1"></circle>
+          <circle cx="130" cy="130" r="60" fill="none" stroke="#1c2426" stroke-width="1"></circle>
+          <circle cx="130" cy="130" r="30" fill="none" stroke="#1c2426" stroke-width="1"></circle>
+          <line x1="12" y1="130" x2="248" y2="130" stroke="#1c2426" stroke-width="1"></line>
+          <line x1="130" y1="12" x2="130" y2="248" stroke="#1c2426" stroke-width="1"></line>
+
+          <g class="radar-sweep">
+            <defs>
+              <linearGradient id="sweepGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#00fff2" stop-opacity="0"></stop>
+                <stop offset="100%" stop-color="#00fff2" stop-opacity="0.45"></stop>
+              </linearGradient>
+            </defs>
+            <path d="M130,130 L130,12 A118,118 0 0,1 213.4,46.6 Z" fill="url(#sweepGrad)"></path>
+          </g>
+
+          <circle cx="130" cy="130" r="3" fill="#00fff2"></circle>
+
+          <circle class="blip" cx="168" cy="82" r="4"></circle>
+          <circle class="blip" cx="90" cy="168" r="3.5"></circle>
+          <circle class="blip" cx="178" cy="176" r="3"></circle>
+          <circle class="blip blink" cx="70" cy="96" r="4"></circle>
+
+          <text x="168" y="74" text-anchor="middle" class="mono" fill="#00fff2" font-size="9">SAT-01</text>
+          <text x="90" y="184" text-anchor="middle" class="mono" fill="#00fff2" font-size="9">UAV-A2</text>
+          <text x="178" y="192" text-anchor="middle" class="mono" fill="#00fff2" font-size="9">SAT-03</text>
+          <text x="70" y="112" text-anchor="middle" class="mono" fill="#ffcc33" font-size="9">未知</text>
+        </svg>
+        <div class="mono text-[11px] mt-3 text-center" style="color:#3f8f89;">偵測範圍 半徑 1,200 公里　更新頻率 4 秒 / 圈</div>
+      </div>
+
+      <!-- 系統日誌 -->
+      <div class="hud-corner-wrap panel px-4 py-5 lg:col-span-3">
+        <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+        <div class="w-full flex items-center justify-between mb-3">
+          <span class="text-xs tracking-widest" style="color:#5fd6cf;">系統事件日誌 SYSTEM LOG</span>
+          <span class="mono text-[11px]" style="color:#00fff2;">即時串流</span>
+        </div>
+        <div class="divider-line mb-3"></div>
+        <ul id="log-list" class="mono text-[13px] space-y-2 max-h-[300px] overflow-y-auto pr-1">
+          <li class="flex gap-3"><span style="color:#3f8f89;">14:22:03</span><span>軌道修正完成，偏移量已收斂至 0.02 度</span></li>
+          <li class="flex gap-3"><span style="color:#3f8f89;">14:19:47</span><span>訊號強度回穩，鏈路品質恢復至 98%</span></li>
+          <li class="flex gap-3"><span style="color:#3f8f89;">14:16:12</span><span>UAV-A2 完成第 3 號航點巡檢，影像已回傳</span></li>
+          <li class="flex gap-3"><span style="color:#3f8f89;">14:11:58</span><span>太陽能板追日角度校正，發電效率提升 4%</span></li>
+          <li class="flex gap-3"><span style="color:#ffcc33;">14:08:30</span><span>偵測到未識別追蹤目標，已標記待查</span></li>
+        </ul>
+      </div>
+
+    </section>
+
+    <!-- 底部狀態列 -->
+    <footer class="mt-8 hud-corner-wrap panel px-6 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+      <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+      <div class="mono text-[12px]" style="color:#3f8f89;">任務代號 ORBWATCH-07　控管單位 國家太空中心地面站</div>
+      <div class="mono text-[12px] flex items-center gap-2">
+        <span class="status-dot"></span>
+        <span style="color:#00fff2;">全系統運作正常</span>
+      </div>
+    </footer>
+
+  </main>
+
+<script>
+  // 即時時鐘
+  function pad(n){ return String(n).padStart(2,'0'); }
+  function updateClock(){
+    const now = new Date();
+    const h = pad(now.getHours());
+    const m = pad(now.getMinutes());
+    const s = pad(now.getSeconds());
+    document.getElementById('clock').textContent = h + ':' + m + ':' + s;
+    const y = now.getFullYear();
+    const mo = pad(now.getMonth()+1);
+    const d = pad(now.getDate());
+    document.getElementById('dateline').textContent = y + '-' + mo + '-' + d;
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  // 數據環動畫：圓周長 2*PI*58 = 364.4
+  const CIRC = 364.4;
+  function setRing(id, numId, value, suffix){
+    const ring = document.getElementById(id);
+    const numEl = document.getElementById(numId);
+    const offset = CIRC - (CIRC * value / 100);
+    ring.style.strokeDashoffset = offset;
+    let current = 0;
+    const target = value;
+    const step = () => {
+      current += (target - current) * 0.12;
+      if(Math.abs(target-current) < 0.5){ current = target; }
+      numEl.textContent = Math.round(current);
+      if(current !== target){ requestAnimationFrame(step); }
+    };
+    requestAnimationFrame(step);
+  }
+
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      setRing('ring-signal', 'signal-num', 92, '%');
+      setRing('ring-battery', 'battery-num', 76, '%');
+      // 軌道高度環：以 400~600 公里區間映射為百分比顯示（547 公里 -> 約 74%）
+      setRing('ring-altitude', 'altitude-num', 547, '公里');
+    }, 300);
+  });
+
+  // 軌道高度環數字直接顯示公里數，需要另外處理百分比映射
+  (function fixAltitudeRing(){
+    const ring = document.getElementById('ring-altitude');
+    const pct = ((547 - 400) / (600 - 400)) * 100; // 約 73.5%
+    const offset = CIRC - (CIRC * pct / 100);
+    setTimeout(() => { ring.style.strokeDashoffset = offset; }, 300);
+  })();
+
+  // 系統日誌即時新增
+  const logPool = [
+    ['軌道微調脈衝已執行，燃料剩餘 87%', '#3f8f89'],
+    ['地面站接收窗口開啟，開始下傳遙測資料', '#3f8f89'],
+    ['UAV-A2 電池溫度略升，已切換節能模式', '#ffcc33'],
+    ['SAT-03 姿態穩定，太陽翼展開角度正常', '#3f8f89'],
+    ['備援通訊鏈路自檢完成，狀態良好', '#3f8f89'],
+    ['偵測到微小碎片接近警戒區，持續追蹤中', '#ff3b5c'],
+    ['影像壓縮傳輸完成，資料完整性驗證通過', '#3f8f89'],
+    ['GPS 定位校正完成，誤差收斂在 3 公尺內', '#3f8f89'],
+    ['地面雷達與衛星鏈路重新同步成功', '#3f8f89'],
+    ['未識別追蹤目標已排除，判定為太空碎片', '#3f8f89']
+  ];
+
+  function currentTimeStr(){
+    const now = new Date();
+    return pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
+  }
+
+  function addLogEntry(){
+    const list = document.getElementById('log-list');
+    const pick = logPool[Math.floor(Math.random() * logPool.length)];
+    const li = document.createElement('li');
+    li.className = 'flex gap-3 log-enter';
+    li.innerHTML = '<span style="color:#3f8f89;">' + currentTimeStr() + '</span><span style="color:' + pick[1] + ';">' + pick[0] + '</span>';
+    list.insertBefore(li, list.firstChild);
+    while(list.children.length > 12){
+      list.removeChild(list.lastChild);
+    }
+  }
+
+  setInterval(addLogEntry, 5000);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,540 @@
+<!-- style #07 Dark Mode (OLED) -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>夜衛 NightGuard｜居家保全監控主控台</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --bg: #121212;
+    --bg-raised: #1a1a1a;
+    --bg-card: #161616;
+    --border-faint: rgba(255,255,255,0.07);
+    --border-faint-2: rgba(255,255,255,0.045);
+    --text-primary: #eaeaea;
+    --text-secondary: #9a9a9a;
+    --text-tertiary: #6b6b6b;
+    --accent: #39ff14;
+    --accent-dim: #1f8a0c;
+    --danger: #39ff14; /* single-accent rule: alerts reuse the same neon, distinguished by state text, not a second hue */
+  }
+
+  * { -webkit-font-smoothing: antialiased; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Instrument Sans', 'Noto Sans TC', sans-serif;
+  }
+
+  body{
+    background-image:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(57,255,20,0.05), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 10%, rgba(57,255,20,0.03), transparent 60%);
+    background-attachment: fixed;
+  }
+
+  .font-mono { font-family: 'IBM Plex Mono', monospace; }
+
+  .glow-text{
+    text-shadow: 0 0 6px rgba(57,255,20,0.55), 0 0 18px rgba(57,255,20,0.25);
+  }
+  .glow-text-soft{
+    text-shadow: 0 0 4px rgba(57,255,20,0.35);
+  }
+
+  .card{
+    background: var(--bg-card);
+    border: 1px solid var(--border-faint);
+  }
+
+  .divider{
+    border-color: var(--border-faint-2);
+  }
+
+  .status-dot{
+    box-shadow: 0 0 6px 1px currentColor;
+  }
+
+  @keyframes pulseGlow{
+    0%,100%{ box-shadow: 0 0 8px 2px currentColor, 0 0 0px 0px currentColor; opacity:1; }
+    50%{ box-shadow: 0 0 18px 6px currentColor, 0 0 4px 2px currentColor; opacity:0.85; }
+  }
+  .pulse{ animation: pulseGlow 2.2s ease-in-out infinite; }
+
+  @keyframes softPulse{
+    0%,100%{ opacity: 1; }
+    50%{ opacity: 0.55; }
+  }
+  .soft-pulse{ animation: softPulse 2.4s ease-in-out infinite; }
+
+  /* 監視器畫面：純 CSS 漸層 + 雜訊模擬 */
+  .cam-feed{
+    position: relative;
+    background: linear-gradient(160deg, #1c1f1c 0%, #101210 45%, #0a0b0a 100%);
+    overflow: hidden;
+  }
+  .cam-feed::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 3px);
+    mix-blend-mode: overlay;
+    opacity: 0.5;
+  }
+  .cam-feed::after{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      repeating-conic-gradient(from 0deg, rgba(255,255,255,0.03) 0deg 1deg, transparent 1deg 3deg);
+    opacity: 0.35;
+    animation: noiseShift 1.2s steps(6) infinite;
+  }
+  @keyframes noiseShift{
+    0%{ transform: translate(0,0); }
+    20%{ transform: translate(-1%, 1%); }
+    40%{ transform: translate(1%, -1%); }
+    60%{ transform: translate(-1%,-1%); }
+    80%{ transform: translate(1%,1%); }
+    100%{ transform: translate(0,0); }
+  }
+  .cam-vignette{
+    position:absolute; inset:0;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.65) 100%);
+  }
+  .scanline{
+    position:absolute; left:0; right:0; height:2px;
+    background: linear-gradient(90deg, transparent, rgba(57,255,20,0.35), transparent);
+    animation: scan 5s linear infinite;
+  }
+  @keyframes scan{
+    0%{ top: -5%; }
+    100%{ top: 105%; }
+  }
+
+  .btn-arm{
+    transition: all 0.25s ease;
+  }
+
+  .timeline-line{
+    background: linear-gradient(to bottom, var(--accent-dim), transparent);
+  }
+
+  ::selection{ background: rgba(57,255,20,0.25); }
+
+  .scrollbar-thin::-webkit-scrollbar{ width: 6px; }
+  .scrollbar-thin::-webkit-scrollbar-track{ background: transparent; }
+  .scrollbar-thin::-webkit-scrollbar-thumb{ background: rgba(255,255,255,0.12); border-radius: 3px; }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <!-- 頂部列 -->
+  <header class="sticky top-0 z-20 backdrop-blur-md" style="background: rgba(18,18,18,0.85); border-bottom:1px solid var(--border-faint);">
+    <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg flex items-center justify-center card" style="border-color: rgba(57,255,20,0.25);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#39ff14" stroke-width="1.8">
+            <path d="M12 2 L20 6 V12 C20 17 16.5 20.5 12 22 C7.5 20.5 4 17 4 12 V6 Z" />
+            <path d="M9 12 L11 14 L15.5 9" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-lg font-semibold tracking-wide">夜衛 <span class="font-mono text-sm text-[var(--text-secondary)]">NightGuard</span></h1>
+          <p class="text-xs text-[var(--text-tertiary)] font-mono">居家保全監控主控台 · 中山住宅</p>
+        </div>
+      </div>
+
+      <div id="statusPill" class="flex items-center gap-2 px-3 py-1.5 rounded-full card">
+        <span id="statusDot" class="w-2.5 h-2.5 rounded-full pulse" style="background: var(--accent); color: var(--accent);"></span>
+        <span id="statusText" class="font-mono text-xs tracking-widest uppercase glow-text-soft" style="color: var(--accent);">系統已武裝</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-5 py-6 space-y-6">
+
+    <!-- 武裝/解除警戒按鈕 + 摘要 -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="card rounded-xl p-5 md:col-span-1 flex flex-col justify-between">
+        <div>
+          <p class="text-xs text-[var(--text-tertiary)] font-mono mb-1">目前模式</p>
+          <p id="modeLabel" class="text-2xl font-semibold glow-text" style="color: var(--accent);">居家武裝</p>
+          <p id="modeDesc" class="text-sm text-[var(--text-secondary)] mt-1">所有周界感應器已啟用，偵測到異常將立即推播通知。</p>
+        </div>
+        <button id="armToggleBtn" onclick="toggleArm()" class="btn-arm mt-5 w-full py-3 rounded-lg font-mono text-sm font-semibold tracking-wide"
+          style="background: rgba(57,255,20,0.12); border: 1px solid rgba(57,255,20,0.45); color: var(--accent);">
+          點擊解除警戒
+        </button>
+      </div>
+
+      <div class="card rounded-xl p-5 md:col-span-2">
+        <p class="text-xs text-[var(--text-tertiary)] font-mono mb-3">系統概況</p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div>
+            <p class="text-xs text-[var(--text-tertiary)]">鏡頭在線</p>
+            <p class="font-mono text-xl mt-1" style="color: var(--accent);">6 / 6</p>
+          </div>
+          <div>
+            <p class="text-xs text-[var(--text-tertiary)]">感應器在線</p>
+            <p class="font-mono text-xl mt-1" style="color: var(--accent);">9 / 9</p>
+          </div>
+          <div>
+            <p class="text-xs text-[var(--text-tertiary)]">今日警報次數</p>
+            <p class="font-mono text-xl mt-1 text-[var(--text-primary)]">3</p>
+          </div>
+          <div>
+            <p class="text-xs text-[var(--text-tertiary)]">網路連線</p>
+            <p class="font-mono text-xl mt-1 text-[var(--text-primary)]">穩定 42ms</p>
+          </div>
+        </div>
+        <div class="mt-4 pt-4 divider border-t text-xs text-[var(--text-tertiary)] font-mono flex flex-wrap gap-x-6 gap-y-1">
+          <span>裝置編號 NG-TW-08841</span>
+          <span>韌體版本 v4.12.3</span>
+          <span>雲端備份 已同步 · 3 分鐘前</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 鏡頭縮圖 -->
+    <section>
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-sm font-semibold text-[var(--text-secondary)] font-mono tracking-widest uppercase">即時鏡頭</h2>
+        <span class="text-xs text-[var(--text-tertiary)] font-mono">6 支攝影機</span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+        <div class="card rounded-xl overflow-hidden">
+          <div class="cam-feed h-40 relative">
+            <div class="scanline"></div>
+            <div class="cam-vignette"></div>
+            <div class="absolute top-2 left-2 flex items-center gap-1.5 px-2 py-0.5 rounded font-mono text-[10px]" style="background: rgba(0,0,0,0.5);">
+              <span class="w-1.5 h-1.5 rounded-full soft-pulse" style="background: var(--accent);"></span>
+              <span style="color: var(--accent);">LIVE</span>
+            </div>
+            <div class="absolute bottom-2 right-2 font-mono text-[10px] text-[var(--text-tertiary)]">04:12:07</div>
+          </div>
+          <div class="px-4 py-3 flex items-center justify-between">
+            <div>
+              <p class="text-sm font-medium">前門</p>
+              <p class="text-xs text-[var(--text-tertiary)] font-mono mt-0.5">CAM-01 · 廣角</p>
+            </div>
+            <span class="text-xs font-mono px-2 py-1 rounded-full" style="background: rgba(255,255,255,0.06); color: var(--text-secondary);">正常</span>
+          </div>
+        </div>
+
+        <div class="card rounded-xl overflow-hidden" style="border-color: rgba(57,255,20,0.4);">
+          <div class="cam-feed h-40 relative">
+            <div class="scanline"></div>
+            <div class="cam-vignette"></div>
+            <div class="absolute top-2 left-2 flex items-center gap-1.5 px-2 py-0.5 rounded font-mono text-[10px]" style="background: rgba(0,0,0,0.5);">
+              <span class="w-1.5 h-1.5 rounded-full soft-pulse" style="background: var(--accent);"></span>
+              <span style="color: var(--accent);">LIVE</span>
+            </div>
+            <div class="absolute bottom-2 right-2 font-mono text-[10px] text-[var(--text-tertiary)]">04:12:07</div>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <span class="font-mono text-[10px] px-2 py-1 rounded glow-text-soft" style="background: rgba(57,255,20,0.1); border:1px solid rgba(57,255,20,0.4); color: var(--accent);">動作偵測區域</span>
+            </div>
+          </div>
+          <div class="px-4 py-3 flex items-center justify-between">
+            <div>
+              <p class="text-sm font-medium">後院</p>
+              <p class="text-xs text-[var(--text-tertiary)] font-mono mt-0.5">CAM-02 · 夜視</p>
+            </div>
+            <span class="text-xs font-mono px-2 py-1 rounded-full glow-text-soft" style="background: rgba(57,255,20,0.12); color: var(--accent);">偵測到動作</span>
+          </div>
+        </div>
+
+        <div class="card rounded-xl overflow-hidden">
+          <div class="cam-feed h-40 relative">
+            <div class="scanline"></div>
+            <div class="cam-vignette"></div>
+            <div class="absolute top-2 left-2 flex items-center gap-1.5 px-2 py-0.5 rounded font-mono text-[10px]" style="background: rgba(0,0,0,0.5);">
+              <span class="w-1.5 h-1.5 rounded-full soft-pulse" style="background: var(--accent);"></span>
+              <span style="color: var(--accent);">LIVE</span>
+            </div>
+            <div class="absolute bottom-2 right-2 font-mono text-[10px] text-[var(--text-tertiary)]">04:12:07</div>
+          </div>
+          <div class="px-4 py-3 flex items-center justify-between">
+            <div>
+              <p class="text-sm font-medium">車庫</p>
+              <p class="text-xs text-[var(--text-tertiary)] font-mono mt-0.5">CAM-03 · 固定鏡</p>
+            </div>
+            <span class="text-xs font-mono px-2 py-1 rounded-full" style="background: rgba(255,255,255,0.06); color: var(--text-secondary);">正常</span>
+          </div>
+        </div>
+
+        <div class="card rounded-xl overflow-hidden">
+          <div class="cam-feed h-40 relative">
+            <div class="scanline"></div>
+            <div class="cam-vignette"></div>
+            <div class="absolute top-2 left-2 flex items-center gap-1.5 px-2 py-0.5 rounded font-mono text-[10px]" style="background: rgba(0,0,0,0.5);">
+              <span class="w-1.5 h-1.5 rounded-full soft-pulse" style="background: var(--accent);"></span>
+              <span style="color: var(--accent);">LIVE</span>
+            </div>
+            <div class="absolute bottom-2 right-2 font-mono text-[10px] text-[var(--text-tertiary)]">04:12:07</div>
+          </div>
+          <div class="px-4 py-3 flex items-center justify-between">
+            <div>
+              <p class="text-sm font-medium">客廳</p>
+              <p class="text-xs text-[var(--text-tertiary)] font-mono mt-0.5">CAM-04 · 室內廣角</p>
+            </div>
+            <span class="text-xs font-mono px-2 py-1 rounded-full" style="background: rgba(255,255,255,0.06); color: var(--text-secondary);">正常</span>
+          </div>
+        </div>
+
+        <div class="card rounded-xl overflow-hidden">
+          <div class="cam-feed h-40 relative">
+            <div class="scanline"></div>
+            <div class="cam-vignette"></div>
+            <div class="absolute top-2 left-2 flex items-center gap-1.5 px-2 py-0.5 rounded font-mono text-[10px]" style="background: rgba(0,0,0,0.5);">
+              <span class="w-1.5 h-1.5 rounded-full soft-pulse" style="background: var(--accent);"></span>
+              <span style="color: var(--accent);">LIVE</span>
+            </div>
+            <div class="absolute bottom-2 right-2 font-mono text-[10px] text-[var(--text-tertiary)]">04:12:07</div>
+          </div>
+          <div class="px-4 py-3 flex items-center justify-between">
+            <div>
+              <p class="text-sm font-medium">側門巷道</p>
+              <p class="text-xs text-[var(--text-tertiary)] font-mono mt-0.5">CAM-05 · 夜視</p>
+            </div>
+            <span class="text-xs font-mono px-2 py-1 rounded-full" style="background: rgba(255,255,255,0.06); color: var(--text-secondary);">正常</span>
+          </div>
+        </div>
+
+        <div class="card rounded-xl overflow-hidden">
+          <div class="cam-feed h-40 relative">
+            <div class="scanline"></div>
+            <div class="cam-vignette"></div>
+            <div class="absolute top-2 left-2 flex items-center gap-1.5 px-2 py-0.5 rounded font-mono text-[10px]" style="background: rgba(0,0,0,0.5);">
+              <span class="w-1.5 h-1.5 rounded-full soft-pulse" style="background: var(--accent);"></span>
+              <span style="color: var(--accent);">LIVE</span>
+            </div>
+            <div class="absolute bottom-2 right-2 font-mono text-[10px] text-[var(--text-tertiary)]">04:12:07</div>
+          </div>
+          <div class="px-4 py-3 flex items-center justify-between">
+            <div>
+              <p class="text-sm font-medium">頂樓陽台</p>
+              <p class="text-xs text-[var(--text-tertiary)] font-mono mt-0.5">CAM-06 · 廣角</p>
+            </div>
+            <span class="text-xs font-mono px-2 py-1 rounded-full" style="background: rgba(255,255,255,0.06); color: var(--text-secondary);">正常</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+      <!-- 感應器清單 -->
+      <section>
+        <h2 class="text-sm font-semibold text-[var(--text-secondary)] font-mono tracking-widest uppercase mb-3">感應器狀態</h2>
+        <div class="card rounded-xl divide-y" style="--tw-divide-opacity:1;">
+          <div class="px-4 py-3 flex items-center justify-between divider border-b-0">
+            <div class="flex items-center gap-3">
+              <span class="w-2 h-2 rounded-full status-dot" style="background: var(--accent); color: var(--accent);"></span>
+              <div>
+                <p class="text-sm">前門磁簧感應器</p>
+                <p class="text-xs text-[var(--text-tertiary)] font-mono">門窗感應器 · 在線</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono text-[var(--text-secondary)]">已關閉</span>
+          </div>
+          <div class="px-4 py-3 flex items-center justify-between divider border-t">
+            <div class="flex items-center gap-3">
+              <span class="w-2 h-2 rounded-full status-dot" style="background: var(--accent); color: var(--accent);"></span>
+              <div>
+                <p class="text-sm">後門磁簧感應器</p>
+                <p class="text-xs text-[var(--text-tertiary)] font-mono">門窗感應器 · 在線</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono text-[var(--text-secondary)]">已關閉</span>
+          </div>
+          <div class="px-4 py-3 flex items-center justify-between divider border-t">
+            <div class="flex items-center gap-3">
+              <span class="w-2 h-2 rounded-full status-dot" style="background: var(--accent); color: var(--accent);"></span>
+              <div>
+                <p class="text-sm">主臥窗戶感應器</p>
+                <p class="text-xs text-[var(--text-tertiary)] font-mono">門窗感應器 · 在線</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono text-[var(--text-secondary)]">已關閉</span>
+          </div>
+          <div class="px-4 py-3 flex items-center justify-between divider border-t">
+            <div class="flex items-center gap-3">
+              <span class="w-2 h-2 rounded-full status-dot pulse" style="background: var(--accent); color: var(--accent);"></span>
+              <div>
+                <p class="text-sm">客廳窗戶感應器</p>
+                <p class="text-xs text-[var(--text-tertiary)] font-mono">門窗感應器 · 在線</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono glow-text-soft" style="color: var(--accent);">開啟中</span>
+          </div>
+          <div class="px-4 py-3 flex items-center justify-between divider border-t">
+            <div class="flex items-center gap-3">
+              <span class="w-2 h-2 rounded-full status-dot" style="background: var(--accent); color: var(--accent);"></span>
+              <div>
+                <p class="text-sm">玄關紅外線動作感應器</p>
+                <p class="text-xs text-[var(--text-tertiary)] font-mono">動作感應器 · 在線</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono text-[var(--text-secondary)]">靜止</span>
+          </div>
+          <div class="px-4 py-3 flex items-center justify-between divider border-t">
+            <div class="flex items-center gap-3">
+              <span class="w-2 h-2 rounded-full status-dot" style="background: var(--accent); color: var(--accent);"></span>
+              <div>
+                <p class="text-sm">後院紅外線動作感應器</p>
+                <p class="text-xs text-[var(--text-tertiary)] font-mono">動作感應器 · 在線</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono glow-text-soft" style="color: var(--accent);">偵測到移動</span>
+          </div>
+          <div class="px-4 py-3 flex items-center justify-between divider border-t">
+            <div class="flex items-center gap-3">
+              <span class="w-2 h-2 rounded-full status-dot" style="background: var(--accent); color: var(--accent);"></span>
+              <div>
+                <p class="text-sm">廚房煙霧偵測器</p>
+                <p class="text-xs text-[var(--text-tertiary)] font-mono">煙霧偵測器 · 在線</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono text-[var(--text-secondary)]">正常</span>
+          </div>
+          <div class="px-4 py-3 flex items-center justify-between divider border-t">
+            <div class="flex items-center gap-3">
+              <span class="w-2 h-2 rounded-full status-dot" style="background: var(--accent); color: var(--accent);"></span>
+              <div>
+                <p class="text-sm">車庫煙霧偵測器</p>
+                <p class="text-xs text-[var(--text-tertiary)] font-mono">煙霧偵測器 · 在線</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono text-[var(--text-secondary)]">正常</span>
+          </div>
+          <div class="px-4 py-3 flex items-center justify-between divider border-t">
+            <div class="flex items-center gap-3">
+              <span class="w-2 h-2 rounded-full status-dot" style="background: var(--accent); color: var(--accent);"></span>
+              <div>
+                <p class="text-sm">二樓走廊煙霧偵測器</p>
+                <p class="text-xs text-[var(--text-tertiary)] font-mono">煙霧偵測器 · 在線</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono text-[var(--text-secondary)]">正常</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 警報紀錄時間軸 -->
+      <section>
+        <h2 class="text-sm font-semibold text-[var(--text-secondary)] font-mono tracking-widest uppercase mb-3">最近警報紀錄</h2>
+        <div class="card rounded-xl p-5">
+          <ol class="relative pl-5 space-y-5 scrollbar-thin max-h-[420px] overflow-y-auto">
+            <div class="absolute left-[5px] top-1 bottom-1 w-px timeline-line"></div>
+
+            <li class="relative">
+              <span class="absolute -left-5 top-1 w-2.5 h-2.5 rounded-full status-dot" style="background: var(--accent); color: var(--accent);"></span>
+              <p class="font-mono text-xs" style="color: var(--accent);">23:14:06</p>
+              <p class="text-sm mt-0.5">後門磁簧感應器偵測到開啟，武裝模式下觸發警戒通知</p>
+              <p class="text-xs text-[var(--text-tertiary)] mt-0.5">已推播至住戶手機 · 家人已確認為取包裹</p>
+            </li>
+
+            <li class="relative">
+              <span class="absolute -left-5 top-1 w-2.5 h-2.5 rounded-full" style="background: var(--text-tertiary);"></span>
+              <p class="font-mono text-xs text-[var(--text-secondary)]">21:47:32</p>
+              <p class="text-sm mt-0.5">後院紅外線動作感應器偵測到移動</p>
+              <p class="text-xs text-[var(--text-tertiary)] mt-0.5">鏡頭 CAM-02 自動錄影 12 秒 · 判定為鄰家貓咪經過</p>
+            </li>
+
+            <li class="relative">
+              <span class="absolute -left-5 top-1 w-2.5 h-2.5 rounded-full" style="background: var(--text-tertiary);"></span>
+              <p class="font-mono text-xs text-[var(--text-secondary)]">19:03:11</p>
+              <p class="text-sm mt-0.5">客廳窗戶感應器開啟，非武裝時段，未觸發警戒</p>
+              <p class="text-xs text-[var(--text-tertiary)] mt-0.5">通風開窗紀錄 · 已於 19:20 關閉</p>
+            </li>
+
+            <li class="relative">
+              <span class="absolute -left-5 top-1 w-2.5 h-2.5 rounded-full" style="background: var(--text-tertiary);"></span>
+              <p class="font-mono text-xs text-[var(--text-secondary)]">08:52:44</p>
+              <p class="text-sm mt-0.5">系統解除警戒</p>
+              <p class="text-xs text-[var(--text-tertiary)] mt-0.5">由住戶手機 App 手動操作解除</p>
+            </li>
+
+            <li class="relative">
+              <span class="absolute -left-5 top-1 w-2.5 h-2.5 rounded-full" style="background: var(--text-tertiary);"></span>
+              <p class="font-mono text-xs text-[var(--text-secondary)]">00:31:09</p>
+              <p class="text-sm mt-0.5">全區感應器自我檢測完成</p>
+              <p class="text-xs text-[var(--text-tertiary)] mt-0.5">9 個感應器、6 支鏡頭皆回報正常，電池電量皆高於 80%</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <footer class="max-w-6xl mx-auto px-5 py-8 text-center">
+    <p class="text-xs text-[var(--text-tertiary)] font-mono">夜衛 NightGuard © 2026 · 保全服務全天候待命 · 緊急狀況請直接聯繫 110 或 119</p>
+  </footer>
+
+  <script>
+    let armed = true;
+
+    function toggleArm() {
+      armed = !armed;
+
+      const statusDot = document.getElementById('statusDot');
+      const statusText = document.getElementById('statusText');
+      const modeLabel = document.getElementById('modeLabel');
+      const modeDesc = document.getElementById('modeDesc');
+      const btn = document.getElementById('armToggleBtn');
+
+      if (armed) {
+        // 武裝狀態：螢光綠亮起
+        statusDot.style.background = '#39ff14';
+        statusDot.style.color = '#39ff14';
+        statusDot.classList.add('pulse');
+        statusText.textContent = '系統已武裝';
+        statusText.style.color = '#39ff14';
+        statusText.classList.add('glow-text-soft');
+
+        modeLabel.textContent = '居家武裝';
+        modeLabel.style.color = '#39ff14';
+        modeDesc.textContent = '所有周界感應器已啟用，偵測到異常將立即推播通知。';
+
+        btn.textContent = '點擊解除警戒';
+        btn.style.background = 'rgba(57,255,20,0.12)';
+        btn.style.borderColor = 'rgba(57,255,20,0.45)';
+        btn.style.color = '#39ff14';
+      } else {
+        // 解除警戒狀態：轉為暗灰，不發光
+        statusDot.style.background = '#6b6b6b';
+        statusDot.style.color = '#6b6b6b';
+        statusDot.classList.remove('pulse');
+        statusText.textContent = '系統已解除警戒';
+        statusText.style.color = '#9a9a9a';
+        statusText.classList.remove('glow-text-soft');
+
+        modeLabel.textContent = '警戒已解除';
+        modeLabel.style.color = '#9a9a9a';
+        modeLabel.style.textShadow = 'none';
+        modeDesc.textContent = '目前處於解除狀態，僅煙霧偵測器持續監控，門窗與動作感應器暫停通知。';
+
+        btn.textContent = '點擊啟動武裝';
+        btn.style.background = 'rgba(255,255,255,0.06)';
+        btn.style.borderColor = 'rgba(255,255,255,0.15)';
+        btn.style.color = '#9a9a9a';
+      }
+
+      if (armed) {
+        modeLabel.style.textShadow = '0 0 6px rgba(57,255,20,0.55), 0 0 18px rgba(57,255,20,0.25)';
+      }
+    }
+  </script>
+
+</body>
+</html>

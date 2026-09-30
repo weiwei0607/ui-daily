@@ -1,0 +1,269 @@
+<!-- style #23 Minimal & Direct -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>純 API PureAPI — 三分鐘，把任何資料變成一個 API</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,500;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --bg: #f5f1e8;
+    --ink: #1c1a16;
+    --ink-soft: #57534a;
+    --line: #d9d2c2;
+    --accent: #ff5a1f;
+    --code-bg: #1c1a16;
+    --code-ink: #f0ece1;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: 'Karla', 'Noto Sans TC', sans-serif;
+  }
+
+  body {
+    position: relative;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* 噪點紋理背景：以極小、極低透明度的 SVG 隨機點模擬噪點感 */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.5;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+  }
+
+  .mono {
+    font-family: 'JetBrains Mono', 'Noto Sans TC', monospace;
+  }
+
+  .stage {
+    position: relative;
+    z-index: 2;
+  }
+
+  .accent-btn {
+    background-color: var(--accent);
+    color: #fff8f0;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.08);
+  }
+  .accent-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(255, 90, 31, 0.28);
+  }
+  .accent-btn:active {
+    transform: translateY(0);
+  }
+
+  .copy-btn {
+    border: 1px solid rgba(240,236,225,0.25);
+    color: var(--code-ink);
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+  }
+  .copy-btn:hover {
+    background-color: rgba(240,236,225,0.08);
+    border-color: rgba(240,236,225,0.45);
+  }
+
+  .code-card {
+    background-color: var(--code-bg);
+    color: var(--code-ink);
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(12px);
+    background-color: var(--ink);
+    color: var(--bg);
+    padding: 10px 20px;
+    border-radius: 999px;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 50;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  @media (max-width: 640px) {
+    .grid-main {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="stage min-h-screen flex flex-col">
+
+  <!-- 頂部極簡導覽：僅品牌與狀態，不放多餘選單 -->
+  <header class="w-full px-6 sm:px-10 py-6 flex items-center justify-between border-b" style="border-color: var(--line);">
+    <div class="flex items-center gap-2">
+      <span class="dot" style="background-color: var(--accent);"></span>
+      <span class="font-bold text-lg tracking-tight">純 API <span class="mono text-sm font-medium" style="color: var(--ink-soft);">PureAPI</span></span>
+    </div>
+    <div class="mono text-xs sm:text-sm" style="color: var(--ink-soft);">status: all systems normal</div>
+  </header>
+
+  <!-- 主畫面：一屏講完核心價值 -->
+  <main class="flex-1 flex items-center px-6 sm:px-10">
+    <div class="w-full max-w-5xl mx-auto py-10 sm:py-14">
+      <div class="grid grid-main grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 items-center">
+
+        <!-- 左：主標語、副標、特點、CTA -->
+        <div>
+          <h1 class="text-4xl sm:text-5xl font-extrabold leading-[1.15] tracking-tight">
+            三分鐘，<br>把任何資料<br>變成一個 API。
+          </h1>
+          <p class="mt-5 text-base sm:text-lg" style="color: var(--ink-soft);">
+            上傳一份 CSV、貼一段 JSON，或接上你的資料庫，純 API 立刻幫你產出一個乾淨、穩定、可直接呼叫的 JSON API，不用寫一行後端程式碼。
+          </p>
+
+          <ul class="mt-7 space-y-3">
+            <li class="flex items-start gap-3">
+              <span class="mono text-xs mt-1 px-1.5 py-0.5 rounded" style="background-color: var(--accent); color: #fff8f0;">01</span>
+              <span>免設定資料庫，貼上資料即產生端點</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mono text-xs mt-1 px-1.5 py-0.5 rounded" style="background-color: var(--accent); color: #fff8f0;">02</span>
+              <span>自動處理分頁、篩選與欄位排序</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mono text-xs mt-1 px-1.5 py-0.5 rounded" style="background-color: var(--accent); color: #fff8f0;">03</span>
+              <span>回應時間穩定低於 80ms，全球邊緣節點快取</span>
+            </li>
+          </ul>
+
+          <div class="mt-8 flex items-center gap-4">
+            <button type="button" id="ctaBtn" class="accent-btn font-bold px-7 py-3.5 rounded-lg text-base">
+              免費開始
+            </button>
+            <span class="text-sm" style="color: var(--ink-soft);">不需信用卡・60 秒完成註冊</span>
+          </div>
+        </div>
+
+        <!-- 右：程式碼示例卡片 -->
+        <div class="code-card rounded-xl overflow-hidden shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-3 border-b" style="border-color: rgba(240,236,225,0.12);">
+            <div class="flex items-center gap-2">
+              <span class="dot" style="background-color:#ff5f56;"></span>
+              <span class="dot" style="background-color:#ffbd2e;"></span>
+              <span class="dot" style="background-color:#27c93f;"></span>
+              <span class="mono text-xs ml-2" style="color: var(--ink-soft);">terminal</span>
+            </div>
+            <button type="button" id="copyBtn" class="copy-btn mono text-xs px-3 py-1.5 rounded-md">
+              複製
+            </button>
+          </div>
+          <pre id="codeBlock" class="mono text-[13px] sm:text-sm leading-6 p-5 overflow-x-auto whitespace-pre"><span style="color:#8fd6a8;"># 上傳一份訂單資料，立即取得 API</span>
+curl -X POST https://api.pureapi.dev/v1/datasets \
+  -H "Authorization: Bearer pk_live_9f3a2c" \
+  -F file=@orders_2026_09.csv
+
+<span style="color:#8fd6a8;"># 回應：你的資料已變成一個真正的 API</span>
+{
+  "dataset_id": "ds_7k2n9x",
+  "endpoint": "https://api.pureapi.dev/v1/ds_7k2n9x/records",
+  "rows": 1842,
+  "fields": ["order_id", "customer", "amount", "created_at"],
+  "status": "ready"
+}
+
+<span style="color:#8fd6a8;"># 立刻查詢資料，支援篩選與排序</span>
+curl "https://api.pureapi.dev/v1/ds_7k2n9x/records?amount_gt=1000&sort=-created_at&limit=5"</pre>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="w-full px-6 sm:px-10 py-5 border-t text-xs sm:text-sm flex items-center justify-between" style="border-color: var(--line); color: var(--ink-soft);">
+    <span>純 API PureAPI — 只做一件事，把資料變成 API。</span>
+    <span class="mono">v2.4.1</span>
+  </footer>
+</div>
+
+<div id="toast" class="toast mono">已複製到剪貼簿</div>
+
+<script>
+  (function () {
+    var copyBtn = document.getElementById('copyBtn');
+    var codeBlock = document.getElementById('codeBlock');
+    var toast = document.getElementById('toast');
+    var ctaBtn = document.getElementById('ctaBtn');
+    var toastTimer = null;
+
+    function showToast(text) {
+      toast.textContent = text;
+      toast.classList.add('show');
+      if (toastTimer) { clearTimeout(toastTimer); }
+      toastTimer = setTimeout(function () {
+        toast.classList.remove('show');
+      }, 1800);
+    }
+
+    function fallbackCopy(text) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try {
+        document.execCommand('copy');
+      } catch (e) {
+        /* 靜默失敗，仍會顯示提示避免打斷體驗 */
+      }
+      document.body.removeChild(ta);
+    }
+
+    copyBtn.addEventListener('click', function () {
+      var text = codeBlock.innerText;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () {
+          showToast('已複製到剪貼簿');
+        }).catch(function () {
+          fallbackCopy(text);
+          showToast('已複製到剪貼簿');
+        });
+      } else {
+        fallbackCopy(text);
+        showToast('已複製到剪貼簿');
+      }
+    });
+
+    ctaBtn.addEventListener('click', function () {
+      showToast('好的，正在為你準備免費帳號');
+    });
+  })();
+</script>
+</body>
+</html>
