@@ -1,0 +1,394 @@
+<!-- style #38 Neubrutalism -->
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>硬角 HARDCORNER | 街頭不服從</title>
+<meta name="description" content="潮流街頭服飾電商首頁 — Neubrutalism 風格練習">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+  :root{
+    --coral:#ff6b6b;
+    --yellow:#ffe66d;
+    --mint:#4ecdc4;
+    --cream:#faf8f3;
+    --ink:#000000;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html, body{
+    background:var(--cream);
+    color:var(--ink);
+    overflow-x:hidden;
+  }
+
+  body{
+    font-family:'Space Grotesk','Noto Sans TC',sans-serif;
+    font-size:16px;
+    line-height:1.5;
+  }
+
+  /* 標題一律用 Archivo Black 撐骨架，中文補 Noto Sans TC 900 讓筆畫夠粗 */
+  .font-display{
+    font-family:'Archivo Black','Noto Sans TC',sans-serif;
+    font-weight:900;
+    letter-spacing:-0.01em;
+    line-height:1.05;
+  }
+
+  .font-body{
+    font-family:'Space Grotesk','Noto Sans TC',sans-serif;
+  }
+
+  /* ===== 招牌技法 ===== */
+
+  .border-brutal{
+    border:3px solid var(--ink);
+  }
+  .border-brutal-thick{
+    border:4px solid var(--ink);
+  }
+
+  .shadow-brutal{
+    box-shadow:6px 6px 0 0 var(--ink);
+  }
+  .shadow-brutal-sm{
+    box-shadow:4px 4px 0 0 var(--ink);
+  }
+  .shadow-brutal-lg{
+    box-shadow:10px 10px 0 0 var(--ink);
+  }
+
+  /* 按下去的立體感：hover 位移陰影縮小，active 完全貼平 */
+  .press-btn{
+    transition:transform .12s ease, box-shadow .12s ease, background-color .12s ease;
+    cursor:pointer;
+  }
+  .press-btn:hover{
+    transform:translate(-2px,-2px);
+    box-shadow:8px 8px 0 0 var(--ink);
+  }
+  .press-btn:active{
+    transform:translate(4px,4px);
+    box-shadow:0px 0px 0 0 var(--ink);
+  }
+
+  .press-card{
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .press-card:hover{
+    transform:translate(-3px,-3px) rotate(0deg) !important;
+    box-shadow:10px 10px 0 0 var(--ink);
+  }
+
+  .rotate-neg2{ transform:rotate(-2deg); }
+  .rotate-pos2{ transform:rotate(2deg); }
+  .rotate-neg1{ transform:rotate(-1deg); }
+  .rotate-pos1{ transform:rotate(1deg); }
+  .rotate-neg3{ transform:rotate(-3deg); }
+
+  .no-radius{ border-radius:0 !important; }
+
+  /* 招牌斑點紋底 */
+  .dot-bg{
+    background-image:radial-gradient(var(--ink) 1.5px, transparent 1.5px);
+    background-size:18px 18px;
+    opacity:0.08;
+  }
+
+  /* 商品圖佔位用純 CSS 色塊/圖形 */
+  .swatch{
+    position:relative;
+    overflow:hidden;
+    border-bottom:3px solid var(--ink);
+  }
+  .swatch::before{
+    content:"";
+    position:absolute;
+    inset:0;
+  }
+  .swatch-1{ background:repeating-linear-gradient(45deg, var(--coral), var(--coral) 14px, var(--ink) 14px, var(--ink) 17px); }
+  .swatch-2{ background:var(--yellow); }
+  .swatch-2::before{ background:
+      radial-gradient(circle at 30% 30%, var(--ink) 0 10px, transparent 11px),
+      radial-gradient(circle at 70% 60%, var(--ink) 0 16px, transparent 17px);
+      opacity:0.9;
+  }
+  .swatch-3{ background:linear-gradient(135deg, var(--mint) 0%, var(--mint) 50%, var(--yellow) 50%, var(--yellow) 100%); }
+  .swatch-4{ background:var(--coral); }
+  .swatch-4::before{
+    background:repeating-radial-gradient(circle at 50% 50%, var(--ink) 0 3px, transparent 3px 24px);
+    opacity:0.5;
+  }
+
+  .marquee{
+    display:flex;
+    white-space:nowrap;
+    animation:scrollmarquee 18s linear infinite;
+  }
+  @keyframes scrollmarquee{
+    0%{ transform:translateX(0); }
+    100%{ transform:translateX(-50%); }
+  }
+
+  .cart-badge{
+    position:absolute;
+    top:-10px;
+    right:-10px;
+  }
+
+  ::selection{
+    background:var(--yellow);
+    color:var(--ink);
+  }
+
+  @media (max-width: 640px){
+    .hero-title{ font-size:14vw !important; }
+  }
+</style>
+</head>
+<body class="font-body">
+
+  <!-- ========== 導覽列 ========== -->
+  <header class="sticky top-0 z-50 bg-[var(--cream)] border-b-4 border-black">
+    <div class="max-w-7xl mx-auto px-5 md:px-8 py-4 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3">
+        <div class="w-11 h-11 md:w-12 md:h-12 bg-[var(--ink)] border-brutal flex items-center justify-center rotate-neg2 shadow-brutal-sm">
+          <span class="font-display text-[var(--yellow)] text-xl md:text-2xl">H</span>
+        </div>
+        <span class="font-display text-xl md:text-2xl tracking-tight">硬角 HARDCORNER</span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8 font-body font-semibold text-sm uppercase tracking-wide">
+        <a href="#products" class="hover:text-[var(--coral)] transition-colors">新品上架</a>
+        <a href="#manifesto" class="hover:text-[var(--coral)] transition-colors">品牌態度</a>
+        <a href="#" class="hover:text-[var(--coral)] transition-colors">尺寸對照</a>
+        <a href="#" class="hover:text-[var(--coral)] transition-colors">門市據點</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button class="hidden sm:inline-flex press-btn border-brutal no-radius bg-white font-display text-xs md:text-sm px-4 py-2 shadow-brutal-sm">
+          登入
+        </button>
+        <div class="relative">
+          <button aria-label="購物車" class="press-btn border-brutal no-radius bg-[var(--mint)] p-3 shadow-brutal-sm">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="square">
+              <circle cx="9" cy="21" r="1.4" fill="black"/>
+              <circle cx="19" cy="21" r="1.4" fill="black"/>
+              <path d="M1 2h3l2.6 13.2a2 2 0 0 0 2 1.6h9.8a2 2 0 0 0 2-1.6L22 6H6"/>
+            </svg>
+          </button>
+          <span class="cart-badge bg-[var(--coral)] border-2 border-black text-xs font-display w-6 h-6 flex items-center justify-center">3</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 跑馬燈小標語 -->
+    <div class="bg-[var(--ink)] text-[var(--cream)] overflow-hidden border-t-2 border-black">
+      <div class="marquee py-1.5 font-display text-[11px] md:text-xs tracking-widest">
+        <span class="px-6">★ 全館街頭單品 ★ 滿 $2,000 免運 ★ 新會員享首購優惠 ★ 限量聯名倒數中</span>
+        <span class="px-6">★ 全館街頭單品 ★ 滿 $2,000 免運 ★ 新會員享首購優惠 ★ 限量聯名倒數中</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========== Hero ========== -->
+  <section class="relative max-w-7xl mx-auto px-5 md:px-8 pt-14 md:pt-20 pb-16 md:pb-24 overflow-hidden">
+    <div class="absolute inset-0 dot-bg pointer-events-none"></div>
+
+    <div class="relative grid md:grid-cols-[1fr_auto] gap-10 items-start">
+      <div>
+        <span class="inline-block bg-[var(--yellow)] border-brutal no-radius px-4 py-1.5 font-display text-xs md:text-sm rotate-neg2 shadow-brutal-sm mb-6">
+          2026 秋季新作 ・ 街頭不服從
+        </span>
+
+        <h1 class="hero-title font-display text-[14vw] leading-[0.95] md:text-[6.2vw] md:leading-[0.92] mb-6">
+          穿出去，<br>
+          就是<span class="relative inline-block">
+            態度
+            <svg class="absolute left-0 -bottom-2 w-full" height="14" viewBox="0 0 200 14" preserveAspectRatio="none">
+              <path d="M2 10 Q 50 2 100 8 T 198 6" stroke="var(--coral)" stroke-width="6" fill="none" stroke-linecap="round"/>
+            </svg>
+          </span>。
+        </h1>
+
+        <p class="font-body text-base md:text-lg max-w-md mb-8 font-medium">
+          不迎合主流剪裁，不討好市場口味。硬角做的是給自己人穿的街頭單品 —— 粗線條、硬邊角、態度先決。
+        </p>
+
+        <div class="flex flex-wrap gap-4">
+          <button class="press-btn border-brutal-thick no-radius bg-[var(--coral)] font-display text-base md:text-lg px-7 py-4 shadow-brutal">
+            立刻逛逛新品 →
+          </button>
+          <button class="press-btn border-brutal-thick no-radius bg-white font-display text-base md:text-lg px-7 py-4 shadow-brutal">
+            看品牌故事
+          </button>
+        </div>
+      </div>
+
+      <div class="hidden md:flex flex-col gap-4 pt-4">
+        <div class="w-40 h-40 bg-[var(--mint)] border-brutal-thick shadow-brutal rotate-pos2 flex items-center justify-center">
+          <span class="font-display text-5xl">38</span>
+        </div>
+        <div class="w-40 border-brutal-thick shadow-brutal-sm bg-[var(--yellow)] p-3 rotate-neg1 text-center font-display text-xs">
+          限量發售<br>手刀搶購
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 商品區 ========== -->
+  <section id="products" class="max-w-7xl mx-auto px-5 md:px-8 py-14 md:py-20">
+    <div class="flex items-end justify-between flex-wrap gap-4 mb-10">
+      <h2 class="font-display text-4xl md:text-5xl">本季硬貨</h2>
+      <span class="font-body font-semibold text-sm bg-[var(--mint)] border-brutal no-radius px-3 py-1.5 shadow-brutal-sm rotate-neg1">
+        共 4 件 ・ 售完不補
+      </span>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
+
+      <!-- 商品 1 -->
+      <article class="press-card rotate-neg1 border-brutal-thick bg-white shadow-brutal">
+        <div class="swatch swatch-1 h-48 md:h-56"></div>
+        <div class="p-5">
+          <span class="inline-block bg-[var(--yellow)] border-2 border-black px-2 py-0.5 font-display text-[10px] mb-2">新品</span>
+          <h3 class="font-display text-lg mb-1">斜紋反骨連帽外套</h3>
+          <p class="font-body text-sm text-black/70 mb-4">重磅棉質、落肩剪裁，雨天街拍也不怕</p>
+          <div class="flex items-center justify-between">
+            <span class="font-display text-xl">NT$2,480</span>
+            <button class="press-btn border-brutal no-radius bg-[var(--coral)] font-display text-xs px-4 py-2.5 shadow-brutal-sm">
+              加入購物車
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 商品 2 -->
+      <article class="press-card rotate-pos1 border-brutal-thick bg-white shadow-brutal">
+        <div class="swatch swatch-2 h-48 md:h-56"></div>
+        <div class="p-5">
+          <span class="inline-block bg-[var(--mint)] border-2 border-black px-2 py-0.5 font-display text-[10px] mb-2">熱銷</span>
+          <h3 class="font-display text-lg mb-1">圓點暴走寬褲</h3>
+          <p class="font-body text-sm text-black/70 mb-4">高腰直筒、口袋夠深，裝得下整天的壞主意</p>
+          <div class="flex items-center justify-between">
+            <span class="font-display text-xl">NT$1,980</span>
+            <button class="press-btn border-brutal no-radius bg-[var(--coral)] font-display text-xs px-4 py-2.5 shadow-brutal-sm">
+              加入購物車
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 商品 3 -->
+      <article class="press-card rotate-neg2 border-brutal-thick bg-white shadow-brutal">
+        <div class="swatch swatch-3 h-48 md:h-56"></div>
+        <div class="p-5">
+          <span class="inline-block bg-[var(--coral)] border-2 border-black px-2 py-0.5 font-display text-[10px] mb-2 text-white">限量</span>
+          <h3 class="font-display text-lg mb-1">撞色硬角後背包</h3>
+          <p class="font-body text-sm text-black/70 mb-4">防潑水尼龍，一袋扛起你的全部家當</p>
+          <div class="flex items-center justify-between">
+            <span class="font-display text-xl">NT$1,680</span>
+            <button class="press-btn border-brutal no-radius bg-[var(--coral)] font-display text-xs px-4 py-2.5 shadow-brutal-sm">
+              加入購物車
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 商品 4 -->
+      <article class="press-card rotate-pos2 border-brutal-thick bg-white shadow-brutal">
+        <div class="swatch swatch-4 h-48 md:h-56"></div>
+        <div class="p-5">
+          <span class="inline-block bg-[var(--yellow)] border-2 border-black px-2 py-0.5 font-display text-[10px] mb-2">新品</span>
+          <h3 class="font-display text-lg mb-1">粗體刺繡棒球帽</h3>
+          <p class="font-body text-sm text-black/70 mb-4">硬挺帽型、六片式剪裁，遮陽又夠嗆</p>
+          <div class="flex items-center justify-between">
+            <span class="font-display text-xl">NT$890</span>
+            <button class="press-btn border-brutal no-radius bg-[var(--coral)] font-display text-xs px-4 py-2.5 shadow-brutal-sm">
+              加入購物車
+            </button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ========== 品牌態度宣言區 ========== -->
+  <section id="manifesto" class="relative bg-[var(--ink)] text-[var(--cream)] py-16 md:py-24 overflow-hidden border-y-4 border-black">
+    <div class="absolute -top-10 -left-10 w-40 h-40 bg-[var(--coral)] border-brutal-thick rotate-neg3 hidden md:block"></div>
+    <div class="absolute -bottom-14 -right-10 w-48 h-48 bg-[var(--mint)] border-brutal-thick rotate-pos2 hidden md:block"></div>
+
+    <div class="relative max-w-4xl mx-auto px-6 text-center">
+      <p class="font-display text-xs md:text-sm tracking-[0.3em] text-[var(--yellow)] mb-5">HARDCORNER MANIFESTO</p>
+      <h2 class="font-display text-3xl sm:text-4xl md:text-6xl leading-tight mb-6">
+        我們不做
+        <span class="text-[var(--yellow)]">乖乖牌</span>，<br class="hidden sm:block">
+        只做
+        <span class="text-[var(--coral)]">說得出口</span>
+        的衣服。
+      </h2>
+      <p class="font-body text-sm md:text-base text-[var(--cream)]/80 max-w-xl mx-auto">
+        剪裁可以硬，態度不能軟。硬角相信真正的潮流不是跟風，而是敢把自己的稜角穿在身上。
+      </p>
+    </div>
+  </section>
+
+  <!-- ========== 頁尾 ========== -->
+  <footer class="max-w-7xl mx-auto px-5 md:px-8 py-14 md:py-16">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 mb-12">
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-9 h-9 bg-[var(--ink)] border-brutal flex items-center justify-center rotate-neg2">
+            <span class="font-display text-[var(--yellow)] text-base">H</span>
+          </div>
+          <span class="font-display text-base">硬角 HARDCORNER</span>
+        </div>
+        <p class="font-body text-sm text-black/70">台灣街頭品牌，2019 年從一間車庫工作室開始硬起來。</p>
+      </div>
+
+      <div>
+        <h4 class="font-display text-sm mb-4">購物資訊</h4>
+        <ul class="font-body text-sm space-y-2 text-black/70">
+          <li><a href="#" class="hover:text-[var(--coral)]">尺寸對照表</a></li>
+          <li><a href="#" class="hover:text-[var(--coral)]">退換貨規則</a></li>
+          <li><a href="#" class="hover:text-[var(--coral)]">運送與到貨</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-display text-sm mb-4">關於硬角</h4>
+        <ul class="font-body text-sm space-y-2 text-black/70">
+          <li><a href="#" class="hover:text-[var(--coral)]">品牌故事</a></li>
+          <li><a href="#" class="hover:text-[var(--coral)]">門市據點</a></li>
+          <li><a href="#" class="hover:text-[var(--coral)]">加入我們</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-display text-sm mb-4">訂閱情報</h4>
+        <p class="font-body text-sm text-black/70 mb-3">搶先收到新品與限量發售通知</p>
+        <div class="flex">
+          <input type="email" placeholder="你的信箱" class="border-brutal no-radius border-r-0 px-3 py-2 text-sm font-body w-full bg-white focus:outline-none">
+          <button class="press-btn border-brutal no-radius bg-[var(--yellow)] font-display text-xs px-4 shadow-none">訂閱</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="border-t-3 border-black pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 font-body text-xs text-black/60">
+      <span>© 2026 HARDCORNER 硬角。態度不打折。</span>
+      <span>Made with 硬邊框 in Taiwan</span>
+    </div>
+  </footer>
+
+</body>
+</html>

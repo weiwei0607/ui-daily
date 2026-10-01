@@ -1,0 +1,501 @@
+<!-- style #16 Micro-interactions -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每刻 Momently — 讓每個小動作都有回饋</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --blue:#3b82f6;
+    --red:#ef4444;
+    --green:#22c55e;
+  }
+  html,body{
+    font-family:'Noto Sans TC','Figtree',sans-serif;
+    background:#f8fafc;
+    color:#1e293b;
+  }
+  .font-heading{
+    font-family:'Figtree','Noto Sans TC',sans-serif;
+  }
+
+  /* ---------- 按鈕微互動：漣漪 + hover 放大 ---------- */
+  .btn-ripple{
+    position:relative;
+    overflow:hidden;
+    transform:translateZ(0);
+    transition:transform .18s ease, box-shadow .18s ease, background-color .18s ease;
+  }
+  .btn-ripple:hover{
+    transform:translateY(-2px) scale(1.03);
+    box-shadow:0 10px 20px -8px rgba(59,130,246,0.45);
+  }
+  .btn-ripple:active{
+    transform:translateY(0) scale(0.98);
+  }
+  .ripple-dot{
+    position:absolute;
+    border-radius:9999px;
+    background:rgba(255,255,255,0.55);
+    transform:scale(0);
+    animation:ripple-anim .6s ease-out forwards;
+    pointer-events:none;
+  }
+  @keyframes ripple-anim{
+    to{
+      transform:scale(2.6);
+      opacity:0;
+    }
+  }
+
+  /* ---------- 待辦清單 checkbox 動畫 ---------- */
+  .todo-check{
+    width:1.5rem;
+    height:1.5rem;
+    flex-shrink:0;
+    border-radius:9999px;
+    border:2px solid #cbd5e1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition:border-color .25s ease, background-color .25s ease, transform .15s ease;
+    background:#fff;
+  }
+  .todo-check:hover{
+    border-color:var(--blue);
+    transform:scale(1.08);
+  }
+  .todo-check.checked{
+    background:var(--green);
+    border-color:var(--green);
+  }
+  .todo-check svg{
+    width:0.85rem;
+    height:0.85rem;
+    stroke:#fff;
+    stroke-width:3.5;
+    fill:none;
+    stroke-dasharray:20;
+    stroke-dashoffset:20;
+    transition:stroke-dashoffset .3s ease .05s;
+  }
+  .todo-check.checked svg{
+    stroke-dashoffset:0;
+  }
+  .todo-text{
+    transition:color .3s ease, opacity .3s ease;
+    position:relative;
+  }
+  .todo-text::after{
+    content:"";
+    position:absolute;
+    left:0; top:50%;
+    height:1.5px;
+    width:0%;
+    background:#94a3b8;
+    transition:width .35s ease;
+  }
+  .todo-text.done{
+    color:#94a3b8;
+  }
+  .todo-text.done::after{
+    width:100%;
+  }
+  .todo-item{
+    transition:background-color .2s ease, transform .2s ease;
+  }
+  .todo-item:hover{
+    background-color:#f1f5f9;
+  }
+  .todo-item.new-item{
+    animation:slide-in .35s ease;
+  }
+  @keyframes slide-in{
+    from{opacity:0; transform:translateY(-8px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  .todo-item.removing{
+    animation:fade-out .3s ease forwards;
+  }
+  @keyframes fade-out{
+    to{opacity:0; transform:translateX(12px) scale(0.96); height:0; margin:0; padding-top:0; padding-bottom:0;}
+  }
+
+  /* ---------- 輸入框 focus 動畫 ---------- */
+  .input-animated{
+    border:2px solid #e2e8f0;
+    transition:border-color .25s ease, box-shadow .25s ease;
+  }
+  .input-animated:focus{
+    outline:none;
+    border-color:var(--blue);
+    box-shadow:0 0 0 4px rgba(59,130,246,0.15);
+  }
+
+  /* ---------- 專注模式 toggle ---------- */
+  .toggle-track{
+    width:3.25rem;
+    height:1.75rem;
+    border-radius:9999px;
+    background:#cbd5e1;
+    position:relative;
+    cursor:pointer;
+    transition:background-color .3s ease;
+    flex-shrink:0;
+  }
+  .toggle-track.on{
+    background:var(--blue);
+  }
+  .toggle-thumb{
+    position:absolute;
+    top:0.2rem;
+    left:0.2rem;
+    width:1.35rem;
+    height:1.35rem;
+    border-radius:9999px;
+    background:#fff;
+    box-shadow:0 1px 3px rgba(0,0,0,0.25);
+    transition:transform .3s cubic-bezier(.34,1.56,.64,1);
+  }
+  .toggle-track.on .toggle-thumb{
+    transform:translateX(1.5rem);
+  }
+
+  /* ---------- 專注模式啟動時的面板反饋 ---------- */
+  .focus-panel{
+    transition:background-color .4s ease, border-color .4s ease, box-shadow .4s ease;
+  }
+  .focus-panel.focus-on{
+    background-color:#eff6ff;
+    border-color:var(--blue);
+    box-shadow:0 0 0 4px rgba(59,130,246,0.12);
+  }
+
+  /* ---------- 數字 count-up 切換動畫 ---------- */
+  .count-num{
+    display:inline-block;
+    transition:transform .25s ease, color .25s ease;
+  }
+  .count-num.bump{
+    transform:scale(1.25);
+    color:var(--green);
+  }
+
+  /* ---------- 功能卡片 hover ---------- */
+  .feature-card{
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    border:1px solid #e2e8f0;
+  }
+  .feature-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 16px 32px -12px rgba(15,23,42,0.18);
+    border-color:#bfdbfe;
+  }
+  .feature-icon{
+    transition:transform .3s ease, background-color .3s ease;
+  }
+  .feature-card:hover .feature-icon{
+    transform:rotate(-6deg) scale(1.1);
+  }
+
+  /* ---------- 導覽列 CTA 脈動提示 ---------- */
+  .pulse-dot{
+    animation:pulse-anim 2s infinite;
+  }
+  @keyframes pulse-anim{
+    0%,100%{ box-shadow:0 0 0 0 rgba(34,197,94,0.5);}
+    50%{ box-shadow:0 0 0 6px rgba(34,197,94,0);}
+  }
+
+  .fade-up{
+    animation:fade-up-anim .6s ease both;
+  }
+  @keyframes fade-up-anim{
+    from{opacity:0; transform:translateY(14px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <!-- 導覽列 -->
+  <header class="sticky top-0 z-30 bg-white/90 backdrop-blur border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-xl bg-blue-500 flex items-center justify-center text-white font-heading font-bold text-sm">M</div>
+        <span class="font-heading font-bold text-lg tracking-tight">每刻 <span class="text-blue-500">Momently</span></span>
+      </div>
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+        <a href="#demo" class="hover:text-blue-500 transition-colors duration-200">互動展示</a>
+        <a href="#features" class="hover:text-blue-500 transition-colors duration-200">功能特色</a>
+        <a href="#" class="hover:text-blue-500 transition-colors duration-200">定價方案</a>
+      </nav>
+      <button class="btn-ripple bg-blue-500 hover:bg-blue-600 text-white text-sm font-semibold px-4 py-2 rounded-full">
+        免費開始使用
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="max-w-6xl mx-auto px-5 sm:px-8 pt-16 pb-12 text-center fade-up">
+    <span class="inline-flex items-center gap-2 bg-blue-50 text-blue-600 text-xs font-semibold px-3 py-1.5 rounded-full mb-5">
+      <span class="w-1.5 h-1.5 rounded-full bg-green-500 pulse-dot"></span>
+      每個動作都有回饋，拖延症友善
+    </span>
+    <h1 class="font-heading text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight text-slate-900">
+      把待辦事項做完的那一刻，<br class="hidden sm:block">應該要有感覺。
+    </h1>
+    <p class="mt-5 text-slate-500 text-base sm:text-lg max-w-2xl mx-auto">
+      每刻 Momently 用細膩的動畫回饋，讓勾選、新增、切換每一個小動作都像被看見一樣——不是花俏，是真的讓你更想把事情做完。
+    </p>
+    <div class="mt-8 flex items-center justify-center gap-4">
+      <button class="btn-ripple bg-blue-500 hover:bg-blue-600 text-white font-semibold px-6 py-3 rounded-full shadow-lg shadow-blue-500/25">
+        立即下載使用
+      </button>
+      <button class="btn-ripple bg-white hover:bg-slate-50 text-slate-700 font-semibold px-6 py-3 rounded-full border border-slate-200">
+        觀看介紹影片
+      </button>
+    </div>
+  </section>
+
+  <!-- 互動展示區 -->
+  <section id="demo" class="max-w-4xl mx-auto px-5 sm:px-8 pb-20">
+    <div id="focusPanel" class="focus-panel bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8">
+
+      <!-- 面板標題 + 專注模式開關 -->
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h2 class="font-heading text-xl font-bold text-slate-900">今日待辦</h2>
+          <p class="text-sm text-slate-400 mt-0.5">
+            已完成 <span id="doneCount" class="count-num font-semibold text-slate-600">0</span> / <span id="totalCount" class="font-semibold text-slate-600">3</span> 項
+          </p>
+        </div>
+        <div class="flex items-center gap-3">
+          <span id="focusLabel" class="text-sm font-medium text-slate-500">專注模式</span>
+          <div id="focusToggle" class="toggle-track" role="switch" aria-checked="false" tabindex="0">
+            <div class="toggle-thumb"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 待辦清單 -->
+      <ul id="todoList" class="space-y-2 mb-5">
+        <li class="todo-item flex items-center gap-3 px-3 py-3 rounded-xl" data-done="false">
+          <div class="todo-check" role="checkbox" aria-checked="false">
+            <svg viewBox="0 0 24 24"><polyline points="4,13 9,18 20,6"></polyline></svg>
+          </div>
+          <span class="todo-text flex-1 text-slate-700">把週報的草稿寫完</span>
+        </li>
+        <li class="todo-item flex items-center gap-3 px-3 py-3 rounded-xl" data-done="false">
+          <div class="todo-check" role="checkbox" aria-checked="false">
+            <svg viewBox="0 0 24 24"><polyline points="4,13 9,18 20,6"></polyline></svg>
+          </div>
+          <span class="todo-text flex-1 text-slate-700">回覆設計師的版面修改意見</span>
+        </li>
+        <li class="todo-item flex items-center gap-3 px-3 py-3 rounded-xl" data-done="false">
+          <div class="todo-check" role="checkbox" aria-checked="false">
+            <svg viewBox="0 0 24 24"><polyline points="4,13 9,18 20,6"></polyline></svg>
+          </div>
+          <span class="todo-text flex-1 text-slate-700">晚上九點前訂好媽媽的生日蛋糕</span>
+        </li>
+      </ul>
+
+      <!-- 新增待辦 -->
+      <div class="flex items-center gap-3">
+        <input id="todoInput" type="text" placeholder="輸入新的待辦事項，按 Enter 新增"
+          class="input-animated flex-1 rounded-xl px-4 py-3 text-sm bg-slate-50 placeholder-slate-400">
+        <button id="addTodoBtn" class="btn-ripple bg-blue-500 hover:bg-blue-600 text-white font-semibold px-5 py-3 rounded-xl whitespace-nowrap">
+          新增
+        </button>
+      </div>
+      <p id="focusHint" class="text-xs text-blue-500 mt-4 hidden">
+        專注模式已開啟，通知已靜音，一次只顯示最重要的三件事。
+      </p>
+    </div>
+  </section>
+
+  <!-- 功能卡片 -->
+  <section id="features" class="max-w-6xl mx-auto px-5 sm:px-8 pb-20">
+    <div class="text-center mb-10">
+      <h2 class="font-heading text-3xl font-bold text-slate-900">專為容易分心的你設計</h2>
+      <p class="text-slate-500 mt-2">三個核心功能，陪你把每一刻用在刀口上</p>
+    </div>
+    <div class="grid sm:grid-cols-3 gap-6">
+      <div class="feature-card bg-white rounded-2xl p-6">
+        <div class="feature-icon w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </div>
+        <h3 class="font-heading font-bold text-lg mb-2">番茄鐘專注計時</h3>
+        <p class="text-sm text-slate-500 leading-relaxed">內建 25 分鐘專注循環，搭配輕柔的倒數動畫，結束時給你一個不刺耳的提醒，而不是尖銳的鬧鈴。</p>
+      </div>
+      <div class="feature-card bg-white rounded-2xl p-6">
+        <div class="feature-icon w-12 h-12 rounded-xl bg-red-50 flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+        </div>
+        <h3 class="font-heading font-bold text-lg mb-2">智慧優先排序</h3>
+        <p class="text-sm text-slate-500 leading-relaxed">根據截止時間和重要性自動排序，重要的事情會用紅色標記輕輕提醒你，不會讓你漏掉關鍵任務。</p>
+      </div>
+      <div class="feature-card bg-white rounded-2xl p-6">
+        <div class="feature-icon w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </div>
+        <h3 class="font-heading font-bold text-lg mb-2">完成即時回饋</h3>
+        <p class="text-sm text-slate-500 leading-relaxed">每勾選完成一項，都有打勾動畫與輕盈的完成感，累積起來的小成就感，是你持續使用的最大動力。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 頁尾 -->
+  <footer class="border-t border-slate-200 bg-white">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-lg bg-blue-500 flex items-center justify-center text-white font-heading font-bold text-xs">M</div>
+        <span class="font-heading font-semibold text-slate-700">每刻 Momently</span>
+      </div>
+      <p class="text-sm text-slate-400">© 2026 每刻 Momently．讓每個完成的瞬間都值得被記住。</p>
+      <div class="flex items-center gap-5 text-sm text-slate-500">
+        <a href="#" class="hover:text-blue-500 transition-colors duration-200">隱私權政策</a>
+        <a href="#" class="hover:text-blue-500 transition-colors duration-200">服務條款</a>
+        <a href="#" class="hover:text-blue-500 transition-colors duration-200">聯絡我們</a>
+      </div>
+    </div>
+  </footer>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---------- 漣漪效果：所有 .btn-ripple 共用 ----------
+  document.querySelectorAll('.btn-ripple').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      var rect = btn.getBoundingClientRect();
+      var size = Math.max(rect.width, rect.height) * 1.2;
+      var dot = document.createElement('span');
+      dot.className = 'ripple-dot';
+      dot.style.width = dot.style.height = size + 'px';
+      dot.style.left = (e.clientX - rect.left - size / 2) + 'px';
+      dot.style.top = (e.clientY - rect.top - size / 2) + 'px';
+      btn.appendChild(dot);
+      window.setTimeout(function(){ dot.remove(); }, 650);
+    });
+  });
+
+  // ---------- 待辦清單邏輯 ----------
+  var todoList = document.getElementById('todoList');
+  var todoInput = document.getElementById('todoInput');
+  var addTodoBtn = document.getElementById('addTodoBtn');
+  var doneCountEl = document.getElementById('doneCount');
+  var totalCountEl = document.getElementById('totalCount');
+
+  function bumpCount(el){
+    el.classList.remove('bump');
+    // 強制重排以重新觸發動畫
+    void el.offsetWidth;
+    el.classList.add('bump');
+    window.setTimeout(function(){ el.classList.remove('bump'); }, 260);
+  }
+
+  function updateCounts(){
+    var items = todoList.querySelectorAll('.todo-item');
+    var done = todoList.querySelectorAll('.todo-item[data-done="true"]').length;
+    totalCountEl.textContent = items.length;
+    if (doneCountEl.textContent !== String(done)) {
+      doneCountEl.textContent = done;
+      bumpCount(doneCountEl);
+    }
+  }
+
+  function toggleTodo(item){
+    var check = item.querySelector('.todo-check');
+    var text = item.querySelector('.todo-text');
+    var isDone = item.getAttribute('data-done') === 'true';
+    var newDone = !isDone;
+    item.setAttribute('data-done', newDone ? 'true' : 'false');
+    check.classList.toggle('checked', newDone);
+    check.setAttribute('aria-checked', newDone ? 'true' : 'false');
+    text.classList.toggle('done', newDone);
+    updateCounts();
+  }
+
+  function wireItem(item){
+    var check = item.querySelector('.todo-check');
+    var text = item.querySelector('.todo-text');
+    check.addEventListener('click', function(){ toggleTodo(item); });
+    text.addEventListener('click', function(){ toggleTodo(item); });
+  }
+
+  todoList.querySelectorAll('.todo-item').forEach(wireItem);
+  updateCounts();
+
+  function addTodo(){
+    var value = todoInput.value.trim();
+    if (!value) {
+      todoInput.classList.add('input-animated');
+      todoInput.focus();
+      return;
+    }
+    var li = document.createElement('li');
+    li.className = 'todo-item new-item flex items-center gap-3 px-3 py-3 rounded-xl';
+    li.setAttribute('data-done', 'false');
+    li.innerHTML =
+      '<div class="todo-check" role="checkbox" aria-checked="false">' +
+        '<svg viewBox="0 0 24 24"><polyline points="4,13 9,18 20,6"></polyline></svg>' +
+      '</div>' +
+      '<span class="todo-text flex-1 text-slate-700"></span>';
+    li.querySelector('.todo-text').textContent = value;
+    wireItem(li);
+    todoList.appendChild(li);
+    updateCounts();
+    todoInput.value = '';
+    todoInput.focus();
+  }
+
+  addTodoBtn.addEventListener('click', addTodo);
+  todoInput.addEventListener('keydown', function(e){
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      addTodo();
+    }
+  });
+
+  // ---------- 專注模式開關 ----------
+  var focusToggle = document.getElementById('focusToggle');
+  var focusPanel = document.getElementById('focusPanel');
+  var focusHint = document.getElementById('focusHint');
+  var focusLabel = document.getElementById('focusLabel');
+  var focusOn = false;
+
+  function setFocus(on){
+    focusOn = on;
+    focusToggle.classList.toggle('on', on);
+    focusToggle.setAttribute('aria-checked', on ? 'true' : 'false');
+    focusPanel.classList.toggle('focus-on', on);
+    focusHint.classList.toggle('hidden', !on);
+    focusLabel.classList.toggle('text-blue-600', on);
+    focusLabel.classList.toggle('font-semibold', on);
+  }
+
+  focusToggle.addEventListener('click', function(){ setFocus(!focusOn); });
+  focusToggle.addEventListener('keydown', function(e){
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setFocus(!focusOn);
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

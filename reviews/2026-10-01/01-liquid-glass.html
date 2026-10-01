@@ -1,0 +1,313 @@
+<!-- style #14 Liquid Glass -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>流光板 FlowBoard — 讓團隊的靈感即時流動</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Varela+Round&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --glass-bg: rgba(255,255,255,0.14);
+    --glass-border: rgba(255,255,255,0.35);
+    --glass-shadow: rgba(60,20,100,0.25);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  body {
+    font-family: 'Varela Round', 'Fredoka', sans-serif;
+    color: #2b1a4a;
+    min-height: 100vh;
+    background: linear-gradient(120deg, #667eea 0%, #764ba2 45%, #f093fb 100%);
+    background-size: 300% 300%;
+    animation: flowBg 18s ease-in-out infinite;
+    position: relative;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: 'Fredoka', 'Varela Round', sans-serif;
+  }
+
+  @keyframes flowBg {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* 漂浮光暈 blob */
+  .blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.55;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .blob-1 {
+    width: 420px; height: 420px;
+    background: radial-gradient(circle, #f093fb, transparent 70%);
+    top: -120px; left: -100px;
+    animation: floatBlob1 22s ease-in-out infinite;
+  }
+  .blob-2 {
+    width: 480px; height: 480px;
+    background: radial-gradient(circle, #667eea, transparent 70%);
+    bottom: -150px; right: -120px;
+    animation: floatBlob2 26s ease-in-out infinite;
+  }
+  .blob-3 {
+    width: 360px; height: 360px;
+    background: radial-gradient(circle, #a78bfa, transparent 70%);
+    top: 40%; left: 50%;
+    animation: floatBlob3 30s ease-in-out infinite;
+  }
+
+  @keyframes floatBlob1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(60px, 80px) scale(1.1); }
+  }
+  @keyframes floatBlob2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-70px, -50px) scale(1.15); }
+  }
+  @keyframes floatBlob3 {
+    0%, 100% { transform: translate(-50%, 0) scale(1); }
+    50% { transform: translate(-50%, 60px) scale(0.9); }
+  }
+
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 28px;
+    box-shadow: 0 12px 40px var(--glass-shadow), inset 0 1px 0 rgba(255,255,255,0.4);
+  }
+
+  .glass-strong {
+    background: rgba(255,255,255,0.22);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,0.45);
+    border-radius: 32px;
+    box-shadow: 0 20px 60px rgba(60,20,100,0.3), inset 0 1px 0 rgba(255,255,255,0.5);
+  }
+
+  .float-card {
+    animation: floatCard 6s ease-in-out infinite;
+  }
+  .float-card:nth-child(2) { animation-delay: 1.2s; }
+  .float-card:nth-child(3) { animation-delay: 2.4s; }
+
+  @keyframes floatCard {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .pill-btn {
+    border-radius: 999px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  }
+  .pill-btn:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 14px 30px rgba(118,75,162,0.45);
+  }
+
+  .nav-link {
+    position: relative;
+    transition: color 0.2s ease;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -4px;
+    width: 0%;
+    height: 2px;
+    background: white;
+    transition: width 0.25s ease;
+    border-radius: 2px;
+  }
+  .nav-link:hover::after { width: 100%; }
+
+  .feature-icon {
+    width: 56px; height: 56px;
+    border-radius: 18px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+    background: rgba(255,255,255,0.3);
+    border: 1px solid rgba(255,255,255,0.5);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+  }
+
+  .glow-text {
+    text-shadow: 0 2px 20px rgba(255,255,255,0.35);
+  }
+
+  .divider-glass {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+  }
+
+  ::selection {
+    background: rgba(255,255,255,0.4);
+    color: #2b1a4a;
+  }
+
+  @media (max-width: 640px) {
+    .glass-strong, .glass { border-radius: 24px; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <!-- 導覽列 -->
+  <header class="relative z-10 sticky top-0 px-4 sm:px-8 pt-5">
+    <nav class="glass max-w-6xl mx-auto flex items-center justify-between px-5 sm:px-8 py-4">
+      <div class="flex items-center gap-2">
+        <div class="feature-icon !w-10 !h-10 !rounded-2xl !text-xl">💠</div>
+        <span class="font-display text-xl sm:text-2xl font-600 text-white glow-text" style="font-weight:600;">流光板 <span class="opacity-80 font-normal text-sm align-middle hidden sm:inline">FlowBoard</span></span>
+      </div>
+      <div class="hidden md:flex items-center gap-8 text-white/90 text-[15px]">
+        <a href="#features" class="nav-link">功能特色</a>
+        <a href="#stories" class="nav-link">客戶故事</a>
+        <a href="#pricing-anchor" class="nav-link">方案定價</a>
+        <a href="#faq-anchor" class="nav-link">常見問題</a>
+      </div>
+      <a href="#cta" class="pill-btn bg-white text-[#764ba2] font-display font-600 text-sm sm:text-base px-5 sm:px-6 py-2.5" style="font-weight:600;">免費開始</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative z-10 max-w-6xl mx-auto px-4 sm:px-8 pt-16 sm:pt-24 pb-20 text-center">
+    <div class="inline-flex items-center gap-2 glass px-4 py-1.5 mb-6 text-white/90 text-xs sm:text-sm">
+      <span>✨</span>
+      <span>新功能上線：AI 即時重點整理</span>
+    </div>
+    <h1 class="font-display text-white glow-text text-4xl sm:text-6xl font-700 leading-tight mb-6" style="font-weight:700;">
+      讓每一次腦力激盪<br class="hidden sm:block">
+      都像液態玻璃一樣<span class="whitespace-nowrap">流動不卡</span>
+    </h1>
+    <p class="text-white/90 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+      流光板是為遠距與混合團隊打造的雲端協作白板，從發想、整理到決議一氣呵成，不用再把會議記錄複製貼上到十個不同的地方。
+    </p>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a href="#cta" class="pill-btn bg-white text-[#764ba2] font-display font-600 px-8 py-3.5 text-base shadow-lg" style="font-weight:600;">免費開始使用</a>
+      <a href="#features" class="pill-btn glass text-white font-display px-8 py-3.5 text-base" style="font-weight:500;">看看怎麼運作</a>
+    </div>
+    <p class="text-white/70 text-xs sm:text-sm mt-5">免信用卡資訊・14 天完整功能試用・隨時可取消</p>
+
+    <!-- 懸浮預覽卡片 -->
+    <div class="glass-strong max-w-4xl mx-auto mt-16 p-3 sm:p-5 float-card">
+      <div class="rounded-[22px] overflow-hidden" style="background: linear-gradient(135deg, rgba(255,255,255,0.35), rgba(255,255,255,0.1));">
+        <div class="flex items-center gap-2 px-4 py-3 border-b border-white/30">
+          <span class="w-3 h-3 rounded-full bg-white/60"></span>
+          <span class="w-3 h-3 rounded-full bg-white/60"></span>
+          <span class="w-3 h-3 rounded-full bg-white/60"></span>
+          <span class="ml-3 text-white/80 text-xs sm:text-sm font-display">專案白板・第三季產品規劃</span>
+        </div>
+        <div class="p-6 sm:p-10 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+          <div class="glass p-4 h-24 sm:h-28 flex items-end text-white/90 text-xs sm:text-sm">使用者訪談重點</div>
+          <div class="glass p-4 h-20 sm:h-24 flex items-end text-white/90 text-xs sm:text-sm">待辦事項分配</div>
+          <div class="glass p-4 h-28 sm:h-32 flex items-end text-white/90 text-xs sm:text-sm">功能優先序投票</div>
+          <div class="glass p-4 h-20 sm:h-24 flex items-end text-white/90 text-xs sm:text-sm">AI 自動摘要</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 功能展示 -->
+  <section id="features" class="relative z-10 max-w-6xl mx-auto px-4 sm:px-8 py-16 sm:py-24">
+    <div class="text-center mb-12 sm:mb-16">
+      <h2 class="font-display text-white glow-text text-3xl sm:text-4xl font-700 mb-4" style="font-weight:700;">三個理由，讓團隊愛上流光板</h2>
+      <p class="text-white/85 max-w-xl mx-auto">不只是畫布，更是一個會自己整理、自己同步的協作夥伴。</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+      <div class="glass float-card p-7 sm:p-8">
+        <div class="feature-icon mb-5">🖊️</div>
+        <h3 class="font-display text-white text-xl font-600 mb-3" style="font-weight:600;">即時共筆，零延遲</h3>
+        <p class="text-white/85 text-sm leading-relaxed">多人同時在同一張白板上寫字、畫圖、貼便利貼，游標與筆跡即時同步，再也不會出現「你畫到我的東西」的尷尬。</p>
+      </div>
+      <div class="glass float-card p-7 sm:p-8">
+        <div class="feature-icon mb-5">🤖</div>
+        <h3 class="font-display text-white text-xl font-600 mb-3" style="font-weight:600;">AI 整理重點</h3>
+        <p class="text-white/85 text-sm leading-relaxed">會議結束按一下，流光板的 AI 助手自動把散亂的便利貼歸類、抓出待辦事項，並產出一份條理分明的重點摘要。</p>
+      </div>
+      <div class="glass float-card p-7 sm:p-8">
+        <div class="feature-icon mb-5">📱</div>
+        <h3 class="font-display text-white text-xl font-600 mb-3" style="font-weight:600;">跨裝置無縫同步</h3>
+        <p class="text-white/85 text-sm leading-relaxed">從辦公室的筆電到通勤路上的手機，白板內容即時雲端同步，走到哪、想到什麼，隨手就能記下來接著做。</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider-glass max-w-4xl mx-auto"></div>
+
+  <!-- 客戶見證 -->
+  <section id="stories" class="relative z-10 max-w-6xl mx-auto px-4 sm:px-8 py-16 sm:py-24">
+    <h2 class="font-display text-white glow-text text-3xl sm:text-4xl font-700 text-center mb-12 sm:mb-16" style="font-weight:700;">團隊怎麼說</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+      <div class="glass-strong p-7 sm:p-8">
+        <p class="text-white text-base sm:text-lg leading-relaxed mb-6">「我們是跨三個時區的遠距團隊，以前光是對齊會議紀錄就要半天。改用流光板之後，大家在同一面玻璃板上就能把想法攤開，AI 整理重點的功能幫我們省下至少一半的會後整理時間。」</p>
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-full bg-white/40 flex items-center justify-center font-display text-white font-600" style="font-weight:600;">陳</div>
+          <div>
+            <p class="text-white font-display text-sm font-600" style="font-weight:600;">陳怡君</p>
+            <p class="text-white/70 text-xs">產品經理・雲端服務新創公司</p>
+          </div>
+        </div>
+      </div>
+      <div class="glass-strong p-7 sm:p-8">
+        <p class="text-white text-base sm:text-lg leading-relaxed mb-6">「設計團隊每週的腦力激盪會議現在幾乎離不開流光板，手機、平板、電腦隨開隨接著畫，連在咖啡廳臨時討論都不會漏掉任何一個靈感。」</p>
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-full bg-white/40 flex items-center justify-center font-display text-white font-600" style="font-weight:600;">林</div>
+          <div>
+            <p class="text-white font-display text-sm font-600" style="font-weight:600;">林宥辰</p>
+            <p class="text-white/70 text-xs">設計總監・電商平台團隊</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 底部 CTA -->
+  <section id="cta" class="relative z-10 max-w-4xl mx-auto px-4 sm:px-8 pb-20 sm:pb-28">
+    <div class="glass-strong text-center p-10 sm:p-14">
+      <h2 class="font-display text-white glow-text text-3xl sm:text-4xl font-700 mb-4" style="font-weight:700;">準備好讓團隊的想法流動起來了嗎？</h2>
+      <p class="text-white/85 mb-8 max-w-xl mx-auto">立即註冊流光板，14 天完整功能試用，不用輸入信用卡資訊，隨時可以取消。</p>
+      <a href="#" class="pill-btn inline-block bg-white text-[#764ba2] font-display font-600 px-10 py-4 text-base shadow-lg" style="font-weight:600;">免費開始</a>
+    </div>
+  </section>
+
+  <!-- 頁尾 -->
+  <footer class="relative z-10 max-w-6xl mx-auto px-4 sm:px-8 pb-10">
+    <div class="divider-glass mb-8"></div>
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-white/70 text-xs sm:text-sm">
+      <div class="flex items-center gap-2">
+        <span class="feature-icon !w-7 !h-7 !rounded-lg !text-sm">💠</span>
+        <span class="font-display">流光板 FlowBoard</span>
+      </div>
+      <div class="flex gap-6">
+        <a href="#" class="hover:text-white transition">服務條款</a>
+        <a href="#" class="hover:text-white transition">隱私權政策</a>
+        <a href="#" class="hover:text-white transition">聯絡我們</a>
+      </div>
+      <p>© 2026 流光板 FlowBoard・保留一切權利</p>
+    </div>
+  </footer>
+
+</body>
+</html>

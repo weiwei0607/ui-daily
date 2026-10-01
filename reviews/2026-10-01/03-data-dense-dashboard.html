@@ -1,0 +1,346 @@
+<!-- style #28 Data-Dense Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>貨運脈動 CargoPulse · 營運儀表板</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Manrope', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'monospace'],
+        },
+      },
+    },
+  };
+</script>
+<style>
+  body{ background:#f8fafc; color:#1e293b; font-family:'Manrope',sans-serif; }
+  .num{ font-family:'JetBrains Mono',monospace; font-variant-numeric: tabular-nums; }
+  .card{ background:#ffffff; border:1px solid #e2e8f0; border-radius:12px; }
+  .up{ color:#059669; }
+  .down{ color:#dc2626; }
+  .warn{ color:#d97706; }
+  .nav-link{ border-left:3px solid transparent; }
+  .nav-link.active{ border-left-color:#2563eb; background:#eff6ff; color:#1d4ed8; }
+  .nav-link:not(.active):hover{ background:#f1f5f9; }
+  table thead th{ font-size:11px; letter-spacing:.03em; color:#64748b; text-transform:uppercase; }
+  table tbody tr{ border-top:1px solid #eef2f6; }
+  table tbody tr:hover{ background:#f8fafc; }
+  .badge{ font-size:11px; font-weight:700; padding:2px 8px; border-radius:9999px; white-space:nowrap; }
+  .scrollbar-thin::-webkit-scrollbar{ height:6px; }
+  .scrollbar-thin::-webkit-scrollbar-thumb{ background:#cbd5e1; border-radius:9999px; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="flex flex-col lg:flex-row min-h-screen">
+
+  <!-- Sidebar / top nav -->
+  <aside class="w-full lg:w-56 shrink-0 bg-white border-b lg:border-b-0 lg:border-r border-slate-200 flex flex-col">
+    <div class="px-5 py-4 flex items-center gap-2 border-b border-slate-200">
+      <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-extrabold text-sm">貨</div>
+      <div class="leading-tight">
+        <p class="font-extrabold text-sm">貨運脈動 CargoPulse</p>
+        <p class="text-[11px] text-slate-400">倉儲物流營運中心</p>
+      </div>
+    </div>
+    <nav class="flex flex-row lg:flex-col overflow-x-auto lg:overflow-visible text-sm scrollbar-thin">
+      <a href="#" class="nav-link active flex items-center gap-2 px-5 py-3 font-semibold whitespace-nowrap">📊 總覽</a>
+      <a href="#" class="nav-link flex items-center gap-2 px-5 py-3 text-slate-600 whitespace-nowrap">🏭 倉儲</a>
+      <a href="#" class="nav-link flex items-center gap-2 px-5 py-3 text-slate-600 whitespace-nowrap">🚚 配送</a>
+      <a href="#" class="nav-link flex items-center gap-2 px-5 py-3 text-slate-600 whitespace-nowrap">⚠️ 異常</a>
+    </nav>
+    <div class="hidden lg:block mt-auto px-5 py-4 border-t border-slate-200 text-[11px] text-slate-400 num">
+      v2.3.0 · 上次同步 2 分鐘前
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="flex-1 min-w-0">
+    <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-5 sm:px-8 py-5 border-b border-slate-200 bg-white">
+      <div>
+        <h1 class="text-xl font-extrabold">營運總覽儀表板</h1>
+        <p class="text-xs text-slate-400 mt-0.5 num">資料更新時間 2026-10-01 09:14:22</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <select class="text-sm border border-slate-200 rounded-lg px-3 py-2 bg-white text-slate-600">
+          <option>全部倉庫</option>
+          <option>林口一號倉</option>
+          <option>中壢二號倉</option>
+        </select>
+        <select class="text-sm border border-slate-200 rounded-lg px-3 py-2 bg-white text-slate-600">
+          <option>近 7 天</option>
+          <option>近 30 天</option>
+        </select>
+        <button class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold px-4 py-2 rounded-lg whitespace-nowrap">匯出報表</button>
+      </div>
+    </header>
+
+    <div class="p-5 sm:p-8 space-y-6">
+
+      <!-- KPI row -->
+      <div class="grid grid-cols-2 lg:grid-cols-5 gap-4">
+        <div class="card p-4">
+          <p class="text-xs text-slate-500 mb-2">今日出貨量</p>
+          <p class="num text-2xl font-bold">18,452</p>
+          <p class="text-xs up mt-1 num">▲ 6.3% 較昨日</p>
+        </div>
+        <div class="card p-4">
+          <p class="text-xs text-slate-500 mb-2">準時配送率</p>
+          <p class="num text-2xl font-bold">97.2%</p>
+          <p class="text-xs up mt-1 num">▲ 0.8pt 較昨日</p>
+        </div>
+        <div class="card p-4">
+          <p class="text-xs text-slate-500 mb-2">異常件數</p>
+          <p class="num text-2xl font-bold">134</p>
+          <p class="text-xs down mt-1 num">▲ 12.5% 需留意</p>
+        </div>
+        <div class="card p-4">
+          <p class="text-xs text-slate-500 mb-2">平均配送時長</p>
+          <p class="num text-2xl font-bold">1.8 天</p>
+          <p class="text-xs up mt-1 num">▼ 0.3 天 較昨日</p>
+        </div>
+        <div class="card p-4 col-span-2 lg:col-span-1">
+          <p class="text-xs text-slate-500 mb-2">在途車輛</p>
+          <p class="num text-2xl font-bold">86</p>
+          <p class="text-xs up mt-1 num">▲ 4 輛 較昨日</p>
+        </div>
+      </div>
+
+      <!-- Row 2: line chart + warehouse capacity -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="card p-5 lg:col-span-2">
+          <div class="flex items-center justify-between mb-1">
+            <p class="font-bold text-sm">近 7 日出貨量趨勢</p>
+            <span class="text-xs text-slate-400 num">單位：件</span>
+          </div>
+          <svg viewBox="0 0 640 190" class="w-full h-auto mt-2" preserveAspectRatio="xMidYMid meet">
+            <!-- gridlines -->
+            <line x1="40" y1="20" x2="620" y2="20" stroke="#eef2f6" stroke-width="1"/>
+            <line x1="40" y1="50" x2="620" y2="50" stroke="#eef2f6" stroke-width="1"/>
+            <line x1="40" y1="80" x2="620" y2="80" stroke="#eef2f6" stroke-width="1"/>
+            <line x1="40" y1="110" x2="620" y2="110" stroke="#eef2f6" stroke-width="1"/>
+            <line x1="40" y1="140" x2="620" y2="140" stroke="#cbd5e1" stroke-width="1"/>
+            <!-- y axis labels -->
+            <text x="4" y="24" font-size="9" fill="#94a3b8" font-family="JetBrains Mono, monospace">19.1k</text>
+            <text x="4" y="84" font-size="9" fill="#94a3b8" font-family="JetBrains Mono, monospace">17.1k</text>
+            <text x="4" y="144" font-size="9" fill="#94a3b8" font-family="JetBrains Mono, monospace">15.2k</text>
+            <!-- area fill -->
+            <path d="M40,140 L136.7,90.8 L233.3,118.5 L330,78.5 L426.7,100 L523.3,20 L620,39.9 L620,140 L40,140 Z" fill="#2563eb" fill-opacity="0.08"/>
+            <!-- line -->
+            <polyline points="40,140 136.7,90.8 233.3,118.5 330,78.5 426.7,100 523.3,20 620,39.9" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+            <!-- points -->
+            <circle cx="40" cy="140" r="3.5" fill="#2563eb"/>
+            <circle cx="136.7" cy="90.8" r="3.5" fill="#2563eb"/>
+            <circle cx="233.3" cy="118.5" r="3.5" fill="#2563eb"/>
+            <circle cx="330" cy="78.5" r="3.5" fill="#2563eb"/>
+            <circle cx="426.7" cy="100" r="3.5" fill="#2563eb"/>
+            <circle cx="523.3" cy="20" r="4" fill="#2563eb" stroke="#fff" stroke-width="1.5"/>
+            <circle cx="620" cy="39.9" r="4" fill="#1d4ed8" stroke="#fff" stroke-width="1.5"/>
+            <!-- highlight label on last point -->
+            <text x="620" y="34" font-size="10" font-weight="700" fill="#1d4ed8" text-anchor="end" font-family="JetBrains Mono, monospace">18,452</text>
+            <!-- x axis labels -->
+            <text x="40" y="165" font-size="10" fill="#64748b" text-anchor="middle">09/25</text>
+            <text x="136.7" y="165" font-size="10" fill="#64748b" text-anchor="middle">09/26</text>
+            <text x="233.3" y="165" font-size="10" fill="#64748b" text-anchor="middle">09/27</text>
+            <text x="330" y="165" font-size="10" fill="#64748b" text-anchor="middle">09/28</text>
+            <text x="426.7" y="165" font-size="10" fill="#64748b" text-anchor="middle">09/29</text>
+            <text x="523.3" y="165" font-size="10" fill="#64748b" text-anchor="middle">09/30</text>
+            <text x="620" y="165" font-size="10" font-weight="700" fill="#1d4ed8" text-anchor="middle">10/01</text>
+          </svg>
+        </div>
+
+        <div class="card p-5">
+          <p class="font-bold text-sm mb-3">倉儲即時產能</p>
+          <div class="space-y-3">
+            <div>
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-slate-600">林口一號倉</span>
+                <span class="num font-semibold">82%</span>
+              </div>
+              <div class="h-2 rounded-full bg-slate-100"><div class="h-2 rounded-full bg-blue-500" style="width:82%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-slate-600">中壢二號倉</span>
+                <span class="num font-semibold warn">91%</span>
+              </div>
+              <div class="h-2 rounded-full bg-slate-100"><div class="h-2 rounded-full bg-amber-500" style="width:91%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-slate-600">台南物流中心</span>
+                <span class="num font-semibold">68%</span>
+              </div>
+              <div class="h-2 rounded-full bg-slate-100"><div class="h-2 rounded-full bg-blue-500" style="width:68%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-slate-600">高雄港倉</span>
+                <span class="num font-semibold">74%</span>
+              </div>
+              <div class="h-2 rounded-full bg-slate-100"><div class="h-2 rounded-full bg-blue-500" style="width:74%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-slate-600">桃園航空倉</span>
+                <span class="num font-semibold down">95%</span>
+              </div>
+              <div class="h-2 rounded-full bg-slate-100"><div class="h-2 rounded-full bg-red-500" style="width:95%"></div></div>
+            </div>
+          </div>
+          <p class="text-[11px] text-slate-400 mt-3">桃園航空倉產能已逼近上限，建議調度至台南物流中心。</p>
+        </div>
+      </div>
+
+      <!-- Row 3: bar chart + anomaly breakdown -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="card p-5 lg:col-span-2">
+          <div class="flex items-center justify-between mb-1">
+            <p class="font-bold text-sm">各倉出貨量比較（今日）</p>
+            <span class="text-xs text-slate-400 num">單位：件</span>
+          </div>
+          <svg viewBox="0 0 500 210" class="w-full h-auto mt-2" preserveAspectRatio="xMidYMid meet">
+            <line x1="20" y1="170" x2="480" y2="170" stroke="#cbd5e1" stroke-width="1"/>
+            <!-- bar 1 -->
+            <rect x="33.3" y="20" width="60" height="150" rx="4" fill="#2563eb"/>
+            <text x="63.3" y="12" font-size="11" font-weight="700" fill="#1e293b" text-anchor="middle" font-family="JetBrains Mono, monospace">5,820</text>
+            <text x="63.3" y="188" font-size="10" fill="#64748b" text-anchor="middle">林口一號倉</text>
+            <!-- bar 2 -->
+            <rect x="126.6" y="61.5" width="60" height="108.5" rx="4" fill="#60a5fa"/>
+            <text x="156.6" y="53.5" font-size="11" font-weight="700" fill="#1e293b" text-anchor="middle" font-family="JetBrains Mono, monospace">4,210</text>
+            <text x="156.6" y="188" font-size="10" fill="#64748b" text-anchor="middle">中壢二號倉</text>
+            <!-- bar 3 -->
+            <rect x="219.9" y="88.8" width="60" height="81.2" rx="4" fill="#60a5fa"/>
+            <text x="249.9" y="80.8" font-size="11" font-weight="700" fill="#1e293b" text-anchor="middle" font-family="JetBrains Mono, monospace">3,150</text>
+            <text x="249.9" y="188" font-size="10" fill="#64748b" text-anchor="middle">台南物流中心</text>
+            <!-- bar 4 -->
+            <rect x="313.2" y="93.2" width="60" height="76.8" rx="4" fill="#93c5fd"/>
+            <text x="343.2" y="85.2" font-size="11" font-weight="700" fill="#1e293b" text-anchor="middle" font-family="JetBrains Mono, monospace">2,980</text>
+            <text x="343.2" y="188" font-size="10" fill="#64748b" text-anchor="middle">高雄港倉</text>
+            <!-- bar 5 -->
+            <rect x="406.5" y="110.9" width="60" height="59.1" rx="4" fill="#93c5fd"/>
+            <text x="436.5" y="102.9" font-size="11" font-weight="700" fill="#1e293b" text-anchor="middle" font-family="JetBrains Mono, monospace">2,292</text>
+            <text x="436.5" y="188" font-size="10" fill="#64748b" text-anchor="middle">桃園航空倉</text>
+          </svg>
+        </div>
+
+        <div class="card p-5">
+          <p class="font-bold text-sm mb-3">異常原因分布（今日 134 件）</p>
+          <div class="space-y-2.5 text-xs">
+            <div>
+              <div class="flex justify-between mb-1"><span class="text-slate-600">配送延遲</span><span class="num font-semibold">52 件 · 38.8%</span></div>
+              <div class="h-2 rounded-full bg-slate-100"><div class="h-2 rounded-full bg-red-400" style="width:38.8%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1"><span class="text-slate-600">包裝破損</span><span class="num font-semibold">31 件 · 23.1%</span></div>
+              <div class="h-2 rounded-full bg-slate-100"><div class="h-2 rounded-full bg-amber-400" style="width:23.1%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1"><span class="text-slate-600">地址資訊錯誤</span><span class="num font-semibold">24 件 · 17.9%</span></div>
+              <div class="h-2 rounded-full bg-slate-100"><div class="h-2 rounded-full bg-amber-300" style="width:17.9%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1"><span class="text-slate-600">商品短少</span><span class="num font-semibold">18 件 · 13.4%</span></div>
+              <div class="h-2 rounded-full bg-slate-100"><div class="h-2 rounded-full bg-slate-400" style="width:13.4%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1"><span class="text-slate-600">其他</span><span class="num font-semibold">9 件 · 6.7%</span></div>
+              <div class="h-2 rounded-full bg-slate-100"><div class="h-2 rounded-full bg-slate-300" style="width:6.7%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="card p-5 overflow-x-auto scrollbar-thin">
+        <div class="flex items-center justify-between mb-3">
+          <p class="font-bold text-sm">最近異常訂單</p>
+          <span class="text-xs text-slate-400 num">共 134 筆，顯示最新 7 筆</span>
+        </div>
+        <table class="w-full text-sm min-w-[720px]">
+          <thead>
+            <tr class="text-left border-b border-slate-200">
+              <th class="py-2 pr-4">訂單編號</th>
+              <th class="py-2 pr-4">倉庫</th>
+              <th class="py-2 pr-4">異常類型</th>
+              <th class="py-2 pr-4">狀態</th>
+              <th class="py-2 pr-4">發生時間</th>
+              <th class="py-2 pr-4">處理人</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="py-2.5 pr-4 num">CP-20261001-0892</td>
+              <td class="py-2.5 pr-4">林口一號倉</td>
+              <td class="py-2.5 pr-4">包裝破損</td>
+              <td class="py-2.5 pr-4"><span class="badge bg-red-50 text-red-600 border border-red-200">嚴重</span></td>
+              <td class="py-2.5 pr-4 num text-slate-500">10/01 08:12</td>
+              <td class="py-2.5 pr-4">王建宏</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 pr-4 num">CP-20261001-0877</td>
+              <td class="py-2.5 pr-4">高雄港倉</td>
+              <td class="py-2.5 pr-4">配送延遲</td>
+              <td class="py-2.5 pr-4"><span class="badge bg-amber-50 text-amber-600 border border-amber-200">警示</span></td>
+              <td class="py-2.5 pr-4 num text-slate-500">10/01 07:45</td>
+              <td class="py-2.5 pr-4">李佳穎</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 pr-4 num">CP-20260930-1203</td>
+              <td class="py-2.5 pr-4">中壢二號倉</td>
+              <td class="py-2.5 pr-4">地址資訊錯誤</td>
+              <td class="py-2.5 pr-4"><span class="badge bg-yellow-50 text-yellow-700 border border-yellow-200">待處理</span></td>
+              <td class="py-2.5 pr-4 num text-slate-500">09/30 22:10</td>
+              <td class="py-2.5 pr-4">陳怡君</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 pr-4 num">CP-20260930-1180</td>
+              <td class="py-2.5 pr-4">台南物流中心</td>
+              <td class="py-2.5 pr-4">商品短少</td>
+              <td class="py-2.5 pr-4"><span class="badge bg-emerald-50 text-emerald-600 border border-emerald-200">已結案</span></td>
+              <td class="py-2.5 pr-4 num text-slate-500">09/30 19:33</td>
+              <td class="py-2.5 pr-4">張家豪</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 pr-4 num">CP-20260930-1150</td>
+              <td class="py-2.5 pr-4">桃園航空倉</td>
+              <td class="py-2.5 pr-4">配送延遲</td>
+              <td class="py-2.5 pr-4"><span class="badge bg-blue-50 text-blue-600 border border-blue-200">處理中</span></td>
+              <td class="py-2.5 pr-4 num text-slate-500">09/30 16:02</td>
+              <td class="py-2.5 pr-4">林詩婷</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 pr-4 num">CP-20260930-1098</td>
+              <td class="py-2.5 pr-4">林口一號倉</td>
+              <td class="py-2.5 pr-4">包裝破損</td>
+              <td class="py-2.5 pr-4"><span class="badge bg-emerald-50 text-emerald-600 border border-emerald-200">已結案</span></td>
+              <td class="py-2.5 pr-4 num text-slate-500">09/30 14:20</td>
+              <td class="py-2.5 pr-4">王建宏</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 pr-4 num">CP-20260930-1061</td>
+              <td class="py-2.5 pr-4">高雄港倉</td>
+              <td class="py-2.5 pr-4">配送延遲</td>
+              <td class="py-2.5 pr-4"><span class="badge bg-red-50 text-red-600 border border-red-200">嚴重</span></td>
+              <td class="py-2.5 pr-4 num text-slate-500">09/30 11:08</td>
+              <td class="py-2.5 pr-4">李佳穎</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+</body>
+</html>
