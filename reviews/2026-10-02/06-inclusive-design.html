@@ -1,0 +1,556 @@
+<!-- style #17 Inclusive Design -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>安心照顧網｜長照與社福服務線上預約入口</title>
+<meta name="description" content="安心照顧網：線上申請居家照顧、日間照顧中心、輔具補助與交通接送服務，查詢補助資格，為長者與照顧者提供清楚易懂的服務說明。">
+
+<!-- Fonts: Atkinson Hyperlegible for EN/numerals, Noto Sans TC (bold weights) for 中文 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+  :root{
+    --navy:#003366;
+    --navy-dark:#001f3f;
+    --orange:#f77f00;
+    --orange-dark:#c96200;
+    --ink:#111111;
+    --paper:#ffffff;
+    --paper-soft:#f7f7f5;
+    --line:#d8d8d4;
+    --base-size: 18px;
+  }
+
+  html{
+    font-size: var(--base-size);
+    scroll-behavior: smooth;
+  }
+
+  body{
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Noto Sans TC", "Atkinson Hyperlegible", sans-serif;
+    font-weight: 500;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* English / numerals get Atkinson Hyperlegible explicitly */
+  .num, .en, .tel-number{
+    font-family: "Atkinson Hyperlegible", "Noto Sans TC", sans-serif;
+  }
+
+  h1, h2, h3, h4{
+    font-family: "Noto Sans TC", "Atkinson Hyperlegible", sans-serif;
+    font-weight: 900;
+    line-height: 1.5;
+    color: var(--navy);
+    letter-spacing: 0.01em;
+  }
+
+  p, li, span, a, button, label{
+    line-height: 1.75;
+  }
+
+  /* ===== Visible focus state — never remove, never rely on browser default ===== */
+  a:focus-visible,
+  button:focus-visible,
+  summary:focus-visible,
+  input:focus-visible,
+  [tabindex]:focus-visible{
+    outline: 3px solid var(--orange);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+  /* fallback for browsers without :focus-visible */
+  a:focus,
+  button:focus,
+  summary:focus{
+    outline: 3px solid var(--orange);
+    outline-offset: 4px;
+  }
+
+  .skip-link{
+    position:absolute;
+    left:-999px;
+    top:0;
+    background:var(--orange);
+    color:#111;
+    font-weight:700;
+    padding:1rem 1.5rem;
+    z-index:999;
+    border-radius:0 0 8px 0;
+  }
+  .skip-link:focus{
+    left:0;
+  }
+
+  /* big tappable buttons */
+  .btn-primary{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:0.6rem;
+    background: var(--orange);
+    color:#111;
+    font-weight:900;
+    font-size:1.25rem;
+    padding: 1.1rem 2.2rem;
+    border-radius: 14px;
+    border: 3px solid var(--orange-dark);
+    min-height: 64px;
+    box-shadow: 0 4px 0 var(--orange-dark);
+    transition: transform .08s ease;
+  }
+  .btn-primary:hover{ background: var(--orange-dark); color:#fff; }
+  .btn-primary:active{ transform: translateY(2px); box-shadow: 0 2px 0 var(--orange-dark); }
+
+  .btn-secondary{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:0.6rem;
+    background: var(--paper);
+    color: var(--navy);
+    font-weight:900;
+    font-size:1.1rem;
+    padding: 1rem 1.8rem;
+    border-radius: 14px;
+    border: 3px solid var(--navy);
+    min-height: 60px;
+  }
+  .btn-secondary:hover{ background: var(--navy); color:#fff; }
+
+  .top-tel{
+    background: var(--navy-dark);
+    color:#fff;
+  }
+
+  .tel-number{
+    font-size:1.6rem;
+    font-weight:900;
+    color: var(--orange);
+    letter-spacing: 0.03em;
+  }
+
+  .navbar{
+    background: var(--navy);
+  }
+
+  .nav-link{
+    color:#fff;
+    font-weight:700;
+    font-size:1.05rem;
+    padding: 0.6rem 0.9rem;
+    border-radius: 8px;
+    min-height:44px;
+    display:inline-flex;
+    align-items:center;
+  }
+  .nav-link:hover{ background: rgba(255,255,255,0.15); }
+
+  .fontctl-btn{
+    background:#fff;
+    color: var(--navy);
+    font-weight:900;
+    border:3px solid #fff;
+    border-radius:10px;
+    min-width:48px;
+    min-height:48px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.1rem;
+  }
+  .fontctl-btn:hover{ background: var(--orange); border-color: var(--orange-dark); color:#111; }
+
+  .hero{
+    background: linear-gradient(180deg, var(--navy) 0%, var(--navy-dark) 100%);
+    color:#fff;
+  }
+
+  .hero h1{ color:#fff; }
+
+  .card{
+    background: var(--paper);
+    border: 3px solid var(--line);
+    border-radius: 18px;
+    padding: 1.75rem;
+    transition: border-color .12s ease, transform .12s ease;
+  }
+  .card:hover{
+    border-color: var(--navy);
+    transform: translateY(-3px);
+  }
+
+  .icon-circle{
+    width: 72px;
+    height: 72px;
+    border-radius: 999px;
+    background: var(--navy);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+  }
+
+  .eyebrow{
+    display:inline-block;
+    background: var(--orange);
+    color:#111;
+    font-weight:900;
+    font-size:0.95rem;
+    padding: 0.35rem 1rem;
+    border-radius: 999px;
+    letter-spacing: 0.05em;
+  }
+
+  .section-title{
+    font-size: 2rem;
+  }
+
+  .muted{
+    color:#3a3a3a;
+    font-weight:500;
+  }
+
+  /* FAQ accordion */
+  details.faq{
+    background: var(--paper-soft);
+    border: 3px solid var(--line);
+    border-radius: 14px;
+    padding: 0.25rem 1.25rem;
+  }
+  details.faq[open]{
+    border-color: var(--navy);
+  }
+  details.faq summary{
+    cursor:pointer;
+    list-style:none;
+    font-weight:900;
+    font-size:1.2rem;
+    color: var(--navy);
+    padding: 1.1rem 0;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:1rem;
+    min-height:44px;
+  }
+  details.faq summary::-webkit-details-marker{ display:none; }
+  .faq-plus{
+    flex-shrink:0;
+    width:36px;
+    height:36px;
+    border-radius:999px;
+    background:var(--orange);
+    color:#111;
+    font-weight:900;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.4rem;
+    transition: transform .15s ease;
+  }
+  details.faq[open] .faq-plus{ transform: rotate(45deg); }
+  details.faq .faq-answer{
+    padding-bottom:1.25rem;
+    color: var(--ink);
+    font-size:1.05rem;
+    border-top: 2px solid var(--line);
+    padding-top:1rem;
+  }
+
+  .contact-box{
+    background: var(--navy);
+    color:#fff;
+    border-radius: 20px;
+  }
+  .contact-box .num{
+    color: var(--orange);
+    font-weight:900;
+  }
+
+  footer{
+    background: var(--navy-dark);
+    color:#fff;
+  }
+  footer a{ color:#fff; text-decoration: underline; font-weight:700; }
+  footer a:hover{ color: var(--orange); }
+
+  /* generous tap targets overall */
+  a, button{ min-height:44px; }
+
+  @media (max-width: 640px){
+    .section-title{ font-size:1.6rem; }
+    .tel-number{ font-size:1.3rem; }
+  }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">跳到主要內容</a>
+
+<!-- Top utility bar -->
+<div class="top-tel">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-2 text-sm sm:text-base font-bold">
+      <span aria-hidden="true">🕒</span>
+      <span>服務時間：每週一至週五 08:00–17:00（國定假日除外）</span>
+    </div>
+    <a href="tel:0800000123" class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-xl">📞</span>
+      <span>客服專線 <span class="tel-number num">0800-000-123</span>（免付費）</span>
+    </a>
+  </div>
+</div>
+
+<!-- Nav -->
+<header class="navbar">
+  <nav class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-4" aria-label="主要導覽">
+    <a href="#main" class="text-white font-black text-2xl flex items-center gap-2">
+      <span aria-hidden="true">🤝</span> 安心照顧網
+    </a>
+    <div class="flex flex-wrap items-center gap-2">
+      <a href="#services" class="nav-link">服務項目</a>
+      <a href="#faq" class="nav-link">常見問題</a>
+      <a href="#contact" class="nav-link">聯絡我們</a>
+      <div class="flex items-center gap-1 ml-2" role="group" aria-label="調整文字大小">
+        <button type="button" class="fontctl-btn" onclick="setFontSize(-1)" aria-label="縮小文字">A-</button>
+        <button type="button" class="fontctl-btn" onclick="setFontSize(0)" aria-label="恢復預設文字大小">A</button>
+        <button type="button" class="fontctl-btn" onclick="setFontSize(1)" aria-label="放大文字">A+</button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="max-w-6xl mx-auto px-4 py-16 md:py-20 grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <span class="eyebrow">政府委託｜公共服務</span>
+        <h1 class="text-4xl md:text-5xl mt-5 mb-6">長照服務，<br>線上就能申請</h1>
+        <p class="text-lg md:text-xl mb-8" style="color:#f0f4f8;">
+          不管是幫家中長輩申請居家照顧，還是想知道自己符不符合補助資格，安心照顧網都用最簡單的方式，一步步帶您完成。不會用電腦也沒關係，客服專線隨時都在。
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#apply" class="btn-primary">
+            <span aria-hidden="true">📝</span> 立即線上申請服務
+          </a>
+          <a href="#check" class="btn-secondary" style="background:transparent;color:#fff;border-color:#fff;">
+            <span aria-hidden="true">🔍</span> 查詢補助資格
+          </a>
+        </div>
+      </div>
+      <div class="flex items-center justify-center">
+        <svg width="280" height="280" viewBox="0 0 280 280" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="兩人攙扶的插圖">
+          <circle cx="140" cy="140" r="130" fill="#002850"/>
+          <circle cx="105" cy="95" r="26" stroke="#f77f00" stroke-width="6" fill="none"/>
+          <path d="M60 190c5-35 30-55 45-55s40 20 45 55" stroke="#f77f00" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <circle cx="185" cy="105" r="22" stroke="#ffffff" stroke-width="6" fill="none"/>
+          <path d="M150 190c4-30 25-48 35-48s31 18 35 48" stroke="#ffffff" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <line x1="128" y1="150" x2="168" y2="150" stroke="#f77f00" stroke-width="6" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="max-w-6xl mx-auto px-4 py-16 md:py-20">
+    <div class="mb-10 max-w-3xl">
+      <span class="eyebrow">服務項目</span>
+      <h2 class="section-title mt-4 mb-4">我們提供這些服務</h2>
+      <p class="muted text-lg">點選下方任一服務，可以看到詳細的申請方式、需要準備的文件，以及大約多久會有人跟您聯絡。</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 gap-6">
+
+      <div class="card flex gap-5">
+        <div class="icon-circle" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M6 18L18 7l12 11" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 16v12a1 1 0 001 1h16a1 1 0 001-1V16" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 29v-8h6v8" stroke="#f77f00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <h3 class="text-xl mb-2">居家照顧服務</h3>
+          <p class="muted">照顧服務員到府協助長輩洗澡、如廁、備餐、陪伴散步等日常生活照顧，每週可依需求安排次數與時數。</p>
+        </div>
+      </div>
+
+      <div class="card flex gap-5">
+        <div class="icon-circle" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="6" y="10" width="24" height="18" rx="2" stroke="#fff" stroke-width="3"/><path d="M6 16h24" stroke="#fff" stroke-width="3"/><circle cx="14" cy="21" r="2.5" fill="#f77f00"/><circle cx="22" cy="21" r="2.5" fill="#f77f00"/></svg>
+        </div>
+        <div>
+          <h3 class="text-xl mb-2">日間照顧中心</h3>
+          <p class="muted">白天將長輩送到中心，由專人安排健康促進、團康活動與供餐，傍晚再接回家，讓照顧者白天也能安心上班。</p>
+        </div>
+      </div>
+
+      <div class="card flex gap-5">
+        <div class="icon-circle" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="12" cy="27" r="4" stroke="#fff" stroke-width="3"/><circle cx="26" cy="27" r="4" stroke="#fff" stroke-width="3"/><path d="M8 27V13a2 2 0 012-2h9l7 8h4v8" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 11v10h12" stroke="#f77f00" stroke-width="3" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <h3 class="text-xl mb-2">輔具購買與租借補助</h3>
+          <p class="muted">輪椅、助行器、氣墊床、便盆椅等輔具，符合資格最高可補助金額的 80%，也提供短期租借服務。</p>
+        </div>
+      </div>
+
+      <div class="card flex gap-5">
+        <div class="icon-circle" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="5" y="14" width="26" height="12" rx="3" stroke="#fff" stroke-width="3"/><circle cx="12" cy="27" r="3" fill="#f77f00"/><circle cx="24" cy="27" r="3" fill="#f77f00"/><path d="M9 14V9h12l6 5" stroke="#fff" stroke-width="3" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <h3 class="text-xl mb-2">交通接送服務</h3>
+          <p class="muted">協助長輩往返醫院回診、復健或洽公，備有無障礙車輛可乘坐輪椅，司機也會協助上下車。</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="bg-[color:var(--paper-soft)]">
+    <div class="max-w-4xl mx-auto px-4 py-16 md:py-20">
+      <span class="eyebrow">常見問題</span>
+      <h2 class="section-title mt-4 mb-8">大家最常問的問題</h2>
+
+      <div class="flex flex-col gap-4">
+
+        <details class="faq" open>
+          <summary>
+            <span>申請居家照顧服務，需要準備哪些文件？</span>
+            <span class="faq-plus" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-answer">
+            一般需要準備身分證正反面影本、最近一次的診斷證明書或巴氏量表（如果有），以及申請人的健保卡。如果不確定文件夠不夠，直接打客服專線 <span class="num">0800-000-123</span>，我們會一項一項跟您確認，不用自己猜。
+          </div>
+        </details>
+
+        <details class="faq">
+          <summary>
+            <span>我不是長輩本人，可以幫家人代為申請嗎？</span>
+            <span class="faq-plus" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-answer">
+            可以的。配偶、子女、同住親屬或實際照顧者都可以代為申請，只要準備好您和長輩雙方的身分證明即可。線上表單也有「我是代理人」選項，填寫時選取就好。
+          </div>
+        </details>
+
+        <details class="faq">
+          <summary>
+            <span>申請之後，大概多久會有人跟我聯絡？</span>
+            <span class="faq-plus" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-answer">
+            送出申請後，我們會在 <strong>3 個工作天內</strong>主動致電，安排照顧管理專員到府進行需求評估。如果超過 3 天還沒接到電話，歡迎直接撥打客服專線詢問進度。
+          </div>
+        </details>
+
+        <details class="faq">
+          <summary>
+            <span>家裡經濟狀況普通，也能申請補助嗎？</span>
+            <span class="faq-plus" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-answer">
+            長照補助不是只有低收入戶才能申請。一般戶、中低收入戶都有對應的補助比例，差別只在自付額高低。建議直接使用上方「查詢補助資格」功能，或打電話讓專員幫您試算，通常幾分鐘就能知道結果。
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="max-w-6xl mx-auto px-4 py-16 md:py-20">
+    <div class="contact-box p-8 md:p-12 grid md:grid-cols-3 gap-8">
+      <div>
+        <h2 class="text-2xl md:text-3xl mb-4" style="color:#fff;">聯絡我們</h2>
+        <p style="color:#dbe6f2;" class="text-lg">有任何問題都歡迎打電話來，專員會用最簡單的方式跟您說明，不用擔心聽不懂。</p>
+      </div>
+      <div class="flex items-start gap-4">
+        <span class="text-3xl" aria-hidden="true">📞</span>
+        <div>
+          <p class="font-black text-lg" style="color:#fff;">客服專線（免付費）</p>
+          <p class="num text-3xl mt-1">0800-000-123</p>
+          <p style="color:#dbe6f2;" class="mt-2">服務時間：週一至週五 08:00–17:00</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-4">
+        <span class="text-3xl" aria-hidden="true">📍</span>
+        <div>
+          <p class="font-black text-lg" style="color:#fff;">服務據點地址</p>
+          <p style="color:#dbe6f2;" class="mt-1 text-lg">台北市中正區仁愛路一段 10 號 2 樓</p>
+          <p style="color:#dbe6f2;" class="mt-2">鄰近捷運善導寺站 2 號出口，步行約 5 分鐘</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="max-w-6xl mx-auto px-4 py-10 grid sm:grid-cols-2 md:grid-cols-4 gap-6 text-sm">
+    <div>
+      <p class="font-black text-lg mb-2" style="color:#fff;">安心照顧網</p>
+      <p style="color:#c7d3e0;">為長者與照顧者提供清楚、好懂的長照與社福服務申請管道。</p>
+    </div>
+    <div>
+      <p class="font-black mb-2" style="color:#fff;">快速連結</p>
+      <ul class="flex flex-col gap-1">
+        <li><a href="#services">服務項目</a></li>
+        <li><a href="#faq">常見問題</a></li>
+        <li><a href="#contact">聯絡我們</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="font-black mb-2" style="color:#fff;">服務時間</p>
+      <p style="color:#c7d3e0;">週一至週五<br>08:00–17:00</p>
+    </div>
+    <div>
+      <p class="font-black mb-2" style="color:#fff;">客服專線</p>
+      <p class="num text-xl" style="color:var(--orange);">0800-000-123</p>
+    </div>
+  </div>
+  <div class="border-t border-white/20 py-4 text-center text-sm" style="color:#c7d3e0;">
+    © 2026 安心照顧網．版權所有
+  </div>
+</footer>
+
+<script>
+  // Simple, obvious font-size control — no external dependency
+  (function(){
+    var sizes = [16, 18, 20, 23, 26]; // px, default index 1 = 18px
+    var defaultIndex = 1;
+    var current = defaultIndex;
+    try {
+      var saved = sessionStorage.getItem('acw-font-index');
+      if (saved !== null) current = parseInt(saved, 10);
+    } catch(e) {}
+
+    function apply(){
+      document.documentElement.style.fontSize = sizes[current] + 'px';
+      try { sessionStorage.setItem('acw-font-index', current); } catch(e) {}
+    }
+
+    window.setFontSize = function(step){
+      if (step === 0){ current = defaultIndex; }
+      else {
+        current = Math.min(sizes.length - 1, Math.max(0, current + step));
+      }
+      apply();
+    };
+
+    apply();
+  })();
+</script>
+
+</body>
+</html>

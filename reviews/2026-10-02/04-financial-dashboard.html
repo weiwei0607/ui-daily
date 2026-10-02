@@ -1,0 +1,509 @@
+<!-- style #36 Financial Dashboard -->
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>財富羅盤｜投資組合儀表板</title>
+<meta name="description" content="韡寧的每日 UI/UX 提案 — Financial 金融數據後台儀表板風格">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/3.4.13/tailwind.min.js"></script>
+
+<style>
+  :root{
+    --bg: #1e293b;
+    --panel: #334155;
+    --panel-soft: #2c3b52;
+    --border: #475569;
+    --text-hi: #f1f5f9;
+    --text-mid: #cbd5e1;
+    --text-lo: #94a3b8;
+    --up: #10b981;
+    --down: #ef4444;
+    --brand: #3b82f6;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    background: var(--bg);
+    color: var(--text-hi);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body{
+    font-family: 'IBM Plex Sans', 'Noto Sans TC', sans-serif;
+  }
+
+  .font-zh{ font-family: 'Noto Sans TC', 'IBM Plex Sans', sans-serif; }
+
+  .mono-num{
+    font-family: 'JetBrains Mono', 'IBM Plex Sans', monospace;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1, "zero" 1;
+    letter-spacing: -0.02em;
+  }
+
+  ::-webkit-scrollbar{ height: 8px; width: 8px; }
+  ::-webkit-scrollbar-track{ background: var(--panel-soft); }
+  ::-webkit-scrollbar-thumb{ background: #556175; border-radius: 4px; }
+
+  .panel{
+    background: var(--panel);
+    border: 1px solid var(--border);
+  }
+
+  .panel-soft{
+    background: var(--panel-soft);
+    border: 1px solid var(--border);
+  }
+
+  .up{ color: var(--up); }
+  .down{ color: var(--down); }
+  .brand{ color: var(--brand); }
+
+  .chip{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .table-num{
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .row-hover:hover{ background: rgba(148,163,184,0.06); }
+
+  .filter-btn{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    transition: all .15s ease;
+  }
+  .filter-btn.active{
+    background: var(--brand);
+    color: #f8fafc;
+    border-color: var(--brand);
+  }
+
+  .count-up{ transition: opacity .3s ease; }
+
+  .donut-ring{
+    background: conic-gradient(
+      var(--brand) 0% 62%,
+      #a78bfa 62% 86%,
+      #fbbf24 86% 96%,
+      #64748b 96% 100%
+    );
+  }
+
+  .scroll-x{ -webkit-overflow-scrolling: touch; }
+
+  @media (max-width: 480px){
+    .mono-num{ font-size: 0.92em; }
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- ============ TOP NAV ============ -->
+<header class="panel border-b sticky top-0 z-30" style="border-color: var(--border);">
+  <div class="max-w-[1400px] mx-auto px-4 sm:px-6 py-3 flex items-center gap-3 flex-wrap">
+    <div class="flex items-center gap-2 mr-2">
+      <div class="w-8 h-8 rounded-md flex items-center justify-center" style="background: var(--brand);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 17L9 11L13 15L21 7" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 7H21V13" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span class="font-zh font-bold text-base sm:text-lg tracking-wide">財富羅盤</span>
+      <span class="chip px-1.5 py-0.5 rounded panel-soft text-slate-400 hidden sm:inline-block">PRO</span>
+    </div>
+
+    <!-- account switcher -->
+    <div class="relative">
+      <button id="acctBtn" class="flex items-center gap-2 panel-soft hover:bg-slate-700/60 rounded-md px-3 py-1.5 text-sm font-zh">
+        <span class="w-2 h-2 rounded-full" style="background: var(--up);"></span>
+        <span id="acctLabel">主要投資帳戶</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" class="text-slate-400"><path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div id="acctMenu" class="hidden absolute mt-1 w-48 panel rounded-md shadow-xl overflow-hidden z-40 font-zh text-sm">
+        <button class="acct-opt block w-full text-left px-3 py-2 row-hover" data-v="主要投資帳戶">主要投資帳戶</button>
+        <button class="acct-opt block w-full text-left px-3 py-2 row-hover" data-v="海外券商帳戶">海外券商帳戶</button>
+        <button class="acct-opt block w-full text-left px-3 py-2 row-hover" data-v="退休儲蓄帳戶">退休儲蓄帳戶</button>
+      </div>
+    </div>
+
+    <!-- date filter -->
+    <div class="flex items-center gap-1 panel-soft rounded-md p-1 ml-auto">
+      <button class="filter-btn active px-2.5 py-1 rounded border border-transparent" data-range="1D">1D</button>
+      <button class="filter-btn px-2.5 py-1 rounded border border-transparent text-slate-300" data-range="1W">1W</button>
+      <button class="filter-btn px-2.5 py-1 rounded border border-transparent text-slate-300" data-range="1M">1M</button>
+      <button class="filter-btn px-2.5 py-1 rounded border border-transparent text-slate-300" data-range="YTD">YTD</button>
+      <button class="filter-btn px-2.5 py-1 rounded border border-transparent text-slate-300" data-range="1Y">1Y</button>
+    </div>
+
+    <!-- user avatar -->
+    <div class="flex items-center gap-2 pl-2">
+      <div class="text-right hidden sm:block leading-tight">
+        <div class="text-xs font-zh text-slate-200">韡寧</div>
+        <div class="text-[10px] text-slate-400 mono-num">vernessa0607</div>
+      </div>
+      <div class="w-8 h-8 rounded-full flex items-center justify-center font-zh font-bold text-sm" style="background: var(--brand); color:white;">韡</div>
+    </div>
+  </div>
+</header>
+
+<main class="max-w-[1400px] mx-auto px-4 sm:px-6 py-5 space-y-5">
+
+  <!-- ============ KPI CARDS ============ -->
+  <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+    <!-- 總資產 -->
+    <div class="panel rounded-lg p-4 relative overflow-hidden">
+      <div class="flex items-center justify-between mb-1">
+        <span class="text-xs font-zh text-slate-400">總資產淨值</span>
+        <span class="chip px-1.5 py-0.5 rounded panel-soft text-slate-400">TWD</span>
+      </div>
+      <div class="mono-num text-2xl sm:text-3xl font-semibold count-up" id="kpiTotal">8,426,350</div>
+      <div class="flex items-center gap-1 mt-1 up text-sm">
+        <span>▲</span><span class="mono-num">42,180</span><span class="mono-num">(+0.50%)</span>
+        <span class="text-slate-500 font-zh text-xs ml-1">今日</span>
+      </div>
+      <svg viewBox="0 0 220 56" class="w-full h-14 mt-3" preserveAspectRatio="none">
+        <polyline points="0,40 25,36 50,38 75,30 100,32 125,22 150,26 175,14 200,18 220,8"
+          fill="none" stroke="#10b981" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+        <polygon points="0,40 25,36 50,38 75,30 100,32 125,22 150,26 175,14 200,18 220,8 220,56 0,56"
+          fill="url(#gradUp1)" opacity="0.18"/>
+        <defs>
+          <linearGradient id="gradUp1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#10b981"/>
+            <stop offset="100%" stop-color="#10b981" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    <!-- 今日損益 -->
+    <div class="panel rounded-lg p-4 relative overflow-hidden">
+      <div class="flex items-center justify-between mb-1">
+        <span class="text-xs font-zh text-slate-400">今日損益</span>
+        <span class="chip px-1.5 py-0.5 rounded panel-soft text-slate-400">REALTIME</span>
+      </div>
+      <div class="mono-num text-2xl sm:text-3xl font-semibold up count-up" id="kpiDaily">+42,180</div>
+      <div class="flex items-center gap-1 mt-1 up text-sm">
+        <span>▲</span><span class="mono-num">0.50%</span>
+        <span class="text-slate-500 font-zh text-xs ml-1">較昨日收盤</span>
+      </div>
+      <svg viewBox="0 0 220 56" class="w-full h-14 mt-3" preserveAspectRatio="none">
+        <polyline points="0,30 25,34 50,28 75,33 100,24 125,27 150,18 175,22 200,12 220,16"
+          fill="none" stroke="#10b981" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+        <polygon points="0,30 25,34 50,28 75,33 100,24 125,27 150,18 175,22 200,12 220,16 220,56 0,56"
+          fill="url(#gradUp2)" opacity="0.18"/>
+        <defs>
+          <linearGradient id="gradUp2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#10b981"/>
+            <stop offset="100%" stop-color="#10b981" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    <!-- 總報酬率 -->
+    <div class="panel rounded-lg p-4 relative overflow-hidden">
+      <div class="flex items-center justify-between mb-1">
+        <span class="text-xs font-zh text-slate-400">總報酬率（累積）</span>
+        <span class="chip px-1.5 py-0.5 rounded panel-soft text-slate-400">成本法</span>
+      </div>
+      <div class="mono-num text-2xl sm:text-3xl font-semibold up count-up" id="kpiReturn">+18.62%</div>
+      <div class="flex items-center gap-1 mt-1 text-sm text-slate-400">
+        <span class="mono-num">成本 7,101,420</span>
+        <span class="font-zh text-xs">／報酬 1,324,930</span>
+      </div>
+      <svg viewBox="0 0 220 56" class="w-full h-14 mt-3" preserveAspectRatio="none">
+        <polyline points="0,46 25,44 50,40 75,41 100,34 125,30 150,33 175,24 200,20 220,15"
+          fill="none" stroke="#3b82f6" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+        <polygon points="0,46 25,44 50,40 75,41 100,34 125,30 150,33 175,24 200,20 220,15 220,56 0,56"
+          fill="url(#gradBrand)" opacity="0.18"/>
+        <defs>
+          <linearGradient id="gradBrand" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#3b82f6"/>
+            <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ============ MAIN GRID: holdings + allocation ============ -->
+  <section class="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-4">
+
+    <!-- 持股列表 -->
+    <div class="panel rounded-lg overflow-hidden">
+      <div class="flex items-center justify-between px-4 py-3 border-b" style="border-color: var(--border);">
+        <h2 class="font-zh font-semibold text-sm sm:text-base">持股明細</h2>
+        <span class="text-xs text-slate-400 font-zh">共 6 檔標的</span>
+      </div>
+      <div class="overflow-x-auto scroll-x">
+        <table class="w-full text-sm min-w-[720px]">
+          <thead>
+            <tr class="text-slate-400 text-xs font-zh border-b" style="border-color: var(--border);">
+              <th class="text-left px-4 py-2 font-medium">代號 / 名稱</th>
+              <th class="text-right px-3 py-2 font-medium">持有股數</th>
+              <th class="text-right px-3 py-2 font-medium">現價</th>
+              <th class="text-right px-3 py-2 font-medium">漲跌幅</th>
+              <th class="text-right px-4 py-2 font-medium">市值 (TWD)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row-hover border-b" style="border-color: #3c4b61;">
+              <td class="px-4 py-2.5">
+                <div class="font-semibold mono-num">2330</div>
+                <div class="text-xs text-slate-400 font-zh">台積電</div>
+              </td>
+              <td class="table-num px-3 py-2.5 mono-num">500</td>
+              <td class="table-num px-3 py-2.5 mono-num">1,205.00</td>
+              <td class="table-num px-3 py-2.5 mono-num up">▲ 1.68%</td>
+              <td class="table-num px-4 py-2.5 mono-num font-medium">602,500</td>
+            </tr>
+            <tr class="row-hover border-b" style="border-color: #3c4b61;">
+              <td class="px-4 py-2.5">
+                <div class="font-semibold mono-num">0050</div>
+                <div class="text-xs text-slate-400 font-zh">元大台灣50</div>
+              </td>
+              <td class="table-num px-3 py-2.5 mono-num">3,000</td>
+              <td class="table-num px-3 py-2.5 mono-num">182.35</td>
+              <td class="table-num px-3 py-2.5 mono-num down">▼ 0.33%</td>
+              <td class="table-num px-4 py-2.5 mono-num font-medium">547,050</td>
+            </tr>
+            <tr class="row-hover border-b" style="border-color: #3c4b61;">
+              <td class="px-4 py-2.5">
+                <div class="font-semibold mono-num">00878</div>
+                <div class="text-xs text-slate-400 font-zh">國泰永續高股息</div>
+              </td>
+              <td class="table-num px-3 py-2.5 mono-num">5,000</td>
+              <td class="table-num px-3 py-2.5 mono-num">21.08</td>
+              <td class="table-num px-3 py-2.5 mono-num up">▲ 0.24%</td>
+              <td class="table-num px-4 py-2.5 mono-num font-medium">105,400</td>
+            </tr>
+            <tr class="row-hover border-b" style="border-color: #3c4b61;">
+              <td class="px-4 py-2.5">
+                <div class="font-semibold mono-num">AAPL</div>
+                <div class="text-xs text-slate-400 font-zh">Apple Inc.</div>
+              </td>
+              <td class="table-num px-3 py-2.5 mono-num">80</td>
+              <td class="table-num px-3 py-2.5 mono-num">258.42</td>
+              <td class="table-num px-3 py-2.5 mono-num up">▲ 1.12%</td>
+              <td class="table-num px-4 py-2.5 mono-num font-medium">651,218</td>
+            </tr>
+            <tr class="row-hover border-b" style="border-color: #3c4b61;">
+              <td class="px-4 py-2.5">
+                <div class="font-semibold mono-num">NVDA</div>
+                <div class="text-xs text-slate-400 font-zh">NVIDIA Corp.</div>
+              </td>
+              <td class="table-num px-3 py-2.5 mono-num">40</td>
+              <td class="table-num px-3 py-2.5 mono-num">187.65</td>
+              <td class="table-num px-3 py-2.5 mono-num down">▼ 2.35%</td>
+              <td class="table-num px-4 py-2.5 mono-num font-medium">236,439</td>
+            </tr>
+            <tr class="row-hover">
+              <td class="px-4 py-2.5">
+                <div class="font-semibold mono-num">VOO</div>
+                <div class="text-xs text-slate-400 font-zh">Vanguard S&amp;P 500 ETF</div>
+              </td>
+              <td class="table-num px-3 py-2.5 mono-num">25</td>
+              <td class="table-num px-3 py-2.5 mono-num">612.30</td>
+              <td class="table-num px-3 py-2.5 mono-num up">▲ 0.58%</td>
+              <td class="table-num px-4 py-2.5 mono-num font-medium">482,186</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr class="border-t text-xs" style="border-color: var(--border);">
+              <td class="px-4 py-2.5 font-zh text-slate-400" colspan="4">持股市值合計</td>
+              <td class="table-num px-4 py-2.5 mono-num font-semibold brand">2,624,793</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <!-- 資產配置 -->
+    <div class="panel rounded-lg p-4 flex flex-col">
+      <h2 class="font-zh font-semibold text-sm sm:text-base mb-3">資產配置</h2>
+      <div class="flex items-center justify-center py-2">
+        <div class="relative w-36 h-36 rounded-full donut-ring flex items-center justify-center">
+          <div class="absolute w-24 h-24 rounded-full flex flex-col items-center justify-center" style="background: var(--panel);">
+            <span class="mono-num text-lg font-semibold">8.43M</span>
+            <span class="text-[10px] text-slate-400 font-zh">總淨值 (TWD)</span>
+          </div>
+        </div>
+      </div>
+      <ul class="space-y-2 mt-2 text-sm">
+        <li class="flex items-center justify-between">
+          <span class="flex items-center gap-2 font-zh text-slate-300"><i class="inline-block w-2.5 h-2.5 rounded-sm" style="background: var(--brand);"></i>股票</span>
+          <span class="mono-num">62%</span>
+        </li>
+        <li class="flex items-center justify-between">
+          <span class="flex items-center gap-2 font-zh text-slate-300"><i class="inline-block w-2.5 h-2.5 rounded-sm" style="background:#a78bfa;"></i>ETF</span>
+          <span class="mono-num">24%</span>
+        </li>
+        <li class="flex items-center justify-between">
+          <span class="flex items-center gap-2 font-zh text-slate-300"><i class="inline-block w-2.5 h-2.5 rounded-sm" style="background:#fbbf24;"></i>現金</span>
+          <span class="mono-num">10%</span>
+        </li>
+        <li class="flex items-center justify-between">
+          <span class="flex items-center gap-2 font-zh text-slate-300"><i class="inline-block w-2.5 h-2.5 rounded-sm" style="background:#64748b;"></i>債券</span>
+          <span class="mono-num">4%</span>
+        </li>
+      </ul>
+
+      <div class="mt-4 pt-3 border-t" style="border-color: var(--border);">
+        <div class="flex items-center justify-between text-xs text-slate-400 font-zh mb-2">
+          <span>幣別分布</span>
+        </div>
+        <div class="space-y-1.5">
+          <div>
+            <div class="flex justify-between text-xs mb-1"><span class="font-zh text-slate-300">新台幣</span><span class="mono-num">58%</span></div>
+            <div class="h-1.5 rounded-full panel-soft overflow-hidden"><div class="h-full rounded-full" style="width:58%; background: var(--brand);"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1"><span class="font-zh text-slate-300">美元</span><span class="mono-num">42%</span></div>
+            <div class="h-1.5 rounded-full panel-soft overflow-hidden"><div class="h-full rounded-full" style="width:42%; background:#a78bfa;"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 近期交易紀錄 ============ -->
+  <section class="panel rounded-lg overflow-hidden">
+    <div class="flex items-center justify-between px-4 py-3 border-b" style="border-color: var(--border);">
+      <h2 class="font-zh font-semibold text-sm sm:text-base">近期交易紀錄</h2>
+      <button class="text-xs text-slate-400 hover:text-slate-200 font-zh">查看全部 →</button>
+    </div>
+    <div class="overflow-x-auto scroll-x">
+      <table class="w-full text-sm min-w-[640px]">
+        <thead>
+          <tr class="text-slate-400 text-xs font-zh border-b" style="border-color: var(--border);">
+            <th class="text-left px-4 py-2 font-medium">日期</th>
+            <th class="text-left px-3 py-2 font-medium">類型</th>
+            <th class="text-left px-3 py-2 font-medium">標的</th>
+            <th class="text-right px-3 py-2 font-medium">股數</th>
+            <th class="text-right px-3 py-2 font-medium">成交價</th>
+            <th class="text-right px-4 py-2 font-medium">金額 (TWD)</th>
+          </tr>
+        </thead>
+        <tbody class="text-sm">
+          <tr class="row-hover border-b" style="border-color: #3c4b61;">
+            <td class="px-4 py-2.5 mono-num text-slate-300">2026/09/30</td>
+            <td class="px-3 py-2.5"><span class="chip px-2 py-0.5 rounded up" style="background: rgba(16,185,129,0.12);">買進</span></td>
+            <td class="px-3 py-2.5 font-zh">2330 台積電</td>
+            <td class="table-num px-3 py-2.5 mono-num">100</td>
+            <td class="table-num px-3 py-2.5 mono-num">1,198.00</td>
+            <td class="table-num px-4 py-2.5 mono-num">119,800</td>
+          </tr>
+          <tr class="row-hover border-b" style="border-color: #3c4b61;">
+            <td class="px-4 py-2.5 mono-num text-slate-300">2026/09/28</td>
+            <td class="px-3 py-2.5"><span class="chip px-2 py-0.5 rounded down" style="background: rgba(239,68,68,0.12);">賣出</span></td>
+            <td class="px-3 py-2.5 font-zh">NVDA</td>
+            <td class="table-num px-3 py-2.5 mono-num">10</td>
+            <td class="table-num px-3 py-2.5 mono-num">192.30</td>
+            <td class="table-num px-4 py-2.5 mono-num">60,632</td>
+          </tr>
+          <tr class="row-hover border-b" style="border-color: #3c4b61;">
+            <td class="px-4 py-2.5 mono-num text-slate-300">2026/09/25</td>
+            <td class="px-3 py-2.5"><span class="chip px-2 py-0.5 rounded up" style="background: rgba(16,185,129,0.12);">買進</span></td>
+            <td class="px-3 py-2.5 font-zh">0050 元大台灣50</td>
+            <td class="table-num px-3 py-2.5 mono-num">500</td>
+            <td class="table-num px-3 py-2.5 mono-num">180.20</td>
+            <td class="table-num px-4 py-2.5 mono-num">90,100</td>
+          </tr>
+          <tr class="row-hover border-b" style="border-color: #3c4b61;">
+            <td class="px-4 py-2.5 mono-num text-slate-300">2026/09/20</td>
+            <td class="px-3 py-2.5"><span class="chip px-2 py-0.5 rounded up" style="background: rgba(16,185,129,0.12);">買進</span></td>
+            <td class="px-3 py-2.5 font-zh">00878 國泰永續高股息</td>
+            <td class="table-num px-3 py-2.5 mono-num">1,000</td>
+            <td class="table-num px-3 py-2.5 mono-num">20.85</td>
+            <td class="table-num px-4 py-2.5 mono-num">20,850</td>
+          </tr>
+          <tr class="row-hover">
+            <td class="px-4 py-2.5 mono-num text-slate-300">2026/09/15</td>
+            <td class="px-3 py-2.5"><span class="chip px-2 py-0.5 rounded brand" style="background: rgba(59,130,246,0.14);">配息</span></td>
+            <td class="px-3 py-2.5 font-zh">0050 股息入帳</td>
+            <td class="table-num px-3 py-2.5 mono-num">—</td>
+            <td class="table-num px-3 py-2.5 mono-num">—</td>
+            <td class="table-num px-4 py-2.5 mono-num up">+3,250</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer class="text-center text-xs text-slate-500 font-zh py-4">
+    資料僅供介面示範之用，非真實交易資訊 ・ 韡寧的每日 UI/UX 提案 #36 Financial Dashboard
+  </footer>
+</main>
+
+<script>
+  (function(){
+    // account switcher dropdown
+    var acctBtn = document.getElementById('acctBtn');
+    var acctMenu = document.getElementById('acctMenu');
+    var acctLabel = document.getElementById('acctLabel');
+    if(acctBtn && acctMenu){
+      acctBtn.addEventListener('click', function(e){
+        e.stopPropagation();
+        acctMenu.classList.toggle('hidden');
+      });
+      document.querySelectorAll('.acct-opt').forEach(function(opt){
+        opt.addEventListener('click', function(){
+          acctLabel.textContent = opt.getAttribute('data-v');
+          acctMenu.classList.add('hidden');
+        });
+      });
+      document.addEventListener('click', function(){ acctMenu.classList.add('hidden'); });
+    }
+
+    // date range filter
+    var filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        filterBtns.forEach(function(b){ b.classList.remove('active'); });
+        btn.classList.add('active');
+      });
+    });
+
+    // simple count-up animation for KPI numbers
+    function animateCount(el, target, isCurrency, suffix){
+      suffix = suffix || '';
+      var isNeg = target < 0;
+      var start = 0;
+      var duration = 700;
+      var startTime = null;
+      function step(ts){
+        if(!startTime) startTime = ts;
+        var progress = Math.min((ts - startTime) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        var val = start + (target - start) * eased;
+        var formatted = Math.abs(val).toLocaleString('zh-TW', {maximumFractionDigits: isCurrency ? 0 : 2, minimumFractionDigits: isCurrency ? 0 : 2});
+        var prefix = (target > 0 && !isCurrency) ? '+' : (target > 0 && el.dataset.plus ? '+' : '');
+        el.textContent = prefix + formatted + suffix;
+        if(progress < 1){ requestAnimationFrame(step); }
+      }
+      requestAnimationFrame(step);
+    }
+
+    try{
+      var kpiTotal = document.getElementById('kpiTotal');
+      var kpiDaily = document.getElementById('kpiDaily');
+      var kpiReturn = document.getElementById('kpiReturn');
+      if(kpiTotal){ kpiTotal.dataset.plus=''; animateCount(kpiTotal, 8426350, true); }
+      if(kpiDaily){ kpiDaily.dataset.plus='1'; animateCount(kpiDaily, 42180, true); kpiDaily.textContent = '+' + (42180).toLocaleString('zh-TW'); }
+      if(kpiReturn){ kpiReturn.textContent = '+18.62%'; }
+    }catch(e){ /* animation is cosmetic only */ }
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,590 @@
+<!-- style #52 Pixel Art / Retro Gaming -->
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>任務日誌｜每日習慣養成 RPG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=DotGothic16&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --gb-lightest:#8bac0f;
+    --gb-light:#9bbc0f;
+    --gb-mid:#306230;
+    --gb-dark:#0f380f;
+    --gb-black:#071f07;
+    --accent-red:#e60012;
+    --accent-gold:#ffcc00;
+    --paper:#e8f6c8;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{
+    background:var(--gb-black);
+    color:var(--gb-light);
+    font-family:'DotGothic16', sans-serif;
+    image-rendering:pixelated;
+  }
+
+  .font-pixel-en{ font-family:'Press Start 2P', monospace; }
+  .font-pixel-zh{ font-family:'DotGothic16', sans-serif; }
+
+  /* remove all rounding, site-wide */
+  *{ border-radius:0 !important; }
+
+  body{
+    background-image:
+      linear-gradient(var(--gb-black) 0 100%);
+    background-color:var(--gb-black);
+    min-height:100vh;
+  }
+
+  /* scanline overlay for crt feel */
+  .crt-overlay{
+    pointer-events:none;
+    position:fixed; inset:0; z-index:50;
+    background:repeating-linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.12) 0px,
+      rgba(0,0,0,0.12) 1px,
+      transparent 2px,
+      transparent 3px
+    );
+    mix-blend-mode:multiply;
+    opacity:.35;
+  }
+
+  /* 8-bit pixel stepped border, layered box-shadow */
+  .pixel-border{
+    position:relative;
+    background:var(--gb-dark);
+    box-shadow:
+      0 0 0 4px var(--gb-black),
+      0 0 0 8px var(--gb-light),
+      4px 4px 0 8px rgba(0,0,0,.55);
+  }
+
+  .pixel-border-thin{
+    box-shadow:
+      0 0 0 3px var(--gb-black),
+      0 0 0 6px var(--gb-mid);
+  }
+
+  .pixel-card{
+    background:var(--gb-mid);
+    box-shadow:
+      0 0 0 3px var(--gb-black),
+      0 0 0 6px var(--gb-dark);
+    padding:14px;
+  }
+
+  .pixel-card-done{
+    background:#1f4a1f;
+    box-shadow:
+      0 0 0 3px var(--gb-black),
+      0 0 0 6px var(--gb-lightest);
+    opacity:.85;
+  }
+
+  /* pixel button with press feedback */
+  .pixel-btn{
+    font-family:'Press Start 2P', monospace;
+    background:var(--gb-lightest);
+    color:var(--gb-black);
+    border:none;
+    padding:10px 16px;
+    cursor:pointer;
+    box-shadow:
+      4px 4px 0 0 var(--gb-black),
+      0 0 0 3px var(--gb-dark);
+    transition:transform .05s steps(1), box-shadow .05s steps(1);
+    text-transform:uppercase;
+  }
+  .pixel-btn:hover{ background:var(--gb-light); }
+  .pixel-btn:active, .pixel-btn.pressed{
+    transform:translate(4px,4px);
+    box-shadow:
+      0 0 0 0 var(--gb-black),
+      0 0 0 3px var(--gb-dark);
+  }
+
+  .pixel-btn-red{
+    background:var(--accent-red);
+    color:#fff;
+    box-shadow:
+      4px 4px 0 0 var(--gb-black),
+      0 0 0 3px #7a0009;
+  }
+  .pixel-btn-red:active, .pixel-btn-red.pressed{
+    transform:translate(4px,4px);
+    box-shadow:
+      0 0 0 0 var(--gb-black),
+      0 0 0 3px #7a0009;
+  }
+
+  .pixel-check{
+    width:28px; height:28px;
+    background:var(--gb-black);
+    box-shadow:0 0 0 3px var(--gb-light);
+    flex-shrink:0;
+    cursor:pointer;
+    position:relative;
+  }
+  .pixel-check.checked{
+    background:var(--gb-lightest);
+  }
+  .pixel-check.checked::after{
+    content:"";
+    position:absolute; inset:6px;
+    background:var(--gb-black);
+    clip-path:polygon(0% 45%,30% 45%,30% 75%,100% 10%,100% 30%,35% 100%,0% 65%);
+  }
+
+  /* exp bar */
+  .exp-track{
+    background:var(--gb-black);
+    box-shadow:0 0 0 3px var(--gb-light);
+    height:22px;
+    width:100%;
+    position:relative;
+    overflow:hidden;
+  }
+  .exp-fill{
+    height:100%;
+    background:repeating-linear-gradient(
+      90deg,
+      var(--gb-lightest) 0 8px,
+      var(--gb-light) 8px 16px
+    );
+    transition:width 1.1s steps(20);
+  }
+
+  /* HP/streak style bar */
+  .mini-track{
+    background:var(--gb-black);
+    box-shadow:0 0 0 2px var(--gb-dark);
+    height:14px;
+    width:100%;
+  }
+  .mini-fill{
+    height:100%;
+    background:var(--accent-gold);
+  }
+
+  /* RPG dialog box */
+  .dialog-box{
+    background:var(--paper);
+    color:var(--gb-black);
+    border:4px solid var(--gb-black);
+    box-shadow:0 0 0 2px var(--paper), 0 0 0 6px var(--gb-black);
+    position:relative;
+    padding:16px 18px;
+    font-family:'DotGothic16', sans-serif;
+  }
+  .dialog-box::after{
+    content:"";
+    position:absolute;
+    left:28px; bottom:-18px;
+    width:0; height:0;
+    border-left:10px solid transparent;
+    border-right:10px solid transparent;
+    border-top:18px solid var(--gb-black);
+  }
+  .dialog-box::before{
+    content:"";
+    position:absolute;
+    left:31px; bottom:-11px;
+    width:0; height:0;
+    border-left:7px solid transparent;
+    border-right:7px solid transparent;
+    border-top:13px solid var(--paper);
+    z-index:1;
+  }
+
+  /* pixel heart icon */
+  .pixel-heart{
+    width:16px; height:14px;
+    position:relative;
+    display:inline-block;
+  }
+  .pixel-heart, .pixel-heart::before, .pixel-heart::after{
+    background:var(--accent-red);
+  }
+  .pixel-heart::before, .pixel-heart::after{
+    content:"";
+    position:absolute;
+    width:8px; height:8px;
+    top:-4px;
+  }
+  .pixel-heart::before{ left:0; }
+  .pixel-heart::after{ left:8px; }
+  .pixel-heart{ clip-path:polygon(0% 20%,100% 20%,100% 55%,50% 100%,0% 55%); }
+
+  /* pixel star icon */
+  .pixel-star{
+    width:18px; height:18px;
+    background:var(--accent-gold);
+    clip-path:polygon(
+      50% 0%, 65% 35%, 100% 35%, 72% 58%,
+      82% 95%, 50% 72%, 18% 95%, 28% 58%,
+      0% 35%, 35% 35%
+    );
+    display:inline-block;
+  }
+
+  /* pixel trophy icon */
+  .pixel-trophy{
+    width:22px; height:24px;
+    position:relative;
+    display:inline-block;
+  }
+  .pixel-trophy::before{
+    content:"";
+    position:absolute;
+    top:0; left:3px;
+    width:16px; height:12px;
+    background:var(--accent-gold);
+    box-shadow:0 0 0 2px var(--gb-black);
+  }
+  .pixel-trophy::after{
+    content:"";
+    position:absolute;
+    bottom:0; left:6px;
+    width:10px; height:10px;
+    background:var(--gb-mid);
+    box-shadow:0 0 0 2px var(--gb-black);
+  }
+
+  .badge-slot{
+    background:var(--gb-dark);
+    box-shadow:0 0 0 3px var(--gb-black), 0 0 0 5px var(--gb-mid);
+    padding:14px 8px;
+    text-align:center;
+  }
+  .badge-slot.locked{ opacity:.35; filter:grayscale(1); }
+
+  table.rank-table{
+    width:100%;
+    border-collapse:separate;
+    border-spacing:0;
+  }
+  table.rank-table th{
+    font-family:'Press Start 2P', monospace;
+    font-size:9px;
+    background:var(--gb-black);
+    color:var(--gb-lightest);
+    padding:8px 6px;
+    text-align:left;
+    box-shadow:0 0 0 2px var(--gb-dark);
+  }
+  table.rank-table td{
+    padding:8px 6px;
+    background:var(--gb-mid);
+    box-shadow:0 0 0 2px var(--gb-dark);
+    font-size:13px;
+  }
+  table.rank-table tr.me td{
+    background:var(--gb-lightest);
+    color:var(--gb-black);
+    font-weight:bold;
+  }
+
+  .section-title{
+    font-family:'Press Start 2P', monospace;
+    color:var(--gb-lightest);
+    font-size:13px;
+    letter-spacing:1px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .section-title::before{
+    content:"";
+    width:10px;height:10px;
+    background:var(--gb-lightest);
+    display:inline-block;
+  }
+
+  .scrollbar-pixel::-webkit-scrollbar{ width:12px; height:12px; }
+  .scrollbar-pixel::-webkit-scrollbar-track{ background:var(--gb-black); }
+  .scrollbar-pixel::-webkit-scrollbar-thumb{ background:var(--gb-light); box-shadow:inset 0 0 0 2px var(--gb-black); }
+
+  @media (max-width:640px){
+    .section-title{ font-size:11px; }
+  }
+</style>
+</head>
+<body class="px-4 py-6 md:px-8 md:py-10">
+<div class="crt-overlay"></div>
+
+<div class="max-w-6xl mx-auto space-y-8">
+
+  <!-- 頂部標題 -->
+  <header class="text-center space-y-2">
+    <h1 class="font-pixel-en text-[14px] md:text-[20px] text-[var(--gb-lightest)] leading-relaxed">QUEST LOG</h1>
+    <p class="font-pixel-zh text-sm md:text-base text-[var(--gb-light)]">把日常習慣打成一場大型冒險</p>
+  </header>
+
+  <!-- 角色狀態列 -->
+  <section class="pixel-border p-4 md:p-6">
+    <div class="flex flex-col md:flex-row md:items-center gap-5">
+      <!-- 像素頭像 -->
+      <div class="flex items-center gap-4 shrink-0">
+        <div class="w-16 h-16 md:w-20 md:h-20 bg-[var(--gb-lightest)]" style="box-shadow:0 0 0 3px var(--gb-black),0 0 0 6px var(--gb-light); display:flex;align-items:center;justify-content:center;font-size:30px;">🧙</div>
+        <div>
+          <p class="font-pixel-en text-[10px] text-[var(--gb-lightest)]">LV.14</p>
+          <p class="font-pixel-zh text-sm text-[var(--gb-light)] mt-1">習慣勇者．韡寧</p>
+        </div>
+      </div>
+
+      <!-- 經驗值條 -->
+      <div class="flex-1 w-full">
+        <div class="flex justify-between items-center mb-1">
+          <span class="font-pixel-en text-[9px] text-[var(--gb-light)]">EXP</span>
+          <span class="font-pixel-zh text-xs text-[var(--gb-light)]">距離升級還差 120 點</span>
+        </div>
+        <div class="exp-track">
+          <div class="exp-fill" id="expFill" style="width:0%"></div>
+        </div>
+      </div>
+
+      <!-- 金幣/點數 -->
+      <div class="flex gap-4 md:gap-6 shrink-0">
+        <div class="text-center">
+          <p class="font-pixel-en text-[14px] text-[var(--accent-gold)]">★ 1,280</p>
+          <p class="font-pixel-zh text-[11px] text-[var(--gb-light)] mt-1">金幣</p>
+        </div>
+        <div class="text-center">
+          <span class="pixel-heart inline-block"></span>
+          <span class="pixel-heart inline-block"></span>
+          <span class="pixel-heart inline-block"></span>
+          <p class="font-pixel-zh text-[11px] text-[var(--gb-light)] mt-1">體力值</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RPG 對話框：今日提示 -->
+  <div class="dialog-box max-w-3xl mx-auto mb-6">
+    <p class="font-pixel-zh text-sm leading-relaxed">
+      勇者，今天的「賴床史萊姆」在床邊徘徊，牠的弱點是鬧鐘再響第二次！先去完成今日任務，擊退牠吧！
+    </p>
+  </div>
+
+  <!-- 今日任務 + 連續天數 -->
+  <div class="grid md:grid-cols-3 gap-6">
+
+    <!-- 今日任務清單 -->
+    <section class="md:col-span-2 space-y-4">
+      <h2 class="section-title">今日任務</h2>
+
+      <div class="pixel-card-done flex items-center gap-4">
+        <div class="pixel-check checked" data-task></div>
+        <div class="flex-1">
+          <p class="font-pixel-zh text-sm line-through decoration-2">擊敗：賴床史萊姆</p>
+          <p class="font-pixel-zh text-[11px] text-[var(--gb-light)] mt-1">7:30 前起床．已討伐 ✓</p>
+        </div>
+        <span class="font-pixel-en text-[10px] text-[var(--accent-gold)]">+20 EXP</span>
+      </div>
+
+      <div class="pixel-card flex items-center gap-4">
+        <div class="pixel-check" data-task></div>
+        <div class="flex-1">
+          <p class="font-pixel-zh text-sm">完成：閱讀 30 分鐘</p>
+          <p class="font-pixel-zh text-[11px] text-[var(--gb-light)] mt-1">擊退「拖延哥布林」的剋星</p>
+        </div>
+        <span class="font-pixel-en text-[10px] text-[var(--accent-gold)]">+15 EXP</span>
+      </div>
+
+      <div class="pixel-card flex items-center gap-4">
+        <div class="pixel-check" data-task></div>
+        <div class="flex-1">
+          <p class="font-pixel-zh text-sm">討伐：垃圾食物魔王</p>
+          <p class="font-pixel-zh text-[11px] text-[var(--gb-light)] mt-1">今天三餐都吃原型食物</p>
+        </div>
+        <span class="font-pixel-en text-[10px] text-[var(--accent-gold)]">+25 EXP</span>
+      </div>
+
+      <div class="pixel-card-done flex items-center gap-4">
+        <div class="pixel-check checked" data-task></div>
+        <div class="flex-1">
+          <p class="font-pixel-zh text-sm line-through decoration-2">補充水分：喝滿 2000ml</p>
+          <p class="font-pixel-zh text-[11px] text-[var(--gb-light)] mt-1">驅散「乾渴沙漠精靈」✓</p>
+        </div>
+        <span class="font-pixel-en text-[10px] text-[var(--accent-gold)]">+10 EXP</span>
+      </div>
+
+      <div class="pixel-card flex items-center gap-4">
+        <div class="pixel-check" data-task></div>
+        <div class="flex-1">
+          <p class="font-pixel-zh text-sm">修練：伸展運動 10 分鐘</p>
+          <p class="font-pixel-zh text-[11px] text-[var(--gb-light)] mt-1">強化防禦，抵抗「久坐詛咒」</p>
+        </div>
+        <span class="font-pixel-en text-[10px] text-[var(--accent-gold)]">+15 EXP</span>
+      </div>
+    </section>
+
+    <!-- 連續天數徽章 -->
+    <section class="space-y-4">
+      <h2 class="section-title">連續天數</h2>
+      <div class="pixel-border-thin bg-[var(--gb-dark)] p-5 text-center space-y-3">
+        <p class="font-pixel-en text-[26px] text-[var(--accent-gold)]">🔥 23</p>
+        <p class="font-pixel-zh text-xs text-[var(--gb-light)]">天連續達成．再 7 天解鎖「不滅之炎」稱號</p>
+        <div class="mini-track">
+          <div class="mini-fill" style="width:77%"></div>
+        </div>
+        <p class="font-pixel-en text-[8px] text-[var(--gb-light)]">23 / 30 DAYS</p>
+      </div>
+
+      <div class="pixel-border-thin bg-[var(--gb-dark)] p-4 text-center">
+        <p class="pixel-trophy mx-auto mb-2"></p>
+        <p class="font-pixel-zh text-xs text-[var(--gb-light)]">本週已完成 18 個任務</p>
+        <p class="font-pixel-zh text-[11px] text-[var(--gb-light)] mt-1">超越全站 82% 的冒險者</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- 成就/徽章牆 -->
+  <section class="space-y-4">
+    <h2 class="section-title">成就徽章牆</h2>
+    <div class="grid grid-cols-3 md:grid-cols-6 gap-3 md:gap-4">
+      <div class="badge-slot">
+        <p class="pixel-star mx-auto mb-2"></p>
+        <p class="font-pixel-zh text-[11px] text-[var(--gb-light)]">早起達人</p>
+      </div>
+      <div class="badge-slot">
+        <p class="pixel-trophy mx-auto mb-2"></p>
+        <p class="font-pixel-zh text-[11px] text-[var(--gb-light)]">連續 7 天</p>
+      </div>
+      <div class="badge-slot">
+        <p class="pixel-heart mx-auto mb-2" style="transform:scale(1.4)"></p>
+        <p class="font-pixel-zh text-[11px] text-[var(--gb-light)]">健康鬥士</p>
+      </div>
+      <div class="badge-slot">
+        <p class="pixel-star mx-auto mb-2" style="filter:hue-rotate(60deg)"></p>
+        <p class="font-pixel-zh text-[11px] text-[var(--gb-light)]">讀書之魂</p>
+      </div>
+      <div class="badge-slot locked">
+        <p class="pixel-trophy mx-auto mb-2"></p>
+        <p class="font-pixel-zh text-[11px] text-[var(--gb-light)]">滿級勇者</p>
+      </div>
+      <div class="badge-slot locked">
+        <p class="pixel-star mx-auto mb-2"></p>
+        <p class="font-pixel-zh text-[11px] text-[var(--gb-light)]">30 天傳說</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 排行榜 -->
+  <section class="space-y-4">
+    <h2 class="section-title">好友排行榜</h2>
+    <div class="pixel-border-thin bg-[var(--gb-dark)] p-3 overflow-x-auto scrollbar-pixel">
+      <table class="rank-table min-w-[480px]">
+        <thead>
+          <tr>
+            <th>名次</th>
+            <th>玩家</th>
+            <th>等級</th>
+            <th>連續天數</th>
+            <th>本週經驗</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>🥇 1</td>
+            <td>小夜貓熬夜王</td>
+            <td>LV.19</td>
+            <td>31 天</td>
+            <td>880</td>
+          </tr>
+          <tr>
+            <td>🥈 2</td>
+            <td>早安貓貓</td>
+            <td>LV.17</td>
+            <td>28 天</td>
+            <td>760</td>
+          </tr>
+          <tr class="me">
+            <td>🥉 3</td>
+            <td>習慣勇者．韡寧（你）</td>
+            <td>LV.14</td>
+            <td>23 天</td>
+            <td>615</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>水瓶補給兵</td>
+            <td>LV.12</td>
+            <td>19 天</td>
+            <td>540</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>閱讀史萊姆剋星</td>
+            <td>LV.11</td>
+            <td>15 天</td>
+            <td>480</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 底部 CTA -->
+  <section class="pixel-border p-6 md:p-10 text-center space-y-5">
+    <p class="font-pixel-en text-[12px] md:text-[16px] text-[var(--gb-lightest)] leading-relaxed">LEVEL UP YOUR LIFE</p>
+    <p class="font-pixel-zh text-sm text-[var(--gb-light)]">別讓今天的任務過期，怪物不會自己打倒自己！</p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center pt-2">
+      <button class="pixel-btn font-pixel-en text-[11px]" id="ctaStart">開始今日任務</button>
+      <button class="pixel-btn pixel-btn-red font-pixel-en text-[11px]" id="ctaDownload">下載 APP</button>
+    </div>
+  </section>
+
+  <footer class="text-center pt-4 pb-8">
+    <p class="font-pixel-zh text-[11px] text-[var(--gb-mid)]">韡寧的每日 UI/UX 提案 ．第 52 式：Pixel Art / Retro Gaming</p>
+  </footer>
+
+</div>
+
+<script>
+  // 任務勾選切換
+  document.querySelectorAll('[data-task]').forEach(function(box){
+    box.addEventListener('click', function(){
+      box.classList.toggle('checked');
+      var card = box.closest('.pixel-card, .pixel-card-done');
+      if(card){
+        card.classList.toggle('pixel-card');
+        card.classList.toggle('pixel-card-done');
+        var label = card.querySelector('p.font-pixel-zh.text-sm');
+        if(label){ label.classList.toggle('line-through'); label.classList.toggle('decoration-2'); }
+      }
+    });
+  });
+
+  // 經驗條動畫
+  window.addEventListener('DOMContentLoaded', function(){
+    var fill = document.getElementById('expFill');
+    requestAnimationFrame(function(){
+      setTimeout(function(){ fill.style.width = '64%'; }, 150);
+    });
+  });
+
+  // 按鈕按下回饋（觸控裝置也能看到位移）
+  ['ctaStart','ctaDownload'].forEach(function(id){
+    var btn = document.getElementById(id);
+    btn.addEventListener('mousedown', function(){ btn.classList.add('pressed'); });
+    btn.addEventListener('mouseup', function(){ btn.classList.remove('pressed'); });
+    btn.addEventListener('mouseleave', function(){ btn.classList.remove('pressed'); });
+    btn.addEventListener('click', function(){
+      btn.classList.add('pressed');
+      setTimeout(function(){ btn.classList.remove('pressed'); }, 120);
+    });
+  });
+</script>
+
+</body>
+</html>

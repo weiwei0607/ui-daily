@@ -1,0 +1,586 @@
+<!-- style #41 Cyberpunk -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>夜城直播 NightCity Live｜次世代電競串流平台</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --magenta: #ff006e;
+    --cyan: #00ffff;
+    --bg-deep: #0d0d1a;
+    --bg-navy: #1a1a2e;
+    --bg-navy2: #16213e;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    background: var(--bg-deep);
+    color: #e8e8ff;
+    font-family: 'Noto Sans TC', sans-serif;
+    overflow-x: hidden;
+  }
+
+  .font-display { font-family: 'Orbitron', sans-serif; }
+  .font-mono { font-family: 'Share Tech Mono', monospace; }
+  .font-tc { font-family: 'Noto Sans TC', sans-serif; }
+
+  /* ---------- 霓虹文字發光 ---------- */
+  .neon-cyan {
+    color: #eafffe;
+    text-shadow:
+      0 0 4px #fff,
+      0 0 10px var(--cyan),
+      0 0 20px var(--cyan),
+      0 0 40px var(--cyan),
+      0 0 80px rgba(0,255,255,0.4);
+  }
+  .neon-magenta {
+    color: #fff0f8;
+    text-shadow:
+      0 0 4px #fff,
+      0 0 10px var(--magenta),
+      0 0 20px var(--magenta),
+      0 0 40px var(--magenta),
+      0 0 80px rgba(255,0,110,0.4);
+  }
+  .neon-mix {
+    color: #fff;
+    text-shadow:
+      0 0 6px #fff,
+      0 0 14px var(--cyan),
+      0 0 28px var(--magenta),
+      0 0 54px var(--magenta);
+  }
+
+  /* ---------- 掃描線 CRT 效果 ---------- */
+  .scanlines {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 60;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.035) 0px,
+      rgba(255,255,255,0.035) 1px,
+      transparent 2px,
+      transparent 4px
+    );
+    mix-blend-mode: overlay;
+  }
+  .scan-sweep {
+    position: fixed;
+    left: 0; right: 0;
+    height: 140px;
+    background: linear-gradient(to bottom, transparent, rgba(0,255,255,0.06), transparent);
+    animation: sweep 7s linear infinite;
+    pointer-events: none;
+    z-index: 61;
+  }
+  @keyframes sweep {
+    0% { top: -140px; }
+    100% { top: 100vh; }
+  }
+
+  /* ---------- Glitch 故障動畫 ---------- */
+  .glitch {
+    position: relative;
+    display: inline-block;
+  }
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    overflow: hidden;
+    background: transparent;
+  }
+  .glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 var(--magenta);
+    clip-path: inset(0 0 0 0);
+    animation: glitch-top 3.2s infinite linear alternate-reverse;
+  }
+  .glitch::after {
+    left: -2px;
+    text-shadow: -2px 0 var(--cyan), 2px 2px var(--magenta);
+    clip-path: inset(0 0 0 0);
+    animation: glitch-bottom 2.4s infinite linear alternate-reverse;
+  }
+  @keyframes glitch-top {
+    0%, 92%, 100% { clip-path: inset(0 0 95% 0); transform: translate(0); }
+    93% { clip-path: inset(10% 0 60% 0); transform: translate(-3px, -1px); }
+    95% { clip-path: inset(70% 0 5% 0); transform: translate(3px, 1px); }
+    97% { clip-path: inset(40% 0 40% 0); transform: translate(-2px, 0); }
+  }
+  @keyframes glitch-bottom {
+    0%, 90%, 100% { clip-path: inset(95% 0 0 0); transform: translate(0); }
+    91% { clip-path: inset(50% 0 20% 0); transform: translate(3px, 1px); }
+    94% { clip-path: inset(5% 0 80% 0); transform: translate(-3px, -1px); }
+    98% { clip-path: inset(30% 0 50% 0); transform: translate(2px, 0); }
+  }
+  .glitch-line {
+    position: relative;
+    overflow: hidden;
+  }
+  .glitch-line::after {
+    content: "";
+    position: absolute;
+    left: 0; top: 0;
+    width: 100%; height: 2px;
+    background: var(--cyan);
+    box-shadow: 0 0 8px var(--cyan), 0 0 14px var(--cyan);
+    animation: line-glitch 4.5s infinite steps(1);
+    opacity: 0;
+  }
+  @keyframes line-glitch {
+    0%, 85%, 100% { opacity: 0; top: 0; }
+    86% { opacity: 1; top: 20%; }
+    88% { opacity: 0; }
+    90% { opacity: 1; top: 70%; }
+    92% { opacity: 0; }
+  }
+
+  /* ---------- 網格地平線背景 ---------- */
+  .grid-horizon {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at 50% 18%, rgba(255,0,110,0.22), transparent 55%),
+      radial-gradient(ellipse at 50% 100%, rgba(0,255,255,0.18), transparent 60%),
+      linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-navy) 45%, var(--bg-navy2) 100%);
+  }
+  .grid-horizon::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -10%;
+    width: 220%;
+    height: 70%;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(0,255,255,0.55) 0, rgba(0,255,255,0.55) 1px, transparent 1px, transparent 60px),
+      repeating-linear-gradient(0deg, rgba(255,0,110,0.35) 0, rgba(255,0,110,0.35) 1px, transparent 1px, transparent 40px);
+    transform: translateX(-50%) perspective(280px) rotateX(62deg);
+    mask-image: linear-gradient(to top, rgba(0,0,0,0.9), transparent 85%);
+    -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.9), transparent 85%);
+    animation: grid-move 6s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes grid-move {
+    0% { background-position: 0 0, 0 0; }
+    100% { background-position: 0 40px, 0 0; }
+  }
+  .sun-glow {
+    position: absolute;
+    left: 50%;
+    top: 8%;
+    transform: translateX(-50%);
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,0,110,0.65), rgba(0,255,255,0.25) 55%, transparent 75%);
+    filter: blur(6px);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  /* ---------- 霓虹邊框卡片 / 按鈕 ---------- */
+  .neon-card {
+    background: linear-gradient(180deg, rgba(22,33,62,0.75), rgba(13,13,26,0.9));
+    border: 1px solid rgba(0,255,255,0.35);
+    box-shadow:
+      0 0 0 1px rgba(255,0,110,0.08) inset,
+      0 0 18px rgba(0,255,255,0.12),
+      inset 0 0 24px rgba(0,255,255,0.05);
+    backdrop-filter: blur(2px);
+    transition: all .3s ease;
+  }
+  .neon-card:hover {
+    border-color: rgba(255,0,110,0.6);
+    box-shadow:
+      0 0 24px rgba(255,0,110,0.35),
+      0 0 50px rgba(0,255,255,0.15),
+      inset 0 0 30px rgba(255,0,110,0.08);
+    transform: translateY(-4px);
+  }
+
+  .btn-neon {
+    position: relative;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 0.05em;
+    border: 1px solid var(--cyan);
+    color: #eafffe;
+    background: rgba(0,255,255,0.06);
+    box-shadow: 0 0 10px rgba(0,255,255,0.5), inset 0 0 10px rgba(0,255,255,0.15);
+    transition: all .25s ease;
+  }
+  .btn-neon:hover {
+    background: rgba(0,255,255,0.18);
+    box-shadow: 0 0 22px rgba(0,255,255,0.9), 0 0 50px rgba(0,255,255,0.4), inset 0 0 16px rgba(0,255,255,0.3);
+    transform: translateY(-2px);
+  }
+  .btn-magenta {
+    position: relative;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 0.05em;
+    border: 1px solid var(--magenta);
+    color: #fff0f8;
+    background: rgba(255,0,110,0.1);
+    box-shadow: 0 0 10px rgba(255,0,110,0.6), inset 0 0 10px rgba(255,0,110,0.2);
+    transition: all .25s ease;
+  }
+  .btn-magenta:hover {
+    background: rgba(255,0,110,0.25);
+    box-shadow: 0 0 24px rgba(255,0,110,0.9), 0 0 54px rgba(255,0,110,0.45), inset 0 0 16px rgba(255,0,110,0.3);
+    transform: translateY(-2px);
+  }
+
+  .chip {
+    border: 1px solid rgba(0,255,255,0.4);
+    box-shadow: 0 0 8px rgba(0,255,255,0.25) inset;
+  }
+
+  .divider-neon {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--cyan), var(--magenta), transparent);
+    box-shadow: 0 0 10px rgba(0,255,255,0.6);
+  }
+
+  ::selection { background: var(--magenta); color: #fff; }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: var(--bg-deep); }
+  ::-webkit-scrollbar-thumb { background: linear-gradient(var(--cyan), var(--magenta)); border-radius: 10px; }
+
+  .blink-dot {
+    animation: blink 1.4s infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.25; }
+  }
+
+  .count-num { font-variant-numeric: tabular-nums; }
+
+  .screen-mock {
+    position: relative;
+    border: 1px solid rgba(0,255,255,0.45);
+    background: linear-gradient(135deg, #140c22 0%, #1a1a2e 40%, #0d0d1a 100%);
+    box-shadow: 0 0 40px rgba(255,0,110,0.25), 0 0 80px rgba(0,255,255,0.15), inset 0 0 40px rgba(0,255,255,0.08);
+    overflow: hidden;
+  }
+  .screen-mock::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.04) 0, rgba(255,255,255,0.04) 1px, transparent 2px, transparent 4px);
+    pointer-events: none;
+  }
+
+  @media (max-width: 640px) {
+    .grid-horizon::before { width: 320%; }
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="scanlines"></div>
+<div class="scan-sweep"></div>
+
+<!-- NAV -->
+<nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#0d0d1a]/80 border-b border-cyan-400/20">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="text-2xl">🌃</span>
+      <span class="font-display font-900 text-xl tracking-widest neon-mix glitch" data-text="夜城直播">夜城直播</span>
+      <span class="font-mono text-[10px] text-cyan-300/70 ml-1 hidden sm:inline">NIGHTCITY.LIVE</span>
+    </div>
+    <div class="hidden md:flex items-center gap-8 font-mono text-sm text-cyan-100/80">
+      <a href="#features" class="hover:text-cyan-300 transition">// 功能特色</a>
+      <a href="#stats" class="hover:text-cyan-300 transition">// 即時數據</a>
+      <a href="#pricing" class="hover:text-cyan-300 transition">// 訂閱方案</a>
+    </div>
+    <div class="flex items-center gap-3">
+      <button class="font-mono text-sm text-cyan-200/90 hover:text-white transition hidden sm:block">登入</button>
+      <button class="btn-magenta px-4 py-2 rounded font-bold text-xs md:text-sm uppercase">開始直播</button>
+    </div>
+  </div>
+  <div class="divider-neon"></div>
+</nav>
+
+<!-- HERO -->
+<header class="grid-horizon pt-36 pb-28 px-5 md:px-8 relative">
+  <div class="sun-glow"></div>
+  <div class="max-w-7xl mx-auto relative z-10 grid md:grid-cols-2 gap-12 items-center">
+    <div>
+      <div class="inline-flex items-center gap-2 chip rounded-full px-4 py-1.5 mb-6 font-mono text-xs text-cyan-200">
+        <span class="w-2 h-2 rounded-full bg-[#ff006e] blink-dot"></span>
+        SERVER STATUS: 全頻道上線中
+      </div>
+      <h1 class="font-display font-900 text-4xl md:text-6xl leading-tight mb-6">
+        <span class="neon-cyan glitch" data-text="零延遲開播，">零延遲開播，</span><br>
+        <span class="neon-magenta">稱霸夜城戰場</span>
+      </h1>
+      <p class="font-tc text-base md:text-lg text-slate-300/90 mb-4 font-medium leading-relaxed">
+        夜城直播是為電競玩家與實況主打造的次世代串流平台。<br class="hidden md:block">
+        毫秒級低延遲、沉浸式互動彈幕、虛擬禮物經濟系統——讓每一場直播都成為一場賽博盛宴。
+      </p>
+      <p class="font-mono text-sm text-magenta-300 mb-8" style="color:#ff6ebf">
+        &gt; 你的戰績，就是你的霓虹招牌。現在開播，點亮夜城天際線。
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <button class="btn-neon px-7 py-3 rounded font-bold text-sm uppercase tracking-wider">
+          立即免費開台 ▶
+        </button>
+        <button class="btn-magenta px-7 py-3 rounded font-bold text-sm uppercase tracking-wider">
+          探索熱門頻道
+        </button>
+      </div>
+      <div class="flex gap-6 mt-8 font-mono text-xs text-slate-400">
+        <span>✓ 免信用卡</span>
+        <span>✓ 60 秒開播</span>
+        <span>✓ 支援 4K/144fps</span>
+      </div>
+    </div>
+
+    <div class="screen-mock rounded-xl p-4 relative">
+      <div class="flex items-center justify-between mb-3 relative z-10">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#ff006e]"></span>
+          <span class="font-mono text-xs text-cyan-300">LIVE · 夜巡小隊｜決賽圈直播</span>
+        </div>
+        <span class="font-mono text-xs text-cyan-200/70">4K · 12ms</span>
+      </div>
+      <div class="rounded-lg h-56 md:h-72 relative z-10 overflow-hidden" style="background: linear-gradient(135deg, rgba(255,0,110,0.35), rgba(0,255,255,0.25)), repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0 10px, transparent 10px 20px);">
+        <div class="absolute inset-0 flex items-center justify-center">
+          <span class="font-display text-5xl md:text-6xl font-900 neon-mix">VICTORY</span>
+        </div>
+        <div class="absolute bottom-3 left-3 font-mono text-[11px] text-cyan-100 chip rounded px-2 py-1 bg-black/30">
+          ⚔ 霓虹獵人 vs 夜鴉戰隊
+        </div>
+        <div class="absolute top-3 right-3 font-mono text-[11px] text-magenta-200 chip rounded px-2 py-1 bg-black/30">
+          👁 89.2K 觀看中
+        </div>
+      </div>
+      <div class="mt-3 space-y-1.5 font-mono text-[11px] text-cyan-100/80 relative z-10 h-20 overflow-hidden">
+        <p><span class="text-magenta-300" style="color:#ff6ebf">夜鴉_阿凱：</span>這波阻擊太神啦 🔥🔥🔥</p>
+        <p><span class="text-cyan-300">霓虹少女：</span>送出【賽博核心】x3 💎</p>
+        <p><span class="text-magenta-300" style="color:#ff6ebf">路人甲：</span>主播手速是不是開了外掛</p>
+        <p><span class="text-cyan-300">夜城守望者：</span>訂閱衝起來！！</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="divider-neon"></div>
+
+<!-- FEATURES -->
+<section id="features" class="py-24 px-5 md:px-8 bg-[#1a1a2e]">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-14">
+      <p class="font-mono text-xs text-cyan-300 tracking-[0.3em] mb-3">// CORE_SYSTEM.FEATURES</p>
+      <h2 class="font-display font-900 text-3xl md:text-4xl neon-cyan">打造你的夜城直播間</h2>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <div class="neon-card rounded-xl p-6 glitch-line">
+        <div class="text-4xl mb-4">⚡</div>
+        <h3 class="font-display font-700 text-lg mb-2 neon-cyan">極速低延遲</h3>
+        <p class="font-tc text-sm text-slate-300/80 leading-relaxed">自研邊緣傳輸協定，平均延遲低於 300 毫秒，對戰實況零卡頓，彈幕互動快到讓觀眾懷疑是不是在現場。</p>
+      </div>
+
+      <div class="neon-card rounded-xl p-6 glitch-line">
+        <div class="text-4xl mb-4">💬</div>
+        <h3 class="font-display font-700 text-lg mb-2 neon-magenta">互動彈幕風暴</h3>
+        <p class="font-tc text-sm text-slate-300/80 leading-relaxed">彈幕可疊加特效、顏色與動態軌跡，支援千人同屏不卡頓，讓每句留言都像霓虹招牌一樣亮眼。</p>
+      </div>
+
+      <div class="neon-card rounded-xl p-6 glitch-line">
+        <div class="text-4xl mb-4">💎</div>
+        <h3 class="font-display font-700 text-lg mb-2 neon-cyan">虛擬禮物經濟</h3>
+        <p class="font-tc text-sm text-slate-300/80 leading-relaxed">「賽博核心」「霓虹玫瑰」等限定特效禮物，即時分潤直達主播錢包，打賞瞬間點亮整個直播間。</p>
+      </div>
+
+      <div class="neon-card rounded-xl p-6 glitch-line">
+        <div class="text-4xl mb-4">🏆</div>
+        <h3 class="font-display font-700 text-lg mb-2 neon-magenta">戰隊戰報系統</h3>
+        <p class="font-tc text-sm text-slate-300/80 leading-relaxed">即時串接遊戲 API，自動生成擊殺數、勝率與戰隊排名戰報，直接疊加在直播畫面上，中二感爆棚。</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats" class="py-24 px-5 md:px-8 grid-horizon relative">
+  <div class="max-w-6xl mx-auto relative z-10">
+    <div class="text-center mb-14">
+      <p class="font-mono text-xs text-magenta-300 tracking-[0.3em] mb-3" style="color:#ff6ebf">// LIVE_NETWORK.STATUS</p>
+      <h2 class="font-display font-900 text-3xl md:text-4xl neon-magenta">夜城，從不打烊</h2>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      <div class="neon-card rounded-xl py-8 px-3">
+        <p class="font-display font-900 text-4xl md:text-5xl neon-cyan count-num" data-target="286430" id="stat1">0</p>
+        <p class="font-mono text-xs text-slate-400 mt-2 tracking-wider">同時在線觀眾</p>
+      </div>
+      <div class="neon-card rounded-xl py-8 px-3">
+        <p class="font-display font-900 text-4xl md:text-5xl neon-magenta count-num" data-target="18920" id="stat2">0</p>
+        <p class="font-mono text-xs text-slate-400 mt-2 tracking-wider">活躍主播數</p>
+      </div>
+      <div class="neon-card rounded-xl py-8 px-3">
+        <p class="font-display font-900 text-4xl md:text-5xl neon-cyan count-num" data-target="4120" id="stat3">0</p>
+        <p class="font-mono text-xs text-slate-400 mt-2 tracking-wider">進行中賽事</p>
+      </div>
+      <div class="neon-card rounded-xl py-8 px-3">
+        <p class="font-display font-900 text-4xl md:text-5xl neon-magenta count-num" data-target="99" id="stat4">0</p>
+        <p class="font-mono text-xs text-slate-400 mt-2 tracking-wider">SLA 可用率 %</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-neon"></div>
+
+<!-- PRICING -->
+<section id="pricing" class="py-24 px-5 md:px-8 bg-[#1a1a2e]">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-14">
+      <p class="font-mono text-xs text-cyan-300 tracking-[0.3em] mb-3">// SUBSCRIPTION.PLANS</p>
+      <h2 class="font-display font-900 text-3xl md:text-4xl neon-cyan">選擇你的夜城通行證</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+
+      <div class="neon-card rounded-xl p-8 flex flex-col">
+        <h3 class="font-display font-700 text-xl mb-1 text-cyan-100">浪人方案</h3>
+        <p class="font-mono text-xs text-slate-400 mb-6">給剛踏入夜城的新人主播</p>
+        <p class="font-display font-900 text-4xl neon-cyan mb-1">NT$0<span class="text-sm font-mono text-slate-400">/月</span></p>
+        <ul class="font-tc text-sm text-slate-300/90 space-y-3 my-6 flex-1">
+          <li>✓ 標準畫質直播（1080p / 60fps）</li>
+          <li>✓ 基礎彈幕與表情包</li>
+          <li>✓ 單頻道同時 500 人觀看</li>
+          <li>✗ 虛擬禮物分潤</li>
+        </ul>
+        <button class="btn-neon w-full py-3 rounded font-bold text-sm uppercase">免費開始</button>
+      </div>
+
+      <div class="neon-card rounded-xl p-8 flex flex-col relative" style="border-color: rgba(255,0,110,0.7); box-shadow: 0 0 30px rgba(255,0,110,0.4), inset 0 0 24px rgba(255,0,110,0.1);">
+        <span class="absolute -top-3 left-1/2 -translate-x-1/2 font-mono text-[10px] px-3 py-1 rounded-full chip bg-[#ff006e]/20 text-white tracking-widest">最多人選擇</span>
+        <h3 class="font-display font-700 text-xl mb-1 neon-magenta">賞金獵人方案</h3>
+        <p class="font-mono text-xs text-slate-400 mb-6">專業實況主的標準配備</p>
+        <p class="font-display font-900 text-4xl neon-magenta mb-1">NT$399<span class="text-sm font-mono text-slate-400">/月</span></p>
+        <ul class="font-tc text-sm text-slate-300/90 space-y-3 my-6 flex-1">
+          <li>✓ 4K 畫質 + 144fps 電競模式</li>
+          <li>✓ 全特效彈幕與霓虹字幕</li>
+          <li>✓ 單頻道同時 20,000 人觀看</li>
+          <li>✓ 虛擬禮物 85% 高分潤</li>
+          <li>✓ 戰隊戰報即時疊加</li>
+        </ul>
+        <button class="btn-magenta w-full py-3 rounded font-bold text-sm uppercase">升級方案</button>
+      </div>
+
+      <div class="neon-card rounded-xl p-8 flex flex-col">
+        <h3 class="font-display font-700 text-xl mb-1 text-cyan-100">軍團領主方案</h3>
+        <p class="font-mono text-xs text-slate-400 mb-6">戰隊與職業戰隊專屬</p>
+        <p class="font-display font-900 text-4xl neon-cyan mb-1">NT$1,299<span class="text-sm font-mono text-slate-400">/月</span></p>
+        <ul class="font-tc text-sm text-slate-300/90 space-y-3 my-6 flex-1">
+          <li>✓ 無限觀看人數 + 專屬 CDN 節點</li>
+          <li>✓ 多視角戰隊直播牆</li>
+          <li>✓ 虛擬禮物 95% 頂級分潤</li>
+          <li>✓ 專屬客戶經理 24/7 駐守</li>
+          <li>✓ 自訂霓虹品牌視覺套件</li>
+        </ul>
+        <button class="btn-neon w-full py-3 rounded font-bold text-sm uppercase">聯絡業務</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider-neon"></div>
+
+<!-- FOOTER -->
+<footer class="py-14 px-5 md:px-8 bg-[#0d0d1a]">
+  <div class="max-w-7xl mx-auto grid sm:grid-cols-2 md:grid-cols-4 gap-10">
+    <div>
+      <div class="flex items-center gap-2 mb-3">
+        <span class="text-xl">🌃</span>
+        <span class="font-display font-900 neon-mix">夜城直播</span>
+      </div>
+      <p class="font-tc text-sm text-slate-400 leading-relaxed">在霓虹與雜訊之間，點亮屬於你的直播間。NightCity Live，夜夜開播。</p>
+    </div>
+    <div>
+      <h4 class="font-mono text-xs text-cyan-300 mb-3 tracking-widest">平台</h4>
+      <ul class="font-tc text-sm text-slate-400 space-y-2">
+        <li><a href="#" class="hover:text-cyan-300">功能特色</a></li>
+        <li><a href="#" class="hover:text-cyan-300">訂閱方案</a></li>
+        <li><a href="#" class="hover:text-cyan-300">主播學院</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-mono text-xs text-magenta-300 mb-3 tracking-widest" style="color:#ff6ebf">支援</h4>
+      <ul class="font-tc text-sm text-slate-400 space-y-2">
+        <li><a href="#" class="hover:text-pink-300">常見問題</a></li>
+        <li><a href="#" class="hover:text-pink-300">社群規範</a></li>
+        <li><a href="#" class="hover:text-pink-300">聯絡客服</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-mono text-xs text-cyan-300 mb-3 tracking-widest">追蹤夜城</h4>
+      <div class="flex gap-3 text-xl">
+        <a href="#" class="hover:scale-110 transition">📡</a>
+        <a href="#" class="hover:scale-110 transition">👾</a>
+        <a href="#" class="hover:scale-110 transition">💿</a>
+      </div>
+    </div>
+  </div>
+  <div class="divider-neon my-8"></div>
+  <p class="text-center font-mono text-[11px] text-slate-500">© 2026 夜城直播 NIGHTCITY.LIVE — ALL SYSTEMS ONLINE — 韡寧的每日 UI/UX 提案 #41</p>
+</footer>
+
+<script>
+  // 數字滾動動畫（進入畫面時觸發）
+  function animateCount(el) {
+    const target = parseInt(el.getAttribute('data-target'), 10);
+    const duration = 1600;
+    const start = performance.now();
+    function tick(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const value = Math.floor(eased * target);
+      el.textContent = value.toLocaleString('zh-TW');
+      if (progress < 1) requestAnimationFrame(tick);
+      else el.textContent = target.toLocaleString('zh-TW');
+    }
+    requestAnimationFrame(tick);
+  }
+
+  const statEls = document.querySelectorAll('.count-num');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCount(entry.target);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  statEls.forEach(el => observer.observe(el));
+
+  // hover 觸發額外 glitch 抖動
+  document.querySelectorAll('.glitch').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      el.style.animation = 'none';
+      el.offsetHeight;
+      el.style.animation = '';
+    });
+  });
+</script>
+
+</body>
+</html>

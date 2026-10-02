@@ -21,6 +21,10 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-10-02（6 個，#41 Cyberpunk / #09 Claymorphism / #27 Storytelling / #36 Financial Dashboard / #52 Pixel Art / #17 Inclusive Design）
+- ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（`curl -m 10` 無回應，exit 56），無法讀取上一批按讚結果，沿用「已確認偏好」規則挑選並生成（避開最近 3 天用過的風格：10-01 的 Liquid Glass/Micro-interactions/Data-Dense Dashboard/Neubrutalism/Organic Biophilic/Parallax Storytelling、09-30 的 Dark Mode OLED/Flat Design 2.0/Minimal & Direct/User Behavior Dashboard/AI-Native/HUD Sci-Fi、09-29 的 Glassmorphism/Trust & Authority/Predictive Dashboard/Memphis Revival/Vaporwave/Social Proof），等下次能連線時再回補。
+- 本輪字體嚴格依「已確認偏好」分流：Claymorphism 用 Baloo 2 + Zen Maru Gothic（圓體）、Storytelling 用 Playfair Display + Newsreader + Noto Serif TC（襯線報紙體）、Pixel Art 用 Press Start 2P + DotGothic16（像素點陣中文字）、Cyberpunk 用 Orbitron + Share Tech Mono、Financial Dashboard 用 IBM Plex Sans + JetBrains Mono、Inclusive Design 用 Atkinson Hyperlegible，六個風格皆未使用 Inter/Helvetica 當主美術字體。
+
 ### 2026-10-01（6 個，#14 Liquid Glass / #16 Micro-interactions / #28 Data-Dense Dashboard / #38 Neubrutalism / #42 Organic Biophilic / #49 Parallax Storytelling）
 - ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（`curl -m 20` 無回應，HTTP code 000），無法讀取上一批按讚結果，沿用「已確認偏好」規則挑選並生成，等下次能連線時再回補。
 - ⚠️ publish.py 直連 GitHub REST API 本輪同樣回 415 Unsupported Media Type（`git/blobs` 端點，同歷輪已知問題），改用本地 `git add` + `git commit` + `git push`（HTTPS + GH_TOKEN 當密碼）成功推上 `80f05a2..5a57dc9`，已用 `git fetch` 驗證 origin/master 一致。

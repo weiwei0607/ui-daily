@@ -1,0 +1,414 @@
+<!-- style #09 Claymorphism -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>心晴 Heartlight｜每日冥想與身心靈療癒 App</title>
+<meta name="description" content="心晴 App 下載頁 — Claymorphism 黏土風提案">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --peach:#fdbcb4;
+    --peach-deep:#f89d92;
+    --sky:#add8e6;
+    --sky-deep:#8dc4d8;
+    --mint:#98ff98;
+    --mint-deep:#6fe08a;
+    --cream:#fff7f0;
+    --cream-2:#fdeee6;
+    --ink:#6b4f4a;
+    --ink-soft:#8a6f68;
+  }
+
+  *{ box-sizing:border-box; }
+
+  body{
+    background: linear-gradient(160deg,var(--cream) 0%, var(--cream-2) 45%, #fdf1f5 100%);
+    color:var(--ink);
+    font-family:'Zen Maru Gothic','Baloo 2',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  .font-en{ font-family:'Baloo 2','Zen Maru Gothic',sans-serif; }
+  .font-zh{ font-family:'Zen Maru Gothic','Baloo 2',sans-serif; }
+
+  /* ===== Claymorphism core ===== */
+  .clay{
+    border-radius:36px;
+    background:#fff6ee;
+    box-shadow:
+      -10px -10px 20px rgba(255,255,255,0.85),
+      12px 12px 26px rgba(201,150,140,0.28),
+      inset 0 0 0 2px rgba(255,255,255,0.6);
+    position:relative;
+  }
+  .clay-sm{
+    border-radius:26px;
+    box-shadow:
+      -6px -6px 12px rgba(255,255,255,0.85),
+      8px 8px 16px rgba(201,150,140,0.25),
+      inset 0 0 0 2px rgba(255,255,255,0.55);
+  }
+  .clay-inset{
+    border-radius:28px;
+    background:#f6e9e2;
+    box-shadow:
+      inset -6px -6px 12px rgba(255,255,255,0.7),
+      inset 6px 6px 14px rgba(201,150,140,0.3);
+  }
+
+  /* pressable clay button */
+  .clay-btn{
+    border-radius:999px;
+    transition: box-shadow .12s ease, transform .12s ease;
+    box-shadow:
+      -6px -6px 14px rgba(255,255,255,0.85),
+      8px 8px 18px rgba(201,150,140,0.35);
+    cursor:pointer;
+    border:none;
+    outline:none;
+  }
+  .clay-btn:hover{ transform: translateY(-2px); }
+  .clay-btn:active, .clay-btn.pressed{
+    transform: translateY(1px) scale(0.98);
+    box-shadow:
+      inset -5px -5px 10px rgba(255,255,255,0.6),
+      inset 5px 5px 12px rgba(201,150,140,0.45);
+  }
+
+  .clay-icon{
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:
+      -5px -5px 10px rgba(255,255,255,0.85),
+      6px 6px 14px rgba(201,150,140,0.3);
+    transition: box-shadow .12s ease, transform .12s ease;
+  }
+  .clay-icon:active{
+    box-shadow:
+      inset -4px -4px 8px rgba(255,255,255,0.6),
+      inset 4px 4px 10px rgba(201,150,140,0.4);
+    transform: scale(0.96);
+  }
+
+  .bg-peach{ background: linear-gradient(145deg,#ffd4cc,var(--peach)); }
+  .bg-sky{ background: linear-gradient(145deg,#cdeaf5,var(--sky)); }
+  .bg-mint{ background: linear-gradient(145deg,#c3ffd9,var(--mint)); }
+
+  .blob{
+    position:absolute;
+    border-radius:50%;
+    filter: blur(0px);
+    opacity:.55;
+  }
+
+  .float{ animation: floaty 5s ease-in-out infinite; }
+  @keyframes floaty{
+    0%,100%{ transform: translateY(0px); }
+    50%{ transform: translateY(-10px); }
+  }
+
+  .pop-in{ animation: pop .5s cubic-bezier(.26,1.4,.44,1) both; }
+  @keyframes pop{
+    0%{ opacity:0; transform: scale(.85) translateY(14px); }
+    100%{ opacity:1; transform: scale(1) translateY(0); }
+  }
+
+  .phone-mock{
+    border-radius:52px;
+    background: linear-gradient(160deg,#fffaf5,#fde8e2);
+    box-shadow:
+      -14px -14px 28px rgba(255,255,255,0.9),
+      16px 16px 34px rgba(201,150,140,0.35),
+      inset 0 0 0 3px rgba(255,255,255,0.7);
+  }
+
+  .scrollbar-hide::-webkit-scrollbar{ display:none; }
+
+  .nav-pill{
+    border-radius:999px;
+    background:#fff6ee;
+    box-shadow:
+      -5px -5px 10px rgba(255,255,255,0.85),
+      6px 6px 14px rgba(201,150,140,0.25);
+  }
+
+  .badge-dot{
+    width:10px;height:10px;border-radius:50%;
+    box-shadow: 0 0 0 4px rgba(255,255,255,0.6);
+  }
+
+  section{ scroll-margin-top: 90px; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- ============ NAV ============ -->
+<header class="sticky top-0 z-50 px-4 pt-4">
+  <nav class="max-w-6xl mx-auto nav-pill flex items-center justify-between px-5 py-3">
+    <div class="flex items-center gap-2">
+      <div class="clay-icon bg-peach w-10 h-10 text-xl">🌤️</div>
+      <span class="font-en font-bold text-xl" style="color:var(--ink)">心晴 <span class="text-sm font-zh font-medium" style="color:var(--ink-soft)">Heartlight</span></span>
+    </div>
+    <div class="hidden md:flex items-center gap-6 font-zh font-medium text-sm" style="color:var(--ink-soft)">
+      <a href="#features" class="hover:opacity-70">功能特色</a>
+      <a href="#reviews" class="hover:opacity-70">使用心得</a>
+      <a href="#pricing" class="hover:opacity-70">訂閱方案</a>
+    </div>
+    <button class="clay-btn bg-mint font-zh font-bold px-5 py-2.5 text-sm" style="color:#2d6b45" onclick="bump(this)">
+      立即下載 ✦
+    </button>
+  </nav>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="relative max-w-6xl mx-auto px-4 pt-14 pb-20 md:pt-20">
+  <div class="blob bg-sky w-40 h-40 -top-6 -left-10 float" style="animation-delay:.3s"></div>
+  <div class="blob bg-mint w-24 h-24 top-24 right-4 float" style="animation-delay:1s"></div>
+  <div class="blob bg-peach w-28 h-28 bottom-0 left-1/3 float" style="animation-delay:.6s"></div>
+
+  <div class="grid md:grid-cols-2 gap-12 items-center relative">
+    <div class="pop-in">
+      <div class="inline-flex items-center gap-2 clay-sm bg-white/70 px-4 py-2 mb-6">
+        <span class="badge-dot bg-mint" style="background:var(--mint-deep)"></span>
+        <span class="font-zh text-sm font-medium" style="color:var(--ink-soft)">本週已有 3,241 人開始練習</span>
+      </div>
+      <h1 class="font-zh font-black text-4xl md:text-5xl leading-tight mb-5" style="color:var(--ink)">
+        給忙碌的你，<br>
+        一個能安心喘息的 <span style="color:var(--peach-deep)">口袋角落</span>
+      </h1>
+      <p class="font-zh text-base md:text-lg mb-8" style="color:var(--ink-soft)">
+        心晴陪你用 10 分鐘冥想、助眠音景與呼吸練習，把緊繃的一天，慢慢揉軟。不用很厲害，只要願意按下開始。
+      </p>
+      <div class="flex flex-wrap gap-4 mb-10">
+        <button class="clay-btn bg-peach font-zh font-bold px-6 py-4 flex items-center gap-3" style="color:#8a3b2e" onclick="bump(this)">
+          <span class="text-2xl"></span>
+          <span class="text-left leading-tight text-sm">
+            <span class="block text-xs opacity-70">立即下載</span>
+            App&nbsp;Store
+          </span>
+        </button>
+        <button class="clay-btn bg-sky font-zh font-bold px-6 py-4 flex items-center gap-3" style="color:#2d5a6b" onclick="bump(this)">
+          <span class="text-2xl">▶</span>
+          <span class="text-left leading-tight text-sm">
+            <span class="block text-xs opacity-70">立即下載</span>
+            Google&nbsp;Play
+          </span>
+        </button>
+      </div>
+      <div class="flex items-center gap-4 font-zh text-sm" style="color:var(--ink-soft)">
+        <div class="flex -space-x-3">
+          <div class="clay-icon bg-peach w-9 h-9 text-sm">😊</div>
+          <div class="clay-icon bg-sky w-9 h-9 text-sm">🌿</div>
+          <div class="clay-icon bg-mint w-9 h-9 text-sm">🐣</div>
+        </div>
+        <span>4.9 顆星・超過 1.2 萬則評價</span>
+      </div>
+    </div>
+
+    <div class="relative flex justify-center pop-in" style="animation-delay:.15s">
+      <div class="phone-mock w-64 md:w-72 p-3 float">
+        <div class="clay-inset h-[480px] p-4 flex flex-col gap-4 overflow-hidden">
+          <div class="flex items-center justify-between">
+            <span class="font-zh font-bold text-sm" style="color:var(--ink)">早安，韡寧 ☀️</span>
+            <div class="clay-icon bg-peach w-8 h-8 text-xs">🔔</div>
+          </div>
+          <div class="clay bg-peach p-4">
+            <p class="font-zh text-xs font-bold mb-1" style="color:#8a3b2e">今日推薦</p>
+            <p class="font-en font-bold text-lg" style="color:#7a3528">10 分鐘・晨間平靜</p>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="clay-sm bg-sky p-3 text-center">
+              <div class="text-2xl mb-1">🌙</div>
+              <p class="font-zh text-xs font-bold" style="color:#2d5a6b">睡眠音景</p>
+            </div>
+            <div class="clay-sm bg-mint p-3 text-center">
+              <div class="text-2xl mb-1">🫧</div>
+              <p class="font-zh text-xs font-bold" style="color:#2d6b45">呼吸練習</p>
+            </div>
+          </div>
+          <div class="clay-sm bg-white/80 p-3 flex-1">
+            <p class="font-zh text-xs font-bold mb-2" style="color:var(--ink-soft)">本週心情紀錄</p>
+            <div class="flex items-end gap-2 h-16">
+              <div class="w-4 rounded-full bg-peach" style="height:40%"></div>
+              <div class="w-4 rounded-full bg-sky" style="height:70%"></div>
+              <div class="w-4 rounded-full bg-mint" style="height:55%"></div>
+              <div class="w-4 rounded-full bg-peach" style="height:85%"></div>
+              <div class="w-4 rounded-full bg-sky" style="height:60%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section id="features" class="max-w-6xl mx-auto px-4 py-16">
+  <div class="text-center mb-12">
+    <h2 class="font-zh font-black text-3xl md:text-4xl mb-3" style="color:var(--ink)">四個小練習，接住每個情緒</h2>
+    <p class="font-zh" style="color:var(--ink-soft)">不用一次做滿，選一個此刻最需要的就好</p>
+  </div>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+    <div class="clay bg-white/70 p-6 pop-in">
+      <div class="clay-icon bg-peach w-16 h-16 text-3xl mb-5">🧘</div>
+      <h3 class="font-zh font-bold text-lg mb-2" style="color:var(--ink)">每日冥想引導</h3>
+      <p class="font-zh text-sm" style="color:var(--ink-soft)">溫柔的中文語音，帶你從呼吸開始，找回五分鐘的安定。新手也能輕鬆跟上。</p>
+    </div>
+
+    <div class="clay bg-white/70 p-6 pop-in" style="animation-delay:.08s">
+      <div class="clay-icon bg-sky w-16 h-16 text-3xl mb-5">🌊</div>
+      <h3 class="font-zh font-bold text-lg mb-2" style="color:var(--ink)">睡眠音景</h3>
+      <p class="font-zh text-sm" style="color:var(--ink-soft)">雨聲、海浪、森林白噪音，陪你把胡思亂想調小聲，自然墜入好眠。</p>
+    </div>
+
+    <div class="clay bg-white/70 p-6 pop-in" style="animation-delay:.16s">
+      <div class="clay-icon bg-mint w-16 h-16 text-3xl mb-5">🫁</div>
+      <h3 class="font-zh font-bold text-lg mb-2" style="color:var(--ink)">呼吸練習</h3>
+      <p class="font-zh text-sm" style="color:var(--ink-soft)">視覺化的呼吸節奏引導，緊張、焦慮時打開它，一分鐘找回平穩心跳。</p>
+    </div>
+
+    <div class="clay bg-white/70 p-6 pop-in" style="animation-delay:.24s">
+      <div class="clay-icon bg-peach w-16 h-16 text-3xl mb-5">📔</div>
+      <h3 class="font-zh font-bold text-lg mb-2" style="color:var(--ink)">情緒日記</h3>
+      <p class="font-zh text-sm" style="color:var(--ink-soft)">用貼圖和一句話記錄心情，累積成屬於你的情緒足跡，看見自己的成長。</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<section id="reviews" class="max-w-6xl mx-auto px-4 py-16">
+  <div class="text-center mb-12">
+    <h2 class="font-zh font-black text-3xl md:text-4xl mb-3" style="color:var(--ink)">他們這樣說</h2>
+    <p class="font-zh" style="color:var(--ink-soft)">來自真實使用者的心晴日常</p>
+  </div>
+  <div class="grid md:grid-cols-3 gap-6">
+
+    <div class="clay bg-peach/40 p-6">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="clay-icon bg-peach w-12 h-12 text-xl">🌸</div>
+        <div>
+          <p class="font-zh font-bold" style="color:var(--ink)">雅婷・行銷企劃</p>
+          <p class="text-xs" style="color:var(--ink-soft)">★★★★★</p>
+        </div>
+      </div>
+      <p class="font-zh text-sm" style="color:var(--ink-soft)">「下班後常常腦袋停不下來，用睡眠音景大概十分鐘就有睡意，現在已經離不開它了。」</p>
+    </div>
+
+    <div class="clay bg-sky/40 p-6">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="clay-icon bg-sky w-12 h-12 text-xl">🐻</div>
+        <div>
+          <p class="font-zh font-bold" style="color:var(--ink)">柏翰・軟體工程師</p>
+          <p class="text-xs" style="color:var(--ink-soft)">★★★★★</p>
+        </div>
+      </div>
+      <p class="font-zh text-sm" style="color:var(--ink-soft)">「上台報告前會偷偷用呼吸練習，心跳真的會慢下來。介面也很療癒，每次打開都想多待一下。」</p>
+    </div>
+
+    <div class="clay bg-mint/40 p-6">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="clay-icon bg-mint w-12 h-12 text-xl">🐣</div>
+        <div>
+          <p class="font-zh font-bold" style="color:var(--ink)">思穎・研究生</p>
+          <p class="text-xs" style="color:var(--ink-soft)">★★★★★</p>
+        </div>
+      </div>
+      <p class="font-zh text-sm" style="color:var(--ink-soft)">「情緒日記讓我發現自己原來每到週三都特別焦慮，寫下來之後反而比較能接受那個狀態。」</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section id="pricing" class="max-w-6xl mx-auto px-4 py-16">
+  <div class="text-center mb-12">
+    <h2 class="font-zh font-black text-3xl md:text-4xl mb-3" style="color:var(--ink)">選一個適合自己的步調</h2>
+    <p class="font-zh" style="color:var(--ink-soft)">7 天免費試用，隨時可以取消</p>
+  </div>
+  <div class="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+
+    <div class="clay bg-white/80 p-8 flex flex-col">
+      <p class="font-zh font-bold text-sm mb-2 inline-block" style="color:var(--ink-soft)">月方案</p>
+      <p class="mb-1"><span class="font-en font-extrabold text-4xl" style="color:var(--ink)">NT$149</span><span class="font-zh text-sm" style="color:var(--ink-soft)">／月</span></p>
+      <p class="font-zh text-xs mb-6" style="color:var(--ink-soft)">彈性體驗，隨時開始</p>
+      <ul class="font-zh text-sm space-y-3 mb-8 flex-1" style="color:var(--ink-soft)">
+        <li class="flex gap-2">🌤️ 全館冥想課程</li>
+        <li class="flex gap-2">🌙 無限睡眠音景</li>
+        <li class="flex gap-2">📔 情緒日記雲端備份</li>
+      </ul>
+      <button class="clay-btn bg-sky font-zh font-bold py-3" style="color:#2d5a6b" onclick="bump(this)">選擇月方案</button>
+    </div>
+
+    <div class="clay p-8 flex flex-col relative" style="background:linear-gradient(160deg,#fff0ec,var(--peach));">
+      <div class="absolute -top-4 right-6 clay-sm bg-mint px-4 py-1 font-zh text-xs font-bold" style="color:#2d6b45">最多人選擇</div>
+      <p class="font-zh font-bold text-sm mb-2" style="color:#7a3528">年方案</p>
+      <p class="mb-1"><span class="font-en font-extrabold text-4xl" style="color:#7a3528">NT$990</span><span class="font-zh text-sm" style="color:#8a5048">／年</span></p>
+      <p class="font-zh text-xs mb-6" style="color:#8a5048">平均每月 NT$82・省 45%</p>
+      <ul class="font-zh text-sm space-y-3 mb-8 flex-1" style="color:#7a3528">
+        <li class="flex gap-2">✨ 包含月方案所有內容</li>
+        <li class="flex gap-2">🎧 獨家療癒師語音課程</li>
+        <li class="flex gap-2">🎁 每季限定紓壓桌布</li>
+      </ul>
+      <button class="clay-btn bg-white font-zh font-bold py-3" style="color:#8a3b2e" onclick="bump(this)">選擇年方案（推薦）</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="max-w-6xl mx-auto px-4 pb-10 pt-6">
+  <div class="clay bg-white/70 p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+    <div class="flex items-center gap-3">
+      <div class="clay-icon bg-peach w-11 h-11 text-xl">🌤️</div>
+      <div>
+        <p class="font-en font-bold" style="color:var(--ink)">心晴 Heartlight</p>
+        <p class="font-zh text-xs" style="color:var(--ink-soft)">把每一天，過得溫柔一點</p>
+      </div>
+    </div>
+    <div class="flex gap-4 font-zh text-sm" style="color:var(--ink-soft)">
+      <a href="#" class="hover:opacity-70">關於我們</a>
+      <a href="#" class="hover:opacity-70">隱私權政策</a>
+      <a href="#" class="hover:opacity-70">聯絡客服</a>
+    </div>
+    <div class="flex gap-3">
+      <div class="clay-icon bg-sky w-10 h-10 text-base">📷</div>
+      <div class="clay-icon bg-mint w-10 h-10 text-base">💬</div>
+      <div class="clay-icon bg-peach w-10 h-10 text-base">✉️</div>
+    </div>
+  </div>
+  <p class="text-center font-zh text-xs mt-6" style="color:var(--ink-soft)">© 2026 心晴 Heartlight．版權所有</p>
+</footer>
+
+<script>
+  // 按下去的黏土凹陷回饋（觸控裝置也支援）
+  function bump(el){
+    el.classList.add('pressed');
+    setTimeout(()=> el.classList.remove('pressed'), 160);
+  }
+  document.querySelectorAll('.clay-icon').forEach(function(el){
+    el.addEventListener('click', function(){ bump(el); });
+  });
+
+  // 輕微彈跳進場
+  var popEls = document.querySelectorAll('.pop-in');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.style.animationPlayState = 'running';
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  popEls.forEach(function(el){ io.observe(el); });
+</script>
+
+</body>
+</html>
