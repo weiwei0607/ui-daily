@@ -1,0 +1,584 @@
+<!-- style #25 Interactive Demo -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>試飛 TryFlight｜5 分鐘打造你的 AI 客服機器人</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --brand-600:#4f46e5;
+    --brand-500:#6366f1;
+    --brand-400:#818cf8;
+    --brand-50:#eef2ff;
+    --ink-900:#0f1222;
+    --ink-700:#3a3f55;
+    --ink-500:#6b7086;
+    --surface:#ffffff;
+    --surface-2:#f6f7fb;
+    --border:#e6e8f0;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink-900:#f3f4fb;
+      --ink-700:#c7cad9;
+      --ink-500:#9699ad;
+      --surface:#14151f;
+      --surface-2:#1a1c29;
+      --border:#2a2d3d;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink-900:#f3f4fb;
+    --ink-700:#c7cad9;
+    --ink-500:#9699ad;
+    --surface:#14151f;
+    --surface-2:#1a1c29;
+    --border:#2a2d3d;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    background:var(--surface-2);
+    color:var(--ink-900);
+    font-family:'Noto Sans TC','Manrope',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    scroll-behavior:smooth;
+  }
+  .font-display{ font-family:'Manrope','Noto Sans TC',sans-serif; }
+  .num{ font-family:'Manrope','Noto Sans TC',sans-serif; }
+
+  .noise-grid{
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(99,102,241,0.14), transparent 45%),
+      radial-gradient(circle at 85% 10%, rgba(99,102,241,0.10), transparent 40%),
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: auto, auto, 36px 36px, 36px 36px;
+    background-position: 0 0, 0 0, -1px -1px, -1px -1px;
+  }
+
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:20px;
+  }
+
+  .btn-primary{
+    background:linear-gradient(135deg, var(--brand-600), var(--brand-400));
+    color:#fff;
+    box-shadow:0 8px 24px -8px rgba(79,70,229,0.55);
+  }
+  .btn-primary:hover{ filter:brightness(1.06); }
+
+  .quick-btn{
+    border:1px solid var(--border);
+    background:var(--surface-2);
+    color:var(--ink-700);
+    transition:all .15s ease;
+  }
+  .quick-btn:hover{
+    border-color:var(--brand-400);
+    color:var(--brand-600);
+    background:var(--brand-50);
+    transform:translateY(-1px);
+  }
+  :root:not([data-theme="light"]) .quick-btn:hover{ background:rgba(99,102,241,0.12); color:var(--brand-400); }
+
+  /* chat demo */
+  .chat-shell{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:24px;
+    box-shadow:0 30px 60px -30px rgba(15,18,34,0.35), 0 0 0 1px rgba(99,102,241,0.04);
+  }
+  .chat-topbar{
+    background:var(--surface-2);
+    border-bottom:1px solid var(--border);
+  }
+  .chat-body{
+    height:420px;
+    overflow-y:auto;
+    scroll-behavior:smooth;
+  }
+  .chat-body::-webkit-scrollbar{ width:6px; }
+  .chat-body::-webkit-scrollbar-thumb{ background:var(--border); border-radius:10px; }
+
+  .bubble{
+    max-width:82%;
+    padding:10px 14px;
+    border-radius:16px;
+    font-size:14.5px;
+    line-height:1.6;
+    white-space:pre-wrap;
+    word-break:break-word;
+  }
+  .bubble-user{
+    background:linear-gradient(135deg, var(--brand-600), var(--brand-500));
+    color:#fff;
+    border-bottom-right-radius:4px;
+    margin-left:auto;
+  }
+  .bubble-bot{
+    background:var(--surface-2);
+    color:var(--ink-900);
+    border:1px solid var(--border);
+    border-bottom-left-radius:4px;
+    margin-right:auto;
+  }
+  .avatar{
+    width:28px;height:28px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:14px;flex-shrink:0;
+  }
+  .avatar-bot{ background:var(--brand-50); color:var(--brand-600); border:1px solid var(--border); }
+  :root:not([data-theme="light"]) .avatar-bot{ background:rgba(99,102,241,0.15); color:var(--brand-400); }
+  .avatar-user{ background:var(--ink-900); color:var(--surface); }
+
+  .typing-dot{
+    width:6px;height:6px;border-radius:50%;
+    background:var(--ink-500);
+    animation: blink 1.2s infinite ease-in-out;
+  }
+  .typing-dot:nth-child(2){ animation-delay:.15s; }
+  .typing-dot:nth-child(3){ animation-delay:.3s; }
+  @keyframes blink{ 0%,80%,100%{ opacity:.25; transform:scale(.85);} 40%{ opacity:1; transform:scale(1);} }
+
+  .caret::after{
+    content:"";
+    display:inline-block;
+    width:2px;height:1em;
+    background:var(--brand-500);
+    margin-left:2px;
+    vertical-align:-2px;
+    animation: caretBlink 0.9s steps(1) infinite;
+  }
+  @keyframes caretBlink{ 50%{ opacity:0; } }
+
+  .pulse-ring{
+    position:absolute; inset:-6px;
+    border-radius:50%;
+    border:2px solid var(--brand-400);
+    opacity:.5;
+    animation: ring 2s infinite;
+  }
+  @keyframes ring{ 0%{ transform:scale(.8); opacity:.6;} 100%{ transform:scale(1.5); opacity:0;} }
+
+  .feature-icon{
+    width:48px;height:48px;border-radius:14px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--brand-50);
+    color:var(--brand-600);
+  }
+  :root:not([data-theme="light"]) .feature-icon{ background:rgba(99,102,241,0.14); color:var(--brand-400); }
+
+  .logo-chip{
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--ink-500);
+  }
+
+  .chat-input:focus{ outline:2px solid var(--brand-400); outline-offset:1px; }
+
+  @media (max-width: 768px){
+    .chat-body{ height:380px; }
+  }
+</style>
+</head>
+<body class="noise-grid">
+
+<!-- NAV -->
+<header class="sticky top-0 z-50 backdrop-blur" style="background:color-mix(in srgb, var(--surface) 85%, transparent); border-bottom:1px solid var(--border);">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 h-16 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-2 font-display font-extrabold text-lg">
+      <span class="inline-flex items-center justify-center w-8 h-8 rounded-xl" style="background:linear-gradient(135deg,var(--brand-600),var(--brand-400));">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M2 12L11 9L14 2L22 12L14 22L11 15L2 12Z" fill="white"/></svg>
+      </span>
+      <span style="color:var(--ink-900)">試飛 <span style="color:var(--brand-600)">TryFlight</span></span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-sm font-medium" style="color:var(--ink-700)">
+      <a href="#features" class="hover:opacity-70">功能</a>
+      <a href="#pricing" class="hover:opacity-70">價格</a>
+      <a href="#docs" class="hover:opacity-70">文件</a>
+      <a href="#testimonials" class="hover:opacity-70">客戶案例</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <a href="#docs" class="hidden sm:inline text-sm font-medium" style="color:var(--ink-700)">登入</a>
+      <a href="#demo" class="btn-primary text-sm font-bold px-5 py-2.5 rounded-full">免費開始</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="max-w-7xl mx-auto px-5 md:px-8 pt-14 md:pt-20 pb-16">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <span class="inline-flex items-center gap-2 text-xs font-bold px-3 py-1.5 rounded-full mb-5" style="background:var(--brand-50); color:var(--brand-600); border:1px solid var(--border);">
+          <span class="w-1.5 h-1.5 rounded-full" style="background:var(--brand-500)"></span>
+          已有 3,200+ 間中小企業上線使用
+        </span>
+        <h1 class="font-display font-extrabold leading-[1.15] text-4xl md:text-5xl" style="color:var(--ink-900)">
+          15 分鐘，<br>
+          打造一個<span style="color:var(--brand-600)">真的會回答</span>客人問題的<br>
+          AI 客服機器人
+        </h1>
+        <p class="mt-6 text-base md:text-lg" style="color:var(--ink-700); max-width:36rem;">
+          不用寫一行程式碼。上傳你的商品資料、退換貨規則、常見問題，試飛 TryFlight 就能幫你的官網、LINE 官方帳號架好 24 小時不打烊的客服機器人——而且準確率看得到、改得動。
+        </p>
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a href="#demo" class="btn-primary font-bold px-6 py-3.5 rounded-full text-sm">立即免費試用 14 天</a>
+          <a href="#how" class="font-bold px-6 py-3.5 rounded-full text-sm card" style="color:var(--ink-900)">看看怎麼運作 →</a>
+        </div>
+        <p class="mt-5 text-xs" style="color:var(--ink-500)">不需信用卡・5 分鐘內完成第一個機器人・隨時可取消</p>
+      </div>
+
+      <!-- 右側說明可以留白給 demo 在下方跨欄，這裡放輔助重點 -->
+      <div class="hidden lg:flex flex-col gap-4">
+        <div class="card p-5 flex items-start gap-4">
+          <div class="feature-icon flex-shrink-0">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+          </div>
+          <div>
+            <p class="font-display font-bold text-sm" style="color:var(--ink-900)">平均 47 秒回覆</p>
+            <p class="text-xs mt-1" style="color:var(--ink-500)">不用客人等到不耐煩，機器人秒回常見問題。</p>
+          </div>
+        </div>
+        <div class="card p-5 flex items-start gap-4">
+          <div class="feature-icon flex-shrink-0">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+          </div>
+          <div>
+            <p class="font-display font-bold text-sm" style="color:var(--ink-900)">24 小時全年無休</p>
+            <p class="text-xs mt-1" style="color:var(--ink-500)">半夜訂單問題、連假出貨詢問，照樣有人（有機器人）回。</p>
+          </div>
+        </div>
+        <div class="card p-5 flex items-start gap-4">
+          <div class="feature-icon flex-shrink-0">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3 8-8"/><path d="M21 12a9 9 0 1 1-5.3-8.2"/></svg>
+          </div>
+          <div>
+            <p class="font-display font-bold text-sm" style="color:var(--ink-900)">自動轉接真人</p>
+            <p class="text-xs mt-1" style="color:var(--ink-500)">遇到機器人答不出來的問題，會自動留言通知客服人員接手。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INTERACTIVE DEMO -->
+    <div id="demo" class="mt-14 md:mt-16">
+      <div class="text-center mb-6">
+        <h2 class="font-display font-extrabold text-2xl md:text-3xl" style="color:var(--ink-900)">直接試試看，不用註冊</h2>
+        <p class="mt-2 text-sm md:text-base" style="color:var(--ink-700)">這是用「晴朗小舖」這間虛構的生活選物店資料訓練出來的客服機器人範例，點下面任一個快速提問，或自己打字問它。</p>
+      </div>
+
+      <div class="chat-shell max-w-2xl mx-auto overflow-hidden">
+        <div class="chat-topbar flex items-center gap-3 px-5 py-3.5">
+          <div class="relative">
+            <div class="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold" style="background:linear-gradient(135deg,var(--brand-600),var(--brand-400)); color:#fff;">晴</div>
+            <span class="pulse-ring"></span>
+            <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2" style="background:#22c55e; border-color:var(--surface);"></span>
+          </div>
+          <div class="flex-1">
+            <p class="text-sm font-bold" style="color:var(--ink-900)">晴朗小舖客服小助手</p>
+            <p class="text-[11px]" style="color:var(--ink-500)">由 TryFlight 打造・平均 47 秒回覆</p>
+          </div>
+          <span class="text-[11px] font-bold px-2.5 py-1 rounded-full" style="background:var(--brand-50); color:var(--brand-600);">示範模式</span>
+        </div>
+
+        <div id="chatBody" class="chat-body px-5 py-5 flex flex-col gap-4">
+          <div class="flex items-start gap-2.5">
+            <div class="avatar avatar-bot">🤖</div>
+            <div class="bubble bubble-bot">
+              嗨，我是晴朗小舖的客服小幫手！你可以點下面的快速按鈕，或直接打字問我關於退貨、出貨、客製化的問題 😊
+            </div>
+          </div>
+        </div>
+
+        <div class="px-5 pb-3 pt-1 flex flex-wrap gap-2" id="quickBtnRow">
+          <button class="quick-btn text-xs font-medium px-3.5 py-2 rounded-full" data-q="退貨政策是什麼？">退貨政策是什麼？</button>
+          <button class="quick-btn text-xs font-medium px-3.5 py-2 rounded-full" data-q="出貨要多久？">出貨要多久？</button>
+          <button class="quick-btn text-xs font-medium px-3.5 py-2 rounded-full" data-q="可以客製化回覆嗎？">可以客製化回覆嗎？</button>
+        </div>
+
+        <div class="px-5 py-4 flex items-center gap-2.5" style="border-top:1px solid var(--border); background:var(--surface-2);">
+          <input id="chatInput" type="text" placeholder="輸入你想問的問題……" class="chat-input flex-1 text-sm rounded-full px-4 py-2.5 border" style="background:var(--surface); border-color:var(--border); color:var(--ink-900);">
+          <button id="sendBtn" class="btn-primary rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0" aria-label="送出">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+          </button>
+        </div>
+      </div>
+      <p class="text-center text-xs mt-4" style="color:var(--ink-500)">這個示範機器人用固定規則回覆，正式版由你上傳的真實商品與政策資料訓練，答案會更貼近你的業務。</p>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-20">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <h2 class="font-display font-extrabold text-3xl md:text-4xl" style="color:var(--ink-900)">客服團隊最常問的三件事，<br>我們都幫你想好了</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="card p-7">
+        <div class="feature-icon mb-5">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-lg" style="color:var(--ink-900)">零程式碼訓練</h3>
+        <p class="mt-3 text-sm leading-relaxed" style="color:var(--ink-700)">
+          把你的商品目錄 Excel、退換貨規則 PDF、常見問答，直接拖進後台或貼上網址，機器人就會自動讀懂並整理成可回答的知識庫，整個過程不需要工程師參與。
+        </p>
+      </div>
+      <div class="card p-7">
+        <div class="feature-icon mb-5">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-lg" style="color:var(--ink-900)">多平台一次串接</h3>
+        <p class="mt-3 text-sm leading-relaxed" style="color:var(--ink-700)">
+          一次設定，就能同步掛到官網聊天小工具、LINE 官方帳號、Facebook Messenger，客人不管從哪個通路問問題，看到的都是同一套邏輯一致的回覆。
+        </p>
+      </div>
+      <div class="card p-7">
+        <div class="feature-icon mb-5">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 15l3-4 3 2 5-6"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-lg" style="color:var(--ink-900)">即時數據分析</h3>
+        <p class="mt-3 text-sm leading-relaxed" style="color:var(--ink-700)">
+          後台即時看到「哪些問題機器人答不出來」「哪個時段客人最多」「轉真人率多少」，讓你知道該補哪些知識、該不該加開客服班表。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials" class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-20">
+    <div class="text-center mb-10">
+      <p class="text-xs font-bold tracking-wide" style="color:var(--brand-600)">已獲得這些品牌信任</p>
+    </div>
+    <div class="flex flex-wrap justify-center gap-3 mb-14">
+      <span class="logo-chip text-sm font-bold px-5 py-2.5 rounded-xl">晴朗小舖</span>
+      <span class="logo-chip text-sm font-bold px-5 py-2.5 rounded-xl">好好睡寢具</span>
+      <span class="logo-chip text-sm font-bold px-5 py-2.5 rounded-xl">豆日子烘焙</span>
+      <span class="logo-chip text-sm font-bold px-5 py-2.5 rounded-xl">城市單車行</span>
+      <span class="logo-chip text-sm font-bold px-5 py-2.5 rounded-xl">樂寵生活</span>
+      <span class="logo-chip text-sm font-bold px-5 py-2.5 rounded-xl">慢靈魂咖啡</span>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="card p-7">
+        <div class="flex gap-1 mb-4" style="color:#f5b14c;">★★★★★</div>
+        <p class="text-sm leading-relaxed" style="color:var(--ink-700)">
+          「我們是三個人的團隊，以前光是回『訂單到哪了』『可以換尺寸嗎』這種問題，一天就要花掉快三小時。上線 TryFlight 之後，這類重複問題機器人直接攔下八成，我們終於有時間去談新品合作。」
+        </p>
+        <div class="mt-5 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm" style="background:var(--brand-50); color:var(--brand-600);">陳</div>
+          <div>
+            <p class="text-sm font-bold" style="color:var(--ink-900)">陳怡潓</p>
+            <p class="text-xs" style="color:var(--ink-500)">晴朗小舖　共同創辦人</p>
+          </div>
+        </div>
+      </div>
+      <div class="card p-7">
+        <div class="flex gap-1 mb-4" style="color:#f5b14c;">★★★★★</div>
+        <p class="text-sm leading-relaxed" style="color:var(--ink-700)">
+          「寢具客人最在意的就是尺寸跟材質過敏問題，一開始我很怕機器人亂回害我們被投訴。結果後台可以逐條檢查、修正答案，兩週內準確率就穩定在九成以上，連假出貨旺季也沒再漏接過半夜的訊息。」
+        </p>
+        <div class="mt-5 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm" style="background:var(--brand-50); color:var(--brand-600);">林</div>
+          <div>
+            <p class="text-sm font-bold" style="color:var(--ink-900)">林柏彥</p>
+            <p class="text-xs" style="color:var(--ink-500)">好好睡寢具　電商營運主管</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="max-w-7xl mx-auto px-5 md:px-8 pb-20">
+    <div class="card p-10 md:p-14 text-center" style="background:linear-gradient(135deg, var(--brand-600), var(--brand-400)); border:none;">
+      <h2 class="font-display font-extrabold text-2xl md:text-3xl text-white">今天就上傳你的第一份資料，<br class="hidden md:block">讓機器人開始學習</h2>
+      <p class="mt-3 text-sm md:text-base text-white/85">14 天免費試用，不需要信用卡資訊，隨時可以取消。</p>
+      <a href="#demo" class="inline-block mt-7 font-bold px-7 py-3.5 rounded-full text-sm" style="background:white; color:var(--brand-600);">免費開始打造機器人</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer id="docs" class="border-t" style="border-color:var(--border); background:var(--surface);">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 py-12 grid md:grid-cols-4 gap-10">
+    <div>
+      <a href="#top" class="flex items-center gap-2 font-display font-extrabold text-base mb-3">
+        <span class="inline-flex items-center justify-center w-7 h-7 rounded-lg" style="background:linear-gradient(135deg,var(--brand-600),var(--brand-400));">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M2 12L11 9L14 2L22 12L14 22L11 15L2 12Z" fill="white"/></svg>
+        </span>
+        <span style="color:var(--ink-900)">試飛 TryFlight</span>
+      </a>
+      <p class="text-xs leading-relaxed" style="color:var(--ink-500)">幫中小企業在幾分鐘內建立自己的 AI 客服機器人，讓每一筆客人訊息都有人即時回應。</p>
+    </div>
+    <div>
+      <p class="text-xs font-bold mb-3" style="color:var(--ink-900)">產品</p>
+      <ul class="space-y-2 text-xs" style="color:var(--ink-500)">
+        <li><a href="#features" class="hover:opacity-70">功能介紹</a></li>
+        <li><a href="#pricing" class="hover:opacity-70">價格方案</a></li>
+        <li><a href="#demo" class="hover:opacity-70">線上試玩</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="text-xs font-bold mb-3" style="color:var(--ink-900)">資源</p>
+      <ul class="space-y-2 text-xs" style="color:var(--ink-500)">
+        <li><a href="#" class="hover:opacity-70">使用文件</a></li>
+        <li><a href="#" class="hover:opacity-70">API 說明</a></li>
+        <li><a href="#" class="hover:opacity-70">常見問題</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="text-xs font-bold mb-3" style="color:var(--ink-900)">公司</p>
+      <ul class="space-y-2 text-xs" style="color:var(--ink-500)">
+        <li><a href="#" class="hover:opacity-70">關於我們</a></li>
+        <li><a href="#" class="hover:opacity-70">聯絡客服</a></li>
+        <li><a href="#" class="hover:opacity-70">服務條款</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="max-w-7xl mx-auto px-5 md:px-8 py-5 text-xs flex flex-col sm:flex-row justify-between gap-2" style="border-top:1px solid var(--border); color:var(--ink-500);">
+    <span>© 2026 試飛 TryFlight．台灣台北</span>
+    <span>讓每個小生意都有自己的 AI 客服</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const chatBody = document.getElementById('chatBody');
+  const input = document.getElementById('chatInput');
+  const sendBtn = document.getElementById('sendBtn');
+  const quickRow = document.getElementById('quickBtnRow');
+
+  const KB = [
+    {
+      keys: ['退貨', '退款', '換貨', '退回'],
+      reply: '我們提供「到貨 7 天鑑賞期」，商品只要保持全新未使用、吊牌與包裝完整，都可以申請退貨喔！流程是：登入會員後台 →「訂單查詢」→ 選擇要退的商品 → 填寫退貨原因，系統會自動幫你產生退貨標籤，不需要自己貼郵資，審核通過後 3–5 個工作日內退款會原路退回喔 😊'
+    },
+    {
+      keys: ['出貨', '多久', '到貨', '寄送', '運送', '貨運'],
+      reply: '一般商品我們是「下單後 1–2 個工作日內出貨」，出貨後搭配宅配約 1–3 天送達（離島會再多 1–2 天）。如果你是在週五下午之後下單，會排到下週一才開始處理，出貨後系統會自動發簡訊跟 Email 通知你物流單號，隨時可以追蹤喔！'
+    },
+    {
+      keys: ['客製化', '客製', '訓練', '設定', '調整', '自己的'],
+      reply: '當然可以！這個示範視窗只是固定規則版本，正式版的 TryFlight 後台可以讓你上傳自己的商品資料、SOP、常見問答，機器人會依照「你的」用語和政策來回覆，連語氣（例如比較正式或比較活潑）都能在後台一鍵調整，完全不用寫程式碼。'
+    },
+    {
+      keys: ['價格', '費用', '多少錢', '收費', '方案'],
+      reply: '我們有三個方案：入門方案每月 NT$990，適合一人小店；成長方案每月 NT$2,490，可串接 LINE＋官網＋Messenger 三個通路；企業方案則依用量客製報價。所有方案都有 14 天免費試用，不用輸入信用卡資訊就能先玩玩看！'
+    },
+    {
+      keys: ['真人', '客服人員', '轉接', '人工'],
+      reply: '如果機器人判斷自己答不上來，或是客人主動要求「找真人」，系統會立刻在你的後台跳出通知，並把完整對話紀錄一起帶過去，客服人員接手時不用再讓客人重複講一次問題喔！'
+    }
+  ];
+
+  const FALLBACK = '這個問題我目前還不太確定，已經先幫你記錄下來了，稍後會有真人客服主動跟你聯繫！你也可以換個方式問問看，或點選上面的快速按鈕試試 😊';
+
+  function matchReply(text){
+    const t = text.trim();
+    for (const item of KB){
+      if (item.keys.some(k => t.includes(k))) return item.reply;
+    }
+    return FALLBACK;
+  }
+
+  function scrollToBottom(){
+    chatBody.scrollTop = chatBody.scrollHeight;
+  }
+
+  function addUserBubble(text){
+    const row = document.createElement('div');
+    row.className = 'flex items-start gap-2.5 justify-end';
+    row.innerHTML = `
+      <div class="bubble bubble-user">${escapeHtml(text)}</div>
+      <div class="avatar avatar-user">你</div>
+    `;
+    chatBody.appendChild(row);
+    scrollToBottom();
+  }
+
+  function escapeHtml(str){
+    return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  function addTypingIndicator(){
+    const row = document.createElement('div');
+    row.className = 'flex items-start gap-2.5';
+    row.id = 'typingRow';
+    row.innerHTML = `
+      <div class="avatar avatar-bot">🤖</div>
+      <div class="bubble bubble-bot flex items-center gap-1.5 py-3">
+        <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
+      </div>
+    `;
+    chatBody.appendChild(row);
+    scrollToBottom();
+    return row;
+  }
+
+  function typewriterReply(fullText){
+    const typingRow = document.getElementById('typingRow');
+    if (typingRow) typingRow.remove();
+
+    const row = document.createElement('div');
+    row.className = 'flex items-start gap-2.5';
+    row.innerHTML = `
+      <div class="avatar avatar-bot">🤖</div>
+      <div class="bubble bubble-bot"><span class="typed-text"></span></div>
+    `;
+    chatBody.appendChild(row);
+    const span = row.querySelector('.typed-text');
+    span.classList.add('caret');
+    scrollToBottom();
+
+    let i = 0;
+    const speed = 28;
+    const timer = setInterval(() => {
+      i++;
+      span.textContent = fullText.slice(0, i);
+      scrollToBottom();
+      if (i >= fullText.length){
+        clearInterval(timer);
+        span.classList.remove('caret');
+      }
+    }, speed);
+  }
+
+  let busy = false;
+
+  function handleUserMessage(text){
+    if (!text || !text.trim() || busy) return;
+    busy = true;
+    addUserBubble(text);
+    input.value = '';
+    addTypingIndicator();
+
+    const thinkTime = 650 + Math.random() * 500;
+    setTimeout(() => {
+      const reply = matchReply(text);
+      typewriterReply(reply);
+      busy = false;
+    }, thinkTime);
+  }
+
+  sendBtn.addEventListener('click', () => handleUserMessage(input.value));
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') handleUserMessage(input.value);
+  });
+
+  quickRow.querySelectorAll('.quick-btn').forEach(btn => {
+    btn.addEventListener('click', () => handleUserMessage(btn.getAttribute('data-q')));
+  });
+})();
+</script>
+
+</body>
+</html>

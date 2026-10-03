@@ -1,0 +1,722 @@
+<!-- style #30 Executive Summary -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>領航艙 NaviDeck － 每日營運摘要</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --bg: #f5f6f8;
+    --surface: #ffffff;
+    --surface-alt: #fafbfc;
+    --border: #e4e7ec;
+    --text-primary: #1a1d29;
+    --text-secondary: #5c6270;
+    --text-tertiary: #8b909c;
+    --brand: #1e2a5e;
+    --brand-soft: #eef0f8;
+    --accent: #3b4a8c;
+    --positive: #10b981;
+    --positive-soft: #e8f8f1;
+    --negative: #ef4444;
+    --negative-soft: #fdecec;
+    --shadow-sm: 0 1px 2px rgba(16,20,35,0.04);
+    --shadow-md: 0 4px 16px rgba(16,20,35,0.06);
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg: #0f1117;
+      --surface: #161922;
+      --surface-alt: #1b1e29;
+      --border: #272b38;
+      --text-primary: #eef0f4;
+      --text-secondary: #a3a8b5;
+      --text-tertiary: #6d7280;
+      --brand: #7c8cf0;
+      --brand-soft: #1d2347;
+      --accent: #a0acf5;
+      --positive: #34d399;
+      --positive-soft: #10301f;
+      --negative: #f87171;
+      --negative-soft: #3a1818;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.4);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg: #0f1117;
+    --surface: #161922;
+    --surface-alt: #1b1e29;
+    --border: #272b38;
+    --text-primary: #eef0f4;
+    --text-secondary: #a3a8b5;
+    --text-tertiary: #6d7280;
+    --brand: #7c8cf0;
+    --brand-soft: #1d2347;
+    --accent: #a0acf5;
+    --positive: #34d399;
+    --positive-soft: #10301f;
+    --negative: #f87171;
+    --negative-soft: #3a1818;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.4);
+  }
+
+  *{ box-sizing: border-box; }
+  html, body{
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Public Sans', 'Noto Sans TC', sans-serif;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+  .mono{
+    font-family: 'JetBrains Mono', 'Noto Sans TC', monospace;
+    font-feature-settings: "tnum";
+  }
+  .page{
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 24px 20px 64px;
+  }
+
+  /* Header */
+  .topbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 28px;
+  }
+  .brand{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .brand-mark{
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--brand), var(--accent));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-sm);
+  }
+  .brand-name{
+    font-weight: 800;
+    font-size: 19px;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    line-height: 1.2;
+  }
+  .brand-sub{
+    font-size: 12px;
+    color: var(--text-tertiary);
+    font-weight: 500;
+  }
+  .date-block{
+    text-align: right;
+  }
+  .date-main{
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .date-sub{
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin-top: 2px;
+  }
+  .header-actions{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .btn-export{
+    background: var(--brand);
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    font-family: 'Public Sans', 'Noto Sans TC', sans-serif;
+  }
+  .btn-export:hover{
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+  .live-dot{
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--positive);
+    box-shadow: 0 0 0 3px var(--positive-soft);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ opacity: 1; }
+    50%{ opacity: 0.45; }
+  }
+  .sync-label{
+    font-size: 12px;
+    color: var(--text-tertiary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* Section labels */
+  .section-label{
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    margin: 0 0 14px 2px;
+  }
+
+  /* KPI grid */
+  .kpi-grid{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+  @media (max-width: 1100px){
+    .kpi-grid{ grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 620px){
+    .kpi-grid{ grid-template-columns: 1fr; }
+  }
+  .kpi-card{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: var(--shadow-sm);
+  }
+  .kpi-card.highlight{
+    background: linear-gradient(165deg, var(--brand-soft), var(--surface) 65%);
+    border-color: var(--brand-soft);
+  }
+  .kpi-top{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  .kpi-label{
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+  .kpi-icon{
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: var(--surface-alt);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .kpi-value{
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    line-height: 1.1;
+  }
+  .kpi-unit{
+    font-size: 14px;
+    color: var(--text-tertiary);
+    font-weight: 500;
+    margin-left: 4px;
+  }
+  .kpi-bottom{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 2px;
+  }
+  .delta{
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 6px;
+  }
+  .delta.up{ color: var(--positive); background: var(--positive-soft); }
+  .delta.down{ color: var(--negative); background: var(--negative-soft); }
+  .delta-compare{
+    font-size: 11.5px;
+    color: var(--text-tertiary);
+    font-weight: 500;
+  }
+  .spark{
+    flex-shrink: 0;
+  }
+
+  /* Summary block */
+  .summary-card{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 26px;
+    margin-bottom: 36px;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+  }
+  .summary-head{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .summary-badge{
+    width: 28px;
+    height: 28px;
+    border-radius: 7px;
+    background: var(--brand-soft);
+    color: var(--brand);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .summary-title{
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+  .summary-tag{
+    margin-left: auto;
+    font-size: 11px;
+    color: var(--text-tertiary);
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    padding: 3px 9px;
+    border-radius: 100px;
+    font-weight: 600;
+  }
+  .summary-text{
+    font-size: 14.5px;
+    line-height: 1.85;
+    color: var(--text-secondary);
+  }
+  .summary-text b{
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+  .summary-text .num{
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .summary-text .pos{ color: var(--positive); font-family: 'JetBrains Mono', monospace; font-weight: 700; }
+  .summary-text .neg{ color: var(--negative); font-family: 'JetBrains Mono', monospace; font-weight: 700; }
+
+  /* Lower grid: ranking + secondary metrics */
+  .lower-grid{
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 20px;
+    margin-bottom: 36px;
+  }
+  @media (max-width: 900px){
+    .lower-grid{ grid-template-columns: 1fr; }
+  }
+  .panel{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 22px 10px;
+    box-shadow: var(--shadow-sm);
+  }
+  .panel-head{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .panel-title{
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+  .panel-sub{
+    font-size: 12px;
+    color: var(--text-tertiary);
+  }
+  .rank-row{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .rank-row:last-child{ border-bottom: none; }
+  .rank-num{
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+    background: var(--surface-alt);
+    color: var(--text-secondary);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .rank-row:nth-child(1) .rank-num{ background: var(--brand); color: #fff; }
+  .rank-info{
+    flex: 1;
+    min-width: 0;
+  }
+  .rank-name{
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .rank-cat{
+    font-size: 11.5px;
+    color: var(--text-tertiary);
+    margin-top: 1px;
+  }
+  .rank-bar-wrap{
+    flex: 1;
+    max-width: 140px;
+    height: 6px;
+    background: var(--surface-alt);
+    border-radius: 100px;
+    overflow: hidden;
+    display: none;
+  }
+  @media (min-width: 700px){
+    .rank-bar-wrap{ display: block; }
+  }
+  .rank-bar{
+    height: 100%;
+    border-radius: 100px;
+    background: linear-gradient(90deg, var(--accent), var(--brand));
+  }
+  .rank-val{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: right;
+    min-width: 92px;
+  }
+  .rank-val-sub{
+    font-size: 11px;
+    color: var(--text-tertiary);
+    font-weight: 400;
+    display: block;
+    text-align: right;
+  }
+
+  .mini-metric-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .mini-metric-row:last-child{ border-bottom: none; }
+  .mini-metric-label{
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+  .mini-metric-right{
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .mini-metric-val{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+  .mini-metric-delta{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    font-weight: 600;
+  }
+  .mini-metric-delta.up{ color: var(--positive); }
+  .mini-metric-delta.down{ color: var(--negative); }
+
+  footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 11.5px;
+    color: var(--text-tertiary);
+  }
+  footer .dot{
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--text-tertiary);
+    display: inline-block;
+    margin: 0 8px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2L4 14h5l-1 8 8-12h-5l1-8z" fill="#ffffff"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-name">領航艙 NaviDeck</div>
+        <div class="brand-sub">CEO 每日營運摘要儀表板</div>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <div class="date-block">
+        <div class="date-main">2026 年 10 月 3 日 星期六</div>
+        <div class="sync-label"><span class="live-dot"></span>資料同步於 08:15・T-1 日結算</div>
+      </div>
+      <button class="btn-export" onclick="exportReport()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        匯出報表
+      </button>
+    </div>
+  </div>
+
+  <!-- KPI Section -->
+  <div class="section-label">核心指標 KEY METRICS</div>
+  <div class="kpi-grid" id="kpiGrid"></div>
+
+  <!-- Summary -->
+  <div class="summary-card">
+    <div class="summary-head">
+      <div class="summary-badge">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+        </svg>
+      </div>
+      <div class="summary-title">本日摘要</div>
+      <div class="summary-tag">系統自動生成・AI 摘要</div>
+    </div>
+    <div class="summary-text">
+      今日（10/3）全站營收達 <span class="num">NT$ 1,842,650</span>，較上週同期（9/26，六）成長 <span class="pos">+12.4%</span>，為近八週單日次高。主要帶動品類為「居家生活」與「美妝保養」，分別貢獻營收成長的 <b>38%</b> 與 <b>26%</b>，其中居家生活品類受中秋後補貨週期帶動，客單量明顯回升。新客訂單數達 <span class="num">612</span> 筆，較昨日 <span class="pos">+8.1%</span>，廣告投放成效（ROAS <span class="num">4.6</span>）優於本月均值；但需留意退貨率升至 <span class="num">3.2%</span>，較昨日 <span class="neg">+0.4pt</span>，初步歸因為「美妝保養」品類中 2 款新品尺寸／色號爭議引發退換，建議客服與選品團隊於明日複盤。整體毛利率維持在 <span class="num">34.8%</span>，較昨日略降 <span class="neg">-0.3pt</span>，主要受物流旺季加成運費影響，尚在健康區間內，無需緊急介入。
+    </div>
+  </div>
+
+  <!-- Lower grid -->
+  <div class="lower-grid">
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title">今日熱銷商品 Top 5</div>
+        <div class="panel-sub">依銷售金額排序</div>
+      </div>
+      <div id="rankList"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title">其他營運指標</div>
+        <div class="panel-sub">較昨日</div>
+      </div>
+      <div id="mimiMetrics"></div>
+    </div>
+  </div>
+
+  <footer>
+    <div>領航艙 NaviDeck © 2026・數據最後更新：2026/10/03 08:15:42<span class="dot"></span>幣別：新台幣 (TWD)</div>
+    <div>此報表僅供內部管理決策參考，請勿對外流通</div>
+  </footer>
+
+</div>
+
+<script>
+  // ---------- Sparkline helper ----------
+  function sparklinePath(values, w, h, pad){
+    pad = pad || 3;
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const range = (max - min) || 1;
+    const stepX = (w - pad * 2) / (values.length - 1);
+    return values.map((v, i) => {
+      const x = pad + i * stepX;
+      const y = h - pad - ((v - min) / range) * (h - pad * 2);
+      return (i === 0 ? 'M' : 'L') + x.toFixed(1) + ',' + y.toFixed(1);
+    }).join(' ');
+  }
+
+  function renderSpark(values, color, w = 96, h = 32){
+    const path = sparklinePath(values, w, h);
+    const lastX = w - 3;
+    const min = Math.min(...values), max = Math.max(...values);
+    const range = (max - min) || 1;
+    const lastY = h - 3 - ((values[values.length-1] - min) / range) * (h - 6);
+    return `<svg class="spark" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+      <path d="${path}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="${lastX}" cy="${lastY.toFixed(1)}" r="2.6" fill="${color}"/>
+    </svg>`;
+  }
+
+  // ---------- KPI data ----------
+  const kpis = [
+    {
+      label: '今日營收', value: '1,842,650', unit: 'NT$', delta: '+12.4%', dir: 'up',
+      compare: '較上週同期', trend: [142,150,138,160,155,170,165,184],
+      highlight: true,
+      icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`
+    },
+    {
+      label: '新客訂單數', value: '612', unit: '筆', delta: '+8.1%', dir: 'up',
+      compare: '較昨日', trend: [48,52,50,55,58,56,60,61],
+      icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`
+    },
+    {
+      label: '平均客單價', value: '1,268', unit: 'NT$', delta: '+3.6%', dir: 'up',
+      compare: '較昨日', trend: [118,122,120,119,124,123,126,127],
+      icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>`
+    },
+    {
+      label: '退貨率', value: '3.2', unit: '%', delta: '+0.4pt', dir: 'down',
+      compare: '較昨日', trend: [2.6,2.7,2.5,2.8,2.9,2.8,2.8,3.2],
+      icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>`
+    },
+    {
+      label: '毛利率', value: '34.8', unit: '%', delta: '-0.3pt', dir: 'down',
+      compare: '較昨日', trend: [36.1,35.8,35.9,35.4,35.2,35.0,35.1,34.8],
+      icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-6"/></svg>`
+    }
+  ];
+
+  const kpiGrid = document.getElementById('kpiGrid');
+  kpis.forEach(k => {
+    const isUp = k.dir === 'up';
+    const color = isUp ? 'var(--positive)' : 'var(--negative)';
+    const colorHex = isUp ? '#10b981' : '#ef4444';
+    const arrow = isUp ? '▲' : '▼';
+    const card = document.createElement('div');
+    card.className = 'kpi-card' + (k.highlight ? ' highlight' : '');
+    card.innerHTML = `
+      <div class="kpi-top">
+        <div class="kpi-label">${k.label}</div>
+        <div class="kpi-icon" style="color: var(--brand);">${k.icon}</div>
+      </div>
+      <div class="kpi-value mono">${k.unit && k.unit !== '%' ? `<span class="kpi-unit" style="margin-left:0;margin-right:4px;">${k.unit}</span>` : ''}${k.value}${k.unit === '%' ? `<span class="kpi-unit">${k.unit}</span>` : ''}</div>
+      <div class="kpi-bottom">
+        <div>
+          <span class="delta ${k.dir} mono">${arrow} ${k.delta}</span>
+          <div class="delta-compare">${k.compare}</div>
+        </div>
+        ${renderSpark(k.trend, colorHex)}
+      </div>
+    `;
+    kpiGrid.appendChild(card);
+  });
+
+  // ---------- Ranking ----------
+  const ranking = [
+    { name: '北歐簡約懶骨頭沙發墊', cat: '居家生活', value: 186400, units: 142, pct: 100 },
+    { name: '胺基酸溫和潔顏慕絲 150ml', cat: '美妝保養', value: 152300, units: 508, pct: 82 },
+    { name: '摺疊式電動升降桌架', cat: '居家生活', value: 128900, units: 86, pct: 69 },
+    { name: '無線降噪藍牙耳機 Pro', cat: '3C 配件', value: 111200, units: 93, pct: 60 },
+    { name: '維他命C亮白精華液 30ml', cat: '美妝保養', value: 98650, units: 329, pct: 53 }
+  ];
+  const rankList = document.getElementById('rankList');
+  ranking.forEach((r, i) => {
+    const row = document.createElement('div');
+    row.className = 'rank-row';
+    row.innerHTML = `
+      <div class="rank-num mono">${i + 1}</div>
+      <div class="rank-info">
+        <div class="rank-name">${r.name}</div>
+        <div class="rank-cat">${r.cat}</div>
+      </div>
+      <div class="rank-bar-wrap"><div class="rank-bar" style="width:${r.pct}%"></div></div>
+      <div class="rank-val mono">NT$ ${r.value.toLocaleString()}<span class="rank-val-sub">${r.units} 件</span></div>
+    `;
+    rankList.appendChild(row);
+  });
+
+  // ---------- Mini metrics ----------
+  const miniMetrics = [
+    { label: '網站轉換率', value: '2.84%', delta: '+0.12pt', dir: 'up' },
+    { label: '平均到站停留時間', value: '3分42秒', delta: '+9秒', dir: 'up' },
+    { label: '客服單日來信量', value: '87 件', delta: '+14 件', dir: 'down' },
+    { label: '庫存週轉天數', value: '18.6 天', delta: '-0.8 天', dir: 'up' },
+    { label: 'ROAS（廣告投資報酬率）', value: '4.6x', delta: '+0.3x', dir: 'up' },
+    { label: '物流準時配達率', value: '96.1%', delta: '-0.5pt', dir: 'down' }
+  ];
+  const mimiMetrics = document.getElementById('mimiMetrics');
+  miniMetrics.forEach(m => {
+    const arrow = m.dir === 'up' ? '▲' : '▼';
+    const row = document.createElement('div');
+    row.className = 'mini-metric-row';
+    row.innerHTML = `
+      <div class="mini-metric-label">${m.label}</div>
+      <div class="mini-metric-right">
+        <div class="mini-metric-val">${m.value}</div>
+        <div class="mini-metric-delta ${m.dir}">${arrow} ${m.delta}</div>
+      </div>
+    `;
+    mimiMetrics.appendChild(row);
+  });
+
+  function exportReport(){
+    const btn = document.querySelector('.btn-export');
+    const original = btn.innerHTML;
+    btn.innerHTML = '報表匯出中...';
+    btn.style.opacity = '0.7';
+    setTimeout(() => {
+      btn.innerHTML = original;
+      btn.style.opacity = '1';
+    }, 1400);
+  }
+</script>
+</body>
+</html>

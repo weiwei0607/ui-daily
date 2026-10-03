@@ -1,0 +1,498 @@
+<!-- style #50 Swiss Modernism 2.0 -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>典律聯合法律事務所｜以嚴謹為度，以證據為言</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,500&family=Noto+Serif+TC:wght@400;500;600;700;900&family=Karla:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --paper:#f7f5f0;
+    --paper-2:#efebe2;
+    --ink:#111111;
+    --ink-soft:#3a3a3a;
+    --red:#b5281f;
+    --rule:#111111;
+    --rule-soft:#c9c3b4;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{
+    background:var(--paper);
+    color:var(--ink);
+    margin:0;
+    -webkit-font-smoothing:antialiased;
+  }
+  body{
+    font-family:"Noto Serif TC","Fraunces",serif;
+    font-feature-settings:"liga" 1;
+  }
+
+  .font-display{
+    font-family:"Fraunces","Noto Serif TC",serif;
+    font-optical-sizing:auto;
+  }
+  .font-serif-tc{
+    font-family:"Noto Serif TC",serif;
+  }
+  .font-sans-aux{
+    font-family:"Karla","Noto Serif TC",sans-serif;
+  }
+
+  .masthead-rule{ border-top:4px solid var(--ink); }
+  .rule-thin{ border-top:1px solid var(--ink); }
+  .rule-thin-soft{ border-top:1px solid var(--rule-soft); }
+
+  .grid12{
+    display:grid;
+    grid-template-columns:repeat(12,1fr);
+    gap:0 24px;
+  }
+
+  .label-tag{
+    font-family:"Karla",sans-serif;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    font-size:11px;
+    font-weight:700;
+  }
+
+  .nav-link{
+    font-family:"Karla",sans-serif;
+    letter-spacing:.04em;
+    font-size:14px;
+    font-weight:600;
+    position:relative;
+    padding-bottom:2px;
+  }
+  .nav-link::after{
+    content:"";
+    position:absolute;
+    left:0;bottom:-2px;
+    width:0;height:2px;
+    background:var(--red);
+    transition:width .25s ease;
+  }
+  .nav-link:hover::after{ width:100%; }
+
+  /* drop cap */
+  .dropcap::first-letter{
+    font-family:"Fraunces",serif;
+    font-weight:700;
+    font-size:5.6rem;
+    line-height:.8;
+    float:left;
+    padding-right:14px;
+    padding-top:6px;
+    color:var(--red);
+  }
+
+  .num-index{
+    font-family:"Fraunces",serif;
+    font-weight:300;
+    font-style:italic;
+    color:var(--red);
+  }
+
+  .card-service{
+    border:1px solid var(--ink);
+    padding:28px 24px;
+    position:relative;
+    background:var(--paper);
+    transition:background .2s ease;
+  }
+  .card-service:hover{ background:var(--paper-2); }
+
+  .btn-primary{
+    font-family:"Karla",sans-serif;
+    font-weight:700;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    font-size:13px;
+    background:var(--ink);
+    color:var(--paper);
+    border:1px solid var(--ink);
+    padding:16px 28px;
+    cursor:pointer;
+    transition:all .18s ease;
+  }
+  .btn-primary:hover{
+    background:var(--red);
+    border-color:var(--red);
+  }
+
+  input, select, textarea{
+    font-family:"Karla",sans-serif;
+    font-size:15px;
+    width:100%;
+    border:none;
+    border-bottom:1px solid var(--ink);
+    background:transparent;
+    padding:10px 2px;
+    outline:none;
+    border-radius:0;
+  }
+  input:focus, select:focus, textarea:focus{
+    border-bottom:2px solid var(--red);
+  }
+  label.field-label{
+    font-family:"Karla",sans-serif;
+    font-size:11px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    font-weight:700;
+    color:var(--ink-soft);
+    display:block;
+    margin-bottom:6px;
+  }
+
+  .case-no{
+    font-family:"Karla",sans-serif;
+    font-size:11px;
+    color:var(--red);
+    letter-spacing:.08em;
+  }
+
+  .vertical-rule{ border-left:1px solid var(--ink); }
+
+  ::selection{ background:var(--red); color:var(--paper); }
+
+  .mark{
+    background:linear-gradient(transparent 60%, rgba(181,40,31,.18) 60%);
+  }
+
+  @media (max-width: 900px){
+    .grid12{ display:block; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER / MASTHEAD ============ -->
+<header class="masthead-rule border-b border-black">
+  <div class="max-w-[1320px] mx-auto px-5 md:px-10">
+    <div class="grid12 items-end py-6">
+      <div class="col-span-12 md:col-span-7">
+        <div class="label-tag text-[var(--red)] mb-2">自1998年執業 · 台北</div>
+        <h1 class="font-serif-tc font-bold tracking-tight" style="font-size:clamp(28px,4vw,40px); line-height:1.1;">
+          典律聯合法律事務所
+        </h1>
+      </div>
+      <div class="col-span-12 md:col-span-5 mt-4 md:mt-0">
+        <nav class="flex flex-wrap gap-x-8 gap-y-3 justify-start md:justify-end">
+          <a href="#services" class="nav-link">服務項目</a>
+          <a href="#partners" class="nav-link">主持律師</a>
+          <a href="#cases" class="nav-link">案例</a>
+          <a href="#contact" class="nav-link">聯絡我們</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <div class="rule-thin"></div>
+  <div class="max-w-[1320px] mx-auto px-5 md:px-10 py-2 flex flex-wrap justify-between items-center">
+    <span class="font-sans-aux text-[11px] tracking-widest uppercase text-[var(--ink-soft)]">NO. 2026-10-03 · 第 50 號設計稿</span>
+    <span class="font-sans-aux text-[11px] tracking-widest uppercase text-[var(--ink-soft)]">商業訴訟 / 智慧財產權 / 企業併購 / 勞動法務</span>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="max-w-[1320px] mx-auto px-5 md:px-10 pt-14 pb-16 border-b border-black">
+  <div class="grid12">
+    <div class="col-span-12 md:col-span-8">
+      <p class="label-tag mb-5">LEGAL COUNSEL WITH RIGOR — 嚴謹，是我們對委託人唯一的承諾</p>
+      <h2 class="font-display font-black" style="font-size:clamp(40px,6.4vw,84px); line-height:0.98; letter-spacing:-0.01em;">
+        在證據與法理之間，<br>為您的權益築起防線。
+      </h2>
+      <p class="font-sans-aux text-[15px] md:text-base leading-relaxed mt-8 max-w-[560px] text-[var(--ink-soft)]">
+        典律聯合法律事務所專注於商業訴訟、智慧財產權、企業併購與投資、勞動法務四大領域，
+        以精確的法律分析與縝密的程序掌握，協助企業與個人在爭議與交易中站穩立場。
+      </p>
+    </div>
+    <div class="col-span-12 md:col-span-4 flex flex-col justify-end mt-10 md:mt-0">
+      <div class="rule-thin pt-5 grid grid-cols-2 gap-6">
+        <div>
+          <div class="font-display font-bold text-3xl text-[var(--red)]">27<span class="text-lg">年</span></div>
+          <div class="font-sans-aux text-[11px] uppercase tracking-widest mt-1 text-[var(--ink-soft)]">執業年資</div>
+        </div>
+        <div>
+          <div class="font-display font-bold text-3xl text-[var(--red)]">600<span class="text-lg">+</span></div>
+          <div class="font-sans-aux text-[11px] uppercase tracking-widest mt-1 text-[var(--ink-soft)]">企業委託案件</div>
+        </div>
+        <div>
+          <div class="font-display font-bold text-3xl text-[var(--red)]">14</div>
+          <div class="font-sans-aux text-[11px] uppercase tracking-widest mt-1 text-[var(--ink-soft)]">執業律師</div>
+        </div>
+        <div>
+          <div class="font-display font-bold text-3xl text-[var(--red)]">4</div>
+          <div class="font-sans-aux text-[11px] uppercase tracking-widest mt-1 text-[var(--ink-soft)]">專業領域</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 引言 / DROP CAP ============ -->
+<section class="max-w-[1320px] mx-auto px-5 md:px-10 py-16 border-b border-black">
+  <div class="grid12">
+    <div class="col-span-12 md:col-span-3">
+      <p class="label-tag text-[var(--red)]">主持律師的話</p>
+      <p class="font-display italic text-lg mt-3 text-[var(--ink-soft)]">「我們不替委託人許下承諾，我們替委託人準備好每一份證據。」</p>
+      <p class="font-sans-aux text-[12px] tracking-widest uppercase mt-4 text-[var(--ink-soft)]">— 陳瀚霖｜主持律師</p>
+    </div>
+    <div class="col-span-12 md:col-span-9 mt-8 md:mt-0">
+      <p class="dropcap font-serif-tc text-[19px] md:text-[20px] leading-[1.9] text-[var(--ink)] max-w-[760px]" style="column-gap:40px;">
+        法律從來不是修辭的競賽，而是證據與程序的累積。典律聯合自成立以來，始終相信每一件案子都值得被同等嚴謹地對待——
+        無論委託人是正在擴張的中小企業，還是面對跨國併購談判的上市公司。我們拒絕制式化的法律意見書，
+        每一份訴狀與契約，都是律師團隊逐條推演、逐字校對後的成果。在這個講求速度的時代，
+        我們選擇把時間留給查證，把判斷留給經驗，這是典律對每一位委託人最基本、也最重要的交代。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 服務項目 ============ -->
+<section id="services" class="max-w-[1320px] mx-auto px-5 md:px-10 py-16 border-b border-black">
+  <div class="grid12 mb-10">
+    <div class="col-span-12 md:col-span-6">
+      <p class="label-tag text-[var(--red)] mb-3">PRACTICE AREAS</p>
+      <h3 class="font-display font-bold" style="font-size:clamp(28px,3.4vw,44px); line-height:1.05;">專業服務項目</h3>
+    </div>
+    <div class="col-span-12 md:col-span-6 flex items-end justify-start md:justify-end">
+      <p class="font-sans-aux text-sm text-[var(--ink-soft)] max-w-[380px] mt-4 md:mt-0">
+        四大核心領域，由專責律師團隊分組負責，確保每一案件皆由熟悉該領域實務與判例的律師主責處理。
+      </p>
+    </div>
+  </div>
+
+  <div class="grid12 gap-y-6 md:gap-y-0">
+    <div class="col-span-12 md:col-span-3 card-service">
+      <div class="num-index text-2xl mb-6">01</div>
+      <h4 class="font-serif-tc font-bold text-xl mb-3">商業訴訟</h4>
+      <p class="font-sans-aux text-[13.5px] leading-relaxed text-[var(--ink-soft)]">
+        代理公司間契約糾紛、股東會決議效力爭訟、不當得利與侵權求償，從第一審到最高法院，
+        提供完整訴訟策略規劃與證據保全建議。
+      </p>
+    </div>
+    <div class="col-span-12 md:col-span-3 card-service">
+      <div class="num-index text-2xl mb-6">02</div>
+      <h4 class="font-serif-tc font-bold text-xl mb-3">智慧財產權</h4>
+      <p class="font-sans-aux text-[13.5px] leading-relaxed text-[var(--ink-soft)]">
+        專利、商標與著作權申請、侵權訴訟與授權談判，並協助企業建立內部智財管理機制，
+        降低研發成果外流與侵權風險。
+      </p>
+    </div>
+    <div class="col-span-12 md:col-span-3 card-service">
+      <div class="num-index text-2xl mb-6">03</div>
+      <h4 class="font-serif-tc font-bold text-xl mb-3">企業併購與投資</h4>
+      <p class="font-sans-aux text-[13.5px] leading-relaxed text-[var(--ink-soft)]">
+        執行併購案之法律實地查核、交易架構設計與契約起草，協助跨境投資案件之法規遵循
+        與主管機關申報流程。
+      </p>
+    </div>
+    <div class="col-span-12 md:col-span-3 card-service">
+      <div class="num-index text-2xl mb-6">04</div>
+      <h4 class="font-serif-tc font-bold text-xl mb-3">勞動法務</h4>
+      <p class="font-sans-aux text-[13.5px] leading-relaxed text-[var(--ink-soft)]">
+        處理解僱爭議、職業災害補償、團體協約談判及工作規則訂定，協助企業建立合規且
+        穩健的人事管理制度。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 主持律師 ============ -->
+<section id="partners" class="max-w-[1320px] mx-auto px-5 md:px-10 py-16 border-b border-black">
+  <div class="grid12 mb-10">
+    <div class="col-span-12 md:col-span-6">
+      <p class="label-tag text-[var(--red)] mb-3">PARTNERS</p>
+      <h3 class="font-display font-bold" style="font-size:clamp(28px,3.4vw,44px); line-height:1.05;">主持律師團隊</h3>
+    </div>
+  </div>
+  <div class="grid12 gap-y-10">
+    <div class="col-span-12 md:col-span-4">
+      <div class="rule-thin pt-4">
+        <span class="case-no">PARTNER / 01</span>
+        <h4 class="font-serif-tc font-bold text-2xl mt-2">陳瀚霖</h4>
+        <p class="font-sans-aux text-[13px] text-[var(--ink-soft)] mt-1 mb-4">主持律師 · 商業訴訟組</p>
+        <p class="font-sans-aux text-[13.5px] leading-relaxed text-[var(--ink-soft)]">
+          國立台灣大學法律學系、美國哥倫比亞大學法學碩士，執業逾二十年，專長重大商業爭訟與
+          股東權益糾紛，多次代理上市公司處理集團訴訟。
+        </p>
+      </div>
+    </div>
+    <div class="col-span-12 md:col-span-4">
+      <div class="rule-thin pt-4">
+        <span class="case-no">PARTNER / 02</span>
+        <h4 class="font-serif-tc font-bold text-2xl mt-2">林羽薰</h4>
+        <p class="font-sans-aux text-[13px] text-[var(--ink-soft)] mt-1 mb-4">合夥律師 · 智慧財產權組</p>
+        <p class="font-sans-aux text-[13.5px] leading-relaxed text-[var(--ink-soft)]">
+          國立政治大學法律學系畢業，曾任職智慧財產及商業法院法官助理，擅長專利侵權分析與
+          跨國品牌授權契約談判。
+        </p>
+      </div>
+    </div>
+    <div class="col-span-12 md:col-span-4">
+      <div class="rule-thin pt-4">
+        <span class="case-no">PARTNER / 03</span>
+        <h4 class="font-serif-tc font-bold text-2xl mt-2">蔡定邦</h4>
+        <p class="font-sans-aux text-[13px] text-[var(--ink-soft)] mt-1 mb-4">合夥律師 · 併購與投資組</p>
+        <p class="font-sans-aux text-[13.5px] leading-relaxed text-[var(--ink-soft)]">
+          國立政治大學法律學系畢業，曾任職外商投資銀行法務部門，熟稔跨境併購架構設計與
+          公開收購法規遵循。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 案例 ============ -->
+<section id="cases" class="max-w-[1320px] mx-auto px-5 md:px-10 py-16 border-b border-black">
+  <div class="grid12 mb-10">
+    <div class="col-span-12 md:col-span-6">
+      <p class="label-tag text-[var(--red)] mb-3">SELECTED CASES</p>
+      <h3 class="font-display font-bold" style="font-size:clamp(28px,3.4vw,44px); line-height:1.05;">精選案例</h3>
+    </div>
+    <div class="col-span-12 md:col-span-6 flex items-end justify-start md:justify-end">
+      <p class="font-sans-aux text-sm text-[var(--ink-soft)] max-w-[380px] mt-4 md:mt-0">
+        基於保密義務，以下案例已去識別化處理，僅呈現案件類型與處理成果。
+      </p>
+    </div>
+  </div>
+
+  <div class="rule-thin"></div>
+  <div class="grid12 py-7 items-start border-b border-[var(--rule-soft)]">
+    <div class="col-span-12 md:col-span-2 case-no font-bold">CASE 2025-18</div>
+    <div class="col-span-12 md:col-span-3 font-serif-tc font-bold text-lg mt-2 md:mt-0">股權交易糾紛仲裁案</div>
+    <div class="col-span-12 md:col-span-5 font-sans-aux text-[13.5px] text-[var(--ink-soft)] mt-2 md:mt-0 leading-relaxed">
+      代理科技業委託人處理合資股權買回爭議，於仲裁程序中成功舉證對方違反股東協議，
+      最終取得全額價款返還及違約金。
+    </div>
+    <div class="col-span-12 md:col-span-2 font-sans-aux text-[13px] mt-2 md:mt-0 md:text-right text-[var(--red)] font-bold">仲裁勝訴</div>
+  </div>
+  <div class="grid12 py-7 items-start border-b border-[var(--rule-soft)]">
+    <div class="col-span-12 md:col-span-2 case-no font-bold">CASE 2024-32</div>
+    <div class="col-span-12 md:col-span-3 font-serif-tc font-bold text-lg mt-2 md:mt-0">專利侵權民事訴訟</div>
+    <div class="col-span-12 md:col-span-5 font-sans-aux text-[13.5px] text-[var(--ink-soft)] mt-2 md:mt-0 leading-relaxed">
+      代理精密機械製造商對競爭對手提起專利侵權訴訟，智慧財產及商業法院一審判決確認
+      專利有效並命對方停止侵害行為。
+    </div>
+    <div class="col-span-12 md:col-span-2 font-sans-aux text-[13px] mt-2 md:mt-0 md:text-right text-[var(--red)] font-bold">一審勝訴</div>
+  </div>
+  <div class="grid12 py-7 items-start">
+    <div class="col-span-12 md:col-span-2 case-no font-bold">CASE 2024-07</div>
+    <div class="col-span-12 md:col-span-3 font-serif-tc font-bold text-lg mt-2 md:mt-0">跨境併購法律查核</div>
+    <div class="col-span-12 md:col-span-5 font-sans-aux text-[13.5px] text-[var(--ink-soft)] mt-2 md:mt-0 leading-relaxed">
+      協助物流集團完成對東南亞子公司之股權收購案，執行全面法律實地查核並重新談判
+      關鍵供應契約條款，順利於預定期限內完成交割。
+    </div>
+    <div class="col-span-12 md:col-span-2 font-sans-aux text-[13px] mt-2 md:mt-0 md:text-right text-[var(--red)] font-bold">交易完成</div>
+  </div>
+</section>
+
+<!-- ============ 預約法律諮詢 ============ -->
+<section id="contact" class="max-w-[1320px] mx-auto px-5 md:px-10 py-16 border-b border-black">
+  <div class="grid12">
+    <div class="col-span-12 md:col-span-4">
+      <p class="label-tag text-[var(--red)] mb-3">CONSULTATION</p>
+      <h3 class="font-display font-bold" style="font-size:clamp(28px,3.4vw,44px); line-height:1.05;">預約法律諮詢</h3>
+      <p class="font-sans-aux text-[13.5px] leading-relaxed text-[var(--ink-soft)] mt-6 max-w-[320px]">
+        請填妥以下資訊，我們將依您的諮詢類別安排對應領域之律師，並於一個工作日內
+        與您聯繫確認會談時間。初次諮詢為付費制，費用將於聯繫時告知。
+      </p>
+      <div class="rule-thin mt-8 pt-6">
+        <p class="font-sans-aux text-[12px] tracking-widest uppercase text-[var(--ink-soft)]">諮詢時間</p>
+        <p class="font-serif-tc text-base mt-1">週一至週五 09:00–18:00</p>
+      </div>
+    </div>
+
+    <div class="col-span-12 md:col-span-8 mt-10 md:mt-0">
+      <form id="consultForm" class="grid12 gap-y-7">
+        <div class="col-span-12 md:col-span-6">
+          <label class="field-label" for="f-name">姓名</label>
+          <input id="f-name" name="name" type="text" placeholder="請輸入您的姓名" required>
+        </div>
+        <div class="col-span-12 md:col-span-6">
+          <label class="field-label" for="f-phone">聯絡電話</label>
+          <input id="f-phone" name="phone" type="tel" placeholder="例：0912-345-678" required>
+        </div>
+        <div class="col-span-12 md:col-span-6">
+          <label class="field-label" for="f-email">Email</label>
+          <input id="f-email" name="email" type="email" placeholder="example@mail.com" required>
+        </div>
+        <div class="col-span-12 md:col-span-6">
+          <label class="field-label" for="f-type">諮詢類別</label>
+          <select id="f-type" name="type" required>
+            <option value="" disabled selected>請選擇諮詢類別</option>
+            <option value="商業訴訟">商業訴訟</option>
+            <option value="智慧財產權">智慧財產權</option>
+            <option value="企業併購與投資">企業併購與投資</option>
+            <option value="勞動法務">勞動法務</option>
+            <option value="其他">其他法律諮詢</option>
+          </select>
+        </div>
+        <div class="col-span-12">
+          <label class="field-label" for="f-desc">需求說明</label>
+          <textarea id="f-desc" name="description" rows="4" placeholder="請簡述您的案件背景與欲諮詢之問題，以便律師事前準備。" required></textarea>
+        </div>
+        <div class="col-span-12 flex items-center gap-6 mt-2">
+          <button type="submit" class="btn-primary">送出諮詢</button>
+          <span id="formMsg" class="font-sans-aux text-[13px] text-[var(--red)] font-bold" style="display:none;"></span>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="max-w-[1320px] mx-auto px-5 md:px-10 pt-14 pb-10">
+  <div class="grid12">
+    <div class="col-span-12 md:col-span-4">
+      <h5 class="font-serif-tc font-bold text-xl mb-4">典律聯合法律事務所</h5>
+      <p class="font-sans-aux text-[13px] leading-relaxed text-[var(--ink-soft)]">
+        110 台北市信義區松仁路 97 號 22 樓<br>
+        TEL (02) 2758-6320　FAX (02) 2758-6321
+      </p>
+    </div>
+    <div class="col-span-12 md:col-span-4 mt-8 md:mt-0">
+      <p class="label-tag text-[var(--red)] mb-4">服務時間</p>
+      <p class="font-sans-aux text-[13px] leading-relaxed text-[var(--ink-soft)]">
+        週一至週五　09:00–18:00<br>
+        週六、週日及國定假日公休<br>
+        緊急案件請來電預約專線。
+      </p>
+    </div>
+    <div class="col-span-12 md:col-span-4 mt-8 md:mt-0">
+      <p class="label-tag text-[var(--red)] mb-4">電子信箱</p>
+      <p class="font-sans-aux text-[13px] leading-relaxed text-[var(--ink-soft)]">
+        contact@dianlu-law.com.tw<br>
+        統一編號 28716543
+      </p>
+    </div>
+  </div>
+  <div class="rule-thin mt-12 pt-5 flex flex-wrap justify-between gap-3">
+    <span class="font-sans-aux text-[11px] tracking-widest uppercase text-[var(--ink-soft)]">© 2026 DIANLU &amp; ASSOCIATES ATTORNEYS-AT-LAW</span>
+    <span class="font-sans-aux text-[11px] tracking-widest uppercase text-[var(--ink-soft)]">本網站內容僅供一般資訊參考，不構成具體法律意見</span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('consultForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var msg = document.getElementById('formMsg');
+    var name = document.getElementById('f-name').value.trim();
+    if(!name){ return; }
+    msg.style.display = 'inline';
+    msg.textContent = '已收到您的諮詢，我們將於 1 個工作日內與您聯繫。';
+    this.reset();
+    setTimeout(function(){
+      msg.style.display = 'none';
+    }, 6000);
+  });
+</script>
+
+</body>
+</html>

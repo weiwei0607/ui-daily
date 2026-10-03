@@ -11,9 +11,11 @@ API = f"https://api.github.com/repos/{REPO}"
 
 def req(method, url, body=None):
     data = json.dumps(body).encode() if body is not None else None
-    r = urllib.request.Request(url, data=data, method=method,
-        headers={"Authorization": f"token {TOKEN}", "Accept": "application/vnd.github+json",
-                 "User-Agent": "ui-daily-publisher"})
+    headers = {"Authorization": f"token {TOKEN}", "Accept": "application/vnd.github+json",
+               "User-Agent": "ui-daily-publisher"}
+    if data is not None:
+        headers["Content-Type"] = "application/json"
+    r = urllib.request.Request(url, data=data, method=method, headers=headers)
     with urllib.request.urlopen(r, timeout=30) as resp:
         return json.loads(resp.read().decode())
 

@@ -1,0 +1,420 @@
+<!-- style #54 Neubrutalism v2 -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOISEWAVE 噪波音樂祭｜售票頁</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --yellow:#ffe156;
+    --coral:#ff6b6b;
+    --teal:#4ecdc4;
+    --purple:#a388ee;
+    --cream:#fff8ec;
+    --ink:#1a1a1a;
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
+    font-weight: 500;
+    overflow-x: hidden;
+  }
+
+  .font-display{
+    font-family: 'Archivo Black', 'Noto Sans TC', sans-serif;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+  }
+
+  .font-zh-black{
+    font-family: 'Noto Sans TC', 'Archivo Black', sans-serif;
+    font-weight: 900;
+  }
+
+  .font-zh-bold{
+    font-family: 'Noto Sans TC', 'Space Grotesk', sans-serif;
+    font-weight: 700;
+  }
+
+  /* ---------- Neubrutalism v2 core ---------- */
+  .nb-border{
+    border: 3px solid var(--ink);
+  }
+  .nb-border-thick{
+    border: 4px solid var(--ink);
+  }
+  .nb-shadow{
+    box-shadow: 6px 6px 0 var(--ink);
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+  }
+  .nb-shadow-sm{
+    box-shadow: 4px 4px 0 var(--ink);
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+  }
+  .nb-shadow-lg{
+    box-shadow: 10px 10px 0 var(--ink);
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+  }
+  .nb-rounded{
+    border-radius: 0.9rem;
+  }
+  .nb-rounded-lg{
+    border-radius: 1.25rem;
+  }
+
+  .nb-press{
+    cursor: pointer;
+  }
+  .nb-press:hover{
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0 var(--ink);
+  }
+  .nb-press:active{
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0 var(--ink);
+  }
+
+  .nb-press-sm:hover{
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+  .nb-press-sm:active{
+    transform: translate(3px, 3px);
+    box-shadow: 1px 1px 0 var(--ink);
+  }
+
+  /* selected ticket card */
+  .ticket-card{
+    transition: box-shadow 0.15s ease, transform 0.15s ease, background-color 0.15s ease;
+  }
+  .ticket-card.selected{
+    transform: translate(-3px, -3px);
+    box-shadow: 11px 11px 0 var(--ink);
+    outline: 3px dashed var(--ink);
+    outline-offset: 4px;
+  }
+
+  .marquee-track{
+    display: flex;
+    width: max-content;
+    animation: marquee 18s linear infinite;
+  }
+  @keyframes marquee{
+    0%{ transform: translateX(0); }
+    100%{ transform: translateX(-50%); }
+  }
+
+  .halftone-dots{
+    background-image: radial-gradient(var(--ink) 1.4px, transparent 1.4px);
+    background-size: 14px 14px;
+    opacity: 0.08;
+  }
+
+  .sticker{
+    display: inline-block;
+    transform: rotate(-3deg);
+  }
+
+  .nav-link{
+    position: relative;
+  }
+  .nav-link::after{
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -4px;
+    height: 3px;
+    background: var(--ink);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.2s ease;
+  }
+  .nav-link:hover::after{
+    transform: scaleX(1);
+  }
+
+  section{
+    scroll-margin-top: 90px;
+  }
+
+  @media (max-width: 640px){
+    .nb-shadow{ box-shadow: 4px 4px 0 var(--ink); }
+    .nb-shadow-lg{ box-shadow: 6px 6px 0 var(--ink); }
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <!-- ===== NAV ===== -->
+  <header class="sticky top-0 z-50 bg-[var(--cream)] nb-border-thick border-t-0" style="border-left:none; border-right:none;">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+      <a href="#top" class="flex items-center gap-2">
+        <div class="w-10 h-10 nb-border nb-rounded flex items-center justify-center" style="background:var(--yellow);">
+          <span class="font-display text-lg">NW</span>
+        </div>
+        <div class="leading-tight">
+          <div class="font-display text-base sm:text-lg">NOISEWAVE</div>
+          <div class="font-zh-bold text-[11px] sm:text-xs tracking-wide">噪波音樂祭</div>
+        </div>
+      </a>
+      <nav class="hidden md:flex items-center gap-8 font-zh-bold text-sm">
+        <a href="#lineup" class="nav-link">卡司名單</a>
+        <a href="#venue" class="nav-link">場地資訊</a>
+        <a href="#tickets" class="nav-link">購票</a>
+      </nav>
+      <a href="#tickets" class="nb-border nb-rounded nb-shadow-sm nb-press-sm font-zh-black text-sm px-4 py-2" style="background:var(--coral);">
+        立即購票
+      </a>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section id="top" class="relative px-4 sm:px-6 pt-14 pb-20 overflow-hidden">
+    <div class="absolute inset-0 halftone-dots pointer-events-none"></div>
+    <div class="max-w-6xl mx-auto relative">
+
+      <div class="flex flex-wrap items-center gap-3 mb-6">
+        <span class="sticker nb-border nb-rounded-lg px-4 py-1.5 font-zh-black text-sm" style="background:var(--yellow);">
+          2026 台灣獨立音樂最大噪音現場
+        </span>
+        <span class="nb-border nb-rounded-lg px-4 py-1.5 font-zh-bold text-sm" style="background:var(--teal);">
+          單日票 11:00 開放入場
+        </span>
+      </div>
+
+      <h1 class="font-display text-[13vw] sm:text-7xl md:text-8xl leading-[0.95] mb-4">
+        NOISE<br/>
+        <span class="inline-block px-2" style="background:var(--purple); color:#fff;">WAVE</span>
+      </h1>
+
+      <p class="font-zh-black text-2xl sm:text-4xl mb-6 leading-snug">
+        把音量轉到底，<br class="sm:hidden"/>讓華山在兩個晚上一起耳鳴。
+      </p>
+
+      <div class="flex flex-wrap gap-4 mb-8">
+        <div class="nb-border nb-rounded nb-shadow px-5 py-3" style="background:#fff;">
+          <div class="text-xs font-zh-bold opacity-70 mb-1">演出日期</div>
+          <div class="font-display text-xl sm:text-2xl">2026.11.21–22</div>
+        </div>
+        <div class="nb-border nb-rounded nb-shadow px-5 py-3" style="background:#fff;">
+          <div class="text-xs font-zh-bold opacity-70 mb-1">演出地點</div>
+          <div class="font-zh-black text-xl sm:text-2xl">台北華山1914文化創意產業園區</div>
+        </div>
+        <div class="nb-border nb-rounded nb-shadow px-5 py-3" style="background:#fff;">
+          <div class="text-xs font-zh-bold opacity-70 mb-1">售票倒數</div>
+          <div class="font-display text-xl sm:text-2xl">早鳥僅剩 312 張</div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-4">
+        <a href="#tickets" class="nb-border-thick nb-rounded-lg nb-shadow-lg nb-press font-zh-black text-lg sm:text-xl px-8 py-4" style="background:var(--coral);">
+          立即購票 →
+        </a>
+        <a href="#lineup" class="nb-border-thick nb-rounded-lg nb-shadow-lg nb-press font-zh-black text-lg sm:text-xl px-8 py-4" style="background:#fff;">
+          看卡司名單
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- marquee strip -->
+  <div class="nb-border-thick border-l-0 border-r-0 py-3 overflow-hidden" style="background:var(--ink);">
+    <div class="marquee-track font-display text-xl sm:text-2xl text-white whitespace-nowrap">
+      <span class="px-6">雨備場館｜不取消只順延</span>
+      <span class="px-6">● 兩天兩夜六組現場演出</span>
+      <span class="px-6">● 園區禁止空拍機</span>
+      <span class="px-6">● 進場請攜帶身分證件</span>
+      <span class="px-6">雨備場館｜不取消只順延</span>
+      <span class="px-6">● 兩天兩夜六組現場演出</span>
+      <span class="px-6">● 園區禁止空拍機</span>
+      <span class="px-6">● 進場請攜帶身分證件</span>
+    </div>
+  </div>
+
+  <!-- ===== LINEUP ===== -->
+  <section id="lineup" class="px-4 sm:px-6 py-20 max-w-6xl mx-auto">
+    <div class="flex items-end justify-between flex-wrap gap-3 mb-10">
+      <h2 class="font-display text-4xl sm:text-5xl">卡司名單</h2>
+      <span class="nb-border nb-rounded px-3 py-1 font-zh-bold text-sm" style="background:var(--yellow);">
+        依場序排列，近日公開每日場序
+      </span>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <div class="nb-border-thick nb-rounded-lg nb-shadow-lg nb-press p-6" style="background:var(--coral);">
+        <div class="text-xs font-zh-bold mb-2 opacity-80">11/21・主舞台 21:30</div>
+        <h3 class="font-zh-black text-2xl mb-2">鏽蝕青年</h3>
+        <p class="font-zh-bold text-sm leading-relaxed">高雄出身的噪音搖滾三人組，去年《生鏽的信號》專輯巡演場場加開。</p>
+      </div>
+
+      <div class="nb-border-thick nb-rounded-lg nb-shadow-lg nb-press p-6" style="background:var(--yellow);">
+        <div class="text-xs font-zh-bold mb-2 opacity-80">11/21・主舞台 20:00</div>
+        <h3 class="font-zh-black text-2xl mb-2">夜市人聲</h3>
+        <p class="font-zh-bold text-sm leading-relaxed">台語電子饒舌雙人組，用夜市叫賣聲採樣做節奏，現場氣氛極度沸騰。</p>
+      </div>
+
+      <div class="nb-border-thick nb-rounded-lg nb-shadow-lg nb-press p-6" style="background:var(--teal);">
+        <div class="text-xs font-zh-bold mb-2 opacity-80">11/22・主舞台 21:30</div>
+        <h3 class="font-zh-black text-2xl mb-2">海岸公路</h3>
+        <p class="font-zh-bold text-sm leading-relaxed">花蓮獨立民謠搖滾樂團，吉他手曾是衝浪教練，歌裡都是海的味道。</p>
+      </div>
+
+      <div class="nb-border-thick nb-rounded-lg nb-shadow-lg nb-press p-6" style="background:var(--purple); color:#fff;">
+        <div class="text-xs font-zh-bold mb-2 opacity-80">11/22・副舞台 19:00</div>
+        <h3 class="font-zh-black text-2xl mb-2">瓦斯行走唱隊</h3>
+        <p class="font-zh-bold text-sm leading-relaxed">台中後龐克五人編制，貝斯手白天真的在開瓦斯行，晚上開場氣勢驚人。</p>
+      </div>
+
+      <div class="nb-border-thick nb-rounded-lg nb-shadow-lg nb-press p-6" style="background:#fff;">
+        <div class="text-xs font-zh-bold mb-2 opacity-80">11/21・副舞台 18:00</div>
+        <h3 class="font-zh-black text-2xl mb-2">蒸氣少女</h3>
+        <p class="font-zh-bold text-sm leading-relaxed">台南 City Pop 三人女子樂團，合成器音色軟到讓人想在草地上躺平。</p>
+      </div>
+
+      <div class="nb-border-thick nb-rounded-lg nb-shadow-lg nb-press p-6" style="background:var(--yellow);">
+        <div class="text-xs font-zh-bold mb-2 opacity-80">11/22・主舞台 23:00</div>
+        <h3 class="font-zh-black text-2xl mb-2">斷電現場</h3>
+        <p class="font-zh-bold text-sm leading-relaxed">壓軸重型電子樂團，去年大港開唱壓軸場把整個場館的燈都跳電了。</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== VENUE ===== -->
+  <section id="venue" class="px-4 sm:px-6 py-16 max-w-6xl mx-auto">
+    <div class="nb-border-thick nb-rounded-lg nb-shadow-lg p-6 sm:p-10 grid sm:grid-cols-3 gap-6" style="background:#fff;">
+      <div>
+        <h3 class="font-zh-black text-xl mb-2">場地</h3>
+        <p class="font-zh-bold text-sm leading-relaxed">台北市中正區八德路一段1號<br/>華山1914文化創意產業園區・東 2 館戶外廣場</p>
+      </div>
+      <div>
+        <h3 class="font-zh-black text-xl mb-2">交通</h3>
+        <p class="font-zh-bold text-sm leading-relaxed">捷運忠孝新生站 1 號出口步行約 5 分鐘，現場不提供汽車停車位，建議搭乘大眾運輸。</p>
+      </div>
+      <div>
+        <h3 class="font-zh-black text-xl mb-2">時間</h3>
+        <p class="font-zh-bold text-sm leading-relaxed">每日 11:00 開放入場，演出至 23:30，雨天照常舉行，颱風天依官方公告順延。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TICKETS ===== -->
+  <section id="tickets" class="px-4 sm:px-6 py-20 max-w-6xl mx-auto">
+    <h2 class="font-display text-4xl sm:text-5xl mb-2">選擇票種</h2>
+    <p class="font-zh-bold text-sm mb-10 opacity-80">點選卡片即可選擇票種，售票系統將於結帳頁帶入你的選擇。</p>
+
+    <div id="ticket-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
+
+      <button type="button" class="ticket-card text-left nb-border-thick nb-rounded-lg nb-shadow-lg p-6 cursor-pointer" data-ticket="single" data-price="NT$ 1,680" data-name="單日票" style="background:var(--yellow);">
+        <div class="font-zh-bold text-xs mb-1 opacity-70">單場次入場</div>
+        <h3 class="font-zh-black text-2xl mb-2">單日票</h3>
+        <div class="font-display text-3xl mb-4">NT$ 1,680</div>
+        <ul class="font-zh-bold text-sm space-y-1 opacity-90">
+          <li>・可選 11/21 或 11/22 任一日</li>
+          <li>・主舞台＋副舞台全區站席</li>
+          <li>・贈送噪波限定入場貼紙</li>
+        </ul>
+      </button>
+
+      <button type="button" class="ticket-card text-left nb-border-thick nb-rounded-lg nb-shadow-lg p-6 cursor-pointer" data-ticket="twoday" data-price="NT$ 2,980" data-name="兩日套票" style="background:var(--teal);">
+        <div class="font-zh-bold text-xs mb-1 opacity-70">最划算・兩天都進場</div>
+        <h3 class="font-zh-black text-2xl mb-2">兩日套票</h3>
+        <div class="font-display text-3xl mb-4">NT$ 2,980</div>
+        <ul class="font-zh-bold text-sm space-y-1 opacity-90">
+          <li>・11/21、11/22 兩日皆可入場</li>
+          <li>・主舞台＋副舞台全區站席</li>
+          <li>・專屬快速通關動線</li>
+          <li>・贈送限定托特包</li>
+        </ul>
+      </button>
+
+      <button type="button" class="ticket-card text-left nb-border-thick nb-rounded-lg nb-shadow-lg p-6 cursor-pointer" data-ticket="vip" data-price="NT$ 5,280" data-name="VIP 搖滾區套票" style="background:var(--purple); color:#fff;">
+        <div class="font-zh-bold text-xs mb-1 opacity-70">最前排・兩日制</div>
+        <h3 class="font-zh-black text-2xl mb-2">VIP 搖滾區套票</h3>
+        <div class="font-display text-3xl mb-4">NT$ 5,280</div>
+        <ul class="font-zh-bold text-sm space-y-1 opacity-90">
+          <li>・主舞台最前排獨立搖滾區</li>
+          <li>・兩日皆可入場＋專屬出入口</li>
+          <li>・獨立休息區與免費飲水站</li>
+          <li>・贈送限定紀念 T 恤＋海報</li>
+        </ul>
+      </button>
+
+    </div>
+
+    <div class="nb-border-thick nb-rounded-lg nb-shadow-lg p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6" style="background:#fff;">
+      <div>
+        <div class="font-zh-bold text-sm opacity-70 mb-1">目前選擇</div>
+        <div id="selected-summary" class="font-zh-black text-2xl">尚未選擇票種</div>
+      </div>
+      <button id="checkout-btn" type="button" class="nb-border-thick nb-rounded-lg nb-shadow-lg nb-press font-zh-black text-xl px-10 py-4 w-full sm:w-auto" style="background:var(--coral);">
+        立即購票
+      </button>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="nb-border-thick border-b-0 border-l-0 border-r-0 px-4 sm:px-6 py-10" style="background:var(--ink); color:#fff;">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between gap-6">
+      <div>
+        <div class="font-display text-xl mb-1">NOISEWAVE 噪波音樂祭</div>
+        <p class="font-zh-bold text-sm opacity-70">主辦單位：噪波製作有限公司｜客服信箱 hello@noisewavefest.tw</p>
+      </div>
+      <div class="font-zh-bold text-sm opacity-70">
+        © 2026 NOISEWAVE 噪波音樂祭．版權所有，購票前請詳閱退換票須知。
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      const cards = Array.from(document.querySelectorAll('.ticket-card'));
+      const summary = document.getElementById('selected-summary');
+      const checkoutBtn = document.getElementById('checkout-btn');
+      let selected = null;
+
+      cards.forEach(card => {
+        card.addEventListener('click', () => {
+          const alreadySelected = card.classList.contains('selected');
+
+          cards.forEach(c => c.classList.remove('selected'));
+
+          if (alreadySelected) {
+            selected = null;
+            summary.textContent = '尚未選擇票種';
+            return;
+          }
+
+          card.classList.add('selected');
+          selected = {
+            name: card.dataset.name,
+            price: card.dataset.price
+          };
+          summary.textContent = selected.name + '　' + selected.price;
+        });
+      });
+
+      checkoutBtn.addEventListener('click', () => {
+        if (!selected) {
+          summary.textContent = '請先選擇一種票種';
+          summary.style.color = 'var(--coral)';
+          setTimeout(() => { summary.style.color = ''; }, 1200);
+          return;
+        }
+        alert('已選擇「' + selected.name + '」\n金額：' + selected.price + '\n（此為設計展示，尚未連接實際金流）');
+      });
+    })();
+  </script>
+
+</body>
+</html>
