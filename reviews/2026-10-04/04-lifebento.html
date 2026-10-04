@@ -1,0 +1,513 @@
+<!-- style #39 Bento Box -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>拼盤 LifeBento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Manrope', 'Noto Sans TC', 'sans-serif'],
+        },
+        colors: {
+          cream: '#FAF7F2',
+          sandline: '#ECE6DC',
+          ink: '#2B2620',
+          sub: '#8A8275',
+          apricot: '#F2994A',
+          apricotSoft: '#FDEBD8',
+          lavender: '#8E7CC3',
+          lavenderSoft: '#ECE6F7',
+        }
+      }
+    }
+  }
+</script>
+<style>
+  :root{
+    --card-radius-lg: 28px;
+    --card-radius-md: 22px;
+    --card-radius-sm: 18px;
+  }
+  html, body{
+    font-family: 'Manrope', 'Noto Sans TC', sans-serif !important;
+    background: #FAF7F2;
+    color: #2B2620;
+    -webkit-font-smoothing: antialiased;
+  }
+  *{
+    font-family: inherit;
+  }
+  .zh{
+    font-family: 'Noto Sans TC', 'Manrope', sans-serif !important;
+  }
+
+  .app-shell{
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: #FAF7F2;
+    position: relative;
+  }
+
+  .bento-grid{
+    display: grid;
+    gap: 14px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 108px;
+    grid-template-areas:
+      "weather todo   todo   habit"
+      "music   todo   todo   habit"
+      "sched   sched  quote  habit"
+      "sched   sched  water  mood";
+  }
+
+  @media (max-width: 640px){
+    .bento-grid{
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 118px;
+      grid-template-areas:
+        "weather weather"
+        "todo    todo"
+        "todo    todo"
+        "habit   habit"
+        "music   sched"
+        "music   sched"
+        "quote   water"
+        "mood    mood";
+    }
+  }
+
+  .card{
+    border-radius: var(--card-radius-md);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(43,38,32,0.04), 0 8px 20px -10px rgba(43,38,32,0.08);
+    border: 1px solid rgba(43,38,32,0.05);
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .card:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(43,38,32,0.06), 0 14px 28px -12px rgba(43,38,32,0.14);
+  }
+
+  .card-weather{ grid-area: weather; background: #FFFFFF; }
+  .card-todo{ grid-area: todo; background: #FFFFFF; border-radius: var(--card-radius-lg); }
+  .card-habit{ grid-area: habit; background: #FFFFFF; }
+  .card-music{ grid-area: music; background: #FFFFFF; }
+  .card-sched{ grid-area: sched; background: #FFFFFF; border-radius: var(--card-radius-lg); }
+  .card-quote{ grid-area: quote; background: linear-gradient(145deg, #8E7CC3, #6E5BA6); color: #fff; border: none; }
+  .card-water{ grid-area: water; background: #FDEBD8; }
+  .card-mood{ grid-area: mood; background: #ECE6F7; }
+
+  .pill{
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 9px;
+    border-radius: 999px;
+    letter-spacing: .02em;
+  }
+
+  .checkbox{
+    width: 20px;
+    height: 20px;
+    border-radius: 7px;
+    border: 2px solid #D8CFBF;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all .15s ease;
+  }
+  .checkbox.checked{
+    background: #F2994A;
+    border-color: #F2994A;
+  }
+  .checkbox svg{
+    width: 12px; height: 12px;
+    opacity: 0;
+    transition: opacity .12s ease;
+  }
+  .checkbox.checked svg{ opacity: 1; }
+
+  .todo-text{
+    transition: color .15s ease, text-decoration-color .15s ease;
+  }
+  .todo-item.done .todo-text{
+    color: #B9B2A3;
+    text-decoration: line-through;
+    text-decoration-color: #D8CFBF;
+  }
+
+  .habit-dot{
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #EFEAE0;
+    cursor: pointer;
+    transition: all .15s ease;
+    flex-shrink: 0;
+  }
+  .habit-dot.on{
+    background: #8E7CC3;
+  }
+  .habit-dot.today{
+    outline: 2px solid #F2994A;
+    outline-offset: 1px;
+  }
+
+  .scroll-hide::-webkit-scrollbar{ display:none; }
+  .scroll-hide{ -ms-overflow-style:none; scrollbar-width:none; }
+
+  .eq-bar{
+    width: 3px;
+    background: #8E7CC3;
+    border-radius: 2px;
+    animation: eq 1.1s ease-in-out infinite;
+  }
+  .eq-bar:nth-child(2){ animation-delay: .15s; }
+  .eq-bar:nth-child(3){ animation-delay: .3s; }
+  .eq-bar:nth-child(4){ animation-delay: .45s; }
+  @keyframes eq{
+    0%, 100% { height: 5px; }
+    50% { height: 16px; }
+  }
+
+  .mood-btn{
+    transition: transform .15s ease, background .15s ease;
+  }
+  .mood-btn.selected{
+    background: #fff;
+    transform: scale(1.12);
+    box-shadow: 0 4px 10px rgba(43,38,32,0.12);
+  }
+
+  .water-cup{
+    width: 9px;
+    border-radius: 3px;
+    background: #F7D9B5;
+  }
+  .water-cup.filled{
+    background: #F2994A;
+  }
+</style>
+</head>
+<body>
+
+<div class="app-shell px-4 pt-6 pb-10">
+
+  <!-- 頂部標題區 -->
+  <header class="flex items-start justify-between mb-5 zh">
+    <div>
+      <div class="flex items-center gap-2 mb-1">
+        <div class="w-8 h-8 rounded-xl bg-apricot flex items-center justify-center text-white font-extrabold text-sm">拼</div>
+        <h1 class="text-lg font-extrabold tracking-tight">拼盤 LifeBento</h1>
+      </div>
+      <p class="text-xs text-sub">2026年10月4日・星期日・午安，今天也要好好過 👋</p>
+    </div>
+    <button class="w-9 h-9 rounded-full bg-white border border-sandline flex items-center justify-center shadow-sm" aria-label="個人資料">
+      <span class="text-sm">🍱</span>
+    </button>
+  </header>
+
+  <!-- Bento Grid -->
+  <main class="bento-grid zh">
+
+    <!-- 天氣小卡 -->
+    <section class="card card-weather">
+      <div class="flex items-center justify-between">
+        <span class="text-[11px] font-semibold text-sub">台北・大安區</span>
+        <span class="text-xl leading-none">⛅</span>
+      </div>
+      <div class="mt-1 flex items-baseline gap-1">
+        <span class="text-3xl font-extrabold">28°</span>
+        <span class="text-xs text-sub">多雲時晴</span>
+      </div>
+      <p class="text-[11px] text-sub mt-auto leading-snug">體感30°・降雨20%<br>傘要記得帶 ☂️</p>
+    </section>
+
+    <!-- 待辦事項卡 -->
+    <section class="card card-todo">
+      <div class="flex items-center justify-between mb-2">
+        <div>
+          <h2 class="font-bold text-[15px]">待辦事項</h2>
+          <p class="text-[11px] text-sub">今天也要一件一件解決</p>
+        </div>
+        <span class="pill bg-apricotSoft text-apricot" id="todo-counter">3 / 5</span>
+      </div>
+      <ul class="flex flex-col gap-2.5 overflow-y-auto scroll-hide pr-1" id="todo-list" style="max-height: 100%;">
+
+        <li class="todo-item done flex items-start gap-2.5" data-done="true">
+          <div class="checkbox checked" role="checkbox" aria-checked="true" tabindex="0">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          <span class="todo-text text-[13px] leading-snug pt-0.5">去全家超商寄退貨的包裹</span>
+        </li>
+
+        <li class="todo-item done flex items-start gap-2.5" data-done="true">
+          <div class="checkbox checked" role="checkbox" aria-checked="true" tabindex="0">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          <span class="todo-text text-[13px] leading-snug pt-0.5">繳本月的網路和手機帳單</span>
+        </li>
+
+        <li class="todo-item done flex items-start gap-2.5" data-done="true">
+          <div class="checkbox checked" role="checkbox" aria-checked="true" tabindex="0">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          <span class="todo-text text-[13px] leading-snug pt-0.5">把洗好的衣服收進衣櫃</span>
+        </li>
+
+        <li class="todo-item flex items-start gap-2.5" data-done="false">
+          <div class="checkbox" role="checkbox" aria-checked="false" tabindex="0">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          <span class="todo-text text-[13px] leading-snug pt-0.5">晚上7:30跟芳瑜約公司巷口的刀削麵店</span>
+        </li>
+
+        <li class="todo-item flex items-start gap-2.5" data-done="false">
+          <div class="checkbox" role="checkbox" aria-checked="false" tabindex="0">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          <span class="todo-text text-[13px] leading-snug pt-0.5">幫貓咪買下個月的飼料（挑無穀雞肉口味）</span>
+        </li>
+
+      </ul>
+    </section>
+
+    <!-- 習慣追蹤卡 -->
+    <section class="card card-habit">
+      <h2 class="font-bold text-[14px] mb-0.5">習慣追蹤</h2>
+      <p class="text-[11px] text-sub mb-2.5">點一下今天的圈圈</p>
+      <div class="flex flex-col gap-3 flex-1" id="habit-list">
+
+        <div class="habit" data-base-streak="23">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-[12px] font-medium">每日喝水2000ml</span>
+            <span class="text-[11px] font-bold text-lavender habit-streak">連續23天</span>
+          </div>
+          <div class="flex gap-1.5">
+            <div class="habit-dot on"></div>
+            <div class="habit-dot on"></div>
+            <div class="habit-dot on"></div>
+            <div class="habit-dot on"></div>
+            <div class="habit-dot on"></div>
+            <div class="habit-dot on"></div>
+            <div class="habit-dot today on"></div>
+          </div>
+        </div>
+
+        <div class="habit" data-base-streak="7">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-[12px] font-medium">11點前上床睡覺</span>
+            <span class="text-[11px] font-bold text-lavender habit-streak">連續7天</span>
+          </div>
+          <div class="flex gap-1.5">
+            <div class="habit-dot on"></div>
+            <div class="habit-dot on"></div>
+            <div class="habit-dot on"></div>
+            <div class="habit-dot on"></div>
+            <div class="habit-dot on"></div>
+            <div class="habit-dot on"></div>
+            <div class="habit-dot today on"></div>
+          </div>
+        </div>
+
+        <div class="habit" data-base-streak="45">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-[12px] font-medium">背50個英文單字</span>
+            <span class="text-[11px] font-bold text-lavender habit-streak">連續45天</span>
+          </div>
+          <div class="flex gap-1.5">
+            <div class="habit-dot on"></div>
+            <div class="habit-dot on"></div>
+            <div class="habit-dot on"></div>
+            <div class="habit-dot on"></div>
+            <div class="habit-dot on"></div>
+            <div class="habit-dot on"></div>
+            <div class="habit-dot today on"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 正在聽音樂卡 -->
+    <section class="card card-music">
+      <div class="flex items-center gap-2.5 h-full">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-lavender to-apricot flex-shrink-0 flex items-center justify-center text-base">🎧</div>
+        <div class="flex-1 overflow-hidden">
+          <p class="text-[11px] text-sub mb-0.5">正在聽</p>
+          <p class="text-[12.5px] font-bold truncate">愛人錯過</p>
+          <p class="text-[11px] text-sub truncate">告五人</p>
+        </div>
+        <div class="flex items-end gap-0.5 h-4 flex-shrink-0">
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 今日行程卡 -->
+    <section class="card card-sched">
+      <h2 class="font-bold text-[15px] mb-2.5">今日行程</h2>
+      <ul class="flex flex-col gap-2.5 overflow-y-auto scroll-hide" style="max-height:100%;">
+        <li class="flex gap-2.5">
+          <span class="text-[11px] font-bold text-apricot w-11 flex-shrink-0 pt-0.5">09:30</span>
+          <span class="text-[13px] leading-snug">晨會（線上 Google Meet）</span>
+        </li>
+        <li class="flex gap-2.5">
+          <span class="text-[11px] font-bold text-apricot w-11 flex-shrink-0 pt-0.5">12:30</span>
+          <span class="text-[13px] leading-snug">跟設計部吃午餐，公司巷口的刀削麵</span>
+        </li>
+        <li class="flex gap-2.5">
+          <span class="text-[11px] font-bold text-apricot w-11 flex-shrink-0 pt-0.5">15:00</span>
+          <span class="text-[13px] leading-snug">跟客戶的提案視訊會議</span>
+        </li>
+        <li class="flex gap-2.5">
+          <span class="text-[11px] font-bold text-apricot w-11 flex-shrink-0 pt-0.5">19:30</span>
+          <span class="text-[13px] leading-snug">瑜伽課（信義路教室）</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 激勵小語卡 -->
+    <section class="card card-quote justify-center">
+      <p class="text-[12.5px] leading-relaxed font-semibold">「休息不是浪費時間，<br>是在幫自己充電。」</p>
+    </section>
+
+    <!-- 飲水紀錄卡 -->
+    <section class="card card-water">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-[11px] font-bold text-apricot">飲水紀錄</span>
+        <span class="text-[11px] font-bold" id="water-count">5 / 8 杯</span>
+      </div>
+      <div class="flex items-end gap-1 flex-1" id="water-cups">
+        <div class="water-cup filled" style="height:40%"></div>
+        <div class="water-cup filled" style="height:55%"></div>
+        <div class="water-cup filled" style="height:70%"></div>
+        <div class="water-cup filled" style="height:85%"></div>
+        <div class="water-cup filled" style="height:100%"></div>
+        <div class="water-cup" style="height:100%"></div>
+        <div class="water-cup" style="height:100%"></div>
+        <div class="water-cup" style="height:100%"></div>
+      </div>
+      <button id="water-add" class="mt-2 text-[11px] font-bold text-white bg-apricot rounded-full py-1.5 w-full">+ 再喝一杯</button>
+    </section>
+
+    <!-- 今日心情卡 -->
+    <section class="card card-mood">
+      <span class="text-[11px] font-bold text-lavender mb-2">今日心情</span>
+      <div class="flex items-center justify-between flex-1" id="mood-list">
+        <button class="mood-btn w-7 h-7 rounded-full flex items-center justify-center text-base" data-mood="開心">🙂</button>
+        <button class="mood-btn selected w-7 h-7 rounded-full flex items-center justify-center text-base" data-mood="平靜">😌</button>
+        <button class="mood-btn w-7 h-7 rounded-full flex items-center justify-center text-base" data-mood="普通">😐</button>
+        <button class="mood-btn w-7 h-7 rounded-full flex items-center justify-center text-base" data-mood="煩躁">😣</button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-[11px] text-sub mt-6 zh">
+    拼盤 LifeBento・把生活切成剛好的小格子
+  </footer>
+
+</div>
+
+<script>
+  // 待辦事項：點擊切換完成狀態
+  (function(){
+    var list = document.getElementById('todo-list');
+    var counter = document.getElementById('todo-counter');
+    var total = list.querySelectorAll('.todo-item').length;
+
+    function updateCounter(){
+      var doneCount = list.querySelectorAll('.todo-item[data-done="true"]').length;
+      counter.textContent = doneCount + ' / ' + total;
+    }
+
+    list.querySelectorAll('.todo-item').forEach(function(item){
+      var box = item.querySelector('.checkbox');
+      box.addEventListener('click', function(){
+        var isDone = item.getAttribute('data-done') === 'true';
+        item.setAttribute('data-done', (!isDone).toString());
+        item.classList.toggle('done', !isDone);
+        box.classList.toggle('checked', !isDone);
+        box.setAttribute('aria-checked', (!isDone).toString());
+        updateCounter();
+      });
+      box.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          box.click();
+        }
+      });
+    });
+
+    updateCounter();
+  })();
+
+  // 習慣追蹤：點擊今天的圈圈切換，並更新連續天數
+  (function(){
+    document.querySelectorAll('.habit').forEach(function(habit){
+      var todayDot = habit.querySelector('.habit-dot.today');
+      var streakEl = habit.querySelector('.habit-streak');
+      var baseStreak = parseInt(habit.getAttribute('data-base-streak'), 10);
+
+      todayDot.addEventListener('click', function(){
+        var isOn = todayDot.classList.contains('on');
+        todayDot.classList.toggle('on', !isOn);
+        var newStreak = !isOn ? baseStreak : Math.max(baseStreak - 1, 0);
+        streakEl.textContent = '連續' + newStreak + '天';
+      });
+    });
+  })();
+
+  // 飲水紀錄：點擊增加一杯
+  (function(){
+    var cups = document.querySelectorAll('#water-cups .water-cup');
+    var label = document.getElementById('water-count');
+    var addBtn = document.getElementById('water-add');
+    var filled = 5;
+    var max = cups.length;
+
+    addBtn.addEventListener('click', function(){
+      if(filled < max){
+        filled++;
+        cups[filled - 1].classList.add('filled');
+        label.textContent = filled + ' / ' + max + ' 杯';
+      }
+      if(filled >= max){
+        addBtn.textContent = '今天喝夠囉 🎉';
+        addBtn.disabled = true;
+      }
+    });
+  })();
+
+  // 今日心情：單選切換
+  (function(){
+    var buttons = document.querySelectorAll('#mood-list .mood-btn');
+    buttons.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        buttons.forEach(function(b){ b.classList.remove('selected'); });
+        btn.classList.add('selected');
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>

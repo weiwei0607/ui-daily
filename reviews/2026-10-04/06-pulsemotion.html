@@ -1,0 +1,590 @@
+<!-- style #15 Motion-Driven -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>動感脈衝 PulseMotion｜你的互動健身教練</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --bg: #fafaf9;
+    --surface: #ffffff;
+    --ink: #17181c;
+    --ink-soft: #55575f;
+    --accent: #ff5a36;
+    --accent-2: #39ff8a;
+    --line: #e7e5e1;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Noto Sans TC', 'Sora', sans-serif;
+    overflow-x: hidden;
+  }
+
+  .font-display{
+    font-family: 'Sora', 'Noto Sans TC', sans-serif;
+  }
+
+  /* Tailwind ships font-sans -> make sure it never resolves to system defaults like Helvetica/Inter */
+  .font-sans{
+    font-family: 'Noto Sans TC', 'Sora', sans-serif !important;
+  }
+
+  ::selection{ background: var(--accent); color: #fff; }
+
+  /* ---------- Scroll reveal ---------- */
+  .reveal{
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity .8s cubic-bezier(.16,.84,.44,1), transform .8s cubic-bezier(.16,.84,.44,1);
+    will-change: transform, opacity;
+  }
+  .reveal.is-visible{
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1.is-visible{ transition-delay: .08s; }
+  .reveal-delay-2.is-visible{ transition-delay: .16s; }
+  .reveal-delay-3.is-visible{ transition-delay: .24s; }
+
+  .reveal-scale{
+    opacity: 0;
+    transform: scale(.92);
+    transition: opacity .7s cubic-bezier(.16,.84,.44,1), transform .7s cubic-bezier(.16,.84,.44,1);
+  }
+  .reveal-scale.is-visible{ opacity: 1; transform: scale(1); }
+
+  /* ---------- Keyframes: entrance ---------- */
+  @keyframes fadeUp{
+    from{ opacity: 0; transform: translateY(28px); }
+    to{ opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn{
+    from{ opacity: 0; }
+    to{ opacity: 1; }
+  }
+  @keyframes popIn{
+    0%{ opacity: 0; transform: scale(.85) translateY(10px); }
+    70%{ opacity: 1; transform: scale(1.03) translateY(0); }
+    100%{ opacity: 1; transform: scale(1) translateY(0); }
+  }
+  @keyframes floatPulse{
+    0%, 100%{ transform: translateY(0) scale(1); }
+    50%{ transform: translateY(-10px) scale(1.03); }
+  }
+  @keyframes pulseRing{
+    0%{ box-shadow: 0 0 0 0 rgba(255,90,54,.45); }
+    70%{ box-shadow: 0 0 0 22px rgba(255,90,54,0); }
+    100%{ box-shadow: 0 0 0 0 rgba(255,90,54,0); }
+  }
+  @keyframes dash{
+    to{ stroke-dashoffset: 0; }
+  }
+  @keyframes bgDrift{
+    0%{ background-position: 0% 50%; }
+    50%{ background-position: 100% 50%; }
+    100%{ background-position: 0% 50%; }
+  }
+  @keyframes bounceDot{
+    0%, 80%, 100%{ transform: translateY(0); opacity: .4; }
+    40%{ transform: translateY(-6px); opacity: 1; }
+  }
+  @keyframes marquee{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(-50%); }
+  }
+
+  .anim-fadeUp{ animation: fadeUp .9s cubic-bezier(.16,.84,.44,1) both; }
+  .anim-fadeIn{ animation: fadeIn 1s ease both; }
+  .anim-popIn{ animation: popIn .8s cubic-bezier(.34,1.56,.64,1) both; }
+  .delay-1{ animation-delay: .12s; }
+  .delay-2{ animation-delay: .24s; }
+  .delay-3{ animation-delay: .36s; }
+  .delay-4{ animation-delay: .48s; }
+  .delay-5{ animation-delay: .6s; }
+
+  .float-el{ animation: floatPulse 4.5s ease-in-out infinite; }
+  .float-el-slow{ animation: floatPulse 6.5s ease-in-out infinite; }
+
+  .pulse-ring{ animation: pulseRing 2.2s cubic-bezier(.4,0,.6,1) infinite; }
+
+  .gradient-drift{
+    background: linear-gradient(120deg, #fff4ef, #fefefe, #effff6, #fff4ef);
+    background-size: 300% 300%;
+    animation: bgDrift 14s ease infinite;
+  }
+
+  /* ---------- Nav ---------- */
+  .nav-link{ position: relative; }
+  .nav-link::after{
+    content: '';
+    position: absolute;
+    left: 0; bottom: -4px;
+    height: 2px; width: 0%;
+    background: var(--accent);
+    transition: width .35s cubic-bezier(.16,.84,.44,1);
+  }
+  .nav-link:hover::after{ width: 100%; }
+
+  /* ---------- Buttons ---------- */
+  .btn-primary{
+    position: relative;
+    overflow: hidden;
+    transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease;
+  }
+  .btn-primary::before{
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(255,255,255,.35), transparent 60%);
+    opacity: 0;
+    transition: opacity .3s ease;
+  }
+  .btn-primary:hover{
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 16px 30px -10px rgba(255,90,54,.55);
+  }
+  .btn-primary:hover::before{ opacity: 1; }
+  .btn-primary:active{ transform: translateY(-1px) scale(.98); }
+
+  .btn-ghost{
+    transition: all .3s cubic-bezier(.16,.84,.44,1);
+  }
+  .btn-ghost:hover{
+    background: var(--ink);
+    color: #fff;
+    transform: translateY(-3px);
+  }
+
+  /* ---------- Cards ---------- */
+  .feature-card{
+    transition: transform .45s cubic-bezier(.16,.84,.44,1), box-shadow .45s ease, border-color .45s ease;
+  }
+  .feature-card:hover{
+    transform: translateY(-10px) rotate(-0.3deg);
+    box-shadow: 0 30px 60px -20px rgba(23,24,28,.18);
+    border-color: var(--accent);
+  }
+  .feature-icon-wrap{
+    transition: transform .5s cubic-bezier(.34,1.56,.64,1), background .4s ease;
+  }
+  .feature-card:hover .feature-icon-wrap{
+    transform: rotate(10deg) scale(1.12);
+  }
+
+  .testi-card{
+    transition: transform .4s cubic-bezier(.16,.84,.44,1), box-shadow .4s ease;
+  }
+  .testi-card:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 24px 48px -18px rgba(23,24,28,.2);
+  }
+
+  .stat-box{
+    transition: transform .4s cubic-bezier(.34,1.56,.64,1);
+  }
+  .stat-box:hover{ transform: translateY(-6px); }
+
+  /* number ticking highlight */
+  .counter{
+    font-family: 'Sora', sans-serif;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* accent underline accent */
+  .accent-underline{
+    background-image: linear-gradient(90deg, var(--accent), var(--accent-2));
+    background-repeat: no-repeat;
+    background-size: 100% 10px;
+    background-position: 0 92%;
+  }
+
+  /* dot loader for marquee divider */
+  .dot{ display:inline-block; width:6px; height:6px; border-radius:50%; background: var(--accent); animation: bounceDot 1.4s ease infinite; }
+  .dot:nth-child(2){ animation-delay: .15s; background: var(--accent-2); }
+  .dot:nth-child(3){ animation-delay: .3s; }
+
+  .marquee-track{
+    display: flex;
+    width: max-content;
+    animation: marquee 22s linear infinite;
+  }
+  .marquee-wrap:hover .marquee-track{ animation-play-state: paused; }
+
+  /* scroll progress bar */
+  #scrollbar{
+    position: fixed; top:0; left:0; height: 4px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    width: 0%;
+    z-index: 100;
+    transition: width .15s ease-out;
+  }
+
+  .hero-blob{
+    background: radial-gradient(circle at 30% 30%, rgba(255,90,54,.35), transparent 60%),
+                radial-gradient(circle at 70% 70%, rgba(57,255,138,.3), transparent 60%);
+    filter: blur(40px);
+  }
+
+  .cta-glow{
+    background: radial-gradient(ellipse at center, rgba(255,90,54,.25), transparent 70%);
+  }
+
+  @media (max-width: 640px){
+    .reveal, .reveal-scale{ transform: translateY(20px); }
+  }
+</style>
+</head>
+<body class="font-sans">
+
+  <div id="scrollbar"></div>
+
+  <!-- ===================== NAV ===================== -->
+  <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/80 border-b border-[var(--line)]">
+    <nav class="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+      <a href="#top" class="flex items-center gap-2 font-display font-800 text-lg">
+        <span class="relative inline-flex w-3 h-3">
+          <span class="absolute inset-0 rounded-full bg-[var(--accent)] pulse-ring"></span>
+          <span class="absolute inset-0 rounded-full bg-[var(--accent)]"></span>
+        </span>
+        <span class="font-display font-extrabold tracking-tight">Pulse<span style="color:var(--accent)">Motion</span></span>
+      </a>
+      <div class="hidden md:flex items-center gap-8 text-sm font-medium text-[var(--ink-soft)]">
+        <a href="#features" class="nav-link hover:text-[var(--ink)]">核心功能</a>
+        <a href="#stats" class="nav-link hover:text-[var(--ink)]">使用成效</a>
+        <a href="#testimonials" class="nav-link hover:text-[var(--ink)]">用戶怎麼說</a>
+        <a href="#cta" class="nav-link hover:text-[var(--ink)]">立即開始</a>
+      </div>
+      <a href="#cta" class="btn-primary hidden sm:inline-flex items-center rounded-full bg-[var(--ink)] text-white text-sm font-semibold px-5 py-2.5">
+        免費試用 14 天
+      </a>
+    </nav>
+  </header>
+
+  <!-- ===================== HERO ===================== -->
+  <section id="top" class="relative gradient-drift pt-32 pb-24 px-5 sm:px-8 overflow-hidden">
+    <div class="hero-blob absolute -top-24 -right-24 w-[420px] h-[420px] rounded-full pointer-events-none"></div>
+    <div class="max-w-6xl mx-auto relative">
+      <div class="flex flex-col items-center text-center">
+        <span class="anim-popIn delay-1 inline-flex items-center gap-2 text-xs font-semibold px-4 py-1.5 rounded-full bg-white border border-[var(--line)] shadow-sm mb-6">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="ml-1 text-[var(--ink-soft)]">AI 教練即時陪練 · 每一次訓練都被看見</span>
+        </span>
+
+        <h1 class="anim-fadeUp delay-2 font-display font-extrabold text-[2.4rem] sm:text-6xl leading-[1.08] tracking-tight max-w-3xl">
+          讓每一次心跳，<br class="hidden sm:block">
+          都成為<span class="accent-underline">進步的證明</span>
+        </h1>
+
+        <p class="anim-fadeUp delay-3 mt-6 text-base sm:text-lg text-[var(--ink-soft)] max-w-xl leading-relaxed">
+          動感脈衝 PulseMotion 用即時動作偵測與個人化課表，把你家客廳變成最懂你的健身房。
+          不用猜重量、不用怕姿勢跑掉，教練就在你的螢幕裡盯著你練。
+        </p>
+
+        <div class="anim-fadeUp delay-4 mt-9 flex flex-col sm:flex-row gap-4">
+          <a href="#cta" class="btn-primary inline-flex items-center justify-center rounded-full bg-[var(--accent)] text-white font-semibold px-8 py-3.5 text-base shadow-lg shadow-orange-200">
+            免費開始訓練 →
+          </a>
+          <a href="#features" class="btn-ghost inline-flex items-center justify-center rounded-full border border-[var(--ink)] font-semibold px-8 py-3.5 text-base">
+            看看怎麼運作
+          </a>
+        </div>
+
+        <div class="anim-fadeIn delay-5 mt-14 w-full max-w-3xl">
+          <div class="float-el-slow rounded-3xl bg-white border border-[var(--line)] shadow-2xl p-6 sm:p-8">
+            <div class="flex items-center justify-between mb-5">
+              <span class="text-xs font-semibold text-[var(--ink-soft)]">今日訓練 · 下肢爆發力</span>
+              <span class="text-xs font-semibold px-2.5 py-1 rounded-full" style="background:rgba(57,255,138,.18); color:#19a357;">動作偵測中</span>
+            </div>
+            <div class="grid grid-cols-3 gap-4 text-left">
+              <div class="float-el">
+                <p class="text-xs text-[var(--ink-soft)] mb-1">本次消耗</p>
+                <p class="font-display font-bold text-2xl">286<span class="text-sm font-medium text-[var(--ink-soft)]"> 大卡</span></p>
+              </div>
+              <div class="float-el" style="animation-delay:.4s">
+                <p class="text-xs text-[var(--ink-soft)] mb-1">姿勢準確率</p>
+                <p class="font-display font-bold text-2xl" style="color:var(--accent)">94<span class="text-sm font-medium">%</span></p>
+              </div>
+              <div class="float-el" style="animation-delay:.8s">
+                <p class="text-xs text-[var(--ink-soft)] mb-1">連續訓練天數</p>
+                <p class="font-display font-bold text-2xl">21<span class="text-sm font-medium text-[var(--ink-soft)]"> 天</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== LOGO MARQUEE ===================== -->
+  <div class="marquee-wrap border-y border-[var(--line)] bg-white py-5 overflow-hidden">
+    <div class="marquee-track gap-16 text-[var(--ink-soft)] text-sm font-semibold tracking-wide uppercase">
+      <span class="px-4">健身教練口碑推薦</span>
+      <span class="px-4">運動科學團隊打造</span>
+      <span class="px-4">台灣累積訓練次數突破百萬</span>
+      <span class="px-4">結合即時動作感測</span>
+      <span class="px-4">健身教練口碑推薦</span>
+      <span class="px-4">運動科學團隊打造</span>
+      <span class="px-4">台灣累積訓練次數突破百萬</span>
+      <span class="px-4">結合即時動作感測</span>
+    </div>
+  </div>
+
+  <!-- ===================== FEATURES ===================== -->
+  <section id="features" class="py-24 px-5 sm:px-8 bg-[var(--bg)]">
+    <div class="max-w-6xl mx-auto">
+      <div class="reveal text-center max-w-2xl mx-auto mb-16">
+        <p class="text-sm font-semibold uppercase tracking-widest" style="color:var(--accent)">核心功能</p>
+        <h2 class="font-display font-extrabold text-3xl sm:text-4xl mt-3 tracking-tight">不只是課表，是會動的教練</h2>
+        <p class="mt-4 text-[var(--ink-soft)]">三個把「紀律」變成「自然而然」的設計</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <div class="feature-card reveal reveal-delay-1 bg-white rounded-3xl border border-[var(--line)] p-8">
+          <div class="feature-icon-wrap w-14 h-14 rounded-2xl flex items-center justify-center mb-6" style="background:rgba(255,90,54,.12)">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 12h3l2 7 4-14 2 7h5"/>
+            </svg>
+          </div>
+          <h3 class="font-display font-bold text-xl mb-2.5">即時動作糾正</h3>
+          <p class="text-[var(--ink-soft)] text-sm leading-relaxed">
+            用手機鏡頭就能偵測你的關節角度，深蹲塌腰、硬舉駝背馬上提醒，練錯動作不會累積傷害，只累積進步。
+          </p>
+        </div>
+
+        <div class="feature-card reveal reveal-delay-2 bg-white rounded-3xl border border-[var(--line)] p-8">
+          <div class="feature-icon-wrap w-14 h-14 rounded-2xl flex items-center justify-center mb-6" style="background:rgba(57,255,138,.14)">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#19a357" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>
+            </svg>
+          </div>
+          <h3 class="font-display font-bold text-xl mb-2.5">自動調整的課表</h3>
+          <p class="text-[var(--ink-soft)] text-sm leading-relaxed">
+            依照你昨天的恢復狀況、睡眠和心率變化，系統每天幫你微調重量與組數，練太累會自動減量，狀態好會幫你加碼。
+          </p>
+        </div>
+
+        <div class="feature-card reveal reveal-delay-3 bg-white rounded-3xl border border-[var(--line)] p-8">
+          <div class="feature-icon-wrap w-14 h-14 rounded-2xl flex items-center justify-center mb-6" style="background:rgba(255,90,54,.12)">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 2l4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/>
+              <path d="M7 22l-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/>
+            </svg>
+          </div>
+          <h3 class="font-display font-bold text-xl mb-2.5">好友即時 PK</h3>
+          <p class="text-[var(--ink-soft)] text-sm leading-relaxed">
+            跟朋友同時連線訓練,排行榜數字會即時跳動,誰偷懶、誰超前一眼就看得到,一個人很難堅持,一群人才練得久。
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== STATS ===================== -->
+  <section id="stats" class="relative py-24 px-5 sm:px-8 bg-[var(--ink)] text-white overflow-hidden">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] cta-glow pointer-events-none"></div>
+    <div class="max-w-6xl mx-auto relative">
+      <div class="reveal text-center max-w-2xl mx-auto mb-16">
+        <p class="text-sm font-semibold uppercase tracking-widest" style="color:var(--accent-2)">用數字說話</p>
+        <h2 class="font-display font-extrabold text-3xl sm:text-4xl mt-3 tracking-tight">大家都在動,數字會證明</h2>
+      </div>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+        <div class="stat-box reveal reveal-delay-1">
+          <p class="counter font-display font-extrabold text-4xl sm:text-5xl" data-target="12000" data-suffix="+">0</p>
+          <p class="mt-2 text-sm text-white/60">累積活躍用戶</p>
+        </div>
+        <div class="stat-box reveal reveal-delay-2">
+          <p class="counter font-display font-extrabold text-4xl sm:text-5xl" style="color:var(--accent-2)" data-target="860000" data-suffix="+">0</p>
+          <p class="mt-2 text-sm text-white/60">累積完成訓練次數</p>
+        </div>
+        <div class="stat-box reveal reveal-delay-3">
+          <p class="counter font-display font-extrabold text-4xl sm:text-5xl" data-target="94" data-suffix="%">0</p>
+          <p class="mt-2 text-sm text-white/60">平均姿勢準確率</p>
+        </div>
+        <div class="stat-box reveal reveal-delay-4" >
+          <p class="counter font-display font-extrabold text-4xl sm:text-5xl" style="color:var(--accent)" data-target="4.9" data-suffix=" 分" data-decimals="1">0</p>
+          <p class="mt-2 text-sm text-white/60">App Store 平均評價</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TESTIMONIALS ===================== -->
+  <section id="testimonials" class="py-24 px-5 sm:px-8 bg-[var(--bg)]">
+    <div class="max-w-6xl mx-auto">
+      <div class="reveal text-center max-w-2xl mx-auto mb-16">
+        <p class="text-sm font-semibold uppercase tracking-widest" style="color:var(--accent)">用戶怎麼說</p>
+        <h2 class="font-display font-extrabold text-3xl sm:text-4xl mt-3 tracking-tight">真實的進步,寫在他們的訓練紀錄裡</h2>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <div class="testi-card reveal reveal-delay-1 bg-white rounded-3xl border border-[var(--line)] p-7">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-11 h-11 rounded-full flex items-center justify-center font-display font-bold text-white" style="background:var(--accent)">書</div>
+            <div>
+              <p class="font-semibold text-sm">陳書妍</p>
+              <p class="text-xs text-[var(--ink-soft)]">上班族 · 使用 5 個月</p>
+            </div>
+          </div>
+          <p class="text-sm text-[var(--ink-soft)] leading-relaxed">
+            「下班累到不想動,但打開 App 看到連續天數快斷了就會逼自己練 15 分鐘。動作提醒真的有用,我的膝蓋終於不會再怪怪的。」
+          </p>
+        </div>
+
+        <div class="testi-card reveal reveal-delay-2 bg-white rounded-3xl border border-[var(--line)] p-7">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-11 h-11 rounded-full flex items-center justify-center font-display font-bold text-white" style="background:#19a357">翰</div>
+            <div>
+              <p class="font-semibold text-sm">林志翰</p>
+              <p class="text-xs text-[var(--ink-soft)]">健身新手 · 使用 3 個月</p>
+            </div>
+          </div>
+          <p class="text-sm text-[var(--ink-soft)] leading-relaxed">
+            「第一次練深蹲不知道角度對不對,系統直接在螢幕上畫出我的膝蓋軌跡,比教練口頭講還清楚。三個月腰圍少了 4 公分。」
+          </p>
+        </div>
+
+        <div class="testi-card reveal reveal-delay-3 bg-white rounded-3xl border border-[var(--line)] p-7">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-11 h-11 rounded-full flex items-center justify-center font-display font-bold text-white" style="background:var(--ink)">雅</div>
+            <div>
+              <p class="font-semibold text-sm">黃雅婷</p>
+              <p class="text-xs text-[var(--ink-soft)]">研究生 · 使用 8 個月</p>
+            </div>
+          </div>
+          <p class="text-sm text-[var(--ink-soft)] leading-relaxed">
+            「跟室友組隊 PK 之後根本停不下來,看到排行榜數字被追過就會想多做一組。現在訓練變成每天最期待的事。」
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CTA ===================== -->
+  <section id="cta" class="relative py-28 px-5 sm:px-8 overflow-hidden">
+    <div class="absolute inset-0 gradient-drift"></div>
+    <div class="hero-blob absolute bottom-0 left-0 w-[380px] h-[380px] rounded-full pointer-events-none"></div>
+    <div class="max-w-3xl mx-auto text-center relative reveal-scale">
+      <h2 class="font-display font-extrabold text-3xl sm:text-5xl tracking-tight leading-tight">
+        準備好讓身體<br>記住今天了嗎？
+      </h2>
+      <p class="mt-5 text-[var(--ink-soft)] text-base sm:text-lg">
+        免費試用 14 天,不用信用卡,隨時都能取消。你唯一會上癮的,只有進步的感覺。
+      </p>
+      <div class="mt-9 flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#top" class="btn-primary inline-flex items-center justify-center rounded-full bg-[var(--accent)] text-white font-semibold px-9 py-4 text-base shadow-xl shadow-orange-200">
+          立即免費開始
+        </a>
+        <a href="#features" class="btn-ghost inline-flex items-center justify-center rounded-full border border-[var(--ink)] font-semibold px-9 py-4 text-base">
+          了解更多功能
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="border-t border-[var(--line)] py-10 px-5 sm:px-8 bg-white">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-[var(--ink-soft)]">
+      <div class="flex items-center gap-2 font-display font-bold text-[var(--ink)]">
+        <span class="w-2.5 h-2.5 rounded-full" style="background:var(--accent)"></span>
+        PulseMotion 動感脈衝
+      </div>
+      <p>© 2026 PulseMotion. 讓每一次訓練都被看見。</p>
+    </div>
+  </footer>
+
+  <script>
+    // ---------- Scroll progress bar ----------
+    const scrollbar = document.getElementById('scrollbar');
+    function updateScrollbar(){
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      scrollbar.style.width = pct + '%';
+    }
+    window.addEventListener('scroll', updateScrollbar, { passive: true });
+    updateScrollbar();
+
+    // ---------- Scroll reveal via IntersectionObserver ----------
+    const revealEls = document.querySelectorAll('.reveal, .reveal-scale');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach((el) => revealObserver.observe(el));
+
+    // ---------- Counter animation ----------
+    function animateCounter(el){
+      const target = parseFloat(el.getAttribute('data-target'));
+      const suffix = el.getAttribute('data-suffix') || '';
+      const decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+      const duration = 1800;
+      const start = performance.now();
+
+      function easeOutExpo(t){
+        return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+      }
+
+      function tick(now){
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = easeOutExpo(progress);
+        const current = target * eased;
+        const formatted = decimals > 0
+          ? current.toFixed(decimals)
+          : Math.floor(current).toLocaleString('zh-Hant-TW');
+        el.textContent = formatted + suffix;
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        } else {
+          const finalVal = decimals > 0 ? target.toFixed(decimals) : target.toLocaleString('zh-Hant-TW');
+          el.textContent = finalVal + suffix;
+        }
+      }
+      requestAnimationFrame(tick);
+    }
+
+    const counters = document.querySelectorAll('.counter');
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    counters.forEach((el) => counterObserver.observe(el));
+
+    // ---------- Button hover glow position ----------
+    document.querySelectorAll('.btn-primary').forEach((btn) => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const mx = ((e.clientX - rect.left) / rect.width) * 100;
+        const my = ((e.clientY - rect.top) / rect.height) * 100;
+        btn.style.setProperty('--mx', mx + '%');
+        btn.style.setProperty('--my', my + '%');
+      });
+    });
+  </script>
+
+</body>
+</html>

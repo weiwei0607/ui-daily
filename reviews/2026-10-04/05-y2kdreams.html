@@ -1,0 +1,532 @@
+<!-- style #40 Y2K Revival -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>千禧夢核 Y2K Dreams｜虛擬偶像數位時尚 App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&family=Chakra+Petch:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          display: ['Orbitron', 'Noto Sans TC', 'sans-serif'],
+          body: ['Chakra Petch', 'Noto Sans TC', 'sans-serif'],
+          sans: ['Chakra Petch', 'Noto Sans TC', 'sans-serif']
+        },
+        colors: {
+          magenta: '#ff00ff',
+          cyanz: '#00ffff',
+          yellowz: '#ffff00',
+          chrome: '#c0c0c0'
+        }
+      }
+    }
+  }
+</script>
+<style>
+  :root{
+    --magenta:#ff00ff;
+    --cyan:#00ffff;
+    --yellow:#ffff00;
+    --chrome-1:#ffffff;
+    --chrome-2:#c0c0c0;
+    --chrome-3:#8a8a8a;
+    --bg-deep:#0a0a14;
+    --bg-panel:#120a20;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html, body{
+    background:var(--bg-deep);
+    color:#f2f2f8;
+    font-family:'Chakra Petch','Noto Sans TC',sans-serif !important;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3,h4,.font-display{
+    font-family:'Orbitron','Noto Sans TC',sans-serif !important;
+    letter-spacing:0.02em;
+  }
+
+  .zh{ font-family:'Noto Sans TC','Chakra Petch',sans-serif !important; }
+
+  /* ---------- background ---------- */
+  .y2k-bg{
+    position:fixed; inset:0; z-index:-2;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(255,0,255,0.25), transparent 45%),
+      radial-gradient(circle at 85% 15%, rgba(0,255,255,0.22), transparent 45%),
+      radial-gradient(circle at 50% 85%, rgba(255,255,0,0.14), transparent 50%),
+      linear-gradient(160deg, #0a0a14 0%, #140a24 45%, #0a0a18 100%);
+  }
+  .grid-overlay{
+    position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background-image:
+      linear-gradient(rgba(0,255,255,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,0,255,0.08) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0.1) 70%);
+  }
+
+  /* ---------- chrome metallic text ---------- */
+  .chrome-text{
+    background-image: linear-gradient(115deg,
+      #6e6e78 0%, #ffffff 12%, #9a9aa4 24%, #ffffff 36%,
+      #7d7d88 48%, #ffffff 60%, #b8b8c2 72%, #ffffff 86%, #6e6e78 100%);
+    background-size: 220% 220%;
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    color:transparent;
+    filter: drop-shadow(0 0 18px rgba(0,255,255,0.35)) drop-shadow(0 0 36px rgba(255,0,255,0.25));
+    animation: chromeShift 6s ease-in-out infinite;
+  }
+  @keyframes chromeShift{
+    0%,100%{ background-position: 0% 50%; }
+    50%{ background-position: 100% 50%; }
+  }
+
+  /* ---------- neon glow text ---------- */
+  .neon-pink{
+    color:#fff;
+    text-shadow:
+      0 0 4px #fff,
+      0 0 10px var(--magenta),
+      0 0 22px var(--magenta),
+      0 0 44px var(--magenta);
+  }
+  .neon-cyan{
+    color:#fff;
+    text-shadow:
+      0 0 4px #fff,
+      0 0 10px var(--cyan),
+      0 0 22px var(--cyan),
+      0 0 44px var(--cyan);
+  }
+  .neon-yellow{
+    color:#161022;
+    text-shadow:
+      0 0 6px var(--yellow),
+      0 0 16px var(--yellow),
+      0 0 30px var(--yellow);
+  }
+
+  .flicker{
+    animation: flicker 2.6s infinite;
+  }
+  @keyframes flicker{
+    0%,100%{ opacity:1; }
+    4%{ opacity:0.75; }
+    6%{ opacity:1; }
+    45%{ opacity:1; }
+    47%{ opacity:0.6; }
+    49%{ opacity:1; }
+    82%{ opacity:1; }
+    84%{ opacity:0.7; }
+    86%{ opacity:1; }
+  }
+
+  /* ---------- stars ---------- */
+  .star{
+    position:absolute;
+    color:var(--cyan);
+    text-shadow:0 0 8px var(--cyan), 0 0 18px var(--magenta);
+    animation: twinkle 2.4s ease-in-out infinite;
+    pointer-events:none;
+    user-select:none;
+  }
+  @keyframes twinkle{
+    0%,100%{ opacity:0.25; transform:scale(0.75) rotate(0deg); }
+    50%{ opacity:1; transform:scale(1.15) rotate(15deg); }
+  }
+
+  .sparkle-dot{
+    position:absolute;
+    width:6px; height:6px;
+    border-radius:50%;
+    background:#fff;
+    box-shadow:0 0 10px #fff, 0 0 20px var(--cyan);
+    animation: sparkle 1.8s ease-in-out infinite;
+  }
+  @keyframes sparkle{
+    0%,100%{ opacity:0.2; transform:scale(0.6); }
+    50%{ opacity:1; transform:scale(1.4); }
+  }
+
+  /* ---------- panels ---------- */
+  .metal-panel{
+    background:linear-gradient(155deg, rgba(192,192,192,0.14), rgba(192,192,192,0.03) 40%, rgba(0,255,255,0.05));
+    border:1px solid rgba(192,192,192,0.35);
+    backdrop-filter: blur(6px);
+    position:relative;
+    overflow:hidden;
+  }
+  .metal-panel::before{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.18) 48%, transparent 66%);
+    background-size:220% 220%;
+    animation: sheen 4.5s linear infinite;
+    pointer-events:none;
+  }
+  @keyframes sheen{
+    0%{ background-position: -40% -40%; }
+    100%{ background-position: 140% 140%; }
+  }
+
+  .card-border{
+    border:1px solid transparent;
+    background:
+      linear-gradient(var(--bg-panel), var(--bg-panel)) padding-box,
+      linear-gradient(135deg, var(--magenta), var(--cyan), var(--yellow), var(--chrome-2)) border-box;
+  }
+
+  .btn-chrome{
+    background:linear-gradient(135deg,#eaeaea, #9a9aa4 45%, #ffffff 55%, #7d7d88);
+    color:#120a20;
+    font-family:'Orbitron','Noto Sans TC',sans-serif;
+    box-shadow: 0 0 18px rgba(255,255,255,0.35), 0 0 30px rgba(0,255,255,0.25);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .btn-chrome:hover{
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 0 24px rgba(255,255,255,0.55), 0 0 44px rgba(255,0,255,0.45);
+  }
+
+  .btn-outline-neon{
+    border:1.5px solid var(--cyan);
+    color:#fff;
+    text-shadow:0 0 6px var(--cyan);
+    box-shadow: inset 0 0 12px rgba(0,255,255,0.15), 0 0 14px rgba(0,255,255,0.25);
+    transition: all .25s ease;
+  }
+  .btn-outline-neon:hover{
+    background:rgba(0,255,255,0.12);
+    box-shadow: inset 0 0 16px rgba(0,255,255,0.3), 0 0 26px rgba(0,255,255,0.45);
+  }
+
+  .tag-pill{
+    font-family:'Orbitron','Noto Sans TC',sans-serif;
+    letter-spacing:0.08em;
+  }
+
+  .countdown-box{
+    background:linear-gradient(160deg, rgba(0,255,255,0.12), rgba(255,0,255,0.08));
+    border:1px solid rgba(0,255,255,0.45);
+    box-shadow:0 0 22px rgba(0,255,255,0.25);
+  }
+
+  .nav-link{
+    position:relative;
+    transition:color .2s ease;
+  }
+  .nav-link::after{
+    content:"";
+    position:absolute; left:0; bottom:-4px;
+    width:0%; height:2px;
+    background:linear-gradient(90deg,var(--magenta),var(--cyan));
+    transition:width .25s ease;
+  }
+  .nav-link:hover::after{ width:100%; }
+  .nav-link:hover{ color:var(--cyan); }
+
+  .card-hover{
+    transition: transform .3s ease, box-shadow .3s ease;
+  }
+  .card-hover:hover{
+    transform: translateY(-6px);
+    box-shadow:0 0 30px rgba(255,0,255,0.35), 0 0 50px rgba(0,255,255,0.2);
+  }
+
+  @media (max-width:480px){
+    .hero-title{ font-size:2.6rem !important; line-height:1.15 !important; }
+  }
+</style>
+</head>
+<body class="min-h-screen">
+<div class="y2k-bg"></div>
+<div class="grid-overlay"></div>
+
+<!-- ============ NAV ============ -->
+<header class="sticky top-0 z-50 border-b border-cyan-400/20" style="background:rgba(10,10,20,0.75); backdrop-filter:blur(10px);">
+  <nav class="max-w-7xl mx-auto px-5 sm:px-8 py-4 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-2">
+      <span class="text-2xl">✦</span>
+      <span class="font-display text-lg sm:text-xl chrome-text font-800">千禧夢核</span>
+      <span class="hidden sm:inline font-display text-xs tracking-widest text-cyan-300/80">Y2K DREAMS</span>
+    </a>
+
+    <ul class="hidden md:flex items-center gap-8 text-sm font-medium zh">
+      <li><a href="#top" class="nav-link">首頁</a></li>
+      <li><a href="#idols" class="nav-link">虛擬偶像</a></li>
+      <li><a href="#drops" class="nav-link">穿搭系列</a></li>
+      <li><a href="#event" class="nav-link">限時活動</a></li>
+    </ul>
+
+    <a href="#cta" class="btn-chrome rounded-full px-5 py-2 text-xs sm:text-sm font-bold tracking-wide zh">
+      立即下載
+    </a>
+  </nav>
+</header>
+
+<!-- ============ HERO ============ -->
+<section id="top" class="relative max-w-7xl mx-auto px-5 sm:px-8 pt-16 sm:pt-24 pb-20 text-center overflow-hidden">
+  <span class="star text-xl" style="top:6%; left:8%; animation-delay:0s;">✦</span>
+  <span class="star text-3xl" style="top:14%; left:85%; animation-delay:.4s;">✧</span>
+  <span class="star text-lg" style="top:60%; left:4%; animation-delay:.8s;">★</span>
+  <span class="star text-2xl" style="top:70%; left:90%; animation-delay:1.2s;">✦</span>
+  <span class="sparkle-dot" style="top:30%; left:18%; animation-delay:.3s;"></span>
+  <span class="sparkle-dot" style="top:22%; left:78%; animation-delay:.9s;"></span>
+  <span class="sparkle-dot" style="top:80%; left:60%; animation-delay:.6s;"></span>
+
+  <p class="tag-pill inline-block px-4 py-1 mb-6 rounded-full text-xs sm:text-sm neon-cyan border border-cyan-300/40">
+    VIRTUAL IDOL × DIGITAL FASHION APP
+  </p>
+
+  <h1 class="hero-title font-display text-5xl sm:text-7xl md:text-8xl font-900 chrome-text leading-none">
+    千禧夢核
+  </h1>
+  <h2 class="font-display text-2xl sm:text-4xl md:text-5xl font-800 mt-2 neon-pink flicker">
+    Y2K DREAMS
+  </h2>
+
+  <p class="zh text-base sm:text-lg md:text-xl mt-8 max-w-2xl mx-auto text-slate-200/90 leading-relaxed">
+    穿越千禧，閃耀降臨 —— 打造你的專屬虛擬偶像，解鎖無限螢光穿搭宇宙。
+  </p>
+  <p class="zh text-sm sm:text-base mt-3 max-w-xl mx-auto text-slate-400">
+    融合金屬鉻銀質感與高飽和螢光色彩，讓你的數位分身成為全場最閃亮的存在。
+  </p>
+
+  <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+    <a href="#cta" class="btn-chrome rounded-full px-8 py-3 font-bold text-sm sm:text-base zh">
+      立即下載 APP
+    </a>
+    <a href="#idols" class="btn-outline-neon rounded-full px-8 py-3 font-bold text-sm sm:text-base zh">
+      探索虛擬偶像
+    </a>
+  </div>
+
+  <div class="mt-14 flex items-center justify-center gap-6 sm:gap-10 text-xs sm:text-sm text-slate-400 zh flex-wrap">
+    <span>★ 超過 <span class="neon-yellow px-1 rounded">120萬</span> 位造型師加入</span>
+    <span>★ 每週更新 <span class="neon-yellow px-1 rounded">限定穿搭</span></span>
+    <span>★ 全息級 <span class="neon-yellow px-1 rounded">3D 虛擬試穿</span></span>
+  </div>
+</section>
+
+<!-- ============ IDOLS / OUTFITS ============ -->
+<section id="idols" class="max-w-7xl mx-auto px-5 sm:px-8 py-16 sm:py-24">
+  <div class="text-center mb-12">
+    <p class="tag-pill text-xs sm:text-sm neon-cyan mb-3">CHARACTER × OUTFIT SERIES</p>
+    <h2 class="font-display text-3xl sm:text-5xl font-800 chrome-text">虛擬偶像穿搭展示</h2>
+    <p class="zh text-slate-400 mt-4 text-sm sm:text-base max-w-xl mx-auto">
+      四位看板虛擬偶像，各自帶著獨家千禧穿搭系列，點進角色卡即可一鍵試穿同款造型。
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+    <!-- card 1 -->
+    <div class="card-border card-hover rounded-2xl p-5 flex flex-col">
+      <div class="relative h-40 rounded-xl mb-4 flex items-center justify-center overflow-hidden"
+           style="background:linear-gradient(160deg, rgba(0,255,255,0.25), rgba(192,192,192,0.15));">
+        <span class="text-6xl">🛰️</span>
+        <span class="absolute top-2 right-2 text-xs tag-pill px-2 py-0.5 rounded-full bg-black/40 neon-cyan">虛擬偶像</span>
+      </div>
+      <h3 class="font-display text-lg font-700 neon-cyan">露娜薇塔</h3>
+      <p class="font-display text-xs text-slate-400 mb-2 tracking-wide">LUNAVITA</p>
+      <p class="zh text-sm text-slate-300 mb-3">穿搭系列：<span class="text-cyan-300">鉻銀星塵</span></p>
+      <p class="zh text-xs text-slate-400 leading-relaxed mb-4 flex-1">
+        以液態金屬為靈感，搭配霓虹藍光纖維，打造未來感十足的太空舞者造型。
+      </p>
+      <div class="flex items-center justify-between text-xs zh">
+        <span class="text-slate-400">解鎖點數 <span class="neon-yellow px-1 rounded">198 星幣</span></span>
+      </div>
+      <a href="#cta" class="btn-outline-neon mt-4 rounded-full text-center py-2 text-xs font-bold zh">立即試穿</a>
+    </div>
+
+    <!-- card 2 -->
+    <div class="card-border card-hover rounded-2xl p-5 flex flex-col">
+      <div class="relative h-40 rounded-xl mb-4 flex items-center justify-center overflow-hidden"
+           style="background:linear-gradient(160deg, rgba(255,0,255,0.28), rgba(192,192,192,0.15));">
+        <span class="text-6xl">🍬</span>
+        <span class="absolute top-2 right-2 text-xs tag-pill px-2 py-0.5 rounded-full bg-black/40 neon-pink">虛擬偶像</span>
+      </div>
+      <h3 class="font-display text-lg font-700 neon-pink">賽博桃樂絲</h3>
+      <p class="font-display text-xs text-slate-400 mb-2 tracking-wide">CYBER DOLLY</p>
+      <p class="zh text-sm text-slate-300 mb-3">穿搭系列：<span class="text-fuchsia-300">螢光糖果</span></p>
+      <p class="zh text-xs text-slate-400 leading-relaxed mb-4 flex-1">
+        高飽和洋紅與螢光黃交織，甜美中帶著叛逆氣息的千禧辣妹魅力。
+      </p>
+      <div class="flex items-center justify-between text-xs zh">
+        <span class="text-slate-400">解鎖點數 <span class="neon-yellow px-1 rounded">168 星幣</span></span>
+      </div>
+      <a href="#cta" class="btn-outline-neon mt-4 rounded-full text-center py-2 text-xs font-bold zh">立即試穿</a>
+    </div>
+
+    <!-- card 3 -->
+    <div class="card-border card-hover rounded-2xl p-5 flex flex-col">
+      <div class="relative h-40 rounded-xl mb-4 flex items-center justify-center overflow-hidden"
+           style="background:linear-gradient(160deg, rgba(255,255,0,0.22), rgba(192,192,192,0.15));">
+        <span class="text-6xl">🐾</span>
+        <span class="absolute top-2 right-2 text-xs tag-pill px-2 py-0.5 rounded-full bg-black/40 neon-yellow">虛擬偶像</span>
+      </div>
+      <h3 class="font-display text-lg font-700 neon-yellow">電幻小貓</h3>
+      <p class="font-display text-xs text-slate-400 mb-2 tracking-wide">ELECTRA KITTY</p>
+      <p class="zh text-sm text-slate-300 mb-3">穿搭系列：<span class="text-yellow-300">全息貓耳</span></p>
+      <p class="zh text-xs text-slate-400 leading-relaxed mb-4 flex-1">
+        全息材質貓耳配件搭配透明 PVC 外套，可愛又帶科技感的萌系穿搭。
+      </p>
+      <div class="flex items-center justify-between text-xs zh">
+        <span class="text-slate-400">解鎖點數 <span class="neon-yellow px-1 rounded">148 星幣</span></span>
+      </div>
+      <a href="#cta" class="btn-outline-neon mt-4 rounded-full text-center py-2 text-xs font-bold zh">立即試穿</a>
+    </div>
+
+    <!-- card 4 -->
+    <div class="card-border card-hover rounded-2xl p-5 flex flex-col">
+      <div class="relative h-40 rounded-xl mb-4 flex items-center justify-center overflow-hidden"
+           style="background:linear-gradient(160deg, rgba(0,255,255,0.22), rgba(255,0,255,0.18));">
+        <span class="text-6xl">👼</span>
+        <span class="absolute top-2 right-2 text-xs tag-pill px-2 py-0.5 rounded-full bg-black/40 neon-cyan">虛擬偶像</span>
+      </div>
+      <h3 class="font-display text-lg font-700 neon-cyan">量子天使</h3>
+      <p class="font-display text-xs text-slate-400 mb-2 tracking-wide">QUANTUM ANGEL</p>
+      <p class="zh text-sm text-slate-300 mb-3">穿搭系列：<span class="text-cyan-300">青色羽翼</span></p>
+      <p class="zh text-xs text-slate-400 leading-relaxed mb-4 flex-1">
+        鏤空金屬翅膀配件結合青色漸層緊身衣，展現天使般的未來幻影。
+      </p>
+      <div class="flex items-center justify-between text-xs zh">
+        <span class="text-slate-400">解鎖點數 <span class="neon-yellow px-1 rounded">228 星幣</span></span>
+      </div>
+      <a href="#cta" class="btn-outline-neon mt-4 rounded-full text-center py-2 text-xs font-bold zh">立即試穿</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ EVENT COUNTDOWN ============ -->
+<section id="event" class="max-w-5xl mx-auto px-5 sm:px-8 py-16 sm:py-20">
+  <div class="metal-panel rounded-3xl p-8 sm:p-12 text-center relative">
+    <span class="star text-xl" style="top:8%; left:6%;">✧</span>
+    <span class="star text-lg" style="top:12%; left:92%; animation-delay:.5s;">✦</span>
+
+    <p class="tag-pill text-xs sm:text-sm neon-pink mb-3">LIMITED DROP COUNTDOWN</p>
+    <h2 class="font-display text-2xl sm:text-4xl font-800 chrome-text mb-3">千禧夜未來派對</h2>
+    <p class="zh text-slate-300 text-sm sm:text-base mb-8">
+      全新「極光金屬」穿搭系列即將解鎖，倒數搶先體驗，錢包準備好了嗎？
+    </p>
+
+    <div id="countdown" class="flex items-center justify-center gap-3 sm:gap-6 flex-wrap mb-8">
+      <div class="countdown-box rounded-xl px-4 sm:px-6 py-3 min-w-[72px] sm:min-w-[90px]">
+        <div id="cd-days" class="font-display text-2xl sm:text-4xl font-800 neon-cyan">00</div>
+        <div class="zh text-[10px] sm:text-xs text-slate-400 mt-1">天</div>
+      </div>
+      <div class="countdown-box rounded-xl px-4 sm:px-6 py-3 min-w-[72px] sm:min-w-[90px]">
+        <div id="cd-hours" class="font-display text-2xl sm:text-4xl font-800 neon-cyan">00</div>
+        <div class="zh text-[10px] sm:text-xs text-slate-400 mt-1">時</div>
+      </div>
+      <div class="countdown-box rounded-xl px-4 sm:px-6 py-3 min-w-[72px] sm:min-w-[90px]">
+        <div id="cd-mins" class="font-display text-2xl sm:text-4xl font-800 neon-cyan">00</div>
+        <div class="zh text-[10px] sm:text-xs text-slate-400 mt-1">分</div>
+      </div>
+      <div class="countdown-box rounded-xl px-4 sm:px-6 py-3 min-w-[72px] sm:min-w-[90px]">
+        <div id="cd-secs" class="font-display text-2xl sm:text-4xl font-800 neon-cyan">00</div>
+        <div class="zh text-[10px] sm:text-xs text-slate-400 mt-1">秒</div>
+      </div>
+    </div>
+
+    <p class="zh text-xs sm:text-sm text-slate-400 mb-6">
+      ★ 活動限定獎勵：倒數期間登入即贈「螢光星塵」專屬貼紙包一份
+    </p>
+
+    <a href="#cta" class="btn-chrome inline-block rounded-full px-8 py-3 font-bold text-sm zh">
+      設定上線提醒
+    </a>
+  </div>
+</section>
+
+<!-- ============ BOTTOM CTA ============ -->
+<section id="cta" class="relative max-w-7xl mx-auto px-5 sm:px-8 py-20 sm:py-28 text-center overflow-hidden">
+  <span class="star text-2xl" style="top:10%; left:10%;">✦</span>
+  <span class="star text-xl" style="top:20%; left:88%; animation-delay:.6s;">✧</span>
+  <span class="sparkle-dot" style="top:55%; left:15%; animation-delay:.2s;"></span>
+  <span class="sparkle-dot" style="top:65%; left:85%; animation-delay:.8s;"></span>
+
+  <h2 class="font-display text-3xl sm:text-5xl font-900 chrome-text mb-5">
+    準備好閃耀千禧了嗎？
+  </h2>
+  <p class="zh text-slate-300 text-sm sm:text-lg mb-10 max-w-xl mx-auto">
+    立即下載千禧夢核，打造你的虛擬偶像分身，開啟專屬你的數位時尚旅程。
+  </p>
+
+  <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+    <a href="#" class="btn-chrome rounded-full px-8 py-3 font-bold text-sm sm:text-base zh w-64 sm:w-auto">
+      App Store 下載
+    </a>
+    <a href="#" class="btn-outline-neon rounded-full px-8 py-3 font-bold text-sm sm:text-base zh w-64 sm:w-auto">
+      Google Play 下載
+    </a>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="border-t border-cyan-400/15 py-10 px-5 sm:px-8">
+  <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-sm text-slate-400 zh">
+    <div class="flex items-center gap-2">
+      <span class="text-lg">✦</span>
+      <span class="font-display text-base chrome-text">千禧夢核 Y2K DREAMS</span>
+    </div>
+    <ul class="flex items-center gap-6 flex-wrap justify-center">
+      <li><a href="#" class="nav-link">關於我們</a></li>
+      <li><a href="#" class="nav-link">隱私權政策</a></li>
+      <li><a href="#" class="nav-link">服務條款</a></li>
+      <li><a href="#" class="nav-link">聯絡我們</a></li>
+    </ul>
+  </div>
+  <p class="text-center text-xs text-slate-500 mt-6 zh">
+    © 2026 千禧夢核 Y2K Dreams. All Rights Reserved.
+  </p>
+</footer>
+
+<script>
+  (function () {
+    // 設定倒數目標時間：活動公告後 14 天
+    var target = new Date();
+    target.setDate(target.getDate() + 14);
+    target.setHours(20, 0, 0, 0);
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function tick() {
+      var now = new Date();
+      var diff = target - now;
+      if (diff < 0) diff = 0;
+
+      var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      var mins = Math.floor((diff / (1000 * 60)) % 60);
+      var secs = Math.floor((diff / 1000) % 60);
+
+      var dEl = document.getElementById('cd-days');
+      var hEl = document.getElementById('cd-hours');
+      var mEl = document.getElementById('cd-mins');
+      var sEl = document.getElementById('cd-secs');
+      if (dEl) dEl.textContent = pad(days);
+      if (hEl) hEl.textContent = pad(hours);
+      if (mEl) mEl.textContent = pad(mins);
+      if (sEl) sEl.textContent = pad(secs);
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  })();
+</script>
+
+</body>
+</html>
