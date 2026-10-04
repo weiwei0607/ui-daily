@@ -1,0 +1,414 @@
+<!-- style #06 Vibrant Block -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>潮拼 StickerPop｜貼紙設計創作者社群</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          head: ['Space Grotesk', 'Noto Sans TC', 'sans-serif'],
+          body: ['Noto Sans TC', 'Space Grotesk', 'sans-serif'],
+        },
+        colors: {
+          cyan1: '#00ffff',
+          purple1: '#bf00ff',
+          green1: '#39ff14',
+          pink1: '#ff1493',
+          ink: '#0a0a0a',
+        }
+      }
+    }
+  }
+</script>
+<style>
+  :root{
+    --cyan:#00ffff;
+    --purple:#bf00ff;
+    --green:#39ff14;
+    --pink:#ff1493;
+    --ink:#0a0a0a;
+  }
+  *{ border-radius:0 !important; }
+  html, body{
+    font-family:'Noto Sans TC','Space Grotesk',sans-serif !important;
+    background:#0a0a0a;
+    color:#0a0a0a;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4,.font-head{
+    font-family:'Space Grotesk','Noto Sans TC',sans-serif !important;
+  }
+  .hard-border{ border:4px solid var(--ink); }
+  .hard-border-thick{ border:6px solid var(--ink); }
+  .block-shadow{ box-shadow: 8px 8px 0 0 var(--ink); }
+  .block-shadow-sm{ box-shadow: 5px 5px 0 0 var(--ink); }
+  .block-shadow-lg{ box-shadow: 12px 12px 0 0 var(--ink); }
+  .tilt-l{ transform: rotate(-2.2deg); }
+  .tilt-r{ transform: rotate(2.4deg); }
+  .tilt-l2{ transform: rotate(-1.1deg); }
+  .tilt-r2{ transform: rotate(1.6deg); }
+
+  .bg-stripe{
+    background-image: repeating-linear-gradient(45deg, var(--ink) 0 2px, transparent 2px 14px);
+  }
+  .bg-dots{
+    background-image: radial-gradient(var(--ink) 2.5px, transparent 2.5px);
+    background-size: 18px 18px;
+  }
+
+  .btn-pop{
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .btn-pop:hover{
+    transform: translate(-3px,-3px);
+    box-shadow: 11px 11px 0 0 var(--ink);
+  }
+  .btn-pop:active{
+    transform: translate(2px,2px);
+    box-shadow: 3px 3px 0 0 var(--ink);
+  }
+
+  .card-pop{
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .card-pop:hover{
+    transform: translate(-4px,-6px) rotate(0deg) !important;
+    box-shadow: 14px 14px 0 0 var(--ink);
+    z-index: 20;
+  }
+
+  .marquee-track{
+    display:flex;
+    width: max-content;
+    animation: marquee 18s linear infinite;
+  }
+  @keyframes marquee{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(-50%); }
+  }
+
+  .glitch-tag{
+    display:inline-block;
+    transition: transform .15s ease;
+  }
+  .glitch-tag:hover{
+    transform: translate(2px,-2px) rotate(-3deg);
+  }
+
+  ::selection{ background: var(--green); color: var(--ink); }
+
+  .nav-link{ position:relative; }
+  .nav-link::after{
+    content:"";
+    position:absolute; left:0; bottom:-4px;
+    width:0; height:4px; background:var(--ink);
+    transition: width .15s ease;
+  }
+  .nav-link:hover::after{ width:100%; }
+
+  .accordion-content{
+    max-height:0; overflow:hidden; transition: max-height .25s ease;
+  }
+  .accordion-content.open{ max-height:400px; }
+
+  .scrollbar-hide::-webkit-scrollbar{ display:none; }
+</style>
+</head>
+<body class="bg-ink text-ink font-body">
+
+<!-- ======= NAV ======= -->
+<nav class="sticky top-0 z-50 bg-[var(--cyan)] hard-border-thick border-t-0 border-x-0">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+    <a href="#top" class="font-head font-bold text-2xl sm:text-3xl flex items-center gap-2">
+      <span class="bg-[var(--ink)] text-[var(--green)] px-2 py-0.5">潮拼</span>
+      <span>StickerPop</span>
+    </a>
+    <div class="hidden md:flex items-center gap-8 font-head font-medium text-lg">
+      <a href="#hero" class="nav-link">首頁</a>
+      <a href="#series" class="nav-link">貼紙館</a>
+      <a href="#creators" class="nav-link">創作者</a>
+      <a href="#revenue" class="nav-link">分潤方案</a>
+      <a href="#footer" class="nav-link">聯絡我們</a>
+    </div>
+    <a href="#cta" class="btn-pop hard-border bg-[var(--pink)] text-white font-head font-bold px-4 sm:px-5 py-2 block-shadow-sm whitespace-nowrap">
+      立即訂閱
+    </a>
+  </div>
+  <!-- marquee strip -->
+  <div class="bg-[var(--ink)] text-[var(--cyan)] overflow-hidden py-1.5 border-t-4 border-[var(--ink)]">
+    <div class="marquee-track font-head font-semibold text-sm sm:text-base tracking-wide">
+      <span class="px-6">✦ 新手創作者首月免抽成 ✦ 每週五上新貼紙系列 ✦ 滿額免運全台配送 ✦</span>
+      <span class="px-6">✦ 新手創作者首月免抽成 ✦ 每週五上新貼紙系列 ✦ 滿額免運全台配送 ✦</span>
+    </div>
+  </div>
+</nav>
+
+<!-- ======= HERO ======= -->
+<section id="hero" class="relative bg-[var(--ink)] bg-dots">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-24 relative">
+
+    <div class="absolute -top-4 right-4 sm:right-10 hidden sm:block">
+      <div class="hard-border bg-[var(--green)] px-4 py-2 font-head font-bold tilt-r block-shadow-sm glitch-tag">
+        #貼紙控必逛
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-5 gap-6 items-start">
+      <div class="md:col-span-3">
+        <p class="font-head font-bold text-[var(--cyan)] text-lg mb-3 tracking-wider">STICKER CREATOR MARKET</p>
+        <h1 class="font-head font-bold text-white leading-[0.95] text-5xl sm:text-6xl md:text-7xl">
+          把你的
+          <span class="inline-block bg-[var(--pink)] text-white px-3 mt-2 tilt-l block-shadow">塗鴉魂</span>
+          <br>
+          拼成
+          <span class="inline-block bg-[var(--green)] text-[var(--ink)] px-3 tilt-r block-shadow">爆賣貼紙</span>
+        </h1>
+        <p class="text-white/90 text-lg sm:text-xl mt-8 max-w-xl font-medium">
+          潮拼 StickerPop 是台灣第一個專注貼紙設計的創作者電商平台。從手繪線稿到防水材質印刷，我們幫你把創意變成一張一張會被搶購的貼紙。
+        </p>
+        <div class="flex flex-wrap gap-4 mt-8">
+          <a href="#series" class="btn-pop hard-border bg-[var(--cyan)] text-[var(--ink)] font-head font-bold text-lg px-7 py-3 block-shadow">
+            逛逛熱門系列 →
+          </a>
+          <a href="#creators" class="btn-pop hard-border bg-white text-[var(--ink)] font-head font-bold text-lg px-7 py-3 block-shadow">
+            我要成為創作者
+          </a>
+        </div>
+
+        <div class="flex gap-6 mt-10 font-head">
+          <div>
+            <p class="text-3xl font-bold text-[var(--green)]">1,280+</p>
+            <p class="text-white/70 text-sm">在架貼紙系列</p>
+          </div>
+          <div>
+            <p class="text-3xl font-bold text-[var(--pink)]">340</p>
+            <p class="text-white/70 text-sm">活躍創作者</p>
+          </div>
+          <div>
+            <p class="text-3xl font-bold text-[var(--cyan)]">92%</p>
+            <p class="text-white/70 text-sm">創作者回購率</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="md:col-span-2 relative mt-10 md:mt-6">
+        <div class="hard-border bg-[var(--purple)] aspect-square w-44 sm:w-56 absolute top-0 right-6 tilt-r block-shadow flex items-center justify-center">
+          <span class="font-head font-bold text-white text-center text-xl leading-tight">夏日水果<br>系列</span>
+        </div>
+        <div class="hard-border bg-[var(--green)] aspect-square w-36 sm:w-44 absolute top-28 sm:top-36 left-0 tilt-l2 block-shadow flex items-center justify-center">
+          <span class="font-head font-bold text-[var(--ink)] text-center text-lg leading-tight">貓咪<br>辦公室</span>
+        </div>
+        <div class="hard-border bg-[var(--pink)] aspect-square w-32 sm:w-40 absolute top-64 sm:top-80 right-10 tilt-r2 block-shadow flex items-center justify-center">
+          <span class="font-head font-bold text-white text-center text-lg leading-tight">台味<br>復古</span>
+        </div>
+        <div class="h-[380px] sm:h-[460px]"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= SERIES ======= -->
+<section id="series" class="bg-[var(--cyan)] bg-stripe border-t-4 border-[var(--ink)]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-20">
+    <div class="flex flex-wrap items-end justify-between gap-4 mb-12">
+      <h2 class="font-head font-bold text-4xl sm:text-5xl bg-[var(--ink)] text-[var(--cyan)] inline-block px-4 py-2 tilt-l2">
+        本週熱門貼紙系列
+      </h2>
+      <p class="font-head font-medium text-lg bg-white px-3 py-1 hard-border block-shadow-sm">每週五固定更新 ✦</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+      <div class="card-pop hard-border bg-white p-5 block-shadow tilt-l2">
+        <div class="hard-border bg-[var(--pink)] h-40 mb-4 flex items-center justify-center">
+          <span class="font-head font-bold text-white text-5xl">🍓</span>
+        </div>
+        <p class="font-head font-bold text-xl">夏日水果狂想</p>
+        <p class="text-sm text-[var(--ink)]/70 mt-1">創作者：阿酸 ・ 32 枚入</p>
+        <div class="flex items-center justify-between mt-4">
+          <span class="font-head font-bold text-lg">NT$180</span>
+          <span class="font-head text-xs bg-[var(--green)] px-2 py-1 hard-border">熱銷第1名</span>
+        </div>
+      </div>
+
+      <div class="card-pop hard-border bg-white p-5 block-shadow tilt-r">
+        <div class="hard-border bg-[var(--purple)] h-40 mb-4 flex items-center justify-center">
+          <span class="font-head font-bold text-white text-5xl">🐱</span>
+        </div>
+        <p class="font-head font-bold text-xl">貓咪辦公室日常</p>
+        <p class="text-sm text-[var(--ink)]/70 mt-1">創作者：小捲毛 ・ 24 枚入</p>
+        <div class="flex items-center justify-between mt-4">
+          <span class="font-head font-bold text-lg">NT$150</span>
+          <span class="font-head text-xs bg-[var(--cyan)] px-2 py-1 hard-border">新上架</span>
+        </div>
+      </div>
+
+      <div class="card-pop hard-border bg-white p-5 block-shadow tilt-l">
+        <div class="hard-border bg-[var(--green)] h-40 mb-4 flex items-center justify-center">
+          <span class="font-head font-bold text-[var(--ink)] text-5xl">🏮</span>
+        </div>
+        <p class="font-head font-bold text-xl">台味復古招牌</p>
+        <p class="text-sm text-[var(--ink)]/70 mt-1">創作者：阿舍設計 ・ 18 枚入</p>
+        <div class="flex items-center justify-between mt-4">
+          <span class="font-head font-bold text-lg">NT$220</span>
+          <span class="font-head text-xs bg-[var(--pink)] text-white px-2 py-1 hard-border">限量</span>
+        </div>
+      </div>
+
+      <div class="card-pop hard-border bg-white p-5 block-shadow tilt-r2">
+        <div class="hard-border bg-[var(--cyan)] h-40 mb-4 flex items-center justify-center">
+          <span class="font-head font-bold text-[var(--ink)] text-5xl">🌧️</span>
+        </div>
+        <p class="font-head font-bold text-xl">雨天情緒日記</p>
+        <p class="text-sm text-[var(--ink)]/70 mt-1">創作者：灰塵 ・ 20 枚入</p>
+        <div class="flex items-center justify-between mt-4">
+          <span class="font-head font-bold text-lg">NT$160</span>
+          <span class="font-head text-xs bg-[var(--purple)] text-white px-2 py-1 hard-border">編輯精選</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ======= CREATORS / REVENUE SHARE ======= -->
+<section id="creators" class="bg-[var(--ink)] border-t-4 border-[var(--ink)]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-20">
+    <h2 class="font-head font-bold text-4xl sm:text-5xl text-white mb-4">
+      <span class="bg-[var(--purple)] px-4 py-2 inline-block tilt-r2">創作者分潤方案</span>
+    </h2>
+    <p class="text-white/80 text-lg max-w-2xl mb-12 font-medium">
+      上架零門檻、設計歸你所有，潮拼只負責印刷、倉儲、出貨跟收錢。方案分三級，貼紙賣得越好，你分到的比例越高。
+    </p>
+
+    <div id="revenue" class="grid md:grid-cols-3 gap-8">
+
+      <div class="hard-border bg-[var(--cyan)] p-6 block-shadow-lg tilt-l2">
+        <p class="font-head font-bold text-2xl mb-1">新芽方案</p>
+        <p class="font-head text-sm text-[var(--ink)]/70 mb-4">適合剛上架的新創作者</p>
+        <p class="font-head font-bold text-5xl mb-4">65%</p>
+        <ul class="space-y-2 font-medium text-sm">
+          <li>✦ 單月銷量 0〜100 份</li>
+          <li>✦ 首月上架抽成 0%</li>
+          <li>✦ 每月 15 號固定撥款</li>
+          <li>✦ 基礎數據儀表板</li>
+        </ul>
+      </div>
+
+      <div class="hard-border bg-[var(--green)] p-6 block-shadow-lg relative">
+        <div class="absolute -top-4 -right-4 bg-[var(--pink)] text-white font-head font-bold text-xs px-3 py-1 hard-border tilt-r">最多人選</div>
+        <p class="font-head font-bold text-2xl mb-1">潮拼方案</p>
+        <p class="font-head text-sm text-[var(--ink)]/70 mb-4">穩定出貨的主力創作者</p>
+        <p class="font-head font-bold text-5xl mb-4">75%</p>
+        <ul class="space-y-2 font-medium text-sm">
+          <li>✦ 單月銷量 101〜500 份</li>
+          <li>✦ 專屬系列首頁曝光</li>
+          <li>✦ 雙週撥款，資金週轉快</li>
+          <li>✦ 進階銷售數據分析</li>
+        </ul>
+      </div>
+
+      <div class="hard-border bg-[var(--pink)] text-white p-6 block-shadow-lg tilt-r2">
+        <p class="font-head font-bold text-2xl mb-1">王牌方案</p>
+        <p class="font-head text-sm text-white/80 mb-4">月銷破千的頭部創作者</p>
+        <p class="font-head font-bold text-5xl mb-4">85%</p>
+        <ul class="space-y-2 font-medium text-sm">
+          <li>✦ 單月銷量 501 份以上</li>
+          <li>✦ 專屬客服與印刷優先排程</li>
+          <li>✦ 每週撥款</li>
+          <li>✦ 聯名合作與線下快閃優先邀約</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- simple interactive accordion -->
+    <div class="mt-10 hard-border bg-white">
+      <button onclick="document.getElementById('faq-box').classList.toggle('open')" class="w-full flex items-center justify-between px-5 py-4 font-head font-bold text-lg">
+        分潤怎麼算？點我看詳細說明
+        <span class="text-2xl">＋</span>
+      </button>
+      <div id="faq-box" class="accordion-content border-t-4 border-[var(--ink)]">
+        <div class="px-5 py-4 font-medium text-sm space-y-2">
+          <p>・ 分潤比例以「前一個完整月份」的銷售份數自動結算等級，次月生效。</p>
+          <p>・ 撥款金額已先扣除金流與材料成本，你收到的就是淨額，不用再自己算稅前稅後。</p>
+          <p>・ 系列若被選入「編輯精選」或「熱銷排行」，額外贈送 5% 曝光加成，不影響原本分潤比例。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= CTA ======= -->
+<section id="cta" class="bg-[var(--purple)] border-t-4 border-[var(--ink)]">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-20 text-center">
+    <h2 class="font-head font-bold text-white text-4xl sm:text-5xl md:text-6xl leading-tight">
+      加入潮拼，<br class="sm:hidden">
+      <span class="bg-[var(--ink)] text-[var(--green)] px-3 inline-block mt-2 tilt-l">月底多一筆</span><br>
+      貼紙分潤收入
+    </h2>
+    <p class="text-white/90 text-lg mt-6 font-medium">免費註冊、三分鐘上架你的第一張貼紙設計圖。</p>
+    <div class="flex flex-wrap justify-center gap-4 mt-8">
+      <button onclick="alert('感謝支持！訂閱表單即將開放，敬請期待潮拼 StickerPop 的最新上架通知 🎉')"
+        class="btn-pop hard-border bg-[var(--green)] text-[var(--ink)] font-head font-bold text-xl px-9 py-4 block-shadow-lg">
+        免費訂閱上新通知
+      </button>
+      <a href="#creators" class="btn-pop hard-border bg-white text-[var(--ink)] font-head font-bold text-xl px-9 py-4 block-shadow-lg">
+        申請成為創作者
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ======= FOOTER ======= -->
+<footer id="footer" class="bg-[var(--ink)] text-white border-t-4 border-[var(--ink)]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-14">
+    <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-10">
+      <div>
+        <p class="font-head font-bold text-2xl mb-3">
+          <span class="bg-[var(--pink)] px-2">潮拼</span> StickerPop
+        </p>
+        <p class="text-white/70 text-sm">台灣原創貼紙設計創作者社群，用色塊拼出你的風格。</p>
+      </div>
+      <div>
+        <p class="font-head font-bold mb-3 text-[var(--cyan)]">逛逛平台</p>
+        <ul class="space-y-2 text-sm text-white/80">
+          <li><a href="#series" class="hover:text-[var(--green)]">熱門貼紙系列</a></li>
+          <li><a href="#creators" class="hover:text-[var(--green)]">創作者分潤方案</a></li>
+          <li><a href="#" class="hover:text-[var(--green)]">新手上架教學</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-head font-bold mb-3 text-[var(--pink)]">客服支援</p>
+        <ul class="space-y-2 text-sm text-white/80">
+          <li><a href="#" class="hover:text-[var(--green)]">常見問題</a></li>
+          <li><a href="#" class="hover:text-[var(--green)]">訂單查詢</a></li>
+          <li><a href="#" class="hover:text-[var(--green)]">聯絡客服信箱</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-head font-bold mb-3 text-[var(--green)]">追蹤我們</p>
+        <div class="flex gap-3 flex-wrap">
+          <span class="glitch-tag hard-border bg-[var(--cyan)] text-[var(--ink)] px-3 py-1 font-head font-bold text-sm">Instagram</span>
+          <span class="glitch-tag hard-border bg-[var(--purple)] text-white px-3 py-1 font-head font-bold text-sm">Threads</span>
+          <span class="glitch-tag hard-border bg-[var(--pink)] text-white px-3 py-1 font-head font-bold text-sm">LINE</span>
+        </div>
+      </div>
+    </div>
+    <div class="mt-10 pt-6 border-t-4 border-white/20 flex flex-wrap justify-between gap-3 text-xs text-white/60 font-medium">
+      <p>© 2026 潮拼 StickerPop．版權所有，保留一切權利。</p>
+      <p>台北市大安區 ・ 本站為示範用設計頁面</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
