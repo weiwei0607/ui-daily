@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!-- style #31 Real-Time Monitoring -->
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>塔台瞳 TowerEye · 機場即時航班監控</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700&family=Fira+Code:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Public Sans','Noto Sans TC',sans-serif;background:#0b1320;color:#e4ecf7;}
+  .mono{font-family:'Fira Code',monospace;}
+  .panel{background:#101b2d;border:1px solid #1e2d45;border-radius:14px;}
+  .pulse-dot{animation: pulse 1.6s infinite;}
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(74,222,128,0.55);}
+    70%{box-shadow:0 0 0 8px rgba(74,222,128,0);}
+    100%{box-shadow:0 0 0 0 rgba(74,222,128,0);}
+  }
+  .log-line{animation: fadeIn .4s ease;}
+  @keyframes fadeIn{from{opacity:0; transform:translateY(-4px);} to{opacity:1; transform:translateY(0);}}
+  #log-list{max-height:220px; overflow-y:auto;}
+</style>
+</head>
+<body class="px-5 py-6 max-w-6xl mx-auto">
+
+  <header class="flex items-center justify-between mb-6">
+    <div>
+      <h1 class="text-2xl font-bold">塔台瞳 <span class="text-[#4ade80]">TowerEye</span></h1>
+      <p class="mono text-xs text-[#7e93b8]">桃園國際機場 · 即時航班動態監控</p>
+    </div>
+    <div class="flex items-center gap-2 text-sm">
+      <span class="w-2.5 h-2.5 rounded-full bg-[#4ade80] pulse-dot"></span>
+      <span class="mono" id="clock">00:00:00</span>
+    </div>
+  </header>
+
+  <section class="grid md:grid-cols-4 gap-4 mb-6">
+    <div class="panel p-4">
+      <p class="text-xs text-[#7e93b8] mb-1">今日起降班次</p>
+      <p class="mono text-3xl font-semibold" id="kpi-flights">0</p>
+    </div>
+    <div class="panel p-4">
+      <p class="text-xs text-[#7e93b8] mb-1">準時率</p>
+      <p class="mono text-3xl font-semibold text-[#4ade80]">92.4%</p>
+    </div>
+    <div class="panel p-4">
+      <p class="text-xs text-[#7e93b8] mb-1">目前延誤航班</p>
+      <p class="mono text-3xl font-semibold text-[#facc15]">7</p>
+    </div>
+    <div class="panel p-4">
+      <p class="text-xs text-[#7e93b8] mb-1">跑道使用率</p>
+      <p class="mono text-3xl font-semibold text-[#60a5fa]">68%</p>
+    </div>
+  </section>
+
+  <section class="grid md:grid-cols-3 gap-5">
+    <div class="panel p-5 md:col-span-2">
+      <h2 class="text-sm font-semibold text-[#7e93b8] mb-3">即時起降流量（每秒更新）</h2>
+      <svg id="flow-svg" viewBox="0 0 500 160" class="w-full h-40">
+        <line x1="0" y1="40" x2="500" y2="40" stroke="#1e2d45" stroke-width="1"/>
+        <line x1="0" y1="80" x2="500" y2="80" stroke="#1e2d45" stroke-width="1"/>
+        <line x1="0" y1="120" x2="500" y2="120" stroke="#1e2d45" stroke-width="1"/>
+        <polyline id="flow-line" fill="none" stroke="#4ade80" stroke-width="2.5" points=""/>
+      </svg>
+      <div class="flex justify-between mono text-xs text-[#7e93b8] mt-2">
+        <span>起飛</span><span>降落</span><span>地面滑行</span>
+      </div>
+    </div>
+
+    <div class="panel p-5">
+      <h2 class="text-sm font-semibold text-[#7e93b8] mb-3">航班警報日誌</h2>
+      <div id="log-list" class="space-y-2 mono text-xs"></div>
+    </div>
+  </section>
+
+  <section class="panel p-5 mt-5">
+    <h2 class="text-sm font-semibold text-[#7e93b8] mb-3">登機門狀態</h2>
+    <div class="grid grid-cols-4 md:grid-cols-8 gap-2" id="gate-grid"></div>
+  </section>
+
+  <footer class="mono text-center text-xs text-[#52678c] mt-6">TowerEye v2.3 · 資料每秒自動刷新 · 僅供示意</footer>
+
+<script>
+  function pad(n){return n.toString().padStart(2,'0');}
+  function tick(){
+    const d = new Date();
+    document.getElementById('clock').textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+  }
+  setInterval(tick, 1000); tick();
+
+  let flights = 318;
+  document.getElementById('kpi-flights').textContent = flights;
+  setInterval(()=>{
+    flights += Math.random()>0.5?1:0;
+    document.getElementById('kpi-flights').textContent = flights;
+  }, 3000);
+
+  let points = Array.from({length:40}, ()=> 60 + Math.random()*60);
+  const line = document.getElementById('flow-line');
+  function renderFlow(){
+    const step = 500/(points.length-1);
+    const pts = points.map((v,i)=> `${(i*step).toFixed(1)},${(150-v).toFixed(1)}`).join(' ');
+    line.setAttribute('points', pts);
+  }
+  renderFlow();
+  setInterval(()=>{
+    points.shift();
+    points.push(Math.max(20, Math.min(140, points[points.length-1] + (Math.random()*30-15))));
+    renderFlow();
+  }, 1500);
+
+  const events = [
+    ['CI-108 台北→東京', '延誤 15 分鐘'],
+    ['BR-205 台北→曼谷', '登機門變更為 C12'],
+    ['JX-732 台北→首爾', '準時起飛'],
+    ['CX-411 台北→香港', '延誤 40 分鐘，天候因素'],
+    ['NH-856 台北→大阪', '已降落'],
+  ];
+  const logList = document.getElementById('log-list');
+  function addLog(){
+    const d = new Date();
+    const [flight, msg] = events[Math.floor(Math.random()*events.length)];
+    const row = document.createElement('div');
+    row.className = 'log-line border-l-2 border-[#4ade80] pl-2';
+    row.innerHTML = `<span class="text-[#52678c]">${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}</span> ${flight} — ${msg}`;
+    logList.prepend(row);
+    if(logList.children.length>12) logList.removeChild(logList.lastChild);
+  }
+  addLog();
+  setInterval(addLog, 4000);
+
+  const gateGrid = document.getElementById('gate-grid');
+  for(let i=1;i<=16;i++){
+    const d = document.createElement('div');
+    const states = ['bg-[#1e2d45] text-[#7e93b8]','bg-[#14532d] text-[#4ade80]','bg-[#3f2d12] text-[#facc15]'];
+    d.className = `mono text-xs text-center rounded py-2 ${states[Math.floor(Math.random()*states.length)]}`;
+    d.textContent = 'C'+(i+2);
+    gateGrid.appendChild(d);
+  }
+</script>
+</body>
+</html>

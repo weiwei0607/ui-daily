@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<!-- style #19 Soft UI Evolution -->
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>葉覓 LeafMate · 居家植物照護</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Noto Sans TC',sans-serif;background:linear-gradient(160deg,#eef6ee 0%,#f7f3ea 100%);}
+  .font-head{font-family:'Baloo 2',sans-serif;}
+  .soft-card{
+    background:#f3f0e8;
+    border-radius:28px;
+    box-shadow: 10px 10px 24px rgba(166,163,145,0.35), -10px -10px 24px rgba(255,255,255,0.85);
+  }
+  .soft-inset{
+    background:#eceae1;
+    border-radius:20px;
+    box-shadow: inset 6px 6px 14px rgba(166,163,145,0.3), inset -6px -6px 14px rgba(255,255,255,0.75);
+  }
+  .soft-btn{
+    border-radius:999px;
+    box-shadow: 6px 6px 14px rgba(166,163,145,0.35), -6px -6px 14px rgba(255,255,255,0.85);
+    transition: all .15s ease;
+  }
+  .soft-btn:active{
+    box-shadow: inset 4px 4px 10px rgba(166,163,145,0.35), inset -4px -4px 10px rgba(255,255,255,0.8);
+    transform: scale(0.98);
+  }
+  .toggle-dot{transition: all .25s cubic-bezier(.4,0,.2,1);}
+  .water-fill{transition: height 1s ease;}
+</style>
+</head>
+<body class="min-h-screen px-5 py-10">
+<div class="max-w-md mx-auto">
+
+  <header class="flex items-center justify-between mb-8">
+    <div>
+      <h1 class="font-head text-3xl text-[#4a6b4a]">葉覓</h1>
+      <p class="text-sm text-[#7c8c74]">LeafMate · 把植物照顧好</p>
+    </div>
+    <div class="soft-card w-14 h-14 flex items-center justify-center text-2xl">🌿</div>
+  </header>
+
+  <section class="soft-card p-6 mb-6">
+    <p class="text-sm text-[#8a9480] mb-1">今天要澆水的植物</p>
+    <h2 class="font-head text-2xl text-[#4a6b4a] mb-4">3 株在等你</h2>
+    <div class="space-y-3" id="plant-list">
+      <div class="soft-inset p-4 flex items-center justify-between" data-plant="龍血樹">
+        <div class="flex items-center gap-3">
+          <span class="text-2xl">🪴</span>
+          <div>
+            <p class="font-medium text-[#4a4a3f]">龍血樹 · 客廳窗邊</p>
+            <p class="text-xs text-[#9a9a86]">已經 6 天沒澆水</p>
+          </div>
+        </div>
+        <button class="water-btn soft-btn w-10 h-10 flex items-center justify-center bg-[#dceede] text-[#4a6b4a]">💧</button>
+      </div>
+      <div class="soft-inset p-4 flex items-center justify-between" data-plant="薰衣草">
+        <div class="flex items-center gap-3">
+          <span class="text-2xl">🌾</span>
+          <div>
+            <p class="font-medium text-[#4a4a3f]">薰衣草 · 陽台</p>
+            <p class="text-xs text-[#9a9a86]">已經 2 天沒澆水</p>
+          </div>
+        </div>
+        <button class="water-btn soft-btn w-10 h-10 flex items-center justify-center bg-[#dceede] text-[#4a6b4a]">💧</button>
+      </div>
+      <div class="soft-inset p-4 flex items-center justify-between" data-plant="多肉拼盤">
+        <div class="flex items-center gap-3">
+          <span class="text-2xl">🌵</span>
+          <div>
+            <p class="font-medium text-[#4a4a3f]">多肉拼盤 · 書桌</p>
+            <p class="text-xs text-[#9a9a86]">已經 9 天沒澆水</p>
+          </div>
+        </div>
+        <button class="water-btn soft-btn w-10 h-10 flex items-center justify-center bg-[#dceede] text-[#4a6b4a]">💧</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="soft-card p-6 mb-6">
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="font-head text-lg text-[#4a6b4a]">本週澆水進度</h3>
+      <span id="progress-label" class="text-sm text-[#8a9480]">已完成 0 / 3</span>
+    </div>
+    <div class="soft-inset h-6 overflow-hidden">
+      <div id="progress-bar" class="h-full rounded-full bg-gradient-to-r from-[#9bc99b] to-[#6fa96f]" style="width:0%;transition:width .6s ease;"></div>
+    </div>
+  </section>
+
+  <section class="soft-card p-6 mb-6">
+    <h3 class="font-head text-lg text-[#4a6b4a] mb-4">光照提醒</h3>
+    <div class="flex items-center justify-between soft-inset p-4">
+      <div>
+        <p class="text-sm font-medium text-[#4a4a3f]">自動感光通知</p>
+        <p class="text-xs text-[#9a9a86]">光線不足時提醒你移動植物</p>
+      </div>
+      <button id="light-toggle" class="w-16 h-9 rounded-full bg-[#cfe3cf] relative soft-btn">
+        <span id="toggle-dot" class="toggle-dot absolute top-1 left-1 w-7 h-7 rounded-full bg-white shadow"></span>
+      </button>
+    </div>
+  </section>
+
+  <footer class="text-center text-xs text-[#a3ab99] pt-2">葉覓 LeafMate · 讓每一株植物都被記得</footer>
+</div>
+
+<script>
+  const total = 3;
+  let done = 0;
+  const bar = document.getElementById('progress-bar');
+  const label = document.getElementById('progress-label');
+  document.querySelectorAll('.water-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      if(btn.disabled) return;
+      btn.disabled = true;
+      btn.classList.remove('bg-[#dceede]','text-[#4a6b4a]');
+      btn.classList.add('bg-[#6fa96f]','text-white');
+      btn.textContent = '✓';
+      done++;
+      bar.style.width = (done/total*100)+'%';
+      label.textContent = `已完成 ${done} / ${total}`;
+    });
+  });
+
+  const toggle = document.getElementById('light-toggle');
+  const dot = document.getElementById('toggle-dot');
+  let on = false;
+  toggle.addEventListener('click', ()=>{
+    on = !on;
+    if(on){
+      toggle.classList.remove('bg-[#cfe3cf]');
+      toggle.classList.add('bg-[#6fa96f]');
+      dot.style.transform = 'translateX(28px)';
+    } else {
+      toggle.classList.add('bg-[#cfe3cf]');
+      toggle.classList.remove('bg-[#6fa96f]');
+      dot.style.transform = 'translateX(0)';
+    }
+  });
+</script>
+</body>
+</html>
