@@ -1,0 +1,318 @@
+<!-- style #33 Comparative -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>雲選 CloudPicker｜方案比較控制台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#eef1f6;
+    --panel:#ffffff;
+    --panel-2:#f6f8fb;
+    --border:#dde3ec;
+    --ink:#121826;
+    --ink-soft:#5b6472;
+    --accent:#0f2e66;
+    --accent-2:#2554c7;
+    --good:#0a8f5b;
+    --good-bg:#e5f7ee;
+    --bad:#b23b3b;
+    --bad-bg:#fbeaea;
+    --amber:#b4790c;
+  }
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Red Hat Text','Noto Sans TC',sans-serif;
+  }
+  .font-zh{ font-family:'Noto Sans TC','Red Hat Text',sans-serif; }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+  .panel{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:10px;
+  }
+  .bar-track{
+    position:relative;
+    height:10px;
+    border-radius:6px;
+    background:var(--panel-2);
+    border:1px solid var(--border);
+    overflow:hidden;
+  }
+  .bar-fill{
+    position:absolute;
+    left:0;top:0;bottom:0;
+    width:0%;
+    border-radius:6px;
+    transition:width 1.1s cubic-bezier(.16,.84,.44,1);
+  }
+  .bar-fill.good{ background:linear-gradient(90deg,#0a8f5b,#17b377); }
+  .bar-fill.bad{ background:linear-gradient(90deg,#c9777a,#b23b3b); }
+  .tag-good{
+    color:var(--good); background:var(--good-bg);
+    border:1px solid #bfe8d4;
+    font-family:'JetBrains Mono',monospace;
+  }
+  .tag-bad{
+    color:var(--bad); background:var(--bad-bg);
+    border:1px solid #f1cccc;
+    font-family:'JetBrains Mono',monospace;
+  }
+  .plan-card{
+    transition:border-color .25s ease, box-shadow .25s ease, transform .15s ease;
+    border:2px solid var(--border);
+  }
+  .plan-card.selected{
+    border-color:var(--good);
+    box-shadow:0 0 0 3px rgba(10,143,91,0.15), 0 8px 24px -8px rgba(10,143,91,0.35);
+  }
+  .plan-card.selected .select-badge{ display:flex; }
+  .select-badge{ display:none; }
+  .choose-btn{ transition:background .2s, color .2s, border-color .2s; }
+  .choose-btn.is-chosen{
+    background:var(--good);
+    border-color:var(--good);
+    color:#fff;
+  }
+  .row-strip:nth-child(odd){ background:var(--panel-2); }
+  ::selection{ background:#cfe0ff; }
+  .scanline{
+    background:repeating-linear-gradient(90deg, rgba(37,84,199,0.06) 0 1px, transparent 1px 28px);
+  }
+  @keyframes pulseDot{
+    0%,100%{ opacity:1; }
+    50%{ opacity:.35; }
+  }
+  .live-dot{ animation:pulseDot 1.6s ease-in-out infinite; }
+</style>
+</head>
+<body class="min-h-screen pb-16">
+
+  <!-- Top bar -->
+  <header class="sticky top-0 z-20 border-b" style="background:var(--accent); border-color:#0a2250;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg flex items-center justify-center text-white font-bold mono text-sm" style="background:var(--accent-2);">CP</div>
+        <div>
+          <div class="text-white font-bold text-sm sm:text-base leading-tight font-zh">雲選 CloudPicker｜方案比較控制台</div>
+          <div class="text-[11px] sm:text-xs text-blue-200 font-zh">內部 IT 採購評估工具 · 分析儀表板</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-4 text-xs text-blue-100 font-zh">
+        <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400 live-dot"></span>資料即時同步中</span>
+        <span class="hidden sm:inline mono text-blue-200">更新時間 2026-10-06 09:42:11</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 pt-6">
+
+    <!-- Breadcrumb + title -->
+    <div class="flex flex-wrap items-end justify-between gap-3 mb-5">
+      <div>
+        <div class="text-xs text-slate-400 mono mb-1">控制台 / 採購評估 / 主機方案比較</div>
+        <h1 class="text-xl sm:text-2xl font-extrabold font-zh" style="color:var(--ink);">主機代管方案比較：方案 A「穩定型」vs 方案 B「效能型」</h1>
+        <p class="text-sm text-slate-500 font-zh mt-1">比對對象：某電商後台遷移評估案 · 承辦人：IT 基礎架構組</p>
+      </div>
+      <div class="flex gap-2">
+        <button class="px-3 py-2 rounded-md border border-slate-300 bg-white text-xs font-semibold text-slate-600 font-zh hover:bg-slate-50">匯出比較表</button>
+        <button class="px-3 py-2 rounded-md border border-slate-300 bg-white text-xs font-semibold text-slate-600 font-zh hover:bg-slate-50">重新整理數據</button>
+      </div>
+    </div>
+
+    <!-- KPI strip -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+      <div class="panel p-3">
+        <div class="text-[11px] text-slate-400 font-zh mb-1">每月費用差額</div>
+        <div class="mono text-lg font-bold" style="color:var(--bad);">+NT$1,800</div>
+        <div class="text-[11px] text-slate-400 font-zh mt-0.5">方案 B 較方案 A 貴 75％</div>
+      </div>
+      <div class="panel p-3">
+        <div class="text-[11px] text-slate-400 font-zh mb-1">運算效能提升幅度</div>
+        <div class="mono text-lg font-bold" style="color:var(--good);">+100％</div>
+        <div class="text-[11px] text-slate-400 font-zh mt-0.5">CPU 核心數與記憶體雙倍</div>
+      </div>
+      <div class="panel p-3">
+        <div class="text-[11px] text-slate-400 font-zh mb-1">SLA 保證差異</div>
+        <div class="mono text-lg font-bold" style="color:var(--good);">+0.4 pt</div>
+        <div class="text-[11px] text-slate-400 font-zh mt-0.5">方案 B 99.9％ vs 方案 A 99.5％</div>
+      </div>
+      <div class="panel p-3">
+        <div class="text-[11px] text-slate-400 font-zh mb-1">系統建議</div>
+        <div class="text-sm font-bold font-zh" style="color:var(--accent-2);">方案 B 效能型</div>
+        <div class="text-[11px] text-slate-400 font-zh mt-0.5">適合高流量尖峰時段</div>
+      </div>
+    </div>
+
+    <!-- Plan cards side by side -->
+    <div class="grid md:grid-cols-2 gap-4 mb-6">
+
+      <!-- Plan A -->
+      <div id="cardA" class="plan-card panel p-5 relative">
+        <div class="select-badge absolute -top-3 -right-3 w-8 h-8 rounded-full items-center justify-center text-white shadow-md" style="background:var(--good);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg>
+        </div>
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[11px] font-bold px-2 py-0.5 rounded font-zh" style="background:#eef2fb; color:var(--accent-2);">方案 A</span>
+          <span class="text-[11px] text-slate-400 mono">PLAN-A-STD</span>
+        </div>
+        <h2 class="text-lg font-extrabold font-zh mb-1">穩定型</h2>
+        <p class="text-xs text-slate-500 font-zh mb-4">主打長時間穩定運行，適合中低流量、預算有限的內部系統與一般官網。</p>
+        <div class="flex items-end gap-1 mb-4">
+          <span class="text-2xl font-extrabold mono" style="color:var(--ink);">NT$2,400</span>
+          <span class="text-xs text-slate-400 font-zh mb-1">／月</span>
+        </div>
+        <ul class="text-xs text-slate-600 font-zh space-y-1.5 mb-5">
+          <li>· 4 核 CPU・16GB 記憶體・200GB SSD</li>
+          <li>· 每月頻寬 2TB，超量採計費方式加收</li>
+          <li>· SLA 保證 99.5％，每週備份 1 次</li>
+        </ul>
+        <button data-plan="A" class="choose-btn w-full py-2.5 rounded-md border-2 font-bold text-sm font-zh" style="border-color:var(--accent-2); color:var(--accent-2);">選擇此方案</button>
+      </div>
+
+      <!-- Plan B -->
+      <div id="cardB" class="plan-card panel p-5 relative">
+        <div class="select-badge absolute -top-3 -right-3 w-8 h-8 rounded-full items-center justify-center text-white shadow-md" style="background:var(--good);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg>
+        </div>
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[11px] font-bold px-2 py-0.5 rounded font-zh" style="background:#eaf6ef; color:var(--good);">方案 B</span>
+          <span class="text-[11px] text-slate-400 mono">PLAN-B-PRO</span>
+        </div>
+        <h2 class="text-lg font-extrabold font-zh mb-1">效能型</h2>
+        <p class="text-xs text-slate-500 font-zh mb-4">主打高運算效能與頻寬餘裕，適合電商大促、尖峰流量與資料庫密集應用。</p>
+        <div class="flex items-end gap-1 mb-4">
+          <span class="text-2xl font-extrabold mono" style="color:var(--ink);">NT$4,200</span>
+          <span class="text-xs text-slate-400 font-zh mb-1">／月</span>
+        </div>
+        <ul class="text-xs text-slate-600 font-zh space-y-1.5 mb-5">
+          <li>· 8 核 CPU・32GB 記憶體・500GB SSD</li>
+          <li>· 每月頻寬 5TB，附贈 CDN 流量加速</li>
+          <li>· SLA 保證 99.9％，每日備份 1 次</li>
+        </ul>
+        <button data-plan="B" class="choose-btn w-full py-2.5 rounded-md border-2 font-bold text-sm font-zh" style="border-color:var(--good); color:var(--good);">選擇此方案</button>
+      </div>
+    </div>
+
+    <!-- Detailed comparison table -->
+    <div class="panel overflow-hidden mb-6">
+      <div class="px-4 sm:px-5 py-3 border-b flex items-center justify-between" style="border-color:var(--border); background:var(--panel-2);">
+        <h3 class="font-bold text-sm font-zh">逐項指標比較</h3>
+        <span class="text-[11px] text-slate-400 font-zh">綠色標示為該項較優方案 · 長條寬度反映相對數值</span>
+      </div>
+
+      <!-- column headers -->
+      <div class="grid grid-cols-12 px-4 sm:px-5 py-2 text-[11px] font-bold text-slate-400 font-zh border-b" style="border-color:var(--border);">
+        <div class="col-span-4 sm:col-span-3">比較指標</div>
+        <div class="col-span-4 sm:col-span-4 text-center">方案 A 穩定型</div>
+        <div class="col-span-4 sm:col-span-4 text-center">方案 B 效能型</div>
+        <div class="hidden sm:block col-span-1 text-right">結果</div>
+      </div>
+
+      <!-- rows -->
+      <div id="metric-rows"></div>
+    </div>
+
+    <footer class="text-center text-[11px] text-slate-400 font-zh pt-2 pb-6">
+      本頁面僅為內部評估用模擬資料，非實際供應商報價 · 雲選 CloudPicker 內部儀表板 v1.4
+    </footer>
+  </main>
+
+<script>
+(function(){
+  // metric definitions: higherIsBetter controls which side is "good"
+  var metrics = [
+    { label:"CPU 核心數", unit:"核", a:4, b:8, higherIsBetter:true, max:8 },
+    { label:"記憶體 RAM", unit:"GB", a:16, b:32, higherIsBetter:true, max:32 },
+    { label:"SSD 儲存空間", unit:"GB", a:200, b:500, higherIsBetter:true, max:500 },
+    { label:"每月頻寬", unit:"TB", a:2, b:5, higherIsBetter:true, max:5 },
+    { label:"月費", unit:"NT$", a:2400, b:4200, higherIsBetter:false, max:4200 },
+    { label:"SLA 保證", unit:"％", a:99.5, b:99.9, higherIsBetter:true, max:99.9 },
+    { label:"備份頻率", unit:"次/週", a:1, b:7, higherIsBetter:true, max:7 },
+    { label:"技術支援回應時間", unit:"分鐘", a:60, b:15, higherIsBetter:false, max:60 },
+    { label:"可用固定 IP 數", unit:"個", a:1, b:4, higherIsBetter:true, max:4 }
+  ];
+
+  var container = document.getElementById('metric-rows');
+
+  metrics.forEach(function(m, idx){
+    var aBetter = m.higherIsBetter ? (m.a >= m.b) : (m.a <= m.b);
+    var bBetter = !aBetter;
+    var aPct = Math.max(4, Math.round((m.a / m.max) * 100));
+    var bPct = Math.max(4, Math.round((m.b / m.max) * 100));
+
+    var row = document.createElement('div');
+    row.className = 'row-strip grid grid-cols-12 items-center px-4 sm:px-5 py-3 gap-y-2';
+    row.innerHTML =
+      '<div class="col-span-12 sm:col-span-3 text-xs font-bold font-zh mb-1 sm:mb-0">' + m.label + '</div>' +
+
+      '<div class="col-span-6 sm:col-span-4 pr-3">' +
+        '<div class="flex items-center justify-between mb-1">' +
+          '<span class="mono text-sm font-bold ' + (aBetter ? 'text-emerald-700' : 'text-rose-600') + '">' + fmt(m.a) + '<span class="text-[10px] text-slate-400 font-normal"> ' + m.unit + '</span></span>' +
+          '<span class="text-[10px] px-1.5 py-0.5 rounded font-bold ' + (aBetter ? 'tag-good' : 'tag-bad') + '">' + (aBetter ? '較優' : '較弱') + '</span>' +
+        '</div>' +
+        '<div class="bar-track"><div class="bar-fill ' + (aBetter ? 'good' : 'bad') + '" data-target="' + aPct + '"></div></div>' +
+      '</div>' +
+
+      '<div class="col-span-6 sm:col-span-4 pr-1 sm:pr-3">' +
+        '<div class="flex items-center justify-between mb-1">' +
+          '<span class="mono text-sm font-bold ' + (bBetter ? 'text-emerald-700' : 'text-rose-600') + '">' + fmt(m.b) + '<span class="text-[10px] text-slate-400 font-normal"> ' + m.unit + '</span></span>' +
+          '<span class="text-[10px] px-1.5 py-0.5 rounded font-bold ' + (bBetter ? 'tag-good' : 'tag-bad') + '">' + (bBetter ? '較優' : '較弱') + '</span>' +
+        '</div>' +
+        '<div class="bar-track"><div class="bar-fill ' + (bBetter ? 'good' : 'bad') + '" data-target="' + bPct + '"></div></div>' +
+      '</div>' +
+
+      '<div class="hidden sm:flex col-span-1 justify-end">' +
+        '<span class="text-[11px] font-bold font-zh ' + (aBetter ? 'text-blue-600' : 'text-emerald-700') + '">' + (aBetter ? 'A 勝' : 'B 勝') + '</span>' +
+      '</div>';
+
+    container.appendChild(row);
+  });
+
+  function fmt(n){
+    if (Number.isInteger(n)) return n.toLocaleString('en-US');
+    return n.toFixed(1);
+  }
+
+  // trigger bar animation on load (0 -> target width)
+  window.addEventListener('load', function(){
+    requestAnimationFrame(function(){
+      setTimeout(function(){
+        document.querySelectorAll('.bar-fill').forEach(function(el){
+          el.style.width = el.getAttribute('data-target') + '%';
+        });
+      }, 120);
+    });
+  });
+
+  // choose-plan interaction
+  var cardA = document.getElementById('cardA');
+  var cardB = document.getElementById('cardB');
+  var btns = document.querySelectorAll('.choose-btn');
+
+  btns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var plan = btn.getAttribute('data-plan');
+      var isSelectingA = plan === 'A';
+
+      cardA.classList.toggle('selected', isSelectingA);
+      cardB.classList.toggle('selected', !isSelectingA);
+
+      btns.forEach(function(b){
+        var samePlan = b.getAttribute('data-plan') === plan;
+        b.classList.toggle('is-chosen', samePlan);
+        b.textContent = samePlan ? '已選擇此方案 ✓' : '選擇此方案';
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>

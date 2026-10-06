@@ -1,0 +1,380 @@
+<!-- style #56 E-Ink / Paper -->
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>紙閱 PaperRead — 深度調查報導訂閱</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400&family=Noto+Serif+TC:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --ink:#1a1a1a;
+    --paper:#f5f1eb;
+    --paper-dim:#ece6da;
+    --rule:#1a1a1a;
+    --faint:#6b6358;
+  }
+
+  *{ box-sizing:border-box; }
+
+  body{
+    background-color:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Serif TC','Source Serif 4',serif;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
+    min-height:100vh;
+  }
+
+  /* ---- paper grain overlay (SVG feTurbulence noise) ---- */
+  .grain-overlay{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:9999;
+    opacity:0.05;
+    mix-blend-mode:multiply;
+  }
+
+  .serif-en{ font-family:'Source Serif 4', 'Noto Serif TC', serif; }
+  .mono{ font-family:'JetBrains Mono', monospace; letter-spacing:0.02em; }
+
+  .hairline{ border-color:var(--ink); }
+  .hairline-thick{ border-color:var(--ink); border-width:3px; }
+
+  /* Drop cap */
+  .dropcap::first-letter{
+    font-family:'Noto Serif TC', serif;
+    font-weight:900;
+    font-size:4.6rem;
+    line-height:0.78;
+    float:left;
+    padding-right:0.12em;
+    padding-top:0.02em;
+    color:var(--ink);
+  }
+
+  a{ color:var(--ink); }
+
+  .masthead-title{
+    font-family:'Noto Serif TC', serif;
+    font-weight:900;
+    letter-spacing:0.02em;
+  }
+
+  /* bookmark button */
+  .bookmark-btn{
+    font-family:'JetBrains Mono', monospace;
+    border:1.5px solid var(--ink);
+    background:transparent;
+    color:var(--ink);
+    cursor:pointer;
+    transition:background-color 0.15s ease, color 0.15s ease;
+    user-select:none;
+  }
+  .bookmark-btn:hover{
+    background-color:var(--ink);
+    color:var(--paper);
+  }
+  .bookmark-btn.saved{
+    background-color:var(--ink);
+    color:var(--paper);
+  }
+  .bookmark-btn.saved:hover{
+    background-color:transparent;
+    color:var(--ink);
+  }
+
+  .teaser-card{
+    border-top:1px solid var(--ink);
+  }
+
+  .vert-rule{
+    border-left:1px solid var(--ink);
+  }
+
+  input[type="email"]{
+    background:transparent;
+    border:none;
+    border-bottom:2px solid var(--ink);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+  }
+  input[type="email"]::placeholder{
+    color:var(--faint);
+  }
+  input[type="email"]:focus{
+    outline:none;
+  }
+
+  .subscribe-btn{
+    font-family:'JetBrains Mono', monospace;
+    background-color:var(--ink);
+    color:var(--paper);
+    border:1.5px solid var(--ink);
+    cursor:pointer;
+    transition:background-color 0.15s ease, color 0.15s ease;
+  }
+  .subscribe-btn:hover{
+    background-color:transparent;
+    color:var(--ink);
+  }
+
+  ::selection{
+    background:var(--ink);
+    color:var(--paper);
+  }
+
+  .kicker{
+    font-family:'JetBrains Mono', monospace;
+    letter-spacing:0.08em;
+  }
+</style>
+</head>
+<body>
+
+<!-- paper grain SVG noise overlay -->
+<svg class="grain-overlay" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+  <filter id="paperGrain">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" result="noise"/>
+    <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.9 0"/>
+  </filter>
+  <rect width="100%" height="100%" filter="url(#paperGrain)"/>
+</svg>
+
+<div class="max-w-5xl mx-auto px-5 sm:px-8">
+
+  <!-- ===================== MASTHEAD ===================== -->
+  <header class="pt-10 pb-4">
+    <div class="flex items-center justify-between mono text-[11px] sm:text-xs text-[var(--faint)] pb-3">
+      <span>第二四七期 · 2026年10月6日 星期二</span>
+      <span>台北 · 繁體中文版</span>
+    </div>
+    <div class="hairline-thick border-t-0 border-b pb-6 text-center">
+      <h1 class="masthead-title text-5xl sm:text-6xl md:text-7xl tracking-tight">紙閱 PaperRead</h1>
+      <p class="serif-en italic text-sm sm:text-base mt-2 text-[var(--faint)]">Long-form Investigative Journalism, Weekly</p>
+    </div>
+    <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 py-3 mono text-[11px] sm:text-xs hairline border-b">
+      <a href="#lead" class="hover:underline">頭版調查</a>
+      <a href="#more" class="hover:underline">本週報導</a>
+      <a href="#about" class="hover:underline">關於紙閱</a>
+      <a href="#subscribe" class="hover:underline">訂閱方案</a>
+      <a href="#" class="hover:underline">往期索引</a>
+    </nav>
+  </header>
+
+  <!-- ===================== LEAD ARTICLE ===================== -->
+  <section id="lead" class="py-10 hairline border-b">
+    <p class="kicker text-xs sm:text-sm mb-3">封面故事 · 深度調查 · 閱讀時間 18 分鐘</p>
+    <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-4" style="font-family:'Noto Serif TC',serif;">
+      公宅更新的帳本：三十年老屋拆除重建，誰在補貼誰的居住正義
+    </h2>
+    <p class="serif-en italic text-base sm:text-lg text-[var(--faint)] mb-6 leading-relaxed">
+      一份跨機關文件比對，揭露都市更新容積獎勵與社會住宅配比之間，長期被忽略的落差。
+    </p>
+
+    <div class="flex flex-wrap items-center gap-4 mono text-[11px] sm:text-xs text-[var(--faint)] mb-6 pb-6 hairline border-b">
+      <span>文｜林書彥、陳雅婷</span>
+      <span>攝影｜吳政諺</span>
+      <span>2026.10.06 06:00</span>
+      <span>資料來源：內政部不動產資訊平台、三個地方政府都更處</span>
+    </div>
+
+    <div class="grid md:grid-cols-[1fr_280px] gap-10">
+      <div class="dropcap text-lg sm:text-[1.15rem] leading-[1.95] text-justify">
+        台北市大同區一棟興建於一九九二年的十二層老舊公宅，去年底正式進入都市更新程序，原本住在裡面的一百四十六戶居民，被告知可以選擇「以房換房」或領取搬遷補償金。但《紙閱》調閱三個行政區、共九個更新案的容積獎勵核配紀錄後發現，開發商實際回饋的社會住宅戶數，平均只達到都市更新條例所訂比例的六成二，其餘差額多以「代金」形式折算給付，而這筆代金的計算基準，自二〇一九年後從未依市價重新鑑定。換句話說，當房價在過去七年間翻漲近一倍，政府收到的補償金卻停留在舊公告地價的水準。多位參與都更審議的都市計畫委員私下表示，這個落差並非技術疏漏,而是「沒有人想去動它」的結構性沉默——因為重新鑑價意味著開發案的可行性評估必須整套重做，時程會再拖上兩到三年。我們進一步比對社會住宅候補名冊,發現同一時期,候補等待平均年限從三年八個月拉長到五年一個月,而這些延遲與前述代金落差,在時間軸上幾乎完全重疊。
+      </div>
+      <aside class="hairline border-l-0 md:border-l pl-0 md:pl-6 pt-6 md:pt-0 hairline border-t md:border-t-0">
+        <p class="mono text-[11px] text-[var(--faint)] mb-3 uppercase tracking-wider">本篇關鍵數字</p>
+        <ul class="space-y-4">
+          <li>
+            <p class="text-3xl font-bold" style="font-family:'Noto Serif TC',serif;">62%</p>
+            <p class="mono text-[11px] text-[var(--faint)]">社宅回饋戶數達成率</p>
+          </li>
+          <li>
+            <p class="text-3xl font-bold" style="font-family:'Noto Serif TC',serif;">5年1個月</p>
+            <p class="mono text-[11px] text-[var(--faint)]">現行候補等待平均年限</p>
+          </li>
+          <li>
+            <p class="text-3xl font-bold" style="font-family:'Noto Serif TC',serif;">9案</p>
+            <p class="mono text-[11px] text-[var(--faint)]">本次調閱比對更新案數</p>
+          </li>
+        </ul>
+      </aside>
+    </div>
+
+    <div class="mt-6 flex items-center justify-between">
+      <button class="bookmark-btn px-5 py-2 mono text-xs" data-article="lead" onclick="toggleBookmark(this)">
+        <span class="bm-icon">☐</span> <span class="bm-text">收藏本文</span>
+      </button>
+      <a href="#" class="mono text-xs underline hover:no-underline">閱讀全文 →</a>
+    </div>
+  </section>
+
+  <!-- ===================== MORE ARTICLES ===================== -->
+  <section id="more" class="py-10">
+    <p class="kicker text-xs sm:text-sm mb-6 hairline border-b pb-3">本週報導</p>
+
+    <div class="grid md:grid-cols-3 gap-0">
+
+      <!-- Article 2 -->
+      <article class="teaser-card px-0 md:px-6 py-6 md:py-0 md:border-t-0">
+        <p class="kicker text-[10px] text-[var(--faint)] mb-2">環境調查 · 10 分鐘</p>
+        <h3 class="text-xl font-bold mb-3 leading-snug" style="font-family:'Noto Serif TC',serif;">
+          海廢漁網去哪了：回收標章背後，一條斷裂的再製產業鏈
+        </h3>
+        <p class="text-sm leading-relaxed text-[var(--ink)] mb-4">
+          我們追蹤了七個漁港申報的廢棄漁網流向，發現近四成最終未進入合法再製程序，部分甚至以「出口再利用」名義流向難以查核的海外處理廠。
+        </p>
+        <div class="mono text-[10px] text-[var(--faint)] mb-4 flex flex-wrap gap-x-3">
+          <span>文｜黃柏融</span>
+          <span>2026.10.04</span>
+        </div>
+        <button class="bookmark-btn px-4 py-1.5 mono text-[11px]" data-article="a2" onclick="toggleBookmark(this)">
+          <span class="bm-icon">☐</span> <span class="bm-text">收藏本文</span>
+        </button>
+      </article>
+
+      <!-- Article 3 -->
+      <article class="teaser-card px-0 md:px-6 py-6 md:py-0 vert-rule md:border-l">
+        <p class="kicker text-[10px] text-[var(--faint)] mb-2">勞動調查 · 14 分鐘</p>
+        <h3 class="text-xl font-bold mb-3 leading-snug" style="font-family:'Noto Serif TC',serif;">
+          外送平台的演算法罰則：一次遲到如何換來三個月的低派單
+        </h3>
+        <p class="text-sm leading-relaxed text-[var(--ink)] mb-4">
+          透過十二位外送員提供的後台截圖與訪談紀錄，我們重建了一套未公開的評分邏輯，試圖回答：演算法的懲罰，究竟由誰設計、誰審核。
+        </p>
+        <div class="mono text-[10px] text-[var(--faint)] mb-4 flex flex-wrap gap-x-3">
+          <span>文｜許冠廷</span>
+          <span>2026.10.02</span>
+        </div>
+        <button class="bookmark-btn px-4 py-1.5 mono text-[11px]" data-article="a3" onclick="toggleBookmark(this)">
+          <span class="bm-icon">☐</span> <span class="bm-text">收藏本文</span>
+        </button>
+      </article>
+
+      <!-- Article 4 -->
+      <article class="teaser-card px-0 md:px-6 py-6 md:py-0 vert-rule md:border-l">
+        <p class="kicker text-[10px] text-[var(--faint)] mb-2">公共衛生 · 12 分鐘</p>
+        <h3 class="text-xl font-bold mb-3 leading-snug" style="font-family:'Noto Serif TC',serif;">
+          偏鄉診所關燈之後：當巡迴醫療車變成唯一的急診室
+        </h3>
+        <p class="text-sm leading-relaxed text-[var(--ink)] mb-4">
+          近五年間，全台有廿三間偏鄉衛生所陸續停診，我們走訪其中六個聚落，紀錄居民如何重新安排生活，以配合一週僅兩次的巡迴醫療時段。
+        </p>
+        <div class="mono text-[10px] text-[var(--faint)] mb-4 flex flex-wrap gap-x-3">
+          <span>文｜鄭雅惠</span>
+          <span>2026.09.29</span>
+        </div>
+        <button class="bookmark-btn px-4 py-1.5 mono text-[11px]" data-article="a4" onclick="toggleBookmark(this)">
+          <span class="bm-icon">☐</span> <span class="bm-text">收藏本文</span>
+        </button>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section id="about" class="py-10 hairline border-t">
+    <div class="grid md:grid-cols-2 gap-10">
+      <div>
+        <p class="kicker text-xs mb-3">關於我們</p>
+        <h3 class="text-2xl font-bold mb-4" style="font-family:'Noto Serif TC',serif;">為什麼需要一份只做調查報導的電子報</h3>
+        <p class="text-sm leading-[1.9] text-[var(--ink)]">
+          紙閱成立於二〇二二年，由一群離開傳統媒體的文字記者與資料工程師組成。我們相信長篇調查仍有不可取代的價值——不是即時快報，而是花上數週、甚至數月，把一件事情徹底查清楚。每一篇報導公開前，皆會附上原始資料來源與查核紀錄，供讀者自行覆核。
+        </p>
+      </div>
+      <div class="hairline border-l-0 md:border-l pl-0 md:pl-10 pt-6 md:pt-0 hairline border-t md:border-t-0">
+        <p class="kicker text-xs mb-3">編輯方針</p>
+        <ul class="space-y-3 text-sm leading-relaxed">
+          <li class="hairline border-b pb-3">① 每篇報導至少雙方消息來源交叉驗證</li>
+          <li class="hairline border-b pb-3">② 資料圖表附原始檔案連結，接受公開查核</li>
+          <li class="hairline border-b pb-3">③ 不接受政府或企業置入，廣告與編輯部門分離</li>
+          <li class="pb-1">④ 更正啟事永久保留於原文頁尾，不另行下架</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SUBSCRIBE ===================== -->
+  <section id="subscribe" class="py-12 hairline border-t">
+    <div class="max-w-2xl mx-auto text-center">
+      <p class="kicker text-xs mb-3">訂閱電子報</p>
+      <h3 class="text-3xl sm:text-4xl font-bold mb-4" style="font-family:'Noto Serif TC',serif;">
+        每週二，收到一篇你不會在別處讀到的調查
+      </h3>
+      <p class="text-sm text-[var(--faint)] mb-8 leading-relaxed">
+        免費訂閱可閱讀每篇報導的開頭段落與摘要；付費訂閱（NT$ 150 / 月）解鎖全文、原始資料下載與記者問答場次。
+      </p>
+
+      <form id="subscribeForm" class="flex flex-col sm:flex-row gap-4 justify-center items-stretch sm:items-center mb-4" onsubmit="handleSubscribe(event)">
+        <input
+          type="email"
+          id="emailInput"
+          required
+          placeholder="your-email@example.com"
+          class="w-full sm:w-80 px-2 py-3 text-sm"
+        >
+        <button type="submit" class="subscribe-btn px-8 py-3 text-xs whitespace-nowrap">
+          訂閱紙閱 →
+        </button>
+      </form>
+      <p id="subscribeMsg" class="mono text-[11px] text-[var(--faint)] h-5"></p>
+
+      <div class="flex justify-center gap-8 mono text-[11px] text-[var(--faint)] mt-6">
+        <span>讀者數 14,208</span>
+        <span>平均開信率 61%</span>
+        <span>每週二發送</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="hairline border-t py-8 mono text-[11px] text-[var(--faint)]">
+    <div class="flex flex-wrap justify-between gap-4">
+      <span>© 2026 紙閱 PaperRead．版權所有，轉載請先取得授權</span>
+      <span>台北市 · 編輯部信箱：desk@paperread.example</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  function toggleBookmark(btn){
+    var saved = btn.classList.contains('saved');
+    var iconEl = btn.querySelector('.bm-icon');
+    var textEl = btn.querySelector('.bm-text');
+    if(!saved){
+      btn.classList.add('saved');
+      iconEl.textContent = '☑';
+      textEl.textContent = '已收藏';
+      btn.setAttribute('aria-pressed','true');
+    } else {
+      btn.classList.remove('saved');
+      iconEl.textContent = '☐';
+      textEl.textContent = '收藏本文';
+      btn.setAttribute('aria-pressed','false');
+    }
+  }
+
+  function handleSubscribe(e){
+    e.preventDefault();
+    var input = document.getElementById('emailInput');
+    var msg = document.getElementById('subscribeMsg');
+    var val = input.value.trim();
+    if(val.length > 0){
+      msg.textContent = '已收到訂閱請求，確認信將寄至 ' + val;
+      input.value = '';
+    } else {
+      msg.textContent = '請輸入有效的電子郵件地址';
+    }
+  }
+</script>
+
+</body>
+</html>

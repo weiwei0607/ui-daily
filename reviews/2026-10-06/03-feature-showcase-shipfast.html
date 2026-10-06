@@ -1,0 +1,404 @@
+<!-- style #22 Feature-Rich Showcase -->
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>出貨快線 ShipFast ── 跨境電商物流 SaaS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --navy:#0f1b33;
+    --ink:#1b2437;
+    --primary:#3451e1;
+    --primary-dark:#2538b0;
+    --teal:#0ea8a0;
+    --amber:#f5a531;
+    --bg-soft:#f6f8fc;
+    --line:#e3e8f2;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Noto Sans TC','Plus Jakarta Sans',sans-serif;
+    color:var(--ink);
+    background:#ffffff;
+    -webkit-font-smoothing:antialiased;
+  }
+  .font-display{
+    font-family:'Plus Jakarta Sans','Noto Sans TC',sans-serif;
+  }
+  .text-gradient{
+    background:linear-gradient(95deg,var(--primary) 0%,var(--teal) 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .btn-primary{
+    background:var(--primary);
+    color:#fff;
+    transition:background .2s ease, transform .2s ease;
+  }
+  .btn-primary:hover{background:var(--primary-dark); transform:translateY(-1px);}
+  .btn-outline{
+    border:1.5px solid var(--line);
+    color:var(--ink);
+    transition:border-color .2s ease, background .2s ease;
+  }
+  .btn-outline:hover{border-color:var(--primary); background:#f0f3ff;}
+  .section-pad{padding-top:5.5rem;padding-bottom:5.5rem;}
+  @media (max-width:768px){.section-pad{padding-top:3.5rem;padding-bottom:3.5rem;}}
+
+  /* ---------- Graphic 1: customs stamp ---------- */
+  .stamp-wrap{transition:transform .5s cubic-bezier(.2,.9,.3,1.3);}
+  .stamp-group:hover .stamp-wrap{transform:rotate(-14deg) scale(1.04);}
+  .stamp-ring{transform-origin:center;transition:stroke-dashoffset .6s ease;}
+  .stamp-group:hover .stamp-ring{stroke-dashoffset:0;}
+  .stamp-check{opacity:0;transform:scale(.6);transform-origin:center;transition:opacity .35s ease .15s, transform .35s ease .15s;}
+  .stamp-group:hover .stamp-check{opacity:1;transform:scale(1);}
+
+  /* ---------- Graphic 2: warehouse route ---------- */
+  .route-path{stroke-dasharray:6 6;stroke-dashoffset:0;transition:stroke-dashoffset 1.1s ease;}
+  .route-group:hover .route-path{stroke-dashoffset:-240;}
+  .route-node{transition:r .3s ease, fill .3s ease;}
+  .route-group:hover .route-node{r:7;}
+  .route-pulse{opacity:0;transition:opacity .3s ease;}
+  .route-group:hover .route-pulse{opacity:1;}
+
+  /* ---------- Graphic 3: tracking pin ---------- */
+  @keyframes pin-pulse{
+    0%{r:10;opacity:.55;}
+    100%{r:46;opacity:0;}
+  }
+  .pin-wave{animation:pin-pulse 2.4s ease-out infinite;transform-origin:center;}
+  .pin-wave2{animation:pin-pulse 2.4s ease-out infinite;animation-delay:1.2s;transform-origin:center;}
+  .pin-group:hover .pin-wave{animation-duration:1s;}
+  .pin-group:hover .pin-wave2{animation-duration:1s;}
+  .pin-bob{transition:transform .3s ease;}
+  .pin-group:hover .pin-bob{transform:translateY(-4px);}
+
+  /* pricing toggle */
+  .toggle-pill{position:relative;width:60px;height:32px;border-radius:999px;background:var(--line);transition:background .25s ease;cursor:pointer;}
+  .toggle-pill.on{background:var(--primary);}
+  .toggle-knob{position:absolute;top:3px;left:3px;width:26px;height:26px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .25s ease;}
+  .toggle-pill.on .toggle-knob{transform:translateX(28px);}
+  .price-num{font-family:'Plus Jakarta Sans','Noto Sans TC',sans-serif;}
+
+  .card-pop{transition:transform .25s ease, box-shadow .25s ease;}
+  .card-pop:hover{transform:translateY(-6px);box-shadow:0 20px 40px -12px rgba(15,27,51,.18);}
+
+  .chip{
+    display:inline-flex;align-items:center;gap:.4rem;
+    background:#eef1fc;color:var(--primary-dark);
+    font-size:.78rem;font-weight:600;letter-spacing:.02em;
+    padding:.35rem .8rem;border-radius:999px;
+  }
+</style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b" style="border-color:var(--line);">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-2 font-display font-extrabold text-lg" style="color:var(--navy);">
+        <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg" style="background:var(--primary);color:#fff;">快</span>
+        出貨快線 <span class="text-gradient">ShipFast</span>
+      </div>
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium" style="color:var(--ink);">
+        <a href="#features" class="hover:text-[var(--primary)]">功能特色</a>
+        <a href="#pricing" class="hover:text-[var(--primary)]">方案價格</a>
+        <a href="#testimonial" class="hover:text-[var(--primary)]">客戶見證</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <a href="#" class="hidden sm:inline-block px-4 py-2 rounded-lg text-sm font-semibold btn-outline">登入</a>
+        <a href="#pricing" class="px-4 py-2 rounded-lg text-sm font-semibold btn-primary">免費試用 14 天</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="section-pad" style="background:linear-gradient(180deg,#f6f8fc 0%,#ffffff 100%);">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <span class="chip mb-6">為跨境賣家打造的出貨中台</span>
+      <h1 class="font-display font-extrabold leading-tight text-4xl sm:text-5xl md:text-6xl mt-4" style="color:var(--navy);">
+        跨境出貨,<br class="sm:hidden"> 從報關到配送<span class="text-gradient">一條龍搞定</span>
+      </h1>
+      <p class="mt-6 text-lg max-w-2xl mx-auto" style="color:#4b5572;">
+        出貨快線整合海關預審、多倉揀貨與即時物流追蹤,讓你的賣場從下單到買家收貨全程透明,不再被卡關、爆單或客訴追著跑。
+      </p>
+      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#pricing" class="px-7 py-3 rounded-xl font-semibold btn-primary">立即開始免費試用</a>
+        <a href="#features" class="px-7 py-3 rounded-xl font-semibold btn-outline">了解功能特色</a>
+      </div>
+      <div class="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-3xl mx-auto text-left">
+        <div>
+          <div class="font-display font-extrabold text-2xl" style="color:var(--primary);">4 小時</div>
+          <div class="text-sm" style="color:#6b7490;">平均海關清關時間</div>
+        </div>
+        <div>
+          <div class="font-display font-extrabold text-2xl" style="color:var(--teal);">47%</div>
+          <div class="text-sm" style="color:#6b7490;">揀貨效率提升幅度</div>
+        </div>
+        <div>
+          <div class="font-display font-extrabold text-2xl" style="color:var(--amber);">15 分鐘</div>
+          <div class="text-sm" style="color:#6b7490;">貨態更新頻率</div>
+        </div>
+        <div>
+          <div class="font-display font-extrabold text-2xl" style="color:var(--primary-dark);">2,600+</div>
+          <div class="text-sm" style="color:#6b7490;">使用中賣家家數</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="section-pad bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="chip">核心功能</span>
+        <h2 class="font-display font-extrabold text-3xl sm:text-4xl mt-4" style="color:var(--navy);">三大引擎,撐起你的跨境出貨</h2>
+        <p class="mt-4" style="color:#5b6480;">從報關文件、倉儲揀貨到最後一哩配送追蹤,出貨快線把最容易出錯的環節自動化。</p>
+      </div>
+
+      <!-- Feature 1: text-left / graphic-right -->
+      <div class="grid md:grid-cols-2 gap-12 items-center mb-24">
+        <div>
+          <span class="chip" style="background:#eafaf8;color:var(--teal);">報關自動化</span>
+          <h3 class="font-display font-bold text-2xl sm:text-3xl mt-4" style="color:var(--navy);">跨境報關自動化</h3>
+          <p class="mt-4 leading-relaxed" style="color:#4b5572;">
+            系統自動產生商業發票、裝箱單與產地證明書,並直接串接台灣、美國、歐盟與東南亞五國海關預審系統。文件缺漏或規格不符時即時跳出提醒,讓你在出貨前就補齊資料。
+          </p>
+          <ul class="mt-5 space-y-2 text-sm" style="color:#4b5572;">
+            <li class="flex items-start gap-2"><span style="color:var(--teal);">✓</span>平均清關時間由 3 天縮短至 4 小時以內</li>
+            <li class="flex items-start gap-2"><span style="color:var(--teal);">✓</span>海關退件率降低 92%</li>
+            <li class="flex items-start gap-2"><span style="color:var(--teal);">✓</span>支援五國關務規則範本,自動套用稅則號碼</li>
+          </ul>
+        </div>
+        <div class="stamp-group flex justify-center">
+          <svg viewBox="0 0 220 220" width="260" height="260">
+            <g class="stamp-wrap">
+              <circle cx="110" cy="110" r="80" fill="#eafaf8"/>
+              <circle class="stamp-ring" cx="110" cy="110" r="68" fill="none" stroke="var(--teal)" stroke-width="4" stroke-dasharray="10 8" stroke-dashoffset="18"/>
+              <circle cx="110" cy="110" r="52" fill="none" stroke="var(--teal)" stroke-width="2" opacity=".5"/>
+              <text x="110" y="100" text-anchor="middle" font-size="15" font-weight="700" fill="var(--navy)" font-family="Noto Sans TC, sans-serif">海關</text>
+              <text x="110" y="122" text-anchor="middle" font-size="15" font-weight="700" fill="var(--navy)" font-family="Noto Sans TC, sans-serif">預審</text>
+              <g class="stamp-check">
+                <circle cx="110" cy="158" r="16" fill="var(--teal)"/>
+                <path d="M102 158l5 6 11-13" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Feature 2: graphic-left / text-right -->
+      <div class="grid md:grid-cols-2 gap-12 items-center mb-24">
+        <div class="route-group flex justify-center order-2 md:order-1">
+          <svg viewBox="0 0 260 220" width="280" height="240">
+            <rect x="20" y="150" width="28" height="28" rx="4" fill="#e9edfb" stroke="var(--primary)" stroke-width="2"/>
+            <rect x="200" y="30" width="28" height="28" rx="4" fill="#e9edfb" stroke="var(--primary)" stroke-width="2"/>
+            <rect x="200" y="150" width="28" height="28" rx="4" fill="#e9edfb" stroke="var(--primary)" stroke-width="2"/>
+            <rect x="20" y="30" width="28" height="28" rx="4" fill="#e9edfb" stroke="var(--primary)" stroke-width="2"/>
+            <path class="route-path" d="M48 164 L130 190 L214 164 L130 90 L34 44 L214 44"
+                  fill="none" stroke="var(--primary)" stroke-width="2.5"/>
+            <circle class="route-node" cx="130" cy="190" r="5" fill="var(--amber)"/>
+            <circle class="route-node" cx="130" cy="90" r="5" fill="var(--amber)"/>
+            <circle class="route-pulse" cx="130" cy="190" r="10" fill="none" stroke="var(--amber)" stroke-width="2"/>
+            <text x="34" y="195" font-size="10" fill="#6b7490" font-family="Noto Sans TC, sans-serif">A倉</text>
+            <text x="214" y="75" font-size="10" fill="#6b7490" font-family="Noto Sans TC, sans-serif">B倉</text>
+            <text x="214" y="195" font-size="10" fill="#6b7490" font-family="Noto Sans TC, sans-serif">C倉</text>
+            <text x="34" y="75" font-size="10" fill="#6b7490" font-family="Noto Sans TC, sans-serif">D倉</text>
+          </svg>
+        </div>
+        <div class="order-1 md:order-2">
+          <span class="chip" style="background:#eef1fc;color:var(--primary-dark);">揀貨路徑優化</span>
+          <h3 class="font-display font-bold text-2xl sm:text-3xl mt-4" style="color:var(--navy);">多倉揀貨路徑優化</h3>
+          <p class="mt-4 leading-relaxed" style="color:#4b5572;">
+            整合全台 12 座倉儲節點的庫存與貨架座標,演算法會依訂單內容即時規劃最短揀貨動線,並自動分派給距離最近、庫存最充足的倉別出貨。
+          </p>
+          <ul class="mt-5 space-y-2 text-sm" style="color:#4b5572;">
+            <li class="flex items-start gap-2"><span style="color:var(--primary);">✓</span>揀貨效率提升 47%,單筆平均走動距離減少三分之一</li>
+            <li class="flex items-start gap-2"><span style="color:var(--primary);">✓</span>出貨錯誤率低於 0.3%</li>
+            <li class="flex items-start gap-2"><span style="color:var(--primary);">✓</span>跨倉缺貨自動合併訂單,減少重複包裝成本</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Feature 3: text-left / graphic-right -->
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <span class="chip" style="background:#fff3e2;color:#b5720f;">即時追蹤</span>
+          <h3 class="font-display font-bold text-2xl sm:text-3xl mt-4" style="color:var(--navy);">即時到貨追蹤</h3>
+          <p class="mt-4 leading-relaxed" style="color:#4b5572;">
+            串接十餘家國際物流商的貨態資料,每 15 分鐘自動更新一次最新位置,並透過 LINE 官方帳號與 Email 雙通道主動通知買家,讓賣家不用再被「貨到哪了」的訊息轟炸。
+          </p>
+          <ul class="mt-5 space-y-2 text-sm" style="color:#4b5572;">
+            <li class="flex items-start gap-2"><span style="color:var(--amber);">✓</span>客服詢問「貨到哪裡」的頻率下降 65%</li>
+            <li class="flex items-start gap-2"><span style="color:var(--amber);">✓</span>異常滯留自動標記,提前主動聯繫買家</li>
+            <li class="flex items-start gap-2"><span style="color:var(--amber);">✓</span>可嵌入賣場官網的追蹤查詢頁面</li>
+          </ul>
+        </div>
+        <div class="pin-group flex justify-center">
+          <svg viewBox="0 0 220 220" width="260" height="260">
+            <circle class="pin-wave" cx="110" cy="130" r="10" fill="none" stroke="var(--amber)" stroke-width="3"/>
+            <circle class="pin-wave2" cx="110" cy="130" r="10" fill="none" stroke="var(--amber)" stroke-width="3"/>
+            <g class="pin-bob">
+              <path d="M110 70c-19 0-34 15-34 34 0 25 34 56 34 56s34-31 34-56c0-19-15-34-34-34z" fill="var(--amber)"/>
+              <circle cx="110" cy="104" r="13" fill="#fff"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="section-pad" style="background:var(--bg-soft);">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="chip">方案價格</span>
+        <h2 class="font-display font-extrabold text-3xl sm:text-4xl mt-4" style="color:var(--navy);">依出貨量選擇合適方案</h2>
+        <p class="mt-4" style="color:#5b6480;">所有方案皆享 14 天免費試用,不滿意可隨時取消,不綁約。</p>
+      </div>
+
+      <div class="flex items-center justify-center gap-3 mb-12">
+        <span class="text-sm font-semibold" id="label-monthly" style="color:var(--navy);">按月計費</span>
+        <div class="toggle-pill" id="billing-toggle" role="button" aria-label="切換計費週期">
+          <div class="toggle-knob"></div>
+        </div>
+        <span class="text-sm font-semibold" id="label-yearly" style="color:#8a92ac;">按年計費 <span class="chip ml-1" style="background:#fff3e2;color:#b5720f;">省 15%</span></span>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Tier 1 -->
+        <div class="card-pop bg-white rounded-2xl p-8 border" style="border-color:var(--line);">
+          <h3 class="font-display font-bold text-xl" style="color:var(--navy);">入門版</h3>
+          <p class="mt-2 text-sm" style="color:#6b7490;">適合月出貨量 500 單以下的小型賣家</p>
+          <div class="mt-6 flex items-baseline gap-1">
+            <span class="price-num font-display font-extrabold text-4xl" style="color:var(--navy);">NT$<span class="price" data-monthly="1280" data-yearly="1090">1,280</span></span>
+            <span class="text-sm" style="color:#6b7490;">/ 月</span>
+          </div>
+          <a href="#" class="mt-6 block text-center px-5 py-2.5 rounded-xl font-semibold btn-outline">開始免費試用</a>
+          <ul class="mt-6 space-y-3 text-sm" style="color:#4b5572;">
+            <li class="flex gap-2"><span style="color:var(--primary);">✓</span>單一倉儲揀貨路徑優化</li>
+            <li class="flex gap-2"><span style="color:var(--primary);">✓</span>自動報關文件產出(台灣、美國)</li>
+            <li class="flex gap-2"><span style="color:var(--primary);">✓</span>Email 到貨通知</li>
+            <li class="flex gap-2"><span style="color:var(--primary);">✓</span>每月 500 筆出貨額度</li>
+          </ul>
+        </div>
+
+        <!-- Tier 2 (highlighted) -->
+        <div class="card-pop rounded-2xl p-8 text-white relative" style="background:linear-gradient(160deg,var(--primary) 0%,var(--primary-dark) 100%);">
+          <span class="absolute -top-3 right-8 chip" style="background:var(--amber);color:#3a2300;">最受歡迎</span>
+          <h3 class="font-display font-bold text-xl">成長版</h3>
+          <p class="mt-2 text-sm opacity-80">適合月出貨量 3,000 單以下、多倉配送的賣家</p>
+          <div class="mt-6 flex items-baseline gap-1">
+            <span class="price-num font-display font-extrabold text-4xl">NT$<span class="price" data-monthly="3480" data-yearly="2960">3,480</span></span>
+            <span class="text-sm opacity-80">/ 月</span>
+          </div>
+          <a href="#" class="mt-6 block text-center px-5 py-2.5 rounded-xl font-semibold" style="background:#fff;color:var(--primary-dark);">開始免費試用</a>
+          <ul class="mt-6 space-y-3 text-sm opacity-95">
+            <li class="flex gap-2"><span>✓</span>最多 6 座倉儲路徑優化與自動分倉</li>
+            <li class="flex gap-2"><span>✓</span>五國海關預審(台灣、美國、歐盟、日本、東南亞)</li>
+            <li class="flex gap-2"><span>✓</span>LINE + Email 雙通道到貨通知</li>
+            <li class="flex gap-2"><span>✓</span>每月 3,000 筆出貨額度</li>
+            <li class="flex gap-2"><span>✓</span>專屬客戶成功顧問</li>
+          </ul>
+        </div>
+
+        <!-- Tier 3 -->
+        <div class="card-pop bg-white rounded-2xl p-8 border" style="border-color:var(--line);">
+          <h3 class="font-display font-bold text-xl" style="color:var(--navy);">企業版</h3>
+          <p class="mt-2 text-sm" style="color:#6b7490;">適合月出貨量 3,000 單以上的大型賣場或品牌商</p>
+          <div class="mt-6 flex items-baseline gap-1">
+            <span class="price-num font-display font-extrabold text-4xl" style="color:var(--navy);">NT$<span class="price" data-monthly="8980" data-yearly="7630">8,980</span></span>
+            <span class="text-sm" style="color:#6b7490;">/ 月起</span>
+          </div>
+          <a href="#" class="mt-6 block text-center px-5 py-2.5 rounded-xl font-semibold btn-outline">聯絡銷售團隊</a>
+          <ul class="mt-6 space-y-3 text-sm" style="color:#4b5572;">
+            <li class="flex gap-2"><span style="color:var(--primary);">✓</span>無上限倉儲節點與客製揀貨演算法</li>
+            <li class="flex gap-2"><span style="color:var(--primary);">✓</span>全球海關規則客製串接</li>
+            <li class="flex gap-2"><span style="color:var(--primary);">✓</span>API 開放串接 ERP / OMS</li>
+            <li class="flex gap-2"><span style="color:var(--primary);">✓</span>出貨額度無上限</li>
+            <li class="flex gap-2"><span style="color:var(--primary);">✓</span>24 小時專線支援與 SLA 保證</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL -->
+  <section id="testimonial" class="section-pad bg-white">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <svg width="40" height="32" viewBox="0 0 40 32" class="mx-auto mb-6" fill="var(--line)">
+        <path d="M0 32V18.6C0 8.3 6.4 1.4 16.4 0l1.8 4.9C11.9 6.8 8.6 10.9 8.3 16H16v16H0zm22 0V18.6C22 8.3 28.4 1.4 38.4 0l1.6 4.9c-6.3 1.9-9.6 6-9.9 11.1H38v16H22z"/>
+      </svg>
+      <p class="text-xl sm:text-2xl font-display font-medium leading-relaxed" style="color:var(--navy);">
+        「導入出貨快線之後,我們東南亞賣場的海關退件率從 15% 降到 2% 以下,客服人力也省了一半,現在終於可以把時間花在選品而不是救火。」
+      </p>
+      <div class="mt-6 flex items-center justify-center gap-3">
+        <div class="w-11 h-11 rounded-full flex items-center justify-center font-display font-bold text-white" style="background:var(--primary);">王</div>
+        <div class="text-left">
+          <div class="font-semibold" style="color:var(--navy);">王姿雯</div>
+          <div class="text-sm" style="color:#6b7490;">跨境選品電商「好選物」營運經理</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FOOTER -->
+  <section class="section-pad" style="background:var(--navy);">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-white">準備好讓出貨不再卡關了嗎?</h2>
+      <p class="mt-4" style="color:#b7c0dc;">立即申請 14 天免費試用,不需要信用卡,隨時可以取消。</p>
+      <a href="#pricing" class="mt-8 inline-block px-8 py-3.5 rounded-xl font-semibold btn-primary">開始免費試用</a>
+    </div>
+  </section>
+
+  <footer class="py-8 border-t" style="border-color:var(--line);">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm" style="color:#8a92ac;">
+      <div>&copy; 2026 出貨快線 ShipFast. 版權所有,僅供設計示意使用。</div>
+      <div class="flex gap-5">
+        <a href="#" class="hover:text-[var(--primary)]">服務條款</a>
+        <a href="#" class="hover:text-[var(--primary)]">隱私權政策</a>
+        <a href="#" class="hover:text-[var(--primary)]">聯絡我們</a>
+      </div>
+    </div>
+  </footer>
+
+<script>
+  (function(){
+    var toggle = document.getElementById('billing-toggle');
+    var labelMonthly = document.getElementById('label-monthly');
+    var labelYearly = document.getElementById('label-yearly');
+    var prices = document.querySelectorAll('.price');
+    var isYearly = false;
+
+    function formatNumber(n){
+      return n.toLocaleString('en-US');
+    }
+
+    function render(){
+      toggle.classList.toggle('on', isYearly);
+      labelMonthly.style.color = isYearly ? '#8a92ac' : 'var(--navy)';
+      labelYearly.style.color = isYearly ? 'var(--navy)' : '#8a92ac';
+      prices.forEach(function(el){
+        var value = isYearly ? el.getAttribute('data-yearly') : el.getAttribute('data-monthly');
+        el.textContent = formatNumber(parseInt(value, 10));
+      });
+    }
+
+    toggle.addEventListener('click', function(){
+      isYearly = !isYearly;
+      render();
+    });
+
+    render();
+  })();
+</script>
+
+</body>
+</html>

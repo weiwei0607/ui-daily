@@ -1,0 +1,432 @@
+<!-- style #46 Dimensional Layering -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>疊間 LAYERSPACE｜空間設計工作室</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #f4f1ec;
+    --bg-deep: #e9e4db;
+    --ink: #201c18;
+    --ink-soft: #5b544c;
+    --line: #d9d2c6;
+    --card: #fffdfa;
+    --accent: #b5633a;
+    --accent-2: #3a4a45;
+    --accent-3: #c9a24b;
+    --shadow-color: 32, 28, 24;
+  }
+
+  * { box-sizing: border-box; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Noto Sans TC', 'Figtree', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .font-head{
+    font-family: 'Figtree', 'Noto Sans TC', sans-serif;
+  }
+
+  .bg-noise{
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(181,99,58,0.05), transparent 40%),
+      radial-gradient(circle at 80% 0%, rgba(58,74,69,0.06), transparent 45%),
+      radial-gradient(circle at 60% 80%, rgba(201,162,75,0.07), transparent 40%);
+  }
+
+  /* ---------- Depth shadow system ---------- */
+  .depth-1{
+    box-shadow:
+      0 2px 4px rgba(var(--shadow-color), 0.08),
+      0 8px 16px rgba(var(--shadow-color), 0.10),
+      0 20px 36px rgba(var(--shadow-color), 0.12);
+  }
+  .depth-2{
+    box-shadow:
+      0 4px 8px rgba(var(--shadow-color), 0.10),
+      0 16px 28px rgba(var(--shadow-color), 0.14),
+      0 32px 56px rgba(var(--shadow-color), 0.16);
+  }
+  .depth-3{
+    box-shadow:
+      0 6px 12px rgba(var(--shadow-color), 0.12),
+      0 24px 40px rgba(var(--shadow-color), 0.16),
+      0 48px 80px rgba(var(--shadow-color), 0.20);
+  }
+
+  .hero-card{
+    position:absolute;
+    border-radius: 18px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    transition: transform .5s cubic-bezier(.16,1,.3,1), box-shadow .5s cubic-bezier(.16,1,.3,1);
+    will-change: transform;
+  }
+  .hero-card:hover{
+    transform: translate3d(0,-14px,0) scale(1.02) !important;
+  }
+
+  .hero-stage{
+    position:relative;
+    height: 480px;
+  }
+
+  @media (max-width: 767px){
+    .hero-stage{ height: 380px; }
+  }
+
+  /* ---------- Project card lift ---------- */
+  .proj-card{
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    transition: transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s cubic-bezier(.16,1,.3,1);
+    transform: translateY(0) scale(1);
+  }
+  .proj-card:hover{
+    transform: translateY(-12px) scale(1.015);
+  }
+
+  /* ---------- Abstract room illustrations (pure CSS) ---------- */
+  .scene{
+    position:relative;
+    overflow:hidden;
+    border-radius: 14px 14px 0 0;
+  }
+  .scene::after{
+    content:"";
+    position:absolute; inset:0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(0,0,0,0.08));
+    mix-blend-mode: multiply;
+  }
+
+  .scene-floor{
+    position:absolute; left:0; right:0; bottom:0; height:38%;
+  }
+  .scene-wall{
+    position:absolute; left:0; right:0; top:0; height:62%;
+  }
+  .scene-window{
+    position:absolute;
+    border-radius: 2px;
+  }
+  .scene-block{
+    position:absolute;
+    border-radius: 3px;
+  }
+
+  .scene-1 .scene-wall{ background: linear-gradient(135deg,#e7ded0,#cdbfa4); }
+  .scene-1 .scene-floor{ background: linear-gradient(180deg,#9c8265,#7a6450); }
+  .scene-1 .win{ background: linear-gradient(160deg,#9fb8bd,#5e7d82); top:14%; left:10%; width:32%; height:40%; }
+  .scene-1 .blk{ background: #b5633a; bottom:8%; left:55%; width:30%; height:26%; }
+  .scene-1 .blk2{ background: #3a4a45; bottom:8%; left:12%; width:18%; height:16%; }
+
+  .scene-2 .scene-wall{ background: linear-gradient(120deg,#d9d2c6,#bdb09a); }
+  .scene-2 .scene-floor{ background: linear-gradient(180deg,#716152,#4f433a); }
+  .scene-2 .win{ background: linear-gradient(160deg,#cdbfa4,#a3927a); top:10%; left:60%; width:28%; height:46%; }
+  .scene-2 .blk{ background: #c9a24b; bottom:6%; left:10%; width:40%; height:20%; }
+  .scene-2 .blk2{ background: #5b544c; top:16%; left:14%; width:22%; height:14%; }
+
+  .scene-3 .scene-wall{ background: linear-gradient(135deg,#efe9dd,#d4c7ad); }
+  .scene-3 .scene-floor{ background: linear-gradient(180deg,#b7a98c,#8f7f62); }
+  .scene-3 .win{ background: linear-gradient(160deg,#8d9b93,#4d615c); top:8%; left:36%; width:30%; height:50%; }
+  .scene-3 .blk{ background: #3a4a45; bottom:5%; left:6%; width:22%; height:30%; }
+  .scene-3 .blk2{ background: #b5633a; bottom:5%; left:70%; width:20%; height:18%; }
+
+  .scene-4 .scene-wall{ background: linear-gradient(120deg,#e3dccb,#c2b196); }
+  .scene-4 .scene-floor{ background: linear-gradient(180deg,#a08d6d,#6f5f49); }
+  .scene-4 .win{ background: linear-gradient(160deg,#aebdb8,#6c8782); top:12%; left:8%; width:46%; height:34%; }
+  .scene-4 .blk{ background: #c9a24b; bottom:6%; left:58%; width:28%; height:22%; }
+  .scene-4 .blk2{ background: #201c18; top:14%; left:60%; width:12%; height:12%; }
+
+  .scene-5 .scene-wall{ background: linear-gradient(135deg,#ece4d3,#cbb998); }
+  .scene-5 .scene-floor{ background: linear-gradient(180deg,#8c7a5f,#5e5040); }
+  .scene-5 .win{ background: linear-gradient(160deg,#9fb0a9,#58726c); top:10%; left:52%; width:34%; height:42%; }
+  .scene-5 .blk{ background: #b5633a; bottom:6%; left:8%; width:34%; height:18%; }
+  .scene-5 .blk2{ background: #3a4a45; bottom:6%; left:46%; width:14%; height:28%; }
+
+  .scene-6 .scene-wall{ background: linear-gradient(120deg,#e8e0d0,#c7b89a); }
+  .scene-6 .scene-floor{ background: linear-gradient(180deg,#766551,#4a3f33); }
+  .scene-6 .win{ background: linear-gradient(160deg,#b6c2b4,#7c9185); top:8%; left:14%; width:24%; height:48%; }
+  .scene-6 .blk{ background: #c9a24b; bottom:6%; left:44%; width:46%; height:16%; }
+  .scene-6 .blk2{ background: #201c18; top:10%; left:44%; width:20%; height:10%; }
+
+  .cat-btn{
+    transition: all .25s ease;
+    font-family: 'Figtree','Noto Sans TC',sans-serif;
+  }
+  .cat-btn.active{
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+
+  .fade-card{ transition: opacity .35s ease, transform .35s ease; }
+  .fade-hide{ opacity:0; transform: scale(.96); position:absolute; pointer-events:none; }
+
+  .tag-dot{
+    width:6px;height:6px;border-radius:50%;
+    display:inline-block;
+  }
+
+  .grain-line{
+    height:1px;
+    background: linear-gradient(90deg, transparent, var(--line), transparent);
+  }
+
+  ::selection{ background: var(--accent-3); color: var(--ink); }
+</style>
+</head>
+<body class="bg-noise">
+
+  <!-- NAV -->
+  <header class="max-w-6xl mx-auto px-6 md:px-10 pt-8 flex items-center justify-between relative z-30">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-md bg-[var(--ink)] relative" style="box-shadow:3px 3px 0 var(--accent-3), 6px 6px 0 var(--accent-2);"></div>
+      <div class="font-head font-800 text-lg tracking-tight">疊間 <span class="text-[var(--ink-soft)] font-600">LAYERSPACE</span></div>
+    </div>
+    <nav class="hidden md:flex items-center gap-8 text-sm font-head font-500 text-[var(--ink-soft)]">
+      <a href="#work" class="hover:text-[var(--ink)]">作品集</a>
+      <a href="#about" class="hover:text-[var(--ink)]">工作室理念</a>
+      <a href="#contact" class="hover:text-[var(--ink)]">聯絡我們</a>
+    </nav>
+    <a href="#contact" class="hidden md:inline-block text-sm font-head font-600 px-4 py-2 rounded-full border border-[var(--ink)] hover:bg-[var(--ink)] hover:text-[var(--bg)] transition">預約諮詢</a>
+  </header>
+
+  <!-- HERO -->
+  <section class="max-w-6xl mx-auto px-6 md:px-10 pt-14 pb-10 grid md:grid-cols-2 gap-10 items-center">
+    <div class="relative z-20">
+      <p class="font-head font-600 text-xs tracking-[0.25em] text-[var(--accent)] uppercase mb-4">INTERIOR DESIGN STUDIO · 台北</p>
+      <h1 class="font-head font-800 text-4xl md:text-5xl leading-[1.15] mb-6">
+        把空間<br/>
+        一層一層<br/>
+        <span class="text-[var(--accent)]">疊出景深。</span>
+      </h1>
+      <p class="text-[var(--ink-soft)] leading-relaxed mb-8 max-w-md">
+        疊間成立於 2016 年，專注於住宅與商業空間的室內設計。我們相信好的空間不是一次到位的平面，而是光線、材質與動線層層堆疊出的立體感受——走進去會有深度，待下來會有層次。
+      </p>
+      <div class="flex gap-4">
+        <a href="#work" class="font-head font-600 px-6 py-3 rounded-full bg-[var(--ink)] text-[var(--bg)] text-sm hover:opacity-85 transition">看作品集</a>
+        <a href="#about" class="font-head font-600 px-6 py-3 rounded-full border border-[var(--line)] text-sm hover:border-[var(--ink)] transition">了解我們</a>
+      </div>
+    </div>
+
+    <!-- 3 overlapping depth cards -->
+    <div class="hero-stage">
+      <div class="hero-card depth-1 scene scene-1" style="width:62%; height:72%; top:26%; left:2%; z-index:10; transform: rotate(-4deg) translate(0,0);">
+        <div class="scene-wall"></div><div class="scene-floor"></div>
+        <div class="scene-window win"></div><div class="scene-block blk"></div><div class="scene-block blk2"></div>
+      </div>
+      <div class="hero-card depth-2 scene scene-2" style="width:58%; height:66%; top:8%; left:30%; z-index:20; transform: rotate(2deg) translate(0,0);">
+        <div class="scene-wall"></div><div class="scene-floor"></div>
+        <div class="scene-window win"></div><div class="scene-block blk"></div><div class="scene-block blk2"></div>
+      </div>
+      <div class="hero-card depth-3 scene scene-3" style="width:50%; height:58%; top:40%; left:46%; z-index:30; transform: rotate(-2deg) translate(0,0);">
+        <div class="scene-wall"></div><div class="scene-floor"></div>
+        <div class="scene-window win"></div><div class="scene-block blk"></div><div class="scene-block blk2"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-6xl mx-auto px-6 md:px-10"><div class="grain-line"></div></div>
+
+  <!-- ABOUT / STUDIO STATEMENT -->
+  <section id="about" class="max-w-6xl mx-auto px-6 md:px-10 py-16">
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="md:col-span-1">
+        <h2 class="font-head font-700 text-2xl mb-2">工作室理念</h2>
+        <p class="text-sm text-[var(--ink-soft)]">STUDIO STATEMENT</p>
+      </div>
+      <div class="md:col-span-2 text-[var(--ink-soft)] leading-relaxed space-y-4">
+        <p>疊間 LAYERSPACE 是一間位於台北的室內設計工作室，團隊由三位主持設計師與五位專案設計師組成。我們習慣把每個案子拆成「結構層、材質層、光影層」來思考——結構決定動線，材質決定觸感，光影決定氛圍，三者疊起來才是一個完整的空間。</p>
+        <p>我們不追求單一風格的複製貼上，而是從屋主的生活習慣與預算條件出發，在有限的坪數裡創造出層次分明、有呼吸感的居住或營業空間。從住宅翻新、商業店鋪到辦公室規劃，每個案子都經過至少三輪的空間模型推演，才會進入施工階段。</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-6xl mx-auto px-6 md:px-10"><div class="grain-line"></div></div>
+
+  <!-- WORK / FILTER -->
+  <section id="work" class="max-w-6xl mx-auto px-6 md:px-10 py-16">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+      <div>
+        <h2 class="font-head font-700 text-2xl mb-2">精選作品集</h2>
+        <p class="text-sm text-[var(--ink-soft)]">SELECTED PROJECTS</p>
+      </div>
+      <div class="flex flex-wrap gap-3" id="filterBar">
+        <button class="cat-btn active font-head text-sm px-5 py-2 rounded-full border border-[var(--line)]" data-cat="all">全部作品</button>
+        <button class="cat-btn font-head text-sm px-5 py-2 rounded-full border border-[var(--line)]" data-cat="住宅空間">住宅空間</button>
+        <button class="cat-btn font-head text-sm px-5 py-2 rounded-full border border-[var(--line)]" data-cat="商業空間">商業空間</button>
+        <button class="cat-btn font-head text-sm px-5 py-2 rounded-full border border-[var(--line)]" data-cat="辦公空間">辦公空間</button>
+      </div>
+    </div>
+
+    <div id="projectGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <article class="proj-card depth-1" data-cat="住宅空間">
+        <div class="scene scene-1" style="height:180px;">
+          <div class="scene-wall"></div><div class="scene-floor"></div>
+          <div class="scene-window win"></div><div class="scene-block blk"></div><div class="scene-block blk2"></div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="tag-dot" style="background:var(--accent)"></span>
+            <span class="text-xs font-head font-600 text-[var(--ink-soft)] tracking-wide">住宅空間</span>
+          </div>
+          <h3 class="font-head font-700 text-lg mb-2">大安老屋重生計畫</h3>
+          <p class="text-sm text-[var(--ink-soft)] leading-relaxed">拆除老公寓的隔間牆，以半高書牆取代，讓光線與動線在三層平面中自由穿透流動。</p>
+        </div>
+      </article>
+
+      <article class="proj-card depth-1" data-cat="商業空間">
+        <div class="scene scene-2" style="height:180px;">
+          <div class="scene-wall"></div><div class="scene-floor"></div>
+          <div class="scene-window win"></div><div class="scene-block blk"></div><div class="scene-block blk2"></div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="tag-dot" style="background:var(--accent-3)"></span>
+            <span class="text-xs font-head font-600 text-[var(--ink-soft)] tracking-wide">商業空間</span>
+          </div>
+          <h3 class="font-head font-700 text-lg mb-2">永康街選物咖啡館</h3>
+          <p class="text-sm text-[var(--ink-soft)] leading-relaxed">以錯層展架堆疊出商品陳列的景深感，讓顧客從店外就能看見三層視覺焦點。</p>
+        </div>
+      </article>
+
+      <article class="proj-card depth-1" data-cat="辦公空間">
+        <div class="scene scene-3" style="height:180px;">
+          <div class="scene-wall"></div><div class="scene-floor"></div>
+          <div class="scene-window win"></div><div class="scene-block blk"></div><div class="scene-block blk2"></div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="tag-dot" style="background:var(--accent-2)"></span>
+            <span class="text-xs font-head font-600 text-[var(--ink-soft)] tracking-wide">辦公空間</span>
+          </div>
+          <h3 class="font-head font-700 text-lg mb-2">內湖軟體園區辦公室</h3>
+          <p class="text-sm text-[var(--ink-soft)] leading-relaxed">用高低錯落的會議艙取代一般隔間，讓五十人團隊在開放平面中仍保有層次與隱私。</p>
+        </div>
+      </article>
+
+      <article class="proj-card depth-1" data-cat="住宅空間">
+        <div class="scene scene-4" style="height:180px;">
+          <div class="scene-wall"></div><div class="scene-floor"></div>
+          <div class="scene-window win"></div><div class="scene-block blk"></div><div class="scene-block blk2"></div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="tag-dot" style="background:var(--accent)"></span>
+            <span class="text-xs font-head font-600 text-[var(--ink-soft)] tracking-wide">住宅空間</span>
+          </div>
+          <h3 class="font-head font-700 text-lg mb-2">三代同堂透天改造</h3>
+          <p class="text-sm text-[var(--ink-soft)] leading-relaxed">垂直動線重新規劃為三個生活層，長輩房、公共客廳、頂樓曬衣間各自獨立又彼此相連。</p>
+        </div>
+      </article>
+
+      <article class="proj-card depth-1" data-cat="商業空間">
+        <div class="scene scene-5" style="height:180px;">
+          <div class="scene-wall"></div><div class="scene-floor"></div>
+          <div class="scene-window win"></div><div class="scene-block blk"></div><div class="scene-block blk2"></div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="tag-dot" style="background:var(--accent-3)"></span>
+            <span class="text-xs font-head font-600 text-[var(--ink-soft)] tracking-wide">商業空間</span>
+          </div>
+          <h3 class="font-head font-700 text-lg mb-2">中山髮藝沙龍</h3>
+          <p class="text-sm text-[var(--ink-soft)] leading-relaxed">以半透明簾幕分層切割座位區，讓等候區、剪髮區、染燙區呈現前後堆疊的景深效果。</p>
+        </div>
+      </article>
+
+      <article class="proj-card depth-1" data-cat="辦公空間">
+        <div class="scene scene-6" style="height:180px;">
+          <div class="scene-wall"></div><div class="scene-floor"></div>
+          <div class="scene-window win"></div><div class="scene-block blk"></div><div class="scene-block blk2"></div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="tag-dot" style="background:var(--accent-2)"></span>
+            <span class="text-xs font-head font-600 text-[var(--ink-soft)] tracking-wide">辦公空間</span>
+          </div>
+          <h3 class="font-head font-700 text-lg mb-2">信義保險業務總部</h3>
+          <p class="text-sm text-[var(--ink-soft)] leading-relaxed">接待大廳、洽談室、後勤辦公區以三種地坪材質分層銜接，訪客動線一眼可辨。</p>
+        </div>
+      </article>
+
+    </div>
+
+    <p id="emptyState" class="hidden text-center text-[var(--ink-soft)] py-16">目前沒有符合這個分類的作品，敬請期待後續更新。</p>
+  </section>
+
+  <div class="max-w-6xl mx-auto px-6 md:px-10"><div class="grain-line"></div></div>
+
+  <!-- CONTACT -->
+  <footer id="contact" class="max-w-6xl mx-auto px-6 md:px-10 py-16">
+    <div class="rounded-2xl bg-[var(--ink)] text-[var(--bg)] p-10 md:p-14 depth-2 relative overflow-hidden">
+      <div class="absolute -right-10 -top-10 w-40 h-40 rounded-full" style="background: radial-gradient(circle, var(--accent-3), transparent 70%); opacity:.5;"></div>
+      <h2 class="font-head font-700 text-2xl md:text-3xl mb-4 relative z-10">想為你的空間疊出層次嗎？</h2>
+      <p class="text-[var(--bg-deep)] mb-8 max-w-md relative z-10">歡迎預約到工作室洽談，帶著您的平面圖與生活習慣，讓我們一起討論空間的可能性。</p>
+      <div class="flex flex-wrap gap-6 text-sm relative z-10">
+        <div>
+          <p class="text-[var(--bg-deep)] mb-1">工作室地址</p>
+          <p class="font-head font-600">台北市大安區敦化南路二段 88 號 4 樓</p>
+        </div>
+        <div>
+          <p class="text-[var(--bg-deep)] mb-1">聯絡電話</p>
+          <p class="font-head font-600">02-2735-6688</p>
+        </div>
+        <div>
+          <p class="text-[var(--bg-deep)] mb-1">電子信箱</p>
+          <p class="font-head font-600">hello@layerspace-studio.tw</p>
+        </div>
+      </div>
+    </div>
+    <p class="text-center text-xs text-[var(--ink-soft)] mt-10">© 2026 疊間 LAYERSPACE 室內設計工作室．版權所有</p>
+  </footer>
+
+<script>
+(function(){
+  var buttons = document.querySelectorAll('.cat-btn');
+  var cards = document.querySelectorAll('#projectGrid .proj-card');
+  var empty = document.getElementById('emptyState');
+
+  function applyFilter(cat){
+    var visibleCount = 0;
+    cards.forEach(function(card){
+      var match = (cat === 'all') || (card.getAttribute('data-cat') === cat);
+      if(match){
+        card.classList.remove('fade-hide');
+        card.style.display = '';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+    empty.classList.toggle('hidden', visibleCount !== 0);
+  }
+
+  buttons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      buttons.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      applyFilter(btn.getAttribute('data-cat'));
+    });
+  });
+
+  applyFilter('all');
+})();
+</script>
+
+</body>
+</html>
