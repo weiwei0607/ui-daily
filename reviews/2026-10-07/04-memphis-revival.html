@@ -1,0 +1,84 @@
+<!-- style #44 Memphis Revival -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>拼貼祭 PATCHFEST · 獨立設計師市集</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@400;500;600;700&family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body{ font-family:'Poppins','Noto Sans TC',sans-serif; background:#fdf6ec; overflow-x:hidden; }
+  .font-display{ font-family:'Archivo Black','Noto Sans TC',sans-serif; }
+  .shape{ position:absolute; z-index:0; }
+  .dots{ background-image: radial-gradient(#1a1a1a 2px, transparent 2.5px); background-size: 14px 14px; }
+  .stripe{ background: repeating-linear-gradient(45deg, #ff6b6b 0 10px, #ffe66d 10px 20px); }
+  .zig{ clip-path: polygon(0% 0%, 20% 100%, 40% 0%, 60% 100%, 80% 0%, 100% 100%, 100% 0%); }
+  .card:hover{ transform: rotate(-1.5deg) translateY(-4px); }
+  .card{ transition: transform .25s ease; }
+</style>
+</head>
+<body class="relative text-[#1a1a1a]">
+
+  <div class="shape dots w-28 h-28 rounded-full top-10 -left-10 opacity-70"></div>
+  <div class="shape w-20 h-20 bg-[#4ecdc4] top-24 right-10 rotate-12"></div>
+  <div class="shape w-16 h-16 rounded-full bg-[#ffe66d] border-4 border-[#1a1a1a] top-72 left-6"></div>
+  <div class="shape stripe w-24 h-10 bottom-20 right-16 -rotate-6"></div>
+
+  <header class="relative z-10 max-w-5xl mx-auto px-6 pt-14 pb-10 text-center">
+    <div class="inline-block bg-[#ff6b6b] border-4 border-[#1a1a1a] px-4 py-1 rotate-[-2deg] mb-6">
+      <span class="font-display text-xs md:text-sm text-white">11/22 - 11/23 · 華山文創園區</span>
+    </div>
+    <h1 class="font-display text-[14vw] md:text-7xl leading-[0.95] mb-4">
+      拼貼祭<br><span class="text-[#4ecdc4]" style="-webkit-text-stroke:3px #1a1a1a">PATCHFEST</span>
+    </h1>
+    <p class="max-w-md mx-auto text-sm md:text-base font-medium">
+      把你的作品、你的怪點子、你的色塊通通帶來。一百個獨立設計師攤位，一場不按規矩來的市集。
+    </p>
+  </header>
+
+  <section class="relative z-10 max-w-5xl mx-auto px-6 pb-10">
+    <h2 class="font-display text-2xl mb-6 text-center">攤位分區</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="zoneGrid">
+      <div class="card zone-card border-4 border-[#1a1a1a] bg-[#ff6b6b] p-6" data-zone="插畫與紙製品">
+        <p class="font-display text-white text-lg mb-2">🎨 插畫區</p>
+        <p class="text-white text-sm">38 個攤位 · 明信片 / 貼紙 / 海報</p>
+      </div>
+      <div class="card zone-card border-4 border-[#1a1a1a] bg-[#4ecdc4] p-6" data-zone="陶藝與手作">
+        <p class="font-display text-white text-lg mb-2">🏺 手作區</p>
+        <p class="text-white text-sm">26 個攤位 · 陶器 / 編織 / 皮件</p>
+      </div>
+      <div class="card zone-card border-4 border-[#1a1a1a] bg-[#ffe66d] p-6" data-zone="服飾與配件">
+        <p class="font-display text-lg mb-2">👕 服飾區</p>
+        <p class="text-sm">36 個攤位 · 古著改造 / 飾品 / 包袋</p>
+      </div>
+    </div>
+    <p id="zoneDetail" class="text-center font-display text-sm mt-6 bg-white border-4 border-[#1a1a1a] inline-block px-5 py-3 mx-auto">點一個分區看看裡面有什麼 ↑</p>
+  </section>
+
+  <section class="relative z-10 max-w-3xl mx-auto px-6 pb-20 text-center">
+    <div class="border-4 border-[#1a1a1a] bg-[#1a1a1a] p-8 rotate-[-1deg]">
+      <p class="font-display text-white text-xl mb-3">早鳥票只到 10/31</p>
+      <button id="ticketBtn" class="font-display bg-[#ffe66d] text-[#1a1a1a] border-4 border-[#1a1a1a] px-8 py-3 hover:bg-white transition-colors">
+        搶預售票 NT$150
+      </button>
+      <p id="ticketMsg" class="text-xs text-white mt-3 h-4"></p>
+    </div>
+  </section>
+
+  <footer class="relative z-10 text-center text-xs font-medium pb-8">拼貼祭 PATCHFEST · 把生活拼出自己的顏色</footer>
+
+<script>
+document.querySelectorAll('.zone-card').forEach(card => {
+  card.addEventListener('click', () => {
+    document.getElementById('zoneDetail').textContent = `「${card.dataset.zone}」就在這裡等你挖寶，記得多留點時間逛～`;
+  });
+});
+document.getElementById('ticketBtn').addEventListener('click', () => {
+  document.getElementById('ticketMsg').textContent = '已加入購物車！別忘了結帳完成預售優惠 🎟️';
+});
+</script>
+</body>
+</html>

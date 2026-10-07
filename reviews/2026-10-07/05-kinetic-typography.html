@@ -1,0 +1,100 @@
+<!-- style #48 Kinetic Typography -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>字動 TypeMotion Studio · 文字為主角的創意工作室</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body{ font-family:'Noto Sans TC',sans-serif; background:#0b0b0b; color:#fff; overflow-x:hidden; }
+  .font-display{ font-family:'Bebas Neue','Noto Sans TC',sans-serif; letter-spacing:.02em; }
+  .marquee-track{ display:flex; width:200%; animation: marquee 14s linear infinite; }
+  @keyframes marquee{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+  .word{ display:inline-block; opacity:0; transform:translateY(30px); transition: all .5s cubic-bezier(.2,.8,.2,1); }
+  .word.in{ opacity:1; transform:translateY(0); }
+  .flip:hover{ transform: rotateX(360deg); }
+  .flip{ display:inline-block; transition: transform .6s; }
+  .underline-grow{ position:relative; }
+  .underline-grow::after{ content:''; position:absolute; left:0; bottom:-6px; height:4px; width:0; background:#ffe66d; transition: width .4s; }
+  .underline-grow:hover::after{ width:100%; }
+</style>
+</head>
+<body>
+
+<nav class="flex items-center justify-between px-6 md:px-10 py-6 relative z-10">
+  <span class="font-display text-xl">字動 <span class="text-[#ffe66d]">TypeMotion</span></span>
+  <a href="#contact" class="text-sm underline-grow">聯絡我們</a>
+</nav>
+
+<div class="overflow-hidden border-y border-white/10 py-3 mb-10">
+  <div class="marquee-track font-display text-sm text-white/40 whitespace-nowrap">
+    <span class="px-6">文字會動 · 品牌才會被記住 ・</span>
+    <span class="px-6">文字會動 · 品牌才會被記住 ・</span>
+    <span class="px-6">文字會動 · 品牌才會被記住 ・</span>
+    <span class="px-6">文字會動 · 品牌才會被記住 ・</span>
+    <span class="px-6">文字會動 · 品牌才會被記住 ・</span>
+    <span class="px-6">文字會動 · 品牌才會被記住 ・</span>
+  </div>
+</div>
+
+<header class="px-6 md:px-10 mb-16">
+  <h1 class="font-display leading-[0.9] text-[15vw] md:text-8xl" id="heroTitle">
+    <span class="word">讓</span><span class="word">文</span><span class="word">字</span><span class="word">，</span>
+    <span class="word text-[#ff6b6b]">自</span><span class="word text-[#ff6b6b]">己</span>
+    <span class="word">說</span><span class="word">故</span><span class="word">事</span>
+  </h1>
+  <p class="max-w-md mt-6 text-white/60 text-sm md:text-base">
+    字動是一間只做「文字動態」的創意工作室。品牌標語、開場動畫、網站的第一句話 —— 我們讓它們動起來，讓人記住。
+  </p>
+</header>
+
+<section class="px-6 md:px-10 mb-20">
+  <h2 class="font-display text-2xl mb-8 text-white/70">滑過看看 <span class="flip inline-block">↻</span></h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="border border-white/15 rounded-2xl p-6 group">
+      <p class="font-display text-4xl mb-3 group-hover:text-[#ffe66d] transition-colors duration-300">逐字進場</p>
+      <p class="text-sm text-white/50">標題一字一字浮現，像有人正在對你說話。</p>
+    </div>
+    <div class="border border-white/15 rounded-2xl p-6 group">
+      <p class="font-display text-4xl mb-3 group-hover:scale-110 inline-block transition-transform duration-300">滾動變形</p>
+      <p class="text-sm text-white/50">文字隨著捲動被拉伸、被壓縮，跟著節奏呼吸。</p>
+    </div>
+    <div class="border border-white/15 rounded-2xl p-6 group">
+      <p class="font-display text-4xl mb-3 group-hover:tracking-widest transition-all duration-500">字距漂移</p>
+      <p class="text-sm text-white/50">字與字之間慢慢散開又聚合，製造懸念。</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="px-6 md:px-10 pb-24 text-center">
+  <p class="font-display text-3xl md:text-5xl mb-6">想讓你的品牌<br>也<span class="text-[#4ecdc4]">動</span>起來？</p>
+  <button id="askBtn" class="font-display bg-white text-black px-10 py-4 rounded-full text-sm md:text-base hover:bg-[#ffe66d] transition-colors">
+    預約提案討論
+  </button>
+  <p id="askMsg" class="text-xs text-white/50 mt-4 h-4"></p>
+</section>
+
+<footer class="text-center text-xs text-white/30 pb-8">字動 TypeMotion Studio © 2026</footer>
+
+<script>
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const words = e.target.querySelectorAll('.word');
+      words.forEach((w, i) => setTimeout(() => w.classList.add('in'), i * 90));
+      io.disconnect();
+    }
+  });
+}, { threshold: .3 });
+io.observe(document.getElementById('heroTitle'));
+
+document.getElementById('askBtn').addEventListener('click', () => {
+  document.getElementById('askMsg').textContent = '已收到！我們會在一個工作日內與你聯繫 ✦';
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>韡寧的 UI 待審 · 2026-10-07</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body{ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans TC",sans-serif; background:#f3f4f6; }
+  .preview-frame-wrap{ width:100%; height:260px; overflow:hidden; position:relative; background:#fff; border-radius:12px; }
+  .preview-frame{
+    width:200%; height:200%; transform:scale(.5); transform-origin:0 0;
+    border:0; position:absolute; top:0; left:0;
+  }
+  .card{ transition: box-shadow .2s, transform .2s; }
+  .card:hover{ transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+  .heart-btn{ font-size:22px; line-height:1; cursor:pointer; transition: transform .15s; user-select:none; }
+  .heart-btn:active{ transform: scale(1.3); }
+  .heart-btn.liked{ filter: none; }
+</style>
+</head>
+<body class="min-h-screen text-gray-800">
+
+<div class="max-w-5xl mx-auto px-5 py-10">
+  <header class="mb-8">
+    <h1 class="text-2xl md:text-3xl font-bold">韡寧的 UI 待審 · 2026-10-07</h1>
+    <p class="text-sm text-gray-500 mt-1">今天 6 個風格，喜歡的按 ❤️，我會記住妳的偏好</p>
+  </header>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="cardGrid">
+
+    <div class="card bg-white rounded-2xl p-4 shadow" data-id="01">
+      <div class="preview-frame-wrap mb-3">
+        <iframe class="preview-frame" src="01-neumorphism.html" loading="lazy"></iframe>
+      </div>
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="font-semibold">#01 Neumorphism</p>
+          <p class="text-xs text-gray-500">鮮凍盒 FreshBox · 冰箱食材到期提醒</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="01-neumorphism.html" target="_blank" class="text-sm text-blue-600 hover:underline">開啟 ↗</a>
+          <span class="heart-btn" data-id="01">🤍</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card bg-white rounded-2xl p-4 shadow" data-id="02">
+      <div class="preview-frame-wrap mb-3">
+        <iframe class="preview-frame" src="02-minimal-direct.html" loading="lazy"></iframe>
+      </div>
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="font-semibold">#02 Minimal & Direct</p>
+          <p class="text-xs text-gray-500">語記 VoiceNote · 說話即成文字</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="02-minimal-direct.html" target="_blank" class="text-sm text-blue-600 hover:underline">開啟 ↗</a>
+          <span class="heart-btn" data-id="02">🤍</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card bg-white rounded-2xl p-4 shadow" data-id="03">
+      <div class="preview-frame-wrap mb-3">
+        <iframe class="preview-frame" src="03-heatmap-density.html" loading="lazy"></iframe>
+      </div>
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="font-semibold">#03 Heatmap & Density</p>
+          <p class="text-xs text-gray-500">人潮熱力 CrowdHeat · 商場即時人流看板</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="03-heatmap-density.html" target="_blank" class="text-sm text-blue-600 hover:underline">開啟 ↗</a>
+          <span class="heart-btn" data-id="03">🤍</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card bg-white rounded-2xl p-4 shadow" data-id="04">
+      <div class="preview-frame-wrap mb-3">
+        <iframe class="preview-frame" src="04-memphis-revival.html" loading="lazy"></iframe>
+      </div>
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="font-semibold">#04 Memphis Revival</p>
+          <p class="text-xs text-gray-500">拼貼祭 PATCHFEST · 獨立設計師市集</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="04-memphis-revival.html" target="_blank" class="text-sm text-blue-600 hover:underline">開啟 ↗</a>
+          <span class="heart-btn" data-id="04">🤍</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card bg-white rounded-2xl p-4 shadow" data-id="05">
+      <div class="preview-frame-wrap mb-3">
+        <iframe class="preview-frame" src="05-kinetic-typography.html" loading="lazy"></iframe>
+      </div>
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="font-semibold">#05 Kinetic Typography</p>
+          <p class="text-xs text-gray-500">字動 TypeMotion Studio · 文字為主角</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="05-kinetic-typography.html" target="_blank" class="text-sm text-blue-600 hover:underline">開啟 ↗</a>
+          <span class="heart-btn" data-id="05">🤍</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card bg-white rounded-2xl p-4 shadow" data-id="06">
+      <div class="preview-frame-wrap mb-3">
+        <iframe class="preview-frame" src="06-hud-scifi.html" loading="lazy"></iframe>
+      </div>
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="font-semibold">#06 HUD / Sci-Fi</p>
+          <p class="text-xs text-gray-500">鷹眼艦隊 HawkFleet · 無人機機隊監控</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="06-hud-scifi.html" target="_blank" class="text-sm text-blue-600 hover:underline">開啟 ↗</a>
+          <span class="heart-btn" data-id="06">🤍</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="text-center text-xs text-gray-400 mt-10">reviews/2026-10-07</footer>
+</div>
+
+<script>
+const DATE = '2026-10-07';
+const DB_BASE = 'https://b-battle-580b5-default-rtdb.firebaseio.com/uigallery';
+
+function setLiked(el, liked){
+  el.textContent = liked ? '❤️' : '🤍';
+  el.classList.toggle('liked', liked);
+}
+
+document.querySelectorAll('.heart-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const id = btn.dataset.id;
+    const liked = btn.textContent.trim() !== '❤️';
+    setLiked(btn, liked);
+    fetch(`${DB_BASE}/${DATE}_${id}.json`, {
+      method: 'PUT',
+      body: JSON.stringify(liked)
+    }).catch(() => {});
+  });
+});
+
+fetch(`${DB_BASE}.json`)
+  .then(r => r.ok ? r.json() : null)
+  .then(data => {
+    if (!data) return;
+    document.querySelectorAll('.heart-btn').forEach(btn => {
+      const key = `${DATE}_${btn.dataset.id}`;
+      if (data[key] === true) setLiked(btn, true);
+    });
+  })
+  .catch(() => {});
+</script>
+</body>
+</html>

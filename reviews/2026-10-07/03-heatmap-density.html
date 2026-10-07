@@ -1,0 +1,133 @@
+<!-- style #29 Heatmap & Density -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>人潮熱力 CrowdHeat · 商場即時人流看板</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body{ font-family:'IBM Plex Sans','Noto Sans TC',sans-serif; background:#0f1b2d; }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+  .panel{ background:#16243a; border:1px solid #1f3350; border-radius:12px; }
+  .cell{ aspect-ratio:1; border-radius:4px; transition: transform .2s; }
+  .cell:hover{ transform:scale(1.12); z-index:5; }
+</style>
+</head>
+<body class="text-[#cfe0f4] min-h-screen">
+
+<div class="max-w-6xl mx-auto px-6 py-10">
+
+  <header class="flex flex-wrap items-center justify-between gap-4 mb-8">
+    <div>
+      <h1 class="text-2xl font-semibold text-white">人潮熱力 <span class="mono text-[#38bdf8]">CrowdHeat</span></h1>
+      <p class="text-sm text-[#7d93b2] mt-1">信義商場 · 即時人流密度看板</p>
+    </div>
+    <div class="panel px-4 py-2 flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-[#38bdf8] animate-pulse"></span>
+      <span class="mono text-xs text-[#9db8dd]" id="clock">--:--:--</span>
+    </div>
+  </header>
+
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+    <div class="panel p-5">
+      <p class="text-xs text-[#7d93b2] mb-2">目前館內人次</p>
+      <p class="mono text-3xl text-white" id="totalCount">2,184</p>
+      <p class="text-xs text-[#4ade80] mt-1">↑ 較昨日同時段 +6.2%</p>
+    </div>
+    <div class="panel p-5">
+      <p class="text-xs text-[#7d93b2] mb-2">最熱樓層</p>
+      <p class="mono text-3xl text-[#f97316]">3F</p>
+      <p class="text-xs text-[#7d93b2] mt-1">美食街 · 密度 92%</p>
+    </div>
+    <div class="panel p-5">
+      <p class="text-xs text-[#7d93b2] mb-2">平均停留</p>
+      <p class="mono text-3xl text-white">47<span class="text-base text-[#7d93b2]">分</span></p>
+      <p class="text-xs text-[#7d93b2] mt-1">略高於平日均值</p>
+    </div>
+    <div class="panel p-5">
+      <p class="text-xs text-[#7d93b2] mb-2">尖峰預估時段</p>
+      <p class="mono text-3xl text-white">14:30</p>
+      <p class="text-xs text-[#7d93b2] mt-1">約 35 分鐘後</p>
+    </div>
+  </div>
+
+  <div class="panel p-6 mb-8">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-sm font-medium text-white">樓層區塊密度熱力圖</h2>
+      <div class="flex items-center gap-2 text-xs text-[#7d93b2]">
+        <span>低</span>
+        <span class="w-16 h-2 rounded-full" style="background:linear-gradient(90deg,#1e293b,#1d4ed8,#38bdf8,#f97316)"></span>
+        <span>高</span>
+      </div>
+    </div>
+    <div id="heatGrid" class="grid grid-cols-10 gap-2"></div>
+  </div>
+
+  <div class="panel p-6">
+    <h2 class="text-sm font-medium text-white mb-4">各樓層即時密度</h2>
+    <div id="floorBars" class="space-y-3"></div>
+  </div>
+
+</div>
+
+<script>
+function clock(){
+  const now = new Date();
+  document.getElementById('clock').textContent = now.toLocaleTimeString('zh-TW', {hour12:false});
+}
+clock();
+setInterval(clock, 1000);
+
+function heatColor(v){
+  if (v < 0.3) return '#1e293b';
+  if (v < 0.5) return '#1d4ed8';
+  if (v < 0.75) return '#38bdf8';
+  return '#f97316';
+}
+
+const grid = document.getElementById('heatGrid');
+const cells = [];
+for (let i = 0; i < 40; i++) {
+  const div = document.createElement('div');
+  div.className = 'cell';
+  grid.appendChild(div);
+  cells.push(div);
+}
+function refreshGrid(){
+  cells.forEach(c => {
+    const v = Math.random();
+    c.style.background = heatColor(v);
+    c.title = Math.round(v * 100) + '%';
+  });
+}
+refreshGrid();
+setInterval(refreshGrid, 2200);
+
+const floors = [
+  {name:'B1 · 超市生鮮', v:58},
+  {name:'1F · 精品服飾', v:71},
+  {name:'2F · 美妝生活', v:64},
+  {name:'3F · 美食街', v:92},
+  {name:'4F · 親子遊樂', v:45},
+  {name:'5F · 電影院', v:38},
+];
+const barsWrap = document.getElementById('floorBars');
+floors.forEach(f => {
+  const row = document.createElement('div');
+  row.innerHTML = `
+    <div class="flex items-center justify-between text-xs text-[#9db8dd] mb-1">
+      <span>${f.name}</span><span class="mono">${f.v}%</span>
+    </div>
+    <div class="h-2 rounded-full bg-[#1f3350] overflow-hidden">
+      <div class="h-full rounded-full" style="width:${f.v}%; background:${heatColor(f.v/100)}"></div>
+    </div>
+  `;
+  barsWrap.appendChild(row);
+});
+</script>
+</body>
+</html>
