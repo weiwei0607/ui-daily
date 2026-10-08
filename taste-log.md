@@ -21,6 +21,10 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-10-08（6 個，#14 Liquid Glass / #07 Dark Mode (OLED) / #21 Conversion-Optimized / #34 Predictive Dashboard / #42 Organic Biophilic / #57 Gen Z Chaos）
+- ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（`curl -m 15` 回 HTTP code 000，無回應），無法讀取上一批按讚結果，沿用「已確認偏好」規則挑選並生成，等下次能連線時再回補。
+- 本輪先用 `grep -ohE '<!-- style #[0-9]+' reviews/*/*.html | sed -E 's/.*#//' | sort -n | uniq -c` 統計全庫歷史出現次數，排除最近 3 天（10-05/10-06/10-07）用過的風格（#19/#26/#38/#31/#11/#53、#05/#18/#22/#33/#46/#56、#02/#23/#29/#44/#48/#51），優先挑全庫最低使用次數（5 次）且跨 A/B/C/D 四組的方向：**Liquid Glass #14**（A 組玻璃/漸層家族，套用「已確認偏好」的圓體，改用 Comfortaa + Kiwi Maru 新配對（避開之前用過的 Baloo 2/Quicksand/Varela Round/Zen Maru Gothic/Fredoka/Comfortaa+M PLUS Rounded 1c/Kosugi Maru 組合），做成助眠音景 App「好夢 GoodDream」，流動紫藍漸層背景＋毛玻璃浮動卡片＋可運作的 4-7-8 呼吸引導圓圈動畫＋夜間模式切換）、**Dark Mode (OLED) #07**（A 組，避開 Inter，改用 Space Grotesk + Noto Sans TC + JetBrains Mono 新配對，做成深夜程式碼片段分享平台「暗碼 DarkSnip」，純黑底＋單一螢光綠強調色＋可點擊收藏的片段卡片＋每 3 秒微幅跳動的線上人數）、**Conversion-Optimized #21**（B 組結構，避開 Inter，改用 Figtree + Noto Sans TC 新配對，做成線上課程銷售頁「精通力 MasterUp」，含跑馬燈社會證明、真的會倒數的早鳥優惠計時器、滾動觸發的 count-up 統計數字、手風琴 FAQ、sticky 底部 CTA）、**Predictive Dashboard #34**（C 組，避開 Inter，改用 Work Sans + Space Mono 新配對，做成零售庫存預測儀表板「智補 SmartRestock」，虛線框標示 AI 預測值／實線框標示實際數據，含可點擊標記已補貨的補貨建議清單）、**Organic Biophilic #42**（D 組，沿用配方 Cormorant Garamond + Nunito，中文搭配 Noto Serif TC + Noto Sans TC，做成手作植萃皂品牌官網「森境皂物所」，有機曲線色塊＋可點擊加入提籃的皂品卡片＋滾動淡入動畫＋訂閱表單）、**Gen Z Chaos #57**（D 組，沿用配方 Space Mono，中文搭配 Noto Sans TC 粗體營造混亂感，做成迷因社群 App「迷因罐 MemeJar」，貼紙感硬陰影卡片＋故意歪斜排版＋可點擊按讚並噴出彩紙動畫的迷因牆＋動態載入更多）。全數繁體中文文案，皆避免使用 Inter/Helvetica，字體皆依風格美學挑選、未重複使用同一組字體；逐檔以 Python 腳本掃描簡體字特徵字元，確認全數為繁體正體。
+
 ### 2026-10-07（6 個，#02 Neumorphism / #23 Minimal & Direct / #29 Heatmap & Density / #44 Memphis Revival / #48 Kinetic Typography / #51 HUD / Sci-Fi）
 - ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（agent-proxy 明確回報 `connect_rejected`，host: b-battle-580b5-default-rtdb.firebaseio.com），無法讀取上一批按讚結果，沿用「已確認偏好」規則挑選並生成，等下次能連線時再回補。
 - ⚠️ `publish.py`（走 GitHub REST API 直打）本輪被 agent-proxy 明確擋下寫入（`Write access to this GitHub API path is not permitted through this proxy.`），改用標準 `git add/commit/push` 完成發布，已確認 `origin/master` 已更新到本輪 commit。

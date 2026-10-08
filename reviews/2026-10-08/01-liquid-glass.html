@@ -1,0 +1,177 @@
+<!-- style #14 Liquid Glass -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>好夢 GoodDream｜睡眠音景 App</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Kiwi+Maru:wght@400;500&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Zen Maru Gothic','Kiwi Maru',sans-serif;}
+  .font-display{font-family:'Comfortaa','Kiwi Maru',sans-serif;}
+  .bg-flow{
+    background: radial-gradient(circle at 20% 20%, #a78bfa 0%, transparent 45%),
+                radial-gradient(circle at 80% 30%, #60a5fa 0%, transparent 50%),
+                radial-gradient(circle at 50% 80%, #f0abfc 0%, transparent 55%),
+                linear-gradient(135deg,#4c1d95,#1e3a8a 60%,#312e81);
+    background-size: 200% 200%;
+    animation: flow 18s ease-in-out infinite;
+  }
+  @keyframes flow{
+    0%{background-position:0% 0%;}
+    50%{background-position:100% 100%;}
+    100%{background-position:0% 0%;}
+  }
+  .glass{
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    border: 1px solid rgba(255,255,255,0.25);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  }
+  .glass-strong{
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    border: 1px solid rgba(255,255,255,0.35);
+  }
+  .float-orb{
+    position:absolute; border-radius:9999px; filter: blur(40px); opacity:.55;
+    animation: drift 12s ease-in-out infinite;
+  }
+  @keyframes drift{
+    0%,100%{transform: translateY(0) translateX(0);}
+    50%{transform: translateY(-20px) translateX(15px);}
+  }
+  .card-hover{ transition: transform .35s ease, box-shadow .35s ease; }
+  .card-hover:hover{ transform: translateY(-6px) scale(1.015); box-shadow: 0 16px 40px rgba(0,0,0,0.35); }
+  .toggle-dot{ transition: all .3s ease; }
+</style>
+</head>
+<body class="bg-flow min-h-screen text-white overflow-x-hidden">
+
+  <div class="float-orb w-72 h-72 bg-fuchsia-400 top-10 left-[-40px]"></div>
+  <div class="float-orb w-96 h-96 bg-indigo-400 bottom-0 right-[-60px]"></div>
+  <div class="float-orb w-56 h-56 bg-sky-300 top-1/2 left-1/3"></div>
+
+  <header class="relative z-10 max-w-6xl mx-auto px-6 pt-8 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <div class="w-10 h-10 rounded-full glass flex items-center justify-center text-xl">🌙</div>
+      <span class="font-display font-bold text-xl tracking-wide">好夢 GoodDream</span>
+    </div>
+    <nav class="hidden md:flex gap-6 text-sm text-white/80">
+      <a href="#" class="hover:text-white transition">音景庫</a>
+      <a href="#" class="hover:text-white transition">睡眠報告</a>
+      <a href="#" class="hover:text-white transition">社群</a>
+    </nav>
+    <button class="glass px-5 py-2 rounded-full text-sm font-medium hover:bg-white/20 transition">立即開始</button>
+  </header>
+
+  <main class="relative z-10 max-w-6xl mx-auto px-6 pt-16 pb-24">
+    <section class="text-center max-w-2xl mx-auto">
+      <h1 class="font-display text-4xl md:text-5xl font-bold leading-tight drop-shadow-lg">
+        讓思緒在聲音裡<br>慢慢融化成夢
+      </h1>
+      <p class="mt-5 text-white/80 text-lg">結合白噪音、自然音景與呼吸引導，陪你找回每一夜安穩的睡眠。</p>
+    </section>
+
+    <section class="mt-14 grid md:grid-cols-3 gap-6">
+      <div class="glass-strong rounded-3xl p-6 card-hover" id="soundCard">
+        <div class="flex items-center justify-between">
+          <span class="font-display font-semibold text-lg">雨林夜音</span>
+          <span class="text-2xl">🌧️</span>
+        </div>
+        <p class="text-white/70 text-sm mt-2">細雨與遠方蟲鳴，模擬熱帶雨林的夜晚。</p>
+        <div class="mt-5 flex items-center gap-3">
+          <button onclick="togglePlay(this,'soundCard')" class="w-12 h-12 rounded-full glass flex items-center justify-center text-lg hover:scale-105 transition">▶️</button>
+          <div class="flex-1 h-1.5 rounded-full bg-white/20 overflow-hidden">
+            <div class="h-full bg-white/70 rounded-full" style="width:35%"></div>
+          </div>
+          <span class="text-xs text-white/60">42:10</span>
+        </div>
+      </div>
+
+      <div class="glass-strong rounded-3xl p-6 card-hover" id="soundCard2">
+        <div class="flex items-center justify-between">
+          <span class="font-display font-semibold text-lg">深海脈動</span>
+          <span class="text-2xl">🌊</span>
+        </div>
+        <p class="text-white/70 text-sm mt-2">低頻海浪聲，搭配心跳頻率引導入睡。</p>
+        <div class="mt-5 flex items-center gap-3">
+          <button onclick="togglePlay(this,'soundCard2')" class="w-12 h-12 rounded-full glass flex items-center justify-center text-lg hover:scale-105 transition">▶️</button>
+          <div class="flex-1 h-1.5 rounded-full bg-white/20 overflow-hidden">
+            <div class="h-full bg-white/70 rounded-full" style="width:60%"></div>
+          </div>
+          <span class="text-xs text-white/60">58:03</span>
+        </div>
+      </div>
+
+      <div class="glass-strong rounded-3xl p-6 card-hover" id="soundCard3">
+        <div class="flex items-center justify-between">
+          <span class="font-display font-semibold text-lg">山間晨霧</span>
+          <span class="text-2xl">🏔️</span>
+        </div>
+        <p class="text-white/70 text-sm mt-2">風吹過松林的沙沙聲，安定紛亂的思緒。</p>
+        <div class="mt-5 flex items-center gap-3">
+          <button onclick="togglePlay(this,'soundCard3')" class="w-12 h-12 rounded-full glass flex items-center justify-center text-lg hover:scale-105 transition">▶️</button>
+          <div class="flex-1 h-1.5 rounded-full bg-white/20 overflow-hidden">
+            <div class="h-full bg-white/70 rounded-full" style="width:18%"></div>
+          </div>
+          <span class="text-xs text-white/60">37:46</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-10 glass rounded-3xl p-8 flex flex-col md:flex-row items-center gap-8">
+      <div class="flex-1">
+        <h3 class="font-display text-2xl font-bold">今晚的呼吸引導</h3>
+        <p class="text-white/75 mt-2">4-7-8 呼吸法：吸氣 4 秒、停留 7 秒、吐氣 8 秒，重複 4 次。</p>
+        <div class="mt-5 flex items-center gap-4">
+          <span class="text-sm text-white/70">夜間模式</span>
+          <button id="nightToggle" onclick="toggleNight()" class="w-14 h-8 rounded-full glass relative">
+            <span id="nightDot" class="toggle-dot absolute top-1 left-1 w-6 h-6 rounded-full bg-white"></span>
+          </button>
+        </div>
+      </div>
+      <div class="w-40 h-40 rounded-full glass-strong flex items-center justify-center relative">
+        <div id="breathCircle" class="w-24 h-24 rounded-full bg-gradient-to-br from-indigo-300 to-fuchsia-300 transition-all duration-[4000ms] ease-in-out"></div>
+        <span id="breathLabel" class="absolute font-display text-sm font-bold">吸氣</span>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function togglePlay(btn, cardId){
+      const playing = btn.textContent.trim() === '▶️';
+      document.querySelectorAll('button').forEach(b=>{ if(b.textContent.trim()==='⏸️') b.textContent='▶️'; });
+      btn.textContent = playing ? '⏸️' : '▶️';
+    }
+    function toggleNight(){
+      const dot = document.getElementById('nightDot');
+      const on = dot.classList.contains('translate-x-6');
+      dot.classList.toggle('translate-x-6');
+      document.body.style.filter = on ? 'none' : 'brightness(0.85)';
+    }
+    let breathing = true;
+    function breathCycle(){
+      const circle = document.getElementById('breathCircle');
+      const label = document.getElementById('breathLabel');
+      let phase = 0;
+      const phases = [['吸氣','w-36 h-36',4000],['停留','w-36 h-36',7000],['吐氣','w-20 h-20',8000]];
+      function next(){
+        if(!breathing) return;
+        const [text,size,dur] = phases[phase % phases.length];
+        label.textContent = text;
+        circle.className = 'rounded-full bg-gradient-to-br from-indigo-300 to-fuchsia-300 transition-all ease-in-out ' + size;
+        circle.style.transitionDuration = dur + 'ms';
+        phase++;
+        setTimeout(next, dur);
+      }
+      next();
+    }
+    breathCycle();
+  </script>
+</body>
+</html>

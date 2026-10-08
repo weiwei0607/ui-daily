@@ -1,0 +1,112 @@
+<!-- style #07 Dark Mode (OLED) -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>暗碼 DarkSnip｜深夜程式碼片段分享</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ background:#0a0a0a; font-family:'Noto Sans TC','Space Grotesk',sans-serif; }
+  .font-display{ font-family:'Space Grotesk','Noto Sans TC',sans-serif; }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+  .glow-text{ color:#39ff14; text-shadow:0 0 8px rgba(57,255,20,0.6), 0 0 20px rgba(57,255,20,0.25); }
+  .glow-border{ border:1px solid rgba(57,255,20,0.35); box-shadow: 0 0 18px rgba(57,255,20,0.08) inset; }
+  .card{ background:#121212; border:1px solid #1f1f1f; transition: border-color .25s, transform .25s; }
+  .card:hover{ border-color:#39ff14; transform: translateY(-3px); }
+  @keyframes blink{ 0%,49%{opacity:1;} 50%,100%{opacity:0;} }
+  .cursor{ animation: blink 1s step-end infinite; }
+  .pulse-dot{ animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:.35;} }
+</style>
+</head>
+<body class="min-h-screen text-gray-200">
+  <header class="max-w-6xl mx-auto px-6 pt-8 flex items-center justify-between border-b border-[#1f1f1f] pb-5">
+    <div class="flex items-center gap-2">
+      <span class="mono text-2xl glow-text">&gt;_</span>
+      <span class="font-display font-bold text-xl text-white">暗碼<span class="glow-text">DarkSnip</span></span>
+    </div>
+    <nav class="hidden md:flex gap-6 text-sm text-gray-400 mono">
+      <a href="#" class="hover:text-[#39ff14] transition">#片段庫</a>
+      <a href="#" class="hover:text-[#39ff14] transition">#深夜頻道</a>
+      <a href="#" class="hover:text-[#39ff14] transition">#收藏</a>
+    </nav>
+    <button class="mono text-sm px-4 py-2 rounded glow-border text-[#39ff14] hover:bg-[#39ff14]/10 transition">+ 發布片段</button>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6 py-14">
+    <section class="mb-12">
+      <p class="mono text-sm text-gray-500">// 給所有在凌晨還醒著寫 code 的人</p>
+      <h1 class="font-display text-4xl md:text-5xl font-bold text-white mt-3">
+        把你的靈感片段<br><span class="glow-text">存進黑夜</span><span class="cursor glow-text">|</span>
+      </h1>
+      <p class="text-gray-400 mt-4 max-w-xl">純黑介面省電又護眼，單一螢光綠強調重點，陪你度過每一次 debug 到天亮的夜晚。</p>
+    </section>
+
+    <section class="grid md:grid-cols-3 gap-5 mb-14">
+      <div class="card rounded-xl p-5" id="stat1">
+        <p class="text-gray-500 text-xs mono">線上深夜開發者</p>
+        <p class="font-display text-3xl font-bold text-white mt-2"><span id="onlineCount">1,284</span> <span class="glow-text pulse-dot text-sm">●</span></p>
+      </div>
+      <div class="card rounded-xl p-5">
+        <p class="text-gray-500 text-xs mono">今日新增片段</p>
+        <p class="font-display text-3xl font-bold text-white mt-2">327</p>
+      </div>
+      <div class="card rounded-xl p-5">
+        <p class="text-gray-500 text-xs mono">最熱門語言</p>
+        <p class="font-display text-3xl font-bold text-white mt-2">TypeScript</p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="font-display text-xl font-bold text-white mb-5">今晚熱門片段</h2>
+      <div class="space-y-4">
+        <div class="card rounded-xl p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <p class="font-display font-semibold text-white">防手滑的 debounce hook</p>
+            <p class="mono text-xs text-gray-500 mt-1">useDebounce.ts · by @night_owl</p>
+          </div>
+          <button onclick="toggleStar(this)" class="mono text-sm px-4 py-2 rounded glow-border text-[#39ff14] hover:bg-[#39ff14]/10 transition self-start md:self-auto">★ 收藏 (<span class="starCount">42</span>)</button>
+        </div>
+        <div class="card rounded-xl p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <p class="font-display font-semibold text-white">一行寫完的深拷貝</p>
+            <p class="mono text-xs text-gray-500 mt-1">deepClone.js · by @ctrl_c_v</p>
+          </div>
+          <button onclick="toggleStar(this)" class="mono text-sm px-4 py-2 rounded glow-border text-[#39ff14] hover:bg-[#39ff14]/10 transition self-start md:self-auto">★ 收藏 (<span class="starCount">119</span>)</button>
+        </div>
+        <div class="card rounded-xl p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <p class="font-display font-semibold text-white">CSS 漸層文字產生器</p>
+            <p class="mono text-xs text-gray-500 mt-1">gradientText.css · by @midnight_dev</p>
+          </div>
+          <button onclick="toggleStar(this)" class="mono text-sm px-4 py-2 rounded glow-border text-[#39ff14] hover:bg-[#39ff14]/10 transition self-start md:self-auto">★ 收藏 (<span class="starCount">76</span>)</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function toggleStar(btn){
+      const span = btn.querySelector('.starCount');
+      const active = btn.classList.contains('starred');
+      if(active){
+        span.textContent = parseInt(span.textContent)-1;
+        btn.classList.remove('starred','bg-[#39ff14]/10');
+      } else {
+        span.textContent = parseInt(span.textContent)+1;
+        btn.classList.add('starred','bg-[#39ff14]/10');
+      }
+    }
+    setInterval(()=>{
+      const el = document.getElementById('onlineCount');
+      let n = parseInt(el.textContent.replace(',',''));
+      n += Math.floor(Math.random()*5)-2;
+      if(n<1000) n = 1000;
+      el.textContent = n.toLocaleString();
+    }, 3000);
+  </script>
+</body>
+</html>
