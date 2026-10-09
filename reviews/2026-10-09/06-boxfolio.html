@@ -1,0 +1,121 @@
+<!-- style #53 Bento Grids -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>格匣 BoxFolio｜創作者作品整理工具</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'DM Sans','Noto Sans TC',sans-serif; background:#f1f2f6; color:#16171d; }
+  .box{ background:#fff; border-radius:22px; border:1px solid #e7e8ee; }
+  .count-up{ font-variant-numeric: tabular-nums; }
+  .accent{ background: linear-gradient(135deg,#ffb86b,#ff6b81); }
+  .accent2{ background: linear-gradient(135deg,#6b9bff,#8b6bff); }
+</style>
+</head>
+<body>
+
+<div class="max-w-6xl mx-auto px-6 py-10">
+
+  <header class="flex items-center justify-between mb-8">
+    <h1 class="text-2xl font-black">格匣 <span class="text-neutral-400 font-medium text-base">BoxFolio</span></h1>
+    <button class="bg-neutral-900 text-white text-sm font-bold px-5 py-2.5 rounded-full">+ 新增作品</button>
+  </header>
+
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[110px]">
+
+    <div class="box col-span-2 row-span-2 p-6 flex flex-col justify-between">
+      <div>
+        <div class="text-xs text-neutral-400 mb-2">本月新作品</div>
+        <div class="count-up text-5xl font-black" id="num-works">0</div>
+      </div>
+      <div class="flex gap-2 text-xs">
+        <span class="bg-neutral-100 px-2 py-1 rounded-full">攝影 18</span>
+        <span class="bg-neutral-100 px-2 py-1 rounded-full">插畫 9</span>
+        <span class="bg-neutral-100 px-2 py-1 rounded-full">設計 6</span>
+      </div>
+    </div>
+
+    <div class="box accent col-span-2 p-5 flex flex-col justify-between text-white">
+      <div class="text-sm font-bold">本週精選</div>
+      <div class="text-xl font-black">〈夜雨城市〉系列獲選首頁推薦</div>
+    </div>
+
+    <div class="box p-5 flex flex-col justify-between">
+      <div class="text-xs text-neutral-400">追蹤者</div>
+      <div class="text-3xl font-black">4,206</div>
+    </div>
+    <div class="box p-5 flex flex-col justify-between">
+      <div class="text-xs text-neutral-400">總瀏覽</div>
+      <div class="text-3xl font-black">88.2k</div>
+    </div>
+
+    <div class="box col-span-2 row-span-2 p-5">
+      <div class="text-xs text-neutral-400 mb-3">分類篩選</div>
+      <div class="flex flex-wrap gap-2 mb-4" id="filters">
+        <button data-f="all" class="filter-btn bg-neutral-900 text-white text-xs px-3 py-1.5 rounded-full">全部</button>
+        <button data-f="photo" class="filter-btn bg-neutral-100 text-xs px-3 py-1.5 rounded-full">攝影</button>
+        <button data-f="illus" class="filter-btn bg-neutral-100 text-xs px-3 py-1.5 rounded-full">插畫</button>
+        <button data-f="design" class="filter-btn bg-neutral-100 text-xs px-3 py-1.5 rounded-full">設計</button>
+      </div>
+      <div class="grid grid-cols-3 gap-2" id="thumb-grid">
+        <div data-c="photo" class="aspect-square rounded-xl bg-gradient-to-br from-orange-200 to-pink-200"></div>
+        <div data-c="illus" class="aspect-square rounded-xl bg-gradient-to-br from-indigo-200 to-blue-200"></div>
+        <div data-c="design" class="aspect-square rounded-xl bg-gradient-to-br from-emerald-200 to-teal-200"></div>
+        <div data-c="photo" class="aspect-square rounded-xl bg-gradient-to-br from-rose-200 to-orange-200"></div>
+        <div data-c="illus" class="aspect-square rounded-xl bg-gradient-to-br from-purple-200 to-indigo-200"></div>
+        <div data-c="design" class="aspect-square rounded-xl bg-gradient-to-br from-teal-200 to-cyan-200"></div>
+      </div>
+    </div>
+
+    <div class="box accent2 col-span-2 p-5 flex flex-col justify-between text-white">
+      <div class="text-xs opacity-80">邀請合作</div>
+      <div class="text-lg font-black">有 3 個品牌想邀你合作案</div>
+      <button class="bg-white/20 text-xs font-bold px-3 py-1.5 rounded-full self-start">查看邀約</button>
+    </div>
+
+    <div class="box col-span-2 p-5 flex items-center justify-between">
+      <div>
+        <div class="text-xs text-neutral-400">儲存空間</div>
+        <div class="text-lg font-bold">6.2GB / 20GB</div>
+      </div>
+      <div class="w-24 h-24 relative">
+        <svg viewBox="0 0 36 36" class="w-24 h-24 -rotate-90">
+          <circle cx="18" cy="18" r="15.5" fill="none" stroke="#eee" stroke-width="4"/>
+          <circle cx="18" cy="18" r="15.5" fill="none" stroke="#16171d" stroke-width="4" stroke-dasharray="97.4" stroke-dashoffset="67" stroke-linecap="round"/>
+        </svg>
+        <div class="absolute inset-0 flex items-center justify-center text-sm font-bold">31%</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  const el = document.getElementById('num-works');
+  let n = 0; const target = 33;
+  const timer = setInterval(() => {
+    n += 1; el.textContent = n;
+    if(n >= target) clearInterval(timer);
+  }, 35);
+
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('bg-neutral-900','text-white'));
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.add('bg-neutral-100'));
+      btn.classList.remove('bg-neutral-100');
+      btn.classList.add('bg-neutral-900','text-white');
+      const f = btn.dataset.f;
+      document.querySelectorAll('#thumb-grid > div').forEach(d => {
+        d.style.display = (f === 'all' || d.dataset.c === f) ? 'block' : 'none';
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
