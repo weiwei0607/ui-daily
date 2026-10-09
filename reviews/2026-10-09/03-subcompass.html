@@ -1,0 +1,123 @@
+<!-- style #30 Executive Summary -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>訂閱羅盤 SubCompass｜高管每日營運摘要</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Figtree','Noto Sans TC',sans-serif; background:#f7f8fb; }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+  .kpi-num{ font-family:'JetBrains Mono',monospace; letter-spacing:-0.02em; }
+  .up{ color:#0f9d58; } .down{ color:#dc2626; }
+  .card{ background:#fff; border:1px solid #e9eaf0; border-radius:16px; }
+</style>
+</head>
+<body class="text-slate-800">
+
+<div class="max-w-6xl mx-auto px-6 py-8">
+
+  <header class="flex flex-wrap items-center justify-between gap-3 mb-8">
+    <div>
+      <div class="text-xs mono text-slate-400 mb-1">EXECUTIVE SUMMARY · <span id="today"></span></div>
+      <h1 class="text-2xl font-extrabold">訂閱羅盤 <span class="text-indigo-600">SubCompass</span></h1>
+    </div>
+    <div class="flex gap-2 items-center text-xs text-slate-500">
+      <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
+      資料即時同步・最後更新 3 分鐘前
+    </div>
+  </header>
+
+  <section class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-10">
+    <div class="card p-5">
+      <div class="text-xs text-slate-400 mb-2">月經常性收入 MRR</div>
+      <div class="kpi-num text-3xl font-bold">$4.28M</div>
+      <div class="text-xs up mt-2">▲ 6.2% 較上月</div>
+    </div>
+    <div class="card p-5">
+      <div class="text-xs text-slate-400 mb-2">流失率 Churn</div>
+      <div class="kpi-num text-3xl font-bold">2.1%</div>
+      <div class="text-xs up mt-2">▼ 0.4pt 較上月</div>
+    </div>
+    <div class="card p-5">
+      <div class="text-xs text-slate-400 mb-2">淨新增訂閱數</div>
+      <div class="kpi-num text-3xl font-bold">+318</div>
+      <div class="text-xs up mt-2">▲ 11% 較上月</div>
+    </div>
+    <div class="card p-5">
+      <div class="text-xs text-slate-400 mb-2">客戶終身價值 LTV</div>
+      <div class="kpi-num text-3xl font-bold">$9,840</div>
+      <div class="text-xs down mt-2">▼ 1.8% 較上月</div>
+    </div>
+    <div class="card p-5 col-span-2 md:col-span-1">
+      <div class="text-xs text-slate-400 mb-2">年化經常性收入</div>
+      <div class="kpi-num text-3xl font-bold">$51.4M</div>
+      <div class="text-xs up mt-2">▲ 6.2% 較上月</div>
+    </div>
+  </section>
+
+  <section class="grid md:grid-cols-3 gap-5">
+
+    <div class="card p-6 md:col-span-2">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="font-bold">本日摘要</h2>
+        <span class="text-xs text-slate-400 mono">AUTO-GENERATED</span>
+      </div>
+      <p class="text-sm leading-relaxed text-slate-600">
+        本月 MRR 持續成長，主要來自企業方案升級貢獻 <b class="text-slate-800">42%</b> 的淨增長；
+        流失率降至近六個月最低點，客服團隊回報「主動續約提醒」上線後效果顯著。
+        需要留意的是年費方案客戶的 LTV 微幅下滑，建議本週與產品團隊確認是否為定價調整所致。
+      </p>
+      <div class="mt-5">
+        <svg viewBox="0 0 400 100" class="w-full h-24">
+          <polyline points="0,70 40,65 80,60 120,55 160,50 200,42 240,38 280,30 320,25 360,18 400,10"
+            fill="none" stroke="#4f46e5" stroke-width="3" stroke-linecap="round"/>
+          <polyline points="0,70 40,65 80,60 120,55 160,50 200,42 240,38 280,30 320,25 360,18 400,10 400,100 0,100"
+            fill="url(#grad)" opacity="0.15" stroke="none"/>
+          <defs>
+            <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#4f46e5"/>
+              <stop offset="100%" stop-color="#4f46e5" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="flex justify-between text-xs text-slate-400 mono mt-1">
+          <span>12 週前</span><span>本週</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-6">
+      <h2 class="font-bold mb-4">方案組合佔比</h2>
+      <div class="space-y-3">
+        <div>
+          <div class="flex justify-between text-xs mb-1"><span>企業方案</span><span class="mono">48%</span></div>
+          <div class="h-2 bg-slate-100 rounded-full"><div class="h-2 bg-indigo-600 rounded-full" style="width:48%"></div></div>
+        </div>
+        <div>
+          <div class="flex justify-between text-xs mb-1"><span>專業方案</span><span class="mono">33%</span></div>
+          <div class="h-2 bg-slate-100 rounded-full"><div class="h-2 bg-indigo-400 rounded-full" style="width:33%"></div></div>
+        </div>
+        <div>
+          <div class="flex justify-between text-xs mb-1"><span>入門方案</span><span class="mono">19%</span></div>
+          <div class="h-2 bg-slate-100 rounded-full"><div class="h-2 bg-indigo-200 rounded-full" style="width:19%"></div></div>
+        </div>
+      </div>
+      <div class="mt-6 pt-4 border-t border-slate-100 text-xs text-slate-500">
+        本週需關注：<span class="font-semibold text-slate-700">17 家企業客戶</span> 合約將於 30 天內到期。
+      </div>
+    </div>
+
+  </section>
+
+</div>
+
+<script>
+  document.getElementById('today').textContent = new Date().toLocaleDateString('zh-TW', { year:'numeric', month:'long', day:'numeric', weekday:'long' });
+</script>
+
+</body>
+</html>

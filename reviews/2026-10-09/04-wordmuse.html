@@ -1,0 +1,112 @@
+<!-- style #43 AI-Native -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>寫手靈 WordMuse AI｜你的隨身寫作夥伴</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Plus Jakarta Sans','Noto Sans TC',sans-serif; background:#0c0a1a; color:#f1f0fb; }
+  .gradient-bg{
+    background: radial-gradient(900px 500px at 15% 0%, rgba(118,75,162,.45), transparent 60%),
+                radial-gradient(800px 500px at 90% 20%, rgba(102,126,234,.4), transparent 55%),
+                #0c0a1a;
+  }
+  .glow-text{ background: linear-gradient(90deg,#8b9bff,#c084fc,#f0abfc); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .glass{ background: rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); backdrop-filter: blur(16px); }
+  .pulse-dot{ animation: pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{ opacity:.4; } 50%{ opacity:1; } }
+  .typing::after{ content:'▋'; animation: blink 1s step-end infinite; }
+  @keyframes blink{ 50%{ opacity:0; } }
+  .cta-grad{ background: linear-gradient(90deg,#7c6cf6,#c084fc); }
+</style>
+</head>
+<body class="gradient-bg min-h-screen">
+
+<nav class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+  <div class="font-bold text-lg flex items-center gap-2">
+    <span class="w-6 h-6 rounded-full cta-grad inline-block"></span>寫手靈 <span class="text-white/50 font-medium">WordMuse AI</span>
+  </div>
+  <button class="glass text-sm font-semibold px-5 py-2 rounded-full">免費開始寫</button>
+</nav>
+
+<main class="max-w-4xl mx-auto px-6 pt-10 pb-16 text-center">
+  <div class="inline-flex items-center gap-2 text-xs glass px-3 py-1.5 rounded-full mb-8">
+    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-dot"></span>
+    已有 86,000 位創作者在用
+  </div>
+
+  <h1 class="text-4xl md:text-6xl font-extrabold leading-[1.1] mb-6">
+    卡文的時候，<br><span class="glow-text">讓靈感先開口。</span>
+  </h1>
+  <p class="text-white/60 max-w-xl mx-auto mb-10">
+    輸入一句話，寫手靈會用你的語氣接下去寫。文案、小說、提案，所有卡住的開頭都交給它先起個頭。
+  </p>
+
+  <div class="glass rounded-2xl p-5 max-w-xl mx-auto text-left mb-10">
+    <div class="flex items-center gap-2 mb-4">
+      <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
+      <span class="w-2.5 h-2.5 rounded-full bg-yellow-400"></span>
+      <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+      <span class="text-xs text-white/40 ml-2">寫手靈 ・ 即時對話</span>
+    </div>
+    <div class="text-sm text-white/50 mb-3">你輸入：「幫我寫一個關於深夜便利店的開頭」</div>
+    <div id="demo-out" class="text-base text-white/90 leading-relaxed min-h-[4.5rem]"></div>
+    <button id="demo-btn" class="mt-4 text-xs glass px-4 py-2 rounded-full hover:bg-white/10">▶ 重新生成一次</button>
+  </div>
+
+  <div class="flex flex-col sm:flex-row gap-3 justify-center">
+    <button class="cta-grad font-bold px-8 py-4 rounded-xl text-sm">免費試寫 20 篇</button>
+    <button class="glass font-semibold px-8 py-4 rounded-xl text-sm">看創作者怎麼用</button>
+  </div>
+</main>
+
+<section class="max-w-5xl mx-auto px-6 pb-20 grid md:grid-cols-3 gap-5">
+  <div class="glass rounded-2xl p-6">
+    <div class="text-2xl mb-3">✨</div>
+    <h3 class="font-bold mb-1">語氣學習</h3>
+    <p class="text-sm text-white/55">讀你過去的文字，接下來的句子會越來越像「你會寫的話」。</p>
+  </div>
+  <div class="glass rounded-2xl p-6">
+    <div class="text-2xl mb-3">🪄</div>
+    <h3 class="font-bold mb-1">一鍵換風格</h3>
+    <p class="text-sm text-white/55">同一段話，溫暖、犀利、幽默三種版本同時生成給你選。</p>
+  </div>
+  <div class="glass rounded-2xl p-6">
+    <div class="text-2xl mb-3">📂</div>
+    <h3 class="font-bold mb-1">靈感收藏夾</h3>
+    <p class="text-sm text-white/55">喜歡的句子一鍵存起來，之後寫作時隨時呼叫出來參考。</p>
+  </div>
+</section>
+
+<footer class="text-center text-xs text-white/30 pb-8">© 2026 WordMuse AI・陪你把第一句話寫出來</footer>
+
+<script>
+  const lines = [
+    "凌晨兩點的便利店，燈光比外面的月亮還亮。店員小美第三次重新排好關東煮，不是因為它亂了，是因為她不知道還能做什麼。",
+    "便利店的自動門每開一次，風鈴就響一次。今晚已經響了十七次，沒有一次是客人，都是風。"
+  ];
+  let i = 0;
+  const out = document.getElementById('demo-out');
+  function typeLine(text){
+    out.textContent = '';
+    out.classList.add('typing');
+    let idx = 0;
+    const timer = setInterval(() => {
+      out.textContent = text.slice(0, idx);
+      idx++;
+      if(idx > text.length){ clearInterval(timer); out.classList.remove('typing'); }
+    }, 28);
+  }
+  typeLine(lines[0]);
+  document.getElementById('demo-btn').addEventListener('click', () => {
+    i = (i + 1) % lines.length;
+    typeLine(lines[i]);
+  });
+</script>
+
+</body>
+</html>

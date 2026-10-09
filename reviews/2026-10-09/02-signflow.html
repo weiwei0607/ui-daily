@@ -1,0 +1,94 @@
+<!-- style #20 Hero-Centric -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>雲端簽署 SignFlow｜一鍵完成法律效力簽署</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Sora','Noto Sans TC',sans-serif; }
+  .hero-bg{
+    background: radial-gradient(1200px 600px at 50% -10%, #e9eefc 0%, #ffffff 55%, #ffffff 100%);
+  }
+  .cta-glow{ box-shadow: 0 10px 30px -8px rgba(37,56,224,.45); }
+  .cta-glow:hover{ box-shadow: 0 14px 36px -6px rgba(37,56,224,.55); }
+  .float-card{ animation: floaty 6s ease-in-out infinite; }
+  .float-card:nth-child(2){ animation-delay: 1.2s; }
+  .float-card:nth-child(3){ animation-delay: 2.4s; }
+  @keyframes floaty{ 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-10px); } }
+  .signature-path{ stroke-dasharray: 340; stroke-dashoffset: 340; animation: draw 2.6s ease forwards; animation-delay: .4s; }
+  @keyframes draw{ to{ stroke-dashoffset: 0; } }
+</style>
+</head>
+<body class="hero-bg text-slate-900">
+
+<nav class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+  <div class="font-extrabold text-xl flex items-center gap-2">
+    <span class="w-7 h-7 rounded-lg bg-[#2538e0] inline-block"></span>SignFlow
+  </div>
+  <div class="hidden md:flex gap-8 text-sm font-medium text-slate-600">
+    <a href="#" class="hover:text-slate-900">產品</a>
+    <a href="#" class="hover:text-slate-900">價格方案</a>
+    <a href="#" class="hover:text-slate-900">企業導入</a>
+  </div>
+  <button class="text-sm font-semibold bg-slate-900 text-white px-4 py-2 rounded-full">登入主控台</button>
+</nav>
+
+<main class="max-w-4xl mx-auto px-6 pt-14 pb-10 text-center relative">
+
+  <div class="inline-flex items-center gap-2 text-xs font-semibold bg-indigo-50 text-indigo-700 px-3 py-1.5 rounded-full mb-8">
+    符合台灣電子簽章法規範 · 已協助超過 12,000 間企業
+  </div>
+
+  <h1 class="text-4xl md:text-6xl font-extrabold leading-[1.08] mb-6">
+    一份合約，<br class="md:hidden">從<span class="text-[#2538e0]">草擬到完成簽署</span>，<br>只要 90 秒。
+  </h1>
+
+  <p class="text-slate-600 text-base md:text-lg max-w-xl mx-auto mb-10">
+    上傳文件、拖曳簽名欄位、寄出，對方用手機點一下就完成。每一份合約都自動留存完整法律軌跡，不用再追著人跑簽名。
+  </p>
+
+  <div class="flex flex-col sm:flex-row gap-3 justify-center mb-14">
+    <button class="cta-glow bg-[#2538e0] text-white font-bold px-8 py-4 rounded-xl text-base transition-shadow">
+      免費建立第一份簽署文件
+    </button>
+    <button class="text-slate-700 font-semibold px-8 py-4 rounded-xl text-base border border-slate-200 hover:bg-white">
+      看 2 分鐘產品介紹
+    </button>
+  </div>
+
+  <div class="relative mx-auto max-w-lg">
+    <svg viewBox="0 0 200 60" class="w-56 mx-auto opacity-90">
+      <path d="M10 45 C 40 10, 60 55, 90 25 S 140 5, 190 35" fill="none" stroke="#2538e0" stroke-width="3" stroke-linecap="round" class="signature-path"/>
+    </svg>
+  </div>
+
+</main>
+
+<section class="max-w-5xl mx-auto px-6 pb-24 grid md:grid-cols-3 gap-5">
+  <div class="float-card bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
+    <div class="text-2xl mb-3">📄</div>
+    <h3 class="font-bold mb-1">無限文件範本</h3>
+    <p class="text-sm text-slate-500">合約、報價單、保密協議，建一次範本，之後重複套用。</p>
+  </div>
+  <div class="float-card bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
+    <div class="text-2xl mb-3">🔒</div>
+    <h3 class="font-bold mb-1">完整簽署軌跡</h3>
+    <p class="text-sm text-slate-500">時間戳記、IP 位置、裝置資訊全自動記錄，爭議時有憑有據。</p>
+  </div>
+  <div class="float-card bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
+    <div class="text-2xl mb-3">⚡</div>
+    <h3 class="font-bold mb-1">簽署狀態即時通知</h3>
+    <p class="text-sm text-slate-500">對方已讀未簽、已簽署完成，全部推播到你的手機。</p>
+  </div>
+</section>
+
+<footer class="border-t border-slate-200 py-8 text-center text-xs text-slate-400">
+  © 2026 SignFlow 雲端簽署・台灣團隊打造
+</footer>
+
+</body>
+</html>
