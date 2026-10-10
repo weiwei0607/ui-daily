@@ -1,0 +1,128 @@
+<!-- style #52 Pixel Art / Retro Gaming -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>像素徽章 PixelBadge · 復古成就追蹤器</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{ --l1:#8bac0f; --l2:#9bce0f; --l3:#306230; --l4:#0f380f; }
+  body{
+    font-family:'Noto Sans TC',sans-serif;
+    background:var(--l4); color:var(--l1);
+    image-rendering: pixelated;
+  }
+  .px{ font-family:'Press Start 2P',cursive; }
+  * { image-rendering: pixelated; }
+  .screen{
+    background:var(--l1);
+    border: 8px solid var(--l4);
+    box-shadow: 0 0 0 8px var(--l3), 0 10px 0 0 #000;
+    image-rendering: pixelated;
+  }
+  .pixel-border{ border:4px solid var(--l4); box-shadow: 4px 4px 0 0 var(--l4); }
+  .badge{
+    background:var(--l2); border:4px solid var(--l4); box-shadow:4px 4px 0 0 var(--l4);
+    transition: transform .08s;
+    cursor:pointer;
+  }
+  .badge:active{ transform: translate(4px,4px); box-shadow: 0 0 0 0 var(--l4); }
+  .badge.locked{ filter: grayscale(1) brightness(.6); }
+  .bar-outer{ border:4px solid var(--l4); background:var(--l1); }
+  .bar-inner{ background:var(--l3); transition: width .4s steps(10); }
+  .blip{
+    position:fixed; pointer-events:none; font-family:'Press Start 2P',cursive;
+    color:var(--l4); font-size:12px; animation: floatUp 1s ease-out forwards;
+  }
+  @keyframes floatUp{ to{ transform: translateY(-50px); opacity:0; } }
+  .scanline{
+    background: repeating-linear-gradient(to bottom, rgba(0,0,0,0.08) 0 2px, transparent 2px 4px);
+    position:absolute; inset:0; pointer-events:none;
+  }
+</style>
+</head>
+<body class="min-h-screen flex items-center justify-center py-10 px-3">
+
+<div class="screen rounded relative p-6 w-full max-w-2xl">
+  <div class="scanline"></div>
+
+  <header class="flex items-center justify-between mb-5">
+    <h1 class="px text-[13px] leading-relaxed">像素徽章</h1>
+    <p class="px text-[10px]">LV.12</p>
+  </header>
+
+  <div class="pixel-border bg-[var(--l1)] p-3 mb-5">
+    <p class="px text-[9px] mb-2">經驗值 EXP</p>
+    <div class="bar-outer h-5 w-full">
+      <div class="bar-inner h-full" id="expBar" style="width:62%;"></div>
+    </div>
+    <p class="text-xs mt-1 font-bold" id="expText">6200 / 10000</p>
+  </div>
+
+  <p class="px text-[10px] mb-3">成就徽章 · 點一下解鎖</p>
+  <div class="grid grid-cols-3 gap-3 mb-5" id="badgeGrid">
+    <div class="badge p-3 text-center" data-xp="150" data-name="連續七天打卡">
+      <p class="text-2xl">🔥</p>
+      <p class="px text-[8px] mt-2 leading-tight">七日<br>連續打卡</p>
+    </div>
+    <div class="badge locked p-3 text-center" data-xp="300" data-name="完成第一個專案">
+      <p class="text-2xl">🏆</p>
+      <p class="px text-[8px] mt-2 leading-tight">首個<br>專案完成</p>
+    </div>
+    <div class="badge locked p-3 text-center" data-xp="500" data-name="邀請三位好友">
+      <p class="text-2xl">👥</p>
+      <p class="px text-[8px] mt-2 leading-tight">邀請<br>三位好友</p>
+    </div>
+    <div class="badge locked p-3 text-center" data-xp="200" data-name="凌晨仍在線上">
+      <p class="text-2xl">🌙</p>
+      <p class="px text-[8px] mt-2 leading-tight">夜貓<br>熬夜任務</p>
+    </div>
+    <div class="badge locked p-3 text-center" data-xp="400" data-name="零 Bug 上線">
+      <p class="text-2xl">🐞</p>
+      <p class="px text-[8px] mt-2 leading-tight">零 Bug<br>上線成功</p>
+    </div>
+    <div class="badge locked p-3 text-center" data-xp="1000" data-name="累積登入一百天">
+      <p class="text-2xl">💯</p>
+      <p class="px text-[8px] mt-2 leading-tight">百日<br>登入紀錄</p>
+    </div>
+  </div>
+
+  <div class="pixel-border bg-[var(--l1)] p-3">
+    <p class="px text-[9px]" id="logLine">&gt; 歡迎回來，玩家。解鎖徽章可以拿經驗值。</p>
+  </div>
+</div>
+
+<script>
+  let exp = 6200;
+  const maxExp = 10000;
+
+  function updateExp(gain){
+    exp = Math.min(exp + gain, maxExp);
+    document.getElementById('expBar').style.width = (exp/maxExp*100) + '%';
+    document.getElementById('expText').textContent = exp + ' / ' + maxExp;
+  }
+
+  document.querySelectorAll('.badge').forEach(badge=>{
+    badge.addEventListener('click', (e)=>{
+      if(!badge.classList.contains('locked')) return;
+      badge.classList.remove('locked');
+      const xp = parseInt(badge.dataset.xp, 10);
+      updateExp(xp);
+      document.getElementById('logLine').textContent = '> 解鎖「' + badge.dataset.name + '」！獲得 ' + xp + ' EXP';
+
+      const blip = document.createElement('div');
+      blip.className = 'blip';
+      blip.textContent = '+' + xp + ' EXP';
+      blip.style.left = e.clientX + 'px';
+      blip.style.top = e.clientY + 'px';
+      document.body.appendChild(blip);
+      setTimeout(()=> blip.remove(), 1000);
+    });
+  });
+</script>
+
+</body>
+</html>

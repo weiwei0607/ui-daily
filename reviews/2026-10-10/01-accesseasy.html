@@ -1,0 +1,174 @@
+<!-- style #08 Accessible / Ethical -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>安心通 AccessEasy · 無障礙福利申請入口</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --blue:#0047ab;
+    --red:#c0152f;
+    --ink:#0a0a0a;
+    --paper:#ffffff;
+  }
+  html{ font-size:18px; }
+  html.text-lg{ font-size:22px; }
+  html.text-xl{ font-size:26px; }
+  body{
+    font-family:'Atkinson Hyperlegible','Noto Sans TC',system-ui,sans-serif;
+    background:var(--paper); color:var(--ink);
+  }
+  .serif-cn{ font-family:'Noto Sans TC','Atkinson Hyperlegible',sans-serif; }
+  a, button, [tabindex]{ outline-offset:3px; }
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible{
+    outline:4px solid var(--blue);
+    outline-offset:3px;
+    border-radius:4px;
+  }
+  .btn-primary{
+    background:var(--blue); color:#fff; border:3px solid var(--blue);
+  }
+  .btn-primary:hover{ background:#00348a; }
+  .btn-outline{
+    background:#fff; color:var(--blue); border:3px solid var(--blue);
+  }
+  .btn-outline:hover{ background:#eaf1fb; }
+  .skip-link{
+    position:absolute; left:-999px; top:0; background:var(--ink); color:#fff;
+    padding:12px 20px; z-index:100; font-weight:700;
+  }
+  .skip-link:focus{ left:12px; top:12px; }
+  .hc-mode{ background:#000 !important; color:#fff !important; }
+  .hc-mode .btn-outline{ background:#000; color:#ffe600; border-color:#ffe600; }
+  .hc-mode .btn-primary{ background:#ffe600; color:#000; border-color:#ffe600; }
+  .hc-mode .card{ background:#000 !important; border-color:#fff !important; color:#fff !important; }
+  .hc-mode .text-neutral-600{ color:#ddd !important; }
+  .card{ border:3px solid var(--ink); }
+  .step-dot{ width:28px; height:28px; border-radius:999px; border:3px solid var(--ink); display:flex; align-items:center; justify-content:center; font-weight:700; }
+  .step-dot.done{ background:var(--blue); color:#fff; border-color:var(--blue); }
+  .step-dot.now{ background:var(--red); color:#fff; border-color:var(--red); }
+</style>
+</head>
+<body class="min-h-screen">
+
+<a href="#main" class="skip-link">跳到主要內容</a>
+
+<header class="border-b-[3px] border-black">
+  <div class="max-w-5xl mx-auto px-5 py-4 flex items-center justify-between flex-wrap gap-3">
+    <div class="flex items-center gap-3">
+      <div class="w-11 h-11 rounded-full flex items-center justify-center font-black text-xl" style="background:var(--blue); color:#fff;">安</div>
+      <p class="text-xl font-black serif-cn">安心通 <span class="font-normal text-base">AccessEasy</span></p>
+    </div>
+    <div class="flex items-center gap-2 flex-wrap">
+      <span class="text-sm font-bold serif-cn">文字大小：</span>
+      <button id="fontSmall" class="btn-outline px-3 py-1 font-bold rounded">A</button>
+      <button id="fontMid" class="btn-outline px-3 py-1 font-bold rounded text-lg">A</button>
+      <button id="fontBig" class="btn-outline px-3 py-1 font-bold rounded text-xl">A</button>
+      <button id="hcToggle" class="btn-primary px-4 py-1.5 font-bold rounded ml-2 serif-cn">高對比模式</button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="max-w-5xl mx-auto px-5 py-10">
+
+  <section class="mb-12">
+    <h1 class="text-3xl md:text-4xl font-black leading-tight serif-cn mb-4">
+      輔具申請、到宅評估、進度查詢，<br>一個入口通通搞定。
+    </h1>
+    <p class="text-lg serif-cn text-neutral-700 max-w-2xl mb-6">
+      為長者、身心障礙者與照顧者設計：大字體、清楚對比、明確的鍵盤焦點。不需要懂行話，每一步都用白話文告訴妳現在在哪裡。
+    </p>
+    <div class="flex flex-wrap gap-4">
+      <a href="#apply" class="btn-primary inline-block px-7 py-4 rounded-lg font-bold text-lg serif-cn">開始申請輔具補助</a>
+      <a href="#status" class="btn-outline inline-block px-7 py-4 rounded-lg font-bold text-lg serif-cn">查詢我的申請進度</a>
+    </div>
+  </section>
+
+  <section id="apply" class="mb-12">
+    <h2 class="text-2xl font-black serif-cn mb-5 border-l-[6px] pl-4" style="border-color:var(--red);">四項常用服務</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <button class="card text-left p-5 rounded-xl bg-white hover:bg-neutral-50" onclick="selectService(this,'輔具補助申請')">
+        <p class="text-xl font-black serif-cn mb-1">🦽 輔具補助申請</p>
+        <p class="text-neutral-600 serif-cn">輪椅、助聽器、電動代步車，線上填表、免跑三次。</p>
+      </button>
+      <button class="card text-left p-5 rounded-xl bg-white hover:bg-neutral-50" onclick="selectService(this,'到宅評估預約')">
+        <p class="text-xl font-black serif-cn mb-1">🏠 到宅評估預約</p>
+        <p class="text-neutral-600 serif-cn">專業評估員到家裡看環境，約時間、約人力都在這裡。</p>
+      </button>
+      <button class="card text-left p-5 rounded-xl bg-white hover:bg-neutral-50" onclick="selectService(this,'居家無障礙改善')">
+        <p class="text-xl font-black serif-cn mb-1">🚪 居家無障礙改善</p>
+        <p class="text-neutral-600 serif-cn">浴室扶手、門口斜坡、防滑地板，申請流程說明清楚。</p>
+      </button>
+      <button class="card text-left p-5 rounded-xl bg-white hover:bg-neutral-50" onclick="selectService(this,'真人客服通話')">
+        <p class="text-xl font-black serif-cn mb-1">☎️ 真人客服通話</p>
+        <p class="text-neutral-600 serif-cn">填表卡住、看不懂條文，一通電話有人用白話文講給妳聽。</p>
+      </button>
+    </div>
+    <p id="serviceSelected" class="mt-4 text-lg font-bold serif-cn" style="color:var(--blue);" aria-live="polite"></p>
+  </section>
+
+  <section id="status" class="mb-6">
+    <h2 class="text-2xl font-black serif-cn mb-5 border-l-[6px] pl-4" style="border-color:var(--red);">我的申請進度</h2>
+    <div class="card bg-white rounded-xl p-6">
+      <p class="font-bold serif-cn mb-5">案件編號 A2026-1010 · 電動代步車補助</p>
+      <ol class="space-y-5">
+        <li class="flex items-center gap-4">
+          <span class="step-dot done">✓</span>
+          <span class="serif-cn text-lg">1. 線上送件完成（10 月 03 日）</span>
+        </li>
+        <li class="flex items-center gap-4">
+          <span class="step-dot done">✓</span>
+          <span class="serif-cn text-lg">2. 資料審核通過（10 月 06 日）</span>
+        </li>
+        <li class="flex items-center gap-4">
+          <span class="step-dot now">●</span>
+          <span class="serif-cn text-lg font-bold">3. 到宅評估安排中 — 評估員預計 10 月 15 日前聯絡妳</span>
+        </li>
+        <li class="flex items-center gap-4">
+          <span class="step-dot">4</span>
+          <span class="serif-cn text-lg text-neutral-500">4. 核定補助金額</span>
+        </li>
+        <li class="flex items-center gap-4">
+          <span class="step-dot">5</span>
+          <span class="serif-cn text-lg text-neutral-500">5. 撥款完成</span>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+</main>
+
+<footer class="border-t-[3px] border-black">
+  <div class="max-w-5xl mx-auto px-5 py-6 text-sm serif-cn text-neutral-600">
+    本頁符合 WCAG AAA 對比標準，所有可互動元件皆可用鍵盤 Tab 操作並有清楚焦點外框。客服專線 0800-123-456（週一至週五 08:00–18:00）。
+  </div>
+</footer>
+
+<script>
+  function selectService(btn, name){
+    document.querySelectorAll('#apply button.card').forEach(b=>b.style.borderColor='var(--ink)');
+    btn.style.borderColor = 'var(--blue)';
+    document.getElementById('serviceSelected').textContent = '已選擇：「' + name + '」，請點上方「開始申請」按鈕繼續填表。';
+  }
+  document.getElementById('fontSmall').addEventListener('click', ()=>{
+    document.documentElement.classList.remove('text-lg','text-xl');
+  });
+  document.getElementById('fontMid').addEventListener('click', ()=>{
+    document.documentElement.classList.remove('text-xl');
+    document.documentElement.classList.add('text-lg');
+  });
+  document.getElementById('fontBig').addEventListener('click', ()=>{
+    document.documentElement.classList.remove('text-lg');
+    document.documentElement.classList.add('text-xl');
+  });
+  document.getElementById('hcToggle').addEventListener('click', ()=>{
+    document.body.classList.toggle('hc-mode');
+  });
+</script>
+
+</body>
+</html>

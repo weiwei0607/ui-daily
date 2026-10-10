@@ -1,0 +1,126 @@
+<!-- style #25 Interactive Demo -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>速試 QuickTry API · 開發者試玩沙盒</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body{ font-family:'Lexend','Noto Sans TC',sans-serif; background:#0b0f19; color:#e5e7eb; }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+  .tab{ transition: all .15s; }
+  .tab.active{ background:#22d3ee; color:#06202a; }
+  .panel{ background:#111827; border:1px solid #1f2937; }
+  .glow-btn{ background:linear-gradient(90deg,#22d3ee,#6366f1); }
+  .glow-btn:hover{ filter:brightness(1.1); }
+  .dot{ width:8px; height:8px; border-radius:999px; }
+  .cursor-blink{ animation: blink 1s step-end infinite; }
+  @keyframes blink{ 50%{ opacity:0; } }
+  .spinner{ border:3px solid #374151; border-top-color:#22d3ee; border-radius:999px; width:20px; height:20px; animation:spin 0.7s linear infinite; }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+</style>
+</head>
+<body class="min-h-screen">
+
+<header class="border-b border-gray-800">
+  <div class="max-w-5xl mx-auto px-5 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="dot bg-emerald-400"></span>
+      <p class="font-extrabold text-lg">速試 <span class="text-cyan-400">QuickTry</span> API</p>
+    </div>
+    <p class="text-xs text-gray-500 mono">v2.3 · status: <span class="text-emerald-400">operational</span></p>
+  </div>
+</header>
+
+<main class="max-w-5xl mx-auto px-5 py-10">
+  <h1 class="text-3xl font-extrabold mb-2">不用申請金鑰，直接在這裡試 API。</h1>
+  <p class="text-gray-400 mb-8">選一個端點、貼上你的文字，看真正的回應長什麼樣子——離開這頁之前，再決定要不要申請正式金鑰。</p>
+
+  <div class="flex gap-2 mb-5 flex-wrap" id="tabs">
+    <button class="tab active px-4 py-2 rounded-full font-bold text-sm mono" data-mode="summary">/v2/summarize</button>
+    <button class="tab px-4 py-2 rounded-full font-bold text-sm mono bg-gray-800" data-mode="sentiment">/v2/sentiment</button>
+    <button class="tab px-4 py-2 rounded-full font-bold text-sm mono bg-gray-800" data-mode="keywords">/v2/keywords</button>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+    <div class="panel rounded-xl p-5">
+      <p class="text-sm text-gray-400 mb-2 font-semibold">輸入文字</p>
+      <textarea id="input" rows="7" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400" placeholder="貼上一段文字，例如一篇新聞或客訴內容……">這款新上市的藍牙耳機續航力長達 30 小時，但使用者回饋配對過程偶爾不穩定，客服回應速度也常被抱怨太慢，整體評價偏向中立。</textarea>
+      <button id="runBtn" class="glow-btn w-full mt-4 py-3 rounded-lg font-bold text-gray-900">▶ 送出請求</button>
+      <p class="mono text-xs text-gray-500 mt-4" id="curlPreview"></p>
+    </div>
+
+    <div class="panel rounded-xl p-5 flex flex-col">
+      <p class="text-sm text-gray-400 mb-2 font-semibold">回應結果</p>
+      <div id="resultBox" class="mono text-sm bg-gray-900 border border-gray-700 rounded-lg p-4 flex-1 overflow-auto min-h-[180px] whitespace-pre-wrap">
+<span class="text-gray-500">// 點擊「送出請求」就會在這裡看到即時回應<span class="cursor-blink">▌</span></span>
+      </div>
+      <div id="latency" class="text-xs text-gray-500 mt-3 mono"></div>
+    </div>
+  </div>
+
+  <section class="mt-10 grid grid-cols-3 gap-4 text-center">
+    <div class="panel rounded-xl p-4">
+      <p class="text-2xl font-extrabold text-cyan-400 mono">120ms</p>
+      <p class="text-xs text-gray-500 mt-1">平均回應時間</p>
+    </div>
+    <div class="panel rounded-xl p-4">
+      <p class="text-2xl font-extrabold text-cyan-400 mono">99.98%</p>
+      <p class="text-xs text-gray-500 mt-1">近 30 天可用率</p>
+    </div>
+    <div class="panel rounded-xl p-4">
+      <p class="text-2xl font-extrabold text-cyan-400 mono">1,000 次</p>
+      <p class="text-xs text-gray-500 mt-1">免費額度 / 月</p>
+    </div>
+  </section>
+</main>
+
+<script>
+  let mode = 'summary';
+  const curl = {
+    summary: `curl -X POST api.quicktry.dev/v2/summarize -d text="..."`,
+    sentiment: `curl -X POST api.quicktry.dev/v2/sentiment -d text="..."`,
+    keywords: `curl -X POST api.quicktry.dev/v2/keywords -d text="..."`,
+  };
+  document.getElementById('curlPreview').textContent = '$ ' + curl[mode];
+
+  document.querySelectorAll('#tabs .tab').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('#tabs .tab').forEach(b=>{b.classList.remove('active'); b.classList.add('bg-gray-800');});
+      btn.classList.add('active'); btn.classList.remove('bg-gray-800');
+      mode = btn.dataset.mode;
+      document.getElementById('curlPreview').textContent = '$ ' + curl[mode];
+    });
+  });
+
+  function fakeResponse(text, mode){
+    if(mode==='summary'){
+      return {summary:"耳機續航佳，但配對穩定性與客服效率是主要痛點，整體評價中立偏正。", confidence:0.91};
+    }
+    if(mode==='sentiment'){
+      return {label:"中立偏負面", score:-0.18, breakdown:{正面:0.32, 中立:0.41, 負面:0.27}};
+    }
+    return {keywords:["續航力","藍牙配對","客服回應","中立評價"]};
+  }
+
+  document.getElementById('runBtn').addEventListener('click', ()=>{
+    const box = document.getElementById('resultBox');
+    const latency = document.getElementById('latency');
+    const text = document.getElementById('input').value || '（空白輸入）';
+    box.innerHTML = '<div class="flex items-center gap-2 text-gray-400"><span class="spinner"></span>處理中…</div>';
+    latency.textContent = '';
+    const t0 = performance.now();
+    setTimeout(()=>{
+      const res = fakeResponse(text, mode);
+      box.textContent = JSON.stringify({ status:200, mode, data:res }, null, 2);
+      const t1 = performance.now();
+      latency.textContent = `耗時 ${Math.round(t1-t0)}ms · 狀態碼 200`;
+    }, 500 + Math.random()*400);
+  });
+</script>
+
+</body>
+</html>

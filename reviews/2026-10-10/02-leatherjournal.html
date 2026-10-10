@@ -1,0 +1,134 @@
+<!-- style #13 Skeuomorphism -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>皮革日誌 LeatherJournal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body{
+    font-family:Georgia,'Noto Serif TC',serif;
+    background: radial-gradient(ellipse at top, #3b2a1e, #1c130c 70%);
+    min-height:100vh;
+  }
+  .desk{ padding:40px 16px; }
+  .journal{
+    max-width:720px; margin:0 auto;
+    background: linear-gradient(160deg,#8a5a3b 0%, #6b4226 40%, #5a3620 70%, #46291a 100%);
+    border-radius:10px;
+    box-shadow: 0 25px 50px rgba(0,0,0,.6), inset 0 2px 4px rgba(255,255,255,.15), inset 0 -6px 14px rgba(0,0,0,.5);
+    padding:22px;
+    position:relative;
+  }
+  .journal::before{
+    content:''; position:absolute; inset:10px;
+    border:2px dashed rgba(255,230,190,.35);
+    border-radius:6px; pointer-events:none;
+  }
+  .buckle{
+    width:46px; height:60px; margin:0 auto -30px;
+    background:linear-gradient(145deg,#d9b36a,#8a6a2e 60%,#6b4e1f);
+    border-radius:8px; position:relative; z-index:5;
+    box-shadow: 0 4px 10px rgba(0,0,0,.5), inset 0 1px 2px rgba(255,255,255,.5);
+    cursor:pointer; transition: transform .25s;
+  }
+  .buckle::after{
+    content:''; position:absolute; left:50%; top:50%; width:16px; height:16px;
+    background:#3a2a10; border-radius:999px; transform:translate(-50%,-50%);
+    box-shadow: inset 0 2px 3px rgba(0,0,0,.6);
+  }
+  .buckle.open{ transform: rotate(35deg) translateX(14px); }
+  .page{
+    background: linear-gradient(170deg,#fdf6e3,#f3e6c8);
+    border-radius:4px;
+    padding:38px 34px;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.05), inset 0 10px 20px rgba(0,0,0,.08);
+    background-image: repeating-linear-gradient(to bottom, transparent 0 38px, rgba(90,70,40,.18) 38px 39px);
+  }
+  .ink{ color:#3a2a14; }
+  .stitch{
+    border-top:2px dashed #b89968; padding-top:14px;
+  }
+  .entry{
+    background: rgba(255,255,255,.4);
+    border: 1px solid rgba(90,60,20,.2);
+    border-radius:6px;
+    box-shadow: 0 2px 4px rgba(90,60,20,.12), inset 0 1px 0 rgba(255,255,255,.6);
+  }
+  .entry:hover{ background: rgba(255,255,255,.65); }
+  .wax{
+    width:34px; height:34px; border-radius:999px;
+    background: radial-gradient(circle at 35% 30%, #c0392b, #7b241c 70%);
+    box-shadow: inset 0 2px 3px rgba(255,255,255,.3), 0 2px 4px rgba(0,0,0,.4);
+    display:flex; align-items:center; justify-content:center;
+    color:#f3e6c8; font-size:14px; font-weight:700;
+  }
+  .leaf-btn{
+    background: linear-gradient(160deg,#caa15a,#8a6a2e);
+    box-shadow: 0 3px 6px rgba(0,0,0,.4), inset 0 1px 1px rgba(255,255,255,.4);
+  }
+  .leaf-btn:active{ box-shadow: inset 0 3px 6px rgba(0,0,0,.5); transform:translateY(1px); }
+</style>
+</head>
+<body>
+
+<div class="desk">
+  <p class="text-center text-amber-200/70 text-sm mb-6 tracking-widest">我 的 書 桌 · 皮 革 日 誌</p>
+
+  <div class="buckle" id="buckle" onclick="toggleLock()" title="點擊解鎖"></div>
+
+  <div class="journal">
+    <div class="page">
+      <header class="flex items-center justify-between mb-6 stitch">
+        <div>
+          <h1 class="text-2xl font-black ink">皮革日誌</h1>
+          <p class="text-sm ink/70">LeatherJournal · 每一頁都留得住手感</p>
+        </div>
+        <div class="wax">印</div>
+      </header>
+
+      <p id="lockMsg" class="ink/80 mb-6 italic">🔒 日誌已上鎖。點擊上方銅扣，才能翻開今天的紀錄。</p>
+
+      <div id="entries" class="space-y-4 hidden">
+        <div class="entry rounded p-4">
+          <p class="ink font-bold mb-1">10 月 10 日 · 晴</p>
+          <p class="ink/80 leading-relaxed">今天把陽台的多肉搬進室內了，氣溫一下子降了好多。想起奶奶留下的那本舊筆記本，封面也是這種做舊的皮革色，摸起來總讓人安心。</p>
+        </div>
+        <div class="entry rounded p-4">
+          <p class="ink font-bold mb-1">10 月 08 日 · 多雲</p>
+          <p class="ink/80 leading-relaxed">把上個月的讀書筆記重新謄了一份，貼了張小便條夾在第 32 頁。紙頁的觸感比螢幕踏實，寫錯字也不用急著刪。</p>
+        </div>
+        <button class="leaf-btn text-amber-50 font-bold px-5 py-2.5 rounded w-full" onclick="newEntry()">✒️ 寫下新的一頁</button>
+      </div>
+
+      <footer class="mt-8 pt-4 stitch flex items-center justify-between text-xs ink/60">
+        <span>第 47 頁 · 共 120 頁</span>
+        <span>手工裝訂 · 真皮封面</span>
+      </footer>
+    </div>
+  </div>
+</div>
+
+<script>
+  let locked = true;
+  function toggleLock(){
+    locked = !locked;
+    document.getElementById('buckle').classList.toggle('open', !locked);
+    document.getElementById('lockMsg').classList.toggle('hidden', !locked);
+    document.getElementById('entries').classList.toggle('hidden', locked);
+  }
+  function newEntry(){
+    const wrap = document.getElementById('entries');
+    const div = document.createElement('div');
+    div.className = 'entry rounded p-4';
+    const today = new Date();
+    div.innerHTML = `<p class="ink font-bold mb-1">${today.getMonth()+1} 月 ${today.getDate()} 日 · 剛剛寫下</p><p class="ink/80 leading-relaxed">這是新的一頁，點「寫下新的一頁」就會像這樣多出一張，墨水的痕跡都還沒乾。</p>`;
+    wrap.insertBefore(div, wrap.lastElementChild);
+  }
+</script>
+
+</body>
+</html>

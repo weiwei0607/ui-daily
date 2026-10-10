@@ -1,0 +1,119 @@
+<!-- style #55 Spatial UI -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>浮窗 FloatSpace · 空間運算會議筆記</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body{
+    font-family:'Outfit','Noto Sans TC',sans-serif;
+    background: radial-gradient(circle at 30% 20%, #1e2a4a, #0a0e1c 65%);
+    min-height:100vh; overflow-x:hidden; color:#eef2ff;
+  }
+  .stage{ perspective: 1400px; }
+  .pane{
+    background: rgba(255,255,255,.08);
+    backdrop-filter: blur(22px) saturate(140%);
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 20px;
+    box-shadow: 0 25px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.25);
+    transition: transform .25s ease-out;
+    will-change: transform;
+  }
+  .glow{
+    position:absolute; width:380px; height:380px; border-radius:999px; filter:blur(80px); opacity:.5; pointer-events:none;
+  }
+  .dock-item{
+    width:52px; height:52px; border-radius:16px;
+    background: rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2);
+    display:flex; align-items:center; justify-content:center; font-size:22px;
+    transition: transform .2s;
+  }
+  .dock-item:hover{ transform: translateY(-8px) scale(1.08); background: rgba(255,255,255,.2); }
+</style>
+</head>
+<body>
+
+<div class="glow" style="background:#6366f1; top:-100px; left:-100px;"></div>
+<div class="glow" style="background:#06b6d4; bottom:-120px; right:-80px;"></div>
+
+<div class="max-w-6xl mx-auto px-5 py-8 relative z-10">
+  <header class="flex items-center justify-between mb-10">
+    <p class="text-xl font-bold tracking-wide">浮窗 <span class="text-white/50 font-light">FloatSpace</span></p>
+    <p class="text-sm text-white/50">會議室 · 產品 Q4 規劃</p>
+  </header>
+
+  <div class="stage relative" id="stage" style="height:460px;">
+
+    <div class="pane absolute left-[2%] top-[6%] w-[46%] p-6" data-depth="18" style="z-index:3;">
+      <p class="text-xs text-white/50 mb-2 tracking-widest">即時逐字稿</p>
+      <p class="text-lg leading-relaxed">「…所以第四季的重點，是把空間筆記這個功能，從內部測試正式推到公開 Beta…」</p>
+      <div class="flex items-center gap-2 mt-4 text-sm text-white/60">
+        <span class="w-2 h-2 rounded-full bg-red-400 animate-pulse"></span> 錄音中 · 08:42
+      </div>
+    </div>
+
+    <div class="pane absolute right-[4%] top-[0%] w-[34%] p-5" data-depth="34" style="z-index:5;">
+      <p class="text-xs text-white/50 mb-3 tracking-widest">參與者</p>
+      <div class="space-y-3">
+        <div class="flex items-center gap-2"><span class="w-8 h-8 rounded-full bg-indigo-400/60 flex items-center justify-center text-sm">宸</span><span>陳宸 · 主持</span></div>
+        <div class="flex items-center gap-2"><span class="w-8 h-8 rounded-full bg-cyan-400/60 flex items-center justify-center text-sm">妮</span><span>林妮 · 設計</span></div>
+        <div class="flex items-center gap-2"><span class="w-8 h-8 rounded-full bg-emerald-400/60 flex items-center justify-center text-sm">皓</span><span>吳皓 · 工程</span></div>
+      </div>
+    </div>
+
+    <div class="pane absolute left-[8%] bottom-[2%] w-[36%] p-5" data-depth="48" style="z-index:8;">
+      <p class="text-xs text-white/50 mb-3 tracking-widest">待辦事項（點擊打勾）</p>
+      <ul class="space-y-2 text-sm" id="todoList">
+        <li class="flex items-center gap-2 cursor-pointer" onclick="toggleTodo(this)"><span class="todo-check w-4 h-4 rounded border border-white/40"></span>整理 Beta 邀請名單</li>
+        <li class="flex items-center gap-2 cursor-pointer" onclick="toggleTodo(this)"><span class="todo-check w-4 h-4 rounded border border-white/40"></span>更新空間筆記說明文件</li>
+        <li class="flex items-center gap-2 cursor-pointer" onclick="toggleTodo(this)"><span class="todo-check w-4 h-4 rounded border border-white/40"></span>排定下週風險檢視會議</li>
+      </ul>
+    </div>
+
+    <div class="pane absolute right-[6%] bottom-[8%] w-[30%] p-5" data-depth="60" style="z-index:10;">
+      <p class="text-xs text-white/50 mb-2 tracking-widest">空間畫布</p>
+      <p class="text-sm text-white/70">拖曳滑鼠感受視窗隨景深浮動——離你最近的卡片，晃動幅度也最大。</p>
+    </div>
+
+  </div>
+
+  <div class="flex justify-center gap-3 mt-10">
+    <div class="dock-item">📝</div>
+    <div class="dock-item">🎙️</div>
+    <div class="dock-item">📊</div>
+    <div class="dock-item">🗂️</div>
+    <div class="dock-item">⚙️</div>
+  </div>
+</div>
+
+<script>
+  function toggleTodo(li){
+    const box = li.querySelector('.todo-check');
+    const done = box.classList.toggle('bg-emerald-400/70');
+    li.classList.toggle('line-through', done);
+    li.classList.toggle('text-white/40', done);
+  }
+
+  const stage = document.getElementById('stage');
+  const panes = document.querySelectorAll('.pane');
+  stage.addEventListener('mousemove', (e)=>{
+    const rect = stage.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    panes.forEach(p=>{
+      const depth = parseFloat(p.dataset.depth);
+      p.style.transform = `translate(${x*depth}px, ${y*depth}px) rotateX(${-y*4}deg) rotateY(${x*4}deg)`;
+    });
+  });
+  stage.addEventListener('mouseleave', ()=>{
+    panes.forEach(p=> p.style.transform = 'translate(0,0)');
+  });
+</script>
+
+</body>
+</html>
