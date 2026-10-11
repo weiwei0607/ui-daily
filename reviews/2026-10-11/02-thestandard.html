@@ -1,0 +1,136 @@
+<!-- style #01 Minimalism / Swiss -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>本位 The Standard · 財經洞察訂閱</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Noto+Serif+TC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{ --paper:#f5f1e8; --ink:#111111; --rule:#111111; --grayink:#555; }
+  html,body{ background: var(--paper); color: var(--ink); font-family:'Noto Serif TC', serif; }
+  h1,h2,.headline,.masthead{ font-family:'Playfair Display','Noto Serif TC',serif; }
+  .rule{ border-color: var(--rule); }
+  .grid-edge{ border-left:1px solid var(--rule); border-right:1px solid var(--rule); }
+  .tag{ font-family:'Noto Serif TC',serif; letter-spacing:.12em; }
+  .kicker{ letter-spacing:.18em; }
+  .num-label{ font-family:'Noto Serif TC',serif; font-weight:700; }
+  a.article-link{ text-decoration: none; }
+  a.article-link:hover .headline{ text-decoration: underline; text-decoration-thickness: 1px; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="max-w-6xl mx-auto px-6">
+
+  <div class="flex items-center justify-between py-3 text-[11px] kicker uppercase border-b rule">
+    <span>2026 年 10 月 11 日 星期日</span>
+    <span>繁體中文版 · 台北</span>
+    <span>第 1142 期</span>
+  </div>
+
+  <header class="text-center py-10 border-b-4 rule">
+    <p class="kicker text-xs uppercase mb-3">每週三與週日 · 給決策者的財經判讀</p>
+    <h1 class="masthead text-6xl md:text-8xl font-black tracking-tight mb-3">本　位</h1>
+    <p class="text-sm md:text-base tracking-widest uppercase">THE STANDARD · 回到判斷的基準點</p>
+  </header>
+
+  <nav class="flex flex-wrap justify-center gap-x-8 gap-y-2 py-4 text-sm border-b rule uppercase kicker">
+    <a href="#feature" class="hover:underline">頭版</a>
+    <a href="#markets" class="hover:underline">市場</a>
+    <a href="#policy" class="hover:underline">政策</a>
+    <a href="#column" class="hover:underline">專欄</a>
+    <a href="#subscribe" class="hover:underline">訂閱</a>
+  </nav>
+
+  <section id="feature" class="grid md:grid-cols-3 gap-0 border-b rule">
+    <article class="md:col-span-2 p-8 md:border-r rule">
+      <p class="kicker text-xs uppercase mb-3">頭條 · 產業</p>
+      <h2 class="headline text-4xl md:text-5xl font-bold leading-tight mb-5">
+        台灣中小型製造業的庫存週期，正在悄悄縮短
+      </h2>
+      <p class="text-base leading-loose mb-4 text-justify">
+        過去十年，台灣的機械與零組件廠商習慣以「半年備貨」為基本節奏。但本刊訪查三十五家供應鏈業者後發現，有超過六成的廠商已將備貨週期壓到十週以內，原因不只是原物料價格波動，更是下游客戶要求「少量多次」交貨的壓力正式成為常態。
+      </p>
+      <p class="text-base leading-loose mb-6 text-justify">
+        這個轉變背後，牽動的是資金週轉、倉儲布局，甚至是中小企業主對「安全存量」這件事的重新定義。本刊整理了三種企業實際採取的應對方式，供讀者對照自身處境。
+      </p>
+      <a href="#" class="article-link kicker text-sm uppercase border-b rule pb-1">閱讀全文 →</a>
+    </article>
+    <aside class="p-8 flex flex-col gap-6">
+      <div>
+        <p class="kicker text-xs uppercase mb-2">本日數據</p>
+        <p class="text-5xl font-black mb-1">10.2 週</p>
+        <p class="text-sm text-[--grayink]">製造業平均庫存週期，較去年同期減少 3.4 週</p>
+      </div>
+      <div class="border-t rule pt-5">
+        <p class="kicker text-xs uppercase mb-2">本日匯率</p>
+        <p class="text-3xl font-bold">31.46</p>
+        <p class="text-sm text-[--grayink]">美元兌新台幣，連續第四個交易日收斂區間震盪</p>
+      </div>
+    </aside>
+  </section>
+
+  <section id="markets" class="grid md:grid-cols-3 border-b rule">
+    <article class="p-8 md:border-r rule">
+      <p class="num-label text-xs mb-2">01</p>
+      <h3 class="headline text-xl font-bold mb-3 leading-snug">半導體設備商訂單回溫，但客戶集中度仍是隱憂</h3>
+      <p class="text-sm leading-relaxed text-[--grayink] text-justify">三大設備代理商第三季營收同步成長，然而前五大客戶貢獻比重超過七成，議價空間依然有限。</p>
+    </article>
+    <article class="p-8 md:border-r rule">
+      <p class="num-label text-xs mb-2">02</p>
+      <h3 class="headline text-xl font-bold mb-3 leading-snug">港口吞吐量連三月上升，轉口貿易貢獻逐步擴大</h3>
+      <p class="text-sm leading-relaxed text-[--grayink] text-justify">高雄港與台中港數據顯示，轉口貨量占比正緩步攀升，反映區域供應鏈重新布局的持續效應。</p>
+    </article>
+    <article class="p-8">
+      <p class="num-label text-xs mb-2">03</p>
+      <h3 class="headline text-xl font-bold mb-3 leading-snug">壽險業資金配置轉向，海外債券比重創五年新低</h3>
+      <p class="text-sm leading-relaxed text-[--grayink] text-justify">在避險成本攀升的背景下，主要壽險公司逐步調整資產配置，將部分資金移回國內固定收益工具。</p>
+    </article>
+  </section>
+
+  <section id="policy" class="grid md:grid-cols-2 border-b rule">
+    <article class="p-8 md:border-r rule">
+      <p class="kicker text-xs uppercase mb-3">政策觀察</p>
+      <h2 class="headline text-2xl font-bold mb-4 leading-snug">碳費徵收上路後，中小企業最在意的三個問題</h2>
+      <p class="text-sm leading-loose text-justify mb-4">碳費制度正式施行後，本刊彙整製造業座談會的提問，發現企業關心的重點與政策溝通的語言仍有落差，尤其在「如何計算」與「補貼申請」兩項資訊取得上最常卡關。</p>
+      <a href="#" class="article-link kicker text-sm uppercase border-b rule pb-1">閱讀全文 →</a>
+    </article>
+    <article class="p-8">
+      <p class="kicker text-xs uppercase mb-3">政策觀察</p>
+      <h2 class="headline text-2xl font-bold mb-4 leading-snug">地方創生基金第二期審核標準公布，重點轉向長期自主營運</h2>
+      <p class="text-sm leading-loose text-justify mb-4">相較第一期著重初期投入，第二期審核更重視申請團隊能否在補助結束後維持自主營運，評審委員也將實地訪查納入常態作業。</p>
+      <a href="#" class="article-link kicker text-sm uppercase border-b rule pb-1">閱讀全文 →</a>
+    </article>
+  </section>
+
+  <section id="column" class="p-10 border-b rule text-center">
+    <p class="kicker text-xs uppercase mb-3">專欄 · 總編輯手記</p>
+    <h2 class="headline text-3xl md:text-4xl font-bold italic mb-6 max-w-3xl mx-auto leading-snug">
+      「判讀景氣，不該只看單一指標，而是看哪些基準在悄悄移動。」
+    </h2>
+    <p class="text-sm max-w-2xl mx-auto leading-loose text-[--grayink] text-justify">
+      本刊創立的初衷，是希望讀者在資訊爆炸的時代，仍能找到一個可以回頭校準判斷的基準點——這也是「本位」這個名字的由來。我們不追逐每日的市場情緒，而是追蹤那些真正會改變產業結構的慢變數。
+    </p>
+    <p class="text-sm mt-4 kicker uppercase">— 總編輯 林敬亭</p>
+  </section>
+
+  <section id="subscribe" class="p-10 text-center">
+    <h2 class="headline text-3xl font-bold mb-4">訂閱本位，拿到完整版產業判讀</h2>
+    <p class="text-sm text-[--grayink] mb-8 max-w-xl mx-auto leading-relaxed">每週三、週日發刊，涵蓋產業、市場與政策三個版面，另附訂閱戶專屬的「數據附錄」。</p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+      <input type="email" placeholder="輸入您的電子郵件" class="flex-1 border rule bg-transparent px-4 py-3 text-sm placeholder:text-[--grayink]">
+      <button class="border-2 rule px-8 py-3 text-sm uppercase kicker font-bold hover:bg-black hover:text-[--paper] transition">訂閱 NT$380／月</button>
+    </div>
+  </section>
+
+  <footer class="border-t-4 rule py-8 text-center text-xs kicker uppercase text-[--grayink]">
+    <p>© 2026 本位 The Standard．版權所有，禁止轉載</p>
+  </footer>
+
+</div>
+
+</body>
+</html>

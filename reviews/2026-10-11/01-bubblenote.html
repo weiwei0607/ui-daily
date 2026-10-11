@@ -1,0 +1,228 @@
+<!-- style #03 Glassmorphism -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>泡泡雲端筆記 BubbleNote</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg1:#667eea; --bg2:#764ba2; --bg3:#f093fb;
+  }
+  html,body{ font-family:'Quicksand',sans-serif; }
+  h1,h2,h3,.brand,.btn-label{ font-family:'Baloo 2',sans-serif; }
+  body{
+    min-height:100vh;
+    background: radial-gradient(circle at 15% 10%, var(--bg3) 0%, transparent 45%),
+                radial-gradient(circle at 85% 20%, var(--bg1) 0%, transparent 50%),
+                linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    background-attachment: fixed;
+    overflow-x: hidden;
+  }
+  .glass{
+    background: rgba(255,255,255,0.22);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.45);
+    box-shadow: 0 8px 32px rgba(31,38,135,0.18);
+  }
+  .glass-strong{
+    background: rgba(255,255,255,0.35);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,0.55);
+  }
+  .float-blob{
+    position:absolute; border-radius:50%; filter: blur(50px); opacity:.55; z-index:0;
+    animation: floaty 10s ease-in-out infinite;
+  }
+  @keyframes floaty{
+    0%,100%{ transform: translateY(0) translateX(0); }
+    50%{ transform: translateY(-24px) translateX(14px); }
+  }
+  .pill-btn{
+    border-radius: 999px;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .pill-btn:hover{ transform: translateY(-2px) scale(1.03); box-shadow: 0 12px 28px rgba(118,75,162,0.35); }
+  .nav-glass{
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+  }
+  .check-chip{
+    background: rgba(255,255,255,0.4);
+    border: 1px solid rgba(255,255,255,0.6);
+  }
+</style>
+</head>
+<body class="text-white relative">
+
+<div class="float-blob w-72 h-72 bg-pink-300" style="top:5%; left:-5%;"></div>
+<div class="float-blob w-96 h-96 bg-indigo-300" style="top:30%; right:-8%; animation-delay:2s;"></div>
+<div class="float-blob w-80 h-80 bg-purple-200" style="bottom:0%; left:20%; animation-delay:4s;"></div>
+
+<nav class="nav-glass sticky top-0 z-50">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="brand text-2xl font-bold flex items-center gap-2">
+      <span>🫧</span><span>泡泡雲端筆記</span>
+    </div>
+    <div class="hidden md:flex items-center gap-8 text-sm font-semibold">
+      <a href="#features" class="hover:opacity-80">功能特色</a>
+      <a href="#pricing" class="hover:opacity-80">方案價格</a>
+      <a href="#reviews" class="hover:opacity-80">使用者怎麼說</a>
+    </div>
+    <button class="pill-btn glass-strong px-5 py-2 text-sm font-bold">免費開始</button>
+  </div>
+</nav>
+
+<header class="relative z-10 max-w-5xl mx-auto px-6 pt-20 pb-24 text-center">
+  <div class="inline-block glass pill-btn px-4 py-1.5 text-xs font-bold mb-6">✨ 已有 42 萬人把靈感泡在雲端</div>
+  <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6 drop-shadow-sm">
+    靈感像泡泡一樣輕，<br class="hidden md:block">但永遠不會消失
+  </h1>
+  <p class="text-lg md:text-xl opacity-90 max-w-2xl mx-auto mb-10 leading-relaxed">
+    泡泡雲端筆記把隨手的念頭、會議紀錄、靈光一閃，全部收進柔軟的雲端小泡泡。隨時點開，隨時續寫，所有裝置同步不漏拍。
+  </p>
+  <div class="flex flex-col sm:flex-row gap-4 justify-center">
+    <button class="pill-btn glass-strong px-8 py-3.5 font-bold text-base">立即建立第一個泡泡 🫧</button>
+    <button class="pill-btn glass px-8 py-3.5 font-bold text-base">先看 60 秒介紹</button>
+  </div>
+  <div class="mt-16 glass rounded-3xl p-3 max-w-3xl mx-auto">
+    <div class="glass-strong rounded-2xl p-6 md:p-10 text-left">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="w-3 h-3 rounded-full bg-red-300"></span>
+        <span class="w-3 h-3 rounded-full bg-yellow-200"></span>
+        <span class="w-3 h-3 rounded-full bg-green-200"></span>
+        <span class="ml-3 text-xs opacity-70">週會重點整理.note</span>
+      </div>
+      <p class="font-bold text-lg mb-2">🫧 10/11 產品週會</p>
+      <ul class="text-sm space-y-2 opacity-90">
+        <li>・ 新版儀表板下週二上線，先內部測試</li>
+        <li>・ 客服回覆速度要再加快，目標 3 小時內</li>
+        <li>・ 中秋檔活動素材交給設計組，週五前給初稿</li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<section id="features" class="relative z-10 max-w-6xl mx-auto px-6 py-20">
+  <div class="text-center mb-14">
+    <h2 class="text-3xl md:text-4xl font-bold mb-3">功能特色</h2>
+    <p class="opacity-85">不是又一個記事本，是能跟著妳的腦袋一起流動的空間</p>
+  </div>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="glass rounded-3xl p-8 hover:-translate-y-1 transition">
+      <div class="text-4xl mb-4">☁️</div>
+      <h3 class="text-xl font-bold mb-2">即寫即同步</h3>
+      <p class="text-sm opacity-85 leading-relaxed">手機、平板、筆電三邊打字，泡泡會自己飄到每一台裝置，不用手動按儲存。</p>
+    </div>
+    <div class="glass rounded-3xl p-8 hover:-translate-y-1 transition">
+      <div class="text-4xl mb-4">🎙️</div>
+      <h3 class="text-xl font-bold mb-2">語音一秒變文字</h3>
+      <p class="text-sm opacity-85 leading-relaxed">走路、通勤時隨口講的靈感，直接錄音自動轉成繁體中文筆記，連標點都幫妳補好。</p>
+    </div>
+    <div class="glass rounded-3xl p-8 hover:-translate-y-1 transition">
+      <div class="text-4xl mb-4">🧩</div>
+      <h3 class="text-xl font-bold mb-2">泡泡分類法</h3>
+      <p class="text-sm opacity-85 leading-relaxed">用顏色幫筆記分群，像整理泡泡糖一樣直覺，不用學複雜的資料庫邏輯。</p>
+    </div>
+    <div class="glass rounded-3xl p-8 hover:-translate-y-1 transition">
+      <div class="text-4xl mb-4">🔗</div>
+      <h3 class="text-xl font-bold mb-2">一鍵分享給團隊</h3>
+      <p class="text-sm opacity-85 leading-relaxed">產生一個柔柔的分享連結，同事不用註冊帳號也能留言和補充重點。</p>
+    </div>
+    <div class="glass rounded-3xl p-8 hover:-translate-y-1 transition">
+      <div class="text-4xl mb-4">🔒</div>
+      <h3 class="text-xl font-bold mb-2">端對端加密</h3>
+      <p class="text-sm opacity-85 leading-relaxed">私密筆記只有妳看得到，連泡泡雲端筆記的工程師也打不開。</p>
+    </div>
+    <div class="glass rounded-3xl p-8 hover:-translate-y-1 transition">
+      <div class="text-4xl mb-4">⏳</div>
+      <h3 class="text-xl font-bold mb-2">時光回溯</h3>
+      <p class="text-sm opacity-85 leading-relaxed">筆記每個版本都留著，不小心刪錯也能滑回三十天前的樣子。</p>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" class="relative z-10 max-w-5xl mx-auto px-6 py-20">
+  <div class="text-center mb-14">
+    <h2 class="text-3xl md:text-4xl font-bold mb-3">方案價格</h2>
+    <p class="opacity-85">從個人隨手記到團隊協作，都找得到合適的泡泡大小</p>
+  </div>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="glass rounded-3xl p-8 flex flex-col">
+      <h3 class="text-xl font-bold mb-1">輕飄泡泡</h3>
+      <p class="text-sm opacity-75 mb-5">給剛開始的妳</p>
+      <p class="text-3xl font-extrabold mb-1">免費</p>
+      <p class="text-xs opacity-70 mb-6">永久使用，無需信用卡</p>
+      <ul class="text-sm space-y-2 mb-8 opacity-90 flex-1">
+        <li class="check-chip rounded-xl px-3 py-2">✓ 無限筆記數量</li>
+        <li class="check-chip rounded-xl px-3 py-2">✓ 2 台裝置同步</li>
+        <li class="check-chip rounded-xl px-3 py-2">✓ 500MB 雲端空間</li>
+      </ul>
+      <button class="pill-btn glass-strong py-3 font-bold">開始使用</button>
+    </div>
+    <div class="glass-strong rounded-3xl p-8 flex flex-col scale-105 ring-2 ring-white/60">
+      <div class="text-xs font-bold mb-2 inline-block bg-white/40 rounded-full px-3 py-1 w-fit">最多人選</div>
+      <h3 class="text-xl font-bold mb-1">蓬鬆泡泡</h3>
+      <p class="text-sm opacity-75 mb-5">給天天都要用的妳</p>
+      <p class="text-3xl font-extrabold mb-1">NT$149<span class="text-sm font-medium">／月</span></p>
+      <p class="text-xs opacity-70 mb-6">年繳再省 2 個月</p>
+      <ul class="text-sm space-y-2 mb-8 opacity-90 flex-1">
+        <li class="check-chip rounded-xl px-3 py-2">✓ 無限裝置同步</li>
+        <li class="check-chip rounded-xl px-3 py-2">✓ 50GB 雲端空間</li>
+        <li class="check-chip rounded-xl px-3 py-2">✓ 語音轉文字無限次</li>
+        <li class="check-chip rounded-xl px-3 py-2">✓ 90 天版本回溯</li>
+      </ul>
+      <button class="pill-btn bg-white text-purple-700 py-3 font-bold">升級蓬鬆版</button>
+    </div>
+    <div class="glass rounded-3xl p-8 flex flex-col">
+      <h3 class="text-xl font-bold mb-1">團隊泡泡群</h3>
+      <p class="text-sm opacity-75 mb-5">給一起打拼的夥伴</p>
+      <p class="text-3xl font-extrabold mb-1">NT$399<span class="text-sm font-medium">／人／月</span></p>
+      <p class="text-xs opacity-70 mb-6">最少 3 人起</p>
+      <ul class="text-sm space-y-2 mb-8 opacity-90 flex-1">
+        <li class="check-chip rounded-xl px-3 py-2">✓ 共享工作空間</li>
+        <li class="check-chip rounded-xl px-3 py-2">✓ 權限分級管理</li>
+        <li class="check-chip rounded-xl px-3 py-2">✓ 專屬客服窗口</li>
+      </ul>
+      <button class="pill-btn glass-strong py-3 font-bold">聯絡我們</button>
+    </div>
+  </div>
+</section>
+
+<section id="reviews" class="relative z-10 max-w-5xl mx-auto px-6 py-20">
+  <div class="text-center mb-14">
+    <h2 class="text-3xl md:text-4xl font-bold mb-3">使用者怎麼說</h2>
+  </div>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="glass rounded-3xl p-7">
+      <p class="text-sm leading-relaxed mb-4">「以前筆記分散在三個 App，現在全部搬進泡泡裡，找東西終於不用靠記憶力了。」</p>
+      <p class="text-xs font-bold">— 芯語，自由接案設計師</p>
+    </div>
+    <div class="glass rounded-3xl p-7">
+      <p class="text-sm leading-relaxed mb-4">「開會隨手講一講，散會前筆記就自己轉好文字，整個團隊都說這個比錄音筆實用。」</p>
+      <p class="text-xs font-bold">— 政綸，產品經理</p>
+    </div>
+    <div class="glass rounded-3xl p-7">
+      <p class="text-sm leading-relaxed mb-4">「畫面軟軟的看起來很舒服，不像在用冷冰冰的工具，寫筆記這件事變得比較想做了。」</p>
+      <p class="text-xs font-bold">— 佳穎，研究生</p>
+    </div>
+  </div>
+</section>
+
+<footer class="relative z-10 max-w-5xl mx-auto px-6 pb-16 pt-6 text-center">
+  <div class="glass rounded-3xl p-10">
+    <h2 class="text-2xl md:text-3xl font-bold mb-4">讓今天的靈感，先吹成一個泡泡</h2>
+    <button class="pill-btn glass-strong px-8 py-3.5 font-bold">免費建立帳號</button>
+    <p class="text-xs opacity-70 mt-8">© 2026 泡泡雲端筆記 BubbleNote．一個溫柔收著妳念頭的地方</p>
+  </div>
+</footer>
+
+</body>
+</html>

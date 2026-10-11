@@ -1,0 +1,225 @@
+<!-- style #32 Drill-Down Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>鑽點 DrillPoint · 零售銷售下鑽分析</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  html,body{ font-family:'Plus Jakarta Sans',sans-serif; background:#f1f3f8; color:#14181f; }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+  .card{ background:#fff; border:1px solid #e3e7ef; border-radius:14px; }
+  .up{ color:#059669; } .down{ color:#dc2626; }
+  .row-toggle{ cursor:pointer; }
+  .row-toggle:hover{ background:#f8fafc; }
+  .chevron{ transition: transform .18s ease; display:inline-block; }
+  .chevron.open{ transform: rotate(90deg); }
+  .subrow{ display:none; }
+  .subrow.open{ display:table-row; }
+  .bar-bg{ background:#eef1f7; border-radius:4px; overflow:hidden; height:8px; }
+  .bar-fill{ background:#4338ca; height:100%; border-radius:4px; }
+  .crumb{ color:#6b7280; }
+  .crumb.active{ color:#111827; font-weight:700; }
+</style>
+</head>
+<body>
+
+<div class="flex min-h-screen">
+  <aside class="w-60 bg-white border-r hidden md:flex flex-col py-6 px-4 gap-1">
+    <div class="flex items-center gap-2 px-2 mb-6">
+      <span class="w-8 h-8 rounded-lg bg-indigo-700 text-white flex items-center justify-center font-bold text-sm">鑽</span>
+      <span class="font-extrabold text-lg">鑽點 DrillPoint</span>
+    </div>
+    <a class="px-3 py-2 rounded-lg bg-indigo-50 text-indigo-700 font-semibold text-sm">銷售下鑽分析</a>
+    <a class="px-3 py-2 rounded-lg hover:bg-gray-50 text-gray-600 text-sm">庫存總覽</a>
+    <a class="px-3 py-2 rounded-lg hover:bg-gray-50 text-gray-600 text-sm">門市績效</a>
+    <a class="px-3 py-2 rounded-lg hover:bg-gray-50 text-gray-600 text-sm">會員消費</a>
+    <a class="px-3 py-2 rounded-lg hover:bg-gray-50 text-gray-600 text-sm">報表排程</a>
+    <div class="mt-auto px-3 py-3 bg-gray-50 rounded-lg text-xs text-gray-500">
+      資料更新時間<br><span class="mono text-gray-700">2026-10-11 06:00</span>
+    </div>
+  </aside>
+
+  <main class="flex-1 p-6 md:p-8">
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+      <div>
+        <h1 class="text-2xl font-extrabold mb-1">銷售下鑽分析</h1>
+        <p class="text-sm crumb">
+          <span>全公司</span> / <span class="active">全部區域</span> / <span>全部分類</span>
+        </p>
+      </div>
+      <div class="flex gap-2">
+        <select class="border rounded-lg px-3 py-2 text-sm bg-white">
+          <option>本月（10 月）</option>
+          <option>上月（9 月）</option>
+          <option>本季（Q4）</option>
+        </select>
+        <button class="border rounded-lg px-4 py-2 text-sm font-semibold hover:bg-gray-50">匯出報表</button>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-4 gap-4 mb-6">
+      <div class="card p-5">
+        <p class="text-xs text-gray-500 mb-2">本月總營收</p>
+        <p class="text-2xl font-extrabold mono">NT$ 48,260,000</p>
+        <p class="text-xs up mt-1">▲ 6.3% 較上月</p>
+      </div>
+      <div class="card p-5">
+        <p class="text-xs text-gray-500 mb-2">客單價</p>
+        <p class="text-2xl font-extrabold mono">NT$ 862</p>
+        <p class="text-xs down mt-1">▼ 1.2% 較上月</p>
+      </div>
+      <div class="card p-5">
+        <p class="text-xs text-gray-500 mb-2">異常分類數</p>
+        <p class="text-2xl font-extrabold mono">3</p>
+        <p class="text-xs text-gray-500 mt-1">達成率低於目標 85%</p>
+      </div>
+      <div class="card p-5">
+        <p class="text-xs text-gray-500 mb-2">目標達成率</p>
+        <p class="text-2xl font-extrabold mono">97.4%</p>
+        <p class="text-xs up mt-1">▲ 2.1% 較上月</p>
+      </div>
+    </div>
+
+    <div class="card p-0 overflow-hidden">
+      <div class="p-5 border-b flex items-center justify-between">
+        <h2 class="font-bold">依區域展開 → 依分類展開 → 查看明細品項</h2>
+        <p class="text-xs text-gray-400">點擊任一列可展開下一層</p>
+      </div>
+      <table class="w-full text-sm">
+        <thead class="bg-gray-50 text-gray-500 text-xs uppercase">
+          <tr>
+            <th class="text-left px-5 py-3 font-semibold">區域 / 分類 / 品項</th>
+            <th class="text-right px-5 py-3 font-semibold">營收</th>
+            <th class="text-right px-5 py-3 font-semibold">佔比</th>
+            <th class="text-right px-5 py-3 font-semibold">較上月</th>
+            <th class="text-left px-5 py-3 font-semibold w-32">趨勢</th>
+          </tr>
+        </thead>
+        <tbody id="drillBody"></tbody>
+      </table>
+    </div>
+
+    <p class="text-xs text-gray-400 mt-4">提示：紅色標記的分類代表營收成長低於公司平均，建議優先檢視品項組合與庫存配置。</p>
+  </main>
+</div>
+
+<script>
+const DATA = [
+  { region: "北區（台北 / 新北 / 桃園）", revenue: 21400000, delta: 7.8, cats: [
+      { name: "生鮮食品", revenue: 8900000, delta: 9.2, warn:false, items:[
+          {name:"季節水果", revenue:3100000, delta:12.4},
+          {name:"冷藏熟食", revenue:2800000, delta:8.1},
+          {name:"烘焙麵包", revenue:3000000, delta:6.9},
+      ]},
+      { name: "日用百貨", revenue: 6200000, delta: -2.1, warn:true, items:[
+          {name:"清潔用品", revenue:2600000, delta:-4.5},
+          {name:"個人護理", revenue:3600000, delta:0.3},
+      ]},
+      { name: "飲料酒水", revenue: 6300000, delta: 11.0, warn:false, items:[
+          {name:"冰藏飲品", revenue:3400000, delta:13.2},
+          {name:"酒類", revenue:2900000, delta:8.4},
+      ]},
+  ]},
+  { region: "中區（台中 / 彰化 / 南投）", revenue: 13850000, delta: 3.4, cats: [
+      { name: "生鮮食品", revenue: 5600000, delta: 4.0, warn:false, items:[
+          {name:"季節水果", revenue:2200000, delta:5.5},
+          {name:"冷藏熟食", revenue:1900000, delta:2.1},
+          {name:"烘焙麵包", revenue:1500000, delta:4.6},
+      ]},
+      { name: "日用百貨", revenue: 4250000, delta: -3.6, warn:true, items:[
+          {name:"清潔用品", revenue:2050000, delta:-5.2},
+          {name:"個人護理", revenue:2200000, delta:-1.8},
+      ]},
+      { name: "飲料酒水", revenue: 4000000, delta: 6.1, warn:false, items:[
+          {name:"冰藏飲品", revenue:2300000, delta:7.4},
+          {name:"酒類", revenue:1700000, delta:4.2},
+      ]},
+  ]},
+  { region: "南區（台南 / 高雄 / 屏東）", revenue: 13010000, delta: 1.1, cats: [
+      { name: "生鮮食品", revenue: 5200000, delta: 2.3, warn:false, items:[
+          {name:"季節水果", revenue:2100000, delta:3.0},
+          {name:"冷藏熟食", revenue:1700000, delta:1.5},
+          {name:"烘焙麵包", revenue:1400000, delta:2.4},
+      ]},
+      { name: "日用百貨", revenue: 3900000, delta: -5.4, warn:true, items:[
+          {name:"清潔用品", revenue:1900000, delta:-6.8},
+          {name:"個人護理", revenue:2000000, delta:-4.0},
+      ]},
+      { name: "飲料酒水", revenue: 3910000, delta: 4.8, warn:false, items:[
+          {name:"冰藏飲品", revenue:2200000, delta:5.9},
+          {name:"酒類", revenue:1710000, delta:3.2},
+      ]},
+  ]},
+];
+
+const TOTAL = DATA.reduce((s,r)=>s+r.revenue,0);
+const fmt = n => 'NT$ ' + n.toLocaleString('zh-TW');
+const pct = n => (n/TOTAL*100).toFixed(1) + '%';
+const deltaHtml = d => `<span class="${d>=0?'up':'down'} mono">${d>=0?'▲':'▼'} ${Math.abs(d).toFixed(1)}%</span>`;
+const barHtml = d => `<div class="bar-bg"><div class="bar-fill" style="width:${Math.min(100, Math.abs(d)*6+20)}%; ${d<0?'background:#dc2626;':''}"></div></div>`;
+
+let uid = 0;
+function renderRegion(r){
+  const rid = 'r' + (uid++);
+  let catsHtml = r.cats.map(c => renderCat(c, rid)).join('');
+  return `
+    <tr class="row-toggle font-semibold" onclick="toggleRow('${rid}')">
+      <td class="px-5 py-3"><span class="chevron" id="chev-${rid}">▸</span> ${r.region}</td>
+      <td class="px-5 py-3 text-right mono">${fmt(r.revenue)}</td>
+      <td class="px-5 py-3 text-right mono text-gray-400">${pct(r.revenue)}</td>
+      <td class="px-5 py-3 text-right">${deltaHtml(r.delta)}</td>
+      <td class="px-5 py-3">${barHtml(r.delta)}</td>
+    </tr>
+    ${catsHtml}
+  `;
+}
+function renderCat(c, parentId){
+  const cid = 'c' + (uid++);
+  let itemsHtml = c.items.map(i => `
+    <tr class="subrow child-${parentId} child-${cid}">
+      <td class="px-5 py-2 pl-16 text-gray-500">・ ${i.name}</td>
+      <td class="px-5 py-2 text-right mono text-gray-500">${fmt(i.revenue)}</td>
+      <td class="px-5 py-2 text-right mono text-gray-400">${pct(i.revenue)}</td>
+      <td class="px-5 py-2 text-right">${deltaHtml(i.delta)}</td>
+      <td class="px-5 py-2">${barHtml(i.delta)}</td>
+    </tr>
+  `).join('');
+  return `
+    <tr class="row-toggle subrow child-${parentId} ${c.warn ? 'bg-red-50/40' : ''}" onclick="event.stopPropagation(); toggleRow('${cid}')">
+      <td class="px-5 py-2.5 pl-9"><span class="chevron" id="chev-${cid}">▸</span> ${c.name} ${c.warn ? '<span class=\"text-[10px] text-red-600 font-bold ml-1\">需留意</span>' : ''}</td>
+      <td class="px-5 py-2.5 text-right mono">${fmt(c.revenue)}</td>
+      <td class="px-5 py-2.5 text-right mono text-gray-400">${pct(c.revenue)}</td>
+      <td class="px-5 py-2.5 text-right">${deltaHtml(c.delta)}</td>
+      <td class="px-5 py-2.5">${barHtml(c.delta)}</td>
+    </tr>
+    ${itemsHtml}
+  `;
+}
+
+document.getElementById('drillBody').innerHTML = DATA.map(renderRegion).join('');
+
+function closeDescendants(id){
+  document.querySelectorAll('.child-' + id).forEach(el => {
+    el.classList.remove('open');
+    const nestedChev = el.querySelector('.chevron');
+    if (nestedChev) {
+      nestedChev.classList.remove('open');
+      closeDescendants(nestedChev.id.replace('chev-', ''));
+    }
+  });
+}
+function toggleRow(id){
+  const chev = document.getElementById('chev-' + id);
+  const isOpen = chev.classList.contains('open');
+  chev.classList.toggle('open', !isOpen);
+  document.querySelectorAll('.child-' + id).forEach(el => el.classList.toggle('open', !isOpen));
+  if (isOpen) closeDescendants(id); // 收合時連同所有更深層的子列一起收起
+}
+</script>
+
+</body>
+</html>

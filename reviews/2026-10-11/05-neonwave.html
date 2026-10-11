@@ -1,0 +1,159 @@
+<!-- style #45 Vaporwave -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>霓光電馱 NeonWave</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{ --pink:#ff71ce; --cyan:#01cdfe; --chrome:#c0c0c0; --purple:#b967ff; }
+  html,body{ background:#140024; color:#f1e9ff; overflow-x:hidden; font-family:'VT323', monospace; font-size:20px; }
+  .cn{ font-family:'Noto Sans TC', sans-serif; font-weight:700; }
+  .pixel{ font-family:'Press Start 2P', monospace; }
+  .chrome-text{
+    font-family:'Press Start 2P', monospace;
+    background: linear-gradient(180deg, #fff 0%, #c0c0c0 30%, #888 50%, #fff 55%, #666 70%, #ddd 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    text-shadow: 0 2px 0 rgba(0,0,0,.4);
+  }
+  .grid-floor{
+    position:absolute; inset:0; top:auto; height:55%;
+    background-image:
+      linear-gradient(90deg, rgba(255,113,206,.5) 1px, transparent 1px),
+      linear-gradient(0deg, rgba(1,205,254,.5) 1px, transparent 1px);
+    background-size: 60px 40px;
+    transform: perspective(300px) rotateX(55deg);
+    transform-origin: bottom;
+    animation: gridmove 2.2s linear infinite;
+  }
+  @keyframes gridmove{ from{ background-position-y: 0; } to{ background-position-y: 40px; } }
+  .sun{
+    width:260px; height:260px; border-radius:50%;
+    background: linear-gradient(180deg, #ffd1f8 0%, var(--pink) 45%, var(--purple) 100%);
+    box-shadow: 0 0 80px 10px rgba(255,113,206,.6);
+    position: relative; overflow:hidden;
+  }
+  .sun::before{
+    content:''; position:absolute; left:0; right:0; bottom:0; height:60%;
+    background: repeating-linear-gradient(to bottom, transparent 0 6px, #140024 6px 14px);
+  }
+  .glitch{ position:relative; display:inline-block; }
+  .glitch::before, .glitch::after{
+    content: attr(data-text); position:absolute; left:0; top:0; width:100%;
+    overflow:hidden; opacity:.8;
+  }
+  .glitch::before{ color: var(--cyan); animation: glitch1 3s infinite linear alternate-reverse; clip-path: inset(0 0 60% 0); }
+  .glitch::after{ color: var(--pink); animation: glitch2 2.4s infinite linear alternate-reverse; clip-path: inset(60% 0 0 0); }
+  @keyframes glitch1{ 0%{transform:translate(0,0)} 20%{transform:translate(-3px,1px)} 40%{transform:translate(3px,-1px)} 60%{transform:translate(-2px,2px)} 100%{transform:translate(0,0)} }
+  @keyframes glitch2{ 0%{transform:translate(0,0)} 25%{transform:translate(2px,-2px)} 50%{transform:translate(-3px,1px)} 75%{transform:translate(2px,2px)} 100%{transform:translate(0,0)} }
+  .vhs-scan{ position:fixed; inset:0; pointer-events:none; z-index:50;
+    background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.03) 0 2px, transparent 2px 4px);
+    mix-blend-mode: overlay;
+  }
+  .neon-card{ background: rgba(255,255,255,0.05); border:1px solid var(--cyan); box-shadow: 0 0 20px rgba(1,205,254,.25) inset, 0 0 12px rgba(1,205,254,.3); }
+  .neon-pink-card{ background: rgba(255,255,255,0.05); border:1px solid var(--pink); box-shadow: 0 0 20px rgba(255,113,206,.25) inset, 0 0 12px rgba(255,113,206,.3); }
+  .btn-vapor{
+    font-family:'Press Start 2P', monospace; font-size:12px;
+    background: linear-gradient(90deg, var(--pink), var(--purple), var(--cyan));
+    box-shadow: 0 0 20px rgba(255,113,206,.5);
+  }
+  .marble-stat{ font-family:'Press Start 2P', monospace; }
+</style>
+</head>
+<body class="relative">
+<div class="vhs-scan"></div>
+
+<header class="relative overflow-hidden" style="background: linear-gradient(180deg, #2a0045 0%, #140024 60%);">
+  <div class="relative z-10 max-w-5xl mx-auto px-6 pt-10 pb-6 flex items-center justify-between">
+    <div class="pixel text-xs chrome-text">NEONWAVE.FM</div>
+    <div class="flex gap-6 text-sm cn text-cyan-200">
+      <a href="#library">音樂庫</a>
+      <a href="#stations">電台</a>
+      <a href="#plans">訂閱方案</a>
+    </div>
+  </div>
+
+  <div class="relative flex flex-col items-center justify-center pt-6 pb-40" style="height:480px;">
+    <div class="sun"></div>
+    <div class="grid-floor"></div>
+    <div class="relative z-20 text-center mt-[-140px]">
+      <h1 class="glitch chrome-text text-3xl md:text-5xl leading-relaxed" data-text="NEONWAVE">NEONWAVE</h1>
+      <p class="cn text-pink-200 text-xl md:text-2xl mt-4 tracking-widest">霓光電馱．永不醒來的合成器之夜</p>
+    </div>
+  </div>
+</header>
+
+<main class="max-w-5xl mx-auto px-6 -mt-16 relative z-20">
+
+  <section class="text-center mb-20">
+    <p class="cn text-lg md:text-xl text-purple-200 max-w-2xl mx-auto leading-relaxed mb-8">
+      霓光電馱收錄超過 8,000 首 Vaporwave、City Pop 與合成器流行曲，用一台虛構的 1986 年電台，陪妳度過每個失眠的深夜。
+    </p>
+    <button class="btn-vapor text-white px-8 py-4 rounded-sm cn tracking-wider">免費聽 30 天</button>
+  </section>
+
+  <section id="stations" class="grid md:grid-cols-3 gap-6 mb-20">
+    <div class="neon-card rounded-lg p-6 text-center">
+      <p class="pixel text-cyan-300 text-xs mb-3">CH.01</p>
+      <p class="cn text-xl mb-2">深夜商場電台</p>
+      <p class="text-pink-100 text-base">80 年代百貨公司背景音樂重現</p>
+    </div>
+    <div class="neon-pink-card rounded-lg p-6 text-center">
+      <p class="pixel text-pink-300 text-xs mb-3">CH.02</p>
+      <p class="cn text-xl mb-2">東京霓虹夜巡</p>
+      <p class="text-pink-100 text-base">City Pop 經典與致敬曲目輪播</p>
+    </div>
+    <div class="neon-card rounded-lg p-6 text-center">
+      <p class="pixel text-cyan-300 text-xs mb-3">CH.03</p>
+      <p class="cn text-xl mb-2">慢速錄影帶教室</p>
+      <p class="text-pink-100 text-base">降速採樣與 Chopped 風格合輯</p>
+    </div>
+  </section>
+
+  <section id="library" class="mb-20">
+    <h2 class="chrome-text text-2xl md:text-3xl mb-8 text-center">熱播排行</h2>
+    <div class="space-y-3">
+      <div class="neon-card rounded-lg px-5 py-4 flex items-center justify-between">
+        <span class="cn text-lg">マクロの夢（宏觀之夢）</span>
+        <span class="pixel text-xs text-cyan-200">04:12</span>
+      </div>
+      <div class="neon-pink-card rounded-lg px-5 py-4 flex items-center justify-between">
+        <span class="cn text-lg">電梯裡的永遠</span>
+        <span class="pixel text-xs text-pink-200">03:48</span>
+      </div>
+      <div class="neon-card rounded-lg px-5 py-4 flex items-center justify-between">
+        <span class="cn text-lg">雨後的百貨招牌</span>
+        <span class="pixel text-xs text-cyan-200">05:01</span>
+      </div>
+      <div class="neon-pink-card rounded-lg px-5 py-4 flex items-center justify-between">
+        <span class="cn text-lg">最終高速公路</span>
+        <span class="pixel text-xs text-pink-200">04:36</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="plans" class="grid md:grid-cols-2 gap-8 mb-10">
+    <div class="neon-card rounded-lg p-8 text-center">
+      <p class="pixel text-sm text-cyan-200 mb-4">免費方案</p>
+      <p class="chrome-text text-3xl mb-4">¥0</p>
+      <p class="cn text-base text-purple-100 mb-6">含廣告插播，每日播放上限 3 小時</p>
+      <button class="cn border border-cyan-300 text-cyan-200 px-6 py-2 rounded-sm">開始聽</button>
+    </div>
+    <div class="neon-pink-card rounded-lg p-8 text-center">
+      <p class="pixel text-sm text-pink-200 mb-4">永夜會員</p>
+      <p class="chrome-text text-3xl mb-4">¥390／月</p>
+      <p class="cn text-base text-purple-100 mb-6">無廣告、離線快取、專屬霓虹濾鏡播放器</p>
+      <button class="btn-vapor text-white px-6 py-2 rounded-sm cn">成為會員</button>
+    </div>
+  </section>
+
+  <footer class="text-center py-10">
+    <p class="pixel text-[10px] text-purple-300">© 2026 NEONWAVE.FM — ALL DREAMS RESERVED</p>
+  </footer>
+</main>
+
+</body>
+</html>

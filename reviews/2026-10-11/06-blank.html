@@ -1,0 +1,108 @@
+<!-- style #47 Exaggerated Minimalism -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>留白 Blank · 文具與紙製品</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  html,body{ background:#fff; color:#0a0a0a; font-family:'Space Grotesk', sans-serif; }
+  .huge{ font-size: clamp(4.5rem, 16vw, 13rem); line-height:0.92; letter-spacing:-0.02em; font-weight:700; }
+  .mid{ font-size: clamp(2.5rem, 7vw, 5rem); line-height:0.95; font-weight:700; }
+  .hairline{ border-color:#0a0a0a; }
+  .num{ font-weight:700; }
+  .invert:hover{ background:#0a0a0a; color:#fff; }
+  .dot{ width:10px; height:10px; background:#0a0a0a; border-radius:50%; }
+</style>
+</head>
+<body>
+
+<nav class="flex items-center justify-between px-6 md:px-12 py-6 border-b hairline">
+  <span class="font-bold text-lg tracking-tight">留白 BLANK</span>
+  <div class="hidden md:flex gap-10 text-sm font-medium">
+    <a href="#products">商品</a>
+    <a href="#philosophy">理念</a>
+    <a href="#stores">門市</a>
+  </div>
+  <span class="dot"></span>
+</nav>
+
+<header class="px-6 md:px-12 pt-16 pb-24 border-b hairline">
+  <p class="text-sm font-medium mb-6">2026 秋季系列 · 第 04 批</p>
+  <h1 class="huge">留白</h1>
+  <p class="mid mt-2">才是重點</p>
+  <p class="text-base md:text-lg max-w-md mt-10 leading-relaxed">
+    一支筆、一本紙、一張桌面。留白做的文具，只留下真正需要的部分，其餘的，交給妳自己填滿。
+  </p>
+  <button class="mt-10 border hairline px-8 py-4 text-sm font-bold invert transition">看全部商品 →</button>
+</header>
+
+<section id="products" class="px-6 md:px-12 py-20 border-b hairline">
+  <p class="text-sm font-medium mb-2">01 — 商品</p>
+  <h2 class="mid mb-16">三個，足夠了</h2>
+  <div class="grid md:grid-cols-3 gap-0 border hairline">
+    <div class="p-10 md:border-r hairline">
+      <p class="num text-5xl mb-6">01</p>
+      <p class="text-xl font-bold mb-3">無格筆記本</p>
+      <p class="text-sm text-gray-500 leading-relaxed mb-8">純白內頁，沒有格線，沒有日期，寫壞了也沒關係。</p>
+      <p class="font-bold">NT$ 480</p>
+    </div>
+    <div class="p-10 md:border-r hairline">
+      <p class="num text-5xl mb-6">02</p>
+      <p class="text-xl font-bold mb-3">單色鋼珠筆</p>
+      <p class="text-sm text-gray-500 leading-relaxed mb-8">一體成形的筆身，沒有商標，沒有花紋。</p>
+      <p class="font-bold">NT$ 620</p>
+    </div>
+    <div class="p-10">
+      <p class="num text-5xl mb-6">03</p>
+      <p class="text-xl font-bold mb-3">折疊桌墊</p>
+      <p class="text-sm text-gray-500 leading-relaxed mb-8">攤開是一張桌，收起是一條線。</p>
+      <p class="font-bold">NT$ 980</p>
+    </div>
+  </div>
+</section>
+
+<section id="philosophy" class="px-6 md:px-12 py-24 border-b hairline text-center">
+  <p class="mid max-w-3xl mx-auto">
+    我們相信，<br class="hidden md:block">少說一句話的設計，<br class="hidden md:block">才聽得到妳自己的聲音。
+  </p>
+</section>
+
+<section class="grid md:grid-cols-2 border-b hairline">
+  <div class="px-6 md:px-12 py-16 md:border-r hairline">
+    <p class="text-sm font-medium mb-3">02 — 材料</p>
+    <p class="text-2xl font-bold mb-4">一張紙，從哪裡來</p>
+    <p class="text-base text-gray-600 leading-relaxed">所有紙製品使用 FSC 認證紙漿，印刷採用單色黑，不添加螢光增白劑。</p>
+  </div>
+  <div class="px-6 md:px-12 py-16">
+    <p class="text-sm font-medium mb-3">03 — 承諾</p>
+    <p class="text-2xl font-bold mb-4">壞了，我們修</p>
+    <p class="text-base text-gray-600 leading-relaxed">每支筆提供三年維修保固，筆芯以外的零件壞損，寄回即可免費更換。</p>
+  </div>
+</section>
+
+<section id="stores" class="px-6 md:px-12 py-20 border-b hairline">
+  <p class="text-sm font-medium mb-2">04 — 門市</p>
+  <h2 class="mid mb-12">兩個地方，看得到實物</h2>
+  <div class="grid md:grid-cols-2 gap-10 text-base">
+    <div class="border-t hairline pt-6">
+      <p class="font-bold mb-1">台北・大安店</p>
+      <p class="text-gray-500">大安區敦化南路二段 77 巷 3 號</p>
+    </div>
+    <div class="border-t hairline pt-6">
+      <p class="font-bold mb-1">台中・西區店</p>
+      <p class="text-gray-500">西區中興街 46 號</p>
+    </div>
+  </div>
+</section>
+
+<footer class="px-6 md:px-12 py-16 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+  <p class="huge" style="font-size: clamp(2.5rem, 8vw, 6rem);">留白</p>
+  <p class="text-sm text-gray-400">© 2026 BLANK STATIONERY．保留部分空白</p>
+</footer>
+
+</body>
+</html>
