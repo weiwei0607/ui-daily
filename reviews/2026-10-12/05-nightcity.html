@@ -1,0 +1,158 @@
+<!-- style #41 Cyberpunk -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>夜城 NightCity · 資安滲透特訓場</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&family=Share+Tech+Mono&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Noto Sans TC',sans-serif; background:#0a0a14; color:#d7f9ff; }
+  .orb{ font-family:'Orbitron',sans-serif; }
+  .tech{ font-family:'Share Tech Mono',monospace; }
+  .neon-cyan{ color:#00ffff; text-shadow:0 0 6px rgba(0,255,255,.8), 0 0 18px rgba(0,255,255,.4); }
+  .neon-magenta{ color:#ff006e; text-shadow:0 0 6px rgba(255,0,110,.8), 0 0 18px rgba(255,0,110,.4); }
+  .panel{
+    background: linear-gradient(145deg, rgba(0,255,255,0.04), rgba(255,0,110,0.03));
+    border:1px solid rgba(0,255,255,0.3);
+    box-shadow: 0 0 20px rgba(0,255,255,0.08), inset 0 0 30px rgba(0,255,255,0.03);
+  }
+  .scanlines{
+    background: repeating-linear-gradient(0deg, rgba(0,255,255,0.025) 0px, rgba(0,255,255,0.025) 1px, transparent 2px, transparent 4px);
+  }
+  @keyframes glitch{
+    0%,100%{ clip-path: inset(0 0 0 0); transform: translate(0,0); }
+    20%{ clip-path: inset(10% 0 60% 0); transform: translate(-2px,0); }
+    40%{ clip-path: inset(60% 0 10% 0); transform: translate(2px,0); }
+    60%{ clip-path: inset(30% 0 40% 0); transform: translate(-1px,0); }
+    80%{ clip-path: inset(0 0 0 0); transform: translate(1px,0); }
+  }
+  .glitch-layer{ position:absolute; top:0; left:0; width:100%; animation: glitch 2.6s infinite linear; color:#ff006e; opacity:.7; }
+  @keyframes pulse-border{
+    0%,100%{ border-color: rgba(0,255,255,0.3); }
+    50%{ border-color: rgba(255,0,110,0.5); }
+  }
+  .pulse-panel{ animation: pulse-border 3s infinite; }
+  .grid-bg{
+    background-image: linear-gradient(rgba(0,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,255,0.08) 1px, transparent 1px);
+    background-size: 36px 36px;
+  }
+</style>
+</head>
+<body class="relative overflow-x-hidden scanlines">
+
+<div class="grid-bg fixed inset-0 opacity-40 pointer-events-none"></div>
+
+<div class="relative z-10 max-w-6xl mx-auto px-6">
+
+  <header class="flex items-center justify-between py-6">
+    <div class="orb font-bold text-xl neon-cyan">NIGHTCITY://CTF</div>
+    <nav class="hidden md:flex gap-8 text-sm tech">
+      <a href="#tracks" class="hover:neon-cyan hover:opacity-90">訓練軌道</a>
+      <a href="#leaderboard" class="hover:opacity-90">排行榜</a>
+      <a href="#pricing" class="hover:opacity-90">方案</a>
+    </nav>
+    <button class="border border-cyan-400 text-cyan-300 px-5 py-2 tech text-sm hover:bg-cyan-400/10">[ 登入終端 ]</button>
+  </header>
+
+  <!-- Hero -->
+  <section class="py-16 text-center relative">
+    <p class="tech text-sm neon-magenta mb-4">// SYSTEM BREACH TRAINING PLATFORM v3.2</p>
+    <div class="relative inline-block">
+      <h1 class="orb text-4xl md:text-6xl font-black leading-tight neon-cyan">夜城資安特訓場</h1>
+      <div class="glitch-layer orb text-4xl md:text-6xl font-black leading-tight">夜城資安特訓場</div>
+    </div>
+    <p class="tech mt-6 text-base md:text-lg opacity-80 max-w-2xl mx-auto">
+      在仿真的企業網路裡，練你的滲透測試、逆向工程與紅隊實戰技能。每一關都是真實漏洞的鏡像環境。
+    </p>
+    <div class="mt-9 flex items-center justify-center gap-5">
+      <button class="orb font-bold neon-magenta border-2 border-pink-500 px-8 py-3.5 hover:bg-pink-500/10">啟動第一道防線</button>
+      <button class="orb font-bold border-2 border-cyan-400 text-cyan-300 px-8 py-3.5 hover:bg-cyan-400/10">查看題庫</button>
+    </div>
+  </section>
+
+  <!-- 訓練軌道 -->
+  <section id="tracks" class="py-14">
+    <h2 class="orb text-2xl font-bold text-center mb-10 neon-cyan">訓練軌道</h2>
+    <div class="grid md:grid-cols-4 gap-5">
+      <div class="panel pulse-panel p-6">
+        <div class="tech text-xs opacity-60 mb-2">TRACK_01</div>
+        <h3 class="orb font-bold text-lg mb-2">Web 滲透</h3>
+        <p class="text-sm opacity-75 tech">SQLi・XSS・SSRF・權限繞過，共 48 題仿真關卡。</p>
+      </div>
+      <div class="panel pulse-panel p-6">
+        <div class="tech text-xs opacity-60 mb-2">TRACK_02</div>
+        <h3 class="orb font-bold text-lg mb-2">逆向工程</h3>
+        <p class="text-sm opacity-75 tech">靜態 / 動態分析二進位檔，拆解惡意程式邏輯。</p>
+      </div>
+      <div class="panel pulse-panel p-6">
+        <div class="tech text-xs opacity-60 mb-2">TRACK_03</div>
+        <h3 class="orb font-bold text-lg mb-2">內網橫向</h3>
+        <p class="text-sm opacity-75 tech">模擬企業內網，練習提權、橫向移動與痕跡清理。</p>
+      </div>
+      <div class="panel pulse-panel p-6">
+        <div class="tech text-xs opacity-60 mb-2">TRACK_04</div>
+        <h3 class="orb font-bold text-lg mb-2">密碼學破解</h3>
+        <p class="text-sm opacity-75 tech">經典到現代加密演算法的弱點分析與破解實作。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 排行榜 -->
+  <section id="leaderboard" class="py-14">
+    <h2 class="orb text-2xl font-bold text-center mb-8 neon-magenta">本週排行榜</h2>
+    <div class="panel pulse-panel p-2">
+      <table class="w-full text-sm tech">
+        <thead class="text-cyan-300/70 text-xs">
+          <tr class="text-left">
+            <th class="py-3 px-4">排名</th>
+            <th class="py-3 px-4">代號</th>
+            <th class="py-3 px-4">主力軌道</th>
+            <th class="py-3 px-4 text-right">積分</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-cyan-500/15">
+          <tr><td class="py-3 px-4 neon-cyan font-bold">01</td><td class="py-3 px-4">0xGhostLantern</td><td class="py-3 px-4 opacity-70">內網橫向</td><td class="py-3 px-4 text-right font-bold">9,840</td></tr>
+          <tr><td class="py-3 px-4 neon-cyan font-bold">02</td><td class="py-3 px-4">夜雨鍵客</td><td class="py-3 px-4 opacity-70">Web 滲透</td><td class="py-3 px-4 text-right font-bold">9,310</td></tr>
+          <tr><td class="py-3 px-4 neon-cyan font-bold">03</td><td class="py-3 px-4">ReverseFox_TW</td><td class="py-3 px-4 opacity-70">逆向工程</td><td class="py-3 px-4 text-right font-bold">8,975</td></tr>
+          <tr><td class="py-3 px-4 opacity-60">04</td><td class="py-3 px-4">密語者</td><td class="py-3 px-4 opacity-70">密碼學破解</td><td class="py-3 px-4 text-right font-bold">8,420</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 方案 -->
+  <section id="pricing" class="py-16">
+    <h2 class="orb text-2xl font-bold text-center mb-10 neon-cyan">特訓方案</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="panel p-7 text-center">
+        <div class="orb font-bold text-lg mb-2">滲透者</div>
+        <div class="text-3xl font-black mb-4">免費</div>
+        <p class="tech text-sm opacity-70 mb-6">每週 3 道關卡・基礎排行榜</p>
+        <button class="w-full border border-cyan-400 text-cyan-300 py-3 orb font-bold">進入系統</button>
+      </div>
+      <div class="panel pulse-panel p-7 text-center">
+        <div class="orb font-bold text-lg mb-2 neon-magenta">紅隊特工</div>
+        <div class="text-3xl font-black mb-4">NT$ 490<span class="text-sm font-normal opacity-60">/月</span></div>
+        <p class="tech text-sm opacity-70 mb-6">全題庫解鎖・每月新關卡・解題提示</p>
+        <button class="w-full border-2 border-pink-500 text-pink-300 py-3 orb font-bold">升級為紅隊</button>
+      </div>
+      <div class="panel p-7 text-center">
+        <div class="orb font-bold text-lg mb-2">企業戰隊</div>
+        <div class="text-3xl font-black mb-4">洽詢報價</div>
+        <p class="tech text-sm opacity-70 mb-6">專屬仿真環境・團隊積分牆</p>
+        <button class="w-full border border-cyan-400 text-cyan-300 py-3 orb font-bold">聯絡我們</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-8 text-center tech text-xs opacity-50 border-t border-cyan-500/15">
+    © 2026 NIGHTCITY SYSTEMS — 本平台僅供合法授權之資安教育訓練使用
+  </footer>
+
+</div>
+
+</body>
+</html>

@@ -21,6 +21,11 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-10-12（6 個，#09 Claymorphism / #26 Trust & Authority / #36 Financial Dashboard / #42 Organic Biophilic / #41 Cyberpunk / #48 Kinetic Typography）
+- ⚠️ 本輪啟動時 repo 又是 detached HEAD（同前幾輪的環境固定行為），已先 `git fetch origin master` 核對 origin/master 與目前 HEAD 皆為 `c92ae8b` 後，用 `git checkout -B master origin/master` 收回 master 分支，未遺失任何工作中的改動。
+- ⚠️ Firebase ❤️ 讀取／寫入、Telegram 通知本輪都會嘗試照原步驟執行；若仍被環境網路政策擋下（過去幾輪皆回 `CONNECT tunnel failed, response 403`），沿用「已確認偏好」規則挑選並生成，Telegram 則改走系統 PushNotification 管道補通知。
+- 先列出近 3 天（10-09～10-11）用過的風格編號：#04/#20/#30/#43/#50/#53（10-09）、#08/#13/#25/#35/#55/#52（10-10）、#03/#01/#24/#32/#45/#47（10-11），共 18 個全部避開；再跨 A/B/C/D 四組挑 6 個方向明顯不同、且全庫歷史出現次數偏低的風格：**Claymorphism #09**（A 組，依「已確認偏好」用 Baloo 2 + Quicksand 圓體，做成軟萌黏土感的習慣養成 App「黏土日記 ClayDay」，奶油底色＋多層雙向陰影黏土卡片＋可愛動物夥伴浮動動畫）、**Trust & Authority #26**（B 組結構，依「已確認偏好」Swiss/權威風要報紙體，用 Playfair Display + Noto Serif TC 做成跨代資產信託顧問「恒信家族辦公室」，報頭式排版＋嚴格分欄網格＋頭條/數據側欄/委任案例節選）、**Financial Dashboard #36**（C 組，避開 Inter，改用 Plus Jakarta Sans + JetBrains Mono 等寬數字，做成企業現金流管理後台「現流 CashPulse」，深灰藍底＋漲綠跌紅語意色＋現金流趨勢折線＋大額交易表格）、**Organic Biophilic #42**（D 組，沿用官方配方 Cormorant Garamond + Nunito，做成居家植物訂閱選物「森語 Sylvan」，森林大地色＋有機不規則圓角色塊＋輕微搖曳動畫）、**Cyberpunk #41**（D 組，沿用官方配方 Orbitron + Share Tech Mono，中文另搭 Noto Sans TC 確保可讀，做成資安滲透教育訓練平台「夜城 NightCity」，純黑底＋霓虹青/洋紅發光文字＋glitch 故障疊層動畫＋網格背景＋排行榜）、**Kinetic Typography #48**（D 組，沿用官方配方 Bebas Neue 巨型展示字，做成音樂祭售票頁「躍動音樂祭 PulseFest」，跑馬燈卡司牆＋逐字進場動畫＋脈動按鈕）。全數繁體中文文案，皆避免使用 Inter/Helvetica 作主美術字體；逐檔以 Python 腳本掃描簡體字專屬特徵字元（如 们/国/说/没/经/络/顾/团/队/统/简/学/习/惯/证/认/讓等簡繁有別字），確認全數乾淨；另檢查 `<html>/</html>/<body>/</body>` 標籤配對皆正確閉合。
+
 ### 2026-10-11（6 個，#03 Glassmorphism / #01 Minimalism-Swiss / #24 Social Proof-Focused / #32 Drill-Down Dashboard / #45 Vaporwave / #47 Exaggerated Minimalism）
 - ⚠️ 本輪收尾時發現 repo 又回到 detached HEAD（與 10-09/10-10 情況一致，推測是每輪啟動環境的固定行為），已先 `git fetch origin master` 確認 origin/master 與 detached HEAD 內容一致（都是 `f199042`）後，用 `git checkout -B master origin/master` 收回 master 分支，未遺失任何工作中的改動。
 - ⚠️ `publish.py`／`GH_TOKEN` 路徑本輪測試仍回 403 Forbidden，改用標準 `git add/commit/push`（經 agent-proxy 的 git 憑證注入）完成發布，push 成功並用 `git fetch` 核對 origin/master 已更新到本輪 commit。

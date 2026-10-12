@@ -1,0 +1,144 @@
+<!-- style #48 Kinetic Typography -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>躍動音樂祭 PulseFest 2026</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Noto Sans TC',sans-serif; background:#0d0d0d; color:#f5f5f0; overflow-x:hidden; }
+  .bebas{ font-family:'Bebas Neue',sans-serif; letter-spacing: 0.02em; }
+  .marquee-wrap{ overflow:hidden; white-space:nowrap; }
+  @keyframes marquee{
+    0%{ transform: translateX(0); }
+    100%{ transform: translateX(-50%); }
+  }
+  .marquee{ display:inline-block; animation: marquee 14s linear infinite; }
+  @keyframes rise{
+    0%{ opacity:0; transform: translateY(40px); }
+    100%{ opacity:1; transform: translateY(0); }
+  }
+  .rise{ animation: rise .8s cubic-bezier(.2,.8,.2,1) both; }
+  .rise-1{ animation-delay:.05s; } .rise-2{ animation-delay:.18s; } .rise-3{ animation-delay:.31s; } .rise-4{ animation-delay:.44s; }
+  @keyframes pulseScale{
+    0%,100%{ transform: scale(1); }
+    50%{ transform: scale(1.03); }
+  }
+  .pulseScale{ animation: pulseScale 2.4s ease-in-out infinite; }
+  .outline-text{ color:transparent; -webkit-text-stroke: 2px #f5f5f0; }
+  .accent{ color:#ff2d55; }
+  .accent2{ color:#39ff88; }
+  .card{ background:#161616; border:1px solid #2a2a2a; }
+</style>
+</head>
+<body>
+
+<header class="flex items-center justify-between px-6 md:px-12 py-7">
+  <span class="bebas text-2xl tracking-wide">PULSE<span class="accent">FEST</span></span>
+  <nav class="hidden md:flex gap-9 text-sm font-semibold uppercase tracking-wide">
+    <a href="#lineup" class="hover:text-[#ff2d55]">卡司陣容</a>
+    <a href="#schedule" class="hover:text-[#ff2d55]">時間表</a>
+    <a href="#tickets" class="hover:text-[#ff2d55]">票務</a>
+  </nav>
+  <button class="bg-[#ff2d55] text-black bebas text-lg px-6 py-2.5">搶票</button>
+</header>
+
+<!-- Hero 大字 -->
+<section class="px-6 md:px-12 pt-6 pb-16">
+  <div class="marquee-wrap mb-2 opacity-70">
+    <div class="marquee bebas text-base tracking-widest">
+      2026.12.19—20 ・ 高雄流行音樂中心 ・ 2026.12.19—20 ・ 高雄流行音樂中心 ・ 2026.12.19—20 ・ 高雄流行音樂中心 ・&nbsp;
+    </div>
+  </div>
+  <h1 class="bebas leading-[0.92] text-[16vw] md:text-[9vw] rise rise-1">
+    躍動<span class="accent">音</span>樂祭
+  </h1>
+  <h1 class="bebas leading-[0.92] text-[16vw] md:text-[9vw] outline-text rise rise-2">
+    PULSEFEST
+  </h1>
+  <p class="rise rise-3 mt-6 max-w-xl text-lg opacity-80">
+    兩天兩夜，五座舞台，超過 60 組台灣與國際音樂人同台。這次，讓節奏替你說話。
+  </p>
+  <div class="rise rise-4 mt-8 flex flex-wrap gap-4">
+    <button class="pulseScale bg-[#ff2d55] text-black bebas text-xl px-9 py-3.5">立即購票</button>
+    <button class="border border-[#f5f5f0]/40 bebas text-xl px-9 py-3.5">查看完整卡司</button>
+  </div>
+</section>
+
+<!-- 卡司跑馬燈 -->
+<section id="lineup" class="border-y border-[#2a2a2a] py-10 overflow-hidden">
+  <div class="marquee-wrap">
+    <div class="marquee bebas text-5xl md:text-7xl flex gap-10 items-center">
+      <span>深夜合奏團</span><span class="accent2">★</span>
+      <span>霓虹電波 ELECTRO</span><span class="accent">★</span>
+      <span>浪人民謠</span><span class="accent2">★</span>
+      <span>CLOUD9 樂隊</span><span class="accent">★</span>
+      <span>深夜合奏團</span><span class="accent2">★</span>
+      <span>霓虹電波 ELECTRO</span><span class="accent">★</span>
+      <span>浪人民謠</span><span class="accent2">★</span>
+      <span>CLOUD9 樂隊</span><span class="accent">★</span>
+    </div>
+  </div>
+</section>
+
+<!-- 時間表 -->
+<section id="schedule" class="px-6 md:px-12 py-16">
+  <h2 class="bebas text-5xl mb-10">兩天<span class="accent">時間表</span></h2>
+  <div class="grid md:grid-cols-2 gap-6">
+    <div class="card p-7">
+      <div class="bebas text-2xl mb-4">DAY 01 ・ 12/19</div>
+      <ul class="space-y-3 text-sm">
+        <li class="flex justify-between border-b border-[#2a2a2a] pb-3"><span class="bebas text-lg">18:00</span><span>深夜合奏團 — 主舞台</span></li>
+        <li class="flex justify-between border-b border-[#2a2a2a] pb-3"><span class="bebas text-lg">19:30</span><span>浪人民謠 — 第二舞台</span></li>
+        <li class="flex justify-between border-b border-[#2a2a2a] pb-3"><span class="bebas text-lg">21:00</span><span>霓虹電波 ELECTRO — 主舞台</span></li>
+        <li class="flex justify-between"><span class="bebas text-lg">23:00</span><span>深夜 DJ 接力 — 電音帳篷</span></li>
+      </ul>
+    </div>
+    <div class="card p-7">
+      <div class="bebas text-2xl mb-4">DAY 02 ・ 12/20</div>
+      <ul class="space-y-3 text-sm">
+        <li class="flex justify-between border-b border-[#2a2a2a] pb-3"><span class="bebas text-lg">17:30</span><span>新秀舞台開放入場</span></li>
+        <li class="flex justify-between border-b border-[#2a2a2a] pb-3"><span class="bebas text-lg">19:00</span><span>CLOUD9 樂隊 — 主舞台</span></li>
+        <li class="flex justify-between border-b border-[#2a2a2a] pb-3"><span class="bebas text-lg">21:30</span><span>壓軸特別嘉賓 — 主舞台</span></li>
+        <li class="flex justify-between"><span class="bebas text-lg">23:30</span><span>全場大合唱閉幕</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 票務 -->
+<section id="tickets" class="px-6 md:px-12 py-16">
+  <h2 class="bebas text-5xl mb-10">選一張<span class="accent2">門票</span></h2>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="card p-7">
+      <div class="bebas text-xl mb-2">單日通行證</div>
+      <div class="bebas text-4xl mb-4">NT$1,680</div>
+      <p class="text-sm opacity-70 mb-6">任選一天入場，開放五座舞台</p>
+      <button class="w-full border border-[#f5f5f0]/40 bebas text-lg py-3">購買</button>
+    </div>
+    <div class="card p-7 border-2 border-[#ff2d55] relative">
+      <span class="absolute -top-3 right-5 bg-[#ff2d55] text-black text-xs font-bold px-3 py-1 bebas">最超值</span>
+      <div class="bebas text-xl mb-2">雙日通行證</div>
+      <div class="bebas text-4xl mb-4">NT$2,980</div>
+      <p class="text-sm opacity-70 mb-6">兩天完整入場 + 限定紀念帆布包</p>
+      <button class="w-full bg-[#ff2d55] text-black bebas text-lg py-3">購買</button>
+    </div>
+    <div class="card p-7">
+      <div class="bebas text-xl mb-2">VIP 貴賓證</div>
+      <div class="bebas text-4xl mb-4">NT$5,980</div>
+      <p class="text-sm opacity-70 mb-6">專屬前台休息區 + 藝人見面會</p>
+      <button class="w-full border border-[#f5f5f0]/40 bebas text-lg py-3">購買</button>
+    </div>
+  </div>
+</section>
+
+<footer class="px-6 md:px-12 py-8 border-t border-[#2a2a2a] text-sm opacity-60 flex justify-between">
+  <span>© 2026 PULSEFEST 躍動音樂祭</span>
+  <span>高雄流行音樂中心</span>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!-- style #09 Claymorphism -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>黏土日記 ClayDay · 讓好習慣軟軟地養成</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#fdf6ef;
+    --pink:#fdbcb4;
+    --blue:#a9d6e5;
+    --green:#b8e3c4;
+    --yellow:#ffe8a3;
+    --ink:#5b4636;
+  }
+  body{
+    font-family:'Quicksand',sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+  }
+  h1,h2,h3,.display{font-family:'Baloo 2',sans-serif;}
+  .clay{
+    background:linear-gradient(145deg,#ffffff,#f3e9df);
+    border-radius:32px;
+    box-shadow: 10px 10px 24px rgba(180,150,120,0.25), -10px -10px 24px rgba(255,255,255,0.9);
+    border:1px solid rgba(255,255,255,0.6);
+  }
+  .clay-in{
+    border-radius:24px;
+    box-shadow: inset 6px 6px 14px rgba(180,150,120,0.22), inset -6px -6px 14px rgba(255,255,255,0.85);
+  }
+  .clay-btn{
+    border-radius:999px;
+    box-shadow: 8px 8px 18px rgba(180,150,120,0.3), -8px -8px 18px rgba(255,255,255,0.9);
+    transition: all .15s ease;
+  }
+  .clay-btn:active{
+    box-shadow: inset 4px 4px 10px rgba(180,150,120,0.3), inset -4px -4px 10px rgba(255,255,255,0.8);
+    transform: translateY(2px);
+  }
+  .blob{
+    border-radius:42% 58% 63% 37% / 41% 44% 56% 59%;
+    filter: blur(0px);
+  }
+  @keyframes float{
+    0%,100%{ transform: translateY(0) rotate(0deg); }
+    50%{ transform: translateY(-14px) rotate(3deg); }
+  }
+  .floaty{ animation: float 6s ease-in-out infinite; }
+  .floaty-slow{ animation: float 9s ease-in-out infinite; animation-delay: -3s; }
+  .dot-progress span{
+    display:inline-block;width:10px;height:10px;border-radius:50%;
+  }
+</style>
+</head>
+<body class="overflow-x-hidden">
+
+<!-- 背景軟萌色塊 -->
+<div class="fixed -top-20 -left-20 w-72 h-72 blob floaty" style="background:var(--pink); opacity:.55;"></div>
+<div class="fixed top-1/3 -right-24 w-80 h-80 blob floaty-slow" style="background:var(--blue); opacity:.5;"></div>
+<div class="fixed bottom-0 left-1/4 w-64 h-64 blob floaty" style="background:var(--yellow); opacity:.5;"></div>
+
+<header class="relative z-10 max-w-6xl mx-auto px-6 pt-8 flex items-center justify-between">
+  <div class="flex items-center gap-3">
+    <div class="w-11 h-11 clay flex items-center justify-center text-xl">🧸</div>
+    <span class="display text-xl font-bold">黏土日記 ClayDay</span>
+  </div>
+  <nav class="hidden md:flex items-center gap-8 text-[15px] font-medium">
+    <a href="#features" class="hover:opacity-70">怎麼養成</a>
+    <a href="#moods" class="hover:opacity-70">心情小夥伴</a>
+    <a href="#pricing" class="hover:opacity-70">方案</a>
+  </nav>
+  <button class="clay-btn px-5 py-2.5 text-sm font-semibold" style="background:var(--green);">免費開始</button>
+</header>
+
+<main class="relative z-10 max-w-6xl mx-auto px-6">
+
+  <section class="pt-16 pb-20 grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <span class="clay-in inline-block px-4 py-1.5 text-sm font-semibold mb-5" style="background:var(--yellow);">每天捏一點，習慣就長出來了</span>
+      <h1 class="display text-5xl md:text-6xl font-extrabold leading-tight mb-6">
+        把枯燥的打卡<br/>變成<span style="color:#e08a7d;">軟軟的</span>小儀式
+      </h1>
+      <p class="text-lg leading-relaxed mb-8 opacity-80">
+        ClayDay 用黏土般的圓潤卡片，記錄喝水、睡覺、運動、讀書——每完成一次，你的黏土夥伴就會長大一點點，彈一下，笑一下。
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <button class="clay-btn px-7 py-3.5 font-bold text-base" style="background:var(--pink);">立即下載 App</button>
+        <button class="clay-btn px-7 py-3.5 font-bold text-base bg-white">看看怎麼玩</button>
+      </div>
+      <div class="flex items-center gap-4 mt-8 text-sm opacity-70">
+        <div class="flex -space-x-3">
+          <div class="w-9 h-9 rounded-full border-2 border-white" style="background:var(--pink);"></div>
+          <div class="w-9 h-9 rounded-full border-2 border-white" style="background:var(--blue);"></div>
+          <div class="w-9 h-9 rounded-full border-2 border-white" style="background:var(--green);"></div>
+        </div>
+        <span>超過 <b>48,000</b> 位使用者正在養成好習慣</span>
+      </div>
+    </div>
+
+    <div class="relative">
+      <div class="clay p-6">
+        <div class="flex items-center justify-between mb-5">
+          <span class="display font-bold text-lg">今天・10月12日</span>
+          <span class="clay-in px-3 py-1 text-xs font-semibold" style="background:var(--blue);">連續 14 天</span>
+        </div>
+        <div class="space-y-4">
+          <div class="clay-in p-4 flex items-center gap-4" style="background:var(--pink);">
+            <div class="text-3xl floaty">💧</div>
+            <div class="flex-1">
+              <div class="font-bold">喝足 2000ml 水</div>
+              <div class="text-sm opacity-70">已完成 6/8 杯</div>
+            </div>
+            <div class="w-8 h-8 rounded-full bg-white/70 flex items-center justify-center font-bold">✓</div>
+          </div>
+          <div class="clay-in p-4 flex items-center gap-4" style="background:var(--green);">
+            <div class="text-3xl floaty-slow">📖</div>
+            <div class="flex-1">
+              <div class="font-bold">睡前閱讀 20 分鐘</div>
+              <div class="text-sm opacity-70">養成中，再 3 天升級</div>
+            </div>
+            <div class="w-8 h-8 rounded-full bg-white/70"></div>
+          </div>
+          <div class="clay-in p-4 flex items-center gap-4" style="background:var(--yellow);">
+            <div class="text-3xl floaty">🧘</div>
+            <div class="flex-1">
+              <div class="font-bold">十分鐘伸展</div>
+              <div class="text-sm opacity-70">尚未開始，晚點提醒你</div>
+            </div>
+            <div class="w-8 h-8 rounded-full bg-white/70"></div>
+          </div>
+        </div>
+      </div>
+      <div class="absolute -bottom-6 -right-6 clay w-28 h-28 flex items-center justify-center text-5xl floaty-slow" style="background:var(--yellow);">🐣</div>
+    </div>
+  </section>
+
+  <section id="features" class="pb-20">
+    <h2 class="display text-3xl md:text-4xl font-bold text-center mb-3">養習慣，像捏黏土一樣有手感</h2>
+    <p class="text-center opacity-70 mb-12">三個小步驟，把意志力變成看得見的進度</p>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="clay p-7">
+        <div class="clay-in w-14 h-14 flex items-center justify-center text-2xl mb-5" style="background:var(--pink);">🫧</div>
+        <h3 class="display font-bold text-xl mb-2">設定軟軟目標</h3>
+        <p class="opacity-75 leading-relaxed">不用設太難，ClayDay 會依照你最近的完成率，自動建議剛好踩在舒適圈邊緣的小目標。</p>
+      </div>
+      <div class="clay p-7">
+        <div class="clay-in w-14 h-14 flex items-center justify-center text-2xl mb-5" style="background:var(--blue);">🪄</div>
+        <h3 class="display font-bold text-xl mb-2">每次打卡都有回饋</h3>
+        <p class="opacity-75 leading-relaxed">黏土夥伴會跳一下、長大一點，還會留下當天的心情印記，回頭看是一條軟綿綿的成長曲線。</p>
+      </div>
+      <div class="clay p-7">
+        <div class="clay-in w-14 h-14 flex items-center justify-center text-2xl mb-5" style="background:var(--green);">🧁</div>
+        <h3 class="display font-bold text-xl mb-2">和朋友互相搓一下</h3>
+        <p class="opacity-75 leading-relaxed">邀請朋友一起養成，彼此可以「搓一下」對方的黏土夥伴打招呼，比按讚更有溫度。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="moods" class="pb-20">
+    <div class="clay p-8 md:p-12 grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <h2 class="display text-3xl font-bold mb-4">選一個陪你的黏土小夥伴</h2>
+        <p class="opacity-75 leading-relaxed mb-6">每種夥伴對應不同的習慣類型，個性也不一樣——有的愛睡覺提醒你早點休息，有的愛運動會在你偷懶時輕輕戳你。</p>
+        <div class="flex flex-wrap gap-3">
+          <span class="clay-in px-4 py-2 text-sm font-semibold" style="background:var(--pink);">🐣 晨型小雞</span>
+          <span class="clay-in px-4 py-2 text-sm font-semibold" style="background:var(--blue);">🐳 冷靜鯨魚</span>
+          <span class="clay-in px-4 py-2 text-sm font-semibold" style="background:var(--green);">🐸 活力青蛙</span>
+          <span class="clay-in px-4 py-2 text-sm font-semibold" style="background:var(--yellow);">🐻 暖呼呼熊</span>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-5">
+        <div class="clay-in p-6 text-center floaty" style="background:var(--pink);">
+          <div class="text-5xl mb-2">🐣</div>
+          <div class="font-bold">晨型小雞</div>
+        </div>
+        <div class="clay-in p-6 text-center floaty-slow" style="background:var(--blue);">
+          <div class="text-5xl mb-2">🐳</div>
+          <div class="font-bold">冷靜鯨魚</div>
+        </div>
+        <div class="clay-in p-6 text-center floaty-slow" style="background:var(--green);">
+          <div class="text-5xl mb-2">🐸</div>
+          <div class="font-bold">活力青蛙</div>
+        </div>
+        <div class="clay-in p-6 text-center floaty" style="background:var(--yellow);">
+          <div class="text-5xl mb-2">🐻</div>
+          <div class="font-bold">暖呼呼熊</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="pb-24">
+    <h2 class="display text-3xl font-bold text-center mb-10">挑一個適合你的方案</h2>
+    <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+      <div class="clay p-7 text-center">
+        <div class="display font-bold text-lg mb-1">軟芽方案</div>
+        <div class="text-3xl font-extrabold mb-4">免費</div>
+        <p class="opacity-70 text-sm mb-6">最多 3 個習慣・基礎黏土夥伴</p>
+        <button class="clay-btn w-full py-3 font-bold bg-white">開始使用</button>
+      </div>
+      <div class="clay p-7 text-center relative" style="background:linear-gradient(145deg,#fff7ee,#ffe8d4); transform:scale(1.04);">
+        <span class="absolute -top-3 right-6 clay-in px-3 py-1 text-xs font-bold" style="background:var(--pink);">最多人選</span>
+        <div class="display font-bold text-lg mb-1">成長方案</div>
+        <div class="text-3xl font-extrabold mb-4">NT$99<span class="text-base font-medium opacity-60">/月</span></div>
+        <p class="opacity-70 text-sm mb-6">無限習慣・全系列夥伴・好友搓一下</p>
+        <button class="clay-btn w-full py-3 font-bold" style="background:var(--pink);">升級成長方案</button>
+      </div>
+      <div class="clay p-7 text-center">
+        <div class="display font-bold text-lg mb-1">家庭方案</div>
+        <div class="text-3xl font-extrabold mb-4">NT$199<span class="text-base font-medium opacity-60">/月</span></div>
+        <p class="opacity-70 text-sm mb-6">最多 5 位成員・共同習慣牆</p>
+        <button class="clay-btn w-full py-3 font-bold bg-white">開始家庭方案</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="pb-10 text-center text-sm opacity-60">
+    © 2026 ClayDay 黏土日記．讓好習慣軟軟地發生
+  </footer>
+
+</main>
+
+</body>
+</html>

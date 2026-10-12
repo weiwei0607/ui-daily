@@ -1,0 +1,142 @@
+<!-- style #42 Organic Biophilic -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>森語 Sylvan · 把一片森林搬進你家</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Nunito',sans-serif; background:#f5f1e8; color:#3e4a32; }
+  .serif{ font-family:'Cormorant Garamond',serif; }
+  .leaf-card{
+    border-radius:28px 12px 28px 12px;
+    background:#fffdf8;
+    border:1px solid rgba(62,74,50,0.12);
+  }
+  .organic-blob{
+    border-radius: 58% 42% 51% 49% / 45% 55% 45% 55%;
+  }
+  .texture{
+    background-image: radial-gradient(circle at 20% 30%, rgba(62,74,50,0.05) 0, transparent 40%),
+                       radial-gradient(circle at 80% 70%, rgba(143,188,143,0.12) 0, transparent 45%);
+  }
+  @keyframes sway{
+    0%,100%{ transform: rotate(-2deg) translateY(0); }
+    50%{ transform: rotate(2deg) translateY(-6px); }
+  }
+  .sway{ animation: sway 5s ease-in-out infinite; }
+</style>
+</head>
+<body class="texture">
+
+<div class="max-w-6xl mx-auto px-6">
+
+  <header class="flex items-center justify-between py-7">
+    <div class="flex items-center gap-2">
+      <span class="text-2xl">🌿</span>
+      <span class="serif text-2xl font-semibold">森語 Sylvan</span>
+    </div>
+    <nav class="hidden md:flex gap-8 text-sm font-semibold">
+      <a href="#plants" class="hover:opacity-70">植物選物</a>
+      <a href="#subscription" class="hover:opacity-70">訂閱方案</a>
+      <a href="#story" class="hover:opacity-70">我們的理念</a>
+    </nav>
+    <button class="bg-[#3e4a32] text-[#f5f1e8] rounded-full px-5 py-2.5 text-sm font-bold">開始訂閱</button>
+  </header>
+
+  <!-- Hero -->
+  <section class="grid md:grid-cols-2 gap-12 items-center py-14">
+    <div>
+      <p class="serif text-xl italic opacity-70 mb-3">在水泥城市裡，留一塊呼吸的角落</p>
+      <h1 class="serif text-5xl md:text-6xl font-semibold leading-tight mb-6">
+        每月一盆植物，<br/>陪你把家<span class="italic">養</span>成森林
+      </h1>
+      <p class="leading-relaxed opacity-80 mb-8 text-[17px]">
+        森語每月為你挑選一株適合當下季節與居家光線的植物，附上手寫照護卡與專屬土壤配方。我們相信照顧植物的過程，本身就是一種緩慢而踏實的療癒。
+      </p>
+      <div class="flex gap-4">
+        <button class="bg-[#3e4a32] text-[#f5f1e8] rounded-full px-7 py-3.5 font-bold">立即加入訂閱</button>
+        <button class="border-2 border-[#3e4a32] rounded-full px-7 py-3.5 font-bold">看本月選物</button>
+      </div>
+    </div>
+    <div class="relative">
+      <div class="organic-blob bg-[#8fbc8f]/30 w-full h-80 sway"></div>
+      <div class="leaf-card absolute inset-6 p-6 flex flex-col justify-end">
+        <span class="text-5xl mb-3">🪴</span>
+        <div class="serif text-2xl font-semibold mb-1">十月選物：龜背芋 幼株</div>
+        <p class="text-sm opacity-70">喜濕潤間接光，適合放在客廳窗邊</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 植物選物 -->
+  <section id="plants" class="py-16">
+    <h2 class="serif text-3xl font-semibold text-center mb-2">本季精選植物</h2>
+    <p class="text-center opacity-70 mb-10">依光線與居住空間，為你配對合適的綠色夥伴</p>
+    <div class="grid md:grid-cols-3 gap-7">
+      <div class="leaf-card p-6">
+        <div class="organic-blob bg-[#8fbc8f]/40 h-40 flex items-center justify-center text-5xl mb-5">🌱</div>
+        <h3 class="serif text-xl font-semibold mb-1">福祿桐</h3>
+        <p class="text-sm opacity-75 mb-3">耐陰、好照顧，適合新手與辦公桌面。</p>
+        <div class="text-sm font-bold">NT$ 680 / 月</div>
+      </div>
+      <div class="leaf-card p-6">
+        <div class="organic-blob bg-[#deb887]/40 h-40 flex items-center justify-center text-5xl mb-5">🌿</div>
+        <h3 class="serif text-xl font-semibold mb-1">白鶴芋</h3>
+        <p class="text-sm opacity-75 mb-3">喜濕潤環境，淨化空氣效果良好。</p>
+        <div class="text-sm font-bold">NT$ 720 / 月</div>
+      </div>
+      <div class="leaf-card p-6">
+        <div class="organic-blob bg-[#8fbc8f]/40 h-40 flex items-center justify-center text-5xl mb-5">🌵</div>
+        <h3 class="serif text-xl font-semibold mb-1">沙漠玫瑰</h3>
+        <p class="text-sm opacity-75 mb-3">耐旱喜日照，適合向陽窗台。</p>
+        <div class="text-sm font-bold">NT$ 850 / 月</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 訂閱方案 -->
+  <section id="subscription" class="py-16">
+    <div class="leaf-card p-10 grid md:grid-cols-3 gap-8 items-center">
+      <div class="md:col-span-1">
+        <h2 class="serif text-3xl font-semibold mb-3">森語訂閱方案</h2>
+        <p class="opacity-75 leading-relaxed">每月配送一株植物，附土壤、花器與照護指南，隨時可暫停或更換植物偏好。</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:col-span-2 gap-5">
+        <div class="border border-[#3e4a32]/20 rounded-2xl p-6">
+          <div class="serif text-lg font-semibold mb-1">萌芽方案</div>
+          <div class="text-2xl font-extrabold mb-3">NT$ 680<span class="text-sm font-normal opacity-60">/月</span></div>
+          <p class="text-sm opacity-70">1 株中型植物・基礎花器</p>
+        </div>
+        <div class="border-2 border-[#3e4a32] rounded-2xl p-6 relative">
+          <span class="absolute -top-3 right-5 bg-[#3e4a32] text-[#f5f1e8] text-xs px-3 py-1 rounded-full">最受歡迎</span>
+          <div class="serif text-lg font-semibold mb-1">成林方案</div>
+          <div class="text-2xl font-extrabold mb-3">NT$ 1,280<span class="text-sm font-normal opacity-60">/月</span></div>
+          <p class="text-sm opacity-70">2 株植物・陶製花器・季節土壤</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 理念 -->
+  <section id="story" class="py-16 grid md:grid-cols-2 gap-12 items-center">
+    <div class="organic-blob bg-[#3e4a32]/10 h-72 flex items-center justify-center text-6xl sway">🌳</div>
+    <div>
+      <h2 class="serif text-3xl font-semibold mb-4">我們的理念</h2>
+      <p class="leading-relaxed opacity-80 text-[17px]">
+        森語創立於 2021 年，三位創辦人原本都在水泥叢林裡朝九晚五。我們發現，照顧一株植物所需要的耐心與觀察，恰好是忙碌生活最缺乏的節奏。於是我們走訪台灣各地苗圃，建立起一套「光線配對」系統，確保每個家庭收到的植物都能真正存活、真正長大，而不只是曇花一現的裝飾。
+      </p>
+    </div>
+  </section>
+
+  <footer class="py-8 border-t border-[#3e4a32]/15 text-center text-sm opacity-60">
+    © 2026 森語 Sylvan．把一片森林，慢慢種進你的生活
+  </footer>
+
+</div>
+
+</body>
+</html>

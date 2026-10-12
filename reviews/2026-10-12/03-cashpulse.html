@@ -1,0 +1,201 @@
+<!-- style #36 Financial Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>現流 CashPulse · 企業現金流即時管理後台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Plus Jakarta Sans',sans-serif; background:#0f172a; color:#e2e8f0; }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+  .card{ background:#1e293b; border:1px solid #334155; border-radius:14px; }
+  .card-soft{ background:#172036; border:1px solid #2a3850; border-radius:12px; }
+  .up{ color:#10b981; }
+  .down{ color:#f87171; }
+  .scroll::-webkit-scrollbar{ height:6px; }
+  .scroll::-webkit-scrollbar-thumb{ background:#334155; border-radius:4px; }
+  .sidebar-link{ border-radius:10px; }
+  .sidebar-link.active{ background:#273349; color:#fff; }
+  .sidebar-link:hover{ background:#1a2435; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="flex">
+
+  <!-- 側邊欄 -->
+  <aside class="w-60 h-screen sticky top-0 border-r border-[#1f2a3d] p-5 hidden md:flex flex-col">
+    <div class="flex items-center gap-2 mb-8">
+      <div class="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center">
+        <div class="w-2.5 h-2.5 rounded-full bg-emerald-400"></div>
+      </div>
+      <span class="font-bold text-lg">現流 CashPulse</span>
+    </div>
+    <nav class="space-y-1 text-sm">
+      <a class="sidebar-link active flex items-center gap-3 px-3 py-2.5" href="#">📊 總覽</a>
+      <a class="sidebar-link flex items-center gap-3 px-3 py-2.5 text-slate-400" href="#">💳 應收 / 應付</a>
+      <a class="sidebar-link flex items-center gap-3 px-3 py-2.5 text-slate-400" href="#">🏦 銀行帳戶</a>
+      <a class="sidebar-link flex items-center gap-3 px-3 py-2.5 text-slate-400" href="#">📈 現金流預測</a>
+      <a class="sidebar-link flex items-center gap-3 px-3 py-2.5 text-slate-400" href="#">🧾 報表中心</a>
+      <a class="sidebar-link flex items-center gap-3 px-3 py-2.5 text-slate-400" href="#">⚙️ 設定</a>
+    </nav>
+    <div class="mt-auto card-soft p-4 text-xs">
+      <div class="text-slate-400 mb-1">目前方案</div>
+      <div class="font-semibold mb-2">企業進階版</div>
+      <div class="text-emerald-400 mono">已連接 6 個銀行帳戶</div>
+    </div>
+  </aside>
+
+  <!-- 主內容 -->
+  <main class="flex-1 p-6 md:p-8">
+
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h1 class="text-2xl font-bold">現金流總覽</h1>
+        <p class="text-slate-400 text-sm mono">最後同步：2026-10-12 09:42 · 台灣時間</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <select class="card-soft text-sm px-3 py-2 outline-none">
+          <option>近 30 天</option>
+          <option>近 90 天</option>
+          <option>本會計年度</option>
+        </select>
+        <button class="bg-emerald-500 text-slate-900 font-semibold text-sm px-4 py-2 rounded-lg">匯出報表</button>
+      </div>
+    </div>
+
+    <!-- KPI -->
+    <div class="grid md:grid-cols-4 gap-4 mb-6">
+      <div class="card p-5">
+        <div class="text-slate-400 text-sm mb-2">目前可用現金</div>
+        <div class="mono text-3xl font-bold">NT$ 48,206,310</div>
+        <div class="up text-sm mt-2 mono">▲ 3.8% 較上月</div>
+      </div>
+      <div class="card p-5">
+        <div class="text-slate-400 text-sm mb-2">30 天內應收</div>
+        <div class="mono text-3xl font-bold">NT$ 12,480,900</div>
+        <div class="text-slate-400 text-sm mt-2 mono">涵蓋 38 筆發票</div>
+      </div>
+      <div class="card p-5">
+        <div class="text-slate-400 text-sm mb-2">30 天內應付</div>
+        <div class="mono text-3xl font-bold">NT$ 7,930,420</div>
+        <div class="down text-sm mt-2 mono">▼ 包含 2 筆逾期供應商款</div>
+      </div>
+      <div class="card p-5">
+        <div class="text-slate-400 text-sm mb-2">預估淨現金流（30天）</div>
+        <div class="mono text-3xl font-bold up">+NT$ 4,550,480</div>
+        <div class="text-slate-400 text-sm mt-2 mono">信心區間 88%</div>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-5 mb-6">
+
+      <!-- 現金流趨勢 -->
+      <div class="card p-5 md:col-span-2">
+        <div class="flex items-center justify-between mb-5">
+          <h2 class="font-semibold">現金流趨勢（近 30 天）</h2>
+          <div class="flex gap-3 text-xs mono">
+            <span class="flex items-center gap-1 text-slate-400"><span class="w-2 h-2 rounded-full bg-emerald-400"></span>流入</span>
+            <span class="flex items-center gap-1 text-slate-400"><span class="w-2 h-2 rounded-full bg-rose-400"></span>流出</span>
+          </div>
+        </div>
+        <svg viewBox="0 0 560 180" class="w-full h-44">
+          <line x1="0" y1="45" x2="560" y2="45" stroke="#273349" stroke-width="1"/>
+          <line x1="0" y1="90" x2="560" y2="90" stroke="#273349" stroke-width="1"/>
+          <line x1="0" y1="135" x2="560" y2="135" stroke="#273349" stroke-width="1"/>
+          <polyline points="0,110 40,96 80,102 120,80 160,88 200,60 240,70 280,50 320,58 360,40 400,46 440,30 480,36 520,22 560,28"
+            fill="none" stroke="#10b981" stroke-width="2.5"/>
+          <polyline points="0,130 40,140 80,128 120,150 160,138 200,160 240,148 280,165 320,150 360,168 400,155 440,170 480,158 520,172 560,160"
+            fill="none" stroke="#fb7185" stroke-width="2.5"/>
+        </svg>
+        <div class="flex justify-between text-xs text-slate-500 mono mt-2">
+          <span>09/13</span><span>09/20</span><span>09/27</span><span>10/04</span><span>10/12</span>
+        </div>
+      </div>
+
+      <!-- 銀行帳戶 -->
+      <div class="card p-5">
+        <h2 class="font-semibold mb-4">銀行帳戶分佈</h2>
+        <ul class="space-y-3 text-sm">
+          <li class="flex justify-between items-center">
+            <span class="text-slate-300">台北營運主帳戶</span>
+            <span class="mono font-semibold">NT$ 26.4M</span>
+          </li>
+          <li class="flex justify-between items-center">
+            <span class="text-slate-300">薪資專戶</span>
+            <span class="mono font-semibold">NT$ 8.1M</span>
+          </li>
+          <li class="flex justify-between items-center">
+            <span class="text-slate-300">外幣收款帳戶（USD）</span>
+            <span class="mono font-semibold">NT$ 9.6M</span>
+          </li>
+          <li class="flex justify-between items-center">
+            <span class="text-slate-300">備援週轉帳戶</span>
+            <span class="mono font-semibold">NT$ 4.1M</span>
+          </li>
+        </ul>
+        <div class="mt-4 pt-4 border-t border-[#273349] text-xs text-slate-400">
+          風險提示：外幣收款帳戶波動度較高，建議設定自動避險門檻。
+        </div>
+      </div>
+    </div>
+
+    <!-- 近期交易 -->
+    <div class="card p-5">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="font-semibold">近期大額交易</h2>
+        <a href="#" class="text-emerald-400 text-sm">查看全部 →</a>
+      </div>
+      <div class="overflow-x-auto scroll">
+        <table class="w-full text-sm mono">
+          <thead class="text-slate-500 text-xs">
+            <tr class="text-left">
+              <th class="py-2 pr-6">日期</th>
+              <th class="py-2 pr-6">對象</th>
+              <th class="py-2 pr-6">類型</th>
+              <th class="py-2 pr-6 text-right">金額</th>
+              <th class="py-2">狀態</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-[#273349]">
+            <tr>
+              <td class="py-3 pr-6 text-slate-400">10/11</td>
+              <td class="py-3 pr-6 font-sans">昇陽電子股份有限公司</td>
+              <td class="py-3 pr-6 text-slate-400">應收款入帳</td>
+              <td class="py-3 pr-6 text-right up">+2,180,000</td>
+              <td class="py-3"><span class="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 text-xs">已入帳</span></td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-6 text-slate-400">10/10</td>
+              <td class="py-3 pr-6 font-sans">台中物流倉儲合作商</td>
+              <td class="py-3 pr-6 text-slate-400">供應商付款</td>
+              <td class="py-3 pr-6 text-right down">-860,500</td>
+              <td class="py-3"><span class="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 text-xs">已付款</span></td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-6 text-slate-400">10/09</td>
+              <td class="py-3 pr-6 font-sans">月薪發放（全員）</td>
+              <td class="py-3 pr-6 text-slate-400">薪資支出</td>
+              <td class="py-3 pr-6 text-right down">-4,320,000</td>
+              <td class="py-3"><span class="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 text-xs">已付款</span></td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-6 text-slate-400">10/08</td>
+              <td class="py-3 pr-6 font-sans">新竹原料供應商</td>
+              <td class="py-3 pr-6 text-slate-400">應付款項</td>
+              <td class="py-3 pr-6 text-right text-amber-400">-1,205,000</td>
+              <td class="py-3"><span class="px-2 py-0.5 rounded bg-amber-500/15 text-amber-400 text-xs">逾期 3 天</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>
