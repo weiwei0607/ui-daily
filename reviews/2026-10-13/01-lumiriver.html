@@ -1,0 +1,325 @@
+<!-- style #10 Aurora UI -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>光河 LumiRiver・夢想儲蓄</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Varela+Round&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --aurora-blue: #6aa8ff;
+    --aurora-violet: #b07bff;
+    --aurora-pink: #ff8fc8;
+    --aurora-cyan: #7cf0e6;
+  }
+
+  * { -webkit-tap-highlight-color: transparent; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Varela Round', 'Zen Maru Gothic', 'Noto Sans TC', sans-serif;
+    background: #0c1026;
+    overflow-x: hidden;
+  }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 12px;
+    position: relative;
+  }
+
+  /* ---------- Aurora moving background ---------- */
+  .aurora-base {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(120deg, #0c1026 0%, #1a1440 20%, #2a1a52 40%, #3a1d52 60%, #1a2a52 80%, #0c1026 100%);
+    background-size: 300% 300%;
+    animation: auroraShift 22s ease-in-out infinite;
+  }
+
+  @keyframes auroraShift {
+    0%   { background-position: 0% 30%; }
+    50%  { background-position: 100% 70%; }
+    100% { background-position: 0% 30%; }
+  }
+
+  .aurora-blob {
+    position: fixed;
+    z-index: 1;
+    border-radius: 50%;
+    filter: blur(70px);
+    mix-blend-mode: screen;
+    opacity: 0.55;
+    will-change: transform;
+  }
+
+  .blob-1 {
+    width: 480px; height: 480px;
+    top: -120px; left: -100px;
+    background: radial-gradient(circle, var(--aurora-blue), transparent 70%);
+    animation: floatA 18s ease-in-out infinite;
+  }
+  .blob-2 {
+    width: 520px; height: 520px;
+    top: 10%; right: -160px;
+    background: radial-gradient(circle, var(--aurora-violet), transparent 70%);
+    animation: floatB 24s ease-in-out infinite;
+  }
+  .blob-3 {
+    width: 440px; height: 440px;
+    bottom: -140px; left: 10%;
+    background: radial-gradient(circle, var(--aurora-pink), transparent 70%);
+    animation: floatC 20s ease-in-out infinite;
+  }
+  .blob-4 {
+    width: 380px; height: 380px;
+    bottom: 5%; right: 5%;
+    background: radial-gradient(circle, var(--aurora-cyan), transparent 70%);
+    animation: floatA 26s ease-in-out infinite reverse;
+  }
+
+  @keyframes floatA {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50%      { transform: translate(60px, 40px) scale(1.12); }
+  }
+  @keyframes floatB {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50%      { transform: translate(-50px, 60px) scale(1.08); }
+  }
+  @keyframes floatC {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50%      { transform: translate(40px, -50px) scale(1.15); }
+  }
+
+  /* ---------- Glass surfaces ---------- */
+  .glass {
+    background: rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+  }
+  .glass-strong {
+    background: rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+  }
+
+  .phone-frame {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 400px;
+    min-height: 844px;
+    border-radius: 2.5rem;
+    overflow: hidden;
+    box-shadow: 0 30px 80px -20px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.08) inset;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .phone-inner-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(107,140,255,0.35), rgba(176,123,255,0.30) 40%, rgba(255,143,200,0.25) 70%, rgba(124,240,230,0.25));
+    background-size: 220% 220%;
+    animation: auroraShift 16s ease-in-out infinite;
+    z-index: 0;
+  }
+
+  /* ---------- Progress bars ---------- */
+  .progress-track {
+    width: 100%;
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.18);
+    overflow: hidden;
+    position: relative;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--aurora-blue), var(--aurora-violet), var(--aurora-pink), var(--aurora-cyan));
+    background-size: 300% 100%;
+    animation: progressFlow 6s linear infinite;
+  }
+  @keyframes progressFlow {
+    0%   { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; }
+  }
+
+  .font-round { font-family: 'Varela Round', 'Zen Maru Gothic', sans-serif; }
+
+  .nav-item.active .nav-dot {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .nav-dot {
+    opacity: 0;
+    transform: scale(0.4);
+    transition: all .25s ease;
+  }
+</style>
+</head>
+<body>
+
+  <div class="aurora-base"></div>
+  <div class="aurora-blob blob-1"></div>
+  <div class="aurora-blob blob-2"></div>
+  <div class="aurora-blob blob-3"></div>
+  <div class="aurora-blob blob-4"></div>
+
+  <div class="phone-frame font-round text-white">
+    <div class="phone-inner-bg"></div>
+
+    <!-- 內容區 -->
+    <div class="relative z-10 flex-1 flex flex-col px-5 pt-8 pb-28 overflow-y-auto">
+
+      <!-- 狀態列留白 -->
+      <div class="flex items-center justify-between text-xs text-white/70 mb-6 px-1">
+        <span>9:41</span>
+        <span class="tracking-widest">● ● ●</span>
+      </div>
+
+      <!-- Logo / 品牌 -->
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-12 h-12 rounded-2xl glass-strong flex items-center justify-center shrink-0">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+            <path d="M3 15c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2" stroke="url(#g1)" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M3 10c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2" stroke="url(#g2)" stroke-width="1.8" stroke-linecap="round" opacity="0.7"/>
+            <defs>
+              <linearGradient id="g1" x1="3" y1="13" x2="21" y2="13" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#7cf0e6"/>
+                <stop offset="0.5" stop-color="#b07bff"/>
+                <stop offset="1" stop-color="#ff8fc8"/>
+              </linearGradient>
+              <linearGradient id="g2" x1="3" y1="8" x2="21" y2="8" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#6aa8ff"/>
+                <stop offset="1" stop-color="#ff8fc8"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-lg font-bold leading-tight">光河 <span class="font-normal text-white/80">LumiRiver</span></h1>
+          <p class="text-[11px] text-white/60 leading-tight">夢想儲蓄・一點一點靠近它</p>
+        </div>
+      </div>
+
+      <!-- 標語 -->
+      <p class="text-sm text-white/85 leading-relaxed mb-7 mt-2">
+        像極光流動一樣，溫柔卻堅定地，<br>
+        一路靠近你最想抵達的地方。
+      </p>
+
+      <!-- 願望清單標題 -->
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-base font-bold">我的願望</h2>
+        <span class="text-xs text-white/60">共 3 個進行中</span>
+      </div>
+
+      <!-- 願望卡片 1 -->
+      <div class="glass rounded-3xl p-4 mb-4">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">🌸</span>
+            <span class="font-bold text-sm">日本賞滻小旅行</span>
+          </div>
+          <span class="text-[11px] px-2 py-1 rounded-full bg-white/15 text-white/80">41%</span>
+        </div>
+        <div class="flex items-end justify-between mb-2">
+          <span class="text-lg font-bold">NT$ 32,500</span>
+          <span class="text-xs text-white/60 mb-0.5">目標 NT$ 80,000</span>
+        </div>
+        <div class="progress-track mb-2">
+          <div class="progress-fill" style="width:41%"></div>
+        </div>
+        <p class="text-[11px] text-white/60">預計 2027 年 3 月達成</p>
+      </div>
+
+      <!-- 願望卡片 2 -->
+      <div class="glass rounded-3xl p-4 mb-4">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">🏠</span>
+            <span class="font-bold text-sm">買房頭期款</span>
+          </div>
+          <span class="text-[11px] px-2 py-1 rounded-full bg-white/15 text-white/80">30%</span>
+        </div>
+        <div class="flex items-end justify-between mb-2">
+          <span class="text-lg font-bold">NT$ 450,000</span>
+          <span class="text-xs text-white/60 mb-0.5">目標 NT$ 1,500,000</span>
+        </div>
+        <div class="progress-track mb-2">
+          <div class="progress-fill" style="width:30%"></div>
+        </div>
+        <p class="text-[11px] text-white/60">預計 2029 年 6 月達成</p>
+      </div>
+
+      <!-- 願望卡片 3 -->
+      <div class="glass rounded-3xl p-4 mb-5">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">🎓</span>
+            <span class="font-bold text-sm">進修基金・UX 證照課程</span>
+          </div>
+          <span class="text-[11px] px-2 py-1 rounded-full bg-white/15 text-white/80">57%</span>
+        </div>
+        <div class="flex items-end justify-between mb-2">
+          <span class="text-lg font-bold">NT$ 68,000</span>
+          <span class="text-xs text-white/60 mb-0.5">目標 NT$ 120,000</span>
+        </div>
+        <div class="progress-track mb-2">
+          <div class="progress-fill" style="width:57%"></div>
+        </div>
+        <p class="text-[11px] text-white/60">預計 2026 年 12 月達成</p>
+      </div>
+
+      <!-- 新增願望按鈕 -->
+      <button class="w-full rounded-3xl border border-dashed border-white/40 text-white/85 text-sm font-bold py-3.5 flex items-center justify-center gap-2 glass hover:bg-white/15 transition">
+        <span class="text-base">＋</span>
+        <span>新增願望</span>
+      </button>
+
+    </div>
+
+    <!-- 底部導覽列 -->
+    <div class="absolute bottom-0 left-0 right-0 z-20 glass-strong rounded-t-3xl px-6 pt-3 pb-5 flex items-center justify-between">
+      <div class="nav-item active flex flex-col items-center gap-1 text-white">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M4 11l8-7 8 7" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6 10v9h12v-9" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="text-[11px] font-bold">首頁</span>
+        <span class="nav-dot w-1 h-1 rounded-full bg-white"></span>
+      </div>
+      <div class="nav-item flex flex-col items-center gap-1 text-white/55">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M12 21s-7-4.6-9.5-9.2C.7 8.4 2.4 5 5.8 5c2 0 3.3 1.1 4.2 2.4C10.9 6.1 12.2 5 14.2 5c3.4 0 5.1 3.4 3.3 6.8C19 16.4 12 21 12 21z" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="text-[11px]">願望</span>
+        <span class="nav-dot w-1 h-1 rounded-full bg-white"></span>
+      </div>
+      <div class="nav-item flex flex-col items-center gap-1 text-white/55">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="12" cy="8" r="3.2"/>
+          <path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6" stroke-linecap="round"/>
+        </svg>
+        <span class="text-[11px]">我的</span>
+        <span class="nav-dot w-1 h-1 rounded-full bg-white"></span>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

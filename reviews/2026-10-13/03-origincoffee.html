@@ -1,0 +1,469 @@
+<!-- style #49 Parallax Storytelling -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>溯源 Origin｜一杯咖啡的旅程</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Noto+Serif+TC:wght@400;500;600;700;900&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --paper:#f4efe6;
+    --paper-dark:#ece4d4;
+    --ink:#20201c;
+    --ink-soft:#514d44;
+    --rust:#9c4a2f;
+    --rust-deep:#7a3620;
+    --olive:#6b6c42;
+    --line:#cdc3ac;
+    --gold:#b9893f;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Noto Serif TC", "Libre Caslon Text", serif;
+    overflow-x: hidden;
+  }
+
+  .font-display{
+    font-family: "Libre Caslon Text", "Noto Serif TC", serif;
+  }
+
+  .font-ui{
+    font-family: "Work Sans", "Noto Serif TC", sans-serif;
+  }
+
+  /* 頂部滾動進度條 */
+  #progress-wrap{
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: rgba(32,32,28,0.08);
+    z-index: 100;
+  }
+  #progress-bar{
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--rust), var(--gold));
+    transition: width 60ms linear;
+  }
+
+  /* 章節編號膠囊 */
+  .chapter-tag{
+    font-family: "Work Sans", sans-serif;
+    letter-spacing: 0.18em;
+  }
+
+  /* 淡入 / 視差位移基礎狀態 */
+  .reveal{
+    opacity: 0;
+    transform: translateY(60px);
+    transition: opacity 1s cubic-bezier(.22,.61,.36,1), transform 1.1s cubic-bezier(.22,.61,.36,1);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible{
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-left{ transform: translateX(-70px); }
+  .reveal-left.is-visible{ transform: translateX(0); }
+  .reveal-right{ transform: translateX(70px); }
+  .reveal-right.is-visible{ transform: translateX(0); }
+  .reveal-scale{ transform: scale(0.88); }
+  .reveal-scale.is-visible{ transform: scale(1); }
+
+  .reveal-delay-1{ transition-delay: .12s; }
+  .reveal-delay-2{ transition-delay: .26s; }
+  .reveal-delay-3{ transition-delay: .4s; }
+
+  /* 視差層：由 JS 依 scroll 位置計算 translateY */
+  .parallax-layer{
+    will-change: transform;
+  }
+
+  .section-rule{
+    width: 72px;
+    height: 2px;
+    background: var(--rust);
+  }
+
+  .drop-ink{ color: var(--ink); }
+  .drop-rust{ color: var(--rust-deep); }
+
+  /* 章節一：晨霧莊園 視覺（CSS 漸層模擬） */
+  .scene-dawn{
+    background:
+      radial-gradient(ellipse 70% 40% at 50% 15%, rgba(255,247,230,0.85), rgba(255,247,230,0) 60%),
+      linear-gradient(180deg, #e9ddc2 0%, #cfc19a 30%, #9fa876 55%, #5f6b3f 78%, #37402a 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .scene-dawn .mist{
+    position: absolute;
+    left: 0; right: 0;
+    height: 220px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0));
+    filter: blur(6px);
+  }
+  .tree-shape{
+    position: absolute;
+    bottom: -4%;
+    width: 46%;
+    height: 72%;
+    background: radial-gradient(circle at 50% 30%, #3f4a2a 0%, #2d3620 70%, transparent 72%);
+    border-radius: 50% 50% 45% 45%;
+    opacity: 0.9;
+  }
+
+  /* 章節二：果實紋理 */
+  .scene-cherry{
+    background: linear-gradient(160deg, #3a1d12 0%, #5c2a17 45%, #9c4a2f 100%);
+  }
+  .cherry-dot{
+    border-radius: 50%;
+    background: radial-gradient(circle at 32% 28%, #ff9a7a, #c8381f 55%, #6e180a 100%);
+    box-shadow: inset -4px -6px 10px rgba(0,0,0,0.35), 2px 3px 8px rgba(0,0,0,0.25);
+  }
+
+  /* 章節三：烘豆漸層 */
+  .scene-roast{
+    background: linear-gradient(135deg, #2a1810 0%, #512f1b 40%, #86502a 75%, #c98a46 100%);
+  }
+  .bean-shape{
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    position: relative;
+  }
+  .bean-shape::after{
+    content: "";
+    position: absolute;
+    top: 8%;
+    left: 48%;
+    width: 4%;
+    height: 84%;
+    background: rgba(0,0,0,0.35);
+    border-radius: 50%;
+    transform: rotate(8deg);
+  }
+
+  /* 章節四：跨海旅程 */
+  .scene-sea{
+    background: linear-gradient(180deg, #e6e9e2 0%, #b9c4b2 35%, #5c7a73 70%, #2d4440 100%);
+  }
+  .wave-line{
+    position: absolute;
+    left: -10%;
+    width: 120%;
+    border-top: 2px solid rgba(255,255,255,0.35);
+    border-radius: 50%;
+  }
+
+  /* 章節五：沖煮結尾 */
+  .scene-brew{
+    background: radial-gradient(circle at 50% 30%, #4a2a18, #211209 75%);
+  }
+  .cup-shape{
+    border-radius: 0 0 46% 46% / 0 0 60% 60%;
+    background: linear-gradient(180deg, #e9ddc2, #cbb98f);
+  }
+  .steam{
+    position: absolute;
+    width: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    filter: blur(3px);
+    animation: steamRise 3.2s ease-in-out infinite;
+  }
+  @keyframes steamRise{
+    0%{ transform: translateY(0) scaleX(1); opacity: 0; }
+    20%{ opacity: .6; }
+    100%{ transform: translateY(-70px) scaleX(1.6); opacity: 0; }
+  }
+
+  .btn-primary{
+    background: var(--rust);
+    color: var(--paper);
+    transition: background .25s ease, transform .25s ease;
+  }
+  .btn-primary:hover{
+    background: var(--rust-deep);
+    transform: translateY(-2px);
+  }
+
+  .noise-overlay{
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    z-index: 1;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  .chapter-num{
+    font-family: "Libre Caslon Text", serif;
+    font-style: italic;
+  }
+</style>
+</head>
+<body class="font-ui">
+
+  <div id="progress-wrap"><div id="progress-bar"></div></div>
+  <div class="noise-overlay"></div>
+
+  <!-- NAV -->
+  <header class="fixed top-0 left-0 right-0 z-40 mt-1">
+    <div class="max-w-6xl mx-auto px-6 md:px-10 py-4 flex items-center justify-between">
+      <div class="font-display text-lg md:text-xl tracking-wide drop-ink">溯源 <span class="italic drop-rust">Origin</span></div>
+      <nav class="hidden md:flex gap-8 text-xs font-ui tracking-widest uppercase text-[var(--ink-soft)]">
+        <span data-nav="1">莊園</span>
+        <span data-nav="2">採收</span>
+        <span data-nav="3">烘焙</span>
+        <span data-nav="4">航程</span>
+        <span data-nav="5">一杯</span>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="scene-dawn min-h-screen flex flex-col items-center justify-center text-center relative px-6">
+    <div class="tree-shape parallax-layer" data-speed="0.15" style="left:-6%;"></div>
+    <div class="tree-shape parallax-layer" data-speed="0.25" style="right:-10%; width:36%; height:58%; bottom:-2%;"></div>
+    <div class="mist parallax-layer" data-speed="0.4" style="top:8%;"></div>
+
+    <div class="relative z-10 reveal is-visible">
+      <p class="chapter-tag text-xs text-[var(--ink-soft)] mb-5">一杯咖啡，啟程之前</p>
+      <h1 class="font-display text-5xl md:text-7xl leading-tight text-[var(--ink)] mb-6">
+        溯源 <span class="italic">Origin</span>
+      </h1>
+      <p class="max-w-md mx-auto text-sm md:text-base text-[var(--ink-soft)] leading-relaxed">
+        在你端起這杯咖啡之前，它已經走過了一萬兩千公里、經歷三個雨季，以及無數雙手的細心照看。
+      </p>
+      <div class="mt-10 flex flex-col items-center gap-2 opacity-70">
+        <span class="text-[10px] tracking-widest uppercase">往下滾動，展開旅程</span>
+        <span class="text-xl animate-bounce">↓</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 1 -->
+  <section class="relative bg-[var(--paper)] py-28 md:py-40 px-6 overflow-hidden" id="ch1">
+    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-14 items-center">
+      <div class="reveal reveal-left">
+        <span class="chapter-num text-5xl drop-rust">01</span>
+        <p class="chapter-tag text-xs text-[var(--ink-soft)] mt-4 mb-3">THE FARM · 莊園晨霧</p>
+        <h2 class="font-display text-3xl md:text-4xl mb-5 leading-snug">薇拉莊園，<br>海拔一千七百公尺的清晨</h2>
+        <div class="section-rule mb-6"></div>
+        <p class="text-[15px] md:text-base leading-8 text-[var(--ink-soft)]">
+          哥倫比亞薇拉莊園坐落在輝拉山谷的向陽坡地，清晨五點，霧氣還未散去，莊園主人唐·赫蘇斯已經走在咖啡樹列之間。這裡的土壤是火山灰與腐植土混成的深褐色，排水極好，夜裡的涼意與日照的落差，讓咖啡果實得以緩慢成熟，把甜味一點一滴鎖進果肉裡。
+        </p>
+        <p class="text-[15px] md:text-base leading-8 text-[var(--ink-soft)] mt-4">
+          唐·赫蘇斯的父親在這片坡地種下第一批卡杜拉與粉波旁樹苗，至今已經四十二年。每一棵樹，他都認得。
+        </p>
+      </div>
+      <div class="reveal reveal-right reveal-delay-1 relative h-72 md:h-96 rounded-sm overflow-hidden scene-dawn">
+        <div class="tree-shape parallax-layer" data-speed="0.1" style="left:-8%;"></div>
+        <div class="tree-shape parallax-layer" data-speed="0.2" style="right:-14%; width:40%;"></div>
+        <div class="mist parallax-layer" data-speed="0.3" style="top:4%;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 2 -->
+  <section class="relative scene-cherry py-28 md:py-40 px-6 overflow-hidden text-[var(--paper)]" id="ch2">
+    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-14 items-center">
+      <div class="reveal reveal-scale order-2 md:order-1 relative h-72 md:h-96 flex items-center justify-center">
+        <div class="cherry-dot parallax-layer" data-speed="0.12" style="width:70px; height:70px; position:absolute; top:18%; left:22%;"></div>
+        <div class="cherry-dot parallax-layer" data-speed="0.2" style="width:46px; height:46px; position:absolute; top:52%; left:52%;"></div>
+        <div class="cherry-dot parallax-layer" data-speed="0.3" style="width:56px; height:56px; position:absolute; top:12%; left:60%;"></div>
+        <div class="cherry-dot parallax-layer" data-speed="0.16" style="width:34px; height:34px; position:absolute; top:68%; left:20%;"></div>
+        <div class="cherry-dot parallax-layer" data-speed="0.24" style="width:40px; height:40px; position:absolute; top:34%; left:78%;"></div>
+      </div>
+      <div class="reveal reveal-right reveal-delay-1 order-1 md:order-2">
+        <span class="chapter-num text-5xl" style="color:#ffb89a;">02</span>
+        <p class="chapter-tag text-xs opacity-80 mt-4 mb-3">THE HARVEST · 種植與採收</p>
+        <h2 class="font-display text-3xl md:text-4xl mb-5 leading-snug">只摘紅色的，<br>一顆也不能急</h2>
+        <div class="section-rule mb-6" style="background:#ffb89a;"></div>
+        <p class="text-[15px] md:text-base leading-8 opacity-90">
+          採收季從十月延續到隔年一月，整片莊園雇用約六十位採摘工，每人身上揹著藤編的採果籮。咖啡果實要等到轉成深紅色才能摘，青綠或偏黑的都不收，因為它們還沒準備好，或是已經過了最甜的那一刻。
+        </p>
+        <p class="text-[15px] md:text-base leading-8 opacity-90 mt-4">
+          熟手一天能摘下約八十公斤鮮果，雙手在枝葉間穿梭，像是在替每一棵樹梳理頭髮。採果工瑪麗亞說：「我們不是在採咖啡，是在等咖啡自己說『我熟了』。」
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 3 -->
+  <section class="relative scene-roast py-28 md:py-40 px-6 overflow-hidden text-[var(--paper)]" id="ch3">
+    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-14 items-center">
+      <div class="reveal reveal-left">
+        <span class="chapter-num text-5xl" style="color:#f0c38a;">03</span>
+        <p class="chapter-tag text-xs opacity-80 mt-4 mb-3">THE PROCESS · 處理與烘豆</p>
+        <h2 class="font-display text-3xl md:text-4xl mb-5 leading-snug">發酵三十六小時，<br>日曬十二天</h2>
+        <div class="section-rule mb-6" style="background:#f0c38a;"></div>
+        <p class="text-[15px] md:text-base leading-8 opacity-90">
+          鮮果採下後必須在六小時內送進處理場。薇拉莊園採用水洗處理法：先去皮去果肉，再放入水槽發酵三十六小時，讓殘留的果膠自然分解。發酵缸裡飄出淡淡的果酸味，是莊園工人判斷時間到了沒的方式——聞起來像熟透的鳳梨，就對了。
+        </p>
+        <p class="text-[15px] md:text-base leading-8 opacity-90 mt-4">
+          之後的豆子送上棚架日曬十二天，每兩小時翻動一次，確保乾燥均勻。等含水率降到11%，才裝袋靜置，接著送往位於台灣桃園的烘豆工作室，由烘豆師依批次特性，設定一條獨一無二的烘焙曲線，在十二分鐘內把生豆的青澀，轉成焦糖與堅果的香氣。
+        </p>
+      </div>
+      <div class="reveal reveal-right reveal-delay-1 relative h-72 md:h-96 flex items-center justify-center">
+        <div class="bean-shape parallax-layer" data-speed="0.15" style="width:120px; height:80px; background:#3a2414; position:absolute; top:20%; left:10%; transform:rotate(-20deg);"></div>
+        <div class="bean-shape parallax-layer" data-speed="0.22" style="width:90px; height:60px; background:#5c3a1f; position:absolute; top:50%; left:48%; transform:rotate(14deg);"></div>
+        <div class="bean-shape parallax-layer" data-speed="0.1" style="width:70px; height:48px; background:#7a4d28; position:absolute; top:12%; left:58%; transform:rotate(30deg);"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 4 -->
+  <section class="relative scene-sea py-28 md:py-40 px-6 overflow-hidden" id="ch4">
+    <div class="wave-line parallax-layer" data-speed="0.1" style="top:18%;"></div>
+    <div class="wave-line parallax-layer" data-speed="0.18" style="top:42%;"></div>
+    <div class="wave-line parallax-layer" data-speed="0.26" style="top:66%;"></div>
+    <div class="max-w-5xl mx-auto relative z-10">
+      <div class="reveal text-center max-w-2xl mx-auto">
+        <span class="chapter-num text-5xl drop-rust">04</span>
+        <p class="chapter-tag text-xs text-[var(--ink-soft)] mt-4 mb-3">THE VOYAGE · 跨海而來</p>
+        <h2 class="font-display text-3xl md:text-4xl mb-5 leading-snug">從卡塔赫納港，<br>到高雄港，二十九天</h2>
+        <div class="section-rule mx-auto mb-6"></div>
+        <p class="text-[15px] md:text-base leading-8 text-[var(--ink-soft)]">
+          裝袋完成的生豆，先以卡車運送六小時到哥倫比亞卡塔赫納港，再裝進恆溫恆濕的貨櫃，搭上貨輪，橫越大西洋、穿過巴拿馬運河、再橫越太平洋，最後抵達高雄港。整趟航程約二十九天，途中會經過至少四個國家的領海。
+        </p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6 mt-16">
+        <div class="reveal reveal-delay-1 bg-white/40 backdrop-blur-sm rounded-sm p-6 text-center">
+          <p class="font-display text-3xl drop-rust mb-2">12,400</p>
+          <p class="text-xs tracking-widest uppercase text-[var(--ink-soft)]">公里航程</p>
+        </div>
+        <div class="reveal reveal-delay-2 bg-white/40 backdrop-blur-sm rounded-sm p-6 text-center">
+          <p class="font-display text-3xl drop-rust mb-2">29</p>
+          <p class="text-xs tracking-widest uppercase text-[var(--ink-soft)]">天的海上旅程</p>
+        </div>
+        <div class="reveal reveal-delay-3 bg-white/40 backdrop-blur-sm rounded-sm p-6 text-center">
+          <p class="font-display text-3xl drop-rust mb-2">18°C</p>
+          <p class="text-xs tracking-widest uppercase text-[var(--ink-soft)]">全程恆溫控管</p>
+        </div>
+      </div>
+      <p class="reveal text-center text-sm text-[var(--ink-soft)] mt-14 max-w-xl mx-auto leading-7">
+        報關、檢驗、入庫，又是另外五天。從薇拉莊園的枝頭，到台灣消費者手上的這包熟豆，前後總共走了將近五個月。
+      </p>
+    </div>
+  </section>
+
+  <!-- CHAPTER 5 -->
+  <section class="relative scene-brew min-h-screen flex items-center justify-center px-6 py-28 overflow-hidden" id="ch5">
+    <div class="max-w-3xl mx-auto text-center relative z-10">
+      <div class="reveal reveal-scale relative h-40 flex items-end justify-center mb-10">
+        <div class="cup-shape parallax-layer" data-speed="0.08" style="width:120px; height:80px; position:relative;"></div>
+        <div class="steam" style="left:calc(50% - 14px); bottom:72px; height:30px; animation-delay:0s;"></div>
+        <div class="steam" style="left:calc(50% + 4px); bottom:72px; height:24px; animation-delay:1.1s;"></div>
+        <div class="steam" style="left:calc(50% - 4px); bottom:72px; height:20px; animation-delay:2.2s;"></div>
+      </div>
+      <span class="chapter-num text-5xl" style="color:#d9a35e;" class="reveal">05</span>
+      <p class="chapter-tag text-xs text-[#d9a35e] mt-4 mb-3 reveal">THE CUP · 終於，一杯</p>
+      <h2 class="font-display text-3xl md:text-5xl text-[var(--paper)] mb-6 leading-snug reveal">
+        92°C 的水，<br>喚醒五個月的等待
+      </h2>
+      <p class="text-[15px] md:text-base leading-8 text-[#d8d2c4] max-w-xl mx-auto reveal reveal-delay-1">
+        手沖濾杯裡，熱水緩緩注入，粉牆微微膨起，像莊園清晨的那層霧氣再次升起。四分鐘的沖煮，是薇拉莊園一整年的縮影——果香、焦糖與一點柑橘尾韻，都在這杯裡醒來。
+      </p>
+      <div class="mt-12 flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-2">
+        <button class="btn-primary px-8 py-3 rounded-sm text-sm tracking-widest uppercase">訂閱每月莊園豆</button>
+        <button class="px-8 py-3 rounded-sm text-sm tracking-widest uppercase border border-[var(--paper)] text-[var(--paper)] hover:bg-white/10 transition">選購薇拉莊園熟豆</button>
+      </div>
+      <p class="text-xs text-[#9a927f] mt-8 tracking-wide reveal reveal-delay-3">溯源 Origin · 每一包豆子，都附上莊園批次與處理紀錄</p>
+    </div>
+  </section>
+
+  <footer class="bg-[var(--ink)] text-[var(--paper)] py-10 px-6 text-center">
+    <p class="font-display text-lg mb-2">溯源 <span class="italic">Origin</span></p>
+    <p class="text-xs text-[#9a9a90] tracking-wide">台灣台北 · 與哥倫比亞、巴拿馬、哥斯大黎加莊園直接合作</p>
+  </footer>
+
+<script>
+(function(){
+  // ---- 頂部滾動進度條 ----
+  var progressBar = document.getElementById('progress-bar');
+  function updateProgress(){
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = pct + '%';
+  }
+
+  // ---- 視差層：依 scroll 位置計算位移 ----
+  var parallaxLayers = Array.prototype.slice.call(document.querySelectorAll('.parallax-layer'));
+  function updateParallax(){
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    for (var i = 0; i < parallaxLayers.length; i++){
+      var el = parallaxLayers[i];
+      var speed = parseFloat(el.getAttribute('data-speed')) || 0.2;
+      var rect = el.getBoundingClientRect();
+      // 以元素相對視窗中心的距離計算位移量，讓畫面內外都能感受到視差層次
+      var offset = (rect.top + rect.height / 2 - window.innerHeight / 2) * speed * -1;
+      el.style.transform = 'translateY(' + offset.toFixed(1) + 'px)';
+    }
+  }
+
+  var ticking = false;
+  function onScroll(){
+    if (!ticking){
+      window.requestAnimationFrame(function(){
+        updateProgress();
+        updateParallax();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  updateProgress();
+  updateParallax();
+
+  // ---- IntersectionObserver：章節淡入 / 位移觸發 ----
+  var revealEls = document.querySelectorAll('.reveal');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting){
+        entry.target.classList.add('is-visible');
+      }
+    });
+  }, {
+    root: null,
+    threshold: 0.18,
+    rootMargin: '0px 0px -8% 0px'
+  });
+  revealEls.forEach(function(el){ io.observe(el); });
+
+  // ---- 章節導覽目前位置高亮（可選的敘事進度感） ----
+  var navSpans = document.querySelectorAll('[data-nav]');
+  var chapters = ['ch1','ch2','ch3','ch4','ch5'];
+  var navIO = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting){
+        var idx = chapters.indexOf(entry.target.id);
+        navSpans.forEach(function(span, i){
+          span.style.opacity = (i === idx) ? '1' : '0.45';
+          span.style.color = (i === idx) ? 'var(--rust-deep)' : '';
+        });
+      }
+    });
+  }, { threshold: 0.5 });
+  chapters.forEach(function(id){
+    var el = document.getElementById(id);
+    if (el) navIO.observe(el);
+  });
+})();
+</script>
+</body>
+</html>

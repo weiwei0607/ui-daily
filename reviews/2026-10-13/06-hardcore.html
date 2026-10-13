@@ -1,0 +1,350 @@
+<!-- style #54 Neubrutalism v2 -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>硬核 HARDCORE Gear｜極限運動裝備</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --yellow:#ffe156;
+    --pink:#ff6b6b;
+    --cyan:#4ecdc4;
+    --purple:#a388ee;
+    --cream:#faf4e6;
+    --ink:#1a1a1a;
+  }
+
+  * { box-sizing: border-box; }
+
+  body{
+    background: var(--cream);
+    background-image:
+      radial-gradient(circle at 92% 8%, rgba(78,205,196,0.18) 0, transparent 45%),
+      radial-gradient(circle at 6% 90%, rgba(255,107,107,0.16) 0, transparent 45%);
+    color: var(--ink);
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
+  }
+
+  .font-head{
+    font-family: 'Archivo Black', 'Noto Sans TC', sans-serif;
+    font-weight: 900;
+  }
+  .font-zh-bold{
+    font-family: 'Noto Sans TC', 'Space Grotesk', sans-serif;
+    font-weight: 900;
+  }
+  .font-ui{
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
+  }
+
+  /* 硬陰影核心技法：粗黑邊框 + offset 無模糊陰影 */
+  .brutal-box{
+    border: 3px solid var(--ink);
+    border-radius: 18px;
+    box-shadow: 7px 7px 0 var(--ink);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+  }
+  .brutal-box-sm{
+    border: 3px solid var(--ink);
+    border-radius: 14px;
+    box-shadow: 4px 4px 0 var(--ink);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+  }
+
+  .brutal-card{
+    border: 3px solid var(--ink);
+    border-radius: 20px;
+    box-shadow: 8px 8px 0 var(--ink);
+    transition: transform 0.14s ease, box-shadow 0.14s ease;
+  }
+  .brutal-card:hover{
+    transform: translate(-3px, -3px);
+    box-shadow: 11px 11px 0 var(--ink);
+  }
+  .brutal-card:active,
+  .brutal-card.is-pressed{
+    transform: translate(3px, 3px);
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+
+  .btn-brutal{
+    border: 3px solid var(--ink);
+    border-radius: 14px;
+    box-shadow: 4px 4px 0 var(--ink);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
+    font-weight: 700;
+  }
+  .btn-brutal:hover{
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+  .btn-brutal:active{
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--ink);
+  }
+
+  .sticker{
+    border: 2.5px solid var(--ink);
+    border-radius: 999px;
+    box-shadow: 3px 3px 0 var(--ink);
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
+    font-weight: 700;
+  }
+
+  .tilt-1{ transform: rotate(-2deg); }
+  .tilt-2{ transform: rotate(2deg); }
+  .tilt-3{ transform: rotate(-1deg); }
+
+  .cart-badge{
+    transition: transform 0.25s cubic-bezier(.34,1.56,.64,1);
+  }
+  .cart-badge.bump{
+    transform: scale(1.4);
+  }
+
+  .marquee-track{
+    display: inline-flex;
+    white-space: nowrap;
+    animation: marquee 18s linear infinite;
+  }
+  @keyframes marquee{
+    0%{ transform: translateX(0); }
+    100%{ transform: translateX(-50%); }
+  }
+
+  .toast{
+    transform: translateY(140%);
+    opacity: 0;
+    transition: transform 0.3s cubic-bezier(.2,.9,.3,1.2), opacity 0.3s ease;
+  }
+  .toast.show{
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  ::selection{ background: var(--yellow); }
+</style>
+</head>
+<body class="min-h-screen pb-24">
+
+  <!-- 頂部跑馬燈小標語條 -->
+  <div class="w-full bg-ink overflow-hidden border-b-[3px] border-black" style="background:var(--ink);">
+    <div class="marquee-track text-[var(--yellow)] font-ui font-bold text-sm py-2 tracking-wide">
+      <span class="px-6">全台到貨 48 小時內出貨　★　滑板．攀岩．BMX　一站買齊　★　會員全館結帳再折　★</span>
+      <span class="px-6">全台到貨 48 小時內出貨　★　滑板．攀岩．BMX　一站買齊　★　會員全館結帳再折　★</span>
+    </div>
+  </div>
+
+  <!-- Nav -->
+  <header class="max-w-6xl mx-auto px-5 pt-6 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="brutal-box-sm bg-[var(--yellow)] w-12 h-12 flex items-center justify-center font-head text-xl">H</div>
+      <div>
+        <p class="font-head text-lg leading-none">HARDCORE</p>
+        <p class="font-ui text-xs font-medium tracking-widest">GEAR｜硬核裝備</p>
+      </div>
+    </div>
+    <nav class="hidden md:flex items-center gap-6 font-ui font-semibold text-sm">
+      <a href="#products" class="hover:underline underline-offset-4">商品</a>
+      <a href="#" class="hover:underline underline-offset-4">品牌故事</a>
+      <a href="#" class="hover:underline underline-offset-4">實體門市</a>
+    </nav>
+    <button class="btn-brutal bg-[var(--cream)] px-4 py-2 flex items-center gap-2 font-ui">
+      <span>🛒 購物車</span>
+      <span id="cart-count" class="cart-badge bg-[var(--pink)] border-2 border-black rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">0</span>
+    </button>
+  </header>
+
+  <!-- Hero -->
+  <section class="max-w-6xl mx-auto px-5 pt-10 pb-6 relative">
+    <div class="sticker inline-block bg-[var(--cyan)] px-4 py-1 text-sm tilt-2 mb-5">
+      本季新品｜現貨供應中
+    </div>
+    <h1 class="font-head text-[14vw] md:text-[6.2rem] leading-[0.95] tracking-tight">
+      摔過才算<br>
+      <span class="bg-[var(--pink)] px-2 inline-block tilt-1 border-[3px] border-black rounded-xl mt-2">玩過癮</span>
+    </h1>
+    <p class="font-ui text-lg md:text-xl mt-6 max-w-xl font-medium">
+      滑板、BMX、攀岩裝備，一次備齊。不怕摩擦、不怕摔、不怕被笑太拚——我們只怕你裝備不夠硬。
+    </p>
+    <div class="flex flex-wrap gap-4 mt-7">
+      <a href="#products" class="btn-brutal bg-[var(--yellow)] px-7 py-3 font-ui text-base">立即逛裝備 →</a>
+      <a href="#" class="btn-brutal bg-white px-7 py-3 font-ui text-base">新手入門指南</a>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section id="products" class="max-w-6xl mx-auto px-5 py-12">
+    <div class="flex items-end justify-between mb-8 flex-wrap gap-3">
+      <h2 class="font-head text-3xl md:text-4xl">本季主打裝備</h2>
+      <p class="font-ui text-sm font-medium opacity-70">共 6 項商品・每一件都經過實地測試</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+
+      <!-- Card 1 -->
+      <div class="brutal-card bg-[var(--yellow)] relative overflow-hidden" data-card>
+        <span class="sticker absolute top-4 right-4 bg-[var(--pink)] text-white px-3 py-1 text-xs tilt-2 z-10">熱銷</span>
+        <div class="h-40 flex items-center justify-center text-6xl border-b-[3px] border-black bg-white/40">🛹</div>
+        <div class="p-5">
+          <h3 class="font-zh-bold text-xl mb-1">街式滑板 完整組</h3>
+          <p class="font-ui text-sm mb-3 opacity-80">楓木七層板身，耐磨輪組，上手快、甩尾穩。</p>
+          <div class="flex items-center justify-between">
+            <span class="font-head text-xl">NT$2,480</span>
+            <button class="btn-brutal bg-white px-4 py-2 text-sm font-ui add-to-cart">加入購物車</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="brutal-card bg-[var(--cyan)] relative overflow-hidden" data-card>
+        <span class="sticker absolute top-4 right-4 bg-white px-3 py-1 text-xs tilt-1 z-10">現貨</span>
+        <div class="h-40 flex items-center justify-center text-6xl border-b-[3px] border-black bg-white/40">🪖</div>
+        <div class="p-5">
+          <h3 class="font-zh-bold text-xl mb-1">全罩式護具套組</h3>
+          <p class="font-ui text-sm mb-3 opacity-80">頭盔、護膝、護肘一次到位，摔倒也能全身而退。</p>
+          <div class="flex items-center justify-between">
+            <span class="font-head text-xl">NT$1,890</span>
+            <button class="btn-brutal bg-white px-4 py-2 text-sm font-ui add-to-cart">加入購物車</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="brutal-card bg-[var(--pink)] relative overflow-hidden" data-card>
+        <span class="sticker absolute top-4 right-4 bg-[var(--yellow)] px-3 py-1 text-xs tilt-2 z-10">限量</span>
+        <div class="h-40 flex items-center justify-center text-6xl border-b-[3px] border-black bg-white/40">🧗</div>
+        <div class="p-5">
+          <h3 class="font-zh-bold text-xl mb-1">動態攀岩繩 60M</h3>
+          <p class="font-ui text-sm mb-3 opacity-80">UIAA 認證，耐衝擊係數高，先鋒攀登首選。</p>
+          <div class="flex items-center justify-between">
+            <span class="font-head text-xl">NT$4,990</span>
+            <button class="btn-brutal bg-white px-4 py-2 text-sm font-ui add-to-cart">加入購物車</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="brutal-card bg-[var(--purple)] relative overflow-hidden" data-card>
+        <span class="sticker absolute top-4 right-4 bg-white px-3 py-1 text-xs tilt-1 z-10">熱銷</span>
+        <div class="h-40 flex items-center justify-center text-6xl border-b-[3px] border-black bg-white/40">🚲</div>
+        <div class="p-5">
+          <h3 class="font-zh-bold text-xl mb-1">BMX 競技把手組</h3>
+          <p class="font-ui text-sm mb-3 opacity-80">鉻鉬鋼管身，抗扭強度高，街式花式都扛得住。</p>
+          <div class="flex items-center justify-between">
+            <span class="font-head text-xl">NT$1,650</span>
+            <button class="btn-brutal bg-white px-4 py-2 text-sm font-ui add-to-cart">加入購物車</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="brutal-card bg-[var(--cream)] relative overflow-hidden" data-card>
+        <span class="sticker absolute top-4 right-4 bg-[var(--cyan)] px-3 py-1 text-xs tilt-2 z-10">現貨</span>
+        <div class="h-40 flex items-center justify-center text-6xl border-b-[3px] border-black bg-black/5">🧤</div>
+        <div class="p-5">
+          <h3 class="font-zh-bold text-xl mb-1">攀岩專用快扣手套</h3>
+          <p class="font-ui text-sm mb-3 opacity-80">掌心防滑耐磨層，長時間垂降也不怕手痛。</p>
+          <div class="flex items-center justify-between">
+            <span class="font-head text-xl">NT$890</span>
+            <button class="btn-brutal bg-white px-4 py-2 text-sm font-ui add-to-cart">加入購物車</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="brutal-card bg-[var(--yellow)] relative overflow-hidden" data-card>
+        <span class="sticker absolute top-4 right-4 bg-[var(--pink)] text-white px-3 py-1 text-xs tilt-1 z-10">新品</span>
+        <div class="h-40 flex items-center justify-center text-6xl border-b-[3px] border-black bg-white/40">⚙️</div>
+        <div class="p-5">
+          <h3 class="font-zh-bold text-xl mb-1">BMX 培林輪組</h3>
+          <p class="font-ui text-sm mb-3 opacity-80">高精度培林配輕量鋁圈，過彎俐落、噪音更低。</p>
+          <div class="flex items-center justify-between">
+            <span class="font-head text-xl">NT$2,150</span>
+            <button class="btn-brutal bg-white px-4 py-2 text-sm font-ui add-to-cart">加入購物車</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Trust strip -->
+  <section class="max-w-6xl mx-auto px-5 py-10">
+    <div class="brutal-box bg-[var(--ink)] text-[var(--cream)] px-6 py-8 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+      <div>
+        <p class="font-head text-2xl text-[var(--yellow)]">7 天</p>
+        <p class="font-ui text-sm mt-1">鑑賞期無條件退換</p>
+      </div>
+      <div>
+        <p class="font-head text-2xl text-[var(--cyan)]">100%</p>
+        <p class="font-ui text-sm mt-1">安全認證裝備</p>
+      </div>
+      <div>
+        <p class="font-head text-2xl text-[var(--pink)]">24hr</p>
+        <p class="font-ui text-sm mt-1">客服即時回覆</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="max-w-6xl mx-auto px-5 py-10 border-t-[3px] border-black mt-4">
+    <div class="flex flex-wrap items-center justify-between gap-4">
+      <p class="font-head text-lg">HARDCORE GEAR</p>
+      <p class="font-ui text-sm opacity-70">© 2026 硬核裝備｜玩真的，就不要怕摔</p>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div id="toast" class="toast fixed bottom-6 left-1/2 -translate-x-1/2 brutal-box-sm bg-[var(--cyan)] px-5 py-3 font-ui font-bold z-50">
+    已加入購物車！💪
+  </div>
+
+<script>
+  (function(){
+    var cartCount = 0;
+    var cartBadge = document.getElementById('cart-count');
+    var toast = document.getElementById('toast');
+    var toastTimer = null;
+
+    function bumpBadge(){
+      cartBadge.classList.add('bump');
+      setTimeout(function(){ cartBadge.classList.remove('bump'); }, 250);
+    }
+
+    function showToast(){
+      toast.classList.add('show');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(function(){
+        toast.classList.remove('show');
+      }, 1600);
+    }
+
+    var buttons = document.querySelectorAll('.add-to-cart');
+    buttons.forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        cartCount += 1;
+        cartBadge.textContent = cartCount;
+        bumpBadge();
+        showToast();
+
+        // 按壓感：卡片短暫位移模擬被按下
+        var card = btn.closest('[data-card]');
+        if (card){
+          card.classList.add('is-pressed');
+          setTimeout(function(){ card.classList.remove('is-pressed'); }, 150);
+        }
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
