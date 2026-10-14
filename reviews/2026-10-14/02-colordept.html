@@ -1,0 +1,435 @@
+<!-- style #44 Memphis Revival -->
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>繽紛文具社 ColorDept</title>
+<meta name="description" content="繽紛文具社 ColorDept — 彩色筆、裝飾貼紙、手帳本，孟菲斯撞色風文具選物店">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --pink:#FF3EA5;
+    --yellow:#FFE156;
+    --cyan:#00D9C0;
+    --purple:#7B2FF7;
+    --orange:#FF7A3D;
+    --ink:#1A1A2E;
+    --cream:#FFF6E9;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    background:var(--cream);
+    overflow-x:hidden;
+    max-width:100%;
+  }
+  body{
+    font-family:'Poppins','Noto Sans TC',sans-serif;
+    color:var(--ink);
+  }
+  h1,h2,h3,.font-display{
+    font-family:'Archivo Black','Noto Sans TC',sans-serif;
+    letter-spacing:0.5px;
+  }
+  .outline-text{
+    -webkit-text-stroke:2px var(--ink);
+  }
+  .dotted-bg{
+    background-image: radial-gradient(var(--ink) 2.5px, transparent 2.5px);
+    background-size: 18px 18px;
+  }
+  .dotted-bg-pink{
+    background-image: radial-gradient(var(--pink) 3px, transparent 3px);
+    background-size: 20px 20px;
+  }
+  .stripe-bg{
+    background: repeating-linear-gradient(
+      45deg,
+      var(--ink) 0px,
+      var(--ink) 10px,
+      var(--yellow) 10px,
+      var(--yellow) 20px
+    );
+  }
+  .stripe-bg-soft{
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--cyan) 0px,
+      var(--cyan) 14px,
+      var(--cream) 14px,
+      var(--cream) 28px
+    );
+  }
+  .shard{
+    position:absolute;
+    pointer-events:none;
+  }
+  .shard-1{ clip-path: polygon(0 0, 100% 0, 60% 100%, 0% 80%); }
+  .shard-2{ clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); }
+  .shard-3{ clip-path: polygon(20% 0%, 100% 0%, 80% 100%, 0% 100%); }
+  .shard-4{ clip-path: polygon(0% 20%, 100% 0%, 100% 80%, 0% 100%); }
+  .shard-5{ clip-path: circle(50% at 50% 50%); }
+  .blob-border{
+    border:4px solid var(--ink);
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+  .blob-border-lg{
+    border:5px solid var(--ink);
+    box-shadow: 10px 10px 0 var(--ink);
+  }
+  .squiggle-underline{
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='16' viewBox='0 0 120 16'%3E%3Cpath d='M0 8 Q10 0 20 8 T40 8 T60 8 T80 8 T100 8 T120 8' fill='none' stroke='%231A1A2E' stroke-width='3'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+    background-size: 60px 10px;
+    background-position: bottom;
+    padding-bottom: 4px;
+  }
+  .tilt-1{ transform: rotate(-3deg); }
+  .tilt-2{ transform: rotate(2deg); }
+  .tilt-3{ transform: rotate(-1.5deg); }
+  .star-badge{
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  }
+  .card-hover{
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .card-hover:hover{
+    transform: translate(-4px,-4px) rotate(-1deg);
+    box-shadow: 12px 12px 0 var(--ink);
+  }
+  .marquee-track{
+    display:flex;
+    width:max-content;
+    animation: marquee 18s linear infinite;
+  }
+  @keyframes marquee{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(-50%); }
+  }
+  .scallop-top{
+    position:relative;
+  }
+  .scallop-top::before{
+    content:"";
+    position:absolute;
+    top:-14px; left:0; right:0; height:16px;
+    background-image: radial-gradient(circle at 10px 10px, var(--cream) 10px, transparent 11px);
+    background-size: 20px 20px;
+    background-repeat: repeat-x;
+  }
+</style>
+</head>
+<body class="antialiased">
+
+<!-- ===== 公告跑馬燈 ===== -->
+<div class="bg-[var(--ink)] text-[var(--yellow)] overflow-hidden whitespace-nowrap border-b-4 border-[var(--ink)]">
+  <div class="marquee-track py-2 text-sm md:text-base font-semibold tracking-wide">
+    <span class="px-6">🎨 新會員輸入 COLOR10 享 9 折　</span>
+    <span class="px-6">📦 全站滿 NT$999 免運費　</span>
+    <span class="px-6">✨ 手帳本控必囤｜本週新品上架　</span>
+    <span class="px-6">🎨 新會員輸入 COLOR10 享 9 折　</span>
+    <span class="px-6">📦 全站滿 NT$999 免運費　</span>
+    <span class="px-6">✨ 手帳本控必囤｜本週新品上架　</span>
+  </div>
+</div>
+
+<!-- ===== 導覽列 ===== -->
+<header class="relative bg-[var(--cream)] border-b-4 border-[var(--ink)] px-4 md:px-8 py-4">
+  <div class="max-w-6xl mx-auto flex items-center justify-between">
+    <a href="#" class="flex items-center gap-2 shrink-0">
+      <span class="w-9 h-9 bg-[var(--pink)] blob-border flex items-center justify-center shard-5 shrink-0">
+        <span class="text-[10px] font-display text-[var(--ink)]">C</span>
+      </span>
+      <span class="font-display text-lg md:text-2xl leading-none">繽紛文具社<br class="md:hidden"><span class="text-[var(--purple)]"> ColorDept</span></span>
+    </a>
+    <nav class="hidden md:flex items-center gap-6 font-semibold text-sm">
+      <a href="#categories" class="hover:text-[var(--pink)]">商品分類</a>
+      <a href="#hot" class="hover:text-[var(--pink)]">熱銷商品</a>
+      <a href="#promo" class="hover:text-[var(--pink)]">促銷活動</a>
+      <a href="#reviews" class="hover:text-[var(--pink)]">顧客評價</a>
+    </nav>
+    <div class="flex items-center gap-2 md:gap-3 shrink-0">
+      <button class="hidden sm:inline-block px-3 py-1.5 text-xs md:text-sm font-bold bg-[var(--cyan)] blob-border">會員登入</button>
+      <button class="w-10 h-10 bg-[var(--yellow)] blob-border flex items-center justify-center text-sm font-bold">🛍️</button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="relative px-4 md:px-8 pt-10 pb-20 md:pt-16 md:pb-28 overflow-hidden bg-[var(--cream)]">
+  <!-- geometric shards -->
+  <div class="shard shard-1 bg-[var(--yellow)] w-28 h-28 top-4 left-2 md:left-10 blob-border tilt-1 opacity-90"></div>
+  <div class="shard shard-2 bg-[var(--purple)] w-20 h-20 top-10 right-4 md:right-16 opacity-80"></div>
+  <div class="shard shard-5 bg-[var(--cyan)] w-16 h-16 bottom-8 left-6 md:left-24 border-4 border-[var(--ink)]"></div>
+  <div class="shard shard-3 bg-[var(--pink)] w-24 h-24 bottom-0 right-2 md:right-24 opacity-85 hidden sm:block"></div>
+
+  <div class="max-w-6xl mx-auto relative z-10">
+    <div class="flex flex-col md:flex-row md:items-center gap-8">
+      <div class="flex-1">
+        <span class="inline-block bg-[var(--cyan)] blob-border px-3 py-1 text-xs md:text-sm font-bold tilt-1 mb-4">質感文具・怎麼配都好看</span>
+        <h1 class="font-display text-4xl sm:text-5xl md:text-6xl leading-[1.05] mb-5">
+          色彩才是<br>
+          <span class="bg-[var(--pink)] px-2 inline-block tilt-1 text-white">生活的調味料</span>
+        </h1>
+        <p class="text-base md:text-lg font-medium mb-6 max-w-md">
+          彩色筆、裝飾貼紙、手帳本，一次把桌面變成你的小小美術館。繽紛文具社，讓每一頁筆記都捨不得翻過去。
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <button class="px-6 py-3 bg-[var(--ink)] text-[var(--yellow)] font-display text-sm md:text-base blob-border hover:translate-y-[-2px] transition">
+            逛逛新品 →
+          </button>
+          <button class="px-6 py-3 bg-white font-bold text-sm md:text-base border-4 border-[var(--ink)] shadow-[6px_6px_0_var(--purple)]">
+            查看促銷
+          </button>
+        </div>
+      </div>
+
+      <div class="flex-1 relative">
+        <div class="relative mx-auto w-64 h-64 md:w-80 md:h-80">
+          <div class="absolute inset-0 stripe-bg opacity-90 shard-4"></div>
+          <div class="absolute -top-6 -left-6 w-24 h-24 bg-[var(--purple)] shard-5 border-4 border-[var(--ink)] z-10"></div>
+          <div class="absolute -bottom-5 -right-4 w-28 h-28 bg-[var(--yellow)] blob-border z-10 flex items-center justify-center font-display text-center text-xs tilt-2 p-2">
+            36色<br>一次擁有
+          </div>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="w-40 h-52 md:w-48 md:h-60 bg-white blob-border-lg rotate-[-4deg] flex flex-col items-center justify-center gap-2 p-4 text-center">
+              <span class="text-3xl">🖍️🩷💛</span>
+              <span class="font-display text-sm">糖果漸層<br>雙頭筆組</span>
+              <span class="text-[var(--pink)] font-display text-lg">NT$680</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 商品分類 ===== -->
+<section id="categories" class="relative px-4 md:px-8 py-16 bg-white border-y-4 border-[var(--ink)] dotted-bg-pink">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="font-display text-2xl md:text-4xl mb-2 squiggle-underline inline-block">商品分類</h2>
+    <p class="font-medium mb-10 text-sm md:text-base">依照你今天的創作心情，挑一種顏色出發</p>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+      <div class="card-hover bg-[var(--yellow)] blob-border p-5 flex flex-col items-center text-center gap-2 tilt-1">
+        <span class="text-4xl">🖊️</span>
+        <span class="font-display text-sm md:text-base">彩色筆 / 麥克筆</span>
+        <span class="text-xs font-semibold">共 86 款</span>
+      </div>
+      <div class="card-hover bg-[var(--cyan)] blob-border p-5 flex flex-col items-center text-center gap-2 tilt-2">
+        <span class="text-4xl">✂️</span>
+        <span class="font-display text-sm md:text-base">裝飾貼紙</span>
+        <span class="text-xs font-semibold">共 142 款</span>
+      </div>
+      <div class="card-hover bg-[var(--pink)] blob-border p-5 flex flex-col items-center text-center gap-2 tilt-3 text-white">
+        <span class="text-4xl">📓</span>
+        <span class="font-display text-sm md:text-base">手帳本 / 筆記本</span>
+        <span class="text-xs font-semibold">共 57 款</span>
+      </div>
+      <div class="card-hover bg-[var(--purple)] blob-border p-5 flex flex-col items-center text-center gap-2 tilt-1 text-white">
+        <span class="text-4xl">🎞️</span>
+        <span class="font-display text-sm md:text-base">紙膠帶 / 收納小物</span>
+        <span class="text-xs font-semibold">共 93 款</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 熱銷商品 ===== -->
+<section id="hot" class="relative px-4 md:px-8 py-16 bg-[var(--cream)] overflow-hidden">
+  <div class="shard shard-2 bg-[var(--cyan)] w-24 h-24 top-6 right-4 opacity-70 hidden sm:block"></div>
+  <div class="max-w-6xl mx-auto relative z-10">
+    <div class="flex items-end justify-between mb-10 flex-wrap gap-3">
+      <h2 class="font-display text-2xl md:text-4xl squiggle-underline inline-block">本週熱銷 TOP 6</h2>
+      <span class="star-badge bg-[var(--orange)] w-20 h-20 flex items-center justify-center text-center text-[11px] font-display text-white leading-tight p-2">
+        人氣<br>爆賣
+      </span>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+
+      <div class="card-hover bg-white border-4 border-[var(--ink)] shadow-[8px_8px_0_var(--pink)] p-5">
+        <div class="h-32 bg-[var(--yellow)] mb-4 flex items-center justify-center text-5xl blob-border">🖍️</div>
+        <span class="inline-block bg-[var(--pink)] text-white text-[10px] font-bold px-2 py-0.5 mb-2">熱銷第1名</span>
+        <h3 class="font-display text-base mb-1">糖果漸層雙頭筆 36色套組</h3>
+        <p class="text-xs text-gray-600 mb-3">一邊細字一邊軟毛刷頭，手帳插畫兩用超方便</p>
+        <div class="flex items-center justify-between">
+          <span class="font-display text-[var(--purple)] text-lg">NT$680</span>
+          <button class="px-3 py-1 bg-[var(--ink)] text-white text-xs font-bold">加入購物車</button>
+        </div>
+      </div>
+
+      <div class="card-hover bg-white border-4 border-[var(--ink)] shadow-[8px_8px_0_var(--cyan)] p-5">
+        <div class="h-32 bg-[var(--purple)] mb-4 flex items-center justify-center text-5xl blob-border">📓</div>
+        <span class="inline-block bg-[var(--cyan)] text-[var(--ink)] text-[10px] font-bold px-2 py-0.5 mb-2">編輯推薦</span>
+        <h3 class="font-display text-base mb-1">復古孟菲斯手帳本 A5</h3>
+        <p class="text-xs text-gray-600 mb-3">內頁點點格線，封面幾何撞色設計，送禮自用兩相宜</p>
+        <div class="flex items-center justify-between">
+          <span class="font-display text-[var(--purple)] text-lg">NT$450</span>
+          <button class="px-3 py-1 bg-[var(--ink)] text-white text-xs font-bold">加入購物車</button>
+        </div>
+      </div>
+
+      <div class="card-hover bg-white border-4 border-[var(--ink)] shadow-[8px_8px_0_var(--yellow)] p-5">
+        <div class="h-32 bg-[var(--pink)] mb-4 flex items-center justify-center text-5xl blob-border">⭐</div>
+        <span class="inline-block bg-[var(--yellow)] text-[var(--ink)] text-[10px] font-bold px-2 py-0.5 mb-2">新品上架</span>
+        <h3 class="font-display text-base mb-1">幾何塗鴉貼紙包（5張入）</h3>
+        <p class="text-xs text-gray-600 mb-3">孟菲斯風碎片圖形，手帳、筆電、水壺都好貼</p>
+        <div class="flex items-center justify-between">
+          <span class="font-display text-[var(--purple)] text-lg">NT$199</span>
+          <button class="px-3 py-1 bg-[var(--ink)] text-white text-xs font-bold">加入購物車</button>
+        </div>
+      </div>
+
+      <div class="card-hover bg-white border-4 border-[var(--ink)] shadow-[8px_8px_0_var(--purple)] p-5">
+        <div class="h-32 bg-[var(--cyan)] mb-4 flex items-center justify-center text-5xl blob-border">🎞️</div>
+        <span class="inline-block bg-[var(--purple)] text-white text-[10px] font-bold px-2 py-0.5 mb-2">限時優惠</span>
+        <h3 class="font-display text-base mb-1">撞色紙膠帶 四件組</h3>
+        <p class="text-xs text-gray-600 mb-3">波點、斜紋、純色，一次把手帳排版升級</p>
+        <div class="flex items-center justify-between">
+          <span class="font-display text-[var(--purple)] text-lg">NT$280</span>
+          <button class="px-3 py-1 bg-[var(--ink)] text-white text-xs font-bold">加入購物車</button>
+        </div>
+      </div>
+
+      <div class="card-hover bg-white border-4 border-[var(--ink)] shadow-[8px_8px_0_var(--orange)] p-5">
+        <div class="h-32 bg-[var(--yellow)] mb-4 flex items-center justify-center text-5xl blob-border">🎒</div>
+        <span class="inline-block bg-[var(--orange)] text-white text-[10px] font-bold px-2 py-0.5 mb-2">學生最愛</span>
+        <h3 class="font-display text-base mb-1">波點收納筆袋</h3>
+        <p class="text-xs text-gray-600 mb-3">雙層大容量，筆、剪刀、貼紙通通裝得下</p>
+        <div class="flex items-center justify-between">
+          <span class="font-display text-[var(--purple)] text-lg">NT$390</span>
+          <button class="px-3 py-1 bg-[var(--ink)] text-white text-xs font-bold">加入購物車</button>
+        </div>
+      </div>
+
+      <div class="card-hover bg-white border-4 border-[var(--ink)] shadow-[8px_8px_0_var(--pink)] p-5">
+        <div class="h-32 bg-[var(--purple)] mb-4 flex items-center justify-center text-5xl blob-border">🖊️</div>
+        <span class="inline-block bg-[var(--pink)] text-white text-[10px] font-bold px-2 py-0.5 mb-2">熱銷</span>
+        <h3 class="font-display text-base mb-1">螢光可水洗麥克筆 24色</h3>
+        <p class="text-xs text-gray-600 mb-3">安全無毒配方，弄到衣服手也能輕鬆洗掉</p>
+        <div class="flex items-center justify-between">
+          <span class="font-display text-[var(--purple)] text-lg">NT$560</span>
+          <button class="px-3 py-1 bg-[var(--ink)] text-white text-xs font-bold">加入購物車</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== 促銷活動 ===== -->
+<section id="promo" class="relative px-4 md:px-8 py-16 stripe-bg-soft border-y-4 border-[var(--ink)] overflow-hidden">
+  <div class="shard shard-1 bg-[var(--pink)] w-28 h-28 -top-6 -left-6 opacity-90"></div>
+  <div class="shard shard-5 bg-[var(--yellow)] w-20 h-20 bottom-4 right-6 border-4 border-[var(--ink)] opacity-95 hidden sm:block"></div>
+
+  <div class="max-w-6xl mx-auto relative z-10 flex flex-col md:flex-row gap-8 items-center">
+    <div class="flex-1 bg-[var(--ink)] text-white p-6 md:p-8 blob-border-lg tilt-1">
+      <span class="inline-block bg-[var(--yellow)] text-[var(--ink)] text-xs font-bold px-2 py-1 mb-3">10月限定</span>
+      <h2 class="font-display text-2xl md:text-3xl mb-3 leading-tight">雙十一搶先預購<br>全館滿 $999 免運</h2>
+      <p class="text-sm font-medium opacity-90 mb-4">新會員輸入「COLOR10」結帳再享 9 折，手帳本控的購物車不要客氣。</p>
+      <button class="px-5 py-2.5 bg-[var(--pink)] font-display text-sm blob-border">立即搶購</button>
+    </div>
+    <div class="flex-1 grid grid-cols-2 gap-4 w-full">
+      <div class="bg-[var(--cyan)] blob-border p-4 text-center tilt-2">
+        <p class="font-display text-2xl md:text-3xl">9折</p>
+        <p class="text-xs font-semibold mt-1">新會員首購</p>
+      </div>
+      <div class="bg-[var(--pink)] text-white blob-border p-4 text-center tilt-3">
+        <p class="font-display text-2xl md:text-3xl">$999</p>
+        <p class="text-xs font-semibold mt-1">即享免運</p>
+      </div>
+      <div class="bg-[var(--purple)] text-white blob-border p-4 text-center tilt-1">
+        <p class="font-display text-2xl md:text-3xl">買2送1</p>
+        <p class="text-xs font-semibold mt-1">貼紙包限定</p>
+      </div>
+      <div class="bg-[var(--yellow)] blob-border p-4 text-center tilt-2">
+        <p class="font-display text-2xl md:text-3xl">24hr</p>
+        <p class="text-xs font-semibold mt-1">快速出貨</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 顧客評價 ===== -->
+<section id="reviews" class="relative px-4 md:px-8 py-16 bg-white dotted-bg">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="font-display text-2xl md:text-4xl mb-10 squiggle-underline inline-block">顧客怎麼說</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-[var(--yellow)] blob-border p-5 tilt-1">
+        <p class="text-sm font-semibold mb-3">★★★★★</p>
+        <p class="text-sm mb-4">「顏色超飽和，畫在手帳本上根本藝術品！雙頭筆的刷頭很好控制，推薦給每個手帳初心者。」</p>
+        <p class="font-display text-xs">— 陳小姐，台北</p>
+      </div>
+      <div class="bg-[var(--cyan)] blob-border p-5 tilt-2">
+        <p class="text-sm font-semibold mb-3">★★★★☆</p>
+        <p class="text-sm mb-4">「貼紙質感很好，裁切很精緻，朋友都問我是在哪裡買的孟菲斯貼紙，整個很有面子。」</p>
+        <p class="font-display text-xs">— 阿凱，台中</p>
+      </div>
+      <div class="bg-[var(--pink)] text-white blob-border p-5 tilt-3">
+        <p class="text-sm font-semibold mb-3">★★★★★</p>
+        <p class="text-sm mb-4">「出貨速度快，包裝也很可愛，連膠帶都是撞色的，整個拆箱過程像在拆禮物一樣開心。」</p>
+        <p class="font-display text-xs">— Mandy，高雄</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 訂閱 / Footer ===== -->
+<footer class="relative bg-[var(--ink)] text-[var(--cream)] px-4 md:px-8 pt-14 pb-8 overflow-hidden">
+  <div class="shard shard-2 bg-[var(--cyan)] w-24 h-24 -top-8 left-10 opacity-20 hidden md:block"></div>
+  <div class="max-w-6xl mx-auto relative z-10">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10 bg-[var(--purple)] blob-border p-6">
+      <div>
+        <h3 class="font-display text-xl md:text-2xl mb-1">訂閱電子報，搶先收到新色情報</h3>
+        <p class="text-sm opacity-90">每週一封信，不打擾你，只分享真心推薦的文具</p>
+      </div>
+      <form class="flex gap-2 w-full md:w-auto">
+        <input type="email" placeholder="輸入你的 Email" class="flex-1 md:w-56 px-3 py-2 text-sm text-[var(--ink)] border-4 border-[var(--ink)] bg-white placeholder:text-gray-500">
+        <button type="button" class="px-4 py-2 bg-[var(--yellow)] text-[var(--ink)] font-display text-sm blob-border shrink-0">訂閱</button>
+      </form>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-sm mb-10">
+      <div>
+        <p class="font-display text-base mb-3 text-[var(--yellow)]">繽紛文具社</p>
+        <p class="opacity-80 leading-relaxed">把色彩帶進日常生活，<br>讓每一次書寫都好有心情。</p>
+      </div>
+      <div>
+        <p class="font-display text-sm mb-3 text-[var(--cyan)]">購物資訊</p>
+        <ul class="space-y-2 opacity-90">
+          <li>運送與配送</li>
+          <li>退換貨須知</li>
+          <li>常見問題</li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-display text-sm mb-3 text-[var(--pink)]">關於我們</p>
+        <ul class="space-y-2 opacity-90">
+          <li>品牌故事</li>
+          <li>聯名合作</li>
+          <li>門市資訊</li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-display text-sm mb-3 text-[var(--orange)]">聯絡客服</p>
+        <ul class="space-y-2 opacity-90">
+          <li>service@colordept.tw</li>
+          <li>IG @colordept.tw</li>
+          <li>週一至週五 10:00-18:00</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="border-t-2 border-white/20 pt-5 text-xs opacity-70 text-center">
+      © 2026 繽紛文具社 ColorDept．版權所有，禁止未經授權轉載
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

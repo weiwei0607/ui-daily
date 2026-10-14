@@ -1,0 +1,610 @@
+<!-- style #22 Feature-Rich Showcase -->
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>協力 Collabo — 讓團隊協作更有節奏</title>
+<meta name="description" content="協力 Collabo 是一款團隊專案協作 SaaS，整合任務看板、即時聊天、檔案共編、時間追蹤與自動化工作流程。" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --bg: #fafafa;
+    --surface: #ffffff;
+    --surface-2: #f4f5f6;
+    --border: #e6e7e9;
+    --text-1: #15171a;
+    --text-2: #52565c;
+    --text-3: #8a8f96;
+    --brand: #3b5bfd;
+    --brand-dark: #2a42c9;
+    --brand-tint: #eef1ff;
+    --brand-tint-2: #e2e7ff;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg: #0d0e11;
+      --surface: #15171b;
+      --surface-2: #1b1e23;
+      --border: #272a30;
+      --text-1: #f3f4f5;
+      --text-2: #b4b8bf;
+      --text-3: #7d828a;
+      --brand: #6f86ff;
+      --brand-dark: #8fa0ff;
+      --brand-tint: #1a2040;
+      --brand-tint-2: #202852;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg: #0d0e11;
+    --surface: #15171b;
+    --surface-2: #1b1e23;
+    --border: #272a30;
+    --text-1: #f3f4f5;
+    --text-2: #b4b8bf;
+    --text-3: #7d828a;
+    --brand: #6f86ff;
+    --brand-dark: #8fa0ff;
+    --brand-tint: #1a2040;
+    --brand-tint-2: #202852;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { background: var(--bg); overflow-x: hidden; }
+  body{
+    font-family: 'Manrope', 'Noto Sans TC', sans-serif;
+    color: var(--text-1);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,h2,h3,h4,.font-display{
+    font-family: 'Outfit', 'Noto Sans TC', sans-serif;
+  }
+  .text-2 { color: var(--text-2); }
+  .text-3 { color: var(--text-3); }
+  .bg-surface { background: var(--surface); }
+  .bg-surface-2 { background: var(--surface-2); }
+  .border-base { border-color: var(--border); }
+  .brand { color: var(--brand); }
+  .bg-brand { background: var(--brand); }
+  .bg-brand-tint { background: var(--brand-tint); }
+
+  .nav-link { color: var(--text-2); transition: color .15s ease; }
+  .nav-link:hover { color: var(--text-1); }
+
+  .btn-primary{
+    background: var(--brand);
+    color: #fff;
+    transition: background .15s ease, transform .15s ease;
+  }
+  .btn-primary:hover{ background: var(--brand-dark); transform: translateY(-1px); }
+
+  .btn-ghost{
+    background: var(--surface);
+    color: var(--text-1);
+    border: 1px solid var(--border);
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  .btn-ghost:hover{ border-color: var(--text-3); transform: translateY(-1px); }
+
+  .card{
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+
+  .stat-pill{
+    background: var(--brand-tint);
+    color: var(--brand-dark);
+    font-weight: 700;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]) .stat-pill{ color: var(--brand); }
+  }
+  :root[data-theme="dark"] .stat-pill{ color: var(--brand); }
+
+  .diagram-wrap{
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+  }
+
+  .fade-up{
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .fade-up.in{
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .section-divider{
+    height: 1px;
+    background: var(--border);
+  }
+
+  svg text { font-family: 'Outfit', 'Noto Sans TC', sans-serif; }
+</style>
+</head>
+<body class="antialiased">
+
+<!-- NAV -->
+<header class="sticky top-0 z-50 border-b border-base bg-surface/90 backdrop-blur">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-lg bg-brand flex items-center justify-center shrink-0">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 1 1 8 8" stroke="white" stroke-width="2.2" stroke-linecap="round"/><circle cx="4" cy="12" r="2" fill="white"/><circle cx="20" cy="4" r="2" fill="white"/></svg>
+      </div>
+      <span class="font-display font-bold text-lg tracking-tight">協力 Collabo</span>
+    </div>
+    <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+      <a href="#feature-board" class="nav-link">任務看板</a>
+      <a href="#feature-chat" class="nav-link">即時聊天</a>
+      <a href="#feature-docs" class="nav-link">檔案共編</a>
+      <a href="#feature-time" class="nav-link">時間追蹤</a>
+      <a href="#feature-flow" class="nav-link">自動化</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <a href="#cta" class="hidden sm:inline-block text-sm font-semibold nav-link">登入</a>
+      <a href="#cta" class="btn-primary text-sm font-semibold px-4 py-2 rounded-lg">免費試用 14 天</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="max-w-6xl mx-auto px-4 sm:px-6 pt-16 pb-14 sm:pt-24 sm:pb-20 text-center">
+  <div class="inline-flex items-center gap-2 stat-pill text-xs font-bold px-3 py-1.5 rounded-full mb-6">
+    <span>已有超過 3,200 個團隊在用</span>
+  </div>
+  <h1 class="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl leading-[1.1] tracking-tight max-w-3xl mx-auto">
+    把散落各處的協作<br class="hidden sm:block"> 收進<span class="brand">同一個節奏</span>裡
+  </h1>
+  <p class="text-2 text-base sm:text-lg mt-6 max-w-2xl mx-auto leading-relaxed">
+    協力 Collabo 把任務、對話、文件與時間紀錄整合成一條清楚的工作流，
+    讓團隊少開會、少追問、少漏掉事情。
+  </p>
+  <div class="flex flex-col sm:flex-row items-center justify-center gap-3 mt-8">
+    <a href="#cta" class="btn-primary font-semibold px-6 py-3 rounded-xl w-full sm:w-auto text-center">免費開始使用</a>
+    <a href="#feature-board" class="btn-ghost font-semibold px-6 py-3 rounded-xl w-full sm:w-auto text-center">看看功能怎麼運作</a>
+  </div>
+  <p class="text-3 text-xs mt-5">免信用卡資料 · 5 分鐘完成設定 · 隨時可取消</p>
+</section>
+
+<!-- TRUST / STATS STRIP -->
+<section class="border-y border-base bg-surface-2">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
+    <div>
+      <div class="font-display font-extrabold text-2xl sm:text-3xl brand">30%</div>
+      <div class="text-2 text-xs sm:text-sm mt-1">平均節省會議時間</div>
+    </div>
+    <div>
+      <div class="font-display font-extrabold text-2xl sm:text-3xl brand">45%</div>
+      <div class="text-2 text-xs sm:text-sm mt-1">任務延遲率下降</div>
+    </div>
+    <div>
+      <div class="font-display font-extrabold text-2xl sm:text-3xl brand">3,200+</div>
+      <div class="text-2 text-xs sm:text-sm mt-1">使用中的團隊數</div>
+    </div>
+    <div>
+      <div class="font-display font-extrabold text-2xl sm:text-3xl brand">4.8 / 5</div>
+      <div class="text-2 text-xs sm:text-sm mt-1">使用者滿意度評分</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE 1: 任務看板 (圖左文右) -->
+<section id="feature-board" class="max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-28">
+  <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+    <div class="fade-up order-1">
+      <div class="diagram-wrap rounded-2xl p-5 sm:p-7">
+        <svg viewBox="0 0 480 320" class="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="0" width="480" height="320" rx="14" fill="none"/>
+          <!-- columns -->
+          <g>
+            <rect x="12" y="14" width="140" height="292" rx="10" fill="var(--surface)" stroke="var(--border)"/>
+            <rect x="166" y="14" width="140" height="292" rx="10" fill="var(--surface)" stroke="var(--border)"/>
+            <rect x="320" y="14" width="148" height="292" rx="10" fill="var(--surface)" stroke="var(--border)"/>
+          </g>
+          <!-- headers -->
+          <circle cx="26" cy="34" r="4" fill="#9aa1ab"/>
+          <text x="38" y="38" font-size="13" font-weight="700" fill="var(--text-1)">待處理</text>
+          <circle cx="180" cy="34" r="4" fill="var(--brand)"/>
+          <text x="192" y="38" font-size="13" font-weight="700" fill="var(--text-1)">進行中</text>
+          <circle cx="334" cy="34" r="4" fill="#34c38f"/>
+          <text x="346" y="38" font-size="13" font-weight="700" fill="var(--text-1)">已完成</text>
+
+          <!-- cards col1 -->
+          <rect x="22" y="54" width="120" height="58" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+          <rect x="30" y="64" width="70" height="7" rx="3.5" fill="var(--text-3)"/>
+          <rect x="30" y="78" width="50" height="7" rx="3.5" fill="var(--border)"/>
+          <rect x="30" y="94" width="34" height="12" rx="6" fill="var(--brand-tint)"/>
+
+          <rect x="22" y="122" width="120" height="58" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+          <rect x="30" y="132" width="90" height="7" rx="3.5" fill="var(--text-3)"/>
+          <rect x="30" y="146" width="40" height="7" rx="3.5" fill="var(--border)"/>
+
+          <!-- cards col2 -->
+          <rect x="176" y="54" width="120" height="68" rx="8" fill="var(--surface-2)" stroke="var(--brand)" stroke-width="1.5"/>
+          <rect x="184" y="64" width="80" height="7" rx="3.5" fill="var(--text-3)"/>
+          <rect x="184" y="78" width="60" height="7" rx="3.5" fill="var(--border)"/>
+          <circle cx="190" cy="104" r="8" fill="var(--brand-tint-2)"/>
+          <circle cx="204" cy="104" r="8" fill="var(--brand-tint)"/>
+
+          <rect x="176" y="130" width="120" height="50" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+          <rect x="184" y="140" width="66" height="7" rx="3.5" fill="var(--text-3)"/>
+          <rect x="184" y="154" width="46" height="7" rx="3.5" fill="var(--border)"/>
+
+          <!-- cards col3 done -->
+          <rect x="330" y="54" width="128" height="50" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+          <path d="M342 80 l6 6 l12 -14" stroke="#34c38f" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="368" y="68" width="78" height="7" rx="3.5" fill="var(--text-3)" opacity="0.6"/>
+          <rect x="368" y="82" width="54" height="7" rx="3.5" fill="var(--border)"/>
+
+          <rect x="330" y="112" width="128" height="50" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+          <path d="M342 138 l6 6 l12 -14" stroke="#34c38f" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="368" y="126" width="68" height="7" rx="3.5" fill="var(--text-3)" opacity="0.6"/>
+          <rect x="368" y="140" width="50" height="7" rx="3.5" fill="var(--border)"/>
+        </svg>
+      </div>
+    </div>
+    <div class="order-2">
+      <div class="text-xs font-bold brand tracking-wide uppercase mb-3">任務看板</div>
+      <h2 class="font-display font-bold text-3xl sm:text-4xl leading-tight">用拖拉就能掌握全隊進度</h2>
+      <p class="text-2 mt-5 leading-relaxed">
+        把每個專案拆成清楚的待處理、進行中、已完成欄位，成員一拖拉就能更新狀態，
+        主管不用追著問「做到哪了」，打開看板就一目了然。支援子任務、標籤、截止日與多種檢視方式（看板 / 列表 / 時間軸）。
+      </p>
+      <ul class="mt-6 space-y-3 text-sm">
+        <li class="flex items-start gap-3">
+          <span class="mt-0.5 w-5 h-5 rounded-full bg-brand-tint flex items-center justify-center shrink-0"><svg width="11" height="11" viewBox="0 0 24 24"><path d="M5 12l5 5L19 7" stroke="var(--brand)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="text-2">自訂欄位與流程，符合不同團隊的工作方式</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="mt-0.5 w-5 h-5 rounded-full bg-brand-tint flex items-center justify-center shrink-0"><svg width="11" height="11" viewBox="0 0 24 24"><path d="M5 12l5 5L19 7" stroke="var(--brand)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="text-2">依負責人、優先度、截止日快速篩選</span>
+        </li>
+      </ul>
+      <div class="mt-6 inline-flex items-center gap-2 stat-pill text-xs px-3 py-1.5 rounded-full">
+        某行銷團隊導入後，任務延遲率下降 42%
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="max-w-6xl mx-auto px-4 sm:px-6"><div class="section-divider"></div></div>
+
+<!-- FEATURE 2: 即時聊天 (圖右文左，偶數區相反) -->
+<section id="feature-chat" class="max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-28">
+  <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+    <div class="order-2 md:order-1">
+      <div class="text-xs font-bold brand tracking-wide uppercase mb-3">即時聊天</div>
+      <h2 class="font-display font-bold text-3xl sm:text-4xl leading-tight">討論直接掛在任務旁，不再跨 App 找訊息</h2>
+      <p class="text-2 mt-5 leading-relaxed">
+        每個任務、每個專案都有自己的討論串，重要決議不會被洗版淹沒。
+        支援頻道、私訊、@提及與訊息釐清串（Thread），所有紀錄都能被搜尋回來，交接再也不用重新問一次。
+      </p>
+      <ul class="mt-6 space-y-3 text-sm">
+        <li class="flex items-start gap-3">
+          <span class="mt-0.5 w-5 h-5 rounded-full bg-brand-tint flex items-center justify-center shrink-0"><svg width="11" height="11" viewBox="0 0 24 24"><path d="M5 12l5 5L19 7" stroke="var(--brand)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="text-2">訊息與任務雙向連結，討論內容不會斷層</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="mt-0.5 w-5 h-5 rounded-full bg-brand-tint flex items-center justify-center shrink-0"><svg width="11" height="11" viewBox="0 0 24 24"><path d="M5 12l5 5L19 7" stroke="var(--brand)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="text-2">全文搜尋、重要訊息釘選，交接零斷點</span>
+        </li>
+      </ul>
+      <div class="mt-6 inline-flex items-center gap-2 stat-pill text-xs px-3 py-1.5 rounded-full">
+        跨部門溝通往返次數減少 38%
+      </div>
+    </div>
+    <div class="order-1 md:order-2 fade-up">
+      <div class="diagram-wrap rounded-2xl p-5 sm:p-7">
+        <svg viewBox="0 0 480 320" class="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
+          <rect x="18" y="18" width="444" height="284" rx="14" fill="var(--surface)" stroke="var(--border)"/>
+          <!-- header -->
+          <rect x="18" y="18" width="444" height="44" rx="14" fill="var(--surface-2)"/>
+          <circle cx="42" cy="40" r="10" fill="var(--brand-tint-2)"/>
+          <text x="60" y="44" font-size="13" font-weight="700" fill="var(--text-1)"># 新品上架企劃</text>
+
+          <!-- messages -->
+          <circle cx="42" cy="90" r="12" fill="var(--brand-tint)"/>
+          <rect x="62" y="80" width="150" height="10" rx="5" fill="var(--text-3)" opacity="0.5"/>
+          <rect x="62" y="96" width="220" height="24" rx="8" fill="var(--surface-2)"/>
+          <rect x="72" y="104" width="180" height="8" rx="4" fill="var(--text-3)" opacity="0.6"/>
+
+          <circle cx="42" cy="150" r="12" fill="#ffd9a0"/>
+          <rect x="62" y="140" width="110" height="10" rx="5" fill="var(--text-3)" opacity="0.5"/>
+          <rect x="62" y="156" width="260" height="36" rx="8" fill="var(--surface-2)"/>
+          <rect x="72" y="166" width="200" height="8" rx="4" fill="var(--text-3)" opacity="0.6"/>
+          <rect x="72" y="178" width="150" height="8" rx="4" fill="var(--text-3)" opacity="0.6"/>
+
+          <circle cx="42" cy="218" r="12" fill="#a0e0c6"/>
+          <rect x="62" y="208" width="130" height="10" rx="5" fill="var(--text-3)" opacity="0.5"/>
+          <rect x="62" y="224" width="200" height="24" rx="8" fill="var(--brand-tint)"/>
+          <rect x="72" y="232" width="160" height="8" rx="4" fill="var(--brand-dark)" opacity="0.6"/>
+
+          <!-- input -->
+          <rect x="34" y="266" width="412" height="30" rx="15" fill="var(--surface-2)" stroke="var(--border)"/>
+          <rect x="48" y="277" width="120" height="8" rx="4" fill="var(--text-3)" opacity="0.4"/>
+          <circle cx="424" cy="281" r="11" fill="var(--brand)"/>
+          <path d="M419 281 l10 0 M424 276 l5 5 -5 5" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="max-w-6xl mx-auto px-4 sm:px-6"><div class="section-divider"></div></div>
+
+<!-- FEATURE 3: 檔案共編 (圖左文右) -->
+<section id="feature-docs" class="max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-28">
+  <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+    <div class="fade-up order-1">
+      <div class="diagram-wrap rounded-2xl p-5 sm:p-7">
+        <svg viewBox="0 0 480 320" class="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
+          <rect x="60" y="20" width="360" height="280" rx="12" fill="var(--surface)" stroke="var(--border)"/>
+          <rect x="60" y="20" width="360" height="36" rx="12" fill="var(--surface-2)"/>
+          <circle cx="82" cy="38" r="5" fill="#ff8a8a"/>
+          <circle cx="98" cy="38" r="5" fill="#ffd27a"/>
+          <circle cx="114" cy="38" r="5" fill="#8adfa8"/>
+          <text x="340" y="42" font-size="11" fill="var(--text-3)">自動儲存中…</text>
+
+          <!-- doc lines -->
+          <rect x="84" y="78" width="180" height="12" rx="4" fill="var(--text-1)" opacity="0.8"/>
+          <rect x="84" y="104" width="312" height="7" rx="3.5" fill="var(--border)"/>
+          <rect x="84" y="118" width="300" height="7" rx="3.5" fill="var(--border)"/>
+          <rect x="84" y="132" width="260" height="7" rx="3.5" fill="var(--border)"/>
+
+          <!-- highlighted collab edit -->
+          <rect x="84" y="150" width="220" height="16" rx="4" fill="var(--brand-tint)"/>
+          <rect x="90" y="155" width="180" height="7" rx="3.5" fill="var(--brand-dark)" opacity="0.5"/>
+          <rect x="88" y="172" width="312" height="7" rx="3.5" fill="var(--border)"/>
+          <rect x="88" y="186" width="230" height="7" rx="3.5" fill="var(--border)"/>
+
+          <rect x="84" y="208" width="140" height="18" rx="5" fill="#fff1c2" opacity="0.7"/>
+          <rect x="90" y="213" width="110" height="7" rx="3.5" fill="#b8860b" opacity="0.6"/>
+
+          <!-- cursors -->
+          <g>
+            <path d="M304 150 l0 16 l4 -4 l4 7 l3 -2 l-4 -7 l6 0 z" fill="var(--brand)"/>
+            <rect x="300" y="132" width="52" height="16" rx="8" fill="var(--brand)"/>
+            <text x="310" y="143" font-size="9" fill="white" font-weight="700">王經理</text>
+          </g>
+          <g>
+            <path d="M222 208 l0 16 l4 -4 l4 7 l3 -2 l-4 -7 l6 0 z" fill="#34c38f"/>
+            <rect x="222" y="190" width="52" height="16" rx="8" fill="#34c38f"/>
+            <text x="230" y="201" font-size="9" fill="white" font-weight="700">阿凱</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div class="order-2">
+      <div class="text-xs font-bold brand tracking-wide uppercase mb-3">檔案共編</div>
+      <h2 class="font-display font-bold text-3xl sm:text-4xl leading-tight">多人同步編輯，版本永遠不會對不上</h2>
+      <p class="text-2 mt-5 leading-relaxed">
+        企劃書、會議紀錄、設計規格都能在線上即時共編，誰在改哪一段一眼就看到，
+        自動儲存與版本歷史讓你隨時回溯，不再有「誰拿到最新版」的來回確認。
+      </p>
+      <ul class="mt-6 space-y-3 text-sm">
+        <li class="flex items-start gap-3">
+          <span class="mt-0.5 w-5 h-5 rounded-full bg-brand-tint flex items-center justify-center shrink-0"><svg width="11" height="11" viewBox="0 0 24 24"><path d="M5 12l5 5L19 7" stroke="var(--brand)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="text-2">留言、標註與版本歷史，追溯每一次修改</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="mt-0.5 w-5 h-5 rounded-full bg-brand-tint flex items-center justify-center shrink-0"><svg width="11" height="11" viewBox="0 0 24 24"><path d="M5 12l5 5L19 7" stroke="var(--brand)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="text-2">權限分級，外部夥伴也能安全參與</span>
+        </li>
+      </ul>
+      <div class="mt-6 inline-flex items-center gap-2 stat-pill text-xs px-3 py-1.5 rounded-full">
+        文件版本混亂問題減少 60%
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="max-w-6xl mx-auto px-4 sm:px-6"><div class="section-divider"></div></div>
+
+<!-- FEATURE 4: 時間追蹤 (圖右文左) -->
+<section id="feature-time" class="max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-28">
+  <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+    <div class="order-2 md:order-1">
+      <div class="text-xs font-bold brand tracking-wide uppercase mb-3">時間追蹤</div>
+      <h2 class="font-display font-bold text-3xl sm:text-4xl leading-tight">知道時間花在哪，報價與排程才有依據</h2>
+      <p class="text-2 mt-5 leading-relaxed">
+        一鍵啟動計時器，自動依任務、專案與客戶分類工時，週報與月報自動生成，
+        不用再手動對帳。接案團隊可直接依實際工時產出報價單，內部團隊能清楚看到產能分布在哪裡。
+      </p>
+      <ul class="mt-6 space-y-3 text-sm">
+        <li class="flex items-start gap-3">
+          <span class="mt-0.5 w-5 h-5 rounded-full bg-brand-tint flex items-center justify-center shrink-0"><svg width="11" height="11" viewBox="0 0 24 24"><path d="M5 12l5 5L19 7" stroke="var(--brand)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="text-2">依客戶、專案自動歸類工時，報表一鍵匯出</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="mt-0.5 w-5 h-5 rounded-full bg-brand-tint flex items-center justify-center shrink-0"><svg width="11" height="11" viewBox="0 0 24 24"><path d="M5 12l5 5L19 7" stroke="var(--brand)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="text-2">產能分布一眼看懂，排程更精準</span>
+        </li>
+      </ul>
+      <div class="mt-6 inline-flex items-center gap-2 stat-pill text-xs px-3 py-1.5 rounded-full">
+        工時申報作業時間縮短 55%
+      </div>
+    </div>
+    <div class="order-1 md:order-2 fade-up">
+      <div class="diagram-wrap rounded-2xl p-5 sm:p-7">
+        <svg viewBox="0 0 480 320" class="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
+          <rect x="24" y="24" width="432" height="272" rx="12" fill="var(--surface)" stroke="var(--border)"/>
+          <text x="44" y="56" font-size="13" font-weight="700" fill="var(--text-1)">本週工時分布</text>
+          <text x="44" y="74" font-size="22" font-weight="800" fill="var(--brand)" font-family="Outfit, sans-serif">32.5 小時</text>
+
+          <!-- bar chart -->
+          <g>
+            <rect x="48" y="200" width="36" height="66" rx="5" fill="var(--brand-tint)"/>
+            <rect x="48" y="238" width="36" height="28" rx="5" fill="var(--brand)"/>
+            <text x="56" y="282" font-size="10" fill="var(--text-3)">一</text>
+
+            <rect x="104" y="170" width="36" height="96" rx="5" fill="var(--brand-tint)"/>
+            <rect x="104" y="220" width="36" height="46" rx="5" fill="var(--brand)"/>
+            <text x="112" y="282" font-size="10" fill="var(--text-3)">二</text>
+
+            <rect x="160" y="190" width="36" height="76" rx="5" fill="var(--brand-tint)"/>
+            <rect x="160" y="232" width="36" height="34" rx="5" fill="var(--brand)"/>
+            <text x="168" y="282" font-size="10" fill="var(--text-3)">三</text>
+
+            <rect x="216" y="150" width="36" height="116" rx="5" fill="var(--brand-tint)"/>
+            <rect x="216" y="206" width="36" height="60" rx="5" fill="var(--brand)"/>
+            <text x="224" y="282" font-size="10" fill="var(--text-3)">四</text>
+
+            <rect x="272" y="182" width="36" height="84" rx="5" fill="var(--brand-tint)"/>
+            <rect x="272" y="226" width="36" height="40" rx="5" fill="var(--brand)"/>
+            <text x="280" y="282" font-size="10" fill="var(--text-3)">五</text>
+          </g>
+
+          <!-- side timer card -->
+          <rect x="336" y="150" width="104" height="100" rx="10" fill="var(--surface-2)" stroke="var(--border)"/>
+          <circle cx="388" cy="188" r="22" fill="none" stroke="var(--border)" stroke-width="5"/>
+          <circle cx="388" cy="188" r="22" fill="none" stroke="var(--brand)" stroke-width="5" stroke-dasharray="90 138" stroke-linecap="round" transform="rotate(-90 388 188)"/>
+          <text x="388" y="193" font-size="11" fill="var(--text-1)" font-weight="700" text-anchor="middle">02:14</text>
+          <text x="388" y="228" font-size="10" fill="var(--text-3)" text-anchor="middle">計時中</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="max-w-6xl mx-auto px-4 sm:px-6"><div class="section-divider"></div></div>
+
+<!-- FEATURE 5: 自動化工作流程 (圖左文右) -->
+<section id="feature-flow" class="max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-28">
+  <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+    <div class="fade-up order-1">
+      <div class="diagram-wrap rounded-2xl p-5 sm:p-7">
+        <svg viewBox="0 0 480 320" class="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
+          <!-- trigger -->
+          <rect x="24" y="30" width="150" height="56" rx="10" fill="var(--brand-tint)" stroke="var(--brand)" stroke-width="1.2"/>
+          <text x="40" y="54" font-size="11" font-weight="700" fill="var(--brand-dark)">當任務狀態變為</text>
+          <text x="40" y="70" font-size="11" font-weight="700" fill="var(--brand-dark)">「已完成」</text>
+
+          <!-- arrow -->
+          <path d="M174 58 h40" stroke="var(--text-3)" stroke-width="2" fill="none"/>
+          <path d="M208 52 l10 6 l-10 6" stroke="var(--text-3)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+          <!-- step 1 -->
+          <rect x="228" y="30" width="150" height="56" rx="10" fill="var(--surface-2)" stroke="var(--border)"/>
+          <text x="244" y="54" font-size="11" font-weight="700" fill="var(--text-1)">自動通知負責人</text>
+          <text x="244" y="70" font-size="10" fill="var(--text-3)">與下一位接手者</text>
+
+          <!-- down arrow -->
+          <path d="M303 86 v34" stroke="var(--text-3)" stroke-width="2" fill="none"/>
+          <path d="M297 112 l6 10 l6 -10" stroke="var(--text-3)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+          <!-- step 2 -->
+          <rect x="228" y="130" width="150" height="56" rx="10" fill="var(--surface-2)" stroke="var(--border)"/>
+          <text x="244" y="154" font-size="11" font-weight="700" fill="var(--text-1)">產生工時紀錄</text>
+          <text x="244" y="170" font-size="10" fill="var(--text-3)">同步至報表</text>
+
+          <path d="M303 186 v34" stroke="var(--text-3)" stroke-width="2" fill="none"/>
+          <path d="M297 212 l6 10 l6 -10" stroke="var(--text-3)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+          <!-- step 3 done -->
+          <rect x="228" y="230" width="150" height="56" rx="10" fill="var(--surface-2)" stroke="#34c38f" stroke-width="1.2"/>
+          <path d="M248 258 l7 7 l14 -16" stroke="#34c38f" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="276" y="254" font-size="11" font-weight="700" fill="var(--text-1)">移動卡片到</text>
+          <text x="276" y="270" font-size="11" font-weight="700" fill="var(--text-1)">「驗收」欄位</text>
+
+          <!-- floating small nodes -->
+          <circle cx="40" cy="250" r="26" fill="var(--surface-2)" stroke="var(--border)"/>
+          <text x="40" y="246" font-size="9" fill="var(--text-3)" text-anchor="middle">條件</text>
+          <text x="40" y="258" font-size="9" fill="var(--text-3)" text-anchor="middle">判斷</text>
+        </svg>
+      </div>
+    </div>
+    <div class="order-2">
+      <div class="text-xs font-bold brand tracking-wide uppercase mb-3">自動化工作流程</div>
+      <h2 class="font-display font-bold text-3xl sm:text-4xl leading-tight">把重複性的瑣事交給自動化處理</h2>
+      <p class="text-2 mt-5 leading-relaxed">
+        用簡單的「當…就…」規則，把狀態更新、通知提醒、報表產出全部串接起來。
+        不用寫程式，拖拉設定幾個條件，團隊就能省下大量重複性的手動操作時間。
+      </p>
+      <ul class="mt-6 space-y-3 text-sm">
+        <li class="flex items-start gap-3">
+          <span class="mt-0.5 w-5 h-5 rounded-full bg-brand-tint flex items-center justify-center shrink-0"><svg width="11" height="11" viewBox="0 0 24 24"><path d="M5 12l5 5L19 7" stroke="var(--brand)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="text-2">無程式碼視覺化流程編輯器</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="mt-0.5 w-5 h-5 rounded-full bg-brand-tint flex items-center justify-center shrink-0"><svg width="11" height="11" viewBox="0 0 24 24"><path d="M5 12l5 5L19 7" stroke="var(--brand)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="text-2">內建常用範本，上線即可套用</span>
+        </li>
+      </ul>
+      <div class="mt-6 inline-flex items-center gap-2 stat-pill text-xs px-3 py-1.5 rounded-full">
+        每週省下約 4.2 小時的重複性作業
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGOS / SOCIAL PROOF -->
+<section class="bg-surface-2 border-y border-base py-14">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center">
+    <p class="text-3 text-xs font-semibold tracking-wide uppercase mb-8">深受各產業團隊信賴</p>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-3xl mx-auto">
+      <div class="card rounded-xl py-5 font-display font-bold text-2 text-sm">晨曦設計</div>
+      <div class="card rounded-xl py-5 font-display font-bold text-2 text-sm">星辰電商</div>
+      <div class="card rounded-xl py-5 font-display font-bold text-2 text-sm">藍海顧問</div>
+      <div class="card rounded-xl py-5 font-display font-bold text-2 text-sm">綠谷科技</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta" class="max-w-5xl mx-auto px-4 sm:px-6 py-20 sm:py-28 text-center">
+  <h2 class="font-display font-extrabold text-3xl sm:text-4xl md:text-5xl leading-tight">
+    讓團隊的下一個專案，<br class="hidden sm:block">從第一天就有節奏
+  </h2>
+  <p class="text-2 mt-5 max-w-xl mx-auto leading-relaxed">
+    免費試用 14 天，不需綁定信用卡。邀請你的團隊一起加入，當天就能感受到溝通成本變輕的差別。
+  </p>
+  <div class="flex flex-col sm:flex-row items-center justify-center gap-3 mt-8">
+    <a href="#" class="btn-primary font-semibold px-7 py-3.5 rounded-xl w-full sm:w-auto text-center">立即免費開始</a>
+    <a href="#" class="btn-ghost font-semibold px-7 py-3.5 rounded-xl w-full sm:w-auto text-center">預約產品 Demo</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t border-base">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <div class="w-6 h-6 rounded-md bg-brand flex items-center justify-center shrink-0">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 1 1 8 8" stroke="white" stroke-width="2.4" stroke-linecap="round"/></svg>
+      </div>
+      <span class="font-display font-bold text-sm">協力 Collabo</span>
+    </div>
+    <p class="text-3 text-xs">© 2026 協力 Collabo. 版權所有，保留一切權利。</p>
+  </div>
+</footer>
+
+<script>
+  try {
+    var els = document.querySelectorAll('.fade-up');
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      els.forEach(function(el){ io.observe(el); });
+    } else {
+      els.forEach(function(el){ el.classList.add('in'); });
+    }
+  } catch (e) {
+    try {
+      document.querySelectorAll('.fade-up').forEach(function(el){ el.classList.add('in'); });
+    } catch (e2) {}
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,685 @@
+<!-- style #15 Motion-Driven -->
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>晨光 MorningFlow｜用動態節奏，喚醒你的每一個早晨</title>
+<meta name="description" content="晨光 MorningFlow 是一款晨間儀式提醒 App，陪你完成喝水、伸展、晨間日記與今日規劃，讓每個早晨都有節奏感。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --bg: #f4f2ee;
+    --bg-soft: #ebe8e1;
+    --surface: #ffffff;
+    --ink: #1c1a17;
+    --ink-soft: #5c574e;
+    --line: #e2ddd3;
+    --accent: #ff7a45;
+    --accent-2: #2f6f5e;
+    --accent-3: #f0b429;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg: #141310;
+      --bg-soft: #1c1a16;
+      --surface: #1f1d19;
+      --ink: #f3efe7;
+      --ink-soft: #b4ada0;
+      --line: #35312a;
+      --accent: #ff8a5c;
+      --accent-2: #4caf96;
+      --accent-3: #f0c75e;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg: #141310;
+    --bg-soft: #1c1a16;
+    --surface: #1f1d19;
+    --ink: #f3efe7;
+    --ink-soft: #b4ada0;
+    --line: #35312a;
+    --accent: #ff8a5c;
+    --accent-2: #4caf96;
+    --accent-3: #f0c75e;
+  }
+
+  *{ box-sizing: border-box; }
+  html,body{ overflow-x: hidden; }
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Manrope', 'Noto Sans TC', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,h2,h3,h4,.font-display{
+    font-family: 'Sora', 'Noto Sans TC', sans-serif;
+  }
+  .text-soft{ color: var(--ink-soft); }
+  .bg-surface{ background: var(--surface); }
+  .border-line{ border-color: var(--line); }
+  .text-accent{ color: var(--accent); }
+  .bg-accent{ background: var(--accent); }
+  .bg-accent2{ background: var(--accent-2); }
+  .text-accent2{ color: var(--accent-2); }
+
+  /* ---------- Scroll progress bar ---------- */
+  #scroll-progress{
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-3), var(--accent-2));
+    z-index: 100;
+    transition: width 60ms linear;
+  }
+
+  /* ---------- Reveal-on-scroll (IntersectionObserver driven) ---------- */
+  .reveal{
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1);
+    will-change: opacity, transform;
+  }
+  .reveal.reveal-left{ transform: translateX(-40px); }
+  .reveal.reveal-right{ transform: translateX(40px); }
+  .reveal.reveal-scale{ transform: scale(.88); }
+  .reveal.is-visible{
+    opacity: 1;
+    transform: none;
+  }
+  .reveal-stagger > *{
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);
+  }
+  .reveal-stagger.is-visible > *{
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn-primary{
+    position: relative;
+    background: var(--ink);
+    color: var(--bg);
+    font-family: 'Sora', 'Noto Sans TC', sans-serif;
+    transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s ease, background .35s ease;
+    overflow: hidden;
+  }
+  .btn-primary::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .45s cubic-bezier(.22,1,.36,1);
+    z-index: 0;
+  }
+  .btn-primary span{ position: relative; z-index: 1; display: inline-flex; align-items: center; gap: .5rem; }
+  .btn-primary:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 14px 30px -10px rgba(255,122,69,.55);
+  }
+  .btn-primary:hover::after{ transform: scaleX(1); }
+  .btn-primary:active{ transform: translateY(-1px) scale(.98); }
+
+  .btn-ghost{
+    border: 1.5px solid var(--line);
+    transition: border-color .3s ease, transform .3s ease, background .3s ease;
+  }
+  .btn-ghost:hover{
+    border-color: var(--accent);
+    background: var(--bg-soft);
+    transform: translateY(-2px);
+  }
+
+  /* ---------- Card hover micro-motion ---------- */
+  .lift-card{
+    transition: transform .45s cubic-bezier(.22,1,.36,1), box-shadow .45s ease, border-color .35s ease;
+  }
+  .lift-card:hover{
+    transform: translateY(-8px) rotate(-.3deg);
+    box-shadow: 0 24px 48px -24px rgba(28,26,23,.25);
+    border-color: var(--accent);
+  }
+  .icon-spin{ transition: transform .5s cubic-bezier(.34,1.56,.64,1); }
+  .lift-card:hover .icon-spin{ transform: rotate(14deg) scale(1.1); }
+
+  /* ---------- Hero orbit / blobs ---------- */
+  .orbit-wrap{ position: relative; }
+  .blob{
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(2px);
+    animation: float 9s ease-in-out infinite;
+  }
+  @keyframes float{
+    0%, 100%{ transform: translate(0,0) scale(1); }
+    50%{ transform: translate(14px,-18px) scale(1.06); }
+  }
+  .blob-slow{ animation-duration: 13s; }
+  .blob-rev{ animation-direction: alternate-reverse; }
+
+  @keyframes spin-slow{ from{ transform: rotate(0deg); } to{ transform: rotate(360deg); } }
+  .ring-spin{ animation: spin-slow 22s linear infinite; }
+
+  @keyframes pulse-dot{
+    0%,100%{ opacity: .35; transform: scale(1); }
+    50%{ opacity: 1; transform: scale(1.3); }
+  }
+  .pulse-dot{ animation: pulse-dot 2.2s ease-in-out infinite; }
+
+  /* ---------- Marquee ---------- */
+  .marquee-track{
+    display: flex;
+    width: max-content;
+    animation: marquee 26s linear infinite;
+  }
+  @keyframes marquee{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(-50%); }
+  }
+  .marquee-outer:hover .marquee-track{ animation-play-state: paused; }
+
+  /* ---------- Progress rings (scroll-driven step visual) ---------- */
+  .step-rail{
+    position: relative;
+  }
+  .step-rail::before{
+    content: "";
+    position: absolute;
+    left: 19px;
+    top: 10px;
+    bottom: 10px;
+    width: 2px;
+    background: var(--line);
+  }
+  .step-rail .rail-fill{
+    position: absolute;
+    left: 19px;
+    top: 10px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--accent), var(--accent-2));
+    height: 0%;
+    transition: height .25s ease-out;
+  }
+  .step-dot{
+    transition: transform .4s cubic-bezier(.34,1.56,.64,1), background .4s ease, border-color .4s ease;
+  }
+  .step-dot.step-active{
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: scale(1.25);
+  }
+
+  /* ---------- Mock phone screen gentle breathing ---------- */
+  @keyframes breathe{
+    0%,100%{ transform: translateY(0) rotate(-2deg); }
+    50%{ transform: translateY(-10px) rotate(0deg); }
+  }
+  .phone-breathe{ animation: breathe 6s ease-in-out infinite; }
+
+  /* ---------- counters ---------- */
+  .count-num{ font-variant-numeric: tabular-nums; }
+
+  /* ---------- parallax layers ---------- */
+  .parallax-layer{ transition: transform .1s linear; }
+
+  /* custom scrollbar-ish subtlety */
+  ::selection{ background: var(--accent); color: #fff; }
+
+  .noise-grain{
+    background-image: radial-gradient(circle at 1px 1px, rgba(28,26,23,.06) 1px, transparent 0);
+    background-size: 16px 16px;
+  }
+
+  @media (max-width: 420px){
+    .hero-title{ font-size: 2.3rem !important; line-height: 1.15 !important; }
+  }
+</style>
+</head>
+<body class="bg-[var(--bg)] text-[var(--ink)]">
+
+<div id="scroll-progress"></div>
+
+<!-- NAV -->
+<header class="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-[var(--bg)]/80 border-b border-[var(--line)]">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-2 font-display font-bold text-lg">
+      <span class="w-8 h-8 rounded-full bg-accent flex items-center justify-center text-white text-sm">晨</span>
+      晨光 <span class="text-soft font-medium hidden sm:inline">MorningFlow</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-sm text-soft">
+      <a href="#features" class="hover:text-[var(--ink)] transition-colors">功能</a>
+      <a href="#flow" class="hover:text-[var(--ink)] transition-colors">使用流程</a>
+      <a href="#reviews" class="hover:text-[var(--ink)] transition-colors">使用者評價</a>
+      <a href="#pricing" class="hover:text-[var(--ink)] transition-colors">方案</a>
+    </nav>
+    <a href="#cta" class="btn-primary rounded-full px-5 py-2 text-sm"><span>立即開始</span></a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="top" class="relative pt-32 pb-24 px-5 sm:px-8 overflow-hidden">
+  <div class="absolute inset-0 noise-grain opacity-40 pointer-events-none"></div>
+  <div class="blob blob-slow w-72 h-72 bg-accent/20 -top-10 -left-16"></div>
+  <div class="blob blob-rev w-60 h-60 bg-accent2/20 top-40 -right-10"></div>
+
+  <div class="max-w-6xl mx-auto relative grid md:grid-cols-2 gap-12 items-center">
+    <div>
+      <div class="reveal inline-flex items-center gap-2 bg-surface border border-line rounded-full px-4 py-1.5 text-xs text-soft mb-6">
+        <span class="w-2 h-2 rounded-full bg-accent pulse-dot"></span>
+        每天早上，給自己 15 分鐘的開場白
+      </div>
+      <h1 class="reveal hero-title font-display font-extrabold text-5xl sm:text-6xl leading-[1.08] tracking-tight mb-6">
+        讓每個早晨<br>
+        <span class="text-accent">動</span>起來，<br>
+        而不是<span class="relative inline-block">
+          <span class="relative z-10">趕</span>
+          <svg class="absolute -bottom-1 left-0 w-full" height="10" viewBox="0 0 120 10" preserveAspectRatio="none" aria-hidden="true"><path d="M2 7 Q 30 1, 60 6 T 118 4" stroke="var(--accent)" stroke-width="4" fill="none" stroke-linecap="round"/></svg>
+        </span>起來。
+      </h1>
+      <p class="reveal text-lg text-soft leading-relaxed mb-8 max-w-md">
+        晨光 MorningFlow 把喝水、伸展、寫日記、規劃今日任務，變成一串有節奏的小儀式。
+        不用意志力硬撐，跟著畫面的動態提示走，身體跟腦袋會自己醒過來。
+      </p>
+      <div class="reveal flex flex-wrap items-center gap-4">
+        <a href="#cta" class="btn-primary rounded-full px-7 py-3.5 text-base"><span>免費開始 7 天體驗 →</span></a>
+        <a href="#flow" class="btn-ghost rounded-full px-7 py-3.5 text-base text-soft">看看怎麼運作</a>
+      </div>
+      <div class="reveal reveal-stagger flex items-center gap-6 mt-10 text-sm text-soft">
+        <div><span class="count-num font-display font-bold text-2xl text-[var(--ink)]" data-count="52000">0</span> 位使用者</div>
+        <div class="w-px h-8 bg-line"></div>
+        <div><span class="count-num font-display font-bold text-2xl text-[var(--ink)]" data-count="4.8" data-decimal="1">0</span> / 5 平均評分</div>
+      </div>
+    </div>
+
+    <div class="reveal reveal-scale orbit-wrap flex justify-center">
+      <div class="relative w-72 sm:w-80">
+        <div class="absolute -inset-10 rounded-full border border-dashed border-[var(--line)] ring-spin"></div>
+        <div class="phone-breathe relative mx-auto w-64 bg-surface rounded-[2.2rem] border border-line shadow-2xl p-4">
+          <div class="flex items-center justify-between mb-4 text-xs text-soft">
+            <span>早上 6:47</span>
+            <span>☁️ 18°C</span>
+          </div>
+          <p class="font-display font-semibold text-lg mb-1">早安，雅婷 👋</p>
+          <p class="text-xs text-soft mb-5">今天的晨間儀式完成 2 / 4</p>
+          <div class="space-y-3">
+            <div class="flex items-center gap-3 bg-[var(--bg-soft)] rounded-xl p-3">
+              <span class="w-6 h-6 rounded-full bg-accent2 text-white text-xs flex items-center justify-center">✓</span>
+              <span class="text-sm flex-1">喝一杯 300ml 溫水</span>
+            </div>
+            <div class="flex items-center gap-3 bg-[var(--bg-soft)] rounded-xl p-3">
+              <span class="w-6 h-6 rounded-full bg-accent2 text-white text-xs flex items-center justify-center">✓</span>
+              <span class="text-sm flex-1">5 分鐘拉伸伸展</span>
+            </div>
+            <div class="flex items-center gap-3 border border-dashed border-[var(--line)] rounded-xl p-3">
+              <span class="w-6 h-6 rounded-full border-2 border-[var(--line)]"></span>
+              <span class="text-sm flex-1 text-soft">寫 3 句晨間日記</span>
+            </div>
+            <div class="flex items-center gap-3 border border-dashed border-[var(--line)] rounded-xl p-3">
+              <span class="w-6 h-6 rounded-full border-2 border-[var(--line)]"></span>
+              <span class="text-sm flex-1 text-soft">規劃今日三件事</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGOS / MARQUEE -->
+<section class="py-8 border-y border-line bg-[var(--bg-soft)] overflow-hidden">
+  <div class="marquee-outer overflow-hidden">
+    <div class="marquee-track text-sm text-soft font-display tracking-wide">
+      <span class="px-8 whitespace-nowrap">「終於不再賴床滑手機」</span>
+      <span class="px-8 whitespace-nowrap">●</span>
+      <span class="px-8 whitespace-nowrap">連續 212 天晨間日記紀錄</span>
+      <span class="px-8 whitespace-nowrap">●</span>
+      <span class="px-8 whitespace-nowrap">晨光陪你起床</span>
+      <span class="px-8 whitespace-nowrap">●</span>
+      <span class="px-8 whitespace-nowrap">「終於不再賴床滑手機」</span>
+      <span class="px-8 whitespace-nowrap">●</span>
+      <span class="px-8 whitespace-nowrap">連續 212 天晨間日記紀錄</span>
+      <span class="px-8 whitespace-nowrap">●</span>
+      <span class="px-8 whitespace-nowrap">晨光陪你起床</span>
+      <span class="px-8 whitespace-nowrap">●</span>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="py-28 px-5 sm:px-8 max-w-6xl mx-auto">
+  <div class="reveal max-w-xl mb-16">
+    <p class="text-accent font-display font-semibold text-sm mb-3 tracking-wide">核心功能</p>
+    <h2 class="font-display font-bold text-3xl sm:text-4xl leading-tight">
+      四個小儀式，<br>拼出一個有活力的早晨
+    </h2>
+  </div>
+
+  <div class="reveal-stagger grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+    <div class="lift-card bg-surface border border-line rounded-2xl p-6">
+      <div class="icon-spin w-12 h-12 rounded-xl bg-accent/15 flex items-center justify-center text-2xl mb-5">💧</div>
+      <h3 class="font-display font-semibold text-lg mb-2">喝水提醒</h3>
+      <p class="text-sm text-soft leading-relaxed">起床第一杯水，用漸層水波動畫提示飲水量，喝完就打卡，喚醒代謝從這裡開始。</p>
+    </div>
+    <div class="lift-card bg-surface border border-line rounded-2xl p-6">
+      <div class="icon-spin w-12 h-12 rounded-xl bg-accent2/15 flex items-center justify-center text-2xl mb-5">🧘</div>
+      <h3 class="font-display font-semibold text-lg mb-2">伸展引導</h3>
+      <p class="text-sm text-soft leading-relaxed">5 分鐘動態示範動作，跟著畫面節奏呼吸、延展，喚醒僵硬一整夜的身體。</p>
+    </div>
+    <div class="lift-card bg-surface border border-line rounded-2xl p-6">
+      <div class="icon-spin w-12 h-12 rounded-xl bg-[var(--accent-3)]/20 flex items-center justify-center text-2xl mb-5">📓</div>
+      <h3 class="font-display font-semibold text-lg mb-2">晨間日記</h3>
+      <p class="text-sm text-soft leading-relaxed">三句話引導式提問，寫下今天的心情與感謝，系統自動幫你累積成長軌跡。</p>
+    </div>
+    <div class="lift-card bg-surface border border-line rounded-2xl p-6">
+      <div class="icon-spin w-12 h-12 rounded-xl bg-accent/15 flex items-center justify-center text-2xl mb-5">🎯</div>
+      <h3 class="font-display font-semibold text-lg mb-2">今日三件事</h3>
+      <p class="text-sm text-soft leading-relaxed">在精神最清楚的時候，先定好今天最重要的三件任務，一天的方向感瞬間清晰。</p>
+    </div>
+  </div>
+</section>
+
+<!-- FLOW (scroll-driven step rail) -->
+<section id="flow" class="py-28 px-5 sm:px-8 bg-[var(--bg-soft)]">
+  <div class="max-w-5xl mx-auto">
+    <div class="reveal max-w-xl mb-16">
+      <p class="text-accent2 font-display font-semibold text-sm mb-3 tracking-wide">使用流程</p>
+      <h2 class="font-display font-bold text-3xl sm:text-4xl leading-tight">跟著節奏走，<br>不用想，身體自然知道下一步</h2>
+    </div>
+
+    <div class="step-rail pl-14" id="step-rail">
+      <div class="rail-fill" id="rail-fill"></div>
+
+      <div class="step-item relative mb-14" data-step="0">
+        <span class="step-dot absolute -left-14 top-1 w-5 h-5 rounded-full bg-surface border-2 border-line"></span>
+        <div class="reveal reveal-left bg-surface border border-line rounded-2xl p-6">
+          <span class="text-xs text-soft">STEP 01 · 06:30</span>
+          <h3 class="font-display font-semibold text-xl mt-1 mb-2">鬧鐘響起，不是刺耳聲，是漸亮的晨光動畫</h3>
+          <p class="text-sm text-soft leading-relaxed">螢幕由暗轉亮、色溫逐漸轉為日光色，搭配輕柔震動，讓起床這件事不再是突襲。</p>
+        </div>
+      </div>
+
+      <div class="step-item relative mb-14" data-step="1">
+        <span class="step-dot absolute -left-14 top-1 w-5 h-5 rounded-full bg-surface border-2 border-line"></span>
+        <div class="reveal reveal-left bg-surface border border-line rounded-2xl p-6">
+          <span class="text-xs text-soft">STEP 02 · 06:35</span>
+          <h3 class="font-display font-semibold text-xl mt-1 mb-2">打開 App，今天的儀式卡片會自動排好順序</h3>
+          <p class="text-sm text-soft leading-relaxed">依照你平常的完成習慣，喝水卡永遠排第一，拖拉完成後卡片會輕輕飛出畫面。</p>
+        </div>
+      </div>
+
+      <div class="step-item relative mb-14" data-step="2">
+        <span class="step-dot absolute -left-14 top-1 w-5 h-5 rounded-full bg-surface border-2 border-line"></span>
+        <div class="reveal reveal-left bg-surface border border-line rounded-2xl p-6">
+          <span class="text-xs text-soft">STEP 03 · 06:45</span>
+          <h3 class="font-display font-semibold text-xl mt-1 mb-2">跟著伸展動畫動一動，計時條慢慢填滿</h3>
+          <p class="text-sm text-soft leading-relaxed">不需要教練在旁邊喊口令，畫面上的呼吸圈放大縮小，你只要跟著節奏動就好。</p>
+        </div>
+      </div>
+
+      <div class="step-item relative" data-step="3">
+        <span class="step-dot absolute -left-14 top-1 w-5 h-5 rounded-full bg-surface border-2 border-line"></span>
+        <div class="reveal reveal-left bg-surface border border-line rounded-2xl p-6">
+          <span class="text-xs text-soft">STEP 04 · 06:55</span>
+          <h3 class="font-display font-semibold text-xl mt-1 mb-2">寫完日記、排好今天三件事，出門前的腦袋已經開機</h3>
+          <p class="text-sm text-soft leading-relaxed">完成全部儀式的那一刻，畫面會放一段小小的慶祝動畫，像幫自己鼓掌一樣。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCENARIOS -->
+<section class="py-28 px-5 sm:px-8 max-w-6xl mx-auto">
+  <div class="reveal max-w-xl mb-16">
+    <p class="text-accent font-display font-semibold text-sm mb-3 tracking-wide">誰在用晨光</p>
+    <h2 class="font-display font-bold text-3xl sm:text-4xl leading-tight">不同的早晨，一樣需要一點節奏感</h2>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="reveal lift-card bg-surface border border-line rounded-2xl p-7">
+      <p class="text-xs text-accent font-display font-semibold mb-3">居家工作者</p>
+      <p class="text-base leading-relaxed">「以前起床直接開電腦，整個人昏昏沉沉到十點。現在先花 15 分鐘做完晨間儀式，進入工作狀態快很多。」</p>
+      <p class="text-sm text-soft mt-4">— 陳柏宇，自由接案設計師</p>
+    </div>
+    <div class="reveal lift-card bg-surface border border-line rounded-2xl p-7">
+      <p class="text-xs text-accent2 font-display font-semibold mb-3">新手媽媽</p>
+      <p class="text-base leading-relaxed">「孩子還沒醒的那十分鐘是我唯一的獨處時間，寫晨間日記讓我重新找回自己的節奏，不只是在照顧別人。」</p>
+      <p class="text-sm text-soft mt-4">— 林美慧，育嬰中的全職媽媽</p>
+    </div>
+    <div class="reveal lift-card bg-surface border border-line rounded-2xl p-7">
+      <p class="text-xs text-[var(--accent-3)] font-display font-semibold mb-3">輪班護理師</p>
+      <p class="text-base leading-relaxed">「作息常常被打亂，晨光不會管你幾點起床，只要是你的『晨間』，儀式就會跟著出現，很適合我這種不正常班表。」</p>
+      <p class="text-sm text-soft mt-4">— 蔡宜靜，急診室護理師</p>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews" class="py-28 px-5 sm:px-8 bg-[var(--bg-soft)]">
+  <div class="max-w-6xl mx-auto">
+    <div class="reveal max-w-xl mb-16">
+      <p class="text-accent font-display font-semibold text-sm mb-3 tracking-wide">使用者評價</p>
+      <h2 class="font-display font-bold text-3xl sm:text-4xl leading-tight">來自真實使用者的早晨回饋</h2>
+    </div>
+
+    <div class="reveal-stagger grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div class="lift-card bg-surface border border-line rounded-2xl p-6">
+        <div class="flex gap-1 text-accent3 mb-3 text-sm">★★★★★</div>
+        <p class="text-sm leading-relaxed mb-4">「用了三週，最有感的是喝水提醒，以前常常忘記喝水到下午頭痛，現在起床先喝一杯變成反射動作。」</p>
+        <p class="text-xs text-soft">— 周韋廷 ・ 使用 42 天</p>
+      </div>
+      <div class="lift-card bg-surface border border-line rounded-2xl p-6">
+        <div class="flex gap-1 text-accent3 mb-3 text-sm">★★★★★</div>
+        <p class="text-sm leading-relaxed mb-4">「介面動畫做得很細，卡片滑動完成的那個手感，會讓我每天想打開 App 把儀式做完，有種小小的成就感。」</p>
+        <p class="text-xs text-soft">— 黃于真 ・ 使用 118 天</p>
+      </div>
+      <div class="lift-card bg-surface border border-line rounded-2xl p-6">
+        <div class="flex gap-1 text-accent3 mb-3 text-sm">★★★★☆</div>
+        <p class="text-sm leading-relaxed mb-4">「晨間日記的三句話提問設計得很聰明，不會讓我覺得有壓力要寫很長，兩分鐘就能寫完又有紀錄感。」</p>
+        <p class="text-xs text-soft">— 郭思妍 ・ 使用 67 天</p>
+      </div>
+      <div class="lift-card bg-surface border border-line rounded-2xl p-6">
+        <div class="flex gap-1 text-accent3 mb-3 text-sm">★★★★★</div>
+        <p class="text-sm leading-relaxed mb-4">「連續紀錄的火焰圖示會隨天數變化，看到自己累積到第 30 天時真的有點感動，比單純打勾更有動力。」</p>
+        <p class="text-xs text-soft">— 徐家豪 ・ 使用 95 天</p>
+      </div>
+      <div class="lift-card bg-surface border border-line rounded-2xl p-6">
+        <div class="flex gap-1 text-accent3 mb-3 text-sm">★★★★★</div>
+        <p class="text-sm leading-relaxed mb-4">「伸展動畫的節奏剛好配合呼吸速度，早上起床做完整個人真的比較清醒，比直接看手機好太多。」</p>
+        <p class="text-xs text-soft">— 賴佩珊 ・ 使用 29 天</p>
+      </div>
+      <div class="lift-card bg-surface border border-line rounded-2xl p-6">
+        <div class="flex gap-1 text-accent3 mb-3 text-sm">★★★★☆</div>
+        <p class="text-sm leading-relaxed mb-4">「規劃今日三件事這個功能幫我省掉早上發呆想要做什麼的時間，起床前五分鐘內腦袋就有方向了。」</p>
+        <p class="text-xs text-soft">— 許明德 ・ 使用 154 天</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="py-28 px-5 sm:px-8 max-w-6xl mx-auto">
+  <div class="reveal max-w-xl mb-16 mx-auto text-center">
+    <p class="text-accent font-display font-semibold text-sm mb-3 tracking-wide">方案</p>
+    <h2 class="font-display font-bold text-3xl sm:text-4xl leading-tight">選一個適合你的晨間節奏</h2>
+  </div>
+
+  <div class="reveal-stagger grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+    <div class="lift-card bg-surface border border-line rounded-2xl p-7 flex flex-col">
+      <h3 class="font-display font-semibold text-lg mb-1">輕量版</h3>
+      <p class="text-3xl font-display font-bold mb-4">免費</p>
+      <ul class="text-sm text-soft space-y-2 mb-8 flex-1">
+        <li>· 喝水 + 伸展提醒</li>
+        <li>· 基礎晨間日記</li>
+        <li>· 7 天紀錄回顧</li>
+      </ul>
+      <a href="#cta" class="btn-ghost rounded-full px-5 py-2.5 text-sm text-center">開始使用</a>
+    </div>
+    <div class="lift-card bg-[var(--ink)] text-[var(--bg)] border border-[var(--ink)] rounded-2xl p-7 flex flex-col relative -translate-y-2 shadow-xl">
+      <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-white text-xs rounded-full px-3 py-1">最多人選擇</span>
+      <h3 class="font-display font-semibold text-lg mb-1">晨光完整版</h3>
+      <p class="text-3xl font-display font-bold mb-4">NT$129<span class="text-sm font-normal opacity-70">／月</span></p>
+      <ul class="text-sm opacity-80 space-y-2 mb-8 flex-1">
+        <li>· 四大儀式全功能解鎖</li>
+        <li>· 無限天數紀錄與數據圖表</li>
+        <li>· 自訂儀式與提醒節奏</li>
+        <li>· 跨裝置同步</li>
+      </ul>
+      <a href="#cta" class="rounded-full px-5 py-2.5 text-sm text-center bg-accent text-white hover:brightness-110 transition">開始 7 天試用</a>
+    </div>
+    <div class="lift-card bg-surface border border-line rounded-2xl p-7 flex flex-col">
+      <h3 class="font-display font-semibold text-lg mb-1">家庭方案</h3>
+      <p class="text-3xl font-display font-bold mb-4">NT$299<span class="text-sm font-normal text-soft">／月</span></p>
+      <ul class="text-sm text-soft space-y-2 mb-8 flex-1">
+        <li>· 最多 5 位成員共用</li>
+        <li>· 完整版所有功能</li>
+        <li>· 家庭晨間排行榜</li>
+      </ul>
+      <a href="#cta" class="btn-ghost rounded-full px-5 py-2.5 text-sm text-center">開始使用</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta" class="py-28 px-5 sm:px-8">
+  <div class="reveal reveal-scale max-w-4xl mx-auto bg-[var(--ink)] text-[var(--bg)] rounded-3xl p-10 sm:p-16 text-center relative overflow-hidden">
+    <div class="blob w-48 h-48 bg-accent/30 -top-10 -right-10"></div>
+    <div class="blob blob-rev w-36 h-36 bg-accent2/30 bottom-0 left-0"></div>
+    <h2 class="font-display font-bold text-3xl sm:text-4xl mb-4 relative z-10">明天早上，<br class="sm:hidden">就從不一樣開始</h2>
+    <p class="opacity-75 mb-8 max-w-md mx-auto relative z-10">免費試用 7 天，不需要輸入信用卡資訊。讓晨光陪你把早晨變成一天最喜歡的時段。</p>
+    <a href="#top" class="btn-primary inline-block rounded-full px-8 py-4 text-base relative z-10"><span>免費下載 MorningFlow</span></a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t border-line py-10 px-5 sm:px-8">
+  <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-soft">
+    <div class="flex items-center gap-2 font-display font-semibold text-[var(--ink)]">
+      <span class="w-6 h-6 rounded-full bg-accent flex items-center justify-center text-white text-xs">晨</span>
+      晨光 MorningFlow
+    </div>
+    <p>© 2026 晨光 MorningFlow。願每個早晨都值得被好好開始。</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- Scroll progress bar ---------- */
+  var progressEl = document.getElementById('scroll-progress');
+  function updateProgress(){
+    var doc = document.documentElement;
+    var scrollTop = window.scrollY || doc.scrollTop;
+    var max = doc.scrollHeight - doc.clientHeight;
+    var pct = max > 0 ? (scrollTop / max) * 100 : 0;
+    if(progressEl) progressEl.style.width = pct + '%';
+  }
+
+  /* ---------- Step rail fill (scroll-triggered deformation/position effect) ---------- */
+  var rail = document.getElementById('step-rail');
+  var railFill = document.getElementById('rail-fill');
+  var stepDots = rail ? Array.prototype.slice.call(rail.querySelectorAll('.step-dot')) : [];
+  var stepItems = rail ? Array.prototype.slice.call(rail.querySelectorAll('.step-item')) : [];
+
+  function updateRail(){
+    if(!rail || !railFill) return;
+    var rect = rail.getBoundingClientRect();
+    var viewportCenter = window.innerHeight * 0.6;
+    var railTop = rect.top;
+    var railHeight = rect.height;
+    var progressed = viewportCenter - railTop;
+    var ratio = Math.max(0, Math.min(1, progressed / railHeight));
+    railFill.style.height = (ratio * 100) + '%';
+
+    stepItems.forEach(function(item, i){
+      var r = item.getBoundingClientRect();
+      var passed = r.top < viewportCenter;
+      if(stepDots[i]){
+        stepDots[i].classList.toggle('step-active', passed);
+      }
+    });
+  }
+
+  function onScroll(){
+    updateProgress();
+    updateRail();
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+
+  /* ---------- IntersectionObserver-driven reveal animations ---------- */
+  var revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+    revealEls.forEach(function(el){ io.observe(el); });
+
+    /* stagger child delays */
+    document.querySelectorAll('.reveal-stagger').forEach(function(group){
+      Array.prototype.slice.call(group.children).forEach(function(child, i){
+        child.style.transitionDelay = (i * 90) + 'ms';
+      });
+    });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('is-visible'); });
+  }
+
+  /* ---------- Count-up numbers when hero becomes visible ---------- */
+  var counters = document.querySelectorAll('.count-num');
+  var countersAnimated = false;
+  function animateCounters(){
+    if(countersAnimated) return;
+    countersAnimated = true;
+    counters.forEach(function(el){
+      var target = parseFloat(el.getAttribute('data-count'));
+      var decimals = parseInt(el.getAttribute('data-decimal') || '0', 10);
+      var duration = 1400;
+      var start = null;
+      function step(ts){
+        if(start === null) start = ts;
+        var progress = Math.min(1, (ts - start) / duration);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        var val = target * eased;
+        el.textContent = decimals > 0 ? val.toFixed(decimals) : Math.round(val).toLocaleString('zh-Hant');
+        if(progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }
+  var heroStatBlock = document.querySelector('.count-num');
+  if(heroStatBlock && 'IntersectionObserver' in window){
+    var statIo = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          animateCounters();
+          statIo.disconnect();
+        }
+      });
+    }, { threshold: 0.4 });
+    statIo.observe(heroStatBlock);
+  } else {
+    animateCounters();
+  }
+
+  /* init */
+  onScroll();
+})();
+</script>
+</body>
+</html>

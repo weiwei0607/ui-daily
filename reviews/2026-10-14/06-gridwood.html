@@ -1,0 +1,219 @@
+<!-- style #39 Bento Box -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>格子木 GridWood｜自由接案木作家具設計師</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #f4f1ec;
+    --card: #ffffff;
+    --card-alt: #fbf8f3;
+    --ink: #2b2420;
+    --ink-soft: #6b6058;
+    --line: #e7e0d6;
+    --accent: #b9603a;
+    --accent-soft: #e9c9a9;
+    --accent2: #5c6b4f;
+  }
+  *{ box-sizing: border-box; }
+  html,body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Figtree', 'Noto Sans TC', system-ui, sans-serif;
+    overflow-x: hidden;
+  }
+  .wood-grain{
+    background-image: repeating-linear-gradient(100deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 2px, transparent 2px, transparent 7px);
+  }
+  .bento{
+    border-radius: 28px;
+    border: 1px solid var(--line);
+    background: var(--card);
+    box-shadow: 0 1px 2px rgba(43,36,32,0.03);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .bento:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 14px 30px -14px rgba(43,36,32,0.18);
+  }
+  .tag-dot{
+    width: 7px; height: 7px; border-radius: 999px; display:inline-block;
+  }
+  .scrollbar-none::-webkit-scrollbar{ display:none; }
+  .scrollbar-none{ scrollbar-width: none; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+
+  <!-- 頂部標頭 -->
+  <header class="flex items-center justify-between mb-8 sm:mb-10">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-2xl bg-[#b9603a] flex items-center justify-center text-white font-extrabold text-sm shrink-0">格木</div>
+      <div>
+        <p class="font-extrabold text-lg leading-none">格子木 GridWood</p>
+        <p class="text-xs text-[var(--ink-soft)] mt-1">手作實木家具 · 一格一件心意</p>
+      </div>
+    </div>
+    <a href="#contact" class="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold px-4 py-2 rounded-full bg-[var(--ink)] text-white hover:opacity-85 transition">
+      預約諮詢
+    </a>
+  </header>
+
+  <!-- Bento Grid -->
+  <main class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-5 auto-rows-[minmax(120px,auto)]">
+
+    <!-- 1. 自我介紹格：大格 -->
+    <section class="bento col-span-2 sm:col-span-4 lg:col-span-3 row-span-2 p-6 sm:p-8 flex flex-col justify-between bg-[var(--card)]">
+      <div>
+        <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--accent)] bg-[var(--accent-soft)]/40 px-3 py-1 rounded-full mb-4">
+          <span class="tag-dot bg-[var(--accent)]"></span> 關於格子木
+        </span>
+        <h1 class="text-2xl sm:text-3xl font-extrabold leading-snug mb-3">
+          用台灣老木料，<br class="hidden sm:block">做一輩子用得順手的家具
+        </h1>
+        <p class="text-sm sm:text-base text-[var(--ink-soft)] leading-relaxed">
+          我是陳有志，三峽出身的獨立木工師傅，前身是室內設計師，六年前決定轉做純手工實木家具。每件作品從選料、刨平、榫接到上油，全程自己一人完成，不假手工廠代工。喜歡用台灣相思木、鐵刀木與二手料行收來的老檜木，讓舊木頭有第二次的生活。
+        </p>
+      </div>
+      <div class="flex items-center gap-6 mt-6 pt-4 border-t border-[var(--line)]">
+        <div>
+          <p class="text-xl font-extrabold">9</p>
+          <p class="text-xs text-[var(--ink-soft)]">年木工經驗</p>
+        </div>
+        <div>
+          <p class="text-xl font-extrabold">120+</p>
+          <p class="text-xs text-[var(--ink-soft)]">件訂製完成</p>
+        </div>
+        <div>
+          <p class="text-xl font-extrabold">三峽</p>
+          <p class="text-xs text-[var(--ink-soft)]">工作室所在地</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. 精選作品：大格，深色漸層模擬木紋 -->
+    <section class="bento col-span-2 sm:col-span-2 lg:col-span-3 row-span-2 p-0 overflow-hidden relative bg-[#5a3c28]">
+      <div class="wood-grain absolute inset-0" style="background-color:#5a3c28; background-image: linear-gradient(135deg,#6b4a30 0%, #4a3220 55%, #342117 100%), repeating-linear-gradient(95deg, rgba(255,255,255,0.06) 0px, rgba(255,255,255,0.06) 3px, transparent 3px, transparent 9px); background-blend-mode: overlay;"></div>
+      <div class="relative h-full p-6 sm:p-8 flex flex-col justify-end text-white min-h-[220px]">
+        <span class="inline-flex items-center gap-1.5 text-xs font-semibold bg-white/15 px-3 py-1 rounded-full mb-3 w-fit backdrop-blur-sm">
+          精選作品
+        </span>
+        <h2 class="text-xl sm:text-2xl font-extrabold leading-snug mb-1">相思木圓角餐桌</h2>
+        <p class="text-sm text-white/80">實心相思木 · 鐵件黑霧腳座 · 180×90 cm</p>
+      </div>
+    </section>
+
+    <!-- 3. 服務項目：長條格 -->
+    <section class="bento col-span-2 sm:col-span-4 lg:col-span-6 p-6 sm:p-7">
+      <h3 class="font-extrabold text-base mb-4 flex items-center gap-2">
+        <span class="tag-dot bg-[var(--accent2)]"></span> 服務項目
+      </h3>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
+        <div class="pr-4 sm:border-r border-[var(--line)]">
+          <p class="font-bold text-sm mb-1">客製家具訂製</p>
+          <p class="text-xs text-[var(--ink-soft)] leading-relaxed">餐桌、茶几、書桌，依空間丈量繪圖後開工</p>
+        </div>
+        <div class="pr-4 sm:border-r border-[var(--line)]">
+          <p class="font-bold text-sm mb-1">老家具修復</p>
+          <p class="text-xs text-[var(--ink-soft)] leading-relaxed">重新打磨、補榫、上油，延續老件的故事</p>
+        </div>
+        <div class="pr-4 sm:border-r border-[var(--line)]">
+          <p class="font-bold text-sm mb-1">空間丈量規劃</p>
+          <p class="text-xs text-[var(--ink-soft)] leading-relaxed">到府丈量，協助規劃動線與尺寸配置</p>
+        </div>
+        <div>
+          <p class="font-bold text-sm mb-1">木工體驗課程</p>
+          <p class="text-xs text-[var(--ink-soft)] leading-relaxed">週末開放小班教學，手作一塊屬於自己的砧板</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 客戶評價：中格 -->
+    <section class="bento col-span-2 sm:col-span-2 lg:col-span-2 p-6 flex flex-col justify-between bg-[var(--card-alt)]">
+      <div>
+        <p class="text-[var(--accent)] text-lg mb-2">★★★★★</p>
+        <p class="text-sm leading-relaxed text-[var(--ink)]">
+          「訂的電視櫃比想像中更穩重好看，有志師傅很有耐心，來回修改圖面三次都沒有不耐煩。木頭的味道久久不散，朋友來都問去哪裡訂的。」
+        </p>
+      </div>
+      <p class="text-xs font-semibold text-[var(--ink-soft)] mt-4">— 林太太，新北板橋</p>
+    </section>
+
+    <!-- 5. Instagram 追蹤數據：小格 -->
+    <section class="bento col-span-1 sm:col-span-2 lg:col-span-1 p-5 flex flex-col items-center justify-center text-center bg-[#2b2420] text-white">
+      <p class="text-xs text-white/70 mb-1">@gridwood.tw</p>
+      <p class="text-2xl font-extrabold">8.4K</p>
+      <p class="text-[11px] text-white/70">Instagram 追蹤者</p>
+    </section>
+
+    <!-- 6. 另一精選作品：小格純色塊 -->
+    <section class="bento col-span-1 sm:col-span-2 lg:col-span-1 p-5 overflow-hidden relative" style="background: linear-gradient(145deg,#c9a06a,#8a6a3f);">
+      <div class="h-full flex flex-col justify-end text-white min-h-[110px]">
+        <p class="text-xs font-semibold bg-white/20 px-2.5 py-0.5 rounded-full w-fit mb-2 backdrop-blur-sm">作品</p>
+        <p class="font-bold text-sm leading-snug">檜木矮凳三件組</p>
+      </div>
+    </section>
+
+    <!-- 7. 材質信念：中格 -->
+    <section class="bento col-span-2 sm:col-span-2 lg:col-span-2 p-6 flex flex-col justify-center bg-[var(--card)]">
+      <h3 class="font-extrabold text-sm mb-2 flex items-center gap-2">
+        <span class="tag-dot bg-[var(--accent)]"></span> 選材理念
+      </h3>
+      <p class="text-sm text-[var(--ink-soft)] leading-relaxed">
+        不用集成材、不用快乾漆，只用原木搭配天然蜂蠟油。訂製前會附上實木色卡與紋理照片，讓你親眼確認再下訂。
+      </p>
+    </section>
+
+    <!-- 8. 製程天數：小格數字格 -->
+    <section class="bento col-span-1 sm:col-span-2 lg:col-span-1 p-5 flex flex-col items-center justify-center text-center bg-[var(--accent-soft)]/40">
+      <p class="text-3xl font-extrabold text-[var(--accent)]">21</p>
+      <p class="text-[11px] text-[var(--ink-soft)] mt-1">天平均製作工期</p>
+    </section>
+
+    <!-- 9. 第三件作品：小格漸層 -->
+    <section class="bento col-span-1 sm:col-span-2 lg:col-span-1 p-5 overflow-hidden relative" style="background: linear-gradient(160deg,#7c6652,#4a3b2d);">
+      <div class="h-full flex flex-col justify-end text-white min-h-[110px]">
+        <p class="text-xs font-semibold bg-white/20 px-2.5 py-0.5 rounded-full w-fit mb-2 backdrop-blur-sm">作品</p>
+        <p class="font-bold text-sm leading-snug">鐵刀木書牆層架</p>
+      </div>
+    </section>
+
+    <!-- 10. 聯絡方式：長條格 -->
+    <section id="contact" class="bento col-span-2 sm:col-span-4 lg:col-span-6 p-6 sm:p-8 bg-[var(--ink)] text-white">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+        <div>
+          <h3 class="text-xl font-extrabold mb-2">想為你的空間打一件木家具嗎？</h3>
+          <p class="text-sm text-white/70 leading-relaxed">歡迎先傳空間照片與尺寸，我會在一到兩個工作日內回覆初步報價與工期評估。</p>
+        </div>
+        <div class="flex flex-col gap-2 text-sm shrink-0">
+          <a href="mailto:hello@gridwood.tw" class="flex items-center gap-2 hover:text-[var(--accent-soft)] transition">
+            <span class="tag-dot bg-[var(--accent-soft)]"></span> hello@gridwood.tw
+          </a>
+          <p class="flex items-center gap-2">
+            <span class="tag-dot bg-[var(--accent-soft)]"></span> LINE ID：gridwood_tw
+          </p>
+          <p class="flex items-center gap-2">
+            <span class="tag-dot bg-[var(--accent-soft)]"></span> 工作室：新北市三峽區中山路 88 巷
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-xs text-[var(--ink-soft)] mt-10">
+    © 2026 格子木 GridWood · 新北三峽實木家具工作室
+  </footer>
+
+</div>
+
+</body>
+</html>
