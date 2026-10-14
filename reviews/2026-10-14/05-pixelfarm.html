@@ -1,0 +1,510 @@
+<!-- style #52 Pixel Art / Retro Gaming -->
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>像素牧場 PixelFarm｜復古像素風農場經營手遊</title>
+<meta name="description" content="像素牧場 PixelFarm：8-bit 復古像素風農場經營手遊，種田、養動物、跑商、合作社交，重返掌機時代的美好時光。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen:wght@400;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --gb-darkest:#0f380f;
+    --gb-dark:#306230;
+    --gb-light:#8bac0f;
+    --gb-lightest:#9bbc0f;
+    --accent-coral:#e8927c;
+    --accent-soil:#7a4b2a;
+  }
+
+  *{ border-radius:0 !important; box-sizing:border-box; image-rendering:pixelated; }
+
+  html,body{
+    background:var(--gb-light);
+    overflow-x:hidden;
+    max-width:100%;
+  }
+
+  body{
+    font-family:'Silkscreen','Noto Sans TC',sans-serif;
+    color:var(--gb-darkest);
+    line-height:1.7;
+  }
+
+  h1,h2,h3,.font-pixel-head{
+    font-family:'Press Start 2P','Noto Sans TC',sans-serif;
+    line-height:1.5;
+  }
+
+  .font-pixel-body{ font-family:'Silkscreen','Noto Sans TC',sans-serif; }
+
+  /* ---------- pixel border / hard shadow utilities ---------- */
+  .pixel-border{
+    border:4px solid var(--gb-darkest);
+    outline:4px solid var(--gb-lightest);
+    outline-offset:-10px;
+  }
+  .pixel-border-sm{
+    border:3px solid var(--gb-darkest);
+  }
+  .pixel-panel{
+    background:var(--gb-light);
+    border:4px solid var(--gb-darkest);
+    box-shadow:8px 8px 0 0 var(--gb-darkest);
+  }
+  .pixel-panel-dark{
+    background:var(--gb-dark);
+    border:4px solid var(--gb-darkest);
+    box-shadow:8px 8px 0 0 var(--gb-darkest);
+    color:var(--gb-lightest);
+  }
+  .pixel-card{
+    background:var(--gb-lightest);
+    border:4px solid var(--gb-darkest);
+    box-shadow:6px 6px 0 0 var(--gb-darkest);
+  }
+  .pixel-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:.5rem;
+    font-family:'Silkscreen','Noto Sans TC',sans-serif;
+    font-weight:700;
+    background:var(--gb-lightest);
+    color:var(--gb-darkest);
+    border:4px solid var(--gb-darkest);
+    box-shadow:6px 6px 0 0 var(--gb-darkest);
+    padding:.85rem 1.4rem;
+    cursor:pointer;
+    transition:transform .06s linear, box-shadow .06s linear, background .1s linear;
+    text-decoration:none;
+    letter-spacing:.02em;
+  }
+  .pixel-btn:hover{ background:#fff7d6; }
+  .pixel-btn:active{
+    transform:translate(6px,6px);
+    box-shadow:0 0 0 0 var(--gb-darkest);
+  }
+  .pixel-btn-dark{
+    background:var(--gb-darkest);
+    color:var(--gb-lightest);
+    border:4px solid var(--gb-darkest);
+    box-shadow:6px 6px 0 0 var(--gb-dark);
+  }
+  .pixel-btn-dark:hover{ background:var(--gb-dark); }
+  .pixel-btn-dark:active{
+    transform:translate(6px,6px);
+    box-shadow:0 0 0 0 var(--gb-dark);
+  }
+  .pixel-btn-accent{
+    background:var(--accent-coral);
+    color:var(--gb-darkest);
+    border:4px solid var(--gb-darkest);
+    box-shadow:6px 6px 0 0 var(--gb-darkest);
+  }
+  .pixel-btn-accent:hover{ filter:brightness(1.08); }
+  .pixel-btn-accent:active{
+    transform:translate(6px,6px);
+    box-shadow:0 0 0 0 var(--gb-darkest);
+  }
+
+  /* ---------- dotted / dithered background texture ---------- */
+  .pixel-dots{
+    background-image:
+      radial-gradient(var(--gb-dark) 2px, transparent 2px);
+    background-size:16px 16px;
+    background-position:0 0;
+  }
+  .pixel-dots-light{
+    background-image:
+      radial-gradient(var(--gb-darkest) 2px, transparent 2px);
+    background-size:14px 14px;
+    opacity:.18;
+  }
+
+  .scanline-border{
+    border-top:4px dashed var(--gb-darkest);
+    border-bottom:4px dashed var(--gb-darkest);
+  }
+
+  /* ---------- pixel art canvas grid ---------- */
+  .pixel-grid{
+    display:grid;
+    image-rendering:pixelated;
+    width:fit-content;
+    margin:0 auto;
+  }
+  .pixel-cell{ width:10px; height:10px; }
+  @media (min-width:640px){
+    .pixel-cell{ width:12px; height:12px; }
+  }
+
+  .pixel-star{
+    width:16px;
+    height:16px;
+    display:inline-block;
+    background:var(--gb-darkest);
+    clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+  }
+  .pixel-star.on{ background:var(--accent-coral); }
+
+  .section-title{
+    display:inline-block;
+    background:var(--gb-darkest);
+    color:var(--gb-lightest);
+    padding:.5rem .9rem;
+    box-shadow:6px 6px 0 0 var(--gb-dark);
+  }
+
+  .marquee-track{
+    animation:marquee 14s linear infinite;
+  }
+  @keyframes marquee{
+    0%{ transform:translateX(0); }
+    100%{ transform:translateX(-50%); }
+  }
+
+  ::selection{ background:var(--gb-darkest); color:var(--gb-lightest); }
+</style>
+</head>
+<body class="pixel-dots">
+
+<!-- ======================= NAV ======================= -->
+<header class="sticky top-0 z-50 bg-[var(--gb-lightest)] border-b-4 border-[var(--gb-darkest)]">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 bg-[var(--gb-darkest)] flex items-center justify-center shrink-0">
+        <div class="w-4 h-4 bg-[var(--gb-lightest)]"></div>
+      </div>
+      <span class="font-pixel-head text-[10px] sm:text-xs tracking-tight">像素牧場</span>
+    </div>
+    <nav class="hidden md:flex items-center gap-6 font-pixel-body font-bold text-sm">
+      <a href="#features" class="hover:underline">玩法介紹</a>
+      <a href="#scene" class="hover:underline">農場畫面</a>
+      <a href="#reviews" class="hover:underline">玩家評價</a>
+      <a href="#download" class="hover:underline">立即下載</a>
+    </nav>
+    <a href="#download" class="pixel-btn-dark pixel-btn !px-3 !py-2 text-xs">免費下載</a>
+  </div>
+</header>
+
+<!-- ======================= HERO ======================= -->
+<section class="max-w-6xl mx-auto px-4 pt-10 sm:pt-16 pb-12">
+  <div class="grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <div class="inline-block bg-[var(--accent-coral)] border-4 border-[var(--gb-darkest)] px-3 py-1 mb-5 font-pixel-body font-bold text-xs">
+        復古 8-BIT 農場經營手遊
+      </div>
+      <h1 class="text-2xl sm:text-3xl md:text-4xl mb-5">像素牧場<br>PixelFarm</h1>
+      <p class="font-pixel-body text-base sm:text-lg mb-3 font-bold">
+        回到掌機時代，蓋一座只屬於你的夢想農場。
+      </p>
+      <p class="font-pixel-body text-sm sm:text-base mb-8 opacity-90">
+        翻土播種、餵養家畜、推車跑商、和村里好友一起打拼——每一格像素，都是你親手耕出來的生活。沒有華麗特效，只有最純粹的農場經營樂趣。
+      </p>
+      <div class="flex flex-wrap gap-4 mb-5">
+        <a href="#download" class="pixel-btn">
+          <span class="text-base">🍎</span>
+          <span class="leading-tight text-left text-[11px]">iOS 版本<br>App Store 下載</span>
+        </a>
+        <a href="#download" class="pixel-btn pixel-btn-dark">
+          <span class="text-base">🤖</span>
+          <span class="leading-tight text-left text-[11px]">Android 版本<br>Google Play 下載</span>
+        </a>
+      </div>
+      <p class="font-pixel-body text-xs opacity-70">※ 免費下載，內含選購道具。農場不等人，快來開張！</p>
+    </div>
+
+    <div class="pixel-panel p-5 sm:p-6">
+      <div id="art-house" class="pixel-grid mx-auto mb-3"></div>
+      <p class="text-center font-pixel-body font-bold text-xs mt-2">你的第一座像素農舍</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= MARQUEE STRIP ======================= -->
+<div class="bg-[var(--gb-darkest)] text-[var(--gb-lightest)] border-y-4 border-[var(--gb-darkest)] py-2 overflow-hidden whitespace-nowrap">
+  <div class="marquee-track inline-block font-pixel-body font-bold text-xs sm:text-sm">
+    ★ 全新改版：秋季南瓜祭典登場 　★ 每日簽到領種子 　★ 合作社倉庫容量提升 　★ 跑商路線新增山間小鎮 　★ 全新改版：秋季南瓜祭典登場 　★ 每日簽到領種子 　★ 合作社倉庫容量提升 　★ 跑商路線新增山間小鎮
+  </div>
+</div>
+
+<!-- ======================= STATS ======================= -->
+<section class="max-w-6xl mx-auto px-4 py-10">
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+    <div class="pixel-card p-4">
+      <p class="font-pixel-head text-sm sm:text-base mb-2">480萬+</p>
+      <p class="font-pixel-body text-xs font-bold">全球下載人數</p>
+    </div>
+    <div class="pixel-card p-4">
+      <p class="font-pixel-head text-sm sm:text-base mb-2">4.7</p>
+      <p class="font-pixel-body text-xs font-bold">應用商店評分</p>
+    </div>
+    <div class="pixel-card p-4">
+      <p class="font-pixel-head text-sm sm:text-base mb-2">120+</p>
+      <p class="font-pixel-body text-xs font-bold">可種植作物種類</p>
+    </div>
+    <div class="pixel-card p-4">
+      <p class="font-pixel-head text-sm sm:text-base mb-2">24hr</p>
+      <p class="font-pixel-body text-xs font-bold">合作社不打烊</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= SCENE / ILLUSTRATION ======================= -->
+<section id="scene" class="max-w-6xl mx-auto px-4 py-10">
+  <div class="text-center mb-10">
+    <span class="section-title font-pixel-head text-xs sm:text-sm">農場畫面搶先看</span>
+  </div>
+  <div class="pixel-panel-dark p-5 sm:p-8 scanline-border">
+    <div class="grid sm:grid-cols-3 gap-6">
+      <div class="bg-[var(--gb-light)] border-4 border-[var(--gb-darkest)] p-4">
+        <div id="art-house-2" class="pixel-grid mx-auto mb-3"></div>
+        <p class="text-center font-pixel-body font-bold text-xs text-[var(--gb-darkest)]">溫馨農舍</p>
+      </div>
+      <div class="bg-[var(--gb-light)] border-4 border-[var(--gb-darkest)] p-4">
+        <div id="art-animal" class="pixel-grid mx-auto mb-3"></div>
+        <p class="text-center font-pixel-body font-bold text-xs text-[var(--gb-darkest)]">牧場小夥伴</p>
+      </div>
+      <div class="bg-[var(--gb-light)] border-4 border-[var(--gb-darkest)] p-4">
+        <div id="art-crop" class="pixel-grid mx-auto mb-3"></div>
+        <p class="text-center font-pixel-body font-bold text-xs text-[var(--gb-darkest)]">新手作物田</p>
+      </div>
+    </div>
+    <p class="font-pixel-body text-[var(--gb-lightest)] text-xs sm:text-sm text-center mt-6 opacity-90">
+      所有場景皆採手工繪製 8-bit 像素風格，硬邊無抗鋸齒，重現當年掌機遊戲的顆粒質感。
+    </p>
+  </div>
+</section>
+
+<!-- ======================= FEATURES ======================= -->
+<section id="features" class="max-w-6xl mx-auto px-4 py-10">
+  <div class="text-center mb-10">
+    <span class="section-title font-pixel-head text-xs sm:text-sm">四大玩法</span>
+  </div>
+  <div class="grid sm:grid-cols-2 gap-6">
+    <div class="pixel-card p-5">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-10 h-10 bg-[var(--gb-darkest)] grid grid-cols-3 gap-[2px] p-1 shrink-0">
+          <div class="bg-[var(--accent-soil)]"></div><div class="bg-[var(--gb-light)]"></div><div class="bg-[var(--accent-soil)]"></div>
+          <div class="bg-[var(--gb-light)]"></div><div class="bg-[var(--accent-soil)]"></div><div class="bg-[var(--gb-light)]"></div>
+          <div class="bg-[var(--accent-soil)]"></div><div class="bg-[var(--gb-light)]"></div><div class="bg-[var(--accent-soil)]"></div>
+        </div>
+        <h3 class="text-xs sm:text-sm">種田耕作</h3>
+      </div>
+      <p class="font-pixel-body text-sm">
+        翻土、播種、灌溉、收成，體驗四季作物生長的小確幸。小麥、南瓜、草莓輪番登場，掌握節氣就能種出黃金作物，賣出好價錢。
+      </p>
+    </div>
+    <div class="pixel-card p-5">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-10 h-10 bg-[var(--gb-darkest)] grid grid-cols-3 gap-[2px] p-1 shrink-0">
+          <div class="bg-[var(--gb-lightest)]"></div><div class="bg-[var(--gb-lightest)]"></div><div class="bg-[var(--gb-lightest)]"></div>
+          <div class="bg-[var(--gb-lightest)]"></div><div class="bg-[var(--accent-coral)]"></div><div class="bg-[var(--gb-lightest)]"></div>
+          <div class="bg-[var(--gb-dark)]"></div><div class="bg-[var(--gb-lightest)]"></div><div class="bg-[var(--gb-dark)]"></div>
+        </div>
+        <h3 class="text-xs sm:text-sm">飼養家畜</h3>
+      </div>
+      <p class="font-pixel-body text-sm">
+        餵食雞、牛、羊，每天收集雞蛋、牛奶、羊毛，升級牧場倉庫。細心照顧還能孵出稀有品種，養出整座村子最可愛的動物園。
+      </p>
+    </div>
+    <div class="pixel-card p-5">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-10 h-10 bg-[var(--gb-darkest)] grid grid-cols-3 gap-[2px] p-1 shrink-0">
+          <div class="bg-[var(--accent-coral)]"></div><div class="bg-[var(--gb-light)]"></div><div class="bg-[var(--gb-light)]"></div>
+          <div class="bg-[var(--gb-light)]"></div><div class="bg-[var(--gb-darkest)]"></div><div class="bg-[var(--gb-light)]"></div>
+          <div class="bg-[var(--gb-light)]"></div><div class="bg-[var(--gb-light)]"></div><div class="bg-[var(--accent-coral)]"></div>
+        </div>
+        <h3 class="text-xs sm:text-sm">跑商貿易</h3>
+      </div>
+      <p class="font-pixel-body text-sm">
+        用牛車載著自家農產品，前往鄰鎮市集，低買高賣賺取像素金幣。觀察各鎮行情、規劃路線，當一回精打細算的鄉村商人。
+      </p>
+    </div>
+    <div class="pixel-card p-5">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-10 h-10 bg-[var(--gb-darkest)] grid grid-cols-3 gap-[2px] p-1 shrink-0">
+          <div class="bg-[var(--gb-dark)]"></div><div class="bg-[var(--gb-lightest)]"></div><div class="bg-[var(--gb-dark)]"></div>
+          <div class="bg-[var(--gb-lightest)]"></div><div class="bg-[var(--gb-lightest)]"></div><div class="bg-[var(--gb-lightest)]"></div>
+          <div class="bg-[var(--gb-dark)]"></div><div class="bg-[var(--gb-lightest)]"></div><div class="bg-[var(--gb-dark)]"></div>
+        </div>
+        <h3 class="text-xs sm:text-sm">合作社交</h3>
+      </div>
+      <p class="font-pixel-body text-sm">
+        加入合作社，和好友互相交換種子、幫忙除草、一起蓋公共設施。每週合作社任務完成還能全員分紅，一個人種田太孤單，一群人才叫牧場。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= REVIEWS ======================= -->
+<section id="reviews" class="max-w-6xl mx-auto px-4 py-10">
+  <div class="text-center mb-10">
+    <span class="section-title font-pixel-head text-xs sm:text-sm">玩家評價</span>
+  </div>
+  <div class="grid sm:grid-cols-2 gap-6">
+    <div class="pixel-card p-5">
+      <div class="flex items-center justify-between mb-3">
+        <p class="font-pixel-body font-bold text-sm">小鎮農夫阿明</p>
+        <div class="flex gap-1">
+          <span class="pixel-star on"></span><span class="pixel-star on"></span><span class="pixel-star on"></span><span class="pixel-star on"></span><span class="pixel-star on"></span>
+        </div>
+      </div>
+      <p class="font-pixel-body text-sm">
+        下班後玩半小時超解壓，像素畫風讓我整個想起小時候玩的掌機遊戲，音效也懷念到不行，農舍蓋好的那一刻超有成就感。
+      </p>
+    </div>
+    <div class="pixel-card p-5">
+      <div class="flex items-center justify-between mb-3">
+        <p class="font-pixel-body font-bold text-sm">貓耳牧場主</p>
+        <div class="flex gap-1">
+          <span class="pixel-star on"></span><span class="pixel-star on"></span><span class="pixel-star on"></span><span class="pixel-star on"></span><span class="pixel-star"></span>
+        </div>
+      </div>
+      <p class="font-pixel-body text-sm">
+        跑商系統很有策略性，跟朋友組隊收成效率直接翻倍，唯一小缺點是想要的農舍裝飾選項還不夠多，希望之後能持續更新。
+      </p>
+    </div>
+    <div class="pixel-card p-5">
+      <div class="flex items-center justify-between mb-3">
+        <p class="font-pixel-body font-bold text-sm">像素控工程師</p>
+        <div class="flex gap-1">
+          <span class="pixel-star on"></span><span class="pixel-star on"></span><span class="pixel-star on"></span><span class="pixel-star on"></span><span class="pixel-star on"></span>
+        </div>
+      </div>
+      <p class="font-pixel-body text-sm">
+        畫面跟配樂完全抓住復古魂，每天簽到領種子已經變成我的日常儀式，沒有強迫課金的壓力，佛心經營手遊首選。
+      </p>
+    </div>
+    <div class="pixel-card p-5">
+      <div class="flex items-center justify-between mb-3">
+        <p class="font-pixel-body font-bold text-sm">半夜澆水的人</p>
+        <div class="flex gap-1">
+          <span class="pixel-star on"></span><span class="pixel-star on"></span><span class="pixel-star on"></span><span class="pixel-star on"></span><span class="pixel-star"></span>
+        </div>
+      </div>
+      <p class="font-pixel-body text-sm">
+        合作社功能讓我認識了好多同好，大家一起蓋公共設施的感覺很溫暖，推薦給喜歡慢活節奏的朋友，耐玩度很夠。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= DOWNLOAD CTA ======================= -->
+<section id="download" class="max-w-6xl mx-auto px-4 py-14">
+  <div class="pixel-panel-dark p-6 sm:p-10 text-center">
+    <h2 class="text-base sm:text-xl mb-4 text-[var(--gb-lightest)]">準備好開張了嗎？</h2>
+    <p class="font-pixel-body text-sm sm:text-base mb-8 text-[var(--gb-lightest)] opacity-90">
+      像素牧場現已開放免費下載，馬上和全世界的農夫們一起經營你的夢想小農場。
+    </p>
+    <div class="flex flex-wrap justify-center gap-4">
+      <a href="#" class="pixel-btn">
+        <span class="text-base">🍎</span>
+        <span class="leading-tight text-left text-[11px]">iOS 版本<br>App Store 下載</span>
+      </a>
+      <a href="#" class="pixel-btn pixel-btn-accent">
+        <span class="text-base">🤖</span>
+        <span class="leading-tight text-left text-[11px]">Android 版本<br>Google Play 下載</span>
+      </a>
+    </div>
+    <p class="font-pixel-body text-xs text-[var(--gb-lightest)] opacity-70 mt-6">適用 iOS 14 以上 / Android 8 以上，支援繁體中文介面。</p>
+  </div>
+</section>
+
+<!-- ======================= FOOTER ======================= -->
+<footer class="bg-[var(--gb-darkest)] text-[var(--gb-lightest)] border-t-4 border-[var(--gb-darkest)] py-8">
+  <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <div class="w-7 h-7 bg-[var(--gb-lightest)] flex items-center justify-center">
+        <div class="w-3 h-3 bg-[var(--gb-darkest)]"></div>
+      </div>
+      <span class="font-pixel-body font-bold text-sm">像素牧場 PixelFarm</span>
+    </div>
+    <p class="font-pixel-body text-xs opacity-80 text-center">© 2026 八位元工作室　版權所有　本頁面為風格示範，非真實上架連結</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var COLORS = {
+    '.': 'transparent',
+    '1': 'var(--gb-darkest)',
+    '2': 'var(--gb-dark)',
+    '3': 'var(--gb-light)',
+    '4': 'var(--gb-lightest)',
+    '5': 'var(--accent-coral)',
+    '6': 'var(--accent-soil)'
+  };
+
+  var HOUSE = [
+    "......11......",
+    ".....1221.....",
+    "....122221....",
+    "...12222221...",
+    "..1222222221..",
+    "333333333333333".slice(0,15),
+    "33143333143333".slice(0,14),
+    "333333333333333".slice(0,15),
+    "33311221133333",
+    "33311221133333",
+    "11111111111111"
+  ];
+
+  var ANIMAL = [
+    "..11111111..",
+    ".14444444441",
+    "144415444144",
+    "144444444441",
+    "144455554441",
+    "144444444441",
+    "..11111111..",
+    "..11..11....",
+    "..11..11...."
+  ];
+
+  var CROP = [
+    "..1....1...",
+    ".111..111..",
+    "11111.11111",
+    "666666666666",
+    "661666166166",
+    "666166666616",
+    "666666166666",
+    "666616666166"
+  ];
+
+  function render(id, rows){
+    var el = document.getElementById(id);
+    if(!el) return;
+    var cols = 0;
+    rows.forEach(function(r){ cols = Math.max(cols, r.length); });
+    var normalized = rows.map(function(r){
+      while(r.length < cols){ r += '.'; }
+      return r.slice(0, cols);
+    });
+    el.style.gridTemplateColumns = 'repeat(' + cols + ', var(--cell, 10px))';
+    el.innerHTML = '';
+    normalized.forEach(function(row){
+      for(var i=0;i<row.length;i++){
+        var ch = row[i];
+        var cell = document.createElement('div');
+        cell.className = 'pixel-cell';
+        cell.style.background = COLORS[ch] || 'transparent';
+        el.appendChild(cell);
+      }
+    });
+  }
+
+  render('art-house', HOUSE);
+  render('art-house-2', HOUSE);
+  render('art-animal', ANIMAL);
+  render('art-crop', CROP);
+})();
+</script>
+
+</body>
+</html>
