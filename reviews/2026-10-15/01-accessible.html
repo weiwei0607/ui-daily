@@ -1,0 +1,633 @@
+<!-- style #08 Accessible / Ethical -->
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>暖手 WarmHand｜居家照護補助與募款協助平台</title>
+<meta name="description" content="暖手 WarmHand 協助長者與身障朋友申請居家照護補助、租借輔具、安排緊急送餐，提供清楚易懂的申請流程與真人陪伴服務。">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Sans+TC:wght@500;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+  /* ---------------------------------------------------------
+     色彩公式：深藍 #0066cc ＋ 紅 #d32f2f ＋ 純黑白
+     正文一律使用純黑或深藍 900（對比純白達 WCAG AAA、7:1 以上）
+     大標題／按鈕大字可使用標準藍與紅（符合 AAA 大字級 4.5:1 以上）
+     --------------------------------------------------------- */
+  :root{
+    --black:#000000;
+    --white:#ffffff;
+    --blue-900:#003d7a;   /* 深藍：用於一般大小文字，AAA 對比 */
+    --blue-600:#0066cc;   /* 標準藍：用於大標題、按鈕、邊框 */
+    --blue-50:#eaf2fb;
+    --red-700:#b71c1c;    /* 深紅：用於一般大小文字與邊框 */
+    --red-600:#d32f2f;    /* 標準紅：用於大字、徽章背景 */
+    --red-50:#fdecec;
+    --gray-border:#1a1a1a;
+    --focus-ring: 0 0 0 3px var(--white), 0 0 0 7px var(--blue-600), 0 0 0 10px var(--red-600);
+  }
+
+  *{ box-sizing:border-box; }
+
+  html, body{
+    margin:0;
+    padding:0;
+    background:var(--white);
+    color:var(--black);
+    overflow-x:hidden;
+    max-width:100%;
+  }
+
+  body{
+    font-family:"Atkinson Hyperlegible","Noto Sans TC",system-ui,sans-serif;
+    font-weight:500;
+    line-height:1.75;
+    font-size:17px;
+    -webkit-text-size-adjust:100%;
+  }
+
+  h1,h2,h3,h4, .zh-heavy{
+    font-family:"Atkinson Hyperlegible","Noto Sans TC",system-ui,sans-serif;
+    font-weight:700;
+    color:var(--black);
+    line-height:1.35;
+  }
+
+  p, label, li, span, a, button, input, select, textarea{
+    font-family:"Atkinson Hyperlegible","Noto Sans TC",system-ui,sans-serif;
+  }
+
+  /* 一般正文顏色：純黑／深藍 900，確保 AAA 對比 */
+  .text-body{ color:var(--black); }
+  .text-link{ color:var(--blue-900); font-weight:700; text-decoration:underline; text-decoration-thickness:2px; }
+  .text-link:hover{ color:var(--red-700); }
+
+  a, button{
+    cursor:pointer;
+  }
+
+  img{ max-width:100%; display:block; }
+
+  /* -----------------------------------------------------------
+     明顯的 focus 狀態：三層同心外框（白／藍／紅），鍵盤可清楚辨識
+     ----------------------------------------------------------- */
+  a:focus,
+  button:focus,
+  input:focus,
+  select:focus,
+  textarea:focus,
+  summary:focus{
+    outline:none;
+  }
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  summary:focus-visible,
+  [tabindex]:focus-visible{
+    outline:none;
+    box-shadow:var(--focus-ring);
+    border-radius:4px;
+    position:relative;
+    z-index:5;
+  }
+
+  .skip-link{
+    position:absolute;
+    left:-9999px;
+    top:0;
+    background:var(--black);
+    color:var(--white);
+    padding:14px 20px;
+    font-weight:700;
+    font-size:1rem;
+    z-index:100;
+    border-radius:0 0 8px 0;
+  }
+  .skip-link:focus-visible{
+    left:0;
+    box-shadow:var(--focus-ring);
+  }
+
+  header.site-header{
+    background:var(--white);
+    border-bottom:4px solid var(--black);
+  }
+
+  .brand-mark{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-weight:700;
+    font-size:1.5rem;
+    color:var(--black);
+    text-decoration:none;
+  }
+  .brand-mark .dot{
+    width:14px;height:14px;border-radius:50%;
+    background:var(--red-600);
+    display:inline-block;
+    border:2px solid var(--black);
+  }
+
+  nav.main-nav a{
+    color:var(--black);
+    font-weight:700;
+    text-decoration:none;
+    border-bottom:3px solid transparent;
+    padding:6px 2px;
+  }
+  nav.main-nav a:hover{
+    border-bottom-color:var(--red-600);
+  }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    font-weight:700;
+    font-size:1.15rem;
+    padding:16px 28px;
+    border-radius:8px;
+    border:3px solid var(--black);
+    text-decoration:none;
+    line-height:1.3;
+    transition:background-color .15s ease, color .15s ease, transform .05s ease;
+  }
+  .btn-primary{
+    background:var(--blue-600);
+    color:var(--white);
+    border-color:var(--black);
+  }
+  .btn-primary:hover{
+    background:var(--black);
+    color:var(--white);
+  }
+  .btn-primary:active{
+    transform:translateY(1px);
+  }
+  .btn-secondary{
+    background:var(--white);
+    color:var(--black);
+    border-color:var(--black);
+  }
+  .btn-secondary:hover{
+    background:var(--red-50);
+    border-color:var(--red-600);
+    color:var(--red-700);
+  }
+  .btn-submit{
+    background:var(--red-600);
+    color:var(--white);
+    border-color:var(--black);
+    width:100%;
+  }
+  .btn-submit:hover{
+    background:var(--black);
+  }
+
+  .hero{
+    background:var(--blue-50);
+    border-bottom:4px solid var(--black);
+  }
+
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--red-600);
+    color:var(--white);
+    font-weight:700;
+    font-size:1rem;
+    padding:8px 16px;
+    border-radius:999px;
+    border:2px solid var(--black);
+  }
+
+  .card{
+    border:3px solid var(--black);
+    border-radius:12px;
+    background:var(--white);
+    padding:28px;
+    height:100%;
+  }
+  .card:hover{
+    border-color:var(--blue-600);
+  }
+  .card .icon-box{
+    width:56px;height:56px;
+    border-radius:10px;
+    background:var(--blue-600);
+    border:3px solid var(--black);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--white);
+    font-size:1.6rem;
+    font-weight:700;
+    margin-bottom:16px;
+    flex-shrink:0;
+  }
+
+  .stat-box{
+    border:3px solid var(--black);
+    border-radius:12px;
+    padding:24px;
+    background:var(--white);
+    text-align:center;
+  }
+  .stat-number{
+    font-size:2.25rem;
+    font-weight:700;
+    color:var(--blue-600);
+    display:block;
+    line-height:1.15;
+  }
+  .stat-number.red{ color:var(--red-600); }
+
+  .form-section{
+    background:var(--black);
+    color:var(--white);
+  }
+  .form-section .form-wrap{
+    background:var(--white);
+    color:var(--black);
+    border-radius:14px;
+    border:4px solid var(--black);
+    padding:32px;
+  }
+
+  label.field-label{
+    display:block;
+    font-weight:700;
+    color:var(--black);
+    margin-bottom:8px;
+    font-size:1.05rem;
+  }
+  .required-mark{
+    color:var(--red-700);
+    font-weight:700;
+    margin-left:4px;
+  }
+
+  input[type="text"],
+  input[type="tel"],
+  input[type="email"],
+  select,
+  textarea{
+    width:100%;
+    border:3px solid var(--black);
+    border-radius:8px;
+    padding:14px 16px;
+    font-size:1.05rem;
+    color:var(--black);
+    background:var(--white);
+    font-weight:500;
+  }
+  input::placeholder, textarea::placeholder{
+    color:#444444;
+    opacity:1;
+  }
+  input:hover, select:hover, textarea:hover{
+    border-color:var(--blue-600);
+  }
+  fieldset{
+    border:3px solid var(--black);
+    border-radius:10px;
+    padding:20px;
+  }
+  legend{
+    font-weight:700;
+    padding:0 8px;
+    font-size:1.1rem;
+  }
+
+  .hint-text{
+    font-size:0.95rem;
+    color:var(--black);
+    font-weight:500;
+  }
+
+  .success-msg{
+    display:none;
+    border:3px solid var(--black);
+    background:var(--red-50);
+    color:var(--black);
+    border-radius:10px;
+    padding:18px 20px;
+    font-weight:700;
+    margin-top:18px;
+  }
+  .success-msg.show{ display:block; }
+
+  footer.site-footer{
+    background:var(--white);
+    border-top:4px solid var(--black);
+    color:var(--black);
+  }
+  footer.site-footer a{
+    color:var(--blue-900);
+    font-weight:700;
+    text-decoration:underline;
+    text-decoration-thickness:2px;
+  }
+  footer.site-footer a:hover{
+    color:var(--red-700);
+  }
+
+  .divider-strong{
+    border:none;
+    border-top:3px solid var(--black);
+    margin:0;
+  }
+
+  section{ scroll-margin-top:90px; }
+
+  @media (max-width:420px){
+    .stat-number{ font-size:1.8rem; }
+    .btn{ font-size:1.05rem; padding:14px 20px; }
+    h1{ font-size:2rem !important; }
+  }
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">跳到主要內容</a>
+
+<header class="site-header sticky top-0 z-50">
+  <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-4 flex-wrap">
+    <a href="#top" class="brand-mark">
+      <span class="dot" aria-hidden="true"></span>
+      暖手 WarmHand
+    </a>
+    <nav class="main-nav" aria-label="主要導覽">
+      <ul class="flex flex-wrap gap-5 list-none m-0 p-0 text-[0.98rem] sm:text-base">
+        <li><a href="#services">服務項目</a></li>
+        <li><a href="#trust">服務成果</a></li>
+        <li><a href="#apply">申請協助</a></li>
+        <li><a href="#footer-contact">聯絡我們</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main-content">
+
+  <!-- Hero -->
+  <section id="top" class="hero">
+    <div class="max-w-6xl mx-auto px-4 py-14 sm:py-20">
+      <span class="badge mb-5">非營利公益服務．全程免費陪伴申請</span>
+      <h1 class="text-[2.1rem] sm:text-5xl font-bold mt-5 mb-6 max-w-3xl">
+        讓長者與身障朋友，在家也能安心生活
+      </h1>
+      <p class="text-lg sm:text-xl max-w-2xl mb-8 text-body">
+        暖手 WarmHand 協助家庭申請居家照護補助、租借輔具、安排緊急送餐，
+        由專人用清楚易懂的步驟陪你一起完成，不用自己跑流程、不用看不懂公文。
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a href="#apply" class="btn btn-primary">立即申請協助</a>
+        <a href="#services" class="btn btn-secondary">了解服務項目</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="py-16 sm:py-20">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-3xl sm:text-4xl mb-4">我們能幫上的忙</h2>
+      <p class="text-lg max-w-2xl mb-10 text-body">
+        不論是申請補助卡關、找不到合適的輔具，或是擔心家人三餐沒人照顧，
+        以下四項服務是我們最常協助家庭處理的事。
+      </p>
+
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+
+        <article class="card">
+          <div class="icon-box" aria-hidden="true">補</div>
+          <h3 class="text-xl mb-3">居家照護補助申請</h3>
+          <p class="text-body">
+            協助準備財力證明、診斷證明等文件，陪同填寫申請表，
+            說明各縣市補助資格與審核時程，避免因文件不全被退件。
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="icon-box" aria-hidden="true">具</div>
+          <h3 class="text-xl mb-3">輔具租借服務</h3>
+          <p class="text-body">
+            提供輪椅、助行器、電動代步車、電動床等短期租借，
+            依身體狀況調整租期，減輕一次性購買的經濟負擔。
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="icon-box" aria-hidden="true">餐</div>
+          <h3 class="text-xl mb-3">緊急送餐服務</h3>
+          <p class="text-body">
+            為獨居長者與行動不便者安排每日定時送餐，
+            司機到府時會順道確認居家安全，三餐不中斷。
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="icon-box" aria-hidden="true">宅</div>
+          <h3 class="text-xl mb-3">居家無障礙環境改善</h3>
+          <p class="text-body">
+            協助申請扶手安裝、防滑地墊、門口斜坡等居家改善補助，
+            降低長者在家跌倒的風險。
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider-strong max-w-6xl mx-auto">
+
+  <!-- Trust / stats -->
+  <section id="trust" class="py-16 sm:py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-3xl sm:text-4xl mb-4">我們陪伴過的家庭</h2>
+      <p class="text-lg max-w-2xl mb-10 text-body">
+        每一個數字背後，都是一個曾經不知道該從哪裡開始、後來順利申請到資源的家庭。
+      </p>
+
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="stat-box">
+          <span class="stat-number">3,482</span>
+          <span class="text-body font-bold">個家庭完成補助申請</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-number red">NT$ 1,260萬+</span>
+          <span class="text-body font-bold">累積募款與補助金額</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-number">18</span>
+          <span class="text-body font-bold">縣市皆有服務據點</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-number red">9 天</span>
+          <span class="text-body font-bold">平均申請審核時間</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider-strong max-w-6xl mx-auto">
+
+  <!-- Application form -->
+  <section id="apply" class="form-section py-16 sm:py-20">
+    <div class="max-w-4xl mx-auto px-4">
+      <h2 class="text-3xl sm:text-4xl mb-4 text-white">填寫申請，我們主動與您聯絡</h2>
+      <p class="text-lg mb-10 text-white">
+        填妥以下資料後，服務專員將於 <strong>2 個工作日內</strong> 致電與您確認需求，
+        全程免費，您可以隨時選擇不繼續申請。
+      </p>
+
+      <div class="form-wrap">
+        <form id="apply-form" novalidate>
+          <fieldset class="mb-6">
+            <legend>申請人基本資料</legend>
+
+            <div class="mb-5">
+              <label class="field-label" for="applicant-name">
+                姓名<span class="required-mark">（必填）</span>
+              </label>
+              <input type="text" id="applicant-name" name="applicant-name" required
+                     autocomplete="name" placeholder="請輸入申請人或家屬姓名">
+            </div>
+
+            <div class="mb-5">
+              <label class="field-label" for="applicant-phone">
+                聯絡電話<span class="required-mark">（必填）</span>
+              </label>
+              <input type="tel" id="applicant-phone" name="applicant-phone" required
+                     autocomplete="tel" placeholder="例如：0912345678">
+              <p class="hint-text mt-2">我們只會用這個號碼回電確認需求，不會作其他用途。</p>
+            </div>
+
+            <div class="mb-5">
+              <label class="field-label" for="applicant-email">
+                電子信箱（選填）
+              </label>
+              <input type="email" id="applicant-email" name="applicant-email"
+                     autocomplete="email" placeholder="方便我們寄送申請進度通知">
+            </div>
+          </fieldset>
+
+          <fieldset class="mb-6">
+            <legend>需求資訊</legend>
+
+            <div class="mb-5">
+              <label class="field-label" for="need-type">
+                需求類型<span class="required-mark">（必填）</span>
+              </label>
+              <select id="need-type" name="need-type" required>
+                <option value="">請選擇最符合的需求</option>
+                <option value="care-subsidy">居家照護補助申請</option>
+                <option value="equipment-rental">輔具租借服務</option>
+                <option value="meal-delivery">緊急送餐服務</option>
+                <option value="home-improvement">居家無障礙環境改善</option>
+                <option value="other">其他／尚不確定</option>
+              </select>
+            </div>
+
+            <div class="mb-5">
+              <label class="field-label" for="applicant-city">
+                居住縣市<span class="required-mark">（必填）</span>
+              </label>
+              <select id="applicant-city" name="applicant-city" required>
+                <option value="">請選擇居住縣市</option>
+                <option value="taipei">臺北市</option>
+                <option value="new-taipei">新北市</option>
+                <option value="taoyuan">桃園市</option>
+                <option value="taichung">臺中市</option>
+                <option value="tainan">臺南市</option>
+                <option value="kaohsiung">高雄市</option>
+                <option value="other">其他縣市</option>
+              </select>
+            </div>
+
+            <div class="mb-2">
+              <label class="field-label" for="need-detail">
+                需求說明（選填）
+              </label>
+              <textarea id="need-detail" name="need-detail" rows="4"
+                        placeholder="例如：家中長者行動不便，想了解輪椅租借流程與費用"></textarea>
+            </div>
+          </fieldset>
+
+          <button type="submit" class="btn btn-submit">送出申請，請專員與我聯絡</button>
+
+          <div id="form-success" class="success-msg" role="status" aria-live="polite">
+            收到您的申請了，謝謝您。服務專員將於 2 個工作日內致電與您確認後續事宜。
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer" id="footer-contact">
+  <div class="max-w-6xl mx-auto px-4 py-12">
+    <div class="grid gap-10 sm:grid-cols-3">
+      <div>
+        <p class="brand-mark mb-4"><span class="dot" aria-hidden="true"></span>暖手 WarmHand</p>
+        <p class="text-body">
+          我們相信申請社福資源不該這麼難。暖手 WarmHand 是一個協助長者與身障朋友
+          申請居家照護補助與募款資源的公益平台。
+        </p>
+      </div>
+      <div>
+        <h3 class="text-lg mb-4">聯絡方式</h3>
+        <ul class="list-none m-0 p-0 space-y-2 text-body">
+          <li>服務專線：0800-123-456（週一至週五 09:00–18:00）</li>
+          <li>電子信箱：<a href="mailto:hello@warmhand.org.tw">hello@warmhand.org.tw</a></li>
+          <li>地址：臺北市中正區仁愛路一段 100 號 3 樓</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-lg mb-4">更多資訊</h3>
+        <ul class="list-none m-0 p-0 space-y-2">
+          <li><a href="#services">服務項目說明</a></li>
+          <li><a href="#trust">服務成果數據</a></li>
+          <li><a href="#apply">線上申請表單</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr class="divider-strong my-8">
+    <p class="text-body text-sm">
+      © 2026 暖手 WarmHand 公益服務平台．本網站內容僅供服務說明使用，實際補助資格與金額依各縣市政府最新公告為準。
+    </p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var form = document.getElementById('apply-form');
+    var successMsg = document.getElementById('form-success');
+    if(!form) return;
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var valid = form.checkValidity();
+      if(!valid){
+        form.reportValidity();
+        return;
+      }
+      successMsg.classList.add('show');
+      successMsg.setAttribute('tabindex', '-1');
+      successMsg.focus();
+    });
+  })();
+</script>
+
+</body>
+</html>

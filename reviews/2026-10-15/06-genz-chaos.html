@@ -1,0 +1,343 @@
+<!-- style #57 Gen Z Chaos -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>亂丟 ChaosDrop｜校園二手衣交換社群</title>
+<!-- 字型說明：Clash Display 在 Google Fonts 上找不到，改用同樣是粗展示感的 Unbounded 代替；
+     正文/次要文字使用打字機等寬感的 Space Mono；中文統一搭配 Noto Sans TC（標題用 900 粗體）。 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800;900&family=Space+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --teal:#4ecdc4;
+    --coral:#ff6b6b;
+    --yellow:#ffe66d;
+    --purple:#a388ee;
+    --ink:#1b1b1f;
+    --paper:#fffdf7;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{
+    overflow-x:hidden;
+    max-width:100vw;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Space Mono','Noto Sans TC',monospace;
+  }
+
+  body{
+    background-image:
+      radial-gradient(circle at 10% 10%, rgba(78,205,196,0.18) 0, transparent 40%),
+      radial-gradient(circle at 90% 20%, rgba(255,107,107,0.18) 0, transparent 40%),
+      radial-gradient(circle at 20% 90%, rgba(163,136,238,0.16) 0, transparent 40%);
+  }
+
+  .font-display{
+    font-family:'Unbounded','Noto Sans TC',sans-serif;
+    font-weight:900;
+    letter-spacing:-0.02em;
+  }
+
+  .font-mono-tc{
+    font-family:'Space Mono','Noto Sans TC',monospace;
+  }
+
+  /* 貼紙感卡片：圓角 + 粗邊框 + 偏移實心陰影，像貼紙疊上去一樣 */
+  .sticker{
+    background:var(--paper);
+    border:3px solid var(--ink);
+    border-radius:22px;
+    box-shadow:6px 6px 0 var(--ink);
+    transition:transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease;
+  }
+  .sticker:hover{
+    transform:translate(-3px,-5px) rotate(0deg) scale(1.02);
+    box-shadow:10px 10px 0 var(--ink);
+  }
+
+  .tilt-1{ transform:rotate(-3deg); }
+  .tilt-2{ transform:rotate(2.5deg); }
+  .tilt-3{ transform:rotate(-1.5deg); }
+  .tilt-4{ transform:rotate(3.5deg); }
+  .tilt-5{ transform:rotate(-2.2deg); }
+  .tilt-6{ transform:rotate(1.8deg); }
+  .tilt-7{ transform:rotate(-4deg); }
+  .tilt-8{ transform:rotate(2.8deg); }
+
+  .tilt-1:hover,.tilt-2:hover,.tilt-3:hover,.tilt-4:hover,
+  .tilt-5:hover,.tilt-6:hover,.tilt-7:hover,.tilt-8:hover{
+    transform:rotate(0deg) translateY(-6px) scale(1.03);
+  }
+
+  /* 虛線邊框裝飾 */
+  .dash-border{
+    border:3px dashed var(--ink);
+    border-radius:18px;
+  }
+
+  /* 貼紙小標籤 */
+  .tag-sticker{
+    display:inline-block;
+    border:2.5px solid var(--ink);
+    border-radius:999px;
+    padding:4px 14px;
+    font-weight:700;
+    box-shadow:3px 3px 0 var(--ink);
+    transform:rotate(-4deg);
+  }
+
+  /* 彈跳進場動畫 */
+  @keyframes popIn{
+    0%{ opacity:0; transform:translateY(24px) scale(.9) rotate(0deg); }
+    60%{ opacity:1; transform:translateY(-4px) scale(1.03); }
+    100%{ opacity:1; transform:translateY(0) scale(1); }
+  }
+  .pop-in{
+    animation:popIn .6s cubic-bezier(.34,1.56,.64,1) both;
+  }
+  .delay-1{ animation-delay:.05s; }
+  .delay-2{ animation-delay:.12s; }
+  .delay-3{ animation-delay:.2s; }
+  .delay-4{ animation-delay:.28s; }
+  .delay-5{ animation-delay:.36s; }
+  .delay-6{ animation-delay:.44s; }
+
+  /* 輕微晃動（像 hover 時手抖一下） */
+  @keyframes wiggle{
+    0%,100%{ transform:rotate(var(--base-rot,0deg)); }
+    25%{ transform:rotate(calc(var(--base-rot,0deg) - 2deg)); }
+    75%{ transform:rotate(calc(var(--base-rot,0deg) + 2deg)); }
+  }
+  .wiggle-hover:hover{
+    animation:wiggle .4s ease-in-out;
+  }
+
+  .btn-chaos{
+    border:3px solid var(--ink);
+    border-radius:999px;
+    font-family:'Unbounded','Noto Sans TC',sans-serif;
+    font-weight:800;
+    box-shadow:5px 5px 0 var(--ink);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .btn-chaos:hover{
+    transform:translate(-2px,-3px);
+    box-shadow:8px 8px 0 var(--ink);
+  }
+  .btn-chaos:active{
+    transform:translate(1px,1px);
+    box-shadow:2px 2px 0 var(--ink);
+  }
+
+  .marquee-wrap{
+    overflow:hidden;
+    border-top:3px dashed var(--ink);
+    border-bottom:3px dashed var(--ink);
+  }
+  .marquee{
+    display:flex;
+    white-space:nowrap;
+    animation:marquee 18s linear infinite;
+  }
+  @keyframes marquee{
+    0%{ transform:translateX(0); }
+    100%{ transform:translateX(-50%); }
+  }
+
+  .squiggle-underline{
+    text-decoration: underline wavy var(--coral);
+    text-decoration-thickness: 3px;
+  }
+
+  @media (max-width: 420px){
+    .tilt-1,.tilt-2,.tilt-3,.tilt-4,.tilt-5,.tilt-6,.tilt-7,.tilt-8{
+      transform:rotate(0deg);
+    }
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- 頂部跑馬燈條 -->
+<div class="marquee-wrap bg-[var(--yellow)] py-2">
+  <div class="marquee font-display text-sm sm:text-base">
+    <span class="px-6">✦ 不穿的衣服別丟垃圾桶 ✦ 拿來亂丟 ChaosDrop 換新造型 ✦ 不穿的衣服別丟垃圾桶 ✦ 拿來亂丟 ChaosDrop 換新造型 ✦</span>
+    <span class="px-6" aria-hidden="true">✦ 不穿的衣服別丟垃圾桶 ✦ 拿來亂丟 ChaosDrop 換新造型 ✦ 不穿的衣服別丟垃圾桶 ✦ 拿來亂丟 ChaosDrop 換新造型 ✦</span>
+  </div>
+</div>
+
+<!-- Hero -->
+<header class="relative px-5 sm:px-10 pt-12 pb-16 max-w-5xl mx-auto">
+  <div class="flex justify-center mb-6 pop-in">
+    <span class="tag-sticker bg-[var(--purple)] text-white font-mono-tc text-xs sm:text-sm wiggle-hover">校園限定 ⌁ 不用錢也能換到新單品</span>
+  </div>
+
+  <h1 class="font-display text-4xl sm:text-6xl text-center leading-[1.05] tilt-1 inline-block w-full pop-in delay-1">
+    亂丟<span class="text-[var(--coral)]">Chaos</span><span class="text-[var(--teal)]">Drop</span>
+  </h1>
+  <p class="font-display text-center text-lg sm:text-2xl mt-3 tilt-2 pop-in delay-2">
+    衣櫃塞爆？直接<span class="squiggle-underline">亂丟</span>進來換一輪
+  </p>
+
+  <p class="font-mono-tc text-center mt-6 text-sm sm:text-base max-w-xl mx-auto pop-in delay-3 leading-relaxed">
+    一鍵刊登、以物易物、宿舍樓下取貨、整條動態牆都是穿搭靈感——
+    <br class="hidden sm:block">
+    你的舊衣服，是別人衣櫃裡少的那一件。
+  </p>
+
+  <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mt-9 pop-in delay-4">
+    <a href="#features" class="btn-chaos bg-[var(--coral)] text-white px-8 py-3 text-base sm:text-lg wiggle-hover">
+      馬上刊登我的二手衣 👕
+    </a>
+    <a href="#wall" class="btn-chaos bg-white text-[var(--ink)] px-8 py-3 text-base sm:text-lg wiggle-hover">
+      先逛逛穿搭牆 👀
+    </a>
+  </div>
+
+  <div class="flex justify-center gap-3 mt-8 flex-wrap pop-in delay-5">
+    <span class="tag-sticker bg-[var(--teal)] text-xs">#不出校門換到新衣</span>
+    <span class="tag-sticker bg-[var(--yellow)] text-xs tilt-6">#以物易物不花錢</span>
+    <span class="tag-sticker bg-white text-xs tilt-7">#拒絕快時尚</span>
+  </div>
+</header>
+
+<!-- 功能特色 -->
+<section id="features" class="px-5 sm:px-10 py-14 max-w-5xl mx-auto">
+  <h2 class="font-display text-3xl sm:text-4xl text-center mb-2 tilt-3 pop-in">
+    四招讓衣櫃重新洗牌
+  </h2>
+  <p class="font-mono-tc text-center text-sm sm:text-base mb-10 pop-in delay-1">
+    不囉嗦，直接上功能，你滑下去就知道多好用。
+  </p>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10">
+
+    <div class="sticker tilt-1 p-6 pop-in delay-1">
+      <div class="tag-sticker bg-[var(--coral)] text-white mb-4 tilt-4">功能 01</div>
+      <h3 class="font-display text-xl sm:text-2xl mb-2">一鍵刊登二手衣</h3>
+      <p class="font-mono-tc text-sm leading-relaxed">
+        拍照、選分類、打幾個字，30 秒搞定上架。
+        系統還會幫你抓尺寸標籤，懶人福音，拖延症剋星。
+      </p>
+    </div>
+
+    <div class="sticker tilt-2 p-6 pop-in delay-2">
+      <div class="tag-sticker bg-[var(--teal)] mb-4 tilt-5">功能 02</div>
+      <h3 class="font-display text-xl sm:text-2xl mb-2">以物易物配對</h3>
+      <p class="font-mono-tc text-sm leading-relaxed">
+        不想收現金？直接開「想換」清單，
+        系統幫你配對誰的衣櫃剛好缺一件、你剛好多一件。
+      </p>
+    </div>
+
+    <div class="sticker tilt-3 p-6 pop-in delay-3">
+      <div class="tag-sticker bg-[var(--yellow)] mb-4 tilt-6">功能 03</div>
+      <h3 class="font-display text-xl sm:text-2xl mb-2">校園取貨點</h3>
+      <p class="font-mono-tc text-sm leading-relaxed">
+        圖書館門口、系館警衛室、宿舍交誼廳都設有取貨櫃，
+        約好時間放著拿，完全不用尷尬面交。
+      </p>
+    </div>
+
+    <div class="sticker tilt-4 p-6 pop-in delay-4">
+      <div class="tag-sticker bg-[var(--purple)] text-white mb-4 tilt-7">功能 04</div>
+      <h3 class="font-display text-xl sm:text-2xl mb-2">穿搭曬圖動態牆</h3>
+      <p class="font-mono-tc text-sm leading-relaxed">
+        把換來的戰利品穿上身拍一張，丟上動態牆，
+        被標記的原主人還能收到一個「這件衣服過得很好」的小通知。
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- 用戶曬圖動態牆 -->
+<section id="wall" class="px-5 sm:px-10 py-14 max-w-6xl mx-auto">
+  <h2 class="font-display text-3xl sm:text-4xl text-center mb-2 tilt-5 pop-in">
+    今天大家都丟了什麼
+  </h2>
+  <p class="font-mono-tc text-center text-sm sm:text-base mb-10 pop-in delay-1">
+    即時動態牆，亂中有序，越亂越好逛。
+  </p>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+
+    <div class="sticker tilt-1 p-5 bg-[var(--coral)]/15 pop-in delay-1">
+      <div class="dash-border p-3 mb-3 bg-white">
+        <p class="font-mono-tc text-xs">#001 牛仔外套換洗</p>
+      </div>
+      <p class="font-display text-base mb-1">「用一件連身裙換到夢幻牛仔外套」</p>
+      <p class="font-mono-tc text-xs leading-relaxed">設計系 大三・女宿三樓取貨成功，外套比照片還好看！</p>
+    </div>
+
+    <div class="sticker tilt-6 p-5 bg-[var(--teal)]/15 pop-in delay-2">
+      <div class="dash-border p-3 mb-3 bg-white">
+        <p class="font-mono-tc text-xs">#002 球鞋以物易物</p>
+      </div>
+      <p class="font-display text-base mb-1">「舊球鞋換到限量帽子，血賺」</p>
+      <p class="font-mono-tc text-xs leading-relaxed">體育系 大二・在系館警衛室取貨，五分鐘搞定。</p>
+    </div>
+
+    <div class="sticker tilt-3 p-5 bg-[var(--yellow)]/20 pop-in delay-3">
+      <div class="dash-border p-3 mb-3 bg-white">
+        <p class="font-mono-tc text-xs">#003 制服外套翻紅</p>
+      </div>
+      <p class="font-display text-base mb-1">「原本要丟的系服外套，三小時被搶走」</p>
+      <p class="font-mono-tc text-xs leading-relaxed">法律系 大四・刊登超快被配對，取貨點約圖書館門口。</p>
+    </div>
+
+    <div class="sticker tilt-8 p-5 bg-[var(--purple)]/15 pop-in delay-4">
+      <div class="dash-border p-3 mb-3 bg-white">
+        <p class="font-mono-tc text-xs">#004 毛衣接力賽</p>
+      </div>
+      <p class="font-display text-base mb-1">「這件毛衣已經換過三手，傳承感滿分」</p>
+      <p class="font-mono-tc text-xs leading-relaxed">中文系 大一・新手上路也能輕鬆配對成功。</p>
+    </div>
+
+    <div class="sticker tilt-2 p-5 bg-[var(--coral)]/15 pop-in delay-5">
+      <div class="dash-border p-3 mb-3 bg-white">
+        <p class="font-mono-tc text-xs">#005 襯衫大風吹</p>
+      </div>
+      <p class="font-display text-base mb-1">「用兩件小 T 換一件古著襯衫，划算到飛起來」</p>
+      <p class="font-mono-tc text-xs leading-relaxed">商學院 大三・宿舍交誼廳取貨，順手認識新朋友。</p>
+    </div>
+
+    <div class="sticker tilt-7 p-5 bg-[var(--teal)]/15 pop-in delay-6">
+      <div class="dash-border p-3 mb-3 bg-white">
+        <p class="font-mono-tc text-xs">#006 外套換包包</p>
+      </div>
+      <p class="font-display text-base mb-1">「衣櫃清一波，直接換到夢想帆布包」</p>
+      <p class="font-mono-tc text-xs leading-relaxed">藝術系 大二・曬圖動態牆直接爆讚，衣服變成話題。</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- 頁尾 CTA -->
+<footer class="px-5 sm:px-10 py-16 max-w-4xl mx-auto text-center">
+  <div class="sticker tilt-4 p-8 sm:p-12 bg-[var(--purple)]/10 pop-in">
+    <h2 class="font-display text-3xl sm:text-5xl mb-4 tilt-1">
+      別讓衣服躺在衣櫃裡睡覺
+    </h2>
+    <p class="font-mono-tc text-sm sm:text-base mb-8 leading-relaxed">
+      打開亂丟 ChaosDrop，刊登第一件衣服只要三十秒，
+      <br class="hidden sm:block">
+      換到的可能是全系最會穿搭的那個人衣櫃裡的寶藏。
+    </p>
+    <a href="#features" class="btn-chaos bg-[var(--yellow)] text-[var(--ink)] px-10 py-4 text-lg inline-block wiggle-hover">
+      立刻加入亂丟 🔥
+    </a>
+    <p class="font-mono-tc text-xs mt-6">
+      亂丟 ChaosDrop ・ 校園二手衣交換社群 ・ 丟出去，換回來
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

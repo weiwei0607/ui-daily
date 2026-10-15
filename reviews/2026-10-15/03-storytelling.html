@@ -1,0 +1,208 @@
+<!-- style #27 Storytelling -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>作坊 Atelier｜一位木藝師傅的手藝故事</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=Noto+Serif+TC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --paper:#f5f1e8;
+    --paper-2:#eee8d9;
+    --ink:#2a2420;
+    --ink-soft:#52473c;
+    --rule:#c9bda7;
+    --accent:#8a4a2f;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Serif TC','Newsreader',serif;
+    overflow-x:hidden;
+    max-width:100%;
+  }
+  body{margin:0;}
+  .serif-en{font-family:'Newsreader','Noto Serif TC',serif;}
+  .tracking-wideish{letter-spacing:0.08em;}
+
+  /* progress bar */
+  #progress-wrap{
+    position:fixed;top:0;left:0;right:0;height:3px;
+    background:transparent;z-index:50;
+  }
+  #progress-bar{
+    height:100%;width:0%;
+    background:var(--accent);
+    transition:width 60ms linear;
+  }
+
+  .chapter{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity 0.9s ease, transform 0.9s ease;
+  }
+  .chapter.in-view{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  .divider{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:1rem;
+    color:var(--ink-soft);
+  }
+  .divider::before,.divider::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:var(--rule);
+    max-width:120px;
+  }
+
+  .drop-cap::first-letter{
+    font-family:'Newsreader',serif;
+    float:left;
+    font-size:3.4rem;
+    line-height:0.8;
+    padding-right:0.12em;
+    padding-top:0.08em;
+    color:var(--accent);
+    font-weight:600;
+  }
+
+  .vignette-border{
+    border-top:1px solid var(--rule);
+    border-bottom:1px solid var(--rule);
+  }
+
+  ::selection{background:#d8c9a8;}
+</style>
+</head>
+<body class="min-h-screen">
+
+<div id="progress-wrap"><div id="progress-bar"></div></div>
+
+<!-- Hero -->
+<header class="relative px-6 sm:px-10 pt-28 pb-24 sm:pt-36 sm:pb-32 text-center vignette-border" style="background:var(--paper-2);">
+  <p class="serif-en italic text-sm sm:text-base tracking-wideish mb-5" style="color:var(--ink-soft);">A Woodworker's Story</p>
+  <h1 class="text-5xl sm:text-7xl font-black mb-6" style="letter-spacing:0.02em;">作坊 Atelier</h1>
+  <p class="text-base sm:text-lg max-w-xl mx-auto" style="color:var(--ink-soft);">
+    一塊木頭,一雙手,一段從修復到創造的手藝路。<br class="hidden sm:block">
+    這是林師傅與他的工作室,用三十年刨出來的故事。
+  </p>
+  <div class="mt-10 serif-en text-sm tracking-wideish" style="color:var(--ink-soft);">↓ 往下滾動,聽故事慢慢說</div>
+</header>
+
+<main class="px-6 sm:px-10">
+
+  <!-- Chapter 1 -->
+  <section class="chapter max-w-2xl mx-auto py-20 sm:py-28">
+    <p class="serif-en text-sm tracking-wideish mb-3" style="color:var(--accent);">Chapter One</p>
+    <h2 class="text-3xl sm:text-4xl font-bold mb-8">開場・老家具的記憶</h2>
+    <p class="text-lg leading-loose drop-cap" style="color:var(--ink);">
+      林木生小時候住在大稻埕一帶的老街屋,家裡那張八仙桌的桌腳,不知何時裂了一道縫,阿公總說「等有錢再換」,但那張桌子從沒換過,反而年年補,年年用。他記得自己趴在桌下,看阿公用一支鑿子一點一點把裂縫裡的舊木屑挖出來,再塞進新削的木片,敲進去的聲音「篤、篤、篤」,在悶熱的午後顯得特別清楚。他問阿公為什麼不買新桌子,阿公只說:「木頭是有記憶的,壞了修一修,它記得的事情比你還多。」那句話他當時不懂,後來卻成了他一輩子的信仰。
+    </p>
+  </section>
+
+  <div class="divider my-4"><span class="serif-en text-sm" style="color:var(--rule);">◆</span></div>
+
+  <!-- Chapter 2 -->
+  <section class="chapter max-w-2xl mx-auto py-20 sm:py-28">
+    <p class="serif-en text-sm tracking-wideish mb-3" style="color:var(--accent);">Chapter Two</p>
+    <h2 class="text-3xl sm:text-4xl font-bold mb-8">學藝・榫接裡的規矩</h2>
+    <p class="text-lg leading-loose drop-cap" style="color:var(--ink);">
+      十八歲那年,林木生拜入萬華一間老字號傢俱行當徒弟,師傅姓陳,話不多,第一年只讓他磨鑿子、刨木料、掃木屑,連碰榫頭都不行。他曾經偷偷在廢料上試接一個燕尾榫,接得歪歪斜斜,被陳師傅看到,只說了一句:「榫頭差一分,家具用十年就會晃。」沒有責罵,卻讓他整整三個月不敢再亂碰。直到第三年,師傅才真正教他格肩榫、楔釘榫怎麼下刀、怎麼留分寸。他才明白,所謂手藝,不是手巧,是耐得住性子把同一個動作重複上千次,直到身體自己知道該停在哪裡。
+    </p>
+  </section>
+
+  <div class="divider my-4"><span class="serif-en text-sm" style="color:var(--rule);">◆</span></div>
+
+  <!-- Chapter 3 -->
+  <section class="chapter max-w-2xl mx-auto py-20 sm:py-28">
+    <p class="serif-en text-sm tracking-wideish mb-3" style="color:var(--accent);">Chapter Three</p>
+    <h2 class="text-3xl sm:text-4xl font-bold mb-8">轉折・離開穩定的那一刻</h2>
+    <p class="text-lg leading-loose drop-cap" style="color:var(--ink);">
+      三十五歲時,林木生已經是傢俱行裡最受信賴的師傅,月薪穩定,家裡也勸他別折騰。但有一次,一位老客人拿來一張從日本時代留下的梳妝台,木料已經蛀空大半,老闆看了一眼就說「修不如買新的,划不來」,打算直接回絕。林木生卻在打烊後偷偷把梳妝台搬回家,花了兩個月,用舊料配新木,把它修回原樣。客人看到成品當場落淚,說那是她母親的嫁妝。那一晚他想起阿公的話,也想起自己這幾年被「划不划算」困住的手藝,他決定辭職,租下一間舊鐵皮屋,開始自己的工作室——不是為了賺更多,是不想再把「修得好不好」交給別人決定。
+    </p>
+  </section>
+
+  <div class="divider my-4"><span class="serif-en text-sm" style="color:var(--rule);">◆</span></div>
+
+  <!-- Chapter 4 -->
+  <section class="chapter max-w-2xl mx-auto py-20 sm:py-28">
+    <p class="serif-en text-sm tracking-wideish mb-3" style="color:var(--accent);">Chapter Four</p>
+    <h2 class="text-3xl sm:text-4xl font-bold mb-8">堅持・第一件作品與寒冬</h2>
+    <p class="text-lg leading-loose drop-cap" style="color:var(--ink);">
+      工作室開張的第一年,幾乎沒有生意上門。他用積蓄買的烏心石木料做了一張無螺絲、全靠榫接組成的方凳,擺在店門口當招牌作品,整整三個月沒人問價。附近的人覺得「純手工」聽起來貴又麻煩,寧可去家具賣場買現成的。最難的那個冬天,他連電費都快付不出來,曾一度想把工具收起來,回去找份穩定的工作。但每天晚上,他還是會打開工作室的燈,繼續削那張凳子沒人要的第二張、第三張。他告訴自己:「榫接做得紮實,總有一天有人會用手摸出差別。」這句話,他後來刻在工作室的樑上。
+    </p>
+  </section>
+
+  <div class="divider my-4"><span class="serif-en text-sm" style="color:var(--rule);">◆</span></div>
+
+  <!-- Chapter 5 -->
+  <section class="chapter max-w-2xl mx-auto py-20 sm:py-28">
+    <p class="serif-en text-sm tracking-wideish mb-3" style="color:var(--accent);">Chapter Five</p>
+    <h2 class="text-3xl sm:text-4xl font-bold mb-8">現在・一間還在呼吸的工作室</h2>
+    <p class="text-lg leading-loose drop-cap" style="color:var(--ink);">
+      如今的作坊 Atelier,從當年那間漏雨的鐵皮屋,搬到大稻埕巷弄裡一處老宅改建的空間,牆上掛著歷年客人送修又取回的老家具照片,地上永遠鋪著一層新削下的木屑香。林木生不再只修老家具,也帶著兩位學徒做訂製木作,但店裡始終沒有生產線,每一件作品仍然一人、一刀、一榫接著做下去。他常跟客人說,木器不需要完美無瑕,需要的是經得起下一代繼續使用與修補的誠實結構。這間工作室想留住的,不是某種復古風格,而是「東西壞了可以修」這件事本身。
+    </p>
+    <div class="mt-10 p-6 sm:p-8 rounded-sm vignette-border" style="background:var(--paper-2);">
+      <p class="text-base sm:text-lg mb-4" style="color:var(--ink-soft);">
+        想親眼看看榫接如何咬合、聞聞剛刨下的木屑香氣嗎?
+      </p>
+      <a href="#" class="inline-block px-6 py-3 text-sm sm:text-base font-semibold tracking-wideish rounded-sm transition" style="background:var(--accent);color:var(--paper);">
+        預約參觀作坊工作室 →
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="px-6 sm:px-10 py-14 text-center vignette-border" style="background:var(--paper-2);">
+  <p class="serif-en text-sm tracking-wideish" style="color:var(--ink-soft);">作坊 Atelier — 大稻埕,一間還在修著老家具的工作室</p>
+</footer>
+
+<script>
+  // scroll progress bar
+  (function(){
+    var bar = document.getElementById('progress-bar');
+    function update(){
+      var doc = document.documentElement;
+      var scrollTop = window.scrollY || doc.scrollTop;
+      var scrollHeight = (doc.scrollHeight - doc.clientHeight) || 1;
+      var pct = Math.min(100, Math.max(0, (scrollTop / scrollHeight) * 100));
+      bar.style.width = pct + '%';
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  })();
+
+  // chapter fade/slide in
+  (function(){
+    var chapters = document.querySelectorAll('.chapter');
+    if('IntersectionObserver' in window){
+      var observer = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            entry.target.classList.add('in-view');
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+      chapters.forEach(function(ch){ observer.observe(ch); });
+    } else {
+      chapters.forEach(function(ch){ ch.classList.add('in-view'); });
+    }
+  })();
+</script>
+
+</body>
+</html>

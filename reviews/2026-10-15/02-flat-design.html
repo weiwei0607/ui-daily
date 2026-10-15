@@ -1,0 +1,395 @@
+<!-- style #12 Flat Design 2.0 -->
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>饌意 TasteGo｜在地美食外送 App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --blue:#3498db;
+    --red:#e74c3c;
+    --green:#27ae60;
+    --orange:#f39c12;
+    --ink:#1f2937;
+    --bg:#fafbfc;
+  }
+  html, body{
+    background: var(--bg);
+    font-family: "Plus Jakarta Sans", "Noto Sans TC", sans-serif;
+    color: var(--ink);
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+  * { box-sizing: border-box; }
+  .font-display{ font-family:"Plus Jakarta Sans","Noto Sans TC",sans-serif; }
+  .flat-shadow{
+    box-shadow: 0 2px 10px rgba(31,41,55,0.06);
+  }
+  .flat-shadow-lg{
+    box-shadow: 0 6px 20px rgba(31,41,55,0.08);
+  }
+  .btn-press:active{ transform: translateY(1px) scale(0.99); }
+  .dot-pattern{
+    background-image: radial-gradient(circle, rgba(52,152,219,0.18) 1.5px, transparent 1.5px);
+    background-size: 18px 18px;
+  }
+  .star{ color: var(--orange); }
+  .section-tag{
+    letter-spacing: 0.08em;
+  }
+  ::-webkit-scrollbar{ width:8px; height:8px; }
+  ::-webkit-scrollbar-thumb{ background:#d1d5db; border-radius:4px; }
+</style>
+</head>
+<body class="antialiased">
+
+<!-- ============ Nav ============ -->
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-100">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <div class="w-9 h-9 rounded-xl bg-[var(--blue)] flex items-center justify-center flat-shadow">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M4 3v8a4 4 0 0 0 4 4v6" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <path d="M8 3v6" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <path d="M18 3c-2 2-2 5-2 7a2 2 0 0 0 2 2v9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="font-display font-extrabold text-lg tracking-tight">饌意 <span class="text-[var(--blue)]">TasteGo</span></span>
+    </div>
+    <a href="#download" class="btn-press px-4 py-2 rounded-full bg-[var(--orange)] text-white text-sm font-bold flat-shadow hover:brightness-105 transition">
+      立即下載
+    </a>
+  </div>
+</header>
+
+<!-- ============ Hero ============ -->
+<section class="relative dot-pattern">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-14 pb-16 sm:pt-20 sm:pb-24 grid sm:grid-cols-2 gap-10 items-center">
+    <div>
+      <span class="inline-block px-3 py-1 rounded-full bg-[var(--green)]/10 text-[var(--green)] text-xs font-bold section-tag mb-4">
+        在地美食・即時外送
+      </span>
+      <h1 class="font-display font-extrabold text-4xl sm:text-5xl leading-tight mb-4">
+        巷口的好味道，<br/>
+        <span class="text-[var(--blue)]">十分鐘</span>送到家
+      </h1>
+      <p class="text-gray-600 text-base sm:text-lg mb-8 leading-relaxed">
+        滷肉飯、鹽酥雞、牛肉麵、手搖飲——饌意 TasteGo 把巷弄裡最道地的小吃與餐廳都搬到你手機裡,訂餐、追蹤、領回饋金,通通一站搞定。
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <a href="#download" class="btn-press px-6 py-3 rounded-2xl bg-[var(--blue)] text-white font-bold flat-shadow-lg hover:brightness-105 transition flex items-center gap-2">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2v14m0 0l-5-5m5 5l5-5M5 21h14" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          下載 App 立即試用
+        </a>
+        <a href="#features" class="btn-press px-6 py-3 rounded-2xl bg-white text-[var(--ink)] font-bold flat-shadow border border-gray-100 hover:bg-gray-50 transition">
+          看看有什麼功能
+        </a>
+      </div>
+      <div class="flex items-center gap-6 mt-8 text-sm text-gray-500">
+        <div><span class="font-display font-extrabold text-xl text-[var(--ink)]">12 萬+</span><br/>合作店家</div>
+        <div><span class="font-display font-extrabold text-xl text-[var(--ink)]">4.8</span><br/>App 評分</div>
+        <div><span class="font-display font-extrabold text-xl text-[var(--ink)]">18 分</span><br/>平均送達</div>
+      </div>
+    </div>
+    <div class="relative">
+      <div class="rounded-3xl bg-white flat-shadow-lg p-6 border border-gray-100 max-w-sm mx-auto">
+        <div class="flex items-center justify-between mb-4">
+          <span class="font-bold text-sm">配送進度</span>
+          <span class="text-xs px-2 py-1 rounded-full bg-[var(--green)]/10 text-[var(--green)] font-bold">即時更新</span>
+        </div>
+        <div class="rounded-2xl bg-[var(--blue)]/5 p-4 mb-4">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-xl bg-[var(--orange)] flex items-center justify-center flex-shrink-0">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="white" stroke-width="2"/><path d="M12 7v5l3 3" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <p class="font-bold text-sm">阿嬤的滷肉飯</p>
+              <p class="text-xs text-gray-500">預計 8 分鐘後送達</p>
+            </div>
+          </div>
+          <div class="h-2 rounded-full bg-gray-200 overflow-hidden">
+            <div class="h-full w-2/3 rounded-full bg-[var(--blue)]"></div>
+          </div>
+        </div>
+        <ul class="space-y-2 text-sm">
+          <li class="flex items-center gap-2 text-gray-700"><span class="w-2 h-2 rounded-full bg-[var(--green)]"></span> 店家已接單</li>
+          <li class="flex items-center gap-2 text-gray-700"><span class="w-2 h-2 rounded-full bg-[var(--green)]"></span> 餐點製作中</li>
+          <li class="flex items-center gap-2 text-[var(--blue)] font-bold"><span class="w-2 h-2 rounded-full bg-[var(--blue)]"></span> 外送員正在路上</li>
+          <li class="flex items-center gap-2 text-gray-400"><span class="w-2 h-2 rounded-full bg-gray-300"></span> 送達</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Features ============ -->
+<section id="features" class="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
+  <div class="text-center mb-12">
+    <span class="inline-block px-3 py-1 rounded-full bg-[var(--blue)]/10 text-[var(--blue)] text-xs font-bold section-tag mb-3">功能介紹</span>
+    <h2 class="font-display font-extrabold text-3xl sm:text-4xl">為台灣在地飲食，量身打造</h2>
+    <p class="text-gray-500 mt-3 max-w-xl mx-auto">從下單到吃到嘴裡,每一步都幫你安排好,吃飯這件小事,也能很安心。</p>
+  </div>
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+    <!-- Feature 1 -->
+    <div class="rounded-2xl bg-white p-6 flat-shadow border border-gray-100 hover:-translate-y-1 transition">
+      <div class="w-12 h-12 rounded-xl bg-[var(--blue)] flex items-center justify-center mb-4">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M3 11h11l5 5v3H3z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+          <circle cx="7" cy="19" r="1.6" fill="white"/>
+          <circle cx="16" cy="19" r="1.6" fill="white"/>
+          <path d="M14 11V6h3l3 5" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3 class="font-display font-bold text-lg mb-2">即時配送追蹤</h3>
+      <p class="text-sm text-gray-600 leading-relaxed">從出餐到送達,地圖上即時顯示外送員位置,讓你掌握每一個環節,不用再猜「到底還要多久」。</p>
+    </div>
+    <!-- Feature 2 -->
+    <div class="rounded-2xl bg-white p-6 flat-shadow border border-gray-100 hover:-translate-y-1 transition">
+      <div class="w-12 h-12 rounded-xl bg-[var(--orange)] flex items-center justify-center mb-4">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="9" stroke="white" stroke-width="2"/>
+          <path d="M12 7l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9-3.6 1.9.7-4-2.9-2.8 4-.6z" fill="white"/>
+        </svg>
+      </div>
+      <h3 class="font-display font-bold text-lg mb-2">會員點數回饋</h3>
+      <p class="text-sm text-gray-600 leading-relaxed">每筆訂單自動累積點數,點數可折抵運費或兌換美食券,吃得越久,省得越多。</p>
+    </div>
+    <!-- Feature 3 -->
+    <div class="rounded-2xl bg-white p-6 flat-shadow border border-gray-100 hover:-translate-y-1 transition">
+      <div class="w-12 h-12 rounded-xl bg-[var(--green)] flex items-center justify-center mb-4">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M4 6h16M7 12h10M10 18h4" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3 class="font-display font-bold text-lg mb-2">分類篩選搜尋</h3>
+      <p class="text-sm text-gray-600 leading-relaxed">依小吃、麵食、飲料、甜點等分類快速篩選,還能用價格、評分、距離排序,想吃什麼一秒找到。</p>
+    </div>
+    <!-- Feature 4 -->
+    <div class="rounded-2xl bg-white p-6 flat-shadow border border-gray-100 hover:-translate-y-1 transition">
+      <div class="w-12 h-12 rounded-xl bg-[var(--red)] flex items-center justify-center mb-4">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M12 3l2.5 5.5L20 9.3l-4 4 1 5.7L12 16.5 6.9 19l1-5.7-4-4 5.5-.8z" fill="white"/>
+        </svg>
+      </div>
+      <h3 class="font-display font-bold text-lg mb-2">真實評價系統</h3>
+      <p class="text-sm text-gray-600 leading-relaxed">只有實際訂購過的會員才能評分,搭配照片評論,避免灌水好評,吃之前先看別人怎麼說。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Popular restaurants / categories ============ -->
+<section class="bg-white border-t border-b border-gray-100 py-16 sm:py-20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="text-center mb-12">
+      <span class="inline-block px-3 py-1 rounded-full bg-[var(--red)]/10 text-[var(--red)] text-xs font-bold section-tag mb-3">熱門分類</span>
+      <h2 class="font-display font-extrabold text-3xl sm:text-4xl">今天想吃哪一種?</h2>
+      <p class="text-gray-500 mt-3">精選台灣人最愛的美食分類,每一種都有口袋名單等你挖掘。</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+      <!-- Card 1 -->
+      <div class="rounded-2xl overflow-hidden flat-shadow border border-gray-100">
+        <div class="h-28 bg-[var(--orange)] flex items-center justify-center relative">
+          <svg width="52" height="52" viewBox="0 0 24 24" fill="none"><rect x="4" y="9" width="16" height="9" rx="2" fill="white" opacity="0.95"/><path d="M6 9c0-3 2.5-5 6-5s6 2 6 5" stroke="white" stroke-width="2" fill="none"/><circle cx="9" cy="13" r="1" fill="var(--orange)"/><circle cx="15" cy="13" r="1" fill="var(--orange)"/><circle cx="12" cy="15.5" r="1" fill="var(--orange)"/></svg>
+          <span class="absolute top-3 right-3 text-[10px] bg-white/90 text-[var(--orange)] font-bold px-2 py-1 rounded-full">小吃</span>
+        </div>
+        <div class="p-4">
+          <h3 class="font-display font-bold text-base mb-1">阿興鹹酥雞</h3>
+          <p class="text-xs text-gray-500 mb-2">鹹酥雞・雞排・炸物拼盤</p>
+          <div class="flex items-center justify-between text-xs">
+            <span class="flex items-center gap-1"><span class="star">★</span> 4.7(2,310)</span>
+            <span class="text-gray-400">約 15-25 分</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="rounded-2xl overflow-hidden flat-shadow border border-gray-100">
+        <div class="h-28 bg-[var(--red)] flex items-center justify-center relative">
+          <svg width="52" height="52" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="15" rx="9" ry="4" fill="white" opacity="0.95"/><path d="M4 15c0-5 3.5-9 8-9s8 4 8 9" stroke="white" stroke-width="2" fill="none"/><path d="M8 13h8" stroke="var(--red)" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <span class="absolute top-3 right-3 text-[10px] bg-white/90 text-[var(--red)] font-bold px-2 py-1 rounded-full">麵食</span>
+        </div>
+        <div class="p-4">
+          <h3 class="font-display font-bold text-base mb-1">老張牛肉麵館</h3>
+          <p class="text-xs text-gray-500 mb-2">紅燒牛肉麵・清燉牛肉湯</p>
+          <div class="flex items-center justify-between text-xs">
+            <span class="flex items-center gap-1"><span class="star">★</span> 4.8(1,864)</span>
+            <span class="text-gray-400">約 20-30 分</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="rounded-2xl overflow-hidden flat-shadow border border-gray-100">
+        <div class="h-28 bg-[var(--blue)] flex items-center justify-center relative">
+          <svg width="52" height="52" viewBox="0 0 24 24" fill="none"><rect x="7" y="4" width="10" height="16" rx="3" fill="white" opacity="0.95"/><rect x="9" y="7" width="6" height="4" fill="var(--blue)"/><line x1="9" y1="14" x2="15" y2="14" stroke="var(--blue)" stroke-width="1.4"/><line x1="9" y1="16.5" x2="15" y2="16.5" stroke="var(--blue)" stroke-width="1.4"/></svg>
+          <span class="absolute top-3 right-3 text-[10px] bg-white/90 text-[var(--blue)] font-bold px-2 py-1 rounded-full">便當</span>
+        </div>
+        <div class="p-4">
+          <h3 class="font-display font-bold text-base mb-1">媽媽味滷肉飯</h3>
+          <p class="text-xs text-gray-500 mb-2">招牌滷肉飯・控肉便當</p>
+          <div class="flex items-center justify-between text-xs">
+            <span class="flex items-center gap-1"><span class="star">★</span> 4.9(3,102)</span>
+            <span class="text-gray-400">約 10-20 分</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="rounded-2xl overflow-hidden flat-shadow border border-gray-100">
+        <div class="h-28 bg-[var(--green)] flex items-center justify-center relative">
+          <svg width="52" height="52" viewBox="0 0 24 24" fill="none"><path d="M8 4h8l1 4-1 12H8L7 8z" fill="white" opacity="0.95"/><line x1="8.5" y1="9.5" x2="15.5" y2="9.5" stroke="var(--green)" stroke-width="1.4"/><circle cx="12" cy="4" r="1.6" fill="white"/></svg>
+          <span class="absolute top-3 right-3 text-[10px] bg-white/90 text-[var(--green)] font-bold px-2 py-1 rounded-full">手搖飲</span>
+        </div>
+        <div class="p-4">
+          <h3 class="font-display font-bold text-base mb-1">青草巷手搖飲</h3>
+          <p class="text-xs text-gray-500 mb-2">珍珠奶茶・冬瓜檸檬</p>
+          <div class="flex items-center justify-between text-xs">
+            <span class="flex items-center gap-1"><span class="star">★</span> 4.6(5,420)</span>
+            <span class="text-gray-400">約 8-15 分</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="rounded-2xl overflow-hidden flat-shadow border border-gray-100">
+        <div class="h-28 bg-[var(--orange)] flex items-center justify-center relative">
+          <svg width="52" height="52" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" fill="white" opacity="0.95"/><circle cx="9" cy="10" r="1.2" fill="var(--orange)"/><circle cx="15" cy="10" r="1.2" fill="var(--orange)"/><path d="M8 14c1.5 2 6.5 2 8 0" stroke="var(--orange)" stroke-width="1.6" stroke-linecap="round" fill="none"/></svg>
+          <span class="absolute top-3 right-3 text-[10px] bg-white/90 text-[var(--orange)] font-bold px-2 py-1 rounded-full">早午餐</span>
+        </div>
+        <div class="p-4">
+          <h3 class="font-display font-bold text-base mb-1">豆漿晨光早餐店</h3>
+          <p class="text-xs text-gray-500 mb-2">蛋餅・飯糰・現煮豆漿</p>
+          <div class="flex items-center justify-between text-xs">
+            <span class="flex items-center gap-1"><span class="star">★</span> 4.5(1,208)</span>
+            <span class="text-gray-400">約 12-20 分</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="rounded-2xl overflow-hidden flat-shadow border border-gray-100">
+        <div class="h-28 bg-[var(--red)] flex items-center justify-center relative">
+          <svg width="52" height="52" viewBox="0 0 24 24" fill="none"><rect x="5" y="6" width="14" height="12" rx="2" fill="white" opacity="0.95"/><line x1="5" y1="10" x2="19" y2="10" stroke="var(--red)" stroke-width="1.4"/><circle cx="9" cy="14" r="1.1" fill="var(--red)"/><circle cx="15" cy="14" r="1.1" fill="var(--red)"/></svg>
+          <span class="absolute top-3 right-3 text-[10px] bg-white/90 text-[var(--red)] font-bold px-2 py-1 rounded-full">熱炒</span>
+        </div>
+        <div class="p-4">
+          <h3 class="font-display font-bold text-base mb-1">阿財熱炒海產店</h3>
+          <p class="text-xs text-gray-500 mb-2">蒜泥白肉・三杯中卷</p>
+          <div class="flex items-center justify-between text-xs">
+            <span class="flex items-center gap-1"><span class="star">★</span> 4.7(986)</span>
+            <span class="text-gray-400">約 25-35 分</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ Reviews ============ -->
+<section class="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
+  <div class="text-center mb-12">
+    <span class="inline-block px-3 py-1 rounded-full bg-[var(--green)]/10 text-[var(--green)] text-xs font-bold section-tag mb-3">用戶評價</span>
+    <h2 class="font-display font-extrabold text-3xl sm:text-4xl">大家都怎麼說?</h2>
+  </div>
+
+  <div class="grid sm:grid-cols-3 gap-5">
+    <div class="rounded-2xl bg-white p-6 flat-shadow border border-gray-100">
+      <div class="flex gap-1 mb-3 star text-lg">★★★★★</div>
+      <p class="text-sm text-gray-700 leading-relaxed mb-4">「晚上九點點鹹酥雞,竟然十五分鐘就到,而且還是熱的!配送追蹤讓我可以準時下樓拿,完全不用一直等門口。」</p>
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-[var(--blue)] flex items-center justify-center text-white font-bold text-sm">婷</div>
+        <div>
+          <p class="text-sm font-bold">林婷婷</p>
+          <p class="text-xs text-gray-400">台北市・訂購 42 次</p>
+        </div>
+      </div>
+    </div>
+    <div class="rounded-2xl bg-white p-6 flat-shadow border border-gray-100">
+      <div class="flex gap-1 mb-3 star text-lg">★★★★★</div>
+      <p class="text-sm text-gray-700 leading-relaxed mb-4">「分類篩選很好用,想吃麵食就直接點進去,評價也看得出來是真的吃過的人寫的,踩雷機率低很多。點數回饋也累積得很快。」</p>
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-[var(--orange)] flex items-center justify-center text-white font-bold text-sm">豪</div>
+        <div>
+          <p class="text-sm font-bold">陳志豪</p>
+          <p class="text-xs text-gray-400">台中市・訂購 67 次</p>
+        </div>
+      </div>
+    </div>
+    <div class="rounded-2xl bg-white p-6 flat-shadow border border-gray-100">
+      <div class="flex gap-1 mb-3 star text-lg">★★★★☆</div>
+      <p class="text-sm text-gray-700 leading-relaxed mb-4">「老字號牛肉麵店以前都要排隊,現在在家就能訂,湯頭完全沒有因為外送而變差。界面也很簡單,長輩也學得很快。」</p>
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-[var(--green)] flex items-center justify-center text-white font-bold text-sm">淑</div>
+        <div>
+          <p class="text-sm font-bold">黃淑芬</p>
+          <p class="text-xs text-gray-400">高雄市・訂購 28 次</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Download CTA ============ -->
+<section id="download" class="relative bg-[var(--blue)] py-16 sm:py-20">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+    <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-white mb-4">現在下載,立即享用在地好味道</h2>
+    <p class="text-white/90 mb-8 max-w-xl mx-auto">新會員首次訂餐享運費折抵,邀請好友再送點數,想吃什麼,饌意 TasteGo 都幫你送到。</p>
+    <div class="flex flex-wrap justify-center gap-4">
+      <a href="#" class="btn-press flex items-center gap-2 px-6 py-3 rounded-2xl bg-white text-[var(--ink)] font-bold flat-shadow-lg hover:brightness-95 transition">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M16.5 4c.1 1.5-.5 2.9-1.4 3.9-.9 1-2.2 1.8-3.6 1.7-.1-1.5.6-3 1.4-3.9C13.8 4.7 15.1 4 16.5 4z" fill="var(--ink)"/><path d="M20 17c-.6 1.3-.9 1.9-1.7 3.1-1.1 1.6-2.6 3.6-4.5 3.6-1.7 0-2.1-1.1-4.4-1.1-2.3 0-2.8 1.1-4.5 1-1.9 0-3.3-1.8-4.4-3.4C-1.8 16.6-1 10.8 2.3 8.4c1.6-1.2 3.2-1.3 4.4-1.3 1.3 0 2.5.5 3.4.5.9 0 2-.6 3.5-.6 1.3 0 3.8.1 5.4 2.3-.1.1-3.2 1.9-3.2 5.2.1 3.4 2.6 4.5 2.6 4.5z" fill="var(--ink)"/></svg>
+        App Store 下載
+      </a>
+      <a href="#" class="btn-press flex items-center gap-2 px-6 py-3 rounded-2xl bg-[var(--orange)] text-white font-bold flat-shadow-lg hover:brightness-105 transition">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 3.5v17a1 1 0 0 0 1.6.8L13 15l-3-3-6 3.5z" fill="white"/><path d="M4 3.5L13 9l3-3L5.6 2.7A1 1 0 0 0 4 3.5z" fill="white"/><path d="M4 20.5L13 15l-3-3-6 6.5z" fill="white" opacity="0.9"/><path d="M13 9l4 2.3a1 1 0 0 1 0 1.7L13 15l-3-3 3-3z" fill="white" opacity="0.75"/></svg>
+        Google Play 下載
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Footer ============ -->
+<footer class="bg-[var(--ink)] text-gray-300 py-12">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-8">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-[var(--blue)] flex items-center justify-center">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M4 3v8a4 4 0 0 0 4 4v6" stroke="white" stroke-width="2.4" stroke-linecap="round"/>
+            <path d="M18 3c-2 2-2 5-2 7a2 2 0 0 0 2 2v9" stroke="white" stroke-width="2.4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="font-display font-extrabold text-white text-lg">饌意 TasteGo</span>
+      </div>
+      <div class="flex flex-wrap gap-5 text-sm">
+        <a href="#" class="hover:text-white transition">關於我們</a>
+        <a href="#" class="hover:text-white transition">加入店家</a>
+        <a href="#" class="hover:text-white transition">成為外送夥伴</a>
+        <a href="#" class="hover:text-white transition">常見問題</a>
+        <a href="#" class="hover:text-white transition">隱私權政策</a>
+      </div>
+    </div>
+    <div class="flex flex-wrap gap-3 mb-8">
+      <a href="#" class="btn-press flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 text-white text-sm font-bold hover:bg-white/20 transition">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M16.5 4c.1 1.5-.5 2.9-1.4 3.9-.9 1-2.2 1.8-3.6 1.7-.1-1.5.6-3 1.4-3.9C13.8 4.7 15.1 4 16.5 4z" fill="white"/><path d="M20 17c-.6 1.3-.9 1.9-1.7 3.1-1.1 1.6-2.6 3.6-4.5 3.6-1.7 0-2.1-1.1-4.4-1.1-2.3 0-2.8 1.1-4.5 1-1.9 0-3.3-1.8-4.4-3.4C-1.8 16.6-1 10.8 2.3 8.4c1.6-1.2 3.2-1.3 4.4-1.3 1.3 0 2.5.5 3.4.5.9 0 2-.6 3.5-.6 1.3 0 3.8.1 5.4 2.3-.1.1-3.2 1.9-3.2 5.2.1 3.4 2.6 4.5 2.6 4.5z" fill="white"/></svg>
+        App Store
+      </a>
+      <a href="#" class="btn-press flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 text-white text-sm font-bold hover:bg-white/20 transition">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 3.5v17a1 1 0 0 0 1.6.8L13 15l-3-3-6 3.5z" fill="white"/><path d="M4 3.5L13 9l3-3L5.6 2.7A1 1 0 0 0 4 3.5z" fill="white"/></svg>
+        Google Play
+      </a>
+    </div>
+    <p class="text-xs text-gray-500">© 2026 饌意科技股份有限公司 TasteGo Inc. 版權所有,保留一切權利。</p>
+  </div>
+</footer>
+
+</body>
+</html>

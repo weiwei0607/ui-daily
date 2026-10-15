@@ -1,0 +1,361 @@
+<!-- style #33 Comparative Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>方案透視 PlanScope ・ 訂閱方案 A/B 測試比較</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --bg: #0b1220;
+    --surface-1: #111827;
+    --surface-2: #1e293b;
+    --surface-3: #334155;
+    --ink-primary: #e5e9f0;
+    --ink-secondary: #94a3b8;
+    --ink-muted: #64748b;
+    --border: #2a3648;
+    --brand-a: #818cf8;
+    --brand-b: #38bdf8;
+    --good: #10b981;
+    --good-soft: rgba(16,185,129,0.14);
+    --bad: #ef4444;
+    --bad-soft: rgba(239,68,68,0.14);
+  }
+  html,body{ background: var(--bg); }
+  body{
+    font-family:'Sora','Noto Sans TC',sans-serif;
+    color: var(--ink-primary);
+    -webkit-font-smoothing:antialiased;
+    overflow-x: hidden;
+  }
+  .mono{ font-family:'JetBrains Mono','Noto Sans TC',monospace; font-feature-settings:"tnum" 1; }
+  .card{
+    background: linear-gradient(180deg, var(--surface-1), var(--surface-1));
+    border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+  .card-2{ background: var(--surface-2); border:1px solid var(--border); border-radius:14px; }
+  .chip-good{ background: var(--good-soft); color: var(--good); }
+  .chip-bad{ background: var(--bad-soft); color: var(--bad); }
+  .divider{ border-color: var(--border); }
+  table.compare th, table.compare td{ border-color: var(--border); }
+  .scrollbar-thin::-webkit-scrollbar{ height:8px; }
+  .scrollbar-thin::-webkit-scrollbar-thumb{ background: var(--surface-3); border-radius:8px; }
+  .pill{ border:1px solid var(--border); }
+  @media (max-width: 420px){
+    .kpi-grid{ grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body class="min-h-screen">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
+
+    <!-- Header -->
+    <header class="flex flex-col gap-4 mb-8">
+      <div class="flex items-start justify-between gap-4 flex-wrap">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-[var(--surface-2)] border border-[var(--border)] text-sm font-bold" style="color:var(--brand-b)">PS</span>
+            <h1 class="text-xl sm:text-2xl font-bold tracking-tight">方案透視 <span class="text-[var(--ink-secondary)] font-medium">PlanScope</span></h1>
+          </div>
+          <p class="text-sm text-[var(--ink-secondary)]">訂閱方案 A/B 測試比較後台 ・ 方案 A：原版　vs　方案 B：新版</p>
+        </div>
+        <div class="flex items-center gap-2 text-xs">
+          <span class="pill px-3 py-1.5 rounded-full text-[var(--ink-secondary)]">測試期間：2026/10/08 – 2026/10/14</span>
+          <span class="pill px-3 py-1.5 rounded-full text-[var(--ink-secondary)]">樣本數：A 組 12,840 ・ B 組 12,915</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 text-xs text-[var(--ink-muted)]">
+        <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full" style="background:var(--brand-a)"></span>方案 A・原版</span>
+        <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full" style="background:var(--brand-b)"></span>方案 B・新版</span>
+        <span class="ml-auto">資料更新於 2026/10/15 09:12</span>
+      </div>
+    </header>
+
+    <!-- KPI comparison cards -->
+    <section class="grid kpi-grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+
+      <!-- KPI 1 -->
+      <div class="card p-5">
+        <p class="text-xs text-[var(--ink-secondary)] mb-3">訂閱轉換率</p>
+        <div class="flex items-end justify-between gap-3">
+          <div>
+            <p class="text-[10px] text-[var(--ink-muted)] mb-0.5">方案 A</p>
+            <p class="mono text-2xl font-semibold text-[var(--ink-primary)]">4.18<span class="text-sm text-[var(--ink-muted)]">%</span></p>
+          </div>
+          <div class="text-right">
+            <p class="text-[10px] text-[var(--ink-muted)] mb-0.5">方案 B</p>
+            <p class="mono text-2xl font-semibold" style="color:var(--brand-b)">5.37<span class="text-sm text-[var(--ink-muted)]">%</span></p>
+          </div>
+        </div>
+        <div class="mt-3 pt-3 border-t divider flex items-center justify-between">
+          <span class="text-[11px] text-[var(--ink-muted)]">差異</span>
+          <span class="chip-good mono text-xs font-semibold px-2 py-0.5 rounded-md">+1.19pp ・ +28.5%</span>
+        </div>
+      </div>
+
+      <!-- KPI 2 -->
+      <div class="card p-5">
+        <p class="text-xs text-[var(--ink-secondary)] mb-3">平均客單價</p>
+        <div class="flex items-end justify-between gap-3">
+          <div>
+            <p class="text-[10px] text-[var(--ink-muted)] mb-0.5">方案 A</p>
+            <p class="mono text-2xl font-semibold text-[var(--ink-primary)]">NT$<span class="text-2xl">612.4</span></p>
+          </div>
+          <div class="text-right">
+            <p class="text-[10px] text-[var(--ink-muted)] mb-0.5">方案 B</p>
+            <p class="mono text-2xl font-semibold" style="color:var(--brand-b)">NT$<span class="text-2xl">589.7</span></p>
+          </div>
+        </div>
+        <div class="mt-3 pt-3 border-t divider flex items-center justify-between">
+          <span class="text-[11px] text-[var(--ink-muted)]">差異</span>
+          <span class="chip-bad mono text-xs font-semibold px-2 py-0.5 rounded-md">-22.7 ・ -3.7%</span>
+        </div>
+      </div>
+
+      <!-- KPI 3 -->
+      <div class="card p-5">
+        <p class="text-xs text-[var(--ink-secondary)] mb-3">月流失率</p>
+        <div class="flex items-end justify-between gap-3">
+          <div>
+            <p class="text-[10px] text-[var(--ink-muted)] mb-0.5">方案 A</p>
+            <p class="mono text-2xl font-semibold text-[var(--ink-primary)]">6.82<span class="text-sm text-[var(--ink-muted)]">%</span></p>
+          </div>
+          <div class="text-right">
+            <p class="text-[10px] text-[var(--ink-muted)] mb-0.5">方案 B</p>
+            <p class="mono text-2xl font-semibold" style="color:var(--brand-b)">5.14<span class="text-sm text-[var(--ink-muted)]">%</span></p>
+          </div>
+        </div>
+        <div class="mt-3 pt-3 border-t divider flex items-center justify-between">
+          <span class="text-[11px] text-[var(--ink-muted)]">差異</span>
+          <span class="chip-good mono text-xs font-semibold px-2 py-0.5 rounded-md">-1.68pp ・ -24.6%</span>
+        </div>
+      </div>
+
+      <!-- KPI 4 -->
+      <div class="card p-5">
+        <p class="text-xs text-[var(--ink-secondary)] mb-3">每用戶月均營收 ARPU</p>
+        <div class="flex items-end justify-between gap-3">
+          <div>
+            <p class="text-[10px] text-[var(--ink-muted)] mb-0.5">方案 A</p>
+            <p class="mono text-2xl font-semibold text-[var(--ink-primary)]">NT$<span class="text-2xl">25.6</span></p>
+          </div>
+          <div class="text-right">
+            <p class="text-[10px] text-[var(--ink-muted)] mb-0.5">方案 B</p>
+            <p class="mono text-2xl font-semibold" style="color:var(--brand-b)">NT$<span class="text-2xl">31.7</span></p>
+          </div>
+        </div>
+        <div class="mt-3 pt-3 border-t divider flex items-center justify-between">
+          <span class="text-[11px] text-[var(--ink-muted)]">差異</span>
+          <span class="chip-good mono text-xs font-semibold px-2 py-0.5 rounded-md">+6.1 ・ +23.8%</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chart section -->
+    <section class="card p-5 sm:p-6 mb-8">
+      <div class="flex items-center justify-between mb-1 flex-wrap gap-2">
+        <h2 class="text-sm font-semibold text-[var(--ink-primary)]">過去 7 天｜每日訂閱轉換率走勢（並排對比）</h2>
+        <div class="flex items-center gap-3 text-xs text-[var(--ink-muted)]">
+          <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm" style="background:var(--brand-a)"></span>方案 A</span>
+          <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm" style="background:var(--brand-b)"></span>方案 B</span>
+        </div>
+      </div>
+      <p class="text-xs text-[var(--ink-muted)] mb-4">單位：轉換率（%），兩方案採同流量分組、每日 00:00 結算</p>
+
+      <div class="w-full overflow-x-auto scrollbar-thin">
+        <svg viewBox="0 0 760 300" class="w-full" style="min-width:560px; height:auto;" role="img" aria-label="過去七天方案A與方案B的轉換率並排長條圖對比">
+          <!-- gridlines -->
+          <g stroke="#2a3648" stroke-width="1">
+            <line x1="56" y1="40"  x2="740" y2="40" />
+            <line x1="56" y1="92"  x2="740" y2="92" />
+            <line x1="56" y1="144" x2="740" y2="144" />
+            <line x1="56" y1="196" x2="740" y2="196" />
+            <line x1="56" y1="248" x2="740" y2="248" />
+          </g>
+          <!-- y axis labels -->
+          <g fill="#64748b" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="end">
+            <text x="48" y="44">6.0%</text>
+            <text x="48" y="96">4.5%</text>
+            <text x="48" y="148">3.0%</text>
+            <text x="48" y="200">1.5%</text>
+            <text x="48" y="252">0.0%</text>
+          </g>
+          <!-- baseline -->
+          <line x1="56" y1="248" x2="740" y2="248" stroke="#334155" stroke-width="1.5" />
+
+          <!-- Day 1: Mon A3.72 B4.41 -->
+          <g>
+            <rect x="78"  y="155.2" width="22" height="92.8" rx="4" fill="#818cf8" />
+            <rect x="103" y="138.8" width="22" height="109.2" rx="4" fill="#38bdf8" />
+            <text x="113" y="266" text-anchor="middle" font-family="Noto Sans TC, sans-serif" font-size="11" fill="#94a3b8">週一</text>
+          </g>
+          <!-- Day 2: Tue A3.95 B4.88 -->
+          <g>
+            <rect x="166" y="150.4" width="22" height="97.6"  rx="4" fill="#818cf8" />
+            <rect x="191" y="127.9" width="22" height="120.1" rx="4" fill="#38bdf8" />
+            <text x="201" y="266" text-anchor="middle" font-family="Noto Sans TC, sans-serif" font-size="11" fill="#94a3b8">週二</text>
+          </g>
+          <!-- Day 3: Wed A4.07 B5.02 -->
+          <g>
+            <rect x="254" y="147.9" width="22" height="100.1" rx="4" fill="#818cf8" />
+            <rect x="279" y="124.6" width="22" height="123.4" rx="4" fill="#38bdf8" />
+            <text x="289" y="266" text-anchor="middle" font-family="Noto Sans TC, sans-serif" font-size="11" fill="#94a3b8">週三</text>
+          </g>
+          <!-- Day 4: Thu A3.86 B5.15 -->
+          <g>
+            <rect x="342" y="152.3" width="22" height="95.7"  rx="4" fill="#818cf8" />
+            <rect x="367" y="121.7" width="22" height="126.3" rx="4" fill="#38bdf8" />
+            <text x="377" y="266" text-anchor="middle" font-family="Noto Sans TC, sans-serif" font-size="11" fill="#94a3b8">週四</text>
+          </g>
+          <!-- Day 5: Fri A4.21 B5.49 -->
+          <g>
+            <rect x="430" y="144.9" width="22" height="103.1" rx="4" fill="#818cf8" />
+            <rect x="455" y="117.1" width="22" height="130.9" rx="4" fill="#38bdf8" />
+            <text x="465" y="266" text-anchor="middle" font-family="Noto Sans TC, sans-serif" font-size="11" fill="#94a3b8">週五</text>
+          </g>
+          <!-- Day 6: Sat A4.63 B5.88 -->
+          <g>
+            <rect x="518" y="135.6" width="22" height="112.4" rx="4" fill="#818cf8" />
+            <rect x="543" y="108.5" width="22" height="139.5" rx="4" fill="#38bdf8" />
+            <text x="553" y="266" text-anchor="middle" font-family="Noto Sans TC, sans-serif" font-size="11" fill="#94a3b8">週六</text>
+          </g>
+          <!-- Day 7: Sun A4.44 B6.09 -->
+          <g>
+            <rect x="606" y="139.8" width="22" height="108.2" rx="4" fill="#818cf8" />
+            <rect x="631" y="103.8" width="22" height="144.2" rx="4" fill="#38bdf8" />
+            <text x="641" y="266" text-anchor="middle" font-family="Noto Sans TC, sans-serif" font-size="11" fill="#94a3b8">週日</text>
+          </g>
+
+          <!-- value labels on last day to call out current state -->
+          <g font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">
+            <text x="617" y="134" fill="#818cf8" font-weight="600">4.44</text>
+            <text x="642" y="98"  fill="#38bdf8" font-weight="600">6.09</text>
+          </g>
+        </svg>
+      </div>
+      <p class="text-[11px] text-[var(--ink-muted)] mt-3">觀察：方案 B 在測試期間每日轉換率皆高於方案 A，且週末（週六、週日）差距擴大至 1.65pp 以上，推測與新版結帳流程的免輸入信用卡驗證有關。</p>
+    </section>
+
+    <!-- Detail comparison table -->
+    <section class="card p-5 sm:p-6 mb-8">
+      <h2 class="text-sm font-semibold text-[var(--ink-primary)] mb-1">指標明細比較</h2>
+      <p class="text-xs text-[var(--ink-muted)] mb-4">綠色代表方案 B 表現較佳，紅色代表方案 B 表現較差（以業務目標方向判定，非單純數值大小）</p>
+
+      <div class="overflow-x-auto scrollbar-thin -mx-1">
+        <table class="compare w-full text-sm border-collapse min-w-[640px]">
+          <thead>
+            <tr class="text-left text-[11px] text-[var(--ink-muted)]">
+              <th class="py-2.5 px-3 font-medium border-b">指標</th>
+              <th class="py-2.5 px-3 font-medium border-b text-right">方案 A・原版</th>
+              <th class="py-2.5 px-3 font-medium border-b text-right">方案 B・新版</th>
+              <th class="py-2.5 px-3 font-medium border-b text-right">差異</th>
+            </tr>
+          </thead>
+          <tbody class="text-[var(--ink-primary)]">
+            <tr class="hover:bg-[var(--surface-2)]/40 transition-colors">
+              <td class="py-2.5 px-3 border-b">訂閱轉換率</td>
+              <td class="py-2.5 px-3 border-b mono text-right">4.18%</td>
+              <td class="py-2.5 px-3 border-b mono text-right">5.37%</td>
+              <td class="py-2.5 px-3 border-b mono text-right"><span class="chip-good px-2 py-0.5 rounded-md">+1.19pp</span></td>
+            </tr>
+            <tr class="hover:bg-[var(--surface-2)]/40 transition-colors">
+              <td class="py-2.5 px-3 border-b">平均客單價（NT$）</td>
+              <td class="py-2.5 px-3 border-b mono text-right">612.40</td>
+              <td class="py-2.5 px-3 border-b mono text-right">589.70</td>
+              <td class="py-2.5 px-3 border-b mono text-right"><span class="chip-bad px-2 py-0.5 rounded-md">-22.70</span></td>
+            </tr>
+            <tr class="hover:bg-[var(--surface-2)]/40 transition-colors">
+              <td class="py-2.5 px-3 border-b">月流失率</td>
+              <td class="py-2.5 px-3 border-b mono text-right">6.82%</td>
+              <td class="py-2.5 px-3 border-b mono text-right">5.14%</td>
+              <td class="py-2.5 px-3 border-b mono text-right"><span class="chip-good px-2 py-0.5 rounded-md">-1.68pp</span></td>
+            </tr>
+            <tr class="hover:bg-[var(--surface-2)]/40 transition-colors">
+              <td class="py-2.5 px-3 border-b">新客佔比</td>
+              <td class="py-2.5 px-3 border-b mono text-right">38.6%</td>
+              <td class="py-2.5 px-3 border-b mono text-right">44.9%</td>
+              <td class="py-2.5 px-3 border-b mono text-right"><span class="chip-good px-2 py-0.5 rounded-md">+6.3pp</span></td>
+            </tr>
+            <tr class="hover:bg-[var(--surface-2)]/40 transition-colors">
+              <td class="py-2.5 px-3 border-b">每用戶月均營收 ARPU（NT$）</td>
+              <td class="py-2.5 px-3 border-b mono text-right">25.60</td>
+              <td class="py-2.5 px-3 border-b mono text-right">31.70</td>
+              <td class="py-2.5 px-3 border-b mono text-right"><span class="chip-good px-2 py-0.5 rounded-md">+6.10</span></td>
+            </tr>
+            <tr class="hover:bg-[var(--surface-2)]/40 transition-colors">
+              <td class="py-2.5 px-3 border-b">7 日留存率</td>
+              <td class="py-2.5 px-3 border-b mono text-right">71.3%</td>
+              <td class="py-2.5 px-3 border-b mono text-right">76.8%</td>
+              <td class="py-2.5 px-3 border-b mono text-right"><span class="chip-good px-2 py-0.5 rounded-md">+5.5pp</span></td>
+            </tr>
+            <tr class="hover:bg-[var(--surface-2)]/40 transition-colors">
+              <td class="py-2.5 px-3 border-b">結帳放棄率</td>
+              <td class="py-2.5 px-3 border-b mono text-right">29.4%</td>
+              <td class="py-2.5 px-3 border-b mono text-right">21.8%</td>
+              <td class="py-2.5 px-3 border-b mono text-right"><span class="chip-good px-2 py-0.5 rounded-md">-7.6pp</span></td>
+            </tr>
+            <tr class="hover:bg-[var(--surface-2)]/40 transition-colors">
+              <td class="py-2.5 px-3 border-b">客服申訴率（每千訂閱）</td>
+              <td class="py-2.5 px-3 border-b mono text-right">4.37</td>
+              <td class="py-2.5 px-3 border-b mono text-right">5.92</td>
+              <td class="py-2.5 px-3 border-b mono text-right"><span class="chip-bad px-2 py-0.5 rounded-md">+1.55</span></td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3">升級至年繳方案比例</td>
+              <td class="py-2.5 px-3 mono text-right">12.9%</td>
+              <td class="py-2.5 px-3 mono text-right">17.3%</td>
+              <td class="py-2.5 px-3 mono text-right"><span class="chip-good px-2 py-0.5 rounded-md">+4.4pp</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Footer action area -->
+    <section class="card-2 p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div>
+        <p class="text-sm font-semibold text-[var(--ink-primary)] mb-1">結論與建議</p>
+        <p class="text-xs text-[var(--ink-secondary)] max-w-xl leading-relaxed">方案 B 在轉換率、流失率、留存率與 ARPU 上全面優於方案 A，唯客單價略低、客服申訴率略升，建議套用方案 B 為正式版，並同步追蹤客服申訴原因。</p>
+      </div>
+      <div class="flex items-center gap-3 shrink-0">
+        <button id="btn-detail" type="button" class="pill px-4 py-2.5 rounded-lg text-xs font-medium text-[var(--ink-secondary)] hover:text-[var(--ink-primary)] hover:bg-[var(--surface-3)]/40 transition-colors">查看完整報告</button>
+        <button id="btn-apply" type="button" class="px-5 py-2.5 rounded-lg text-xs font-semibold text-white transition-transform active:scale-95" style="background: linear-gradient(135deg, var(--brand-a), var(--brand-b));">套用方案 B</button>
+      </div>
+    </section>
+    <p id="apply-feedback" class="text-xs text-[var(--good)] mt-3 text-right hidden">已將方案 B 設為正式發行版本（示意操作，未連接後端）。</p>
+
+    <footer class="text-center text-[11px] text-[var(--ink-muted)] mt-10 pb-4">
+      方案透視 PlanScope ・ 內部資料儀表板 ・ 僅供團隊內部決策參考
+    </footer>
+  </div>
+
+  <script>
+    (function(){
+      try{
+        var btn = document.getElementById('btn-apply');
+        var feedback = document.getElementById('apply-feedback');
+        var detailBtn = document.getElementById('btn-detail');
+        if(btn && feedback){
+          btn.addEventListener('click', function(){
+            feedback.classList.remove('hidden');
+            btn.textContent = '已套用方案 B';
+            btn.disabled = true;
+            btn.style.opacity = '0.7';
+          });
+        }
+        if(detailBtn){
+          detailBtn.addEventListener('click', function(){
+            detailBtn.textContent = '報告整理中，稍後通知';
+          });
+        }
+      }catch(e){ /* no-op: 純前端示意操作 */ }
+    })();
+  </script>
+</body>
+</html>

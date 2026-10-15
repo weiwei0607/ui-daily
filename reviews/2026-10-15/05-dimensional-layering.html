@@ -1,0 +1,403 @@
+<!-- style #46 Dimensional Layering -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>疊境 Strata Studio｜空間設計與訂製家具事務所</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --bg:#f8f9fa;
+    --bg-alt:#e9ecef;
+    --ink:#212529;
+    --ink-soft:#495057;
+    --accent:#2b4c7e;
+    --accent-dim:#5a7aa8;
+    --paper:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Noto Sans TC','Manrope',sans-serif;
+    overflow-x:hidden;
+    width:100%;
+  }
+  .font-display{
+    font-family:'Manrope','Noto Sans TC',sans-serif;
+  }
+  .num-font{
+    font-family:'Manrope',sans-serif;
+    font-weight:700;
+  }
+
+  /* ---------- Dimensional Layering core system ---------- */
+  /* 景深層次：每一層用不同的位移與陰影深度疊出前後景 */
+  .layer-1{
+    box-shadow:
+      0 1px 2px rgba(33,37,41,0.04),
+      0 2px 4px rgba(33,37,41,0.04);
+  }
+  .layer-2{
+    box-shadow:
+      0 2px 4px rgba(33,37,41,0.05),
+      0 6px 12px rgba(33,37,41,0.06),
+      0 12px 24px rgba(33,37,41,0.05);
+  }
+  .layer-3{
+    box-shadow:
+      0 2px 4px rgba(33,37,41,0.06),
+      0 10px 20px rgba(33,37,41,0.08),
+      0 24px 48px rgba(33,37,41,0.09),
+      0 1px 0 rgba(255,255,255,0.6) inset;
+  }
+  .layer-4{
+    box-shadow:
+      0 3px 6px rgba(33,37,41,0.07),
+      0 14px 28px rgba(33,37,41,0.10),
+      0 32px 64px rgba(33,37,41,0.12),
+      0 2px 0 rgba(255,255,255,0.7) inset;
+  }
+
+  .depth-card{
+    position:relative;
+    background:var(--paper);
+    border-radius:18px;
+    transition:transform 0.45s cubic-bezier(0.16,1,0.3,1), box-shadow 0.45s cubic-bezier(0.16,1,0.3,1);
+    will-change:transform;
+  }
+  .depth-card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:18px;
+    border:1px solid rgba(33,37,41,0.06);
+    pointer-events:none;
+  }
+  .depth-card:hover{
+    transform:translateY(-10px) translateX(-2px) scale(1.012);
+    box-shadow:
+      0 6px 10px rgba(33,37,41,0.08),
+      0 20px 36px rgba(33,37,41,0.12),
+      0 48px 80px rgba(43,76,126,0.16),
+      0 2px 0 rgba(255,255,255,0.8) inset;
+  }
+
+  /* stagger base offsets for visual rhythm — simulates physical stacking */
+  .stack-a{ transform:translateY(0) translateX(0); }
+  .stack-b{ transform:translateY(14px) translateX(0); }
+  .stack-c{ transform:translateY(6px) translateX(0); }
+  @media (min-width:768px){
+    .stack-a{ transform:translateY(0) translateX(0); }
+    .stack-b{ transform:translateY(28px) translateX(6px); }
+    .stack-c{ transform:translateY(10px) translateX(-4px); }
+  }
+  .stack-a:hover, .stack-b:hover, .stack-c:hover{
+    transform:translateY(-10px) translateX(-2px) scale(1.012) !important;
+  }
+
+  /* floating background plates for ambient depth */
+  .ambient-plate{
+    position:absolute;
+    border-radius:24px;
+    background:linear-gradient(145deg,#ffffff,var(--bg-alt));
+    box-shadow:0 20px 50px rgba(33,37,41,0.10);
+    z-index:0;
+  }
+
+  .tag-chip{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:12px;
+    letter-spacing:0.04em;
+    padding:4px 12px;
+    border-radius:100px;
+    background:var(--bg-alt);
+    color:var(--ink-soft);
+    box-shadow:0 1px 2px rgba(33,37,41,0.08) inset, 0 1px 0 rgba(255,255,255,0.6);
+  }
+
+  .divider-depth{
+    height:2px;
+    width:64px;
+    background:linear-gradient(90deg,var(--accent),transparent);
+    box-shadow:0 2px 4px rgba(43,76,126,0.25);
+  }
+
+  .principle-card{
+    background:var(--paper);
+    border-radius:16px;
+    padding:28px;
+    transition:transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s cubic-bezier(0.16,1,0.3,1);
+  }
+  .principle-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 16px 32px rgba(33,37,41,0.10), 0 4px 8px rgba(33,37,41,0.06);
+  }
+
+  .btn-raised{
+    background:var(--accent);
+    color:#fff;
+    box-shadow:
+      0 2px 4px rgba(43,76,126,0.3),
+      0 8px 16px rgba(43,76,126,0.25),
+      0 1px 0 rgba(255,255,255,0.2) inset;
+    transition:transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s cubic-bezier(0.16,1,0.3,1);
+  }
+  .btn-raised:hover{
+    transform:translateY(-3px);
+    box-shadow:
+      0 4px 8px rgba(43,76,126,0.35),
+      0 14px 28px rgba(43,76,126,0.32),
+      0 1px 0 rgba(255,255,255,0.25) inset;
+  }
+  .btn-outline-raised{
+    background:var(--paper);
+    color:var(--ink);
+    box-shadow:0 2px 4px rgba(33,37,41,0.08), 0 8px 16px rgba(33,37,41,0.06);
+    border:1px solid rgba(33,37,41,0.1);
+    transition:transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s cubic-bezier(0.16,1,0.3,1);
+  }
+  .btn-outline-raised:hover{
+    transform:translateY(-3px);
+    box-shadow:0 6px 12px rgba(33,37,41,0.10), 0 16px 28px rgba(33,37,41,0.09);
+  }
+
+  .contact-panel{
+    background:linear-gradient(155deg,#ffffff 0%, var(--bg-alt) 100%);
+    border-radius:24px;
+    box-shadow:
+      0 4px 8px rgba(33,37,41,0.06),
+      0 20px 40px rgba(33,37,41,0.09),
+      0 48px 90px rgba(33,37,41,0.08);
+  }
+
+  .nav-plate{
+    background:rgba(248,249,250,0.85);
+    backdrop-filter:blur(10px);
+    box-shadow:0 1px 0 rgba(33,37,41,0.06), 0 8px 20px rgba(33,37,41,0.05);
+  }
+
+  ::selection{ background:var(--accent); color:#fff; }
+</style>
+</head>
+<body class="antialiased">
+
+  <!-- NAV -->
+  <nav class="nav-plate fixed top-0 inset-x-0 z-50">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 py-4 flex items-center justify-between">
+      <div class="font-display font-extrabold text-lg tracking-tight" style="color:var(--ink);">
+        疊境 <span style="color:var(--accent);">Strata Studio</span>
+      </div>
+      <div class="hidden md:flex items-center gap-8 text-sm" style="color:var(--ink-soft);">
+        <a href="#works" class="hover:text-[var(--accent)] transition-colors">作品集</a>
+        <a href="#philosophy" class="hover:text-[var(--accent)] transition-colors">設計理念</a>
+        <a href="#contact" class="hover:text-[var(--accent)] transition-colors">預約諮詢</a>
+      </div>
+      <a href="#contact" class="btn-raised font-display text-sm font-semibold px-4 py-2 rounded-full">預約諮詢</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="relative pt-32 pb-24 px-5 sm:px-8 max-w-6xl mx-auto">
+    <div class="ambient-plate hidden sm:block" style="width:220px;height:220px;top:40px;right:0;opacity:0.5;transform:rotate(8deg);"></div>
+    <div class="ambient-plate hidden sm:block" style="width:140px;height:140px;top:260px;right:80px;opacity:0.4;transform:rotate(-6deg);"></div>
+
+    <div class="relative z-10 max-w-3xl">
+      <span class="tag-chip">空間設計 × 訂製家具 × 建築改造</span>
+      <h1 class="font-display font-extrabold leading-tight mt-6" style="font-size:clamp(2rem,5vw,3.4rem);color:var(--ink);">
+        在層層堆疊的光與影之間，<br class="hidden sm:block">找到空間真正的重量。
+      </h1>
+      <p class="mt-6 text-base sm:text-lg leading-relaxed max-w-xl" style="color:var(--ink-soft);">
+        疊境 Strata Studio 成立於 2015 年，專注於住宅改造、商業空間規劃與訂製家具設計。我們相信好的空間不是一次成形的，而是像地層一樣，由時間、材質與生活痕跡層層疊起——我們的工作，是把這些層次梳理得清晰而有秩序。
+      </p>
+      <div class="flex flex-wrap gap-4 mt-10">
+        <a href="#contact" class="btn-raised font-display font-semibold px-7 py-3.5 rounded-full text-base">預約空間諮詢</a>
+        <a href="#works" class="btn-outline-raised font-display font-semibold px-7 py-3.5 rounded-full text-base">瀏覽作品集</a>
+      </div>
+      <div class="flex gap-10 mt-14 flex-wrap">
+        <div>
+          <div class="num-font text-3xl" style="color:var(--accent);">87</div>
+          <div class="text-sm mt-1" style="color:var(--ink-soft);">完成案例</div>
+        </div>
+        <div>
+          <div class="num-font text-3xl" style="color:var(--accent);">11</div>
+          <div class="text-sm mt-1" style="color:var(--ink-soft);">年執業經驗</div>
+        </div>
+        <div>
+          <div class="num-font text-3xl" style="color:var(--accent);">4</div>
+          <div class="text-sm mt-1" style="color:var(--ink-soft);">城市服務據點</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- WORKS -->
+  <section id="works" class="relative px-5 sm:px-8 max-w-6xl mx-auto py-20">
+    <div class="flex items-end justify-between flex-wrap gap-4 mb-14">
+      <div>
+        <div class="divider-depth mb-4"></div>
+        <h2 class="font-display font-extrabold text-2xl sm:text-3xl" style="color:var(--ink);">案例作品集</h2>
+        <p class="mt-3 text-sm sm:text-base max-w-md" style="color:var(--ink-soft);">每個案子都是一次對場地與生活方式的重新測量，以下是近年的部分代表作。</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-20">
+
+      <!-- Case 1 -->
+      <article class="depth-card layer-3 stack-a p-7 sm:p-8">
+        <span class="tag-chip">獨棟住宅改造</span>
+        <h3 class="font-display font-bold text-xl mt-4" style="color:var(--ink);">山居：陽明山獨棟住宅改造</h3>
+        <p class="mt-3 text-sm leading-relaxed" style="color:var(--ink-soft);">
+          屋主希望保留三十年老屋的實木梁柱與原有地基配置，我們拆除後期增建的輕隔間，重新引入自然採光動線，並以訂製的胡桃木收納牆取代原本破碎的儲物空間，讓整棟屋子重新呼吸。
+        </p>
+        <div class="flex gap-2 mt-5 flex-wrap">
+          <span class="tag-chip">實木結構保留</span>
+          <span class="tag-chip">採光動線</span>
+        </div>
+      </article>
+
+      <!-- Case 2 -->
+      <article class="depth-card layer-4 stack-b p-7 sm:p-8">
+        <span class="tag-chip">商業空間規劃</span>
+        <h3 class="font-display font-bold text-xl mt-4" style="color:var(--ink);">迴光：台北老屋咖啡館空間規劃</h3>
+        <p class="mt-3 text-sm leading-relaxed" style="color:var(--ink-soft);">
+          位於迪化街的日式町屋改建案，我們保留原有磨石子地板與木窗格,將吧台退縮至建築後段,讓午後光線能沿著天井灑進整個座位區,並訂製了一組可依人流彈性拆併的卡座家具。
+        </p>
+        <div class="flex gap-2 mt-5 flex-wrap">
+          <span class="tag-chip">町屋再生</span>
+          <span class="tag-chip">彈性座位系統</span>
+        </div>
+      </article>
+
+      <!-- Case 3 -->
+      <article class="depth-card layer-2 stack-c p-7 sm:p-8">
+        <span class="tag-chip">訂製家具設計</span>
+        <h3 class="font-display font-bold text-xl mt-4" style="color:var(--ink);">層岩：大安區公寓訂製書房家具</h3>
+        <p class="mt-3 text-sm leading-relaxed" style="color:var(--ink-soft);">
+          為一位藏書量驚人的譯者打造的書房,我們以模組化的鐵件與橡木層架,沿牆面堆疊出三層不同深度的書牆,下層藏書、中層工作、上層展示,讓藏書量再大也不顯雜亂。
+        </p>
+        <div class="flex gap-2 mt-5 flex-wrap">
+          <span class="tag-chip">模組層架</span>
+          <span class="tag-chip">鐵件 × 橡木</span>
+        </div>
+      </article>
+
+      <!-- Case 4 -->
+      <article class="depth-card layer-3 stack-a p-7 sm:p-8">
+        <span class="tag-chip">辦公空間規劃</span>
+        <h3 class="font-display font-bold text-xl mt-4" style="color:var(--ink);">基石：內湖新創公司辦公室改造</h3>
+        <p class="mt-3 text-sm leading-relaxed" style="color:var(--ink-soft);">
+          原為標準格子辦公室的樓層,我們重新規劃為階梯式的開放工作區,利用高低錯落的平台劃分安靜工作區與討論區,並訂製一系列可依會議人數重組的多功能桌椅。
+        </p>
+        <div class="flex gap-2 mt-5 flex-wrap">
+          <span class="tag-chip">階梯式平面</span>
+          <span class="tag-chip">多功能家具</span>
+        </div>
+      </article>
+
+      <!-- Case 5 -->
+      <article class="depth-card layer-4 stack-b p-7 sm:p-8">
+        <span class="tag-chip">老屋翻新</span>
+        <h3 class="font-display font-bold text-xl mt-4" style="color:var(--ink);">潮位：淡水河岸透天厝翻新</h3>
+        <p class="mt-3 text-sm leading-relaxed" style="color:var(--ink-soft);">
+          屋主一家三代同住,我們依照生活時段差異重新分配樓層動線,一樓留給長輩與日常起居,二、三樓規劃為獨立套房,並訂製一套可收折的餐桌系統,因應不同人數的團聚場合。
+        </p>
+        <div class="flex gap-2 mt-5 flex-wrap">
+          <span class="tag-chip">三代同堂規劃</span>
+          <span class="tag-chip">可收折家具</span>
+        </div>
+      </article>
+
+      <!-- Case 6 -->
+      <article class="depth-card layer-2 stack-c p-7 sm:p-8">
+        <span class="tag-chip">展示空間設計</span>
+        <h3 class="font-display font-bold text-xl mt-4" style="color:var(--ink);">積層：新竹工作室展示間規劃</h3>
+        <p class="mt-3 text-sm leading-relaxed" style="color:var(--ink-soft);">
+          一間木工品牌的展售空間,我們以不同高度的展台堆疊出展品的觀看順序,讓參觀者的視線自然從入口的大型家具,逐步聚焦到角落的小型工藝品,形成一段有節奏的動線敘事。
+        </p>
+        <div class="flex gap-2 mt-5 flex-wrap">
+          <span class="tag-chip">展台堆疊</span>
+          <span class="tag-chip">動線敘事</span>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section id="philosophy" class="relative px-5 sm:px-8 max-w-6xl mx-auto py-20">
+    <div class="ambient-plate hidden md:block" style="width:180px;height:180px;top:0;left:-40px;opacity:0.4;transform:rotate(-10deg);"></div>
+    <div class="relative z-10 max-w-2xl mb-14">
+      <div class="divider-depth mb-4"></div>
+      <h2 class="font-display font-extrabold text-2xl sm:text-3xl" style="color:var(--ink);">設計理念</h2>
+      <p class="mt-4 text-sm sm:text-base leading-relaxed" style="color:var(--ink-soft);">
+        我們把每個空間都當成地質剖面來閱讀——生活習慣、建築結構、光線時序、材質觸感,一層一層疊加,才構成最後讓人安心的居所。設計不是覆蓋掉原本的痕跡,而是把這些層次整理得有條理,讓人一眼就能讀懂空間的來歷。
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="principle-card layer-2">
+        <div class="num-font text-2xl mb-3" style="color:var(--accent);">01</div>
+        <h3 class="font-display font-bold text-lg mb-2" style="color:var(--ink);">先讀場地,再談設計</h3>
+        <p class="text-sm leading-relaxed" style="color:var(--ink-soft);">動工前我們會花上數週時間記錄光線路徑、既有結構與居住者的生活節奏,讓方案長在場地本身的條件上,而不是套用現成的樣式。</p>
+      </div>
+      <div class="principle-card layer-2">
+        <div class="num-font text-2xl mb-3" style="color:var(--accent);">02</div>
+        <h3 class="font-display font-bold text-lg mb-2" style="color:var(--ink);">家具是空間的骨架</h3>
+        <p class="text-sm leading-relaxed" style="color:var(--ink-soft);">我們極少使用現成家具,訂製的尺寸與材質能讓家具與空間結構真正咬合,而不只是擺放在裡面的物件。</p>
+      </div>
+      <div class="principle-card layer-2">
+        <div class="num-font text-2xl mb-3" style="color:var(--accent);">03</div>
+        <h3 class="font-display font-bold text-lg mb-2" style="color:var(--ink);">保留時間留下的痕跡</h3>
+        <p class="text-sm leading-relaxed" style="color:var(--ink-soft);">老屋的裂紋、斑駁的磨石子地板,這些都不是需要被抹除的缺陷,而是空間故事裡最誠實的一層。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="px-5 sm:px-8 max-w-6xl mx-auto py-20">
+    <div class="contact-panel p-8 sm:p-14">
+      <div class="max-w-2xl">
+        <div class="divider-depth mb-4"></div>
+        <h2 class="font-display font-extrabold text-2xl sm:text-3xl" style="color:var(--ink);">預約空間諮詢</h2>
+        <p class="mt-4 text-sm sm:text-base leading-relaxed" style="color:var(--ink-soft);">
+          無論是老屋翻新、全新空間規劃,或是單純想訂製一件合身的家具,都歡迎先與我們聊聊。我們會先安排一次現場勘查,了解場地狀況與您的生活習慣,再提出合適的設計方向與報價範圍。
+        </p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10">
+        <div class="depth-card layer-2 p-6">
+          <div class="text-xs tracking-wide" style="color:var(--ink-soft);">工作室地址</div>
+          <div class="font-display font-semibold mt-2" style="color:var(--ink);">台北市大安區復興南路一段 88 號 3 樓</div>
+        </div>
+        <div class="depth-card layer-2 p-6">
+          <div class="text-xs tracking-wide" style="color:var(--ink-soft);">聯絡電話</div>
+          <div class="font-display font-semibold mt-2" style="color:var(--ink);">02-2731-5566</div>
+        </div>
+        <div class="depth-card layer-2 p-6">
+          <div class="text-xs tracking-wide" style="color:var(--ink-soft);">電子信箱</div>
+          <div class="font-display font-semibold mt-2 break-all" style="color:var(--ink);">hello@strata-studio.tw</div>
+        </div>
+      </div>
+      <div class="mt-10">
+        <a href="#" class="btn-raised font-display font-semibold px-8 py-3.5 rounded-full text-base inline-block">填寫諮詢表單</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="px-5 sm:px-8 max-w-6xl mx-auto py-10 border-t" style="border-color:rgba(33,37,41,0.08);">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div class="font-display font-bold" style="color:var(--ink);">疊境 Strata Studio</div>
+      <div class="text-xs sm:text-sm" style="color:var(--ink-soft);">© 2026 Strata Studio 空間設計事務所。保留所有權利。</div>
+    </div>
+    <div class="text-xs mt-3" style="color:var(--ink-soft);">台北 · 台中 · 台南 · 高雄　服務範圍涵蓋全台</div>
+  </footer>
+
+</body>
+</html>
