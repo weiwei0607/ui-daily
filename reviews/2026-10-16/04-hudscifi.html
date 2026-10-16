@@ -1,0 +1,503 @@
+<!-- style #51 HUD / Sci-Fi -->
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>寰宇鷹眼 AEGIS-VII ‖ 艦隊即時監控中樞</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --cyan:#00ffff;
+    --cyan-soft:#7dfdfd;
+    --cyan-dim:rgba(0,255,255,0.35);
+    --bg-deep:#000000;
+    --bg-panel:#060a10;
+    --bg-panel2:#0a0e14;
+    --amber:#ffb000;
+    --red:#ff3860;
+    --green:#39ff88;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{
+    margin:0;
+    padding:0;
+    background:var(--bg-deep);
+    color:var(--cyan-soft);
+    font-family:'Noto Sans TC','Share Tech Mono',monospace;
+    overflow-x:hidden;
+  }
+
+  body{
+    background:
+      radial-gradient(ellipse at 50% -10%, rgba(0,255,255,0.08), transparent 60%),
+      repeating-linear-gradient(0deg, rgba(0,255,255,0.025) 0px, rgba(0,255,255,0.025) 1px, transparent 1px, transparent 3px),
+      var(--bg-deep);
+    min-height:100vh;
+    position:relative;
+  }
+
+  .font-display{ font-family:'Orbitron','Noto Sans TC',sans-serif; letter-spacing:0.04em; }
+  .font-data{ font-family:'Share Tech Mono', monospace; letter-spacing:0.03em; }
+
+  .glow-text{ text-shadow:0 0 4px var(--cyan), 0 0 12px rgba(0,255,255,0.6); }
+  .glow-text-sm{ text-shadow:0 0 3px rgba(0,255,255,0.7); }
+  .glow-amber{ color:var(--amber); text-shadow:0 0 6px rgba(255,176,0,0.8); }
+  .glow-red{ color:var(--red); text-shadow:0 0 6px rgba(255,56,96,0.85); }
+  .glow-green{ color:var(--green); text-shadow:0 0 6px rgba(57,255,136,0.8); }
+
+  .panel{
+    background:linear-gradient(180deg, rgba(10,20,26,0.9), rgba(2,6,10,0.92));
+    border:1px solid rgba(0,255,255,0.28);
+    box-shadow:0 0 0 1px rgba(0,255,255,0.05) inset, 0 0 20px rgba(0,255,255,0.07);
+    position:relative;
+  }
+
+  .panel::before, .panel::after,
+  .notch-tl::before, .notch-tr::after{ content:""; }
+
+  /* corner notch decoration on panels */
+  .notch{
+    position:absolute;
+    width:14px; height:14px;
+    border:2px solid var(--cyan);
+    opacity:0.85;
+  }
+  .notch-tl{ top:-1px; left:-1px; border-right:none; border-bottom:none; }
+  .notch-tr{ top:-1px; right:-1px; border-left:none; border-bottom:none; }
+  .notch-bl{ bottom:-1px; left:-1px; border-right:none; border-top:none; }
+  .notch-br{ bottom:-1px; right:-1px; border-left:none; border-top:none; }
+
+  /* full-page corner bracket frame */
+  .frame-corner{
+    position:fixed;
+    width:58px; height:58px;
+    border:2px solid var(--cyan);
+    opacity:0.65;
+    pointer-events:none;
+    z-index:40;
+    filter:drop-shadow(0 0 6px rgba(0,255,255,0.7));
+  }
+  .frame-tl{ top:14px; left:14px; border-right:none; border-bottom:none; }
+  .frame-tr{ top:14px; right:14px; border-left:none; border-bottom:none; }
+  .frame-bl{ bottom:14px; left:14px; border-right:none; border-top:none; }
+  .frame-br{ bottom:14px; right:14px; border-left:none; border-top:none; }
+
+  .frame-corner .tick{
+    position:absolute;
+    background:var(--cyan);
+  }
+  .frame-tl .tick{ top:14px; left:0; width:10px; height:2px; }
+  .frame-tr .tick{ top:14px; right:0; width:10px; height:2px; }
+  .frame-bl .tick{ bottom:14px; left:0; width:10px; height:2px; }
+  .frame-br .tick{ bottom:14px; right:0; width:10px; height:2px; }
+
+  /* top / bottom hairline ticks across viewport */
+  .edge-ticks{
+    position:fixed; left:90px; right:90px;
+    height:10px;
+    pointer-events:none;
+    z-index:35;
+    background-image:repeating-linear-gradient(90deg, rgba(0,255,255,0.55) 0 1px, transparent 1px 14px);
+    opacity:0.5;
+  }
+  .edge-ticks.top{ top:14px; }
+  .edge-ticks.bottom{ bottom:14px; }
+
+  /* scanning line animation across whole viewport */
+  .scanline{
+    position:fixed;
+    left:0; right:0;
+    height:2px;
+    width:100%;
+    background:linear-gradient(90deg, transparent, var(--cyan) 20%, var(--cyan-soft) 50%, var(--cyan) 80%, transparent);
+    box-shadow:0 0 8px var(--cyan), 0 0 20px rgba(0,255,255,0.6);
+    opacity:0.55;
+    z-index:30;
+    pointer-events:none;
+    animation:scan-move 5.5s linear infinite;
+  }
+  @keyframes scan-move{
+    0%{ top:0%; opacity:0; }
+    5%{ opacity:0.6; }
+    50%{ opacity:0.75; }
+    95%{ opacity:0; }
+    100%{ top:100%; opacity:0; }
+  }
+
+  /* subtle scanline texture overlay */
+  .crt-overlay{
+    position:fixed; inset:0;
+    background:repeating-linear-gradient(0deg, rgba(0,0,0,0.0) 0px, rgba(0,0,0,0.0) 2px, rgba(0,255,255,0.02) 3px);
+    pointer-events:none;
+    z-index:5;
+  }
+
+  .status-dot{
+    width:9px; height:9px;
+    border-radius:50%;
+    display:inline-block;
+    box-shadow:0 0 6px currentColor, 0 0 14px currentColor;
+  }
+  .pulse{ animation:pulse-dot 1.6s ease-in-out infinite; }
+  @keyframes pulse-dot{
+    0%,100%{ opacity:1; transform:scale(1); }
+    50%{ opacity:0.45; transform:scale(0.78); }
+  }
+
+  .divider-glow{
+    height:1px;
+    background:linear-gradient(90deg, transparent, rgba(0,255,255,0.6), transparent);
+  }
+
+  /* ring rotate + glow */
+  .ring-wrap svg{ filter:drop-shadow(0 0 6px rgba(0,255,255,0.65)); }
+  .ring-bg{ stroke:rgba(0,255,255,0.12); }
+  .ring-progress{
+    stroke:var(--cyan);
+    stroke-linecap:round;
+    transition:stroke-dashoffset 1.2s ease-out;
+  }
+  .ring-progress.amber{ stroke:var(--amber); }
+
+  .spin-slow{ animation:spin 14s linear infinite; }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+
+  /* radar */
+  .radar-box{
+    position:relative;
+    width:100%;
+    aspect-ratio:1/1;
+    border-radius:50%;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(0,255,255,0.08), rgba(0,0,0,0) 70%),
+      repeating-radial-gradient(circle at 50% 50%, rgba(0,255,255,0.18) 0 1px, transparent 1px 20%);
+    border:1px solid rgba(0,255,255,0.4);
+    box-shadow:0 0 25px rgba(0,255,255,0.18) inset, 0 0 18px rgba(0,255,255,0.15);
+    overflow:hidden;
+  }
+  .radar-box::before, .radar-box::after{
+    content:"";
+    position:absolute;
+    background:rgba(0,255,255,0.3);
+  }
+  .radar-box::before{ top:50%; left:0; right:0; height:1px; }
+  .radar-box::after{ left:50%; top:0; bottom:0; width:1px; }
+  .radar-sweep{
+    position:absolute; inset:0;
+    background:conic-gradient(from 0deg, rgba(0,255,255,0.55), rgba(0,255,255,0.0) 28%, transparent 60%);
+    animation:spin 3.2s linear infinite;
+    mix-blend-mode:screen;
+    border-radius:50%;
+  }
+  .blip{
+    position:absolute;
+    width:6px; height:6px;
+    border-radius:50%;
+    background:var(--cyan);
+    box-shadow:0 0 6px var(--cyan), 0 0 14px var(--cyan);
+    animation:blip-pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes blip-pulse{
+    0%,100%{ opacity:1; }
+    50%{ opacity:0.25; }
+  }
+
+  /* log list */
+  .log-list{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    max-height:360px;
+    overflow-y:auto;
+    scrollbar-width:thin;
+  }
+  .log-list::-webkit-scrollbar{ width:5px; }
+  .log-list::-webkit-scrollbar-thumb{ background:rgba(0,255,255,0.35); }
+  .log-entry{
+    border-left:2px solid rgba(0,255,255,0.5);
+    padding:4px 8px;
+    font-size:12px;
+    line-height:1.5;
+    background:rgba(0,255,255,0.04);
+    animation:fade-in 0.4s ease-out;
+  }
+  @keyframes fade-in{
+    from{ opacity:0; transform:translateX(6px); }
+    to{ opacity:1; transform:translateX(0); }
+  }
+
+  .chip{
+    border:1px solid rgba(0,255,255,0.3);
+    background:rgba(0,255,255,0.05);
+    padding:10px 12px;
+  }
+
+  @media (max-width: 768px){
+    .frame-corner{ width:36px; height:36px; }
+    .edge-ticks{ left:50px; right:50px; }
+  }
+</style>
+</head>
+<body class="min-h-screen px-4 py-6 md:px-10 md:py-8">
+
+  <!-- full page corner frame decorations -->
+  <div class="frame-corner frame-tl"><span class="tick"></span></div>
+  <div class="frame-corner frame-tr"><span class="tick"></span></div>
+  <div class="frame-corner frame-bl"><span class="tick"></span></div>
+  <div class="frame-corner frame-br"><span class="tick"></span></div>
+  <div class="edge-ticks top"></div>
+  <div class="edge-ticks bottom"></div>
+
+  <!-- scanning line sweeping the whole page -->
+  <div class="scanline"></div>
+  <div class="crt-overlay"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto">
+
+    <!-- top status bar -->
+    <header class="panel px-4 md:px-6 py-4 mb-6 flex flex-wrap items-center justify-between gap-4">
+      <span class="notch notch-tl"></span><span class="notch notch-tr"></span>
+      <span class="notch notch-bl"></span><span class="notch notch-br"></span>
+
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 border border-cyan-300/50 rounded-sm flex items-center justify-center font-display text-lg glow-text" style="border-color:var(--cyan);">
+          AV
+        </div>
+        <div>
+          <h1 class="font-display text-lg md:text-xl tracking-widest glow-text">寰宇鷹眼 <span class="opacity-70">／ AEGIS-VII</span></h1>
+          <p class="font-data text-[11px] text-cyan-300/70 tracking-wide">艦隊即時監控中樞 ‖ FLEET OPS COMMAND LINK</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-6">
+        <div class="flex items-center gap-2">
+          <span class="status-dot pulse" style="background:var(--green); color:var(--green);"></span>
+          <span class="font-data text-xs tracking-wider">系統在線</span>
+        </div>
+        <div class="text-right">
+          <div id="clock-time" class="font-data text-2xl md:text-3xl glow-text tabular-nums">00:00:00</div>
+          <div id="clock-date" class="font-data text-[11px] text-cyan-300/60 tracking-widest">2026-01-01 ‖ UTC+8</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- status chips -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+      <div class="chip flex items-center justify-between">
+        <span class="font-data text-[11px] text-cyan-300/70">核心運算陣列</span>
+        <span class="flex items-center gap-1.5"><span class="status-dot pulse" style="background:var(--green); color:var(--green);"></span><span class="font-data text-xs glow-green">正常</span></span>
+      </div>
+      <div class="chip flex items-center justify-between">
+        <span class="font-data text-[11px] text-cyan-300/70">深空通訊鏈路</span>
+        <span class="flex items-center gap-1.5"><span class="status-dot pulse" style="background:var(--green); color:var(--green);"></span><span class="font-data text-xs glow-green">正常</span></span>
+      </div>
+      <div class="chip flex items-center justify-between">
+        <span class="font-data text-[11px] text-cyan-300/70">光學感測陣列</span>
+        <span class="flex items-center gap-1.5"><span class="status-dot pulse" style="background:var(--amber); color:var(--amber);"></span><span class="font-data text-xs glow-amber">警示</span></span>
+      </div>
+      <div class="chip flex items-center justify-between">
+        <span class="font-data text-[11px] text-cyan-300/70">備援電力儲備</span>
+        <span class="flex items-center gap-1.5"><span class="status-dot pulse" style="background:var(--green); color:var(--green);"></span><span class="font-data text-xs glow-green">正常</span></span>
+      </div>
+    </div>
+
+    <!-- main grid -->
+    <main class="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr_1fr] gap-6">
+
+      <!-- left: live log -->
+      <section class="panel p-4 flex flex-col">
+        <span class="notch notch-tl"></span><span class="notch notch-tr"></span>
+        <span class="notch notch-bl"></span><span class="notch notch-br"></span>
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="font-display text-sm tracking-widest glow-text-sm">即時任務日誌</h2>
+          <span class="font-data text-[10px] text-cyan-300/50">LIVE FEED</span>
+        </div>
+        <div class="divider-glow mb-3"></div>
+        <div id="log-list" class="log-list font-data"></div>
+        <div class="mt-3 pt-3 border-t border-cyan-400/10 flex items-center justify-between">
+          <span class="font-data text-[10px] text-cyan-300/50">自動更新間隔 ‖ 3.5s</span>
+          <span class="font-data text-[10px] text-cyan-300/50" id="log-count">條目：0</span>
+        </div>
+      </section>
+
+      <!-- center: rings -->
+      <section class="panel p-4 flex flex-col items-center">
+        <span class="notch notch-tl"></span><span class="notch notch-tr"></span>
+        <span class="notch notch-bl"></span><span class="notch notch-br"></span>
+        <h2 class="font-display text-sm tracking-widest glow-text-sm self-start mb-3">核心效能指標</h2>
+        <div class="divider-glow w-full mb-4"></div>
+
+        <div class="grid grid-cols-2 gap-4 w-full">
+          <div class="ring-wrap flex flex-col items-center">
+            <svg viewBox="0 0 120 120" width="120" height="120">
+              <circle cx="60" cy="60" r="50" fill="none" stroke-width="8" class="ring-bg"></circle>
+              <circle id="ring-mission" cx="60" cy="60" r="50" fill="none" stroke-width="8"
+                class="ring-progress" stroke-dasharray="314" stroke-dashoffset="314"
+                transform="rotate(-90 60 60)"></circle>
+              <text x="60" y="56" text-anchor="middle" class="font-data" fill="#7dfdfd" font-size="20" id="ring-mission-text">0%</text>
+              <text x="60" y="74" text-anchor="middle" fill="#7dfdfd" font-size="8" opacity="0.6" font-family="Share Tech Mono">MISSION</text>
+            </svg>
+            <p class="font-data text-[11px] mt-1 text-cyan-300/70">任務達成率</p>
+          </div>
+
+          <div class="ring-wrap flex flex-col items-center">
+            <svg viewBox="0 0 120 120" width="120" height="120">
+              <circle cx="60" cy="60" r="50" fill="none" stroke-width="8" class="ring-bg"></circle>
+              <circle id="ring-load" cx="60" cy="60" r="50" fill="none" stroke-width="8"
+                class="ring-progress amber" stroke-dasharray="314" stroke-dashoffset="314"
+                transform="rotate(-90 60 60)"></circle>
+              <text x="60" y="56" text-anchor="middle" class="font-data" fill="#ffb000" font-size="20" id="ring-load-text">0%</text>
+              <text x="60" y="74" text-anchor="middle" fill="#ffb000" font-size="8" opacity="0.6" font-family="Share Tech Mono">LOAD</text>
+            </svg>
+            <p class="font-data text-[11px] mt-1 text-cyan-300/70">系統負載率</p>
+          </div>
+        </div>
+
+        <div class="divider-glow w-full my-4"></div>
+
+        <div class="grid grid-cols-3 gap-2 w-full text-center">
+          <div>
+            <div class="font-data text-xl glow-text">24</div>
+            <div class="font-data text-[10px] text-cyan-300/60">在線載具</div>
+          </div>
+          <div>
+            <div class="font-data text-xl glow-amber">02</div>
+            <div class="font-data text-[10px] text-cyan-300/60">失聯待查</div>
+          </div>
+          <div>
+            <div class="font-data text-xl glow-red">01</div>
+            <div class="font-data text-[10px] text-cyan-300/60">緊急警示</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- right: radar -->
+      <section class="panel p-4 flex flex-col">
+        <span class="notch notch-tl"></span><span class="notch notch-tr"></span>
+        <span class="notch notch-bl"></span><span class="notch notch-br"></span>
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="font-display text-sm tracking-widest glow-text-sm">軌道掃描陣列</h2>
+          <span class="font-data text-[10px] text-cyan-300/50">SCAN RANGE 4200KM</span>
+        </div>
+        <div class="divider-glow mb-4"></div>
+
+        <div class="radar-box mx-auto" style="max-width:260px;">
+          <div class="radar-sweep"></div>
+          <div class="blip" style="top:28%; left:62%; animation-delay:0s;"></div>
+          <div class="blip" style="top:64%; left:34%; animation-delay:0.6s;"></div>
+          <div class="blip" style="top:48%; left:76%; animation-delay:1.2s;"></div>
+          <div class="blip" style="top:72%; left:58%; animation-delay:0.3s;"></div>
+        </div>
+
+        <div class="mt-4 font-data text-[11px] text-cyan-300/70 space-y-1">
+          <p>偵測目標：<span class="glow-text-sm">4</span> 個</p>
+          <p>最近軌道校正：<span id="radar-ts" class="glow-text-sm">--:--:--</span></p>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="mt-6 text-center font-data text-[10px] text-cyan-300/40 tracking-widest">
+      寰宇鷹眼指揮網 ‖ AEGIS-VII ORBITAL COMMAND NETWORK ‖ 保密等級：ALPHA
+    </footer>
+
+  </div>
+
+<script>
+  // ---- 即時時鐘 ----
+  function pad(n){ return n.toString().padStart(2,'0'); }
+
+  function updateClock(){
+    const now = new Date();
+    const h = pad(now.getHours());
+    const m = pad(now.getMinutes());
+    const s = pad(now.getSeconds());
+    document.getElementById('clock-time').textContent = h + ':' + m + ':' + s;
+
+    const y = now.getFullYear();
+    const mo = pad(now.getMonth()+1);
+    const d = pad(now.getDate());
+    document.getElementById('clock-date').textContent = y + '-' + mo + '-' + d + ' ‖ UTC+8';
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  // ---- SVG 圓環動畫 ----
+  function setRing(circleId, textId, percent){
+    const circle = document.getElementById(circleId);
+    const text = document.getElementById(textId);
+    const radius = 50;
+    const circumference = 2 * Math.PI * radius;
+    const offset = circumference - (percent/100) * circumference;
+    circle.style.strokeDasharray = circumference;
+    circle.style.strokeDashoffset = offset;
+    text.textContent = percent + '%';
+  }
+  window.addEventListener('load', function(){
+    setTimeout(function(){
+      setRing('ring-mission', 'ring-mission-text', 87);
+      setRing('ring-load', 'ring-load-text', 62);
+    }, 300);
+  });
+
+  // ---- 即時日誌（每 3.5 秒新增一條） ----
+  const logPool = [
+    '衛星 SW-12 完成軌道微調，誤差收斂於 0.02 度以內',
+    '無人機編隊 DR-07 回報電力儲備充足，續航估計 6 小時',
+    '偵測到微量太空碎片通過警戒區，已記錄軌跡並持續追蹤',
+    '通訊鏈路延遲量測完成，往返延遲 312 毫秒，屬正常範圍',
+    '衛星 SW-05 完成一次影像回傳，資料量 2.3GB，傳輸成功',
+    '無人機 DR-02 觸發自動避障程序，已安全繞過干擾區域',
+    '核心運算陣列執行週期性自檢，所有子模組回報正常',
+    '光學感測陣列偵測到異常反光訊號，已派遣次級鏡頭複查',
+    '艦隊編隊重新校準完成，相對位置誤差低於 1.5 公尺',
+    '備援電力模組切換測試成功，切換時間 0.8 秒',
+    '衛星 SW-09 進入夜側陰影區，太陽能板暫停充電',
+    '地面站下達新任務指令，無人機編隊正在重新規劃航線',
+    '軌道掃描陣列完成一次全域掃描，未發現新增威脅目標',
+    '資料鏈路頻寬使用率上升至 71%，仍在安全負載範圍內',
+    '無人機 DR-11 回報感測器自檢異常，已標記為待檢修狀態'
+  ];
+
+  let logCounter = 0;
+  const logListEl = document.getElementById('log-list');
+  const logCountEl = document.getElementById('log-count');
+  const MAX_LOGS = 30;
+
+  function addLogEntry(){
+    logCounter++;
+    const now = new Date();
+    const ts = pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
+    const msg = logPool[Math.floor(Math.random() * logPool.length)];
+
+    const entry = document.createElement('div');
+    entry.className = 'log-entry';
+    entry.innerHTML = '<span class="text-cyan-300/50">[' + ts + ']</span> <span class="text-cyan-400/40">#' + String(logCounter).padStart(4,'0') + '</span><br><span style="color:#b9fdfd;">' + msg + '</span>';
+
+    logListEl.insertBefore(entry, logListEl.firstChild);
+
+    while(logListEl.children.length > MAX_LOGS){
+      logListEl.removeChild(logListEl.lastChild);
+    }
+
+    logCountEl.textContent = '條目：' + logCounter;
+
+    const radarTs = document.getElementById('radar-ts');
+    if(radarTs){ radarTs.textContent = ts; }
+  }
+
+  // 啟動時先放入三條初始日誌，再開始每 3.5 秒新增
+  addLogEntry();
+  setTimeout(addLogEntry, 600);
+  setTimeout(addLogEntry, 1200);
+  setInterval(addLogEntry, 3500);
+</script>
+
+</body>
+</html>

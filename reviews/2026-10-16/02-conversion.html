@@ -1,0 +1,556 @@
+<!-- style #21 Conversion-Optimized -->
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>沃財 WealthSprout｜讓你的錢，長出未來</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          brand: {
+            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd',
+            400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8',
+            800: '#1e40af', 900: '#1e3a8a'
+          },
+          accent: {
+            50: '#ecfdf5', 100: '#d1fae5', 400: '#34d399', 500: '#10b981', 600: '#059669', 700: '#047857'
+          }
+        },
+        fontFamily: {
+          sans: ['Instrument Sans', 'Noto Sans TC', 'sans-serif']
+        }
+      }
+    }
+  }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Instrument Sans', 'Noto Sans TC', sans-serif;
+    background-color: #f8fafc;
+    color: #0f172a;
+    padding-bottom: 84px; /* room for sticky CTA bar */
+  }
+  .tabular { font-variant-numeric: tabular-nums; }
+
+  .faq-panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, opacity 0.25s ease;
+    opacity: 0;
+  }
+  .faq-item.open .faq-panel {
+    opacity: 1;
+  }
+  .faq-chevron { transition: transform 0.3s ease; }
+  .faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+  .count-up { font-variant-numeric: tabular-nums; }
+
+  .logo-chip {
+    filter: grayscale(100%);
+    opacity: 0.55;
+    transition: opacity .2s ease, filter .2s ease;
+  }
+  .logo-chip:hover { filter: grayscale(0%); opacity: 1; }
+
+  @keyframes pulseDot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .35; }
+  }
+  .live-dot { animation: pulseDot 1.6s ease-in-out infinite; }
+</style>
+</head>
+<body class="antialiased">
+
+  <!-- ============ HEADER ============ -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+      <a href="#top" class="flex items-center gap-2">
+        <span class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white font-bold text-sm">沃</span>
+        <span class="font-bold text-lg tracking-tight">沃財 <span class="text-brand-600">WealthSprout</span></span>
+      </a>
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+        <a href="#proof" class="hover:text-brand-700">使用者實證</a>
+        <a href="#offer" class="hover:text-brand-700">限時優惠</a>
+        <a href="#faq" class="hover:text-brand-700">常見問題</a>
+      </nav>
+      <a href="#cta" class="hidden sm:inline-flex items-center gap-1.5 bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold px-4 py-2.5 rounded-full transition shadow-sm shadow-brand-600/20">
+        免費試用14天
+      </a>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section id="top" class="relative overflow-hidden bg-gradient-to-b from-brand-50 to-white">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 pt-14 pb-16 sm:pt-20 sm:pb-24 grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <div class="inline-flex items-center gap-2 bg-accent-50 text-accent-700 text-xs font-semibold px-3 py-1.5 rounded-full mb-5">
+          <span class="w-1.5 h-1.5 rounded-full bg-accent-500 live-dot"></span>
+          已有 15,000+ 人用沃財重新掌握財務
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-extrabold leading-tight tracking-tight text-slate-900">
+          理財規劃，<br class="hidden sm:block">不該靠猜的。
+        </h1>
+        <p class="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed max-w-md">
+          沃財自動彙整所有銀行、信用卡與電子支付的交易紀錄，三分鐘看懂你的財務全貌，並用智慧建議幫你把每月多出來的錢，變成未來的底氣。
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-3">
+          <a href="#cta" class="inline-flex justify-center items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-semibold px-7 py-3.5 rounded-full transition shadow-lg shadow-brand-600/25">
+            免費開始試用 14 天
+          </a>
+          <a href="#proof" class="inline-flex justify-center items-center gap-2 bg-white hover:bg-slate-50 text-slate-700 font-semibold px-7 py-3.5 rounded-full border border-slate-200 transition">
+            看看其他人怎麼說
+          </a>
+        </div>
+        <p class="mt-4 text-xs text-slate-500">不需信用卡即可開始・隨時可取消・金融等級加密</p>
+      </div>
+
+      <!-- Hero visual mock -->
+      <div class="relative">
+        <div class="relative bg-white rounded-3xl shadow-2xl shadow-slate-900/10 border border-slate-100 p-6 max-w-sm mx-auto">
+          <div class="flex items-center justify-between mb-5">
+            <span class="text-sm font-semibold text-slate-500">本月財務總覽</span>
+            <span class="text-xs bg-accent-50 text-accent-700 font-semibold px-2 py-1 rounded-full">+32% 成長</span>
+          </div>
+          <div class="text-3xl font-extrabold text-slate-900 mb-1 tabular">NT$ 486,920</div>
+          <div class="text-xs text-slate-500 mb-6">淨資產・較上月增加 NT$ 18,400</div>
+          <div class="space-y-3">
+            <div>
+              <div class="flex justify-between text-xs font-medium text-slate-500 mb-1"><span>儲蓄目標：出國基金</span><span>72%</span></div>
+              <div class="h-2 rounded-full bg-slate-100"><div class="h-2 rounded-full bg-brand-600" style="width:72%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs font-medium text-slate-500 mb-1"><span>每月預算使用</span><span>54%</span></div>
+              <div class="h-2 rounded-full bg-slate-100"><div class="h-2 rounded-full bg-accent-500" style="width:54%"></div></div>
+            </div>
+          </div>
+          <div class="mt-6 flex items-center gap-2 text-xs text-brand-700 bg-brand-50 rounded-xl px-3 py-2.5">
+            <span>💡</span>
+            <span>建議：本月餐飲支出比平均高 15%，調整後可多存 NT$ 2,100</span>
+          </div>
+        </div>
+        <div class="absolute -top-6 -right-4 bg-white rounded-2xl shadow-xl border border-slate-100 px-4 py-3 hidden sm:block">
+          <div class="text-xs text-slate-500">已串接帳戶</div>
+          <div class="text-lg font-bold text-slate-900">8 個帳戶</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LOGO STRIP ============ -->
+  <section class="bg-white border-y border-slate-100">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 py-8">
+      <p class="text-center text-xs font-semibold tracking-wide text-slate-400 mb-6">深受這些團隊與社群信賴</p>
+      <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
+        <span class="logo-chip font-bold text-xl text-slate-500">普匯科技</span>
+        <span class="logo-chip font-bold text-xl text-slate-500">晨星財務顧問</span>
+        <span class="logo-chip font-bold text-xl text-slate-500">青創聚落</span>
+        <span class="logo-chip font-bold text-xl text-slate-500">遠見雲端</span>
+        <span class="logo-chip font-bold text-xl text-slate-500">好日子社群</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SOCIAL PROOF: STATS ============ -->
+  <section id="proof" class="bg-slate-900 text-white">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 py-14 sm:py-16">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div>
+          <div class="text-3xl sm:text-4xl font-extrabold text-white count-up" data-target="15000" data-suffix="+">0</div>
+          <div class="mt-2 text-xs sm:text-sm text-slate-400">活躍使用者</div>
+        </div>
+        <div>
+          <div class="text-3xl sm:text-4xl font-extrabold text-white count-up" data-target="32" data-suffix="%">0</div>
+          <div class="mt-2 text-xs sm:text-sm text-slate-400">6個月平均存款成長</div>
+        </div>
+        <div>
+          <div class="text-3xl sm:text-4xl font-extrabold text-white count-up" data-target="98" data-suffix="%">0</div>
+          <div class="mt-2 text-xs sm:text-sm text-slate-400">使用者滿意度</div>
+        </div>
+        <div>
+          <div class="text-3xl sm:text-4xl font-extrabold text-white count-up" data-target="32" data-suffix=" 家">0</div>
+          <div class="mt-2 text-xs sm:text-sm text-slate-400">已串接銀行與支付機構</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SOCIAL PROOF: TESTIMONIALS ============ -->
+  <section class="bg-slate-50">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 py-16 sm:py-20">
+      <div class="text-center max-w-xl mx-auto mb-12">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">他們用沃財，找回理財的主控權</h2>
+        <p class="mt-3 text-slate-600">真實使用者的理財轉變，不是廣告台詞。</p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+        <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
+          <div class="flex gap-0.5 text-amber-400 mb-3 text-sm">★★★★★</div>
+          <p class="text-sm text-slate-700 leading-relaxed mb-5">「沃財讓我第一次真正看懂自己的錢花到哪裡去，三個月就多存了兩萬多元。」</p>
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center text-xs font-bold">陳</div>
+            <div>
+              <div class="text-sm font-semibold text-slate-900">陳怡君</div>
+              <div class="text-xs text-slate-500">自由接案設計師</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
+          <div class="flex gap-0.5 text-amber-400 mb-3 text-sm">★★★★★</div>
+          <p class="text-sm text-slate-700 leading-relaxed mb-5">「自動分類超準，還會提前提醒，直接幫我把每月定期定額都設定好，省下很多時間。」</p>
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center text-xs font-bold">林</div>
+            <div>
+              <div class="text-sm font-semibold text-slate-900">林柏宇</div>
+              <div class="text-xs text-slate-500">新創公司產品經理</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
+          <div class="flex gap-0.5 text-amber-400 mb-3 text-sm">★★★★★</div>
+          <p class="text-sm text-slate-700 leading-relaxed mb-5">「家庭財務一直是壓力來源，用了沃財後，跟先生終於能一起看懂帳目，吵架都變少了。」</p>
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center text-xs font-bold">黃</div>
+            <div>
+              <div class="text-sm font-semibold text-slate-900">黃雅婷</div>
+              <div class="text-xs text-slate-500">雙寶媽媽</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
+          <div class="flex gap-0.5 text-amber-400 mb-3 text-sm">★★★★★</div>
+          <p class="text-sm text-slate-700 leading-relaxed mb-5">「整合了我六個銀行帳戶和兩張信用卡，資產總覽一眼就懂，是我用過最順手的理財工具。」</p>
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center text-xs font-bold">謝</div>
+            <div>
+              <div class="text-sm font-semibold text-slate-900">謝明翰</div>
+              <div class="text-xs text-slate-500">軟體工程師</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COUNTDOWN OFFER ============ -->
+  <section id="offer" class="bg-gradient-to-br from-brand-700 to-brand-900 text-white">
+    <div class="max-w-4xl mx-auto px-5 sm:px-8 py-16 sm:py-20 text-center">
+      <div class="inline-flex items-center gap-2 bg-white/10 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-full mb-5">
+        限時優惠・年繳方案
+      </div>
+      <h2 class="text-2xl sm:text-4xl font-extrabold leading-tight">
+        年繳方案再享 8 折，優惠倒數中
+      </h2>
+      <p class="mt-3 text-brand-100 max-w-lg mx-auto">
+        優惠只到這次倒數結束為止，之後將恢復原價。現在升級，鎖定最划算的價格。
+      </p>
+
+      <div id="countdown" class="mt-8 flex justify-center gap-3 sm:gap-5">
+        <div class="bg-white/10 rounded-2xl px-4 sm:px-6 py-4 w-20 sm:w-24">
+          <div id="cd-days" class="text-2xl sm:text-3xl font-extrabold tabular">00</div>
+          <div class="text-[11px] text-brand-200 mt-1">天</div>
+        </div>
+        <div class="bg-white/10 rounded-2xl px-4 sm:px-6 py-4 w-20 sm:w-24">
+          <div id="cd-hours" class="text-2xl sm:text-3xl font-extrabold tabular">00</div>
+          <div class="text-[11px] text-brand-200 mt-1">時</div>
+        </div>
+        <div class="bg-white/10 rounded-2xl px-4 sm:px-6 py-4 w-20 sm:w-24">
+          <div id="cd-minutes" class="text-2xl sm:text-3xl font-extrabold tabular">00</div>
+          <div class="text-[11px] text-brand-200 mt-1">分</div>
+        </div>
+        <div class="bg-white/10 rounded-2xl px-4 sm:px-6 py-4 w-20 sm:w-24">
+          <div id="cd-seconds" class="text-2xl sm:text-3xl font-extrabold tabular">00</div>
+          <div class="text-[11px] text-brand-200 mt-1">秒</div>
+        </div>
+      </div>
+
+      <a href="#cta" class="mt-9 inline-flex items-center gap-2 bg-white text-brand-800 hover:bg-brand-50 font-bold px-8 py-3.5 rounded-full transition shadow-lg">
+        立即鎖定 8 折優惠
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section id="faq" class="bg-white">
+    <div class="max-w-3xl mx-auto px-5 sm:px-8 py-16 sm:py-20">
+      <div class="text-center mb-10">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">常見問題</h2>
+        <p class="mt-3 text-slate-600">如果還有其他疑問，歡迎直接聯絡我們的客服團隊。</p>
+      </div>
+
+      <div class="space-y-3" id="faq-list">
+
+        <div class="faq-item border border-slate-200 rounded-2xl overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-5 py-4 font-semibold text-slate-900 hover:bg-slate-50" aria-expanded="false">
+            <span>沃財會不會看到我的銀行帳號密碼？</span>
+            <svg class="faq-chevron w-5 h-5 text-slate-400 flex-shrink-0" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="faq-panel px-5">
+            <p class="text-sm text-slate-600 leading-relaxed pb-5">
+              不會。沃財採用銀行認可的唯讀授權技術，所有連線皆以金融等級加密傳輸，我們只能讀取交易紀錄做分析，完全無法動用或轉出你的任何資金。
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item border border-slate-200 rounded-2xl overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-5 py-4 font-semibold text-slate-900 hover:bg-slate-50" aria-expanded="false">
+            <span>我可以隨時取消訂閱嗎？</span>
+            <svg class="faq-chevron w-5 h-5 text-slate-400 flex-shrink-0" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="faq-panel px-5">
+            <p class="text-sm text-slate-600 leading-relaxed pb-5">
+              可以，隨時到「帳戶設定」中一鍵取消，沒有任何合約綁定或取消手續費。取消後你仍可以匯出完整的歷史記帳資料留存。
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item border border-slate-200 rounded-2xl overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-5 py-4 font-semibold text-slate-900 hover:bg-slate-50" aria-expanded="false">
+            <span>沃財支援哪些銀行與電子支付？</span>
+            <svg class="faq-chevron w-5 h-5 text-slate-400 flex-shrink-0" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="faq-panel px-5">
+            <p class="text-sm text-slate-600 leading-relaxed pb-5">
+              目前已串接超過 32 家台灣主要銀行、信用卡發卡機構，以及多家電子支付與數位帳戶，我們的團隊每月持續新增合作機構，若有你常用卻尚未支援的服務，歡迎直接告訴我們。
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item border border-slate-200 rounded-2xl overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-5 py-4 font-semibold text-slate-900 hover:bg-slate-50" aria-expanded="false">
+            <span>免費試用期結束後會自動扣款嗎？</span>
+            <svg class="faq-chevron w-5 h-5 text-slate-400 flex-shrink-0" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="faq-panel px-5">
+            <p class="text-sm text-slate-600 leading-relaxed pb-5">
+              不會。試用期間完全不需要輸入信用卡資訊，到期前我們會提前以email提醒你，你可以自由決定是否要升級成付費方案。
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item border border-slate-200 rounded-2xl overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-5 py-4 font-semibold text-slate-900 hover:bg-slate-50" aria-expanded="false">
+            <span>我的資料安全嗎？</span>
+            <svg class="faq-chevron w-5 h-5 text-slate-400 flex-shrink-0" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="faq-panel px-5">
+            <p class="text-sm text-slate-600 leading-relaxed pb-5">
+              安全是我們最重視的事。沃財通過 ISO 27001 資訊安全認證，所有資料皆以銀行等級加密技術傳輸與儲存，內部也有嚴格的權限控管機制。
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FINAL CTA ============ -->
+  <section id="cta" class="bg-slate-900">
+    <div class="max-w-3xl mx-auto px-5 sm:px-8 py-16 sm:py-20 text-center">
+      <h2 class="text-2xl sm:text-4xl font-extrabold text-white leading-tight">
+        準備好讓你的錢，<br class="hidden sm:block">開始長出未來了嗎？
+      </h2>
+      <p class="mt-4 text-slate-400 max-w-md mx-auto">
+        免費試用 14 天，不需信用卡資訊，3 分鐘完成帳戶串接。
+      </p>
+      <form class="mt-8 flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto" onsubmit="event.preventDefault(); this.querySelector('button').textContent='已收到，請至信箱確認！';">
+        <input required type="email" placeholder="輸入你的 Email" class="flex-1 px-4 py-3.5 rounded-full border border-slate-700 bg-slate-800 text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+        <button type="submit" class="bg-accent-500 hover:bg-accent-600 text-white font-bold px-7 py-3.5 rounded-full transition whitespace-nowrap">
+          免費開始試用
+        </button>
+      </form>
+      <p class="mt-4 text-xs text-slate-500">已有 15,000+ 人加入・平均 4.9 分評價・隨時可取消</p>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="bg-slate-950 text-slate-400">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 py-12 grid sm:grid-cols-2 md:grid-cols-4 gap-8">
+      <div class="col-span-2">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-7 h-7 rounded-lg bg-brand-600 flex items-center justify-center text-white font-bold text-xs">沃</span>
+          <span class="font-bold text-white">沃財 WealthSprout</span>
+        </div>
+        <p class="text-sm max-w-sm leading-relaxed">
+          沃財是台灣新一代的個人理財規劃與記帳平台，幫助每一個人用更輕鬆的方式看懂自己的財務狀況，踏實地朝目標前進。
+        </p>
+      </div>
+      <div>
+        <div class="text-white font-semibold text-sm mb-3">公司資訊</div>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#" class="hover:text-white">關於我們</a></li>
+          <li><a href="#" class="hover:text-white">服務條款</a></li>
+          <li><a href="#" class="hover:text-white">隱私權政策</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="text-white font-semibold text-sm mb-3">聯絡與支援</div>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#" class="hover:text-white">聯絡客服</a></li>
+          <li><a href="#faq" class="hover:text-white">常見問題</a></li>
+          <li><a href="#" class="hover:text-white">合作提案</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-slate-800">
+      <div class="max-w-6xl mx-auto px-5 sm:px-8 py-5 text-xs text-slate-500">
+        © 2026 WealthSprout 沃財科技股份有限公司 版權所有
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ STICKY BOTTOM CTA BAR ============ -->
+  <div class="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 shadow-[0_-4px_20px_rgba(0,0,0,0.06)]">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 h-[72px] flex items-center justify-between gap-4">
+      <div class="hidden sm:block">
+        <div class="text-sm font-semibold text-slate-900">想擺脫理財焦慮？</div>
+        <div class="text-xs text-slate-500">免費試用 14 天，不需信用卡資訊</div>
+      </div>
+      <div class="flex-1 sm:flex-none text-center sm:text-left">
+        <span class="sm:hidden text-sm font-semibold text-slate-900">免費試用沃財 14 天</span>
+      </div>
+      <a href="#cta" class="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-semibold px-5 sm:px-6 py-2.5 sm:py-3 rounded-full transition shadow-md shadow-brand-600/20 whitespace-nowrap">
+        立即開始
+      </a>
+    </div>
+  </div>
+
+<script>
+  // ---------- 倒數計時器（真的會跑） ----------
+  (function () {
+    var target = new Date();
+    target.setDate(target.getDate() + 7); // 從頁面載入起算 7 天後優惠結束
+    target.setHours(23, 59, 59, 0);
+
+    var elDays = document.getElementById('cd-days');
+    var elHours = document.getElementById('cd-hours');
+    var elMinutes = document.getElementById('cd-minutes');
+    var elSeconds = document.getElementById('cd-seconds');
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function tick() {
+      var now = new Date();
+      var diff = target.getTime() - now.getTime();
+
+      if (diff <= 0) {
+        elDays.textContent = '00';
+        elHours.textContent = '00';
+        elMinutes.textContent = '00';
+        elSeconds.textContent = '00';
+        clearInterval(timer);
+        return;
+      }
+
+      var totalSeconds = Math.floor(diff / 1000);
+      var days = Math.floor(totalSeconds / 86400);
+      var hours = Math.floor((totalSeconds % 86400) / 3600);
+      var minutes = Math.floor((totalSeconds % 3600) / 60);
+      var seconds = totalSeconds % 60;
+
+      elDays.textContent = pad(days);
+      elHours.textContent = pad(hours);
+      elMinutes.textContent = pad(minutes);
+      elSeconds.textContent = pad(seconds);
+    }
+
+    tick();
+    var timer = setInterval(tick, 1000);
+  })();
+
+  // ---------- 滾動觸發的數字 count-up 動畫 ----------
+  (function () {
+    var counters = document.querySelectorAll('.count-up');
+    var animated = new WeakSet();
+
+    function animateCounter(el) {
+      var target = parseFloat(el.getAttribute('data-target'), 10);
+      var suffix = el.getAttribute('data-suffix') || '';
+      var duration = 1600;
+      var startTime = null;
+
+      function easeOutQuad(t) { return t * (2 - t); }
+
+      function step(timestamp) {
+        if (!startTime) startTime = timestamp;
+        var progress = Math.min((timestamp - startTime) / duration, 1);
+        var eased = easeOutQuad(progress);
+        var current = Math.floor(eased * target);
+        el.textContent = current.toLocaleString('zh-Hant-TW') + suffix;
+
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          el.textContent = target.toLocaleString('zh-Hant-TW') + suffix;
+        }
+      }
+
+      requestAnimationFrame(step);
+    }
+
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting && !animated.has(entry.target)) {
+            animated.add(entry.target);
+            animateCounter(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.4 });
+
+      counters.forEach(function (el) { observer.observe(el); });
+    } else {
+      // Fallback：沒有 IntersectionObserver 時直接跑一次
+      counters.forEach(animateCounter);
+    }
+  })();
+
+  // ---------- 手風琴 FAQ ----------
+  (function () {
+    var items = document.querySelectorAll('.faq-item');
+
+    items.forEach(function (item) {
+      var trigger = item.querySelector('.faq-trigger');
+      var panel = item.querySelector('.faq-panel');
+
+      trigger.addEventListener('click', function () {
+        var isOpen = item.classList.contains('open');
+
+        // 手風琴邏輯：點開一個時，收合其他已展開的項目
+        items.forEach(function (other) {
+          if (other !== item) {
+            other.classList.remove('open');
+            other.querySelector('.faq-trigger').setAttribute('aria-expanded', 'false');
+            other.querySelector('.faq-panel').style.maxHeight = null;
+          }
+        });
+
+        if (isOpen) {
+          item.classList.remove('open');
+          trigger.setAttribute('aria-expanded', 'false');
+          panel.style.maxHeight = null;
+        } else {
+          item.classList.add('open');
+          trigger.setAttribute('aria-expanded', 'true');
+          panel.style.maxHeight = panel.scrollHeight + 'px';
+        }
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
