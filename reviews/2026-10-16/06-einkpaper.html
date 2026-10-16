@@ -1,0 +1,279 @@
+<!-- style #56 E-Ink / Paper -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>燈下 Lamplight Review｜秤上的人情：一座傳統市場的黃昏</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Noto+Serif+TC:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #1a1a1a;
+    --paper: #f5f1eb;
+    --paper-2: #ece6db;
+    --rule: #1a1a1a;
+    --faint: #6b6760;
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: 'Newsreader', 'Noto Serif TC', serif;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    min-height: 100vh;
+  }
+  .cjk{ font-family: 'Noto Serif TC', 'Newsreader', serif; }
+  .mono{ font-family: 'JetBrains Mono', monospace; letter-spacing: 0.02em; }
+
+  /* paper noise texture overlay, no shadows anywhere */
+  body::before{
+    content:"";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0.55;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch' result='t'/><feColorMatrix in='t' type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 180px 180px;
+  }
+  body::after{
+    content:"";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 49;
+    background: radial-gradient(ellipse at center, rgba(245,241,235,0) 55%, rgba(26,26,26,0.06) 100%);
+  }
+
+  .no-shadow, * { box-shadow: none !important; }
+
+  .rule{ border-color: var(--rule); }
+  .rule-thick{ border-top: 3px solid var(--rule); }
+  .rule-thin{ border-top: 1px solid var(--rule); }
+
+  /* drop cap for the lead paragraph */
+  .lead-para::first-letter{
+    font-family: 'Newsreader', serif;
+    font-size: 4.6rem;
+    line-height: 0.85;
+    font-weight: 600;
+    float: left;
+    padding-right: 0.12em;
+    padding-top: 0.05em;
+    color: var(--ink);
+  }
+
+  .masthead-title{
+    font-family: 'Noto Serif TC', 'Newsreader', serif;
+    letter-spacing: 0.08em;
+  }
+
+  .tracking-wide-cjk{ letter-spacing: 0.12em; }
+
+  a{ color: var(--ink); }
+
+  .article-body p{
+    margin-bottom: 1.35rem;
+    line-height: 2.05;
+    letter-spacing: 0.01em;
+  }
+
+  .sidebar-item{ border-top: 1px solid var(--ink); }
+  .sidebar-item:first-child{ border-top: none; }
+
+  /* bookmark button */
+  .bookmark-btn{
+    border: 1.5px solid var(--ink);
+    background: transparent;
+    color: var(--ink);
+    transition: background-color .15s ease, color .15s ease;
+  }
+  .bookmark-btn:hover{ background-color: var(--ink); color: var(--paper); }
+  .bookmark-btn.is-saved{ background-color: var(--ink); color: var(--paper); }
+  .bookmark-btn.is-saved:hover{ background-color: transparent; color: var(--ink); }
+
+  .bookmark-icon{ transition: transform .25s ease; }
+  .bookmark-btn.is-saved .bookmark-icon{ transform: scale(1.08); }
+
+  ::selection{ background: var(--ink); color: var(--paper); }
+
+  .edge-line{ border-left: 1px solid var(--ink); }
+
+  @media (max-width: 767px){
+    .lead-para::first-letter{ font-size: 3.6rem; }
+  }
+</style>
+</head>
+<body class="antialiased">
+
+<div class="max-w-5xl mx-auto px-5 sm:px-8 relative z-10">
+
+  <!-- 報頭 Masthead -->
+  <header class="pt-10 pb-5">
+    <div class="flex items-center justify-between mono text-[11px] sm:text-xs tracking-widest uppercase text-[var(--faint)] mb-6">
+      <span>創刊於 2009 年 · 不定期深度刊物</span>
+      <span>ISSN 56-1016</span>
+    </div>
+
+    <div class="text-center">
+      <h1 class="masthead-title text-5xl sm:text-6xl font-black tracking-wide-cjk">燈下</h1>
+      <p class="mono text-[11px] sm:text-xs tracking-[0.3em] uppercase mt-2 text-[var(--faint)]">LAMPLIGHT REVIEW</p>
+    </div>
+
+    <div class="rule-thick mt-6"></div>
+    <div class="flex items-center justify-between py-2 mono text-[11px] sm:text-sm">
+      <span>第 <span class="font-semibold">214</span> 期</span>
+      <span class="tracking-wider">2026 — 10 — 16</span>
+      <span>星期五 · 週末特刊</span>
+    </div>
+    <div class="rule-thin"></div>
+  </header>
+
+  <!-- 內容主體：文章 + 側欄 -->
+  <main class="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-10 lg:gap-14 pb-16">
+
+    <!-- 文章欄 -->
+    <article class="pt-6">
+      <p class="mono text-[11px] tracking-[0.25em] uppercase text-[var(--faint)] mb-4">城市觀察 · 深度報導</p>
+
+      <h2 class="text-[2.1rem] sm:text-[2.75rem] font-bold leading-[1.15] cjk mb-4">
+        秤上的人情：一座傳統市場的黃昏
+      </h2>
+
+      <p class="text-lg sm:text-xl italic text-[var(--faint)] leading-snug mb-6 cjk" style="font-family:'Newsreader', serif;">
+        當超市貨架取代了攤販的吆喝，我們失去的，或許不只是討價還價的樂趣。
+      </p>
+
+      <div class="flex flex-wrap items-center justify-between gap-3 py-3 rule-thin border-b mono text-xs text-[var(--faint)] mb-8">
+        <div class="flex items-center gap-4 flex-wrap">
+          <span>文 · <span class="cjk text-[var(--ink)]">陳谷雨</span></span>
+          <span>攝影 · <span class="cjk text-[var(--ink)]">林素敏</span></span>
+          <span>閱讀時間 · 約 9 分鐘</span>
+        </div>
+
+        <!-- 書籤按鈕：可切換已收藏 / 未收藏 -->
+        <button
+          id="bookmarkBtn"
+          type="button"
+          class="bookmark-btn flex items-center gap-2 px-3 py-1.5 mono text-xs uppercase tracking-wider"
+          aria-pressed="false"
+          onclick="toggleBookmark()"
+        >
+          <svg class="bookmark-icon" id="bookmarkIcon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1z"/>
+          </svg>
+          <span id="bookmarkLabel">加入收藏</span>
+        </button>
+      </div>
+
+      <div class="article-body text-[1.05rem] sm:text-[1.1rem] cjk">
+
+        <p class="lead-para">
+          清晨五點半，天色還沒亮透，環南市場的鐵捲門已經有一半拉起。賣魚的攤商把冰塊鋪在保麗龍箱底，水氣在日光燈下結成一層薄霧；隔壁賣菜的阿姨把昨夜就捆好的空心菜一把一把擺上木架，動作熟練得不需要開燈看。再過兩個小時，這裡會擠滿提著菜籃、用台語和攤商討價還價的婆婆媽媽；但再過十年，沒有人能保證這樣的清晨還會不會存在。
+        </p>
+
+        <p>
+          根據市場處去年公布的攤位承租率，全市傳統市場的平均空置率已經超過三成，部分中南部的市場甚至逼近五成。攤商老化、年輕人不願意接手，是最常被提出的解釋；但走進市場深處，和真正守在秤後面的人聊過，會發現事情遠比「後繼無人」複雜得多。六十二歲的豬肉攤商老吳說，他不是沒想過收攤，而是收了之後，這一條巷子裡還有誰會記得，哪個客人不吃肥肉、哪個客人每週三固定要買排骨熬湯。「超市的肉是秤給機器看的，」他把一塊腰內肉放上秤盤，指針穩穩停住，「我這個秤，是秤給人看的。」
+        </p>
+
+        <p>
+          這種「秤給人看」的邏輯，正是傳統市場最難被取代、卻也最難被量化的價值。超市的效率建立在標準化之上：固定的包裝重量、固定的價格標籤、固定的結帳動線，顧客與商品之間幾乎不需要語言。而市場的秤，從來不是單純的度量工具，它是攤商與顧客之間一場持續數十年的、關於信任的對話。多給的一把蔥、少算的幾塊錢尾數、記在腦子裡而不是記在會員卡裡的購買習慣，這些都是秤面以外、帳本之外的交易，而它們恰恰是讓一座市場「活」起來的東西。當這樣的對話消失，市場留下的只是建築物與動線，不再是社區的客廳。
+        </p>
+
+        <p>
+          當然，懷舊不能解決現實的問題。市場需要面對的是停車不便、環境老舊、營業時間與雙薪家庭作息脫節等結構性困境，這些都不是靠人情味就能彌補的缺口。部分地方政府已經嘗試引入年輕攤商、改造冷鏈設施，甚至把部分市場改建為結合餐飲與選物店的複合空間，試圖在效率與人情之間找到新的平衡點。成效如何，仍需要時間檢驗；但至少有人開始承認，傳統市場不該只是被「淘汰」的對象，而是一種值得被重新設計、而非被放棄的城市基礎設施。
+        </p>
+
+        <p>
+          離開環南市場前，我回頭看了老吳的攤位一眼。他正彎著腰，把秤盤仔細擦乾，動作很慢，像是在完成某種每天都要重複的儀式。市場外頭，一間連鎖超市的招牌正亮起燈，和緩的廣播音樂飄進巷子裡。兩個世界隔著一條馬路，各自運轉，誰也不急著說服誰。只是當老吳那樣的秤有一天真的收起來，我們可能要再過很久，才會意識到自己到底失去了什麼。
+        </p>
+
+      </div>
+
+      <div class="rule-thin mt-10 pt-4 flex items-center justify-between mono text-xs text-[var(--faint)]">
+        <span>刊於《燈下》第 214 期 · 城市觀察版</span>
+        <span>P. 06</span>
+      </div>
+    </article>
+
+    <!-- 側欄：本期其他文章 -->
+    <aside class="pt-6">
+      <div class="rule-thick"></div>
+      <h3 class="mono text-xs tracking-[0.25em] uppercase py-4 text-[var(--faint)]">本期其他文章</h3>
+      <div class="rule-thin mb-2"></div>
+
+      <ul>
+        <li class="sidebar-item py-5">
+          <a href="#" class="block group">
+            <p class="mono text-[10px] tracking-widest uppercase text-[var(--faint)] mb-1.5">修復 · 職人</p>
+            <p class="cjk text-base font-semibold leading-snug group-hover:underline">巷口的鐘聲：修表匠的最後十年</p>
+          </a>
+        </li>
+        <li class="sidebar-item py-5">
+          <a href="#" class="block group">
+            <p class="mono text-[10px] tracking-widest uppercase text-[var(--faint)] mb-1.5">飲食 · 觀察</p>
+            <p class="cjk text-base font-semibold leading-snug group-hover:underline">一碗清粥的重量：台北早餐店生態誌</p>
+          </a>
+        </li>
+        <li class="sidebar-item py-5">
+          <a href="#" class="block group">
+            <p class="mono text-[10px] tracking-widest uppercase text-[var(--faint)] mb-1.5">城市 · 記憶</p>
+            <p class="cjk text-base font-semibold leading-snug group-hover:underline">老委託行裡的舶來品記憶</p>
+          </a>
+        </li>
+        <li class="sidebar-item py-5">
+          <a href="#" class="block group">
+            <p class="mono text-[10px] tracking-widest uppercase text-[var(--faint)] mb-1.5">職人 · 產業</p>
+            <p class="cjk text-base font-semibold leading-snug group-hover:underline">手工製麵廠半世紀的麵香</p>
+          </a>
+        </li>
+      </ul>
+
+      <div class="rule-thin mt-2"></div>
+
+      <div class="mt-8 edge-line pl-5">
+        <p class="cjk text-sm leading-relaxed text-[var(--faint)]">
+          《燈下》每月出刊一至兩次，專注於城市觀察、職人故事與人文現場的長篇報導。訂閱後，我們會把每一期送到你的信箱，不打擾、不催促，只在你有空坐下閱讀的時候。
+        </p>
+        <button class="mt-4 w-full border border-[var(--ink)] py-2.5 mono text-xs uppercase tracking-widest hover:bg-[var(--ink)] hover:text-[var(--paper)] transition-colors">
+          訂閱《燈下》
+        </button>
+      </div>
+    </aside>
+
+  </main>
+
+  <footer class="rule-thick pt-6 pb-10 flex flex-col sm:flex-row items-center justify-between gap-3 mono text-[11px] text-[var(--faint)] tracking-wide">
+    <span>© 2026 燈下 Lamplight Review</span>
+    <span>以紙的速度，閱讀這個時代</span>
+  </footer>
+
+</div>
+
+<script>
+  function toggleBookmark() {
+    const btn = document.getElementById('bookmarkBtn');
+    const label = document.getElementById('bookmarkLabel');
+    const icon = document.getElementById('bookmarkIcon');
+    const isSaved = btn.classList.toggle('is-saved');
+
+    if (isSaved) {
+      btn.setAttribute('aria-pressed', 'true');
+      label.textContent = '已收藏';
+      icon.setAttribute('fill', 'currentColor');
+    } else {
+      btn.setAttribute('aria-pressed', 'false');
+      label.textContent = '加入收藏';
+      icon.setAttribute('fill', 'none');
+    }
+  }
+</script>
+
+</body>
+</html>
