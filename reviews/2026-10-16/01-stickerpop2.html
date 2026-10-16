@@ -1,0 +1,305 @@
+<!-- style #06 Vibrant Block -->
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>狂貼 StickerRiot｜街頭貼紙與周邊工作室</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --cyan:#00ffff;
+    --purple:#bf00ff;
+    --green:#39ff14;
+    --pink:#ff1493;
+    --ink:#0a0a0a;
+    --paper:#f5f5f0;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans TC','Space Grotesk',sans-serif;
+    overflow-x:hidden;
+  }
+  .display{
+    font-family:'Space Grotesk','Noto Sans TC',sans-serif;
+    font-weight:700;
+    letter-spacing:-0.02em;
+  }
+  .hard-border{
+    border:4px solid var(--ink);
+  }
+  .block-shadow{
+    box-shadow: 8px 8px 0 0 var(--ink);
+  }
+  .block-shadow-sm{
+    box-shadow: 5px 5px 0 0 var(--ink);
+  }
+  .no-blur-grad{
+    /* 硬邊界色塊拼貼：不用漸層模糊，改用硬切色塊 */
+  }
+  .marquee-track{
+    display:flex;
+    width:200%;
+    animation: marquee 18s linear infinite;
+  }
+  @keyframes marquee{
+    0%{transform:translateX(0);}
+    100%{transform:translateX(-50%);}
+  }
+  .card-hover{
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .card-hover:hover{
+    transform: translate(-4px,-4px);
+    box-shadow: 12px 12px 0 0 var(--ink);
+  }
+  .btn-pop{
+    transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
+  }
+  .btn-pop:hover{
+    transform: translate(-3px,-3px);
+    box-shadow: 7px 7px 0 0 var(--ink);
+  }
+  .btn-pop:active{
+    transform: translate(0,0);
+    box-shadow: 0 0 0 0 var(--ink);
+  }
+  .tag-rot{
+    transform: rotate(-3deg);
+  }
+  .tag-rot2{
+    transform: rotate(2deg);
+  }
+  .stripe-bg{
+    background-image: repeating-linear-gradient(45deg, var(--ink) 0, var(--ink) 2px, transparent 2px, transparent 14px);
+  }
+  ::selection{
+    background: var(--pink);
+    color: var(--ink);
+  }
+  .underline-pop{
+    text-decoration: underline;
+    text-decoration-thickness: 4px;
+    text-decoration-color: var(--green);
+    text-underline-offset: 4px;
+  }
+  @media (max-width: 480px){
+    .hero-title{ font-size: 2.7rem !important; line-height: 1.05 !important; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- 頂部跑馬燈 -->
+  <div class="hard-border" style="border-left:0;border-right:0;border-top:0;background:var(--ink);overflow:hidden;">
+    <div class="marquee-track py-2">
+      <div class="flex items-center gap-8 px-4 whitespace-nowrap">
+        <span class="display text-sm" style="color:var(--green);">★ 貼紙就是態度</span>
+        <span class="display text-sm" style="color:var(--cyan);">★ 客製貼紙 48 小時出稿</span>
+        <span class="display text-sm" style="color:var(--pink);">★ 街頭周邊自己玩自己潮</span>
+        <span class="display text-sm" style="color:var(--purple);">★ 貼滿你的人生</span>
+        <span class="display text-sm" style="color:var(--green);">★ 貼紙就是態度</span>
+        <span class="display text-sm" style="color:var(--cyan);">★ 客製貼紙 48 小時出稿</span>
+        <span class="display text-sm" style="color:var(--pink);">★ 街頭周邊自己玩自己潮</span>
+        <span class="display text-sm" style="color:var(--purple);">★ 貼滿你的人生</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="flex items-center justify-between px-5 sm:px-10 py-5 hard-border" style="border-top:0;background:var(--paper);">
+    <div class="display text-xl sm:text-2xl" style="color:var(--ink);">
+      狂貼<span style="color:var(--pink);">Sticker</span><span style="color:var(--purple);">Riot</span>
+    </div>
+    <div class="hidden md:flex items-center gap-6 display text-sm font-medium">
+      <a href="#work" class="hover:underline">作品牆</a>
+      <a href="#about" class="hover:underline">關於我們</a>
+      <a href="#contact" class="hover:underline">合作洽談</a>
+    </div>
+    <a href="#contact" class="btn-pop display text-sm font-bold px-4 py-2 hard-border" style="background:var(--green);">
+      立刻下單
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <header class="relative px-5 sm:px-10 py-16 sm:py-24 hard-border" style="border-top:0;background:var(--ink);overflow:hidden;">
+    <div class="absolute top-6 right-6 w-20 h-20 sm:w-28 sm:h-28 hard-border tag-rot2" style="background:var(--cyan);"></div>
+    <div class="absolute bottom-10 right-24 w-10 h-10 sm:w-14 sm:h-14 hard-border" style="background:var(--pink);"></div>
+    <div class="absolute bottom-0 left-0 w-16 h-40 hard-border" style="background:var(--purple);"></div>
+
+    <div class="relative z-10 max-w-4xl">
+      <span class="inline-block display text-xs sm:text-sm font-bold px-3 py-1 mb-6 hard-border tag-rot" style="background:var(--pink);color:var(--ink);">
+        台北 ‧ 街頭貼紙工作室
+      </span>
+      <h1 class="hero-title display text-5xl sm:text-7xl md:text-8xl leading-[1.02] mb-6" style="color:var(--paper);">
+        不貼不酷，<br>
+        <span style="color:var(--green);">貼</span><span style="color:var(--cyan);">了</span><span style="color:var(--pink);">就</span><span style="color:var(--purple);">爆</span>。
+      </h1>
+      <p class="text-lg sm:text-xl max-w-xl mb-8" style="color:var(--paper);">
+        狂貼是一間專做貼紙、徽章、周邊的設計小隊，把你腦袋裡那些「有點瘋又很酷」的念頭，變成可以貼滿牆面、滑板和筆電的硬核視覺。我們不做乾淨優雅，我們只做讓人想立刻撕下背膠的東西。
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a href="#work" class="btn-pop display font-bold text-base sm:text-lg px-6 py-3 hard-border" style="background:var(--green);color:var(--ink);">
+          看看我們的作品 →
+        </a>
+        <a href="#contact" class="btn-pop display font-bold text-base sm:text-lg px-6 py-3 hard-border" style="background:transparent;color:var(--paper);border-color:var(--paper);">
+          我要客製貼紙
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 數據色塊條 -->
+  <section class="grid grid-cols-2 sm:grid-cols-4 hard-border" style="border-top:0;">
+    <div class="p-6 text-center hard-border" style="background:var(--cyan);border-left:0;border-top:0;">
+      <div class="display text-3xl sm:text-4xl">1200+</div>
+      <div class="text-sm font-medium mt-1">已出貨貼紙款式</div>
+    </div>
+    <div class="p-6 text-center hard-border" style="background:var(--pink);border-top:0;">
+      <div class="display text-3xl sm:text-4xl">48hr</div>
+      <div class="text-sm font-medium mt-1">客製打樣最快時程</div>
+    </div>
+    <div class="p-6 text-center hard-border" style="background:var(--green);border-right:0;border-top:0;">
+      <div class="display text-3xl sm:text-4xl">300+</div>
+      <div class="text-sm font-medium mt-1">合作品牌與創作者</div>
+    </div>
+    <div class="p-6 text-center hard-border" style="background:var(--purple);border-right:0;border-top:0;color:var(--paper);">
+      <div class="display text-3xl sm:text-4xl">7</div>
+      <div class="text-sm font-medium mt-1">年街頭周邊經驗</div>
+    </div>
+  </section>
+
+  <!-- 作品牆 -->
+  <section id="work" class="px-5 sm:px-10 py-16 sm:py-24" style="background:var(--paper);">
+    <div class="flex items-end justify-between flex-wrap gap-4 mb-10">
+      <h2 class="display text-4xl sm:text-5xl">作品牆</h2>
+      <p class="max-w-sm text-sm sm:text-base font-medium">每一款都是限量小批次手工模切，貼上就是獨一無二的態度宣言。</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- 卡片 1：大色塊 -->
+      <div class="card-hover hard-border block-shadow p-6 sm:row-span-2 flex flex-col justify-between min-h-[320px]" style="background:var(--cyan);">
+        <div>
+          <span class="display text-xs font-bold px-2 py-1 hard-border inline-block mb-4" style="background:var(--ink);color:var(--cyan);">NEW DROP</span>
+          <h3 class="display text-2xl sm:text-3xl mb-3">情緒宣言貼紙包</h3>
+          <p class="text-sm font-medium">十二張一組，把「心情很差但還是要出門」寫成貼紙，耐水耐刮，貼機車、貼水壺都行。</p>
+        </div>
+        <div class="display text-sm font-bold mt-6">NT$ 280 ／組</div>
+      </div>
+
+      <!-- 卡片 2 -->
+      <div class="card-hover hard-border block-shadow p-6 flex flex-col justify-between min-h-[200px]" style="background:var(--pink);">
+        <div>
+          <h3 class="display text-xl sm:text-2xl mb-2">滑板底板貼紙組</h3>
+          <p class="text-sm font-medium">抗磨損大圖輸出，專為板底設計，怎麼摔都還是最亮的那一塊。</p>
+        </div>
+        <div class="display text-sm font-bold mt-4">NT$ 450 ／片</div>
+      </div>
+
+      <!-- 卡片 3 -->
+      <div class="card-hover hard-border block-shadow p-6 flex flex-col justify-between min-h-[200px]" style="background:var(--green);">
+        <div>
+          <h3 class="display text-xl sm:text-2xl mb-2">電競戰隊卡典貼紙</h3>
+          <p class="text-sm font-medium">鍵盤、機殼、滑鼠墊通用，耐刮材質，戰隊 Logo 也能幫忙重新設計。</p>
+        </div>
+        <div class="display text-sm font-bold mt-4">NT$ 150 ／張起</div>
+      </div>
+
+      <!-- 卡片 4：小色塊橫跨 -->
+      <div class="card-hover hard-border block-shadow p-6 sm:col-span-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 min-h-[160px]" style="background:var(--purple);color:var(--paper);">
+        <div>
+          <h3 class="display text-xl sm:text-2xl mb-2">機車尾箱大圖貼紙</h3>
+          <p class="text-sm font-medium" style="color:var(--paper);">防水抗曬三年保色，客製車牌號、暱稱、圖樣全部包辦，貼完整條路都認得你。</p>
+        </div>
+        <div class="display text-lg font-bold whitespace-nowrap">NT$ 680 起</div>
+      </div>
+
+      <!-- 卡片 5 -->
+      <div class="card-hover hard-border block-shadow p-6 flex flex-col justify-between min-h-[200px]" style="background:var(--ink);color:var(--paper);">
+        <div>
+          <h3 class="display text-xl sm:text-2xl mb-2" style="color:var(--cyan);">筆電貼紙拼貼組</h3>
+          <p class="text-sm font-medium">六張不同尺寸隨機拼貼，適合蓋掉筆電上那個尷尬的品牌 Logo。</p>
+        </div>
+        <div class="display text-sm font-bold mt-4" style="color:var(--green);">NT$ 320 ／組</div>
+      </div>
+
+      <!-- 卡片 6 -->
+      <div class="card-hover hard-border block-shadow p-6 flex flex-col justify-between min-h-[200px]" style="background:var(--cyan);">
+        <div>
+          <h3 class="display text-xl sm:text-2xl mb-2">街頭徽章別針三件組</h3>
+          <p class="text-sm font-medium">金屬琺瑯材質，別在帽子、背包、外套都夠硬，送禮或自己收藏都划算。</p>
+        </div>
+        <div class="display text-sm font-bold mt-4">NT$ 390 ／組</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 關於工作室 / 服務項目 -->
+  <section id="about" class="px-5 sm:px-10 py-16 sm:py-24 hard-border" style="border-left:0;border-right:0;background:var(--ink);color:var(--paper);">
+    <h2 class="display text-4xl sm:text-5xl mb-4">關於狂貼</h2>
+    <p class="max-w-2xl text-base sm:text-lg font-medium mb-12">
+      狂貼成立於台北，是一群滑板玩家、刺青師和平面設計師湊在一起開的小工作室。我們相信貼紙是最低成本也最直接的自我表達，所以把印刷廠的規矩都重新學了一遍，只為了讓每一張貼紙的顏色都夠狂、邊緣都夠利。
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div class="hard-border block-shadow-sm p-5" style="background:var(--green);color:var(--ink);">
+        <div class="display text-lg font-bold mb-2">客製貼紙設計</div>
+        <p class="text-sm font-medium">從草稿到模切刀模全程包辦，個人創作者也能小量印製。</p>
+      </div>
+      <div class="hard-border block-shadow-sm p-5" style="background:var(--pink);color:var(--ink);">
+        <div class="display text-lg font-bold mb-2">品牌周邊開發</div>
+        <p class="text-sm font-medium">貼紙、徽章、吊牌一條龍，幫你的品牌長出自己的街頭氣味。</p>
+      </div>
+      <div class="hard-border block-shadow-sm p-5" style="background:var(--purple);color:var(--paper);">
+        <div class="display text-lg font-bold mb-2">快閃市集合作</div>
+        <p class="text-sm font-medium">提供現場燙印、客製刻字服務，攤位直接變成拍照熱點。</p>
+      </div>
+      <div class="hard-border block-shadow-sm p-5" style="background:var(--cyan);color:var(--ink);">
+        <div class="display text-lg font-bold mb-2">大圖噴膠印刷</div>
+        <p class="text-sm font-medium">車體、招牌、玻璃貼膜，抗曬抗水，戶外三年不掉色。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="contact" class="px-5 sm:px-10 py-16 sm:py-24 text-center" style="background:var(--paper);">
+    <h2 class="display text-4xl sm:text-6xl mb-6">
+      有個瘋狂的點子？<br><span class="underline-pop">貼給全世界看。</span>
+    </h2>
+    <p class="max-w-xl mx-auto text-base sm:text-lg font-medium mb-8">
+      不管是一張梗圖還是整套品牌周邊，傳訊息告訴我們你想要的瘋狂程度，剩下的交給狂貼。
+    </p>
+    <a href="mailto:hello@stickerriot.tw" class="btn-pop display inline-block font-bold text-lg px-8 py-4 hard-border" style="background:var(--pink);color:var(--ink);">
+      寄信給我們 hello@stickerriot.tw
+    </a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="hard-border px-5 sm:px-10 py-10" style="border-bottom:0;background:var(--ink);color:var(--paper);">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+      <div class="display text-xl">
+        狂貼<span style="color:var(--pink);">Sticker</span><span style="color:var(--purple);">Riot</span>
+      </div>
+      <div class="flex flex-wrap gap-5 text-sm font-medium">
+        <a href="#work" class="hover:underline">作品牆</a>
+        <a href="#about" class="hover:underline">服務項目</a>
+        <a href="#contact" class="hover:underline">合作洽談</a>
+        <a href="#" class="hover:underline">Instagram</a>
+        <a href="#" class="hover:underline">線上商店</a>
+      </div>
+    </div>
+    <div class="mt-8 pt-6 hard-border text-xs font-medium" style="border-left:0;border-right:0;border-bottom:0;color:#999;">
+      © 2026 狂貼 StickerRiot Studio. 台北市大同區，所有圖樣設計保留一切權利。
+    </div>
+  </footer>
+
+</body>
+</html>
