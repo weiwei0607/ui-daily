@@ -1,0 +1,406 @@
+<!-- style #36 Financial Dashboard -->
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>穩健財資 StableLedger 現金流健診儀表板</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --bg-base: #1e2733;
+    --bg-panel: #334155;
+    --bg-panel-light: #3d4c61;
+    --bg-card: #2b3747;
+    --border-soft: #475569;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --up-green: #10b981;
+    --up-green-soft: rgba(16,185,129,0.12);
+    --down-red: #f43f5e;
+    --down-red-soft: rgba(244,63,94,0.12);
+    --accent-blue: #38bdf8;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    background: var(--bg-base);
+    color: var(--text-primary);
+    font-family: 'IBM Plex Sans', 'Noto Sans TC', sans-serif;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+  .font-zh { font-family: 'Noto Sans TC', 'IBM Plex Sans', sans-serif; }
+  .mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-feature-settings: "tnum" 1;
+    letter-spacing: 0.01em;
+  }
+  .panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-soft);
+  }
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-soft);
+  }
+  .tag-up { color: var(--up-green); background: var(--up-green-soft); }
+  .tag-down { color: var(--down-red); background: var(--down-red-soft); }
+  .scrollbar-thin::-webkit-scrollbar { height: 6px; width: 6px; }
+  .scrollbar-thin::-webkit-scrollbar-thumb { background: var(--border-soft); border-radius: 4px; }
+  table td, table th { white-space: nowrap; }
+  .tab-btn {
+    transition: all 0.15s ease;
+  }
+  .tab-btn.active {
+    background: var(--accent-blue);
+    color: #0b1320;
+  }
+  .tab-btn:not(.active):hover {
+    background: var(--bg-panel-light);
+  }
+</style>
+</head>
+<body class="min-h-screen pb-16">
+
+  <!-- Top Nav -->
+  <header class="panel sticky top-0 z-30 border-b">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style="background:#0f766e;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M3 17L9 11L13 15L21 7" stroke="#6ee7b7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15 7H21V13" stroke="#6ee7b7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="font-zh font-bold text-[15px] leading-tight text-white">穩健財資 <span class="mono text-[13px] text-slate-400 font-normal">StableLedger</span></div>
+          <div class="font-zh text-[11px] text-slate-400 leading-tight">企業現金流健診平台</div>
+        </div>
+      </div>
+      <div class="hidden md:flex items-center gap-1 font-zh text-[13px] text-slate-300">
+        <span class="px-3 py-1.5 rounded-md bg-white/5 text-white font-medium">總覽儀表板</span>
+        <span class="px-3 py-1.5 rounded-md hover:bg-white/5 cursor-default">應收帳款</span>
+        <span class="px-3 py-1.5 rounded-md hover:bg-white/5 cursor-default">現金流預測</span>
+        <span class="px-3 py-1.5 rounded-md hover:bg-white/5 cursor-default">風險警示</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="hidden sm:flex items-center gap-2 font-zh text-[12px] text-slate-400">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          資料同步於 2026/10/16 08:45
+        </div>
+        <div class="w-8 h-8 rounded-full bg-slate-600 flex items-center justify-center font-zh text-[12px] font-bold text-white">韡</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-[1400px] mx-auto px-4 sm:px-6 pt-6 space-y-6">
+
+    <!-- Header row: title + period tabs -->
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+      <div>
+        <h1 class="font-zh text-xl sm:text-2xl font-bold text-white">財務健診總覽</h1>
+        <p class="font-zh text-[13px] text-slate-400 mt-1">涵蓋集團合併報表口徑，資料截至本期最後交易日。綠色代表優於前期，紅色代表劣於前期。</p>
+      </div>
+      <div class="flex items-center gap-1.5 panel rounded-lg p-1 shrink-0">
+        <button class="tab-btn active font-zh text-[13px] font-medium px-4 py-1.5 rounded-md">本月</button>
+        <button class="tab-btn font-zh text-[13px] font-medium px-4 py-1.5 rounded-md text-slate-300">本季</button>
+        <button class="tab-btn font-zh text-[13px] font-medium px-4 py-1.5 rounded-md text-slate-300">本年度</button>
+        <button class="tab-btn font-zh text-[13px] font-medium px-4 py-1.5 rounded-md text-slate-300">自訂區間</button>
+      </div>
+    </div>
+
+    <!-- KPI Cards -->
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+
+      <div class="card rounded-xl p-4">
+        <div class="flex items-center justify-between">
+          <span class="font-zh text-[12px] text-slate-400">本月營收</span>
+          <span class="tag-up font-zh text-[11px] font-medium px-1.5 py-0.5 rounded">▲ 8.4%</span>
+        </div>
+        <div class="mono text-[26px] font-semibold text-white mt-2 tracking-tight">NT$ 48,962,300</div>
+        <div class="font-zh text-[11px] text-slate-500 mt-1">較上月 NT$ 45,170,850</div>
+      </div>
+
+      <div class="card rounded-xl p-4">
+        <div class="flex items-center justify-between">
+          <span class="font-zh text-[12px] text-slate-400">本月淨利</span>
+          <span class="tag-up font-zh text-[11px] font-medium px-1.5 py-0.5 rounded">▲ 12.1%</span>
+        </div>
+        <div class="mono text-[26px] font-semibold text-white mt-2 tracking-tight">NT$ 9,284,150</div>
+        <div class="font-zh text-[11px] text-slate-500 mt-1">淨利率 18.97%</div>
+      </div>
+
+      <div class="card rounded-xl p-4">
+        <div class="flex items-center justify-between">
+          <span class="font-zh text-[12px] text-slate-400">自由現金流</span>
+          <span class="tag-down font-zh text-[11px] font-medium px-1.5 py-0.5 rounded">▼ 3.6%</span>
+        </div>
+        <div class="mono text-[26px] font-semibold text-white mt-2 tracking-tight">NT$ 6,715,420</div>
+        <div class="font-zh text-[11px] text-slate-500 mt-1">因資本支出增加所致</div>
+      </div>
+
+      <div class="card rounded-xl p-4">
+        <div class="flex items-center justify-between">
+          <span class="font-zh text-[12px] text-slate-400">應收帳款餘額</span>
+          <span class="tag-down font-zh text-[11px] font-medium px-1.5 py-0.5 rounded">▼ 5.2%</span>
+        </div>
+        <div class="mono text-[26px] font-semibold text-white mt-2 tracking-tight">NT$ 21,038,900</div>
+        <div class="font-zh text-[11px] text-slate-500 mt-1">平均收款天數 46 天</div>
+      </div>
+
+      <div class="card rounded-xl p-4">
+        <div class="flex items-center justify-between">
+          <span class="font-zh text-[12px] text-slate-400">速動比率</span>
+          <span class="tag-up font-zh text-[11px] font-medium px-1.5 py-0.5 rounded">▲ 0.9%</span>
+        </div>
+        <div class="mono text-[26px] font-semibold text-white mt-2 tracking-tight">1.38x</div>
+        <div class="font-zh text-[11px] text-slate-500 mt-1">高於產業平均 1.12x</div>
+      </div>
+
+    </section>
+
+    <!-- Chart + side summary -->
+    <section class="grid grid-cols-1 lg:grid-cols-[1.7fr_1fr] gap-4">
+
+      <div class="card rounded-xl p-5">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h2 class="font-zh text-[15px] font-semibold text-white">近 12 個月現金流趨勢</h2>
+            <p class="font-zh text-[12px] text-slate-400 mt-0.5">營運現金流入 vs. 現金流出淨額（單位：萬元）</p>
+          </div>
+          <div class="flex items-center gap-4 font-zh text-[12px]">
+            <span class="flex items-center gap-1.5 text-slate-300"><span class="w-2.5 h-2.5 rounded-full inline-block" style="background:#10b981;"></span>營運現金流入</span>
+            <span class="flex items-center gap-1.5 text-slate-300"><span class="w-2.5 h-2.5 rounded-full inline-block" style="background:#f43f5e;"></span>現金流出</span>
+          </div>
+        </div>
+
+        <svg viewBox="0 0 760 280" class="w-full h-auto" style="overflow:visible;">
+          <!-- Grid lines -->
+          <g stroke="#475569" stroke-width="1" opacity="0.4">
+            <line x1="40" y1="20" x2="740" y2="20" />
+            <line x1="40" y1="76" x2="740" y2="76" />
+            <line x1="40" y1="132" x2="740" y2="132" />
+            <line x1="40" y1="188" x2="740" y2="188" />
+            <line x1="40" y1="244" x2="740" y2="244" />
+          </g>
+          <!-- Y axis labels -->
+          <g class="mono" font-size="11" fill="#64748b">
+            <text x="8" y="24">1200</text>
+            <text x="8" y="80">900</text>
+            <text x="8" y="136">600</text>
+            <text x="8" y="192">300</text>
+            <text x="12" y="248">0</text>
+          </g>
+
+          <!-- Inflow line (green) points for 12 months, scale: y = 244 - value*0.2033 -->
+          <!-- values: 640,705,668,742,780,820,790,860,905,882,940,980 -->
+          <polyline fill="none" stroke="#10b981" stroke-width="2.5"
+            points="40,114.9 103.6,100.6 167.3,108.2 230.9,93.0 294.5,85.1 358.2,76.1 421.8,82.1 485.5,67.1 549.1,59.9 612.7,64.4 676.4,52.9 740,45.0" />
+
+          <!-- Outflow line (red) values: 420,460,505,470,520,560,610,540,585,630,600,660 -->
+          <polyline fill="none" stroke="#f43f5e" stroke-width="2.5" stroke-dasharray="0"
+            points="40,159.6 103.6,150.3 167.3,140.3 230.9,148.4 294.5,138.3 358.2,129.2 421.8,117.9 485.5,133.3 549.1,124.1 612.7,114.1 676.4,120.0 740,108.0" />
+
+          <!-- Data point markers inflow -->
+          <g fill="#10b981">
+            <circle cx="40" cy="114.9" r="3.5" /><circle cx="103.6" cy="100.6" r="3.5" />
+            <circle cx="167.3" cy="108.2" r="3.5" /><circle cx="230.9" cy="93.0" r="3.5" />
+            <circle cx="294.5" cy="85.1" r="3.5" /><circle cx="358.2" cy="76.1" r="3.5" />
+            <circle cx="421.8" cy="82.1" r="3.5" /><circle cx="485.5" cy="67.1" r="3.5" />
+            <circle cx="549.1" cy="59.9" r="3.5" /><circle cx="612.7" cy="64.4" r="3.5" />
+            <circle cx="676.4" cy="52.9" r="3.5" /><circle cx="740" cy="45.0" r="3.5" />
+          </g>
+          <!-- Data point markers outflow -->
+          <g fill="#f43f5e">
+            <circle cx="40" cy="159.6" r="3.5" /><circle cx="103.6" cy="150.3" r="3.5" />
+            <circle cx="167.3" cy="140.3" r="3.5" /><circle cx="230.9" cy="148.4" r="3.5" />
+            <circle cx="294.5" cy="138.3" r="3.5" /><circle cx="358.2" cy="129.2" r="3.5" />
+            <circle cx="421.8" cy="117.9" r="3.5" /><circle cx="485.5" cy="133.3" r="3.5" />
+            <circle cx="549.1" cy="124.1" r="3.5" /><circle cx="612.7" cy="114.1" r="3.5" />
+            <circle cx="676.4" cy="120.0" r="3.5" /><circle cx="740" cy="108.0" r="3.5" />
+          </g>
+
+          <!-- X axis month labels -->
+          <g class="mono" font-size="11" fill="#94a3b8">
+            <text x="30" y="264">11月</text>
+            <text x="92" y="264">12月</text>
+            <text x="158" y="264">1月</text>
+            <text x="222" y="264">2月</text>
+            <text x="286" y="264">3月</text>
+            <text x="350" y="264">4月</text>
+            <text x="414" y="264">5月</text>
+            <text x="478" y="264">6月</text>
+            <text x="542" y="264">7月</text>
+            <text x="606" y="264">8月</text>
+            <text x="665" y="264">9月</text>
+            <text x="722" y="264">10月</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="card rounded-xl p-5 flex flex-col">
+        <h2 class="font-zh text-[15px] font-semibold text-white mb-4">現金流健康評分</h2>
+        <div class="flex items-center gap-4 mb-5">
+          <div class="relative w-20 h-20 shrink-0">
+            <svg viewBox="0 0 80 80" class="w-20 h-20 -rotate-90">
+              <circle cx="40" cy="40" r="34" fill="none" stroke="#475569" stroke-width="8" />
+              <circle cx="40" cy="40" r="34" fill="none" stroke="#10b981" stroke-width="8"
+                stroke-dasharray="213.6" stroke-dashoffset="44.9" stroke-linecap="round" />
+            </svg>
+            <div class="absolute inset-0 flex items-center justify-center mono text-[18px] font-bold text-white">79</div>
+          </div>
+          <div>
+            <div class="font-zh text-[13px] font-medium text-emerald-400">健康等級：良好</div>
+            <div class="font-zh text-[12px] text-slate-400 mt-1">優於同業中位數 68 分，流動性與收款效率為主要優勢項目。</div>
+          </div>
+        </div>
+        <div class="space-y-3 text-[12px] font-zh">
+          <div class="flex items-center justify-between">
+            <span class="text-slate-400">流動比率</span>
+            <span class="mono text-white">182.4%</span>
+          </div>
+          <div class="h-1.5 rounded-full bg-slate-700 overflow-hidden"><div class="h-full bg-emerald-500" style="width:82%"></div></div>
+
+          <div class="flex items-center justify-between pt-1">
+            <span class="text-slate-400">負債比率</span>
+            <span class="mono text-white">41.6%</span>
+          </div>
+          <div class="h-1.5 rounded-full bg-slate-700 overflow-hidden"><div class="h-full bg-amber-400" style="width:42%"></div></div>
+
+          <div class="flex items-center justify-between pt-1">
+            <span class="text-slate-400">逾期應收占比</span>
+            <span class="mono text-white">6.8%</span>
+          </div>
+          <div class="h-1.5 rounded-full bg-slate-700 overflow-hidden"><div class="h-full bg-rose-500" style="width:17%"></div></div>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-700/60 font-zh text-[12px] text-slate-400">
+          <div class="flex items-center justify-between">
+            <span>下次更新</span>
+            <span class="mono text-slate-200">2026/10/17 09:00</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Transactions / Receivables table -->
+    <section class="card rounded-xl overflow-hidden">
+      <div class="flex items-center justify-between px-5 pt-5 pb-3">
+        <div>
+          <h2 class="font-zh text-[15px] font-semibold text-white">大額交易與應收帳款明細</h2>
+          <p class="font-zh text-[12px] text-slate-400 mt-0.5">依交易金額排序，顯示本期重大收付款項目</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="font-zh text-[11px] px-2.5 py-1 rounded-md bg-white/5 text-slate-300">共 10 筆</span>
+        </div>
+      </div>
+      <div class="overflow-x-auto scrollbar-thin">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="font-zh text-[11px] text-slate-400 border-y border-slate-700/70">
+              <th class="px-5 py-2.5 font-medium">客戶 / 廠商</th>
+              <th class="px-3 py-2.5 font-medium">單據編號</th>
+              <th class="px-3 py-2.5 font-medium">類型</th>
+              <th class="px-3 py-2.5 font-medium">到期日</th>
+              <th class="px-3 py-2.5 font-medium text-right">金額（NT$）</th>
+              <th class="px-5 py-2.5 font-medium text-right">狀態</th>
+            </tr>
+          </thead>
+          <tbody class="font-zh text-[13px]">
+            <tr class="border-b border-slate-700/40 hover:bg-white/[0.03]">
+              <td class="px-5 py-3 text-white">永昌精密工業股份有限公司</td>
+              <td class="px-3 py-3 mono text-slate-400">INV-20261042</td>
+              <td class="px-3 py-3 text-slate-300">應收帳款</td>
+              <td class="px-3 py-3 mono text-slate-400">2026/11/05</td>
+              <td class="px-3 py-3 mono text-right text-white">3,280,000</td>
+              <td class="px-5 py-3 text-right"><span class="tag-up px-2 py-0.5 rounded text-[11px]">正常</span></td>
+            </tr>
+            <tr class="border-b border-slate-700/40 hover:bg-white/[0.03]">
+              <td class="px-5 py-3 text-white">晶陽半導體材料有限公司</td>
+              <td class="px-3 py-3 mono text-slate-400">INV-20261039</td>
+              <td class="px-3 py-3 text-slate-300">應收帳款</td>
+              <td class="px-3 py-3 mono text-slate-400">2026/10/28</td>
+              <td class="px-3 py-3 mono text-right text-white">2,715,600</td>
+              <td class="px-5 py-3 text-right"><span class="tag-up px-2 py-0.5 rounded text-[11px]">正常</span></td>
+            </tr>
+            <tr class="border-b border-slate-700/40 hover:bg-white/[0.03]">
+              <td class="px-5 py-3 text-white">嘉和國際物流股份有限公司</td>
+              <td class="px-3 py-3 mono text-slate-400">INV-20260988</td>
+              <td class="px-3 py-3 text-slate-300">應收帳款</td>
+              <td class="px-3 py-3 mono text-slate-400">2026/09/30</td>
+              <td class="px-3 py-3 mono text-right text-white">1,942,350</td>
+              <td class="px-5 py-3 text-right"><span class="tag-down px-2 py-0.5 rounded text-[11px]">逾期 16 天</span></td>
+            </tr>
+            <tr class="border-b border-slate-700/40 hover:bg-white/[0.03]">
+              <td class="px-5 py-3 text-white">福源食品原料有限公司</td>
+              <td class="px-3 py-3 mono text-slate-400">PAY-20261077</td>
+              <td class="px-3 py-3 text-slate-300">應付帳款</td>
+              <td class="px-3 py-3 mono text-slate-400">2026/10/22</td>
+              <td class="px-3 py-3 mono text-right text-rose-300">(1,580,000)</td>
+              <td class="px-5 py-3 text-right"><span class="tag-up px-2 py-0.5 rounded text-[11px]">待付款</span></td>
+            </tr>
+            <tr class="border-b border-slate-700/40 hover:bg-white/[0.03]">
+              <td class="px-5 py-3 text-white">鑫譜電子零組件股份有限公司</td>
+              <td class="px-3 py-3 mono text-slate-400">INV-20261051</td>
+              <td class="px-3 py-3 text-slate-300">應收帳款</td>
+              <td class="px-3 py-3 mono text-slate-400">2026/11/12</td>
+              <td class="px-3 py-3 mono text-right text-white">1,468,200</td>
+              <td class="px-5 py-3 text-right"><span class="tag-up px-2 py-0.5 rounded text-[11px]">正常</span></td>
+            </tr>
+            <tr class="border-b border-slate-700/40 hover:bg-white/[0.03]">
+              <td class="px-5 py-3 text-white">安信會計師事務所</td>
+              <td class="px-3 py-3 mono text-slate-400">PAY-20261058</td>
+              <td class="px-3 py-3 text-slate-300">應付帳款</td>
+              <td class="px-3 py-3 mono text-slate-400">2026/10/20</td>
+              <td class="px-3 py-3 mono text-right text-rose-300">(420,000)</td>
+              <td class="px-5 py-3 text-right"><span class="tag-up px-2 py-0.5 rounded text-[11px]">待付款</span></td>
+            </tr>
+            <tr class="border-b border-slate-700/40 hover:bg-white/[0.03]">
+              <td class="px-5 py-3 text-white">皇璽機械設備工程行</td>
+              <td class="px-3 py-3 mono text-slate-400">INV-20260955</td>
+              <td class="px-3 py-3 text-slate-300">應收帳款</td>
+              <td class="px-3 py-3 mono text-slate-400">2026/09/18</td>
+              <td class="px-3 py-3 mono text-right text-white">985,400</td>
+              <td class="px-5 py-3 text-right"><span class="tag-down px-2 py-0.5 rounded text-[11px]">逾期 28 天</span></td>
+            </tr>
+            <tr class="border-b border-slate-700/40 hover:bg-white/[0.03]">
+              <td class="px-5 py-3 text-white">翊美生技保養品牌</td>
+              <td class="px-3 py-3 mono text-slate-400">INV-20261063</td>
+              <td class="px-3 py-3 text-slate-300">應收帳款</td>
+              <td class="px-3 py-3 mono text-slate-400">2026/11/20</td>
+              <td class="px-3 py-3 mono text-right text-white">862,750</td>
+              <td class="px-5 py-3 text-right"><span class="tag-up px-2 py-0.5 rounded text-[11px]">正常</span></td>
+            </tr>
+            <tr class="border-b border-slate-700/40 hover:bg-white/[0.03]">
+              <td class="px-5 py-3 text-white">臺北數位行銷顧問公司</td>
+              <td class="px-3 py-3 mono text-slate-400">PAY-20261066</td>
+              <td class="px-3 py-3 text-slate-300">應付帳款</td>
+              <td class="px-3 py-3 mono text-slate-400">2026/10/25</td>
+              <td class="px-3 py-3 mono text-right text-rose-300">(305,600)</td>
+              <td class="px-5 py-3 text-right"><span class="tag-up px-2 py-0.5 rounded text-[11px]">待付款</span></td>
+            </tr>
+            <tr class="hover:bg-white/[0.03]">
+              <td class="px-5 py-3 text-white">正興鋼鐵貿易有限公司</td>
+              <td class="px-3 py-3 mono text-slate-400">INV-20260911</td>
+              <td class="px-3 py-3 text-slate-300">應收帳款</td>
+              <td class="px-3 py-3 mono text-slate-400">2026/08/30</td>
+              <td class="px-3 py-3 mono text-right text-white">612,900</td>
+              <td class="px-5 py-3 text-right"><span class="tag-down px-2 py-0.5 rounded text-[11px]">逾期 47 天</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="font-zh text-[11px] text-slate-500 text-center pt-2 pb-4">
+      本報表僅供內部管理使用，數據來源為集團財務會計系統，更新頻率為每日一次。
+    </footer>
+
+  </main>
+
+</body>
+</html>
