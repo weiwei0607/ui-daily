@@ -1,0 +1,206 @@
+<!-- style #05 3D / Hyperrealism -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>恆曜 ChronoLux — 鈦金屬智能腕錶</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold:#ffd700;
+    --silver:#e2e2e2;
+    --deep:#1a0f2e;
+  }
+  body{
+    font-family:'Noto Sans TC','Unbounded',sans-serif;
+    background: radial-gradient(circle at 20% 10%, #2d1b4e 0%, #150a28 45%, #0a0515 100%);
+    color:#f3f0ff;
+    overflow-x:hidden;
+  }
+  .display{font-family:'Unbounded','Noto Sans TC',sans-serif;}
+
+  .metal-text{
+    background: linear-gradient(180deg, #fff8dc 0%, #ffd700 25%, #b8860b 50%, #ffd700 75%, #fff8dc 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 4px 12px rgba(255,215,0,.25));
+  }
+
+  .watch-stage{
+    perspective: 1400px;
+  }
+  .watch-body{
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    position: relative;
+    background:
+      radial-gradient(circle at 30% 25%, #fdfdfd 0%, #c9c9c9 18%, #8c8c8c 40%, #4a4a4a 60%, #1c1c1c 85%);
+    box-shadow:
+      inset 0 10px 25px rgba(255,255,255,.55),
+      inset 0 -20px 40px rgba(0,0,0,.65),
+      0 40px 80px -10px rgba(0,0,0,.7),
+      0 0 0 10px #0d0d0d,
+      0 0 0 14px #3a3a3a,
+      0 0 60px 10px rgba(255,215,0,.15);
+    transform: rotateX(8deg) rotateY(-6deg);
+    animation: float 6s ease-in-out infinite;
+  }
+  .watch-face{
+    position:absolute; inset: 22px;
+    border-radius:50%;
+    background: radial-gradient(circle at 35% 30%, #2a2a2a, #0b0b0b 70%);
+    box-shadow: inset 0 6px 18px rgba(0,0,0,.8), inset 0 -4px 10px rgba(255,255,255,.08);
+  }
+  .watch-crown{
+    position:absolute; right:-14px; top:50%; transform:translateY(-50%);
+    width:26px; height:46px; border-radius:6px;
+    background: linear-gradient(90deg,#fdfdfd,#8c8c8c,#3a3a3a);
+    box-shadow: 2px 2px 8px rgba(0,0,0,.6);
+  }
+  @keyframes float{
+    0%,100%{ transform: rotateX(8deg) rotateY(-6deg) translateY(0); }
+    50%{ transform: rotateX(10deg) rotateY(-3deg) translateY(-14px); }
+  }
+
+  .glint{
+    position:absolute; inset:22px; border-radius:50%;
+    background: conic-gradient(from 210deg, transparent 0deg, rgba(255,255,255,.5) 8deg, transparent 20deg, transparent 360deg);
+    animation: spin 4s linear infinite;
+    mix-blend-mode: screen;
+  }
+  @keyframes spin{ to{ transform: rotate(360deg); } }
+
+  .spec-card{
+    background: linear-gradient(160deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+    border: 1px solid rgba(255,215,0,.25);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.4);
+  }
+
+  .cta-btn{
+    background: linear-gradient(145deg, #fff3b0, #ffd700 35%, #b8860b 65%, #ffd700 90%);
+    box-shadow:
+      0 2px 0 rgba(255,255,255,.6) inset,
+      0 -3px 6px rgba(0,0,0,.25) inset,
+      0 15px 35px -8px rgba(255,215,0,.5);
+    color:#241400;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .cta-btn:hover{
+    transform: translateY(-3px);
+    box-shadow:
+      0 2px 0 rgba(255,255,255,.7) inset,
+      0 -3px 6px rgba(0,0,0,.3) inset,
+      0 20px 45px -8px rgba(255,215,0,.65);
+  }
+
+  .silver-chip{
+    background: linear-gradient(145deg, #fdfdfd, #c9c9c9 40%, #8c8c8c 70%, #c9c9c9);
+    color:#1a1a1a;
+  }
+
+  .fade-up{ animation: fadeUp .9s ease both; }
+  @keyframes fadeUp{ from{opacity:0; transform:translateY(24px);} to{opacity:1; transform:translateY(0);} }
+</style>
+</head>
+<body class="min-h-screen">
+
+<nav class="flex items-center justify-between px-6 md:px-16 py-6 relative z-10">
+  <div class="display text-xl md:text-2xl font-extrabold metal-text tracking-wide">ChronoLux 恆曜</div>
+  <div class="hidden md:flex gap-8 text-sm text-white/70">
+    <a href="#" class="hover:text-white transition">系列</a>
+    <a href="#" class="hover:text-white transition">工藝故事</a>
+    <a href="#" class="hover:text-white transition">保固</a>
+    <a href="#" class="hover:text-white transition">門店</a>
+  </div>
+  <button class="silver-chip px-5 py-2 rounded-full text-sm font-bold">立即預購</button>
+</nav>
+
+<header class="relative px-6 md:px-16 pt-10 md:pt-16 pb-20 grid md:grid-cols-2 gap-10 items-center">
+  <div class="fade-up relative z-10">
+    <p class="text-sm tracking-[0.3em] text-amber-200/70 mb-4 font-medium">鈦金屬旗艦系列 · 限量 500 枚</p>
+    <h1 class="display text-4xl md:text-6xl font-black leading-tight mb-6">
+      <span class="metal-text">光，刻</span>在<br class="hidden md:block">腕間的<span class="metal-text">永恆</span>
+    </h1>
+    <p class="text-white/70 text-base md:text-lg leading-relaxed mb-8 max-w-md">
+      316L 精鋼機芯外殼，藍寶石水晶鏡面，手工拋光 72 道工序。每一枚恆曜，都是時間本身的雕塑。
+    </p>
+    <div class="flex flex-wrap gap-4">
+      <button class="cta-btn px-8 py-4 rounded-full font-bold text-base display">預約鑑賞 · 自由訂金</button>
+      <button class="px-8 py-4 rounded-full font-bold text-base border border-white/20 text-white/80 hover:bg-white/5 transition">觀看工藝影片</button>
+    </div>
+    <div class="flex gap-8 mt-10 text-white/60 text-sm">
+      <div><p class="display text-2xl font-extrabold metal-text">72</p><p>道拋光工序</p></div>
+      <div><p class="display text-2xl font-extrabold metal-text">10 年</p><p>機芯保固</p></div>
+      <div><p class="display text-2xl font-extrabold metal-text">500</p><p>枚全球限量</p></div>
+    </div>
+  </div>
+
+  <div class="watch-stage flex justify-center relative z-10">
+    <div class="watch-body">
+      <div class="glint"></div>
+      <div class="watch-face flex items-center justify-center">
+        <span class="display text-amber-200/80 text-xs tracking-[0.4em]">CHRONOLUX</span>
+      </div>
+      <div class="watch-crown"></div>
+    </div>
+  </div>
+</header>
+
+<section class="px-6 md:px-16 py-20 relative z-10">
+  <h2 class="display text-2xl md:text-3xl font-extrabold text-center mb-12 metal-text">鍛造每一分細節</h2>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="spec-card rounded-2xl p-8">
+      <p class="display text-3xl font-black metal-text mb-2">42mm</p>
+      <p class="text-white/70 text-sm leading-relaxed">航太級鈦金屬錶殼，輕量卻堅若磐石，貼合各種腕圍。</p>
+    </div>
+    <div class="spec-card rounded-2xl p-8">
+      <p class="display text-3xl font-black metal-text mb-2">防水 200M</p>
+      <p class="text-white/70 text-sm leading-relaxed">深潛級密封工藝，日常配戴或極限探索皆從容應對。</p>
+    </div>
+    <div class="spec-card rounded-2xl p-8">
+      <p class="display text-3xl font-black metal-text mb-2">80 小時</p>
+      <p class="text-white/70 text-sm leading-relaxed">自動上鏈機芯，動力儲存長達三天，無需頻繁佩戴喚醒。</p>
+    </div>
+  </div>
+</section>
+
+<section class="px-6 md:px-16 py-20 relative z-10">
+  <div class="spec-card rounded-3xl p-10 md:p-14 flex flex-col md:flex-row items-center gap-10">
+    <div class="flex-1">
+      <h3 class="display text-2xl md:text-3xl font-extrabold mb-4 metal-text">鑑賞預約，面對面感受重量</h3>
+      <p class="text-white/70 leading-relaxed mb-6">恆曜僅於台北、台中、高雄三間旗艦體驗室提供私人鑑賞，由錶匠親自為您講解每一道工序的來歷。</p>
+      <button class="cta-btn px-8 py-3.5 rounded-full font-bold display">預約體驗室時段</button>
+    </div>
+    <div class="flex-1 grid grid-cols-2 gap-4 w-full">
+      <div class="silver-chip rounded-xl p-5 text-center">
+        <p class="display font-black text-lg">台北</p>
+        <p class="text-xs mt-1 text-black/60">信義旗艦店</p>
+      </div>
+      <div class="silver-chip rounded-xl p-5 text-center">
+        <p class="display font-black text-lg">台中</p>
+        <p class="text-xs mt-1 text-black/60">西屯體驗室</p>
+      </div>
+      <div class="silver-chip rounded-xl p-5 text-center">
+        <p class="display font-black text-lg">高雄</p>
+        <p class="text-xs mt-1 text-black/60">巨蛋概念店</p>
+      </div>
+      <div class="silver-chip rounded-xl p-5 text-center">
+        <p class="display font-black text-lg">線上</p>
+        <p class="text-xs mt-1 text-black/60">視訊鑑賞</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="px-6 md:px-16 py-10 text-center text-white/40 text-sm relative z-10">
+  © 2026 ChronoLux 恆曜鐘表工坊．台灣手工鍛造
+</footer>
+
+</body>
+</html>

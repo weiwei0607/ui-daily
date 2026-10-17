@@ -1,0 +1,116 @@
+<!-- style #20 Hero-Centric -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>森語 ForestWhisper — 來自山林的保養儀式</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,400&family=Noto+Serif+TC:wght@300;400;500;600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Nunito','Noto Serif TC',sans-serif;
+    background:#f3f0e6;
+    color:#2f3b2a;
+  }
+  .fr{font-family:'Fraunces','Noto Serif TC',serif;}
+
+  .hero-wrap{
+    background: radial-gradient(ellipse at 70% 20%, #d9e8c7 0%, #f3f0e6 55%);
+  }
+
+  .leaf-blob{
+    position:absolute; border-radius: 48% 52% 60% 40% / 50% 45% 55% 50%;
+    background: linear-gradient(145deg,#8fbc8f,#3e4a32);
+    filter: blur(0px);
+    opacity:.85;
+  }
+
+  .hero-img{
+    width: min(560px, 85vw);
+    aspect-ratio: 4/5;
+    border-radius: 50% 50% 46% 54% / 55% 55% 45% 45%;
+    background:
+      radial-gradient(circle at 30% 25%, #e8f0d8, transparent 50%),
+      linear-gradient(160deg, #c3d8a8 0%, #8fbc8f 45%, #3e4a32 100%);
+    box-shadow: 0 40px 80px -20px rgba(62,74,50,.35);
+    position:relative;
+    display:flex; align-items:flex-end; justify-content:center;
+  }
+  .hero-img::after{
+    content:'🌿'; font-size:5rem; margin-bottom:2rem; filter: drop-shadow(0 10px 20px rgba(0,0,0,.2));
+  }
+
+  .pill{
+    background:#fff; border:1px solid rgba(62,74,50,.15);
+  }
+
+  .cta-organic{
+    background:#3e4a32; color:#f3f0e6;
+    box-shadow: 0 15px 30px -8px rgba(62,74,50,.5);
+    transition: transform .3s ease, box-shadow .3s ease;
+  }
+  .cta-organic:hover{ transform: translateY(-3px); box-shadow: 0 20px 40px -8px rgba(62,74,50,.6); }
+
+  .floating{ animation: floaty 7s ease-in-out infinite; }
+  @keyframes floaty{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-16px);} }
+</style>
+</head>
+<body class="min-h-screen hero-wrap relative overflow-x-hidden">
+
+<div class="leaf-blob w-40 h-40 top-10 left-[-40px] floating" style="animation-delay:0s"></div>
+<div class="leaf-blob w-24 h-24 top-[60%] left-[5%] floating" style="animation-delay:2s"></div>
+<div class="leaf-blob w-32 h-32 top-[20%] right-[-30px] floating" style="animation-delay:1s"></div>
+
+<nav class="relative z-10 flex items-center justify-between px-6 md:px-16 py-8">
+  <div class="fr text-xl md:text-2xl font-semibold text-[#3e4a32]">森語 ForestWhisper</div>
+  <div class="hidden md:flex gap-10 text-sm text-[#3e4a32]/70 font-semibold">
+    <a href="#" class="hover:text-[#3e4a32] transition">保養系列</a>
+    <a href="#" class="hover:text-[#3e4a32] transition">成分溯源</a>
+    <a href="#" class="hover:text-[#3e4a32] transition">永續承諾</a>
+  </div>
+  <button class="pill rounded-full px-5 py-2 text-sm font-bold text-[#3e4a32]">選購禮盒</button>
+</nav>
+
+<main class="relative z-10 max-w-6xl mx-auto px-6 md:px-16 pt-10 pb-24 flex flex-col md:flex-row items-center gap-14">
+  <div class="flex-1 text-center md:text-left">
+    <p class="text-sm font-bold tracking-[0.25em] text-[#3e4a32]/60 mb-5">100% 台灣山林原生植萃</p>
+    <h1 class="fr text-4xl md:text-6xl font-semibold leading-tight mb-8 text-[#2f3b2a]">
+      讓皮膚<br>重新聽見<br>森林的呼吸
+    </h1>
+    <p class="text-[#3e4a32]/70 text-base md:text-lg leading-relaxed mb-10 max-w-md mx-auto md:mx-0">
+      從阿里山採集的苔蘚與檜木精萃，萃取成一瓶能在三分鐘內讓肌膚安靜下來的精華。沒有多餘成分，只有山林本身。
+    </p>
+    <div class="flex flex-wrap justify-center md:justify-start gap-4">
+      <button class="cta-organic rounded-full px-10 py-4 fr font-semibold text-lg">立即體驗森語</button>
+      <button class="rounded-full px-10 py-4 border border-[#3e4a32]/25 text-[#3e4a32] font-semibold hover:bg-white/60 transition">了解成分溯源</button>
+    </div>
+  </div>
+
+  <div class="flex-1 flex justify-center">
+    <div class="hero-img floating"></div>
+  </div>
+</main>
+
+<section class="relative z-10 max-w-5xl mx-auto px-6 md:px-16 py-16 grid md:grid-cols-3 gap-8 text-center">
+  <div class="pill rounded-2xl p-8">
+    <p class="fr text-2xl font-semibold mb-2 text-[#2f3b2a]">無矽靈配方</p>
+    <p class="text-sm text-[#3e4a32]/60 leading-relaxed">敏感肌友善，連續三年通過皮膚科臨床測試。</p>
+  </div>
+  <div class="pill rounded-2xl p-8">
+    <p class="fr text-2xl font-semibold mb-2 text-[#2f3b2a]">玻璃瓶身</p>
+    <p class="text-sm text-[#3e4a32]/60 leading-relaxed">可回收重填，用完瓶身帶回門店即折抵下一瓶。</p>
+  </div>
+  <div class="pill rounded-2xl p-8">
+    <p class="fr text-2xl font-semibold mb-2 text-[#2f3b2a]">在地採集</p>
+    <p class="text-sm text-[#3e4a32]/60 leading-relaxed">與阿里山在地農家合作，每瓶回饋 5% 給山林復育。</p>
+  </div>
+</section>
+
+<footer class="relative z-10 text-center py-12 text-[#3e4a32]/50 text-sm">
+  © 2026 森語 ForestWhisper．在山林與肌膚之間，輕輕一語
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>韡寧的 UI 待審 · 2026-10-17</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body{ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans TC",sans-serif; background:#f3f4f6; }
+  .preview-frame-wrap{ width:100%; height:260px; overflow:hidden; position:relative; background:#fff; border-radius:12px; }
+  .preview-frame{
+    width:200%; height:200%; transform:scale(.5); transform-origin:0 0;
+    border:0; position:absolute; top:0; left:0;
+  }
+  .card{ transition: box-shadow .2s, transform .2s; }
+  .card:hover{ transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+  .heart-btn{ font-size:22px; line-height:1; cursor:pointer; transition: transform .15s; user-select:none; }
+  .heart-btn:active{ transform: scale(1.3); }
+  .heart-btn.liked{ filter: none; }
+</style>
+</head>
+<body class="min-h-screen text-gray-800">
+
+<div class="max-w-5xl mx-auto px-5 py-10">
+  <header class="mb-8">
+    <h1 class="text-2xl md:text-3xl font-bold">韡寧的 UI 待審 · 2026-10-17</h1>
+    <p class="text-sm text-gray-500 mt-1">今天 6 個風格，喜歡的按 ❤️，我會記住妳的偏好</p>
+  </header>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="cardGrid">
+
+    <div class="card bg-white rounded-2xl p-4 shadow" data-id="01">
+      <div class="preview-frame-wrap mb-3">
+        <iframe class="preview-frame" src="01-chronolux.html" loading="lazy"></iframe>
+      </div>
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="font-semibold">#05 3D / Hyperrealism</p>
+          <p class="text-xs text-gray-500">恆曜 ChronoLux · 鈦金屬智能腕錶精品頁</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="01-chronolux.html" target="_blank" class="text-sm text-blue-600 hover:underline">開啟 ↗</a>
+          <span class="heart-btn" data-id="01">🤍</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card bg-white rounded-2xl p-4 shadow" data-id="02">
+      <div class="preview-frame-wrap mb-3">
+        <iframe class="preview-frame" src="02-neowave.html" loading="lazy"></iframe>
+      </div>
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="font-semibold">#11 Retro-Futurism</p>
+          <p class="text-xs text-gray-500">霓波 NeoWave · 復古未來卡帶電臺</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="02-neowave.html" target="_blank" class="text-sm text-blue-600 hover:underline">開啟 ↗</a>
+          <span class="heart-btn" data-id="02">🤍</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card bg-white rounded-2xl p-4 shadow" data-id="03">
+      <div class="preview-frame-wrap mb-3">
+        <iframe class="preview-frame" src="03-blankday.html" loading="lazy"></iframe>
+      </div>
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="font-semibold">#18 Zero Interface</p>
+          <p class="text-xs text-gray-500">空白日 BlankDay · 極簡寫作 App</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="03-blankday.html" target="_blank" class="text-sm text-blue-600 hover:underline">開啟 ↗</a>
+          <span class="heart-btn" data-id="03">🤍</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card bg-white rounded-2xl p-4 shadow" data-id="04">
+      <div class="preview-frame-wrap mb-3">
+        <iframe class="preview-frame" src="04-forestwhisper.html" loading="lazy"></iframe>
+      </div>
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="font-semibold">#20 Hero-Centric</p>
+          <p class="text-xs text-gray-500">森語 ForestWhisper · 有機保養品牌首頁</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="04-forestwhisper.html" target="_blank" class="text-sm text-blue-600 hover:underline">開啟 ↗</a>
+          <span class="heart-btn" data-id="04">🤍</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card bg-white rounded-2xl p-4 shadow" data-id="05">
+      <div class="preview-frame-wrap mb-3">
+        <iframe class="preview-frame" src="05-trendradar.html" loading="lazy"></iframe>
+      </div>
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="font-semibold">#34 Predictive Dashboard</p>
+          <p class="text-xs text-gray-500">選品雷達 TrendRadar · 零售需求預測後台</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="05-trendradar.html" target="_blank" class="text-sm text-blue-600 hover:underline">開啟 ↗</a>
+          <span class="heart-btn" data-id="05">🤍</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card bg-white rounded-2xl p-4 shadow" data-id="06">
+      <div class="preview-frame-wrap mb-3">
+        <iframe class="preview-frame" src="06-swapcloset.html" loading="lazy"></iframe>
+      </div>
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="font-semibold">#54 Neubrutalism v2</p>
+          <p class="text-xs text-gray-500">換衣所 SwapCloset · 永續時尚交換平台</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="06-swapcloset.html" target="_blank" class="text-sm text-blue-600 hover:underline">開啟 ↗</a>
+          <span class="heart-btn" data-id="06">🤍</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="text-center text-xs text-gray-400 mt-10">reviews/2026-10-17</footer>
+</div>
+
+<script>
+const DATE = '2026-10-17';
+const DB_BASE = 'https://b-battle-580b5-default-rtdb.firebaseio.com/uigallery';
+
+function setLiked(el, liked){
+  el.textContent = liked ? '❤️' : '🤍';
+  el.classList.toggle('liked', liked);
+}
+
+document.querySelectorAll('.heart-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const id = btn.dataset.id;
+    const liked = btn.textContent.trim() !== '❤️';
+    setLiked(btn, liked);
+    fetch(`${DB_BASE}/${DATE}_${id}.json`, {
+      method: 'PUT',
+      body: JSON.stringify(liked)
+    }).catch(() => {});
+  });
+});
+
+fetch(`${DB_BASE}.json`)
+  .then(r => r.ok ? r.json() : null)
+  .then(data => {
+    if (!data) return;
+    document.querySelectorAll('.heart-btn').forEach(btn => {
+      const key = `${DATE}_${btn.dataset.id}`;
+      if (data[key] === true) setLiked(btn, true);
+    });
+  })
+  .catch(() => {});
+</script>
+</body>
+</html>

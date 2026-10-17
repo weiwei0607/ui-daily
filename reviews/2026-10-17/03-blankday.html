@@ -1,0 +1,113 @@
+<!-- style #18 Zero Interface -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>空白日 BlankDay — 什麼都不做的寫作所</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,18..144,300..500;1,18..144,400&family=Noto+Serif+TC:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Noto Serif TC','Literata',serif;
+    background:#fafaf7;
+    color:#2b2b28;
+  }
+  .lit{font-family:'Literata','Noto Serif TC',serif;}
+
+  .cursor-breathe{
+    display:inline-block; width:2px; height:1.1em; background:#2b2b28;
+    margin-left:4px; vertical-align:-0.15em;
+    animation: breathe 1.4s ease-in-out infinite;
+  }
+  @keyframes breathe{ 0%,100%{opacity:1;} 50%{opacity:0;} }
+
+  .ghost-line{
+    border:none; border-bottom:1px solid rgba(43,43,40,.12);
+  }
+
+  .reveal{ opacity:0; transform: translateY(14px); transition: opacity 1s ease, transform 1s ease; }
+  .reveal.show{ opacity:1; transform:translateY(0); }
+
+  textarea.quiet-input{
+    resize:none; outline:none; border:none; background:transparent;
+    font-family:'Literata','Noto Serif TC',serif;
+  }
+  textarea.quiet-input::placeholder{ color:rgba(43,43,40,.35); }
+
+  .word-dot{
+    width:6px; height:6px; border-radius:50%; background:#2b2b28;
+    display:inline-block; margin:0 10px; opacity:.3;
+  }
+
+  .fade-edge{
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 8%, black 92%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, black 8%, black 92%, transparent);
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+<header class="max-w-2xl mx-auto px-6 pt-16 pb-24">
+  <div class="flex justify-between items-baseline mb-20">
+    <span class="lit text-sm tracking-widest text-black/40">空白日</span>
+    <span class="lit text-sm text-black/40">BLANK DAY</span>
+  </div>
+
+  <h1 class="lit text-3xl md:text-5xl leading-relaxed mb-10 reveal show">
+    不是筆記軟體，<br>是一張什麼都沒有的紙。
+  </h1>
+
+  <p class="lit text-lg text-black/60 leading-loose mb-16 max-w-md">
+    沒有工具列、沒有格式、沒有通知紅點。打開空白日，只有游標在等你<span class="cursor-breathe"></span>
+  </p>
+
+  <div class="border-t border-b ghost-line py-10">
+    <textarea class="quiet-input w-full text-xl leading-loose text-black/80" rows="3" placeholder="今天想說什麼，就打在這裡……"></textarea>
+  </div>
+  <p class="text-xs text-black/30 mt-4 tracking-wide">不需要存檔，它會自己記得。</p>
+</header>
+
+<section class="max-w-2xl mx-auto px-6 py-24 border-t ghost-line">
+  <p class="lit text-sm text-black/40 mb-8 tracking-widest">沒有介面的三個理由</p>
+  <div class="space-y-14">
+    <div class="reveal show">
+      <p class="lit text-2xl mb-2">01　少一個按鈕，少一次分心</p>
+      <p class="text-black/55 leading-relaxed">每多一個圖示，腦袋就多問自己一次「這是什麼」。空白日把能拿掉的全拿掉，只留下你和文字。</p>
+    </div>
+    <div class="reveal show">
+      <p class="lit text-2xl mb-2">02　自動排版，不用你動手</p>
+      <p class="text-black/55 leading-relaxed">段落、行距、字重，都在你打字的同時悄悄完成。你不需要選字體——因為根本沒有選單。</p>
+    </div>
+    <div class="reveal show">
+      <p class="lit text-2xl mb-2">03　安靜地提醒，而不是打斷</p>
+      <p class="text-black/55 leading-relaxed">想寫的時候，頁面邊緣會微微亮一下；不想理它，它也不會跳出來煩你。</p>
+    </div>
+  </div>
+</section>
+
+<section class="max-w-2xl mx-auto px-6 py-24 border-t ghost-line text-center">
+  <p class="lit text-2xl leading-relaxed mb-10">
+    已經有 <span class="font-semibold">41,206</span> 篇<br>什麼都沒設計過的日記
+  </p>
+  <div class="flex items-center justify-center text-black/30 text-sm">
+    <span>14 天免費</span><span class="word-dot"></span><span>不用信用卡</span><span class="word-dot"></span><span>隨時刪除帳號</span>
+  </div>
+  <button class="mt-12 lit text-lg border border-black/15 rounded-full px-10 py-4 hover:bg-black hover:text-white transition-colors duration-500">
+    打開第一張空白紙
+  </button>
+</section>
+
+<footer class="max-w-2xl mx-auto px-6 py-16 text-center">
+  <p class="text-xs text-black/30">空白日 BlankDay · 什麼都不做，也是一種設計</p>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('show'));
+  });
+</script>
+
+</body>
+</html>

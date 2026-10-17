@@ -1,0 +1,187 @@
+<!-- style #34 Predictive Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>選品雷達 TrendRadar — 零售需求預測後台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Noto Sans TC','Plus Jakarta Sans',sans-serif;
+    background:#0f1419;
+    color:#e6ebf0;
+  }
+  .pjs{font-family:'Plus Jakarta Sans','Noto Sans TC',sans-serif;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+
+  .panel{
+    background:#161c24;
+    border:1px solid #232b35;
+  }
+  .panel-glow{
+    background: linear-gradient(145deg, #161c24, #11151b);
+    border:1px solid #232b35;
+  }
+
+  .predicted-line{
+    stroke-dasharray: 6 5;
+  }
+
+  .legend-dot{ width:10px; height:10px; border-radius:50%; display:inline-block; }
+
+  .scrollbar-thin::-webkit-scrollbar{ height:6px; width:6px; }
+  .scrollbar-thin::-webkit-scrollbar-thumb{ background:#2a333f; border-radius:4px; }
+
+  .badge-up{ color:#34d399; background:rgba(52,211,153,.12); }
+  .badge-down{ color:#f87171; background:rgba(248,113,113,.12); }
+  .badge-watch{ color:#fbbf24; background:rgba(251,191,36,.12); }
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="flex">
+  <aside class="hidden md:flex flex-col w-60 shrink-0 border-r border-[#232b35] h-screen px-5 py-6">
+    <p class="pjs font-extrabold text-lg mb-10">選品雷達<span class="text-emerald-400">.</span></p>
+    <nav class="space-y-1 text-sm text-white/55">
+      <a class="block px-3 py-2 rounded-lg bg-white/5 text-white font-semibold" href="#">需求預測</a>
+      <a class="block px-3 py-2 rounded-lg hover:bg-white/5 transition" href="#">補貨建議</a>
+      <a class="block px-3 py-2 rounded-lg hover:bg-white/5 transition" href="#">品類總覽</a>
+      <a class="block px-3 py-2 rounded-lg hover:bg-white/5 transition" href="#">異常警示</a>
+      <a class="block px-3 py-2 rounded-lg hover:bg-white/5 transition" href="#">模型設定</a>
+    </nav>
+    <div class="mt-auto pt-8 text-xs text-white/35">
+      <p class="mono">v3.4.1</p>
+      <p>模型更新於 06:12</p>
+    </div>
+  </aside>
+
+  <main class="flex-1 px-6 md:px-10 py-8 min-h-screen">
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+      <div>
+        <h1 class="pjs text-2xl font-extrabold">需求預測總覽</h1>
+        <p class="text-white/45 text-sm mt-1">未來 14 天銷量預測 · 虛線代表模型預測區間</p>
+      </div>
+      <div class="flex gap-3">
+        <button class="panel rounded-lg px-4 py-2 text-sm font-semibold text-white/70">匯出報表</button>
+        <button class="bg-emerald-500 hover:bg-emerald-400 transition rounded-lg px-4 py-2 text-sm font-bold text-[#0f1419]">套用補貨建議</button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+      <div class="panel rounded-xl p-5">
+        <p class="text-xs text-white/45 mb-2">預測準確率</p>
+        <p class="mono text-2xl font-bold text-emerald-400">93.4%</p>
+      </div>
+      <div class="panel rounded-xl p-5">
+        <p class="text-xs text-white/45 mb-2">預測總銷量</p>
+        <p class="mono text-2xl font-bold">48,920</p>
+      </div>
+      <div class="panel rounded-xl p-5">
+        <p class="text-xs text-white/45 mb-2">缺貨風險 SKU</p>
+        <p class="mono text-2xl font-bold text-amber-400">17</p>
+      </div>
+      <div class="panel rounded-xl p-5">
+        <p class="text-xs text-white/45 mb-2">滯銷風險 SKU</p>
+        <p class="mono text-2xl font-bold text-rose-400">9</p>
+      </div>
+      <div class="panel rounded-xl p-5 col-span-2 md:col-span-1">
+        <p class="text-xs text-white/45 mb-2">建議補貨金額</p>
+        <p class="mono text-2xl font-bold">NT$ 2.86M</p>
+      </div>
+    </div>
+
+    <div class="panel-glow rounded-2xl p-6 mb-8">
+      <div class="flex items-center justify-between mb-5">
+        <h2 class="pjs font-bold">全站銷量：實際 vs 預測</h2>
+        <div class="flex gap-5 text-xs text-white/50">
+          <span><span class="legend-dot" style="background:#3b82f6"></span> 實際銷量</span>
+          <span><span class="legend-dot" style="background:#a855f7"></span> 模型預測</span>
+        </div>
+      </div>
+      <svg viewBox="0 0 760 220" class="w-full h-56">
+        <g stroke="#232b35">
+          <line x1="0" y1="20" x2="760" y2="20"/>
+          <line x1="0" y1="70" x2="760" y2="70"/>
+          <line x1="0" y1="120" x2="760" y2="120"/>
+          <line x1="0" y1="170" x2="760" y2="170"/>
+        </g>
+        <polyline points="0,150 60,142 120,130 180,135 240,110 300,100 360,95 420,88"
+          fill="none" stroke="#3b82f6" stroke-width="3"/>
+        <polyline points="420,88 480,80 540,70 600,65 660,55 720,48 760,40"
+          fill="none" stroke="#a855f7" stroke-width="3" class="predicted-line"/>
+        <line x1="420" y1="10" x2="420" y2="210" stroke="#3a4350" stroke-dasharray="2 4"/>
+        <text x="424" y="24" fill="#8b96a3" font-size="11" font-family="JetBrains Mono">今天</text>
+        <circle cx="420" cy="88" r="4" fill="#fff"/>
+      </svg>
+    </div>
+
+    <div class="panel-glow rounded-2xl p-6">
+      <div class="flex items-center justify-between mb-5">
+        <h2 class="pjs font-bold">高風險品項明細</h2>
+        <input placeholder="搜尋 SKU 或品名" class="panel rounded-lg px-3 py-1.5 text-sm text-white/70 placeholder-white/30 outline-none">
+      </div>
+      <div class="overflow-x-auto scrollbar-thin">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="text-left text-white/40 border-b border-[#232b35]">
+              <th class="pb-3 font-medium">品項</th>
+              <th class="pb-3 font-medium">SKU</th>
+              <th class="pb-3 font-medium text-right">現有庫存</th>
+              <th class="pb-3 font-medium text-right mono">14 日預測銷量</th>
+              <th class="pb-3 font-medium text-right">風險狀態</th>
+              <th class="pb-3 font-medium text-right">建議動作</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-[#1e2530]">
+            <tr>
+              <td class="py-3 font-semibold">燕麥奶 1L</td>
+              <td class="py-3 mono text-white/50">BV-2201</td>
+              <td class="py-3 text-right mono">120</td>
+              <td class="py-3 text-right mono text-amber-300">860</td>
+              <td class="py-3 text-right"><span class="badge-down px-2 py-1 rounded-md text-xs font-bold">缺貨風險</span></td>
+              <td class="py-3 text-right text-emerald-400 font-semibold">+740 件</td>
+            </tr>
+            <tr>
+              <td class="py-3 font-semibold">手工餅乾禮盒</td>
+              <td class="py-3 mono text-white/50">GF-1187</td>
+              <td class="py-3 text-right mono">980</td>
+              <td class="py-3 text-right mono text-amber-300">210</td>
+              <td class="py-3 text-right"><span class="badge-up px-2 py-1 rounded-md text-xs font-bold">滯銷風險</span></td>
+              <td class="py-3 text-right text-rose-400 font-semibold">促銷清庫</td>
+            </tr>
+            <tr>
+              <td class="py-3 font-semibold">保溫水壺 600ml</td>
+              <td class="py-3 mono text-white/50">TM-0345</td>
+              <td class="py-3 text-right mono">302</td>
+              <td class="py-3 text-right mono text-amber-300">295</td>
+              <td class="py-3 text-right"><span class="badge-watch px-2 py-1 rounded-md text-xs font-bold">接近滿載</span></td>
+              <td class="py-3 text-right text-white/60">持續觀察</td>
+            </tr>
+            <tr>
+              <td class="py-3 font-semibold">無糖氣泡飲 12 入</td>
+              <td class="py-3 mono text-white/50">BV-3390</td>
+              <td class="py-3 text-right mono">64</td>
+              <td class="py-3 text-right mono text-amber-300">510</td>
+              <td class="py-3 text-right"><span class="badge-down px-2 py-1 rounded-md text-xs font-bold">缺貨風險</span></td>
+              <td class="py-3 text-right text-emerald-400 font-semibold">+446 件</td>
+            </tr>
+            <tr>
+              <td class="py-3 font-semibold">露營摺疊椅</td>
+              <td class="py-3 mono text-white/50">OD-7721</td>
+              <td class="py-3 text-right mono">410</td>
+              <td class="py-3 text-right mono text-amber-300">88</td>
+              <td class="py-3 text-right"><span class="badge-up px-2 py-1 rounded-md text-xs font-bold">滯銷風險</span></td>
+              <td class="py-3 text-right text-rose-400 font-semibold">轉倉調撥</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

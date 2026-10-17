@@ -1,0 +1,181 @@
+<!-- style #11 Retro-Futurism -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>霓波 NeoWave — 復古未來卡帶電臺</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=VT323&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Noto Sans TC','VT323',sans-serif;
+    background:#1a1a2e;
+    color:#e8e8ff;
+    overflow-x:hidden;
+  }
+  .orbi{font-family:'Orbitron','Noto Sans TC',sans-serif;}
+  .vt{font-family:'VT323',monospace;}
+
+  .grid-floor{
+    position:absolute; left:0; right:0; bottom:0; height:55%;
+    background:
+      linear-gradient(to top, #1a1a2e 0%, transparent 85%),
+      repeating-linear-gradient(90deg, rgba(0,255,255,.5) 0 2px, transparent 2px 60px),
+      repeating-linear-gradient(0deg, rgba(0,255,255,.4) 0 1px, transparent 1px 40px);
+    transform: perspective(300px) rotateX(60deg);
+    transform-origin: bottom;
+    animation: gridMove 3s linear infinite;
+  }
+  @keyframes gridMove{ from{background-position:0 0, 0 0, 0 0;} to{background-position:0 0, 0 0, 0 40px;} }
+
+  .sun{
+    position:absolute; left:50%; top:14%; transform:translateX(-50%);
+    width:320px; height:320px; border-radius:50%;
+    background: linear-gradient(180deg,#ff006e 0%, #ff8ba7 35%, #ffd166 70%, #ffea00 100%);
+    box-shadow: 0 0 120px rgba(255,0,110,.5);
+  }
+  .sun-lines{
+    position:absolute; inset:0; border-radius:50%;
+    background: repeating-linear-gradient(0deg, transparent 0 18px, #1a1a2e 18px 26px);
+    mask: linear-gradient(to top, black 0%, black 60%, transparent 60%);
+  }
+
+  .scanline{
+    position:absolute; inset:0; pointer-events:none; z-index:30;
+    background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.025) 0 2px, transparent 2px 4px);
+  }
+  .scan-bar{
+    position:absolute; left:0; right:0; height:3px;
+    background: rgba(0,255,255,.45);
+    box-shadow:0 0 10px rgba(0,255,255,.8);
+    animation: scanDown 4s linear infinite;
+    z-index:31;
+  }
+  @keyframes scanDown{ from{top:-5%;} to{top:105%;} }
+
+  .neon{
+    text-shadow: 0 0 6px #00ffff, 0 0 18px #00ffff, 0 0 40px rgba(0,255,255,.6);
+    color:#dfffff;
+  }
+  .neon-pink{
+    text-shadow: 0 0 6px #ff006e, 0 0 18px #ff006e, 0 0 40px rgba(255,0,110,.6);
+    color:#ffe0ef;
+  }
+
+  .crt-panel{
+    background: linear-gradient(160deg, rgba(0,255,255,.08), rgba(255,0,110,.05));
+    border: 1px solid rgba(0,255,255,.35);
+    box-shadow: 0 0 25px rgba(0,255,255,.12), inset 0 0 30px rgba(0,255,255,.05);
+  }
+
+  .cassette{
+    width:64px; height:42px; border-radius:4px;
+    background: linear-gradient(145deg,#2d2d4a,#1a1a2e);
+    border:2px solid #ff006e;
+    position:relative;
+  }
+  .cassette::before, .cassette::after{
+    content:''; position:absolute; top:50%; width:14px; height:14px; border-radius:50%;
+    border:2px solid #00ffff; transform:translateY(-50%);
+  }
+  .cassette::before{ left:10px; }
+  .cassette::after{ right:10px; }
+
+  .cta-neon{
+    background: linear-gradient(90deg,#ff006e,#ffea00,#00ffff);
+    background-size:200% 100%;
+    animation: shimmer 3s linear infinite;
+    color:#1a1a2e;
+    box-shadow: 0 0 30px rgba(255,0,110,.35);
+  }
+  @keyframes shimmer{ to{ background-position:200% 0; } }
+</style>
+</head>
+<body class="relative min-h-screen">
+
+<div class="grid-floor"></div>
+<div class="sun"><div class="sun-lines"></div></div>
+<div class="scanline"></div>
+<div class="scan-bar"></div>
+
+<nav class="relative z-20 flex items-center justify-between px-6 md:px-16 py-6">
+  <div class="orbi text-lg md:text-2xl font-black neon tracking-widest">NEOWAVE 霓波</div>
+  <div class="hidden md:flex gap-8 text-sm vt text-xl text-cyan-100/80">
+    <a href="#" class="hover:text-white transition">電臺</a>
+    <a href="#" class="hover:text-white transition">卡帶櫃</a>
+    <a href="#" class="hover:text-white transition">派對</a>
+  </div>
+  <button class="cta-neon px-5 py-2 rounded-full orbi font-bold text-xs md:text-sm">立即收聽</button>
+</nav>
+
+<header class="relative z-20 px-6 md:px-16 pt-16 md:pt-24 pb-20 text-center">
+  <p class="vt text-xl md:text-2xl neon-pink mb-2">// TRANSMISSION ONLINE</p>
+  <h1 class="orbi text-3xl md:text-6xl font-black neon mb-6 leading-tight">
+    穿越回 1986<br>用耳機重啟未來
+  </h1>
+  <p class="text-cyan-100/70 max-w-xl mx-auto mb-8 leading-relaxed">
+    霓波是一座永不關台的復古未來電臺，把合成器音牆、霓虹街景與卡帶質感全部裝進你的通勤時光。
+  </p>
+  <div class="flex flex-wrap justify-center gap-4">
+    <button class="cta-neon px-8 py-4 rounded-full orbi font-bold">開始播放</button>
+    <button class="px-8 py-4 rounded-full border border-cyan-300/40 text-cyan-100 vt text-xl hover:bg-cyan-400/10 transition">瀏覽卡帶櫃</button>
+  </div>
+</header>
+
+<section class="relative z-20 px-6 md:px-16 py-16">
+  <h2 class="orbi text-xl md:text-2xl font-bold neon text-center mb-10">本週電臺數據</h2>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-5 max-w-3xl mx-auto">
+    <div class="crt-panel rounded-xl p-5 text-center">
+      <p class="orbi text-2xl font-black neon">128</p>
+      <p class="vt text-lg text-cyan-100/70">在線頻道</p>
+    </div>
+    <div class="crt-panel rounded-xl p-5 text-center">
+      <p class="orbi text-2xl font-black neon-pink">4.2K</p>
+      <p class="vt text-lg text-cyan-100/70">同時收聽</p>
+    </div>
+    <div class="crt-panel rounded-xl p-5 text-center">
+      <p class="orbi text-2xl font-black neon">86 卷</p>
+      <p class="vt text-lg text-cyan-100/70">限量卡帶</p>
+    </div>
+    <div class="crt-panel rounded-xl p-5 text-center">
+      <p class="orbi text-2xl font-black neon-pink">24H</p>
+      <p class="vt text-lg text-cyan-100/70">不間斷放送</p>
+    </div>
+  </div>
+</section>
+
+<section class="relative z-20 px-6 md:px-16 py-16">
+  <h2 class="orbi text-xl md:text-2xl font-bold neon-pink text-center mb-10">熱播卡帶</h2>
+  <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+    <div class="crt-panel rounded-2xl p-6 flex items-center gap-4">
+      <div class="cassette"></div>
+      <div>
+        <p class="orbi font-bold neon">夜之驅動</p>
+        <p class="vt text-lg text-cyan-100/60">合成器 · 42 分鐘</p>
+      </div>
+    </div>
+    <div class="crt-panel rounded-2xl p-6 flex items-center gap-4">
+      <div class="cassette"></div>
+      <div>
+        <p class="orbi font-bold neon">霓虹街角</p>
+        <p class="vt text-lg text-cyan-100/60">City Pop · 38 分鐘</p>
+      </div>
+    </div>
+    <div class="crt-panel rounded-2xl p-6 flex items-center gap-4">
+      <div class="cassette"></div>
+      <div>
+        <p class="orbi font-bold neon">末日電波</p>
+        <p class="vt text-lg text-cyan-100/60">Dark Synth · 51 分鐘</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="relative z-20 px-6 md:px-16 py-10 text-center vt text-lg text-cyan-100/40">
+  © 2026 NEOWAVE 霓波電臺．訊號永不中斷
+</footer>
+
+</body>
+</html>
