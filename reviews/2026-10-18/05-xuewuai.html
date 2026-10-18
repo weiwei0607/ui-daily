@@ -1,0 +1,95 @@
+<!-- style #17 Inclusive Design -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>學無礙 XueWuAi · 每個人都能學得清楚</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body{ font-family:'Atkinson Hyperlegible', sans-serif; background:#ffffff; color:#0a1f33; }
+  .navy{ background:#003366; }
+  .navy-text{ color:#003366; }
+  .orange{ background:#e65100; }
+  .orange-text{ color:#e65100; }
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible{
+    outline: 3px solid #e65100;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  .tap-target{ min-height:48px; display:inline-flex; align-items:center; }
+  .big-leading{ line-height:1.75; }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <nav class="navy text-white px-6 py-4 flex items-center justify-between">
+    <span class="font-bold text-lg tap-target">學無礙</span>
+    <div class="hidden md:flex items-center gap-8 text-base font-semibold">
+      <a href="#features" class="tap-target underline-offset-4 hover:underline">功能介紹</a>
+      <a href="#testimonials" class="tap-target underline-offset-4 hover:underline">學員心聲</a>
+    </div>
+    <a href="#start" class="orange tap-target px-5 font-bold text-base hover:brightness-110">開始學習</a>
+  </nav>
+
+  <!-- Hero -->
+  <header class="max-w-5xl mx-auto px-6 py-16 text-center">
+    <h1 class="text-4xl md:text-5xl font-bold navy-text mb-6 big-leading">
+      不管你怎麼學，<br>我們都讓你學得到。
+    </h1>
+    <p class="text-xl max-w-2xl mx-auto big-leading text-[#1f2d3d] mb-10">
+      學無礙提供完整字幕與逐字稿、可調整的字級與對比、以及完整支援螢幕閱讀器的課程介面，
+      讓每一位學習者都能用最適合自己的方式吸收知識。
+    </p>
+    <a href="#start" id="start" class="tap-target orange text-white font-bold text-lg px-8 hover:brightness-110">
+      立即開始免費試學
+    </a>
+  </header>
+
+  <!-- Features -->
+  <section id="features" class="max-w-5xl mx-auto px-6 py-14 border-t-2 border-[#e2e8f0]">
+    <h2 class="text-3xl font-bold navy-text text-center mb-12">我們怎麼做到「每個人都能學」</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="border-2 border-[#003366] rounded-lg p-6">
+        <div class="w-12 h-12 navy rounded-full flex items-center justify-center text-white font-bold text-lg mb-4">字</div>
+        <h3 class="text-xl font-bold mb-3 navy-text">字幕與逐字稿</h3>
+        <p class="text-base big-leading">每堂課都附上完整中文字幕與逐字稿，聽不清楚的地方可以直接讀文字，隨時暫停也不會跟不上進度。</p>
+      </div>
+      <div class="border-2 border-[#003366] rounded-lg p-6">
+        <div class="w-12 h-12 navy rounded-full flex items-center justify-center text-white font-bold text-lg mb-4">+A</div>
+        <h3 class="text-xl font-bold mb-3 navy-text">字級與對比可調整</h3>
+        <p class="text-base big-leading">課程介面可以放大字級、切換高對比模式，依照自己眼睛最舒服的方式閱讀內容。</p>
+      </div>
+      <div class="border-2 border-[#003366] rounded-lg p-6">
+        <div class="w-12 h-12 navy rounded-full flex items-center justify-center text-white font-bold text-lg mb-4">♿</div>
+        <h3 class="text-xl font-bold mb-3 navy-text">完整螢幕閱讀器支援</h3>
+        <p class="text-base big-leading">每個按鈕、每張圖片都有清楚的替代文字說明，搭配螢幕閱讀器一樣能順暢完成整堂課。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 見證 -->
+  <section id="testimonials" class="max-w-5xl mx-auto px-6 py-14 border-t-2 border-[#e2e8f0]">
+    <h2 class="text-3xl font-bold navy-text text-center mb-12">學員怎麼說</h2>
+    <div class="grid md:grid-cols-2 gap-8">
+      <blockquote class="bg-[#f0f5fa] rounded-lg p-6 border-l-4 border-[#e65100]">
+        <p class="text-lg big-leading mb-4">「我有輕度聽力障礙，很多線上課程沒有字幕，學無礙每堂課都有逐字稿，終於可以自己安排學習速度。」</p>
+        <p class="font-bold navy-text">— 曉雯，資訊管理課程學員</p>
+      </blockquote>
+      <blockquote class="bg-[#f0f5fa] rounded-lg p-6 border-l-4 border-[#e65100]">
+        <p class="text-lg big-leading mb-4">「我媽媽視力不好，放大字級跟高對比模式對她幫助很大，她現在每週都會上一堂課。」</p>
+        <p class="font-bold navy-text">— 志強，為家人報名的學員</p>
+      </blockquote>
+    </div>
+  </section>
+
+  <footer class="navy text-white px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-3 text-base">
+    <span class="font-bold">學無礙 XueWuAi</span>
+    <span>© 2026 學無礙學習平台 · 致力於無障礙數位學習</span>
+  </footer>
+
+</body>
+</html>

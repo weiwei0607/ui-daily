@@ -1,0 +1,254 @@
+<!-- style #52 Pixel Art / Retro Gaming -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>像素驛站 PixelStation · 復古遊戲收藏社群</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --gb-lightest:#9bbc0f;
+    --gb-light:#8bac0f;
+    --gb-dark:#306230;
+    --gb-darkest:#0f380f;
+  }
+  *{ image-rendering:pixelated; }
+  body{
+    background:var(--gb-darkest);
+    font-family:'Noto Sans TC','VT323',monospace;
+    color:var(--gb-lightest);
+  }
+  .pixel-font{ font-family:'Press Start 2P','Noto Sans TC', monospace; letter-spacing:1px; }
+  .pixel-border{
+    border:4px solid var(--gb-lightest);
+    box-shadow: 0 0 0 4px var(--gb-darkest), 6px 6px 0 0 var(--gb-darkest);
+  }
+  .pixel-border-sm{
+    border:3px solid var(--gb-lightest);
+    box-shadow: 4px 4px 0 0 var(--gb-darkest);
+  }
+  .scanlines::before{
+    content:"";
+    position:absolute; inset:0;
+    background:repeating-linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.15) 0px,
+      rgba(0,0,0,0.15) 2px,
+      transparent 2px,
+      transparent 4px
+    );
+    pointer-events:none;
+  }
+  .pixel-btn{
+    font-family:'Press Start 2P','Noto Sans TC', monospace;
+    background:var(--gb-light);
+    color:var(--gb-darkest);
+    border:4px solid var(--gb-darkest);
+    box-shadow:5px 5px 0 0 var(--gb-darkest);
+    transition: transform .08s, box-shadow .08s;
+  }
+  .pixel-btn:active{
+    transform:translate(5px,5px);
+    box-shadow:0 0 0 0 var(--gb-darkest);
+  }
+  .hp-bar-wrap{
+    border:3px solid var(--gb-lightest);
+    background:var(--gb-darkest);
+    padding:3px;
+  }
+  .hp-bar-fill{
+    height:14px;
+    background:repeating-linear-gradient(90deg, var(--gb-light) 0 6px, var(--gb-dark) 6px 12px);
+  }
+  .sprite-block{
+    display:grid;
+    grid-template-columns: repeat(8,1fr);
+    grid-template-rows: repeat(8,1fr);
+    width:64px; height:64px;
+  }
+  .sprite-cell{ background:var(--gb-light); }
+  .sprite-cell.on2{ background:var(--gb-dark); }
+  .sprite-cell.off{ background:transparent; }
+  .crt-glow{ text-shadow: 2px 2px 0 var(--gb-darkest); }
+  .marquee-wrap{ overflow:hidden; white-space:nowrap; }
+  .marquee-track{ display:inline-block; animation: marquee 14s linear infinite; }
+  @keyframes marquee{ 0%{ transform:translateX(0); } 100%{ transform:translateX(-50%); } }
+  .blink{ animation: blink 1.2s steps(2,start) infinite; }
+  @keyframes blink{ 50%{ opacity:0; } }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <!-- 導覽列 -->
+  <nav class="border-b-4 border-[var(--gb-light)] bg-[var(--gb-darkest)] relative">
+    <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="sprite-block pixel-border-sm">
+          <div class="sprite-cell off"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell off"></div><div class="sprite-cell off"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell off"></div>
+          <div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div>
+          <div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div>
+          <div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell"></div>
+          <div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div><div class="sprite-cell"></div>
+          <div class="sprite-cell off"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell off"></div>
+          <div class="sprite-cell off"></div><div class="sprite-cell off"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell off"></div><div class="sprite-cell off"></div>
+          <div class="sprite-cell off"></div><div class="sprite-cell off"></div><div class="sprite-cell off"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell off"></div><div class="sprite-cell off"></div><div class="sprite-cell off"></div>
+        </div>
+        <span class="pixel-font text-sm md:text-base text-[var(--gb-lightest)] crt-glow">像素驛站</span>
+      </div>
+      <div class="hidden md:flex items-center gap-6 text-sm">
+        <a href="#features" class="hover:text-white">收藏功能</a>
+        <a href="#board" class="hover:text-white">排行榜</a>
+        <a href="#community" class="hover:text-white">社群動態</a>
+      </div>
+      <button class="pixel-btn text-[10px] px-3 py-2">登入</button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="relative scanlines overflow-hidden py-16 md:py-24 px-5" style="background:linear-gradient(180deg, var(--gb-darkest) 0%, #142a14 100%);">
+    <div class="max-w-5xl mx-auto text-center relative z-10">
+      <p class="pixel-font text-[10px] md:text-xs text-[var(--gb-light)] mb-6 blink">PRESS START</p>
+      <h1 class="pixel-font text-xl md:text-3xl leading-relaxed text-[var(--gb-lightest)] crt-glow mb-6">
+        把你的童年<br class="md:hidden">卡匣<br>通通收進像素驛站
+      </h1>
+      <p class="text-base md:text-lg mb-10 text-[var(--gb-light)] max-w-2xl mx-auto">
+        掃描卡匣條碼、記錄完整度、曬收藏牆——這是給所有老玩家和復古遊戲收藏家的秘密基地，已經有 <span class="text-[var(--gb-lightest)] font-bold">41,200</span> 位玩家在這裡報到。
+      </p>
+      <div class="flex flex-col md:flex-row gap-5 justify-center items-center">
+        <button class="pixel-btn text-xs px-6 py-4">▶ 立即加入收藏</button>
+        <button class="pixel-border-sm bg-transparent text-[var(--gb-lightest)] pixel-font text-[10px] px-6 py-4 hover:bg-[var(--gb-dark)] transition">觀看示範影片</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 跑馬燈 -->
+  <div class="bg-[var(--gb-light)] text-[var(--gb-darkest)] py-2 marquee-wrap border-y-4 border-[var(--gb-darkest)]">
+    <div class="marquee-track pixel-font text-[10px]">
+      最新上架：超級瑪利歐兄弟 3 公司貨 ★★★ 　 魂斗羅卡匣全新未拆 ★★★★★ 　 快打旋風 2 復刻收藏盒 ★★★★ 　 洛克人 X 原盒說明書齊 ★★★★★ 　 最新上架：超級瑪利歐兄弟 3 公司貨 ★★★ 　 魂斗羅卡匣全新未拆 ★★★★★ 　 快打旋風 2 復刻收藏盒 ★★★★ 　 洛克人 X 原盒說明書齊 ★★★★★
+    </div>
+  </div>
+
+  <!-- 特色功能 -->
+  <section id="features" class="py-16 md:py-20 px-5" style="background:var(--gb-darkest);">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="pixel-font text-sm md:text-lg text-center mb-12 text-[var(--gb-lightest)] crt-glow">三大核心功能</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        <div class="pixel-border bg-[#142a14] p-6">
+          <div class="sprite-block mx-auto mb-5">
+            <div class="sprite-cell off"></div><div class="sprite-cell off"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell off"></div><div class="sprite-cell off"></div>
+            <div class="sprite-cell off"></div><div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div><div class="sprite-cell off"></div>
+            <div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div><div class="sprite-cell"></div>
+            <div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell"></div>
+            <div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div>
+            <div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell on2"></div><div class="sprite-cell on2"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div><div class="sprite-cell"></div>
+            <div class="sprite-cell off"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell off"></div>
+            <div class="sprite-cell off"></div><div class="sprite-cell off"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell off"></div><div class="sprite-cell off"></div>
+          </div>
+          <h3 class="pixel-font text-xs mb-3 text-center text-[var(--gb-lightest)]">收藏管理</h3>
+          <p class="text-sm text-[var(--gb-light)] text-center leading-relaxed">掃描條碼自動建檔，記錄平台、完整度、購入價格，一眼掌握整批卡匣現況。</p>
+        </div>
+
+        <div class="pixel-border bg-[#142a14] p-6">
+          <div class="sprite-block mx-auto mb-5">
+            <div class="sprite-cell off"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell off"></div><div class="sprite-cell off"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell off"></div>
+            <div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell on2"></div><div class="sprite-cell on2"></div><div class="sprite-cell on2"></div><div class="sprite-cell on2"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div>
+            <div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div>
+            <div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell on2"></div><div class="sprite-cell on2"></div><div class="sprite-cell on2"></div><div class="sprite-cell on2"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div>
+            <div class="sprite-cell off"></div><div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div><div class="sprite-cell off"></div>
+            <div class="sprite-cell off"></div><div class="sprite-cell off"></div><div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div><div class="sprite-cell off"></div><div class="sprite-cell off"></div>
+            <div class="sprite-cell off"></div><div class="sprite-cell off"></div><div class="sprite-cell off"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell off"></div><div class="sprite-cell off"></div><div class="sprite-cell off"></div>
+            <div class="sprite-cell off"></div><div class="sprite-cell off"></div><div class="sprite-cell off"></div><div class="sprite-cell off"></div><div class="sprite-cell off"></div><div class="sprite-cell off"></div><div class="sprite-cell off"></div><div class="sprite-cell off"></div>
+          </div>
+          <h3 class="pixel-font text-xs mb-3 text-center text-[var(--gb-lightest)]">成就徽章</h3>
+          <p class="text-sm text-[var(--gb-light)] text-center leading-relaxed">收藏滿一個世代解鎖限定徽章，曬在個人主頁，跟同好比拼誰的收藏更硬核。</p>
+        </div>
+
+        <div class="pixel-border bg-[#142a14] p-6">
+          <div class="sprite-block mx-auto mb-5">
+            <div class="sprite-cell off"></div><div class="sprite-cell"></div><div class="sprite-cell off"></div><div class="sprite-cell off"></div><div class="sprite-cell off"></div><div class="sprite-cell off"></div><div class="sprite-cell"></div><div class="sprite-cell off"></div>
+            <div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div><div class="sprite-cell off"></div><div class="sprite-cell off"></div><div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div>
+            <div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div><div class="sprite-cell"></div>
+            <div class="sprite-cell off"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell off"></div>
+            <div class="sprite-cell off"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell off"></div>
+            <div class="sprite-cell off"></div><div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div><div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div><div class="sprite-cell off"></div>
+            <div class="sprite-cell off"></div><div class="sprite-cell on2"></div><div class="sprite-cell"></div><div class="sprite-cell off"></div><div class="sprite-cell off"></div><div class="sprite-cell"></div><div class="sprite-cell on2"></div><div class="sprite-cell off"></div>
+            <div class="sprite-cell off"></div><div class="sprite-cell off"></div><div class="sprite-cell off"></div><div class="sprite-cell off"></div><div class="sprite-cell off"></div><div class="sprite-cell off"></div><div class="sprite-cell off"></div><div class="sprite-cell off"></div>
+          </div>
+          <h3 class="pixel-font text-xs mb-3 text-center text-[var(--gb-lightest)]">復古排行榜</h3>
+          <p class="text-sm text-[var(--gb-light)] text-center leading-relaxed">依稀有度、完整度、收藏量排名，每週結算全站最硬核玩家，前三名直接上首頁。</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 排行榜 / 玩家卡 -->
+  <section id="board" class="py-16 md:py-20 px-5" style="background:#142a14;">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="pixel-font text-sm md:text-lg text-center mb-10 text-[var(--gb-lightest)] crt-glow">本週收藏王排行榜</h2>
+      <div class="space-y-4">
+
+        <div class="pixel-border-sm bg-[var(--gb-darkest)] p-4 flex items-center gap-4">
+          <span class="pixel-font text-xs text-[var(--gb-lightest)] w-10">#01</span>
+          <div class="flex-1">
+            <p class="font-bold text-[var(--gb-lightest)]">老玖的卡匣倉庫</p>
+            <div class="hp-bar-wrap w-full mt-2"><div class="hp-bar-fill" style="width:96%;"></div></div>
+          </div>
+          <span class="pixel-font text-[10px] text-[var(--gb-light)]">312 件</span>
+        </div>
+
+        <div class="pixel-border-sm bg-[var(--gb-darkest)] p-4 flex items-center gap-4">
+          <span class="pixel-font text-xs text-[var(--gb-lightest)] w-10">#02</span>
+          <div class="flex-1">
+            <p class="font-bold text-[var(--gb-lightest)]">任天堂阿姨</p>
+            <div class="hp-bar-wrap w-full mt-2"><div class="hp-bar-fill" style="width:82%;"></div></div>
+          </div>
+          <span class="pixel-font text-[10px] text-[var(--gb-light)]">267 件</span>
+        </div>
+
+        <div class="pixel-border-sm bg-[var(--gb-darkest)] p-4 flex items-center gap-4">
+          <span class="pixel-font text-xs text-[var(--gb-lightest)] w-10">#03</span>
+          <div class="flex-1">
+            <p class="font-bold text-[var(--gb-lightest)]">像素獵人小K</p>
+            <div class="hp-bar-wrap w-full mt-2"><div class="hp-bar-fill" style="width:71%;"></div></div>
+          </div>
+          <span class="pixel-font text-[10px] text-[var(--gb-light)]">229 件</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 社群動態 -->
+  <section id="community" class="py-16 md:py-20 px-5" style="background:var(--gb-darkest);">
+    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+      <div class="pixel-border-sm p-6 bg-[#142a14]">
+        <p class="pixel-font text-lg text-[var(--gb-lightest)] crt-glow mb-2">41,200</p>
+        <p class="text-sm text-[var(--gb-light)]">註冊玩家</p>
+      </div>
+      <div class="pixel-border-sm p-6 bg-[#142a14]">
+        <p class="pixel-font text-lg text-[var(--gb-lightest)] crt-glow mb-2">186,500</p>
+        <p class="text-sm text-[var(--gb-light)]">建檔卡匣數</p>
+      </div>
+      <div class="pixel-border-sm p-6 bg-[#142a14]">
+        <p class="pixel-font text-lg text-[var(--gb-lightest)] crt-glow mb-2">9,340</p>
+        <p class="text-sm text-[var(--gb-light)]">每日交換成交</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 頁尾 -->
+  <footer class="border-t-4 border-[var(--gb-light)] py-10 px-5" style="background:var(--gb-darkest);">
+    <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="pixel-font text-[10px] text-[var(--gb-lightest)]">像素驛站 PIXELSTATION</p>
+      <p class="text-xs text-[var(--gb-light)]">© 2026 像素驛站 · 獻給所有不曾丟掉卡匣的你</p>
+    </div>
+  </footer>
+
+</body>
+</html>
