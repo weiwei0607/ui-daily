@@ -1,0 +1,93 @@
+<!-- style #47 Exaggerated Minimalism -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>寫 Xie · 只留下該留下的字</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{ --accent:#ff3b30; }
+  *{ font-family:'Space Grotesk', sans-serif; }
+  body{ background:#ffffff; color:#0a0a0a; }
+  .giant{ font-weight:700; letter-spacing:-0.03em; line-height:0.92; }
+  .hairline{ height:1px; background:#0a0a0a; }
+  .underline-accent{ text-decoration-color: var(--accent); text-decoration-thickness: 3px; text-underline-offset: 6px; }
+  .btn-cta{
+    border:1.5px solid #0a0a0a;
+    transition: background .18s ease, color .18s ease;
+  }
+  .btn-cta:hover{ background:#0a0a0a; color:#fff; }
+  .num{ font-weight:300; color:#a3a3a3; }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <!-- 導覽：僅 logo + 一個連結 -->
+  <nav class="flex items-center justify-between px-6 md:px-12 py-6">
+    <span class="text-lg font-medium tracking-tight">寫 Xie</span>
+    <a href="#start" class="text-sm font-medium underline underline-offset-4 hover:opacity-60 transition">開始寫</a>
+  </nav>
+
+  <div class="hairline mx-6 md:mx-12"></div>
+
+  <!-- Hero：巨型字 -->
+  <main class="px-6 md:px-12">
+    <section class="pt-10 md:pt-16 pb-16 md:pb-24">
+      <h1 class="giant text-[16vw] md:text-[11vw] tracking-tight">
+        別管格式。<br>
+        <span class="underline-accent underline" style="text-decoration-color:var(--accent);">先寫。</span>
+      </h1>
+      <p class="mt-8 md:mt-10 max-w-xl text-lg md:text-xl font-normal text-neutral-600 leading-relaxed">
+        寫 Xie 只有一個畫面、一個游標、一段空白。沒有排版選單，沒有樣式面板，沒有通知紅點。
+        你要做的只有打字，剩下的交給它忘掉。
+      </p>
+    </section>
+
+    <div class="hairline"></div>
+
+    <!-- 功能說明：極簡列點，不用卡片 -->
+    <section class="py-14 md:py-20 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6">
+      <div>
+        <p class="num text-5xl md:text-6xl mb-4">01</p>
+        <p class="text-xl md:text-2xl font-medium mb-2">一個畫面</p>
+        <p class="text-neutral-500 text-base leading-relaxed">沒有側邊欄、沒有工具列。開啟即是空白頁，游標就在正中間。</p>
+      </div>
+      <div>
+        <p class="num text-5xl md:text-6xl mb-4">02</p>
+        <p class="text-xl md:text-2xl font-medium mb-2">自動存檔</p>
+        <p class="text-neutral-500 text-base leading-relaxed">打字的瞬間就已經存好。沒有存檔按鈕，因為根本不需要。</p>
+      </div>
+      <div>
+        <p class="num text-5xl md:text-6xl mb-4">03</p>
+        <p class="text-xl md:text-2xl font-medium mb-2">離線可寫</p>
+        <p class="text-neutral-500 text-base leading-relaxed">沒有網路也能寫。寫作不該依賴訊號格數。</p>
+      </div>
+    </section>
+
+    <div class="hairline"></div>
+
+    <!-- CTA -->
+    <section id="start" class="py-20 md:py-28 text-center">
+      <h2 class="giant text-[13vw] md:text-[7vw] mb-10">
+        那就，<br class="md:hidden">現在開始。
+      </h2>
+      <a href="#" class="btn-cta inline-block px-10 py-4 text-lg font-medium rounded-full">
+        下載寫 Xie
+      </a>
+      <p class="mt-6 text-sm text-neutral-400">免費、無廣告、沒有訂閱制。</p>
+    </section>
+  </main>
+
+  <div class="hairline mx-6 md:mx-12"></div>
+
+  <footer class="px-6 md:px-12 py-8 flex flex-col md:flex-row justify-between items-center gap-3 text-sm text-neutral-400">
+    <span>寫 Xie © 2026</span>
+    <span>給那些只想打字的人。</span>
+  </footer>
+
+</body>
+</html>

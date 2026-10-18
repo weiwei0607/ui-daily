@@ -1,0 +1,228 @@
+<!-- style #26 Trust & Authority -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>恆信理財 HengXin Wealth · 財富管理顧問</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --navy:#0f1b2d;
+    --cream:#f6f2e9;
+    --gold:#9c7a3d;
+    --wine:#6e1f2a;
+  }
+  body{
+    font-family:'Noto Sans TC', sans-serif;
+    background:var(--cream);
+    color:var(--navy);
+  }
+  .serif{ font-family:'Noto Serif TC','Playfair Display',serif; }
+  .playfair{ font-family:'Playfair Display','Noto Serif TC',serif; }
+  .rule{ border-top:1px solid rgba(15,27,45,.25); }
+  .rule-thick{ border-top:3px double var(--navy); }
+  .badge-ring{
+    border:1px solid var(--gold);
+    border-radius:9999px;
+  }
+  .hero-bg{
+    background:
+      radial-gradient(circle at 85% 15%, rgba(156,122,61,.12), transparent 45%),
+      var(--navy);
+  }
+  .drop-cap::first-letter{
+    font-family:'Playfair Display', serif;
+    font-size:3.2rem;
+    float:left;
+    line-height:0.85;
+    padding-right:.4rem;
+    color:var(--wine);
+  }
+  .nav-link{ position:relative; }
+  .nav-link::after{
+    content:'';
+    position:absolute;
+    left:0; right:0; bottom:-6px;
+    height:1px;
+    background:var(--gold);
+    transform:scaleX(0);
+    transition:transform .25s ease;
+  }
+  .nav-link:hover::after{ transform:scaleX(1); }
+  .quote-mark{ font-family:'Playfair Display',serif; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- 導覽列 -->
+<header class="border-b border-[rgba(15,27,45,.15)] bg-[var(--cream)]/95 sticky top-0 z-30 backdrop-blur-sm">
+  <div class="max-w-6xl mx-auto px-6 md:px-10 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 badge-ring flex items-center justify-center">
+        <span class="serif text-sm font-bold" style="color:var(--navy)">恆</span>
+      </div>
+      <div>
+        <p class="serif text-lg font-bold tracking-wide leading-none">恆信理財</p>
+        <p class="text-[10px] tracking-[0.25em] text-[var(--gold)] uppercase leading-none mt-0.5">HengXin Wealth</p>
+      </div>
+    </div>
+    <nav class="hidden md:flex items-center gap-8 text-sm">
+      <a href="#services" class="nav-link">服務項目</a>
+      <a href="#trust" class="nav-link">專業實績</a>
+      <a href="#team" class="nav-link">顧問團隊</a>
+      <a href="#contact" class="nav-link">聯繫我們</a>
+    </nav>
+    <a href="#contact" class="hidden md:inline-block text-sm font-medium px-5 py-2 border border-[var(--navy)] rounded-sm hover:bg-[var(--navy)] hover:text-[var(--cream)] transition-colors">
+      預約諮詢
+    </a>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero-bg text-[var(--cream)]">
+  <div class="max-w-6xl mx-auto px-6 md:px-10 py-24 md:py-32">
+    <p class="text-[var(--gold)] text-xs md:text-sm tracking-[0.3em] uppercase mb-6">自 1998 年 · 專業財富管理顧問</p>
+    <h1 class="serif text-4xl md:text-6xl font-bold leading-tight max-w-3xl">
+      財富的傳承，<br class="hidden md:block">需要值得信任的判斷
+    </h1>
+    <p class="mt-6 max-w-xl text-base md:text-lg text-[rgba(246,242,233,.78)] leading-relaxed">
+      恆信理財自創立以來，長期陪伴高資產家庭與企業主，提供退休規劃、資產配置與稅務顧問的整合建議。我們相信，真正的理財顧問不是推銷產品的人，而是能在關鍵時刻給出誠實判斷的夥伴。
+    </p>
+    <div class="mt-10 flex flex-wrap items-center gap-5">
+      <a href="#contact" class="inline-block bg-[var(--gold)] text-[var(--navy)] font-semibold px-8 py-3.5 rounded-sm hover:brightness-110 transition">
+        預約一對一諮詢
+      </a>
+      <a href="#services" class="inline-block text-[var(--cream)] border-b border-[var(--gold)] pb-1 text-sm hover:text-[var(--gold)] transition-colors">
+        了解服務項目 →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 信任指標 -->
+<section id="trust" class="bg-[var(--navy)] text-[var(--cream)] border-t border-[rgba(246,242,233,.12)]">
+  <div class="max-w-6xl mx-auto px-6 md:px-10 py-12">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center md:text-left">
+      <div>
+        <p class="playfair text-3xl md:text-4xl font-bold text-[var(--gold)]">27<span class="text-lg">年</span></p>
+        <p class="text-xs md:text-sm text-[rgba(246,242,233,.65)] mt-1 tracking-wide">專業顧問經驗</p>
+      </div>
+      <div>
+        <p class="playfair text-3xl md:text-4xl font-bold text-[var(--gold)]">NT$ 86<span class="text-lg">億</span></p>
+        <p class="text-xs md:text-sm text-[rgba(246,242,233,.65)] mt-1 tracking-wide">管理資產規模</p>
+      </div>
+      <div>
+        <p class="playfair text-3xl md:text-4xl font-bold text-[var(--gold)]">1,240<span class="text-lg">+</span></p>
+        <p class="text-xs md:text-sm text-[rgba(246,242,233,.65)] mt-1 tracking-wide">長期服務家庭</p>
+      </div>
+      <div>
+        <p class="playfair text-3xl md:text-4xl font-bold text-[var(--gold)]">98<span class="text-lg">%</span></p>
+        <p class="text-xs md:text-sm text-[rgba(246,242,233,.65)] mt-1 tracking-wide">客戶續約率</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 服務項目 -->
+<section id="services" class="bg-[var(--cream)]">
+  <div class="max-w-6xl mx-auto px-6 md:px-10 py-20 md:py-28">
+    <div class="flex items-end justify-between flex-wrap gap-4 mb-12">
+      <div>
+        <p class="text-xs tracking-[0.3em] uppercase text-[var(--gold)] mb-3">Our Services</p>
+        <h2 class="serif text-3xl md:text-4xl font-bold">三項核心顧問服務</h2>
+      </div>
+      <p class="max-w-sm text-sm text-[rgba(15,27,45,.6)] leading-relaxed">
+        我們不談話術，只談數字與風險。每一份建議書，都由具備 CFP 認證的顧問親自撰寫與審核。
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-10">
+      <article class="rule pt-6">
+        <p class="playfair text-5xl text-[var(--wine)] mb-4">01</p>
+        <h3 class="serif text-xl font-bold mb-3">退休規劃</h3>
+        <p class="text-sm leading-relaxed text-[rgba(15,27,45,.72)]">
+          依據您的生活型態與預期退休年齡，建構可持續提領 25 年以上的現金流模型，並每年檢視通膨與醫療支出變動。
+        </p>
+      </article>
+      <article class="rule pt-6">
+        <p class="playfair text-5xl text-[var(--wine)] mb-4">02</p>
+        <h3 class="serif text-xl font-bold mb-3">資產配置</h3>
+        <p class="text-sm leading-relaxed text-[rgba(15,27,45,.72)]">
+          跨股票、債券、不動產與私募市場的全球化配置策略，以風險預算為核心，而非追逐單一市場的短期表現。
+        </p>
+      </article>
+      <article class="rule pt-6">
+        <p class="playfair text-5xl text-[var(--wine)] mb-4">03</p>
+        <h3 class="serif text-xl font-bold mb-3">稅務與傳承顧問</h3>
+        <p class="text-sm leading-relaxed text-[rgba(15,27,45,.72)]">
+          結合保險、信託與股權規劃工具，協助企業主與家族完成合法且合理的財富傳承安排，降低不確定的稽核風險。
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 客戶見證 -->
+<section class="bg-[rgba(15,27,45,.04)] rule-thick border-[var(--navy)]">
+  <div class="max-w-4xl mx-auto px-6 md:px-10 py-20 text-center">
+    <p class="quote-mark text-6xl text-[var(--gold)] leading-none mb-4">“</p>
+    <p class="drop-cap serif text-xl md:text-2xl leading-relaxed max-w-2xl mx-auto">
+      恆信的顧問不急著賣產品，而是先花了三次會議了解我們家族真正在意的事。這種耐心，是我願意把資產交給他們管理最重要的原因。
+    </p>
+    <p class="mt-8 text-sm tracking-[0.2em] uppercase text-[rgba(15,27,45,.55)]">林女士 · 企業主，服務滿 9 年</p>
+  </div>
+</section>
+
+<!-- 顧問團隊 -->
+<section id="team" class="bg-[var(--cream)]">
+  <div class="max-w-6xl mx-auto px-6 md:px-10 py-20 md:py-28">
+    <p class="text-xs tracking-[0.3em] uppercase text-[var(--gold)] mb-3">Advisory Team</p>
+    <h2 class="serif text-3xl md:text-4xl font-bold mb-12">核心顧問團隊</h2>
+    <div class="grid md:grid-cols-3 gap-10">
+      <div class="rule pt-6">
+        <h3 class="serif text-lg font-bold">陳柏遠　首席顧問</h3>
+        <p class="text-xs text-[var(--gold)] tracking-wide mt-1 mb-3">CFP® · 前外商銀行私人銀行部協理</p>
+        <p class="text-sm leading-relaxed text-[rgba(15,27,45,.72)]">專注高資產家族的跨境資產配置，從業 22 年。</p>
+      </div>
+      <div class="rule pt-6">
+        <h3 class="serif text-lg font-bold">蔡宜芬　稅務顧問</h3>
+        <p class="text-xs text-[var(--gold)] tracking-wide mt-1 mb-3">CPA · 前四大會計師事務所稅務部經理</p>
+        <p class="text-sm leading-relaxed text-[rgba(15,27,45,.72)]">專精企業主股權規劃與遺贈稅合規安排。</p>
+      </div>
+      <div class="rule pt-6">
+        <h3 class="serif text-lg font-bold">王信宏　退休規劃顧問</h3>
+        <p class="text-xs text-[var(--gold)] tracking-wide mt-1 mb-3">CFP® · 退休金規劃專業認證</p>
+        <p class="text-sm leading-relaxed text-[rgba(15,27,45,.72)]">擅長為自由業與中小企業主建構退休現金流。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 聯繫我們 -->
+<section id="contact" class="hero-bg text-[var(--cream)]">
+  <div class="max-w-4xl mx-auto px-6 md:px-10 py-20 md:py-24 text-center">
+    <h2 class="serif text-3xl md:text-4xl font-bold mb-5">預約一次不推銷的對話</h2>
+    <p class="text-[rgba(246,242,233,.75)] max-w-xl mx-auto mb-10 leading-relaxed">
+      第一次諮詢全程免費，我們只提出問題，不急著給答案。您可以留下聯絡方式，顧問將於一個工作日內與您聯繫。
+    </p>
+    <form class="max-w-md mx-auto flex flex-col gap-4" onsubmit="event.preventDefault(); this.querySelector('button').textContent='已收到，顧問將盡快與您聯繫';">
+      <input type="text" required placeholder="您的姓名" class="bg-transparent border border-[rgba(246,242,233,.35)] rounded-sm px-4 py-3 text-sm placeholder:text-[rgba(246,242,233,.45)] focus:outline-none focus:border-[var(--gold)]">
+      <input type="tel" required placeholder="聯絡電話" class="bg-transparent border border-[rgba(246,242,233,.35)] rounded-sm px-4 py-3 text-sm placeholder:text-[rgba(246,242,233,.45)] focus:outline-none focus:border-[var(--gold)]">
+      <button type="submit" class="bg-[var(--gold)] text-[var(--navy)] font-semibold px-6 py-3.5 rounded-sm hover:brightness-110 transition">送出預約</button>
+    </form>
+  </div>
+</section>
+
+<footer class="border-t border-[rgba(246,242,233,.12)] bg-[var(--navy)] text-[rgba(246,242,233,.55)]">
+  <div class="max-w-6xl mx-auto px-6 md:px-10 py-8 flex flex-col md:flex-row items-center justify-between gap-3 text-xs">
+    <p>© 2026 恆信理財顧問股份有限公司 HengXin Wealth Advisory Co., Ltd.</p>
+    <p>台北市信義區松仁路 100 號 20 樓 · 金融監督管理委員會核准字號 第 0982 號</p>
+  </div>
+</footer>
+
+</body>
+</html>

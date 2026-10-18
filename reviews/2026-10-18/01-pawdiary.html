@@ -1,0 +1,192 @@
+<!-- style #09 Claymorphism -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>毛孩日記 PawDiary · 寵物照護記錄 App</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink:#fdbcb4;
+    --blue:#add8e6;
+    --green:#98ff98;
+    --cream:#fff8f3;
+  }
+  body{
+    font-family:'Quicksand','Baloo 2',sans-serif;
+    background:linear-gradient(135deg,#fff8f3 0%,#eef7f6 50%,#f2f6ff 100%);
+    color:#5b4a46;
+  }
+  h1,h2,h3,.display{
+    font-family:'Baloo 2','Quicksand',sans-serif;
+  }
+  .clay{
+    border-radius:2rem;
+    background:#fdf4ee;
+    box-shadow:
+      10px 10px 24px rgba(205,170,150,0.35),
+      -10px -10px 20px rgba(255,255,255,0.9),
+      inset 0 0 0 2px rgba(255,255,255,0.6);
+    border:2px solid rgba(255,255,255,0.7);
+  }
+  .clay-btn{
+    border-radius:999px;
+    box-shadow:
+      6px 6px 14px rgba(205,170,150,0.4),
+      -6px -6px 12px rgba(255,255,255,0.9);
+    transition: all .15s ease;
+    border:2px solid rgba(255,255,255,0.8);
+  }
+  .clay-btn:active{
+    box-shadow:
+      inset 4px 4px 10px rgba(205,170,150,0.4),
+      inset -4px -4px 10px rgba(255,255,255,0.8);
+    transform: translateY(1px);
+  }
+  .clay-icon{
+    border-radius:1.75rem;
+    box-shadow:
+      7px 7px 16px rgba(205,170,150,0.35),
+      -7px -7px 14px rgba(255,255,255,0.9);
+  }
+  .clay-inset{
+    border-radius:1.5rem;
+    box-shadow:
+      inset 6px 6px 14px rgba(205,170,150,0.3),
+      inset -6px -6px 12px rgba(255,255,255,0.85);
+  }
+  .pill-tag{
+    border-radius:999px;
+    box-shadow: 3px 3px 8px rgba(205,170,150,0.3), -3px -3px 8px rgba(255,255,255,0.9);
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- 導覽列 -->
+<header class="max-w-6xl mx-auto px-6 pt-6">
+  <div class="clay flex items-center justify-between px-6 py-4">
+    <div class="flex items-center gap-3">
+      <div class="clay-icon w-11 h-11 flex items-center justify-center text-2xl" style="background:var(--pink);">🐾</div>
+      <span class="text-xl font-bold" style="color:#a8645a;">毛孩日記 PawDiary</span>
+    </div>
+    <nav class="hidden md:flex items-center gap-6 font-semibold text-sm" style="color:#8a6f68;">
+      <a href="#features" class="hover:opacity-70">功能特色</a>
+      <a href="#reviews" class="hover:opacity-70">使用者心聲</a>
+      <a href="#faq" class="hover:opacity-70">常見問題</a>
+    </nav>
+    <button class="clay-btn px-5 py-2.5 font-bold text-sm" style="background:var(--pink); color:#7a3f37;">免費下載</button>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="max-w-6xl mx-auto px-6 pt-16 pb-20 text-center">
+  <span class="pill-tag inline-block px-4 py-1.5 text-sm font-bold mb-6" style="background:var(--green); color:#2d5c3e;">給毛孩最軟的照護方式 🐶🐱</span>
+  <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6" style="color:#6b4a43;">
+    每一天的毛孩紀錄，<br class="hidden md:block">都圓圓滿滿捏在手心裡
+  </h1>
+  <p class="text-lg md:text-xl max-w-2xl mx-auto mb-10 font-semibold" style="color:#9a7e76;">
+    餵食、健康、疫苗、體重，通通幫你記好記牢。毛孩日記陪你和牠，一起長大、一起變老。
+  </p>
+  <div class="flex flex-wrap justify-center gap-4">
+    <button class="clay-btn px-8 py-4 text-lg font-bold" style="background:var(--blue); color:#2e5a66;">立即免費開始使用</button>
+    <button class="clay-btn px-8 py-4 text-lg font-bold" style="background:#fff; color:#8a6f68;">看看怎麼用 ▶</button>
+  </div>
+
+  <div class="mt-16 clay max-w-3xl mx-auto p-6 md:p-10 text-left grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="clay-inset p-5 text-center">
+      <p class="text-3xl font-extrabold" style="color:#a8645a;">48,000+</p>
+      <p class="text-sm font-semibold mt-1" style="color:#9a7e76;">毛孩家庭正在使用</p>
+    </div>
+    <div class="clay-inset p-5 text-center">
+      <p class="text-3xl font-extrabold" style="color:#3f7a8c;">320,000</p>
+      <p class="text-sm font-semibold mt-1" style="color:#9a7e76;">次疫苗提醒成功送達</p>
+    </div>
+    <div class="clay-inset p-5 text-center">
+      <p class="text-3xl font-extrabold" style="color:#3f8c5a;">4.9 ★</p>
+      <p class="text-sm font-semibold mt-1" style="color:#9a7e76;">App Store 評分</p>
+    </div>
+  </div>
+</section>
+
+<!-- 功能特色 -->
+<section id="features" class="max-w-6xl mx-auto px-6 py-16">
+  <div class="text-center mb-14">
+    <h2 class="text-3xl md:text-4xl font-extrabold mb-3" style="color:#6b4a43;">三個功能，捏出安心感</h2>
+    <p class="font-semibold" style="color:#9a7e76;">不用再用便利貼、備忘錄東拼西湊，毛孩的大小事都在這裡</p>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div class="clay p-8 text-center">
+      <div class="clay-icon w-20 h-20 mx-auto flex items-center justify-center text-4xl mb-5" style="background:var(--pink);">🍖</div>
+      <h3 class="text-xl font-bold mb-3" style="color:#6b4a43;">餵食提醒</h3>
+      <p class="font-semibold text-sm leading-relaxed" style="color:#9a7e76;">設定每日餐次與份量，自動推播提醒，再也不會忘記餵飯，也不怕手忙腳亂多餵一份。</p>
+    </div>
+    <div class="clay p-8 text-center">
+      <div class="clay-icon w-20 h-20 mx-auto flex items-center justify-center text-4xl mb-5" style="background:var(--blue);">📋</div>
+      <h3 class="text-xl font-bold mb-3" style="color:#6b4a43;">健康紀錄</h3>
+      <p class="font-semibold text-sm leading-relaxed" style="color:#9a7e76;">體重、排便、食慾、精神狀態，一鍵記錄，回診時直接把曲線秀給醫生看，溝通更快更安心。</p>
+    </div>
+    <div class="clay p-8 text-center">
+      <div class="clay-icon w-20 h-20 mx-auto flex items-center justify-center text-4xl mb-5" style="background:var(--green);">💉</div>
+      <h3 class="text-xl font-bold mb-3" style="color:#6b4a43;">疫苗提醒</h3>
+      <p class="font-semibold text-sm leading-relaxed" style="color:#9a7e76;">自動排程下一次接種與驅蟲時間，提前一週溫柔提醒，不錯過任何一次重要保護。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 使用者心聲 -->
+<section id="reviews" class="max-w-6xl mx-auto px-6 py-16">
+  <div class="clay p-8 md:p-12">
+    <h2 class="text-3xl font-extrabold text-center mb-10" style="color:#6b4a43;">毛孩爸媽都在說</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="clay-inset p-6">
+        <p class="text-sm font-semibold leading-relaxed mb-4" style="color:#7a635d;">「以前靠記憶餵藥常常忘記，現在手機會準時叫我，柴柴的皮膚病終於穩定下來了。」</p>
+        <p class="font-bold text-sm" style="color:#a8645a;">— 陳小姐・柴犬「豆沙」的媽媽</p>
+      </div>
+      <div class="clay-inset p-6">
+        <p class="text-sm font-semibold leading-relaxed mb-4" style="color:#7a635d;">「帶去看醫生時直接把體重曲線給醫生看，醫生說這樣問診快很多，推薦給所有貓奴！」</p>
+        <p class="font-bold text-sm" style="color:#3f7a8c;">— 林先生・英短貓「麻糬」的爸爸</p>
+      </div>
+      <div class="clay-inset p-6">
+        <p class="text-sm font-semibold leading-relaxed mb-4" style="color:#7a635d;">「介面圓圓的很療癒，連提醒通知都捨不得滑掉，每天打開都覺得心情變好。」</p>
+        <p class="font-bold text-sm" style="color:#3f8c5a;">— 吳小姐・米克斯「湯圓」的媽媽</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="max-w-4xl mx-auto px-6 py-16">
+  <h2 class="text-3xl font-extrabold text-center mb-10" style="color:#6b4a43;">常見問題</h2>
+  <div class="space-y-5">
+    <div class="clay p-6">
+      <p class="font-bold mb-2" style="color:#a8645a;">可以同時記錄多隻毛孩嗎？</p>
+      <p class="text-sm font-semibold" style="color:#9a7e76;">可以，免費版最多可建立 3 個毛孩檔案，每隻都有獨立的餵食與健康紀錄。</p>
+    </div>
+    <div class="clay p-6">
+      <p class="font-bold mb-2" style="color:#3f7a8c;">提醒通知會不會太頻繁？</p>
+      <p class="text-sm font-semibold" style="color:#9a7e76;">所有提醒時段都可以自訂，也能一鍵靜音單隻毛孩的某項提醒，彈性由你決定。</p>
+    </div>
+    <div class="clay p-6">
+      <p class="font-bold mb-2" style="color:#3f8c5a;">資料可以匯出給獸醫師看嗎？</p>
+      <p class="text-sm font-semibold" style="color:#9a7e76;">可以，健康紀錄支援一鍵產生 PDF 報告，回診時直接出示給醫生參考。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 頁尾 CTA -->
+<footer class="max-w-6xl mx-auto px-6 pb-16">
+  <div class="clay p-10 md:p-14 text-center" style="background:linear-gradient(135deg,#fdf4ee,#f2f6ff);">
+    <h2 class="text-2xl md:text-3xl font-extrabold mb-4" style="color:#6b4a43;">讓每一次照顧，都軟軟地剛剛好</h2>
+    <p class="font-semibold mb-8" style="color:#9a7e76;">現在下載，免費使用所有核心功能</p>
+    <button class="clay-btn px-10 py-4 text-lg font-bold" style="background:var(--pink); color:#7a3f37;">前往下載毛孩日記</button>
+    <p class="text-xs font-semibold mt-10" style="color:#bfa89f;">© 2026 毛孩日記 PawDiary．用心陪伴每一個毛孩家庭</p>
+  </div>
+</footer>
+
+</body>
+</html>
