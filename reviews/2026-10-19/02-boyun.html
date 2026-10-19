@@ -1,0 +1,125 @@
+<!-- style #50 Swiss Modernism 2.0 -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>博允顧問｜企業重組與資本策略</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=Newsreader:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{ --ink:#111111; --paper:#f5f1e8; --red:#c0272d; }
+  *{box-sizing:border-box;}
+  body{
+    font-family:'Noto Serif TC', serif;
+    background:var(--paper);
+    color:var(--ink);
+  }
+  .headline{ font-family:'Noto Serif TC', serif; font-weight:900; letter-spacing:-0.01em; }
+  .byline{ font-family:'Newsreader', serif; font-style:italic; }
+  .rule{ border-top:3px solid var(--ink); }
+  .rule-thin{ border-top:1px solid var(--ink); }
+  .grid-swiss{
+    display:grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 0 1.5rem;
+  }
+  a{ text-decoration:none; }
+  .nav-link{ border-bottom:2px solid transparent; transition:border-color .2s; }
+  .nav-link:hover{ border-color:var(--red); }
+  .tag{ background:var(--ink); color:var(--paper); }
+  .num{ font-family:'Newsreader', serif; font-style:italic; color:var(--red); }
+</style>
+</head>
+<body class="relative">
+
+  <!-- Masthead -->
+  <header class="max-w-6xl mx-auto px-6 pt-10">
+    <div class="flex items-end justify-between rule pt-4 pb-6">
+      <h1 class="headline text-4xl md:text-5xl">博允顧問</h1>
+      <p class="byline text-sm md:text-base text-right">自一九八七年起，為企業做困難的決定</p>
+    </div>
+    <nav class="rule-thin py-3 flex gap-8 text-sm font-medium uppercase tracking-wide">
+      <a href="#" class="nav-link pb-1">關於博允</a>
+      <a href="#" class="nav-link pb-1">服務項目</a>
+      <a href="#" class="nav-link pb-1">案例研究</a>
+      <a href="#" class="nav-link pb-1">合夥人</a>
+      <a href="#" class="nav-link pb-1 text-[var(--red)]">預約諮詢</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <main class="max-w-6xl mx-auto px-6">
+    <section class="grid-swiss py-14">
+      <div class="col-span-12 md:col-span-8">
+        <p class="num text-lg mb-3">第 01 期 — 企業重組專題</p>
+        <h2 class="headline text-3xl md:text-5xl leading-tight mb-6">
+          當公司走到十字路口，<br>需要的不是安慰，是結構。
+        </h2>
+        <p class="text-lg leading-relaxed mb-6 max-w-xl">
+          博允顧問專精於企業重組、資本結構調整與跨境併購顧問。我們不談空泛的願景，
+          只談財報上的數字，以及數字背後那個真正能被執行的決定。
+        </p>
+        <a href="#" class="inline-block tag px-6 py-3 text-sm uppercase tracking-wide font-semibold">
+          預約一次免費診斷 →
+        </a>
+      </div>
+      <div class="col-span-12 md:col-span-4 rule-thin pl-0 md:pl-6 mt-10 md:mt-0 border-l-0 md:border-l md:border-black/20">
+        <p class="text-sm uppercase tracking-widest text-black/50 mb-4">服務成果（近五年）</p>
+        <div class="space-y-5">
+          <div>
+            <p class="num text-4xl">216</p>
+            <p class="text-sm">完成重組案件</p>
+          </div>
+          <div>
+            <p class="num text-4xl">NT$38 億</p>
+            <p class="text-sm">協助釋放的閒置資產價值</p>
+          </div>
+          <div>
+            <p class="num text-4xl">91%</p>
+            <p class="text-sm">客戶三年內轉虧為盈</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section class="rule py-12">
+      <p class="text-sm uppercase tracking-widest text-black/50 mb-8">三個主要服務方向</p>
+      <div class="grid-swiss">
+        <div class="col-span-12 md:col-span-4 pr-6 mb-10">
+          <p class="num text-2xl mb-2">01</p>
+          <h3 class="headline text-xl mb-3">企業重組</h3>
+          <p class="text-sm leading-relaxed">從財務健檢到債務協商，陪同管理層走完最難開口的那幾場會議。</p>
+        </div>
+        <div class="col-span-12 md:col-span-4 pr-6 mb-10">
+          <p class="num text-2xl mb-2">02</p>
+          <h3 class="headline text-xl mb-3">資本策略</h3>
+          <p class="text-sm leading-relaxed">股權規劃、融資架構與股利政策，讓資金配置跟著公司戰略走，而非反過來。</p>
+        </div>
+        <div class="col-span-12 md:col-span-4 mb-10">
+          <p class="num text-2xl mb-2">03</p>
+          <h3 class="headline text-xl mb-3">併購顧問</h3>
+          <p class="text-sm leading-relaxed">從估值、談判到交割後整合，確保買下來的不只是一張合約，是真正能運作的團隊。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quote -->
+    <section class="py-14 rule-thin">
+      <blockquote class="byline text-2xl md:text-3xl max-w-3xl leading-relaxed">
+        「博允給的建議，往往不是我們想聽的那個版本——但三年後回頭看，
+        每一次都是對的。」
+      </blockquote>
+      <p class="text-sm mt-4 text-black/60">— 某上市製造業集團 財務長</p>
+    </section>
+  </main>
+
+  <footer class="rule mt-10 max-w-6xl mx-auto px-6 py-8 flex flex-col md:flex-row justify-between text-sm text-black/60">
+    <p>博允顧問股份有限公司 © 2026</p>
+    <p>台北市信義區松高路 9 號 28 樓</p>
+  </footer>
+
+</body>
+</html>

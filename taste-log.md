@@ -21,6 +21,10 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-10-19（6 個，#03 Glassmorphism / #50 Swiss Modernism 2.0 / #28 Data-Dense Dashboard / #42 Organic Biophilic / #45 Vaporwave / #48 Kinetic Typography）
+- ⚠️ 本輪 Firebase ❤️ 讀取再次被環境網路政策擋下（agent-proxy `/__agentproxy/status` 顯示 `connect_rejected`，CONNECT 403 到 b-battle-580b5-default-rtdb.firebaseio.com），無法讀取上一批按讚結果；Telegram API（api.telegram.org）同樣連不到（curl 回 exit 56 / HTTP 000）。沿用「已確認偏好」規則生成本輪 6 個，仍無法回補按讚紀錄，也無法送出 Telegram 通知。這是連續第二輪遇到同一個環境網路限制（上次是 2026-10-18），看起來是這個雲端環境的網路政策本身還沒把這兩個 host 加進允許清單，不是暫時性問題，需要人工到環境設定把 Firebase 與 Telegram 的 host 加入 Allowed domains 才能解決。
+- 本輪選的 6 個風格刻意避開最近三天（10-16/17/18）用過的 06/21/36/51/02/56/05/11/18/20/34/54/09/26/29/47/17/52，並跨 A/B/C/D 四組選、字體各自對應風格（圓潤→Baloo 2+Quicksand、Swiss→Noto Serif TC、Dashboard→Inter+JetBrains Mono、Organic→Cormorant Garamond+Nunito、Vaporwave→Press Start 2P+VT323、Kinetic Typography→Bebas Neue），全部直接自己寫，沒有派生 fork 子代理，避免上次的失控問題再發生。
+
 ### 2026-10-18（6 個，#09 Claymorphism / #26 Trust & Authority / #29 Heatmap & Density Dashboard / #47 Exaggerated Minimalism / #17 Inclusive Design / #52 Pixel Art/Retro Gaming）
 - ⚠️ Firebase ❤️ 讀取本輪仍被環境網路政策擋下（proxy status 顯示 `connect_rejected`，CONNECT 403 到 b-battle-580b5-default-rtdb.firebaseio.com），無法讀取上一批按讚結果，沿用「已確認偏好」規則生成，等下次能連線時再回補。Telegram API（api.telegram.org）同樣被 403 擋下，本輪無法送出通知。
 - ⚠️ 本輪踩到一個委派子代理（fork）的事故：派給 6 個 fork 各寫一個檔案時，fork 繼承了完整對話上下文（包含最上層「生成 6 個+建畫廊+發布+Telegram」的完整排程任務說明），導致至少 3 個 fork 誤判自己才是「main」、該獨立完成整個排程任務，進而各自再派生巢狀子代理，重複產出同風格的多個檔案（例如 #29 同時出現 03-storeflow.html 與 03-dianliutong.html，#52 同時出現 06-pixelstation.html 與 06-pixelyizhan.html，#09 還多出 01-furrydiary.html / 01-maopet.html 兩個雜檔）。發現後已用 SendMessage 提醒收斂範圍、並用 TaskStop 強制終止這些失控的 fork，手動刪除雜檔、保留每個風格編號裡較完整/字體更貼合規格的版本。教訓：之後若要派多個 fork 各做「一個小任務」，應避免讓 fork 看到最上層整個排程任務的完整描述，或在 prompt 開頭就先明確限定「你不是 main，只做這一件事，不要派生子代理」。

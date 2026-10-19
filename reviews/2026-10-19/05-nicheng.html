@@ -1,0 +1,119 @@
+<!-- style #45 Vaporwave -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>霓城電波 NEOCITY WAVE｜復古未來音樂串流</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  body{
+    font-family:'VT323', monospace;
+    font-size:20px;
+    background: linear-gradient(180deg, #1a1a2e 0%, #2d1b4e 50%, #4a1942 100%);
+    color:#ffe3f8;
+    overflow-x:hidden;
+    min-height:100vh;
+  }
+  .pixel{ font-family:'Press Start 2P', monospace; }
+  .glow-pink{ text-shadow: 0 0 8px #ff71ce, 0 0 20px #ff71ce; }
+  .glow-cyan{ text-shadow: 0 0 8px #01cdfe, 0 0 20px #01cdfe; }
+  .sun{
+    width:260px; height:260px; border-radius:50%;
+    background: linear-gradient(180deg, #ffd1f7 0%, #ff71ce 50%, #c0c0c0 100%);
+    box-shadow: 0 0 60px #ff71ce;
+    position:relative; overflow:hidden;
+  }
+  .sun::before{
+    content:''; position:absolute; left:0; right:0; top:60%;
+    background: repeating-linear-gradient(to bottom, #2d1b4e 0 4px, transparent 4px 10px);
+    bottom:0;
+  }
+  .grid-floor{
+    height:220px;
+    background-image:
+      linear-gradient(to right, rgba(1,205,254,0.5) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(1,205,254,0.5) 1px, transparent 1px);
+    background-size: 40px 40px;
+    transform: perspective(300px) rotateX(60deg);
+    transform-origin:bottom;
+  }
+  .scanline{
+    position:fixed; inset:0; pointer-events:none;
+    background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.03) 0 2px, transparent 2px 4px);
+    z-index:40;
+  }
+  .glitch-btn{
+    background:#ff71ce; color:#1a1a2e; border:2px solid #01cdfe;
+    box-shadow: 4px 4px 0 #01cdfe;
+    transition: all .1s;
+  }
+  .glitch-btn:hover{ transform: translate(2px,2px); box-shadow: 2px 2px 0 #01cdfe; }
+  .card{ background: rgba(255,255,255,0.06); border:1px solid #ff71ce; backdrop-filter: blur(4px); }
+  @keyframes float{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);} }
+  .floaty{ animation: float 5s ease-in-out infinite; }
+</style>
+</head>
+<body class="relative">
+  <div class="scanline"></div>
+
+  <nav class="relative z-10 max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+    <div class="pixel text-xs glow-pink">霓城電波</div>
+    <div class="flex gap-6 text-sm">
+      <a href="#" class="hover:text-[#01cdfe]">電台</a>
+      <a href="#" class="hover:text-[#01cdfe]">排行榜</a>
+      <a href="#" class="hover:text-[#01cdfe]">會員方案</a>
+    </div>
+    <button class="glitch-btn pixel text-[10px] px-4 py-2">登入</button>
+  </nav>
+
+  <section class="relative z-10 max-w-5xl mx-auto px-6 pt-8 pb-4 text-center">
+    <div class="sun mx-auto mb-[-60px] floaty"></div>
+    <div class="grid-floor max-w-4xl mx-auto"></div>
+  </section>
+
+  <section class="relative z-10 max-w-4xl mx-auto px-6 -mt-16 pb-10 text-center">
+    <p class="pixel text-[10px] glow-cyan mb-5">VOL.07 // SYNTH CITY RADIO</p>
+    <h1 class="pixel text-xl md:text-3xl glow-pink leading-relaxed mb-6">
+      回到一個<br>從沒存在過的未來
+    </h1>
+    <p class="text-lg mb-8 max-w-xl mx-auto text-[#ffe3f8]/90">
+      深夜打開霓城電波，讓合成器音牆帶你穿越霓虹街道。
+      每一首歌都像一張老式 VHS，畫質模糊但情緒清晰。
+    </p>
+    <div class="flex gap-4 justify-center flex-wrap">
+      <button class="glitch-btn pixel text-[11px] px-6 py-4">▶ 開始播放</button>
+      <button class="pixel text-[11px] px-6 py-4 border-2 border-[#ffe3f8] text-[#ffe3f8]">查看會員方案</button>
+    </div>
+  </section>
+
+  <section class="relative z-10 max-w-5xl mx-auto px-6 py-14">
+    <h2 class="pixel text-sm glow-cyan text-center mb-10">本週熱播電台</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="card rounded p-6">
+        <p class="pixel text-[10px] mb-3 text-[#01cdfe]">CH.01</p>
+        <h3 class="text-xl mb-2">午夜高速公路</h3>
+        <p class="text-sm text-[#ffe3f8]/80">適合開夜車、敲 Bug、或單純發呆的合成器波段</p>
+      </div>
+      <div class="card rounded p-6">
+        <p class="pixel text-[10px] mb-3 text-[#01cdfe]">CH.02</p>
+        <h3 class="text-xl mb-2">百貨公司的下午</h3>
+        <p class="text-sm text-[#ffe3f8]/80">80 年代美式賣場 BGM 的溫柔贗品，自帶懷舊濾鏡</p>
+      </div>
+      <div class="card rounded p-6">
+        <p class="pixel text-[10px] mb-3 text-[#01cdfe]">CH.03</p>
+        <h3 class="text-xl mb-2">雨夜霓虹</h3>
+        <p class="text-sm text-[#ffe3f8]/80">濕漉漉的貝斯線條，配上遠方的雷射光</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="relative z-10 text-center py-10 pixel text-[9px] text-[#ffe3f8]/60">
+    霓城電波 © 2026 · NO FUTURE, JUST VIBES
+  </footer>
+
+</body>
+</html>

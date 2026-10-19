@@ -1,0 +1,114 @@
+<!-- style #42 Organic Biophilic -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>田野時光｜產地直送的每週蔬菜箱</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  body{ font-family:'Nunito', sans-serif; background:#f5f1e8; color:#3e4a32; }
+  .serif{ font-family:'Cormorant Garamond', serif; }
+  .leaf-shape{ border-radius: 62% 38% 55% 45% / 45% 55% 42% 58%; }
+  .organic-card{ border-radius: 2rem 1rem 2rem 1rem; }
+  .btn-earth{
+    background:#3e4a32; color:#f5f1e8; border-radius:999px;
+    transition: all .25s ease;
+  }
+  .btn-earth:hover{ background:#2f3a26; transform:translateY(-2px); }
+  .texture-dot{ background-image: radial-gradient(circle, rgba(62,74,50,0.06) 1px, transparent 1px); background-size:14px 14px; }
+  .divider-leaf::before{ content:'🌿'; margin:0 .5rem; }
+</style>
+</head>
+<body class="texture-dot">
+
+  <!-- Nav -->
+  <header class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="text-2xl">🌾</span>
+      <span class="serif text-2xl font-semibold">田野時光</span>
+    </div>
+    <nav class="hidden md:flex gap-8 text-sm font-medium text-[#3e4a32]/80">
+      <a href="#">本週菜單</a>
+      <a href="#">認識小農</a>
+      <a href="#">訂閱方案</a>
+      <a href="#">常見問題</a>
+    </nav>
+    <button class="btn-earth px-5 py-2 text-sm font-semibold">開始訂閱</button>
+  </header>
+
+  <!-- Hero -->
+  <section class="max-w-6xl mx-auto px-6 pt-10 pb-20 grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <p class="text-sm font-semibold tracking-wide text-[#8fbc8f] mb-4">來自 32 個合作小農的季節蔬菜</p>
+      <h1 class="serif text-4xl md:text-6xl leading-[1.15] mb-6 italic">
+        把一片田野，<br>每週送到你家門口。
+      </h1>
+      <p class="text-lg leading-relaxed mb-8 max-w-md text-[#3e4a32]/90">
+        不灑農藥、不催熟，只在真正成熟的那一天採收。
+        我們把產地到餐桌的距離，縮短成一箱蔬菜的重量。
+      </p>
+      <div class="flex gap-4">
+        <button class="btn-earth px-8 py-4 font-semibold">看看本週菜單 →</button>
+        <button class="px-8 py-4 font-semibold border-2 border-[#3e4a32] rounded-full">認識我們的小農</button>
+      </div>
+      <p class="mt-6 text-sm text-[#3e4a32]/60 divider-leaf">已有 4,600 個家庭每週收到新鮮蔬菜箱</p>
+    </div>
+    <div class="relative">
+      <div class="leaf-shape bg-[#8fbc8f]/30 w-full aspect-square p-8 flex items-center justify-center">
+        <div class="organic-card bg-white/70 backdrop-blur-sm p-6 w-full shadow-lg">
+          <p class="serif text-xl italic mb-4">本週蔬菜箱內容</p>
+          <ul class="space-y-2 text-sm">
+            <li class="flex justify-between"><span>🥬 有機小白菜</span><span class="text-[#3e4a32]/60">500g</span></li>
+            <li class="flex justify-between"><span>🍅 玉女番茄</span><span class="text-[#3e4a32]/60">300g</span></li>
+            <li class="flex justify-between"><span>🥔 紫色馬鈴薯</span><span class="text-[#3e4a32]/60">400g</span></li>
+            <li class="flex justify-between"><span>🌽 糯玉米</span><span class="text-[#3e4a32]/60">2 支</span></li>
+            <li class="flex justify-between"><span>🧄 煙燻紫皮蒜</span><span class="text-[#3e4a32]/60">1 把</span></li>
+          </ul>
+          <p class="mt-4 text-xs text-[#3e4a32]/50">採收日：2026 年 10 月 17 日 · 產地：雲林、台東</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Farmers -->
+  <section class="max-w-6xl mx-auto px-6 py-16">
+    <h2 class="serif text-3xl italic text-center mb-2">每一箱蔬菜，背後都有一位小農</h2>
+    <p class="text-center text-[#3e4a32]/70 mb-12">我們不是大型農場，是一群堅持慢慢種的人</p>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="organic-card bg-white/60 p-6">
+        <div class="w-16 h-16 rounded-full bg-[#8fbc8f]/40 flex items-center justify-center text-2xl mb-4">👩‍🌾</div>
+        <h3 class="serif text-xl italic mb-2">雲林．陳姐</h3>
+        <p class="text-sm leading-relaxed text-[#3e4a32]/80">種葉菜 23 年，堅持清晨採收，露水還沒乾就送進冷鏈車。</p>
+      </div>
+      <div class="organic-card bg-white/60 p-6">
+        <div class="w-16 h-16 rounded-full bg-[#8fbc8f]/40 flex items-center justify-center text-2xl mb-4">👨‍🌾</div>
+        <h3 class="serif text-xl italic mb-2">台東．阿成</h3>
+        <p class="text-sm leading-relaxed text-[#3e4a32]/80">用鴨子除蟲、不用農藥，番茄甜度比市場平均高兩度。</p>
+      </div>
+      <div class="organic-card bg-white/60 p-6">
+        <div class="w-16 h-16 rounded-full bg-[#8fbc8f]/40 flex items-center justify-center text-2xl mb-4">👩‍🌾</div>
+        <h3 class="serif text-xl italic mb-2">宜蘭．美玉姨</h3>
+        <p class="text-sm leading-relaxed text-[#3e4a32]/80">三代種稻的家族，今年開始試種十種你沒聽過的原生豆類。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="max-w-4xl mx-auto px-6 py-16 text-center">
+    <div class="organic-card bg-[#3e4a32] text-[#f5f1e8] p-12">
+      <h2 class="serif text-3xl italic mb-4">準備好迎接第一箱蔬菜了嗎？</h2>
+      <p class="mb-8 text-[#f5f1e8]/80">訂閱可隨時暫停或取消，第一箱加贈一把當季香草</p>
+      <button class="bg-[#f5f1e8] text-[#3e4a32] px-10 py-4 rounded-full font-semibold">立即開始訂閱 · NT$ 580／週</button>
+    </div>
+  </section>
+
+  <footer class="text-center py-10 text-sm text-[#3e4a32]/50">
+    田野時光 © 2026．一箱蔬菜，一片用心耕作的田
+  </footer>
+
+</body>
+</html>

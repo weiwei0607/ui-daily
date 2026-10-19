@@ -1,0 +1,154 @@
+<!-- style #03 Glassmorphism -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>雲舞 Cloudance｜團隊協作雲端平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg1:#667eea; --bg2:#764ba2; --bg3:#f093fb;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:'Quicksand', sans-serif;
+    background: linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 45%, var(--bg3) 100%);
+    background-attachment: fixed;
+    min-height:100vh;
+    color:#2d2a4a;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.font-display{ font-family:'Baloo 2', sans-serif; }
+  .glass{
+    background: rgba(255,255,255,0.22);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.45);
+    box-shadow: 0 8px 32px rgba(31,38,135,0.15);
+  }
+  .glass-strong{
+    background: rgba(255,255,255,0.35);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,0.55);
+  }
+  .blob{
+    position:absolute; border-radius:50%; filter:blur(60px); opacity:0.5; z-index:0;
+  }
+  .btn-primary{
+    background: rgba(255,255,255,0.9);
+    color:#5b3fa0;
+    font-weight:700;
+    transition: all .25s ease;
+  }
+  .btn-primary:hover{ transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.18); }
+  .nav-link{ position:relative; }
+  .nav-link::after{
+    content:''; position:absolute; left:0; bottom:-4px; width:0; height:2px;
+    background:white; transition:width .25s ease;
+  }
+  .nav-link:hover::after{ width:100%; }
+  .float-anim{ animation: floaty 6s ease-in-out infinite; }
+  @keyframes floaty{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-14px);} }
+</style>
+</head>
+<body class="relative">
+
+  <div class="blob float-anim" style="width:420px;height:420px;background:#ffffff;top:-120px;left:-120px;"></div>
+  <div class="blob" style="width:360px;height:360px;background:#f093fb;top:200px;right:-100px; animation: floaty 8s ease-in-out infinite reverse;"></div>
+  <div class="blob" style="width:300px;height:300px;background:#667eea;bottom:-80px;left:30%;"></div>
+
+  <!-- Nav -->
+  <nav class="relative z-10 max-w-6xl mx-auto flex items-center justify-between px-6 py-6">
+    <div class="flex items-center gap-2 font-display text-white text-2xl font-bold">
+      <span class="text-3xl">☁️</span> 雲舞 Cloudance
+    </div>
+    <div class="hidden md:flex items-center gap-8 text-white/90 font-medium">
+      <a href="#" class="nav-link">功能</a>
+      <a href="#" class="nav-link">方案</a>
+      <a href="#" class="nav-link">客戶案例</a>
+      <a href="#" class="nav-link">幫助中心</a>
+    </div>
+    <button class="glass-strong px-5 py-2.5 rounded-full text-white font-semibold">免費開始</button>
+  </nav>
+
+  <!-- Hero -->
+  <section class="relative z-10 max-w-6xl mx-auto px-6 pt-16 pb-24 text-center">
+    <div class="glass inline-block px-4 py-1.5 rounded-full text-white/95 text-sm font-medium mb-6">
+      ✨ 超過 12,000 個團隊在用
+    </div>
+    <h1 class="font-display text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6 drop-shadow-sm">
+      把團隊的腦袋，<br class="hidden md:block">接到同一塊雲朵上
+    </h1>
+    <p class="text-white/90 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+      文件、待辦、會議紀錄、進度看板，全部漂浮在同一個透明空間裡。<br>
+      不用再截圖貼來貼去，團隊想到什麼，隨手就能一起看見。
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+      <button class="btn-primary px-8 py-4 rounded-full text-lg">立即免費試用 14 天</button>
+      <button class="glass px-8 py-4 rounded-full text-white font-semibold text-lg">看產品介紹 ▶</button>
+    </div>
+
+    <!-- Floating dashboard mock -->
+    <div class="glass-strong rounded-3xl p-6 md:p-10 max-w-4xl mx-auto float-anim">
+      <div class="grid md:grid-cols-3 gap-4 text-left">
+        <div class="glass rounded-2xl p-5">
+          <p class="text-white/80 text-sm mb-1">今日待辦</p>
+          <p class="font-display text-3xl font-bold text-white">8 件</p>
+          <p class="text-white/70 text-xs mt-2">已完成 5 件 · 剩 3 件</p>
+        </div>
+        <div class="glass rounded-2xl p-5">
+          <p class="text-white/80 text-sm mb-1">進行中專案</p>
+          <p class="font-display text-3xl font-bold text-white">4 個</p>
+          <p class="text-white/70 text-xs mt-2">本週交付 2 個</p>
+        </div>
+        <div class="glass rounded-2xl p-5">
+          <p class="text-white/80 text-sm mb-1">團隊在線</p>
+          <p class="font-display text-3xl font-bold text-white">9 人</p>
+          <p class="text-white/70 text-xs mt-2">設計、工程、行銷都在</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="relative z-10 max-w-6xl mx-auto px-6 py-16">
+    <h2 class="font-display text-3xl md:text-4xl font-bold text-white text-center mb-4">三個理由，團隊都離不開</h2>
+    <p class="text-white/80 text-center mb-12 max-w-xl mx-auto">不是又一個待辦清單 App，是真的能把散落的工作黏在一起。</p>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="glass rounded-3xl p-8 hover:-translate-y-2 transition-transform duration-300">
+        <div class="w-14 h-14 rounded-2xl glass-strong flex items-center justify-center text-2xl mb-5">📋</div>
+        <h3 class="font-display text-xl font-bold text-white mb-2">看板即時同步</h3>
+        <p class="text-white/80 leading-relaxed">拖一下卡片，所有人畫面立刻更新，連手機通知都會輕輕震一下提醒你。</p>
+      </div>
+      <div class="glass rounded-3xl p-8 hover:-translate-y-2 transition-transform duration-300">
+        <div class="w-14 h-14 rounded-2xl glass-strong flex items-center justify-center text-2xl mb-5">💬</div>
+        <h3 class="font-display text-xl font-bold text-white mb-2">會議紀錄自動生成</h3>
+        <p class="text-white/80 leading-relaxed">開會時打字就好，雲舞會幫你整理成待辦，散會前大家就知道自己要做什麼。</p>
+      </div>
+      <div class="glass rounded-3xl p-8 hover:-translate-y-2 transition-transform duration-300">
+        <div class="w-14 h-14 rounded-2xl glass-strong flex items-center justify-center text-2xl mb-5">🔒</div>
+        <h3 class="font-display text-xl font-bold text-white mb-2">權限分層，安心共享</h3>
+        <p class="text-white/80 leading-relaxed">外部客戶、兼職夥伴、正職同事，各自看到該看的部分，不用再開三個工具交接。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="relative z-10 max-w-4xl mx-auto px-6 py-20 text-center">
+    <div class="glass-strong rounded-3xl p-10 md:p-14">
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-white mb-4">今天就讓團隊飄進雲朵裡</h2>
+      <p class="text-white/85 mb-8">不用信用卡，14 天內隨時可以取消，資料完整帶走。</p>
+      <button class="btn-primary px-10 py-4 rounded-full text-lg">建立我的第一個團隊空間</button>
+    </div>
+  </section>
+
+  <footer class="relative z-10 text-center text-white/70 text-sm pb-10">
+    © 2026 雲舞 Cloudance．一個讓團隊輕輕飄在一起的地方
+  </footer>
+
+</body>
+</html>

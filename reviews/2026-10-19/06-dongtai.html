@@ -1,0 +1,114 @@
+<!-- style #48 Kinetic Typography -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>動態語彙｜林書妍 設計作品集</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+TC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  body{ font-family:'Noto Sans TC', sans-serif; background:#0a0a0a; color:#f4f4f4; overflow-x:hidden; }
+  .display{ font-family:'Bebas Neue', sans-serif; letter-spacing:0.02em; }
+
+  .marquee-wrap{ overflow:hidden; white-space:nowrap; border-top:1px solid #333; border-bottom:1px solid #333; }
+  .marquee{ display:inline-block; animation: scroll-left 14s linear infinite; }
+  @keyframes scroll-left{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+  .word-enter span{
+    display:inline-block; opacity:0; transform: translateY(30px);
+    animation: word-in .6s ease forwards;
+  }
+  @keyframes word-in{ to{ opacity:1; transform:translateY(0); } }
+
+  .hover-stretch{ display:inline-block; transition: letter-spacing .3s ease, color .3s ease; }
+  .hover-stretch:hover{ letter-spacing:0.08em; color:#ffe600; }
+
+  .giant{ font-size: clamp(3rem, 12vw, 10rem); line-height:0.95; }
+
+  .project-card{ border-top:1px solid #333; transition: background .25s; }
+  .project-card:hover{ background:#141414; }
+  .project-card:hover .project-title{ color:#ffe600; transform: translateX(10px); }
+  .project-title{ transition: all .25s ease; display:inline-block; }
+</style>
+</head>
+<body>
+
+  <!-- Marquee top -->
+  <div class="marquee-wrap py-3 bg-black">
+    <div class="marquee display text-xl text-[#ffe600]">
+      設計是動詞 · DESIGN IS A VERB · 林書妍作品集 · 設計是動詞 · DESIGN IS A VERB · 林書妍作品集 ·&nbsp;
+    </div>
+  </div>
+
+  <!-- Nav -->
+  <nav class="max-w-6xl mx-auto px-6 py-6 flex justify-between items-center">
+    <span class="display text-2xl">林書妍</span>
+    <div class="flex gap-6 text-sm">
+      <a href="#" class="hover-stretch">作品</a>
+      <a href="#" class="hover-stretch">關於</a>
+      <a href="#" class="hover-stretch">聯絡</a>
+    </div>
+  </nav>
+
+  <!-- Hero kinetic -->
+  <section class="max-w-6xl mx-auto px-6 py-16">
+    <h1 class="display giant word-enter">
+      <span style="animation-delay:.05s">視覺</span>
+      <span style="animation-delay:.15s">會</span>
+      <span style="animation-delay:.25s">動，</span><br>
+      <span style="animation-delay:.4s" class="text-[#ffe600]">品牌</span>
+      <span style="animation-delay:.5s">才會</span>
+      <span style="animation-delay:.6s">被記住</span>
+    </h1>
+    <p class="mt-8 max-w-lg text-gray-400 text-lg">
+      我是林書妍，專注在品牌識別與互動式網頁設計。
+      過去六年和 30 多個品牌合作，讓靜止的 Logo 開口說話。
+    </p>
+  </section>
+
+  <!-- Marquee mid -->
+  <div class="marquee-wrap py-4">
+    <div class="marquee display text-5xl md:text-7xl">
+      BRANDING · MOTION · WEB · BRANDING · MOTION · WEB ·&nbsp;
+    </div>
+  </div>
+
+  <!-- Projects -->
+  <section class="max-w-6xl mx-auto px-6">
+    <div class="project-card py-8 flex flex-col md:flex-row justify-between items-baseline gap-2 cursor-pointer">
+      <span class="project-title display text-3xl md:text-5xl">浮光咖啡 — 品牌重塑</span>
+      <span class="text-gray-500 text-sm">2026 · 品牌識別</span>
+    </div>
+    <div class="project-card py-8 flex flex-col md:flex-row justify-between items-baseline gap-2 cursor-pointer">
+      <span class="project-title display text-3xl md:text-5xl">聲浪音樂節 — 視覺系統</span>
+      <span class="text-gray-500 text-sm">2025 · 活動視覺</span>
+    </div>
+    <div class="project-card py-8 flex flex-col md:flex-row justify-between items-baseline gap-2 cursor-pointer">
+      <span class="project-title display text-3xl md:text-5xl">書妍自己的網站 — 本站</span>
+      <span class="text-gray-500 text-sm">2026 · 互動網頁</span>
+    </div>
+    <div class="project-card py-8 flex flex-col md:flex-row justify-between items-baseline gap-2 cursor-pointer border-b border-[#333]">
+      <span class="project-title display text-3xl md:text-5xl">路口 Localoop — App 介面</span>
+      <span class="text-gray-500 text-sm">2025 · 產品設計</span>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="max-w-6xl mx-auto px-6 py-24 text-center">
+    <h2 class="display giant hover-stretch">一起做點不一樣的</h2>
+    <a href="#" class="inline-block mt-10 border-2 border-[#ffe600] text-[#ffe600] px-10 py-4 display text-xl hover:bg-[#ffe600] hover:text-black transition-colors">
+      寄信聊聊這個案子
+    </a>
+  </section>
+
+  <footer class="marquee-wrap py-3 bg-black">
+    <div class="marquee display text-sm text-gray-500">
+      林書妍 © 2026 · TAIPEI, TAIWAN · 林書妍 © 2026 · TAIPEI, TAIWAN ·&nbsp;
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!-- style #28 Data-Dense Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>營運雷達｜電商即時營運儀表板</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  body{ font-family:'Inter', sans-serif; background:#0b0f17; color:#e6e9ef; }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+  .card{ background:#121826; border:1px solid #1f2a3d; border-radius:12px; }
+  .up{ color:#10b981; }
+  .down{ color:#ef4444; }
+  .pill{ background:#1f2a3d; }
+  .sparkline-bar{ background:#2563eb; }
+  table td, table th{ border-color:#1f2a3d; }
+  .pulse-dot{
+    display:inline-block; width:8px; height:8px; border-radius:50%;
+    background:#10b981; box-shadow:0 0 0 0 rgba(16,185,129,.6);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse{
+    0%{ box-shadow:0 0 0 0 rgba(16,185,129,.6); }
+    70%{ box-shadow:0 0 0 8px rgba(16,185,129,0); }
+    100%{ box-shadow:0 0 0 0 rgba(16,185,129,0); }
+  }
+  .scrollbar-thin::-webkit-scrollbar{ height:6px; }
+  .scrollbar-thin::-webkit-scrollbar-thumb{ background:#2a3752; border-radius:3px; }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <div class="flex">
+    <!-- Sidebar -->
+    <aside class="w-56 h-screen sticky top-0 border-r border-[#1f2a3d] p-5 hidden md:block">
+      <div class="flex items-center gap-2 mb-8">
+        <div class="w-7 h-7 rounded bg-blue-600 flex items-center justify-center text-sm font-bold">雷</div>
+        <span class="font-semibold">營運雷達</span>
+      </div>
+      <nav class="space-y-1 text-sm">
+        <a href="#" class="flex items-center gap-2 px-3 py-2 rounded bg-[#1f2a3d] text-white">📊 總覽</a>
+        <a href="#" class="flex items-center gap-2 px-3 py-2 rounded text-gray-400 hover:bg-[#1a2332]">🛒 訂單</a>
+        <a href="#" class="flex items-center gap-2 px-3 py-2 rounded text-gray-400 hover:bg-[#1a2332]">📦 庫存</a>
+        <a href="#" class="flex items-center gap-2 px-3 py-2 rounded text-gray-400 hover:bg-[#1a2332]">👥 會員</a>
+        <a href="#" class="flex items-center gap-2 px-3 py-2 rounded text-gray-400 hover:bg-[#1a2332]">🚚 物流</a>
+        <a href="#" class="flex items-center gap-2 px-3 py-2 rounded text-gray-400 hover:bg-[#1a2332]">⚙️ 設定</a>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="flex-1 p-6">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h1 class="text-xl font-semibold">今日營運總覽</h1>
+          <p class="text-sm text-gray-400 mono"><span class="pulse-dot mr-2"></span>即時更新 · 2026-10-19 14:32:07</p>
+        </div>
+        <div class="flex gap-2">
+          <button class="pill px-3 py-1.5 rounded text-sm">今日</button>
+          <button class="px-3 py-1.5 rounded text-sm text-gray-400">本週</button>
+          <button class="px-3 py-1.5 rounded text-sm text-gray-400">本月</button>
+        </div>
+      </div>
+
+      <!-- KPI row -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="card p-4">
+          <p class="text-xs text-gray-400 mb-1">今日營收</p>
+          <p class="mono text-2xl font-semibold">NT$ 1,284,920</p>
+          <p class="text-xs up mt-1">▲ 12.4% 較昨日</p>
+        </div>
+        <div class="card p-4">
+          <p class="text-xs text-gray-400 mb-1">訂單數</p>
+          <p class="mono text-2xl font-semibold">3,042</p>
+          <p class="text-xs up mt-1">▲ 6.8% 較昨日</p>
+        </div>
+        <div class="card p-4">
+          <p class="text-xs text-gray-400 mb-1">平均客單價</p>
+          <p class="mono text-2xl font-semibold">NT$ 422</p>
+          <p class="text-xs down mt-1">▼ 2.1% 較昨日</p>
+        </div>
+        <div class="card p-4">
+          <p class="text-xs text-gray-400 mb-1">轉換率</p>
+          <p class="mono text-2xl font-semibold">3.87%</p>
+          <p class="text-xs up mt-1">▲ 0.4pt 較昨日</p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-4 mb-6">
+        <!-- Chart card -->
+        <div class="card p-4 md:col-span-2">
+          <div class="flex items-center justify-between mb-4">
+            <p class="text-sm font-medium">近 14 日營收走勢</p>
+            <span class="text-xs text-gray-400 mono">單位：千元</span>
+          </div>
+          <div class="flex items-end gap-2 h-36">
+            <div class="sparkline-bar w-full rounded-t" style="height:55%"></div>
+            <div class="sparkline-bar w-full rounded-t" style="height:62%"></div>
+            <div class="sparkline-bar w-full rounded-t" style="height:48%"></div>
+            <div class="sparkline-bar w-full rounded-t" style="height:70%"></div>
+            <div class="sparkline-bar w-full rounded-t" style="height:58%"></div>
+            <div class="sparkline-bar w-full rounded-t" style="height:66%"></div>
+            <div class="sparkline-bar w-full rounded-t" style="height:74%"></div>
+            <div class="sparkline-bar w-full rounded-t" style="height:61%"></div>
+            <div class="sparkline-bar w-full rounded-t" style="height:80%"></div>
+            <div class="sparkline-bar w-full rounded-t" style="height:69%"></div>
+            <div class="sparkline-bar w-full rounded-t" style="height:85%"></div>
+            <div class="sparkline-bar w-full rounded-t" style="height:77%"></div>
+            <div class="sparkline-bar w-full rounded-t" style="height:92%"></div>
+            <div class="bg-blue-400 w-full rounded-t" style="height:100%"></div>
+          </div>
+        </div>
+        <!-- Status card -->
+        <div class="card p-4">
+          <p class="text-sm font-medium mb-3">系統狀態</p>
+          <ul class="space-y-2 text-sm">
+            <li class="flex justify-between"><span class="text-gray-400">金流服務</span><span class="up mono">正常</span></li>
+            <li class="flex justify-between"><span class="text-gray-400">倉儲同步</span><span class="up mono">正常</span></li>
+            <li class="flex justify-between"><span class="text-gray-400">物流 API</span><span class="text-yellow-400 mono">延遲 1.2s</span></li>
+            <li class="flex justify-between"><span class="text-gray-400">推播通知</span><span class="up mono">正常</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="card p-4 overflow-x-auto scrollbar-thin">
+        <p class="text-sm font-medium mb-3">熱銷商品排行</p>
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="text-left text-gray-400 border-b">
+              <th class="py-2 pr-4">商品</th>
+              <th class="py-2 pr-4">銷量</th>
+              <th class="py-2 pr-4">營收</th>
+              <th class="py-2 pr-4">庫存</th>
+              <th class="py-2">趨勢</th>
+            </tr>
+          </thead>
+          <tbody class="mono">
+            <tr class="border-b border-[#1f2a3d]">
+              <td class="py-2 pr-4 font-sans">無線降噪耳機 Pro</td>
+              <td class="py-2 pr-4">842</td>
+              <td class="py-2 pr-4">NT$ 1,010,400</td>
+              <td class="py-2 pr-4">126</td>
+              <td class="py-2 up">▲ 18%</td>
+            </tr>
+            <tr class="border-b border-[#1f2a3d]">
+              <td class="py-2 pr-4 font-sans">保溫隨行杯 600ml</td>
+              <td class="py-2 pr-4">1,203</td>
+              <td class="py-2 pr-4">NT$ 480,000</td>
+              <td class="py-2 pr-4">58</td>
+              <td class="py-2 down">▼ 4%</td>
+            </tr>
+            <tr>
+              <td class="py-2 pr-4 font-sans">機械鍵盤 75% 版</td>
+              <td class="py-2 pr-4">304</td>
+              <td class="py-2 pr-4">NT$ 912,000</td>
+              <td class="py-2 pr-4">19</td>
+              <td class="py-2 up">▲ 32%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+</body>
+</html>
