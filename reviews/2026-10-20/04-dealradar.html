@@ -1,0 +1,174 @@
+<!-- style #37 Sales Intelligence -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>成交雷達 DealRadar</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *{ font-family:'Noto Sans TC','Sora',sans-serif; }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+  .disp{ font-family:'Sora','Noto Sans TC',sans-serif; }
+  body{ background:#0f1115; color:#e5e7eb; }
+  .card{ background:#161a22; border:1px solid #232834; }
+  .up{ color:#34d399; }
+  .down{ color:#f87171; }
+  .barfill{ transition: width .6s ease; }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <div class="flex">
+    <aside class="w-56 shrink-0 border-r border-[#232834] min-h-screen p-5 hidden md:block">
+      <div class="disp font-bold text-lg mb-8">成交雷達 <span class="mono text-xs text-neutral-500 block">DealRadar</span></div>
+      <nav class="space-y-1 text-sm">
+        <a href="#" class="flex items-center gap-2 px-3 py-2 rounded-md bg-[#1c2230] text-white">📡 業務總覽</a>
+        <a href="#" class="flex items-center gap-2 px-3 py-2 rounded-md text-neutral-400 hover:bg-[#1c2230]">🧩 商機管線</a>
+        <a href="#" class="flex items-center gap-2 px-3 py-2 rounded-md text-neutral-400 hover:bg-[#1c2230]">🏆 業績排行</a>
+        <a href="#" class="flex items-center gap-2 px-3 py-2 rounded-md text-neutral-400 hover:bg-[#1c2230]">📈 預測分析</a>
+        <a href="#" class="flex items-center gap-2 px-3 py-2 rounded-md text-neutral-400 hover:bg-[#1c2230]">⚙️ 設定</a>
+      </nav>
+    </aside>
+
+    <main class="flex-1 p-6 md:p-8">
+      <div class="flex flex-wrap items-center justify-between mb-6 gap-3">
+        <div>
+          <h1 class="disp text-2xl font-bold">本季業務總覽</h1>
+          <p class="text-sm text-neutral-500 mt-1">Q4 2026 · 更新於 <span class="mono">10/20 09:30</span></p>
+        </div>
+        <div class="flex gap-2">
+          <button class="mono text-xs px-4 py-2 rounded-md border border-[#2a3040] text-neutral-300">匯出報表</button>
+          <button class="mono text-xs px-4 py-2 rounded-md bg-sky-500 text-white">＋ 新增商機</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="card rounded-xl p-4">
+          <p class="text-xs text-neutral-500 mb-2">本季營收達成</p>
+          <p class="mono text-2xl font-bold">NT$ 8,420,000</p>
+          <p class="text-xs up mt-1 mono">▲ 12.4% 較上季</p>
+        </div>
+        <div class="card rounded-xl p-4">
+          <p class="text-xs text-neutral-500 mb-2">目標達成率</p>
+          <p class="mono text-2xl font-bold">84<span class="text-base">%</span></p>
+          <div class="h-1.5 bg-[#232834] rounded-full mt-2 overflow-hidden">
+            <div class="barfill h-full bg-sky-400" style="width:84%"></div>
+          </div>
+        </div>
+        <div class="card rounded-xl p-4">
+          <p class="text-xs text-neutral-500 mb-2">進行中商機數</p>
+          <p class="mono text-2xl font-bold">127</p>
+          <p class="text-xs down mt-1 mono">▼ 3 件停滯超過 14 天</p>
+        </div>
+        <div class="card rounded-xl p-4">
+          <p class="text-xs text-neutral-500 mb-2">平均成交週期</p>
+          <p class="mono text-2xl font-bold">18.5 <span class="text-base">天</span></p>
+          <p class="text-xs up mt-1 mono">▲ 比去年快 2.1 天</p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-5">
+        <div class="card rounded-xl p-5 md:col-span-2">
+          <div class="flex items-center justify-between mb-4">
+            <p class="disp font-bold">商機管線分布</p>
+            <span class="mono text-xs text-neutral-500">共 127 件</span>
+          </div>
+          <div class="space-y-3">
+            <div>
+              <div class="flex justify-between text-xs mb-1"><span>初步接觸</span><span class="mono text-neutral-400">42 件 · NT$ 2.1M</span></div>
+              <div class="h-2 bg-[#232834] rounded-full overflow-hidden"><div class="barfill h-full bg-neutral-500" style="width:33%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-1"><span>需求確認</span><span class="mono text-neutral-400">35 件 · NT$ 3.0M</span></div>
+              <div class="h-2 bg-[#232834] rounded-full overflow-hidden"><div class="barfill h-full bg-indigo-400" style="width:28%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-1"><span>提案報價</span><span class="mono text-neutral-400">28 件 · NT$ 4.4M</span></div>
+              <div class="h-2 bg-[#232834] rounded-full overflow-hidden"><div class="barfill h-full bg-amber-400" style="width:22%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-1"><span>合約議定</span><span class="mono text-neutral-400">15 件 · NT$ 2.8M</span></div>
+              <div class="h-2 bg-[#232834] rounded-full overflow-hidden"><div class="barfill h-full bg-emerald-400" style="width:12%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-1"><span>已成交</span><span class="mono text-neutral-400">7 件 · NT$ 1.5M</span></div>
+              <div class="h-2 bg-[#232834] rounded-full overflow-hidden"><div class="barfill h-full bg-emerald-500" style="width:5%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card rounded-xl p-5">
+          <p class="disp font-bold mb-4">本月業績排行</p>
+          <ul class="space-y-3 text-sm">
+            <li class="flex items-center justify-between">
+              <span class="flex items-center gap-2"><span class="mono text-amber-400">#1</span>陳怡君</span>
+              <span class="mono text-neutral-400">NT$ 1.82M</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span class="flex items-center gap-2"><span class="mono text-neutral-400">#2</span>林承翰</span>
+              <span class="mono text-neutral-400">NT$ 1.54M</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span class="flex items-center gap-2"><span class="mono text-neutral-400">#3</span>黃子瑜</span>
+              <span class="mono text-neutral-400">NT$ 1.31M</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span class="flex items-center gap-2"><span class="mono text-neutral-400">#4</span>張晉睿</span>
+              <span class="mono text-neutral-400">NT$ 1.02M</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span class="flex items-center gap-2"><span class="mono text-neutral-400">#5</span>蔡宜庭</span>
+              <span class="mono text-neutral-400">NT$ 0.88M</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card rounded-xl p-5 mt-5">
+        <div class="flex items-center justify-between mb-4">
+          <p class="disp font-bold">高風險商機（超過 14 天未更新）</p>
+          <span class="mono text-xs down">3 件需要關注</span>
+        </div>
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="text-left text-neutral-500 text-xs border-b border-[#232834]">
+              <th class="py-2 font-normal">客戶</th>
+              <th class="py-2 font-normal">負責人</th>
+              <th class="py-2 font-normal">階段</th>
+              <th class="py-2 font-normal text-right">金額</th>
+              <th class="py-2 font-normal text-right">停滯天數</th>
+            </tr>
+          </thead>
+          <tbody class="mono">
+            <tr class="border-b border-[#1c2230]">
+              <td class="py-2 font-sans">光譜科技</td>
+              <td class="py-2 font-sans">林承翰</td>
+              <td class="py-2 font-sans text-amber-400">提案報價</td>
+              <td class="py-2 text-right">NT$ 620,000</td>
+              <td class="py-2 text-right down">21 天</td>
+            </tr>
+            <tr class="border-b border-[#1c2230]">
+              <td class="py-2 font-sans">晴川貿易</td>
+              <td class="py-2 font-sans">陳怡君</td>
+              <td class="py-2 font-sans text-indigo-300">需求確認</td>
+              <td class="py-2 text-right">NT$ 340,000</td>
+              <td class="py-2 text-right down">18 天</td>
+            </tr>
+            <tr>
+              <td class="py-2 font-sans">禾本設計</td>
+              <td class="py-2 font-sans">張晉睿</td>
+              <td class="py-2 font-sans text-amber-400">提案報價</td>
+              <td class="py-2 text-right">NT$ 215,000</td>
+              <td class="py-2 text-right down">15 天</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!-- style #07 Dark Mode (OLED) -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>夜貓電台 NightOwl Radio</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#0a0a0a; --panel:#121212; --neon:#39ff14; --neon-dim:rgba(57,255,20,.35); }
+  *{ font-family:'Noto Sans TC','Space Grotesk',sans-serif; }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+  .disp{ font-family:'Space Grotesk','Noto Sans TC',sans-serif; }
+  body{ background:var(--bg); color:#e8e8e8; }
+  .glow-text{ color:var(--neon); text-shadow: 0 0 6px var(--neon-dim), 0 0 18px rgba(57,255,20,.15); }
+  .glow-border{ box-shadow: 0 0 0 1px rgba(57,255,20,.18), 0 0 24px rgba(57,255,20,.06); }
+  .panel{ background: var(--panel); border:1px solid #1f1f1f; }
+  .scan::after{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background: repeating-linear-gradient(0deg, rgba(255,255,255,.015) 0px, rgba(255,255,255,.015) 1px, transparent 1px, transparent 3px);
+  }
+  @keyframes pulse-dot{ 0%,100%{ opacity:1; } 50%{ opacity:.3; } }
+  .live-dot{ animation: pulse-dot 1.6s ease-in-out infinite; }
+  @keyframes bar{
+    0%,100%{ transform: scaleY(.3);} 50%{ transform: scaleY(1);}
+  }
+  .eq span{ display:inline-block; width:3px; background:var(--neon); margin-right:3px; height:16px; transform-origin:bottom; animation: bar 900ms ease-in-out infinite; }
+  .eq span:nth-child(2){ animation-delay:.15s; }
+  .eq span:nth-child(3){ animation-delay:.3s; }
+  .eq span:nth-child(4){ animation-delay:.45s; }
+  ::selection{ background:var(--neon); color:#000; }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <header class="border-b border-[#1f1f1f] sticky top-0 z-30 backdrop-blur bg-black/70">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="disp font-bold text-lg glow-text">NightOwl</span>
+        <span class="mono text-xs text-neutral-500">// 夜貓電台</span>
+      </div>
+      <nav class="hidden md:flex items-center gap-8 text-sm text-neutral-400">
+        <a href="#" class="hover:text-white transition">探索電台</a>
+        <a href="#" class="hover:text-white transition">我的歌單</a>
+        <a href="#" class="hover:text-white transition">深夜企劃</a>
+      </nav>
+      <button class="mono text-xs px-4 py-2 rounded border border-[#2a2a2a] text-neutral-300 hover:border-[var(--neon)] hover:glow-text transition">登入</button>
+    </div>
+  </header>
+
+  <section class="relative scan overflow-hidden">
+    <div class="max-w-6xl mx-auto px-6 pt-20 pb-16 relative z-10">
+      <div class="flex items-center gap-2 mb-6">
+        <span class="w-2 h-2 rounded-full bg-[var(--neon)] live-dot"></span>
+        <span class="mono text-xs text-neutral-400 tracking-widest">LIVE · 凌晨 02:14</span>
+      </div>
+      <h1 class="disp text-4xl md:text-6xl font-bold leading-tight max-w-3xl">
+        給睡不著的人，<br>
+        一個<span class="glow-text">不打擾</span>的電台。
+      </h1>
+      <p class="mt-6 text-neutral-400 max-w-xl leading-relaxed">
+        純黑螢幕最省電也最安靜。夜貓電台在你關燈之後開始播放，低頻率人聲、環境音景與深夜爵士，陪你撐過失眠的那幾個小時。
+      </p>
+      <div class="mt-8 flex flex-wrap items-center gap-4">
+        <button class="disp font-bold px-6 py-3 rounded-md bg-[var(--neon)] text-black hover:brightness-110 transition">立即收聽</button>
+        <button class="mono text-sm px-6 py-3 rounded-md border border-[#2a2a2a] text-neutral-300 hover:border-[var(--neon)] transition">查看今晚節目表 →</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-6 pb-16">
+    <div class="panel glow-border rounded-xl p-6 flex flex-col md:flex-row items-center gap-6">
+      <div class="w-20 h-20 rounded-lg bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] border border-[#2a2a2a] flex items-center justify-center shrink-0">
+        <div class="eq flex items-end h-6">
+          <span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+      <div class="flex-1 min-w-0">
+        <p class="mono text-xs text-neutral-500 mb-1">NOW PLAYING · 失眠頻道</p>
+        <p class="disp font-bold text-lg truncate">凌晨三點的城市 — 無人聲環境音景</p>
+        <div class="mt-3 h-1 rounded-full bg-[#222] overflow-hidden">
+          <div class="h-full bg-[var(--neon)]" style="width:42%"></div>
+        </div>
+        <div class="mt-1 flex justify-between mono text-[11px] text-neutral-500">
+          <span>18:22</span><span>43:07</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-4 text-neutral-400">
+        <button class="hover:text-[var(--neon)] transition">◁◁</button>
+        <button class="w-10 h-10 rounded-full bg-[var(--neon)] text-black flex items-center justify-center font-bold hover:brightness-110 transition">▶</button>
+        <button class="hover:text-[var(--neon)] transition">▷▷</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-6 pb-24">
+    <div class="flex items-end justify-between mb-6">
+      <h2 class="disp text-xl font-bold">本週深夜頻道</h2>
+      <span class="mono text-xs text-neutral-500">6 個頻道 · 持續更新</span>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div class="panel rounded-xl p-5 hover:glow-border transition">
+        <p class="mono text-[11px] text-neutral-500 mb-2">CH.01</p>
+        <h3 class="disp font-bold text-lg mb-2">失眠爵士</h3>
+        <p class="text-sm text-neutral-400 leading-relaxed">慢板鋼琴與薩克斯風，給還在等睡意的人。</p>
+        <p class="mono text-xs text-neutral-600 mt-4">1,204 人正在收聽</p>
+      </div>
+      <div class="panel rounded-xl p-5 hover:glow-border transition">
+        <p class="mono text-[11px] text-neutral-500 mb-2">CH.02</p>
+        <h3 class="disp font-bold text-lg mb-2">白噪音實驗室</h3>
+        <p class="text-sm text-neutral-400 leading-relaxed">雨聲、風扇與遠方雷雨，純粹的背景音。</p>
+        <p class="mono text-xs text-neutral-600 mt-4">892 人正在收聽</p>
+      </div>
+      <div class="panel rounded-xl p-5 hover:glow-border transition">
+        <p class="mono text-[11px] text-neutral-500 mb-2">CH.03</p>
+        <h3 class="disp font-bold text-lg mb-2">深夜電台信</h3>
+        <p class="text-sm text-neutral-400 leading-relaxed">真人朗讀聽眾來信，聲音很輕、很慢。</p>
+        <p class="mono text-xs text-neutral-600 mt-4">2,015 人正在收聽</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="border-t border-[#1f1f1f] py-8">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-3 mono text-xs text-neutral-600">
+      <span>© 2026 NightOwl Radio · 夜貓電台</span>
+      <span>設計給睡不著的你</span>
+    </div>
+  </footer>
+
+<script>
+  // 進度條與音量滑動的輕互動（純前端示意，無需後端）
+  const bar = document.querySelector('.panel .bg-\\[var\\(--neon\\)\\]');
+  document.querySelector('.panel button.w-10')?.addEventListener('click', (e)=>{
+    e.target.textContent = e.target.textContent === '▶' ? '❚❚' : '▶';
+  });
+</script>
+</body>
+</html>

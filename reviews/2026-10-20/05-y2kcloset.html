@@ -1,0 +1,123 @@
+<!-- style #40 Y2K Revival -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>千禧衣櫃 Y2K Closet</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Chakra+Petch:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *{ font-family:'Noto Sans TC','Chakra Petch',sans-serif; }
+  .disp{ font-family:'Audiowide','Chakra Petch',sans-serif; }
+  .chakra{ font-family:'Chakra Petch','Noto Sans TC',sans-serif; }
+  body{ background:#0d0620; color:#f5f0ff; overflow-x:hidden; }
+  .chrome{
+    background: linear-gradient(135deg,#fff 0%, #c9c9d8 20%, #ff6ec7 40%, #8fd9ff 55%, #fff 70%, #b6b6c9 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    text-shadow: 0 2px 12px rgba(255,110,199,.35);
+  }
+  .bg-grid{
+    background-image:
+      linear-gradient(rgba(255,0,255,.14) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,255,.14) 1px, transparent 1px);
+    background-size: 36px 36px;
+  }
+  .glow-pink{ box-shadow: 0 0 20px rgba(255,0,255,.35), 0 0 60px rgba(255,0,255,.12); }
+  .glow-cyan{ box-shadow: 0 0 20px rgba(0,255,255,.3), 0 0 60px rgba(0,255,255,.1); }
+  @keyframes sparkle{ 0%,100%{ opacity:.3; transform:scale(.8) rotate(0deg);} 50%{ opacity:1; transform:scale(1.2) rotate(45deg);} }
+  .spark{ animation: sparkle 1.8s ease-in-out infinite; }
+  .spark:nth-child(2){ animation-delay:.4s; }
+  .spark:nth-child(3){ animation-delay:.9s; }
+  .holo{
+    background: linear-gradient(120deg, #ff6ec7, #8fd9ff, #ffe14d, #ff6ec7);
+    background-size: 300% 300%;
+    animation: holo-move 6s ease infinite;
+  }
+  @keyframes holo-move{ 0%{background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;} }
+  .tag{ font-family:'Audiowide'; letter-spacing:.05em; }
+</style>
+</head>
+<body class="min-h-screen bg-grid">
+
+  <header class="relative z-10">
+    <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+      <div class="disp chrome text-xl">Y2K CLOSET</div>
+      <nav class="hidden md:flex gap-7 chakra text-sm text-fuchsia-200">
+        <a href="#" class="hover:text-white">千禧新品</a>
+        <a href="#" class="hover:text-white">金屬系</a>
+        <a href="#" class="hover:text-white">搭配靈感</a>
+      </nav>
+      <button class="chakra text-xs px-5 py-2 rounded-full holo text-[#1a0a2e] font-bold">我的購物車 · 3</button>
+    </div>
+  </header>
+
+  <section class="relative max-w-6xl mx-auto px-6 pt-10 pb-20 text-center">
+    <div class="spark absolute left-10 top-6 text-cyan-300 text-2xl">✦</div>
+    <div class="spark absolute right-16 top-20 text-fuchsia-300 text-xl">✧</div>
+    <div class="spark absolute left-1/3 bottom-4 text-yellow-200 text-lg">✦</div>
+
+    <p class="chakra text-fuchsia-300 tracking-[0.3em] text-xs mb-4">MILLENNIUM REVIVAL 2000 → 2026</p>
+    <h1 class="disp text-4xl md:text-6xl chrome leading-tight mb-5">千禧衣櫃</h1>
+    <p class="chakra max-w-xl mx-auto text-fuchsia-100/80 leading-relaxed">
+      低腰牛仔、鉻合金墨鏡、亮片手機袋——那個 y2k 年代的閃亮感，重新回到你的衣櫃。
+    </p>
+    <div class="mt-8 flex justify-center gap-4">
+      <button class="holo text-[#1a0a2e] font-bold chakra px-7 py-3 rounded-full">逛逛新品</button>
+      <button class="border border-cyan-300/60 text-cyan-200 chakra px-7 py-3 rounded-full glow-cyan">風格穿搭指南</button>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-6 pb-20">
+    <div class="flex items-end justify-between mb-6">
+      <h2 class="disp chrome text-xl">本週鉻金新品</h2>
+      <span class="chakra text-xs text-fuchsia-300">LIMITED DROP · 03</span>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
+      <div class="rounded-2xl p-4 bg-[#180a33] border border-fuchsia-500/30 glow-pink">
+        <div class="h-40 rounded-xl mb-4 bg-gradient-to-br from-fuchsia-400 via-purple-300 to-cyan-200"></div>
+        <p class="tag text-xs text-cyan-200 mb-1">CHROME SERIES</p>
+        <h3 class="chakra font-bold">鉻銀低腰褲</h3>
+        <p class="chakra text-sm text-fuchsia-200 mt-1">NT$ 1,680</p>
+      </div>
+      <div class="rounded-2xl p-4 bg-[#180a33] border border-cyan-400/30 glow-cyan">
+        <div class="h-40 rounded-xl mb-4 bg-gradient-to-br from-cyan-200 via-sky-300 to-fuchsia-300"></div>
+        <p class="tag text-xs text-fuchsia-200 mb-1">HOLOGRAM</p>
+        <h3 class="chakra font-bold">全息肩背包</h3>
+        <p class="chakra text-sm text-fuchsia-200 mt-1">NT$ 2,280</p>
+      </div>
+      <div class="rounded-2xl p-4 bg-[#180a33] border border-yellow-300/30">
+        <div class="h-40 rounded-xl mb-4 bg-gradient-to-br from-yellow-200 via-fuchsia-200 to-purple-300"></div>
+        <p class="tag text-xs text-yellow-200 mb-1">STAR MOTIF</p>
+        <h3 class="chakra font-bold">星芒太陽眼鏡</h3>
+        <p class="chakra text-sm text-fuchsia-200 mt-1">NT$ 890</p>
+      </div>
+      <div class="rounded-2xl p-4 bg-[#180a33] border border-fuchsia-500/30 glow-pink">
+        <div class="h-40 rounded-xl mb-4 bg-gradient-to-br from-purple-400 via-fuchsia-300 to-cyan-200"></div>
+        <p class="tag text-xs text-cyan-200 mb-1">METALLIC</p>
+        <h3 class="chakra font-bold">亮片手機吊飾包</h3>
+        <p class="chakra text-sm text-fuchsia-200 mt-1">NT$ 650</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-6 pb-20">
+    <div class="rounded-2xl holo p-[2px]">
+      <div class="rounded-2xl bg-[#140826] p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div>
+          <p class="tag text-cyan-200 text-xs mb-2">MEMBER EXCLUSIVE</p>
+          <h3 class="disp chrome text-2xl">加入千禧俱樂部</h3>
+          <p class="chakra text-fuchsia-100/80 mt-2">搶先看限量鉻金系列，生日當月全館 8 折。</p>
+        </div>
+        <button class="holo text-[#1a0a2e] font-bold chakra px-7 py-3 rounded-full shrink-0">立即加入</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="border-t border-fuchsia-500/20 py-8 text-center chakra text-xs text-fuchsia-300/70">
+    © 2026 Y2K CLOSET · 千禧衣櫃
+  </footer>
+
+</body>
+</html>

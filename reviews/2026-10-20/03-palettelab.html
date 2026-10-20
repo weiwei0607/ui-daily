@@ -1,0 +1,154 @@
+<!-- style #25 Interactive Demo -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>配色實驗室 PaletteLab</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *{ font-family:'Noto Sans TC','Lexend',sans-serif; }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+  .disp{ font-family:'Lexend','Noto Sans TC',sans-serif; }
+  body{ background:#fafaf8; color:#1a1a1a; }
+  .swatch{ transition: transform .15s ease; }
+  .swatch:hover{ transform: translateY(-4px); }
+  .copied{ animation: pop .35s ease; }
+  @keyframes pop{ 0%{ transform:scale(1); } 40%{ transform:scale(1.08); } 100%{ transform:scale(1); } }
+  .toast{ transition: opacity .25s ease, transform .25s ease; }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <header class="border-b border-neutral-200">
+    <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-md bg-gradient-to-br from-rose-400 via-amber-300 to-sky-400"></div>
+        <span class="disp font-bold text-lg">配色實驗室 <span class="text-neutral-400 font-normal mono text-sm">PaletteLab</span></span>
+      </div>
+      <nav class="hidden md:flex gap-6 text-sm text-neutral-500">
+        <a href="#" class="hover:text-neutral-900">產生器</a>
+        <a href="#" class="hover:text-neutral-900">收藏的配色</a>
+        <a href="#" class="hover:text-neutral-900">API 文件</a>
+      </nav>
+      <button class="mono text-xs px-4 py-2 rounded-md bg-neutral-900 text-white">開始使用</button>
+    </div>
+  </header>
+
+  <section class="max-w-6xl mx-auto px-6 pt-14 pb-8 text-center">
+    <h1 class="disp text-3xl md:text-5xl font-bold leading-tight">
+      按一下，就生出一組<br class="md:hidden"> 你自己的配色。
+    </h1>
+    <p class="mt-4 text-neutral-500 max-w-xl mx-auto">不用猜色票、不用問設計師。下面就是真的能玩的 Demo —— 點「產生新配色」試試看，點任一色塊可以複製色碼。</p>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-6 pb-6">
+    <div class="flex flex-wrap items-center justify-center gap-3 mb-8">
+      <button id="genBtn" class="disp font-bold px-6 py-3 rounded-full bg-neutral-900 text-white hover:bg-neutral-700 transition">🎨 產生新配色</button>
+      <select id="moodSelect" class="mono text-sm px-4 py-3 rounded-full border border-neutral-300 bg-white">
+        <option value="warm">溫暖調</option>
+        <option value="cool">冷靜調</option>
+        <option value="vivid">鮮豔調</option>
+        <option value="pastel">粉彩調</option>
+      </select>
+    </div>
+
+    <div id="paletteRow" class="grid grid-cols-5 gap-3 h-40 md:h-56 rounded-2xl overflow-hidden shadow-lg">
+      <!-- JS 注入 5 個色塊 -->
+    </div>
+
+    <div class="mt-4 flex items-center justify-center gap-2 mono text-xs text-neutral-400">
+      <span id="hintText">點任一色塊可複製色碼</span>
+    </div>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-6 py-10">
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="rounded-xl border border-neutral-200 p-5">
+        <p class="disp font-bold mb-3">即時預覽：按鈕</p>
+        <div id="previewButtons" class="flex flex-wrap gap-3"></div>
+      </div>
+      <div class="rounded-xl border border-neutral-200 p-5">
+        <p class="disp font-bold mb-3">即時預覽：卡片</p>
+        <div id="previewCard" class="rounded-lg p-4 text-white">
+          <p class="disp font-bold">範例卡片標題</p>
+          <p class="text-sm opacity-90 mt-1">這段文字會跟著你選的配色即時變化。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="border-t border-neutral-200 py-8 text-center mono text-xs text-neutral-400">
+    © 2026 PaletteLab · 配色實驗室
+  </footer>
+
+  <div id="toast" class="toast fixed bottom-6 left-1/2 -translate-x-1/2 bg-neutral-900 text-white mono text-sm px-4 py-2 rounded-full opacity-0 pointer-events-none">已複製 #000000</div>
+
+<script>
+  const PALETTES = {
+    warm:  [['#2d1b14','#e3b04b'],['#6b2d2d','#d98c4a'],['#8a3b2b','#f2a65a'],['#b5541f','#f6c667'],['#d98c4a','#fde9c9']],
+    cool:  [['#0b1f33','#3b82f6'],['#132743','#60a5fa'],['#1e3a5f','#38bdf8'],['#245072','#7dd3fc'],['#2c6687','#bae6fd']],
+    vivid: [['#ff2e63','#ffd23f'],['#08d9d6','#ff2e63'],['#252a34','#eaeaea'],['#f72585','#4cc9f0'],['#4361ee','#ffd60a']],
+    pastel:[['#fde2e4','#b6e2d3'],['#fff1e6','#cdeac0'],['#e2ece9','#f8edeb'],['#cdeac0','#fde2e4'],['#dfe7fd','#f0efeb']]
+  };
+
+  function randomPaletteFor(mood){
+    const base = PALETTES[mood] || PALETTES.warm;
+    return base.map(pair => pair[Math.random() > 0.5 ? 0 : 1]);
+  }
+
+  function render(mood){
+    const colors = randomPaletteFor(mood);
+    const row = document.getElementById('paletteRow');
+    row.innerHTML = '';
+    colors.forEach(c => {
+      const div = document.createElement('div');
+      div.className = 'swatch flex items-end justify-center pb-3 cursor-pointer';
+      div.style.background = c;
+      div.innerHTML = `<span class="mono text-[11px] bg-black/30 text-white px-2 py-0.5 rounded">${c}</span>`;
+      div.addEventListener('click', () => copyColor(c, div));
+      row.appendChild(div);
+    });
+
+    const btnWrap = document.getElementById('previewButtons');
+    btnWrap.innerHTML = '';
+    colors.slice(0,3).forEach(c=>{
+      const b = document.createElement('button');
+      b.className = 'disp font-bold px-4 py-2 rounded-md text-white';
+      b.style.background = c;
+      b.textContent = '範例按鈕';
+      btnWrap.appendChild(b);
+    });
+
+    document.getElementById('previewCard').style.background =
+      `linear-gradient(135deg, ${colors[0]}, ${colors[colors.length-1]})`;
+  }
+
+  function copyColor(hex, el){
+    navigator.clipboard?.writeText(hex).catch(()=>{});
+    el.classList.add('copied');
+    setTimeout(()=>el.classList.remove('copied'), 350);
+    const toast = document.getElementById('toast');
+    toast.textContent = `已複製 ${hex}`;
+    toast.style.opacity = '1';
+    toast.style.transform = 'translate(-50%, -4px)';
+    clearTimeout(window._toastTimer);
+    window._toastTimer = setTimeout(()=>{
+      toast.style.opacity = '0';
+      toast.style.transform = 'translate(-50%, 0)';
+    }, 1400);
+  }
+
+  document.getElementById('genBtn').addEventListener('click', ()=>{
+    render(document.getElementById('moodSelect').value);
+  });
+  document.getElementById('moodSelect').addEventListener('change', (e)=>{
+    render(e.target.value);
+  });
+
+  render('warm');
+</script>
+</body>
+</html>

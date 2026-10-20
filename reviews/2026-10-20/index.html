@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>韡寧的 UI 待審 · 2026-10-20</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  * { font-family: 'Noto Sans TC', sans-serif; }
+  body { background:#f4f4f2; color:#1a1a1a; }
+  .card-iframe-wrap{ overflow:hidden; background:#fff; }
+  .card-iframe{
+    width:200%; height:200%;
+    transform: scale(.5);
+    transform-origin: top left;
+    border: 0;
+  }
+  .heart-btn{ transition: transform .15s ease; }
+  .heart-btn:active{ transform: scale(1.3); }
+  .heart-btn.liked{ color:#ef4444; }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <header class="max-w-5xl mx-auto px-6 pt-10 pb-6">
+    <h1 class="text-2xl md:text-3xl font-bold">韡寧的 UI 待審 · 2026-10-20</h1>
+    <p class="text-neutral-500 mt-2 text-sm">今天 6 個風格方向，點卡片「開啟 ↗」看完整頁面，喜歡的按 ❤️。</p>
+    <a href="../index.html" class="inline-block mt-3 text-sm text-neutral-500 hover:text-neutral-900 underline">← 回歷史日期列表</a>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6 pb-16">
+    <div id="gallery" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+  </main>
+
+  <footer class="max-w-5xl mx-auto px-6 pb-10 text-center text-xs text-neutral-400">
+    © 2026 UI Daily · 由每日排程自動生成
+  </footer>
+
+<script>
+  const DATE = "2026-10-20";
+  const ITEMS = [
+    { no: "01", file: "01-nightowl.html",    name: "#07 Dark Mode (OLED)",  title: "夜貓電台 NightOwl Radio" },
+    { no: "02", file: "02-filmbox.html",     name: "#13 Skeuomorphism",     title: "底片盒 FilmBox" },
+    { no: "03", file: "03-palettelab.html",  name: "#25 Interactive Demo",  title: "配色實驗室 PaletteLab" },
+    { no: "04", file: "04-dealradar.html",   name: "#37 Sales Intelligence",title: "成交雷達 DealRadar" },
+    { no: "05", file: "05-y2kcloset.html",   name: "#40 Y2K Revival",       title: "千禧衣櫃 Y2K Closet" },
+    { no: "06", file: "06-spatialpick.html", name: "#55 Spatial UI",        title: "空間選物 SpatialPick" },
+  ];
+
+  const gallery = document.getElementById('gallery');
+
+  function dbKey(no){ return `${DATE}_${no}`; }
+
+  function renderCards(likedMap){
+    gallery.innerHTML = '';
+    ITEMS.forEach(item => {
+      const liked = !!likedMap[dbKey(item.no)];
+      const card = document.createElement('div');
+      card.className = 'bg-white rounded-xl border border-neutral-200 overflow-hidden shadow-sm hover:shadow-md transition';
+      card.innerHTML = `
+        <div class="card-iframe-wrap relative" style="height:220px;">
+          <iframe class="card-iframe" src="${item.file}" loading="lazy"></iframe>
+          <a href="${item.file}" target="_blank" class="absolute inset-0"></a>
+        </div>
+        <div class="p-4 flex items-center justify-between">
+          <div class="min-w-0">
+            <p class="text-xs text-neutral-400 mb-1">${item.no} · ${item.name}</p>
+            <p class="font-bold truncate">${item.title}</p>
+          </div>
+          <div class="flex items-center gap-3 shrink-0 ml-3">
+            <a href="${item.file}" target="_blank" class="text-sm text-neutral-600 hover:text-neutral-900 whitespace-nowrap">開啟 ↗</a>
+            <button class="heart-btn text-xl ${liked ? 'liked' : 'text-neutral-300'}" data-no="${item.no}" aria-label="喜歡">❤</button>
+          </div>
+        </div>
+      `;
+      gallery.appendChild(card);
+    });
+
+    gallery.querySelectorAll('.heart-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const no = btn.dataset.no;
+        const key = dbKey(no);
+        btn.classList.add('liked');
+        btn.classList.remove('text-neutral-300');
+        try {
+          await fetch(`https://b-battle-580b5-default-rtdb.firebaseio.com/uigallery/${key}.json`, {
+            method: 'PUT',
+            body: 'true'
+          });
+        } catch (e) {
+          console.warn('喜歡紀錄送出失敗', e);
+        }
+      });
+    });
+  }
+
+  async function init(){
+    let likedMap = {};
+    try {
+      const res = await fetch('https://b-battle-580b5-default-rtdb.firebaseio.com/uigallery.json');
+      if (res.ok) {
+        const data = await res.json();
+        likedMap = data || {};
+      }
+    } catch (e) {
+      console.warn('讀取按讚紀錄失敗，先顯示未按讚狀態', e);
+    }
+    renderCards(likedMap);
+  }
+
+  init();
+</script>
+</body>
+</html>

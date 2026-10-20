@@ -1,0 +1,112 @@
+<!-- style #55 Spatial UI -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>空間選物 SpatialPick</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *{ font-family:'Noto Sans TC','Manrope',sans-serif; }
+  .disp{ font-family:'Manrope','Noto Sans TC',sans-serif; }
+  body{
+    background: radial-gradient(circle at 20% 10%, #2a2550 0%, #141225 45%, #0a0918 100%);
+    color:#eef0f6; min-height:100vh; overflow-x:hidden;
+  }
+  .stage{ perspective: 1400px; }
+  .panel{
+    background: rgba(255,255,255,.06);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255,255,255,.14);
+    box-shadow: 0 20px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08);
+  }
+  .float-layer{ transition: transform .15s ease-out; transform-style: preserve-3d; }
+  .depth-glow{ box-shadow: 0 0 40px rgba(130,120,255,.25); }
+  @keyframes drift{ 0%,100%{ transform: translateY(0px);} 50%{ transform: translateY(-10px);} }
+  .drift{ animation: drift 5s ease-in-out infinite; }
+  .drift2{ animation: drift 6.5s ease-in-out infinite; animation-delay: .8s; }
+</style>
+</head>
+<body>
+
+  <header class="relative z-20">
+    <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+      <span class="disp font-extrabold text-lg">空間選物 <span class="font-normal text-indigo-200/70 text-sm">SpatialPick</span></span>
+      <nav class="hidden md:flex gap-7 text-sm text-indigo-100/70">
+        <a href="#" class="hover:text-white">客廳系列</a>
+        <a href="#" class="hover:text-white">空間規劃</a>
+        <a href="#" class="hover:text-white">AR 預覽</a>
+      </nav>
+      <button class="panel rounded-full px-5 py-2 text-sm">進入我的空間</button>
+    </div>
+  </header>
+
+  <section class="stage max-w-6xl mx-auto px-6 pt-6 pb-24 relative" id="stageArea">
+    <div class="text-center mb-14 relative z-10">
+      <p class="text-indigo-200/60 text-xs tracking-[0.3em] mb-3">SPATIAL COMMERCE · 空間選物體驗</p>
+      <h1 class="disp text-3xl md:text-5xl font-extrabold leading-tight">
+        在虛擬空間裡，<br>先把家具放進你家。
+      </h1>
+      <p class="mt-4 text-indigo-100/70 max-w-lg mx-auto">移動滑鼠感受層次景深；每一塊浮動面板都代表一件家具，靠近你的視角、保持真實比例。</p>
+    </div>
+
+    <div class="relative h-[420px] md:h-[460px] flex items-center justify-center">
+      <div class="float-layer drift panel rounded-2xl w-56 h-72 absolute left-4 md:left-16 top-6 p-5 depth-glow" data-depth="40">
+        <div class="h-28 rounded-lg bg-gradient-to-br from-indigo-400/40 to-fuchsia-300/30 mb-4"></div>
+        <p class="disp font-bold">淺灰亞麻沙發</p>
+        <p class="text-xs text-indigo-200/60 mt-1">三人座 · NT$ 32,800</p>
+      </div>
+
+      <div class="float-layer drift2 panel rounded-2xl w-60 h-80 absolute left-1/2 -translate-x-1/2 top-0 p-6 z-10 depth-glow" data-depth="90">
+        <div class="h-36 rounded-lg bg-gradient-to-br from-sky-300/40 to-indigo-400/30 mb-4"></div>
+        <p class="disp font-bold text-lg">胡桃木茶几</p>
+        <p class="text-xs text-indigo-200/60 mt-1">Ø70cm · NT$ 14,200</p>
+        <button class="mt-4 text-xs px-4 py-2 rounded-full bg-white/90 text-[#1a1830] font-semibold">AR 放進我家</button>
+      </div>
+
+      <div class="float-layer drift panel rounded-2xl w-56 h-72 absolute right-4 md:right-16 top-10 p-5 depth-glow" data-depth="40">
+        <div class="h-28 rounded-lg bg-gradient-to-br from-emerald-300/30 to-sky-300/30 mb-4"></div>
+        <p class="disp font-bold">落地燈・暖白光</p>
+        <p class="text-xs text-indigo-200/60 mt-1">165cm · NT$ 6,400</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-6 pb-20">
+    <div class="panel rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div>
+        <p class="text-indigo-200/60 text-xs tracking-widest mb-2">ROOM SCAN</p>
+        <h3 class="disp text-2xl font-bold">掃描你家客廳，三秒建出空間模型</h3>
+        <p class="text-indigo-100/70 mt-2">用手機鏡頭環繞拍攝一圈，所有選物都會自動套用你家的真實尺寸與光線。</p>
+      </div>
+      <button class="bg-white text-[#1a1830] disp font-bold px-7 py-3 rounded-full shrink-0">開始掃描空間</button>
+    </div>
+  </section>
+
+  <footer class="border-t border-white/10 py-8 text-center text-xs text-indigo-200/50">
+    © 2026 SpatialPick · 空間選物
+  </footer>
+
+<script>
+  const stage = document.getElementById('stageArea');
+  const layers = document.querySelectorAll('.float-layer');
+  stage.addEventListener('mousemove', (e) => {
+    const rect = stage.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    layers.forEach(layer => {
+      const depth = parseFloat(layer.dataset.depth) || 40;
+      const moveX = x * depth;
+      const moveY = y * depth * 0.6;
+      layer.style.transform = `translate3d(${moveX}px, ${moveY}px, 0) rotateX(${-y*4}deg) rotateY(${x*4}deg)`;
+    });
+  });
+  stage.addEventListener('mouseleave', () => {
+    layers.forEach(layer => { layer.style.transform = 'translate3d(0,0,0)'; });
+  });
+</script>
+</body>
+</html>
