@@ -1,0 +1,118 @@
+<!-- style #49 Parallax Storytelling -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>順田農場 ShunTian Farm — 一塊田的故事</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Noto Serif TC','Playfair Display',serif; background:#f5f1e8; color:#2b2619; }
+  .display{ font-family:'Playfair Display','Noto Serif TC',serif; }
+  .section{ min-height: 70vh; display:flex; align-items:center; position:relative; overflow:hidden; }
+  .parallax-bg{
+    position:absolute; inset:-10%; z-index:0;
+    background-size: cover; background-position:center;
+    will-change: transform;
+  }
+  .scrim{ position:absolute; inset:0; z-index:1; }
+  .content{ position:relative; z-index:2; }
+  .divider{ width:1px; height:60px; background:#2b2619; opacity:.35; margin:0 auto; }
+  .chapter-num{ font-family:'Playfair Display', serif; }
+</style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 md:px-12 py-5 bg-[#f5f1e8]/90 backdrop-blur-sm">
+    <p class="display font-bold text-lg">順田農場</p>
+    <button class="border border-[#2b2619] px-4 py-1.5 text-sm font-semibold">預訂這季的米</button>
+  </nav>
+
+  <!-- 第一章：土地 -->
+  <section class="section" data-speed="0.3">
+    <div class="parallax-bg" style="background: linear-gradient(135deg,#8fbc8f 0%, #3e4a32 100%);"></div>
+    <div class="scrim bg-black/20"></div>
+    <div class="content max-w-2xl mx-auto text-center px-6 text-white">
+      <p class="chapter-num text-sm uppercase tracking-widest mb-4">Chapter 01　土地</p>
+      <h1 class="display text-4xl md:text-6xl italic font-medium leading-tight mb-5">
+        一塊田，<br>種了三代人的時間
+      </h1>
+      <p class="font-medium opacity-90">在雲林的這塊地，從阿公那一代開始種稻，到我們這代，決定不再趕產量。</p>
+    </div>
+  </section>
+
+  <div class="divider mt-10"></div>
+
+  <!-- 第二章：堅持 -->
+  <section class="section" data-speed="0.3">
+    <div class="parallax-bg" style="background: linear-gradient(135deg,#f5f1e8 0%, #d8cdb0 100%);"></div>
+    <div class="content max-w-3xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <p class="chapter-num text-sm uppercase tracking-widest mb-4 text-[#6b5b3a]">Chapter 02　堅持</p>
+        <h2 class="display text-3xl md:text-4xl italic font-medium mb-5">不灑除草劑，<br>所以田埂長滿雜草</h2>
+        <p class="font-medium leading-relaxed text-[#4a4330]">
+          別人笑我們的田「看起來比較亂」，但那正是我們想要的樣子——讓土地自己呼吸，讓蟲鳥也有地方住。
+        </p>
+      </div>
+      <div class="border border-[#2b2619]/30 p-8 bg-white/40">
+        <p class="display italic text-2xl mb-2">"稻子長得慢一點，<br>沒關係。"</p>
+        <p class="text-sm font-semibold mt-4">— 第三代農夫　陳順田</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider mt-10"></div>
+
+  <!-- 第三章：季節 -->
+  <section class="section" data-speed="0.3">
+    <div class="parallax-bg" style="background: linear-gradient(135deg,#c9a876 0%, #8b6f47 100%);"></div>
+    <div class="scrim bg-black/10"></div>
+    <div class="content max-w-3xl mx-auto px-6 text-white">
+      <p class="chapter-num text-sm uppercase tracking-widest mb-4">Chapter 03　季節</p>
+      <h2 class="display text-3xl md:text-4xl italic font-medium mb-8">跟著節氣走的一年</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-sm font-semibold">
+        <div><p class="opacity-70 mb-1">02 — 03 月</p><p class="display text-xl italic">插秧</p></div>
+        <div><p class="opacity-70 mb-1">05 — 06 月</p><p class="display text-xl italic">護田</p></div>
+        <div><p class="opacity-70 mb-1">07 — 08 月</p><p class="display text-xl italic">抽穗</p></div>
+        <div><p class="opacity-70 mb-1">10 — 11 月</p><p class="display text-xl italic">收割</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider mt-10"></div>
+
+  <!-- 第四章：到你手上 -->
+  <section class="section !min-h-[60vh]" data-speed="0.3">
+    <div class="parallax-bg" style="background:#2b2619;"></div>
+    <div class="content max-w-2xl mx-auto text-center px-6 text-white">
+      <p class="chapter-num text-sm uppercase tracking-widest mb-4 opacity-70">Chapter 04　到你手上</p>
+      <h2 class="display text-3xl md:text-5xl italic font-medium mb-6">這一季，只收 800 包</h2>
+      <p class="font-medium opacity-80 mb-8 max-w-md mx-auto">收成有限，收完就是明年見。每包都附上這一季的田間筆記。</p>
+      <button class="border border-white px-8 py-3 font-semibold hover:bg-white hover:text-[#2b2619] transition-colors">預訂這季的米 ↗</button>
+    </div>
+  </section>
+
+  <footer class="py-10 text-center text-sm font-medium text-[#6b5b3a] bg-[#f5f1e8]">
+    順田農場 ShunTian Farm　雲林縣莿桐鄉　hello@shuntian.tw
+  </footer>
+
+<script>
+  const bgs = document.querySelectorAll('.parallax-bg');
+  function onScroll(){
+    const vh = window.innerHeight;
+    bgs.forEach(bg => {
+      const rect = bg.parentElement.getBoundingClientRect();
+      const progress = (vh - rect.top) / (vh + rect.height);
+      const offset = (progress - 0.5) * 60;
+      bg.style.transform = `translateY(${offset}px)`;
+    });
+  }
+  document.addEventListener('scroll', onScroll);
+  window.addEventListener('resize', onScroll);
+  onScroll();
+</script>
+</body>
+</html>

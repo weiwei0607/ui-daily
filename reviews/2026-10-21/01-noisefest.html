@@ -1,0 +1,136 @@
+<!-- style #04 Brutalism -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>噪音祭 NOISE FEST — 地下電子音樂節</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#ff0000; --blue:#0000ff; --yellow:#ffff00; --black:#0a0a0a; --white:#f5f5f5;
+  }
+  body{ background:var(--yellow); font-family:'Noto Sans TC','Space Mono',monospace; }
+  .disp{ font-family:'Archivo Black','Noto Sans TC',sans-serif; }
+  .mono{ font-family:'Space Mono',monospace; }
+  .hard-border{ border:4px solid var(--black); }
+  .hard-shadow{ box-shadow: 8px 8px 0 0 var(--black); }
+  .hard-shadow-sm{ box-shadow: 5px 5px 0 0 var(--black); }
+  .hard-shadow:hover, .hard-shadow-sm:hover{ transform: translate(-4px,-4px); box-shadow: 12px 12px 0 0 var(--black); }
+  .hard-shadow-sm:hover{ box-shadow: 9px 9px 0 0 var(--black); }
+  .btn-press:active{ transform: translate(4px,4px) !important; box-shadow: 0 0 0 0 var(--black) !important; }
+  .rotate-tag{ transform: rotate(-3deg); }
+  .rotate-tag2{ transform: rotate(2deg); }
+  .marquee{ white-space:nowrap; overflow:hidden; }
+  .marquee span{ display:inline-block; animation: marquee 14s linear infinite; }
+  @keyframes marquee{ 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+  .noisebg{
+    background-image: repeating-linear-gradient(45deg, rgba(0,0,0,0.06) 0 2px, transparent 2px 10px);
+  }
+</style>
+</head>
+<body class="noisebg text-black">
+
+  <!-- 跑馬燈警語條 -->
+  <div class="hard-border border-t-0 border-l-0 border-r-0 bg-black text-yellow-300 py-2 marquee mono text-sm font-bold">
+    <span>⚠ 本票一經售出不得退換 ⚠ 現場禁止錄影 ⚠ 音量超過安全值請自備耳塞 ⚠ 噪音祭 NOISE FEST 2026.12.05-06 高雄港邊倉庫 ⚠ 本票一經售出不得退換 ⚠ 現場禁止錄影 ⚠ 音量超過安全值請自備耳塞 ⚠ 噪音祭 NOISE FEST 2026.12.05-06 高雄港邊倉庫 ⚠&nbsp;</span>
+  </div>
+
+  <!-- Nav -->
+  <nav class="flex items-center justify-between px-5 md:px-10 py-5">
+    <div class="disp text-2xl md:text-3xl bg-black text-yellow-300 px-3 py-1 hard-shadow-sm rotate-tag2 inline-block">NOISE FEST</div>
+    <button class="hard-border bg-white disp text-sm md:text-base px-4 py-2 hard-shadow-sm btn-press transition-all">買票 →</button>
+  </nav>
+
+  <!-- Hero -->
+  <header class="px-5 md:px-10 pt-6 pb-16 md:pt-10">
+    <div class="hard-border bg-blue-600 text-white hard-shadow p-6 md:p-14 relative overflow-hidden">
+      <p class="mono font-bold text-xs md:text-sm bg-yellow-300 text-black inline-block px-2 py-1 rotate-tag mb-5">2026 / 12 / 05 — 06　高雄港邊倉庫</p>
+      <h1 class="disp text-[13vw] md:text-[7.5vw] leading-[0.95] tracking-tight">噪音祭<br><span class="text-yellow-300">NOISE</span><span class="text-red-500 outline-text"> FEST</span></h1>
+      <p class="mono mt-6 text-base md:text-lg max-w-xl bg-black/40 p-3 hard-border border-white/60">
+        不是演唱會。是一場故意不好聽的派對。36 組地下電子 / 工業噪音 / 實驗聲響團體，兩天兩夜，三座倉庫舞台不間斷輪播。沒有座位，只有站著尖叫的地方。
+      </p>
+      <div class="flex flex-wrap gap-4 mt-8">
+        <button class="hard-border bg-red-600 text-white disp text-lg px-6 py-3 hard-shadow btn-press transition-all">早鳥票 NT$ 1,280 →</button>
+        <button class="hard-border bg-white text-black disp text-lg px-6 py-3 hard-shadow btn-press transition-all">看陣容 ↓</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 數字區 -->
+  <section class="px-5 md:px-10 grid grid-cols-2 md:grid-cols-4 gap-5 pb-16">
+    <div class="hard-border bg-white hard-shadow-sm p-5 rotate-tag2">
+      <p class="mono text-xs font-bold">表演團體</p>
+      <p class="disp text-5xl mt-2">36</p>
+    </div>
+    <div class="hard-border bg-yellow-300 hard-shadow-sm p-5 rotate-tag">
+      <p class="mono text-xs font-bold">舞台數量</p>
+      <p class="disp text-5xl mt-2">03</p>
+    </div>
+    <div class="hard-border bg-red-600 text-white hard-shadow-sm p-5 rotate-tag">
+      <p class="mono text-xs font-bold">連續小時</p>
+      <p class="disp text-5xl mt-2">28</p>
+    </div>
+    <div class="hard-border bg-blue-600 text-white hard-shadow-sm p-5 rotate-tag2">
+      <p class="mono text-xs font-bold">去年售完時間</p>
+      <p class="disp text-5xl mt-2">4h</p>
+    </div>
+  </section>
+
+  <!-- 陣容 -->
+  <section id="lineup" class="px-5 md:px-10 pb-16">
+    <h2 class="disp text-4xl md:text-6xl mb-8 bg-black text-white inline-block px-4 py-2 hard-shadow-sm rotate-tag2">陣容名單</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <article class="hard-border bg-white hard-shadow p-6">
+        <p class="mono text-xs font-bold bg-red-600 text-white inline-block px-2 py-1 mb-3">舞台 A・工業噪牆</p>
+        <h3 class="disp text-2xl mb-2">鏽蝕機房 RUST ROOM</h3>
+        <p class="mono text-sm">金屬撞擊取樣 + 失真人聲，現場帶兩公尺高的鋼板裝置上台敲。</p>
+      </article>
+      <article class="hard-border bg-white hard-shadow p-6">
+        <p class="mono text-xs font-bold bg-blue-600 text-white inline-block px-2 py-1 mb-3">舞台 B・硬核節拍</p>
+        <h3 class="disp text-2xl mb-2">斷電 BLACKOUT.exe</h3>
+        <p class="mono text-sm">190 BPM 起跳，全場唯一被警告過三次「音壓超標」的團。</p>
+      </article>
+      <article class="hard-border bg-white hard-shadow p-6">
+        <p class="mono text-xs font-bold bg-yellow-300 text-black inline-block px-2 py-1 mb-3">舞台 C・實驗聲響</p>
+        <h3 class="disp text-2xl mb-2">無人廣播電台</h3>
+        <p class="mono text-sm">用故障收音機、磁帶噪訊和防空警報取樣拼成的 45 分鐘現場。</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- 票種 -->
+  <section class="px-5 md:px-10 pb-20">
+    <h2 class="disp text-4xl md:text-6xl mb-8 bg-yellow-300 text-black inline-block px-4 py-2 hard-shadow-sm rotate-tag">選票種</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="hard-border bg-white hard-shadow p-6 flex flex-col">
+        <p class="mono text-sm font-bold">單日票</p>
+        <p class="disp text-4xl my-3">NT$ 980</p>
+        <p class="mono text-xs flex-1">任選 12/05 或 12/06 一天，不含置物櫃。</p>
+        <button class="hard-border bg-black text-white disp mt-4 py-2 hard-shadow-sm btn-press transition-all">選這個</button>
+      </div>
+      <div class="hard-border bg-red-600 text-white hard-shadow p-6 flex flex-col relative">
+        <p class="mono text-xs font-bold bg-yellow-300 text-black absolute -top-4 -right-3 px-2 py-1 rotate-tag2">最多人選</p>
+        <p class="mono text-sm font-bold">兩日通票</p>
+        <p class="disp text-4xl my-3">NT$ 1,680</p>
+        <p class="mono text-xs flex-1">兩天全舞台通行，含置物櫃與耳塞一副。</p>
+        <button class="hard-border bg-black text-white disp mt-4 py-2 hard-shadow-sm btn-press transition-all">選這個</button>
+      </div>
+      <div class="hard-border bg-blue-600 text-white hard-shadow p-6 flex flex-col">
+        <p class="mono text-sm font-bold">VIP 貴賓</p>
+        <p class="disp text-4xl my-3">NT$ 3,200</p>
+        <p class="mono text-xs flex-1">兩日通票 + 後台參觀 + 專屬休息區，限量 50 張。</p>
+        <button class="hard-border bg-white text-black disp mt-4 py-2 hard-shadow-sm btn-press transition-all">選這個</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="hard-border border-b-0 border-x-0 bg-black text-yellow-300 px-5 md:px-10 py-8 flex flex-wrap justify-between gap-4">
+    <p class="disp text-xl">NOISE FEST © 2026</p>
+    <p class="mono text-sm">主辦：港邊聲響實驗室　洽詢：noise@fest.tw</p>
+  </footer>
+
+</body>
+</html>

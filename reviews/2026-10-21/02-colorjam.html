@@ -1,0 +1,162 @@
+<!-- style #06 Vibrant Block -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>跳色工作室 ColorJam — 線上色彩教育平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Space Grotesk','Noto Sans TC',sans-serif; background:#0f0f12; color:#0f0f12; }
+  .cyan{ background:#00ffff; }
+  .violet{ background:#bf00ff; color:#fff; }
+  .green{ background:#39ff14; }
+  .pink{ background:#ff1493; color:#fff; }
+  .block{ border-radius: 0; }
+  .block-card{ transition: transform .25s ease; }
+  .block-card:hover{ transform: translateY(-6px) scale(1.02); }
+  .dotgrid{
+    background-image: radial-gradient(circle, rgba(255,255,255,0.08) 1.5px, transparent 1.5px);
+    background-size: 20px 20px;
+  }
+</style>
+</head>
+<body class="dotgrid">
+
+  <nav class="flex items-center justify-between px-6 md:px-12 py-6 text-white">
+    <div class="text-2xl font-bold tracking-tight">🎨 跳色工作室</div>
+    <div class="hidden md:flex gap-8 text-sm font-bold">
+      <a href="#courses" class="hover:text-cyan-300">課程</a>
+      <a href="#tool" class="hover:text-cyan-300">配色產生器</a>
+      <a href="#price" class="hover:text-cyan-300">方案</a>
+    </div>
+    <button class="pink block px-5 py-2 font-bold">免費試用</button>
+  </nav>
+
+  <!-- Hero：色塊拼貼 -->
+  <section class="px-6 md:px-12 pt-6 pb-16">
+    <div class="grid grid-cols-6 gap-4">
+      <div class="cyan block col-span-6 md:col-span-4 row-span-2 p-8 md:p-12 flex flex-col justify-between min-h-[320px]">
+        <span class="font-bold text-sm uppercase tracking-widest">ColorJam / 線上色彩教育</span>
+        <h1 class="text-4xl md:text-6xl font-bold leading-[1.05] mt-4">
+          讓每個人<br>都能配出<br>不難看的色彩
+        </h1>
+        <p class="font-medium mt-4 max-w-md">36 堂互動課程 + 即時配色產生器，從「憑直覺亂選」進化到「看得懂色彩關係」。</p>
+      </div>
+      <div class="violet block col-span-3 md:col-span-2 p-6 flex flex-col justify-between">
+        <span class="text-sm font-bold">本月新課</span>
+        <p class="text-2xl font-bold mt-2">漸層的<br>九種用法</p>
+      </div>
+      <div class="pink block col-span-3 md:col-span-2 p-6 flex flex-col justify-between">
+        <span class="text-sm font-bold">學員人數</span>
+        <p class="text-4xl font-bold mt-2">12,480</p>
+      </div>
+      <div class="green block col-span-6 md:col-span-6 p-6 flex items-center justify-between">
+        <p class="text-xl font-bold">立即開始第一堂免費課程 →</p>
+        <button class="bg-black text-white block px-6 py-2 font-bold">開始上課</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 配色產生器（可互動） -->
+  <section id="tool" class="px-6 md:px-12 pb-16">
+    <div class="violet block p-6 md:p-10">
+      <h2 class="text-3xl md:text-4xl font-bold mb-2">配色實驗室</h2>
+      <p class="font-medium mb-6 opacity-90">點「產生新配色」試試手氣，點色塊可複製色碼。</p>
+      <div id="palette" class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6"></div>
+      <button id="gen" class="bg-black text-white block px-6 py-3 font-bold hover:bg-white hover:text-black transition-colors">🎲 產生新配色</button>
+      <p id="copied" class="mt-3 font-bold text-sm h-5"></p>
+    </div>
+  </section>
+
+  <!-- 課程 -->
+  <section id="courses" class="px-6 md:px-12 pb-16 text-white">
+    <h2 class="text-3xl md:text-4xl font-bold mb-8">熱門課程</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="block-card cyan block p-6 text-black">
+        <p class="text-sm font-bold mb-2">初階・4 週</p>
+        <h3 class="text-2xl font-bold mb-2">色彩關係入門</h3>
+        <p class="font-medium text-sm">色輪、對比、互補色，從零開始建立配色邏輯。</p>
+      </div>
+      <div class="block-card green block p-6 text-black">
+        <p class="text-sm font-bold mb-2">進階・6 週</p>
+        <h3 class="text-2xl font-bold mb-2">品牌色彩系統</h3>
+        <p class="font-medium text-sm">如何幫一個品牌訂出主色、輔色與語意色規範。</p>
+      </div>
+      <div class="block-card pink block p-6">
+        <p class="text-sm font-bold mb-2">實戰・8 週</p>
+        <h3 class="text-2xl font-bold mb-2">UI 配色實作營</h3>
+        <p class="font-medium text-sm">邊做邊學，結業時交出一份完整的介面配色規範。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 方案 -->
+  <section id="price" class="px-6 md:px-12 pb-20">
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="block bg-white p-6 flex flex-col">
+        <p class="font-bold">單堂購買</p>
+        <p class="text-4xl font-bold my-3">NT$ 390</p>
+        <p class="text-sm flex-1">單堂課程，永久觀看。</p>
+        <button class="bg-black text-white block mt-4 py-2 font-bold">選擇</button>
+      </div>
+      <div class="block cyan p-6 flex flex-col relative">
+        <span class="absolute -top-3 right-4 bg-black text-white text-xs font-bold px-3 py-1">最推薦</span>
+        <p class="font-bold">全站月訂閱</p>
+        <p class="text-4xl font-bold my-3">NT$ 590 / 月</p>
+        <p class="text-sm flex-1">全部課程 + 配色產生器進階版。</p>
+        <button class="bg-black text-white block mt-4 py-2 font-bold">選擇</button>
+      </div>
+      <div class="block violet p-6 flex flex-col">
+        <p class="font-bold">團隊方案</p>
+        <p class="text-4xl font-bold my-3">洽詢</p>
+        <p class="text-sm flex-1">5 人以上團隊，含內部配色規範輔導。</p>
+        <button class="bg-white text-black block mt-4 py-2 font-bold">聯絡我們</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="px-6 md:px-12 py-8 text-white text-sm font-medium border-t border-white/10">
+    跳色工作室 ColorJam © 2026　hello@colorjam.tw
+  </footer>
+
+<script>
+  const palettes = [
+    ['#00ffff','#bf00ff','#39ff14','#ff1493','#fff700'],
+    ['#ff6b6b','#ffd93d','#6bcB77','#4d96ff','#9d4edd'],
+    ['#0f0f12','#ff1493','#00ffff','#f5f5f5','#bf00ff'],
+    ['#ff9f1c','#2ec4b6','#e71d36','#011627','#fdffb6'],
+    ['#7400b8','#5e60ce','#4ea8de','#56cfe1','#80ffdb']
+  ];
+  const paletteEl = document.getElementById('palette');
+  const copiedEl = document.getElementById('copied');
+
+  function render(colors){
+    paletteEl.innerHTML = '';
+    colors.forEach(c => {
+      const div = document.createElement('div');
+      div.className = 'block h-24 flex items-end p-2 cursor-pointer font-bold text-xs';
+      div.style.background = c;
+      const isDark = ['#0f0f12','#011627','#7400b8'].includes(c);
+      div.style.color = isDark ? '#fff' : '#000';
+      div.textContent = c;
+      div.addEventListener('click', () => {
+        navigator.clipboard?.writeText(c).catch(()=>{});
+        copiedEl.textContent = `已複製 ${c} 色碼 ✓`;
+      });
+      paletteEl.appendChild(div);
+    });
+  }
+
+  document.getElementById('gen').addEventListener('click', () => {
+    const next = palettes[Math.floor(Math.random()*palettes.length)];
+    render(next);
+    copiedEl.textContent = '';
+  });
+
+  render(palettes[0]);
+</script>
+</body>
+</html>

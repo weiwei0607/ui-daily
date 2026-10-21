@@ -1,0 +1,147 @@
+<!-- style #14 Liquid Glass -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>心流 MindFlow — 每日冥想與專注</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Zen+Maru+Gothic:wght@500;700&family=Noto+Sans+TC:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Quicksand','Noto Sans TC',sans-serif;
+    min-height:100vh; color:#2a2440; overflow-x:hidden;
+    background: linear-gradient(135deg,#667eea 0%, #764ba2 45%, #f093fb 100%);
+    background-size: 200% 200%;
+    animation: flow 18s ease-in-out infinite;
+  }
+  .zen{ font-family:'Zen Maru Gothic','Quicksand',sans-serif; }
+  @keyframes flow{
+    0%{ background-position: 0% 50%; }
+    50%{ background-position: 100% 50%; }
+    100%{ background-position: 0% 50%; }
+  }
+  .glass{
+    background: rgba(255,255,255,0.22);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.45);
+    border-radius: 28px;
+  }
+  .glass-strong{
+    background: rgba(255,255,255,0.35);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,0.55);
+  }
+  .glow{
+    position:absolute; border-radius:50%; filter: blur(50px); opacity:.55; pointer-events:none;
+  }
+  #float-layer{ transition: transform .3s ease-out; }
+</style>
+</head>
+<body class="relative">
+
+  <div class="glow w-80 h-80 bg-pink-300 -top-10 -left-10"></div>
+  <div class="glow w-96 h-96 bg-indigo-300 top-1/3 right-0"></div>
+  <div class="glow w-72 h-72 bg-purple-300 bottom-0 left-1/4"></div>
+
+  <div id="float-layer" class="relative z-10 max-w-5xl mx-auto px-5 md:px-10 py-8">
+
+    <!-- Nav -->
+    <nav class="glass px-6 py-3 flex items-center justify-between mb-10">
+      <p class="zen font-bold text-lg text-white">心流 MindFlow</p>
+      <div class="hidden md:flex gap-6 text-sm font-semibold text-white/90">
+        <span>冥想課程</span><span>專注音景</span><span>睡前故事</span>
+      </div>
+      <button class="glass-strong px-4 py-1.5 rounded-full text-sm font-bold text-white">開始體驗</button>
+    </nav>
+
+    <!-- Hero -->
+    <section class="text-center mb-14">
+      <h1 class="zen text-4xl md:text-6xl font-bold text-white drop-shadow mb-5 leading-tight">
+        讓思緒<br class="md:hidden">慢下來，<br>找回今天的心流
+      </h1>
+      <p class="text-white/90 font-semibold max-w-md mx-auto mb-8">
+        每天 10 分鐘，跟著引導呼吸、放鬆肩頸，把注意力輕輕帶回這一刻。
+      </p>
+      <button class="glass-strong px-8 py-3 rounded-full text-white font-bold text-lg">今天就開始 ↗</button>
+    </section>
+
+    <!-- 呼吸練習（互動） -->
+    <section class="glass p-6 md:p-10 mb-10 flex flex-col items-center">
+      <p class="zen font-bold text-white text-lg mb-6">跟著圈圈呼吸 30 秒</p>
+      <div id="breathCircle" class="w-32 h-32 rounded-full glass-strong flex items-center justify-center text-white font-bold text-sm transition-all duration-[4000ms]">
+        吸氣
+      </div>
+      <button id="breathBtn" class="mt-6 glass-strong px-6 py-2 rounded-full text-white text-sm font-bold">開始練習</button>
+    </section>
+
+    <!-- 課程卡片 -->
+    <section class="grid md:grid-cols-3 gap-5 mb-10">
+      <div class="glass p-6 text-white float-card">
+        <p class="text-sm font-bold opacity-80 mb-2">早晨 · 8 分鐘</p>
+        <h3 class="zen font-bold text-xl mb-2">清醒的第一口氣</h3>
+        <p class="text-sm opacity-90">用溫柔的引導語，取代鬧鐘後的慌張。</p>
+      </div>
+      <div class="glass p-6 text-white float-card">
+        <p class="text-sm font-bold opacity-80 mb-2">工作間 · 5 分鐘</p>
+        <h3 class="zen font-bold text-xl mb-2">會議前的淨空</h3>
+        <p class="text-sm opacity-90">短短五分鐘，讓腦袋重新開機。</p>
+      </div>
+      <div class="glass p-6 text-white float-card">
+        <p class="text-sm font-bold opacity-80 mb-2">睡前 · 15 分鐘</p>
+        <h3 class="zen font-bold text-xl mb-2">沉入夜色的故事</h3>
+        <p class="text-sm opacity-90">像被輕輕蓋上一層霧，慢慢入睡。</p>
+      </div>
+    </section>
+
+    <!-- 數據回顧 -->
+    <section class="glass-strong p-6 md:p-8 flex flex-wrap gap-8 justify-between mb-10 text-white">
+      <div><p class="text-sm opacity-80 font-semibold">連續練習</p><p class="zen text-3xl font-bold mt-1">21 天</p></div>
+      <div><p class="text-sm opacity-80 font-semibold">本月累積時間</p><p class="zen text-3xl font-bold mt-1">4.6 小時</p></div>
+      <div><p class="text-sm opacity-80 font-semibold">平均心率下降</p><p class="zen text-3xl font-bold mt-1">－6 bpm</p></div>
+    </section>
+
+    <footer class="text-center text-white/80 text-sm font-semibold pb-8">
+      心流 MindFlow © 2026　hello@mindflow.tw
+    </footer>
+  </div>
+
+<script>
+  // 滑鼠視差
+  const layer = document.getElementById('float-layer');
+  document.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 16;
+    const y = (e.clientY / window.innerHeight - 0.5) * 16;
+    layer.style.transform = `translate(${x}px, ${y}px)`;
+  });
+
+  // 呼吸練習
+  const circle = document.getElementById('breathCircle');
+  const btn = document.getElementById('breathBtn');
+  let breathing = false, cycle = null;
+  btn.addEventListener('click', () => {
+    breathing = !breathing;
+    btn.textContent = breathing ? '停止練習' : '開始練習';
+    if(breathing){
+      let phase = 0;
+      const steps = ['吸氣','維持','呼氣','維持'];
+      const scales = ['scale(1.3)','scale(1.3)','scale(0.85)','scale(0.85)'];
+      cycle = setInterval(() => {
+        circle.textContent = steps[phase % 4];
+        circle.style.transform = scales[phase % 4];
+        phase++;
+      }, 4000);
+      circle.textContent = steps[0];
+      circle.style.transform = scales[0];
+    } else {
+      clearInterval(cycle);
+      circle.style.transform = 'scale(1)';
+      circle.textContent = '吸氣';
+    }
+  });
+</script>
+</body>
+</html>

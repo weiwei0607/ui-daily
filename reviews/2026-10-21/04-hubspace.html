@@ -1,0 +1,169 @@
+<!-- style #39 Bento Box -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>多工作台 Hubspace — 個人工作入口</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Noto+Sans+TC:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Sora','Noto Sans TC',sans-serif; background:#eef0f4; color:#15171f; }
+  .cell{ background:#fff; border-radius:22px; border:1px solid #e6e8ef; transition: box-shadow .2s ease, transform .2s ease; }
+  .cell:hover{ box-shadow: 0 12px 28px -8px rgba(20,20,40,0.15); transform: translateY(-2px); }
+  .accent{ background:#15171f; color:#fff; }
+  .lime{ background:#d7f93c; }
+  .peach{ background:#ffd7b0; }
+  .sky{ background:#cfe6ff; }
+  .clock{ font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body class="p-4 md:p-10">
+
+  <header class="flex items-center justify-between mb-6">
+    <div>
+      <p class="text-sm text-gray-500 font-semibold">早安，欣妮 👋</p>
+      <h1 class="text-2xl font-bold">多工作台</h1>
+    </div>
+    <div class="cell px-4 py-2 flex items-center gap-2 text-sm font-semibold">
+      <span id="clock" class="clock"></span>
+    </div>
+  </header>
+
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[120px]">
+
+    <!-- 大卡：今日待辦 -->
+    <div class="cell col-span-2 row-span-2 p-6 flex flex-col">
+      <p class="text-sm font-semibold text-gray-500 mb-3">今日待辦　<span id="doneCount">0</span>/<span id="totalCount">0</span></p>
+      <ul id="todoList" class="space-y-2 flex-1 overflow-auto"></ul>
+      <form id="todoForm" class="flex gap-2 mt-3">
+        <input id="todoInput" type="text" placeholder="新增一件事…" class="flex-1 rounded-xl border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300">
+        <button class="accent rounded-xl px-4 text-sm font-bold">加入</button>
+      </form>
+    </div>
+
+    <!-- 天氣小卡 -->
+    <div class="cell sky col-span-1 row-span-1 p-5 flex flex-col justify-between">
+      <p class="text-sm font-semibold">台北・陰天 ☁</p>
+      <p class="text-3xl font-bold">21°C</p>
+    </div>
+
+    <!-- 快速連結 -->
+    <div class="cell col-span-1 row-span-1 p-5 flex flex-col justify-between">
+      <p class="text-sm font-semibold text-gray-500">常用連結</p>
+      <div class="flex gap-2 text-xl">📧 📊 🗂️</div>
+    </div>
+
+    <!-- 本週統計 -->
+    <div class="cell accent col-span-2 row-span-1 p-5 flex items-center justify-between">
+      <div>
+        <p class="text-sm font-semibold text-gray-300">本週完成任務</p>
+        <p class="text-3xl font-bold mt-1">47 件</p>
+      </div>
+      <p class="text-sm font-semibold text-lime-300">▲ 比上週 +12%</p>
+    </div>
+
+    <!-- 便利貼 -->
+    <div class="cell peach col-span-1 row-span-2 p-5 flex flex-col">
+      <p class="text-sm font-semibold mb-2">便利貼</p>
+      <textarea class="flex-1 bg-transparent resize-none text-sm focus:outline-none" placeholder="隨手記點什麼…">下午 3 點跟設計部對稿
+記得回覆廠商報價單</textarea>
+    </div>
+
+    <!-- 專注計時器 -->
+    <div class="cell col-span-1 row-span-2 p-5 flex flex-col items-center justify-center">
+      <p class="text-sm font-semibold text-gray-500 mb-2">專注計時</p>
+      <p id="timerDisplay" class="text-3xl font-bold clock">25:00</p>
+      <div class="flex gap-2 mt-3">
+        <button id="timerStart" class="accent rounded-full px-4 py-1 text-xs font-bold">開始</button>
+        <button id="timerReset" class="rounded-full px-4 py-1 text-xs font-bold border border-gray-300">重設</button>
+      </div>
+    </div>
+
+    <!-- 團隊成員在線 -->
+    <div class="cell lime col-span-2 row-span-1 p-5 flex items-center justify-between">
+      <p class="font-semibold text-sm">團隊在線：4 人</p>
+      <div class="flex -space-x-2">
+        <span class="w-8 h-8 rounded-full bg-black text-white text-xs flex items-center justify-center border-2 border-lime-200">淇</span>
+        <span class="w-8 h-8 rounded-full bg-black text-white text-xs flex items-center justify-center border-2 border-lime-200">翰</span>
+        <span class="w-8 h-8 rounded-full bg-black text-white text-xs flex items-center justify-center border-2 border-lime-200">宜</span>
+        <span class="w-8 h-8 rounded-full bg-gray-400 text-white text-xs flex items-center justify-center border-2 border-lime-200">+1</span>
+      </div>
+    </div>
+
+    <!-- 最近檔案 -->
+    <div class="cell col-span-2 row-span-1 p-5">
+      <p class="text-sm font-semibold text-gray-500 mb-2">最近開啟</p>
+      <div class="flex gap-4 text-sm font-semibold">
+        <span>📄 Q4 提案.pdf</span>
+        <span>📈 流量週報.xlsx</span>
+      </div>
+    </div>
+
+  </div>
+
+<script>
+  function tickClock(){
+    const now = new Date();
+    document.getElementById('clock').textContent = now.toLocaleTimeString('zh-TW', { hour:'2-digit', minute:'2-digit', second:'2-digit' });
+  }
+  tickClock(); setInterval(tickClock, 1000);
+
+  const todos = [
+    { text:'對焦下週產品路線圖', done:false },
+    { text:'回覆三家廠商報價信', done:false },
+    { text:'更新個人作品集首頁', done:true },
+    { text:'整理本月發票', done:false },
+  ];
+
+  function renderTodos(){
+    const list = document.getElementById('todoList');
+    list.innerHTML = todos.map((t, i) => `
+      <li class="flex items-center gap-2 text-sm">
+        <input type="checkbox" data-i="${i}" ${t.done ? 'checked' : ''} class="w-4 h-4 rounded accent-black">
+        <span class="${t.done ? 'line-through text-gray-400' : ''}">${t.text}</span>
+      </li>`).join('');
+    list.querySelectorAll('input').forEach(cb => cb.addEventListener('change', e => {
+      todos[e.target.dataset.i].done = e.target.checked;
+      renderTodos();
+    }));
+    document.getElementById('doneCount').textContent = todos.filter(t => t.done).length;
+    document.getElementById('totalCount').textContent = todos.length;
+  }
+  renderTodos();
+
+  document.getElementById('todoForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const input = document.getElementById('todoInput');
+    if(input.value.trim()){
+      todos.push({ text: input.value.trim(), done:false });
+      input.value = '';
+      renderTodos();
+    }
+  });
+
+  let seconds = 25*60, running = false, timerId = null;
+  function renderTimer(){
+    const m = String(Math.floor(seconds/60)).padStart(2,'0');
+    const s = String(seconds%60).padStart(2,'0');
+    document.getElementById('timerDisplay').textContent = `${m}:${s}`;
+  }
+  document.getElementById('timerStart').addEventListener('click', e => {
+    running = !running;
+    e.target.textContent = running ? '暫停' : '開始';
+    if(running){
+      timerId = setInterval(() => {
+        if(seconds > 0){ seconds--; renderTimer(); } else { clearInterval(timerId); running=false; e.target.textContent='開始'; }
+      }, 1000);
+    } else { clearInterval(timerId); }
+  });
+  document.getElementById('timerReset').addEventListener('click', () => {
+    clearInterval(timerId); running=false; seconds=25*60;
+    document.getElementById('timerStart').textContent = '開始';
+    renderTimer();
+  });
+  renderTimer();
+</script>
+</body>
+</html>
