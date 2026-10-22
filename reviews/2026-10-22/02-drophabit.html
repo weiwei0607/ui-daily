@@ -1,0 +1,199 @@
+<!-- style #16 Micro-interactions -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>點滴 DropHabit｜每個小動作都有回饋</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Plus Jakarta Sans','Noto Sans TC',sans-serif; background:#f8fafc; color:#0f172a; }
+
+  .check-box{
+    width:28px; height:28px; border-radius:9px; border:2px solid #cbd5e1;
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+    transition:border-color .2s, background .2s, transform .15s;
+    flex-shrink:0;
+  }
+  .check-box:hover{ transform:scale(1.08); border-color:#22c55e; }
+  .check-box.done{ background:#22c55e; border-color:#22c55e; }
+  .check-box svg{ opacity:0; transform:scale(.4); transition:opacity .2s, transform .25s cubic-bezier(.34,1.56,.64,1); }
+  .check-box.done svg{ opacity:1; transform:scale(1); }
+
+  .habit-row{ transition:background .2s; }
+  .habit-row:hover{ background:#f1f5f9; }
+  .habit-row.done .habit-text{ color:#94a3b8; text-decoration:line-through; }
+
+  .ripple-btn{ position:relative; overflow:hidden; }
+  .ripple{
+    position:absolute; border-radius:50%; background:rgba(255,255,255,.55);
+    width:10px; height:10px; transform:scale(0); animation:ripple-anim .55s ease-out;
+    pointer-events:none;
+  }
+  @keyframes ripple-anim{ to{ transform:scale(22); opacity:0; } }
+
+  .toggle{ width:46px; height:26px; border-radius:999px; background:#e2e8f0; position:relative; cursor:pointer; transition:background .25s; flex-shrink:0;}
+  .toggle.on{ background:#3b82f6; }
+  .toggle .knob{ position:absolute; top:3px; left:3px; width:20px; height:20px; border-radius:50%; background:white; box-shadow:0 1px 3px rgba(0,0,0,.25); transition:left .25s cubic-bezier(.34,1.56,.64,1); }
+  .toggle.on .knob{ left:23px; }
+
+  .progress-bar{ height:10px; border-radius:999px; background:#e2e8f0; overflow:hidden; }
+  .progress-fill{ height:100%; border-radius:999px; background:#3b82f6; transition:width .6s cubic-bezier(.22,1,.36,1); }
+
+  .card-hover{ transition:transform .2s, box-shadow .2s; }
+  .card-hover:hover{ transform:translateY(-3px); box-shadow:0 10px 25px -8px rgba(15,23,42,.15); }
+
+  .streak-flame{ display:inline-block; transition:transform .2s; }
+  .streak-flame:hover{ transform:scale(1.25) rotate(-6deg); }
+
+  @keyframes pop-in{ from{ opacity:0; transform:translateY(6px) scale(.96); } to{ opacity:1; transform:translateY(0) scale(1); } }
+  .toast{ animation:pop-in .3s ease-out; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<header class="max-w-3xl mx-auto px-6 pt-10 pb-6">
+  <div class="flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="text-2xl">💧</span>
+      <span class="font-extrabold text-lg">點滴 DropHabit</span>
+    </div>
+    <div class="flex items-center gap-1 text-sm font-semibold text-orange-500">
+      <span class="streak-flame">🔥</span> 連續 12 天
+    </div>
+  </div>
+  <p class="mt-4 text-slate-500 text-sm">每完成一件小事，介面都會立刻告訴你「有感覺到」。</p>
+</header>
+
+<main class="max-w-3xl mx-auto px-6 pb-20">
+
+  <div class="card-hover bg-white rounded-2xl p-6 mb-6 border border-slate-100">
+    <div class="flex items-center justify-between mb-3">
+      <span class="text-sm font-semibold text-slate-700">今日完成度</span>
+      <span class="text-sm font-bold text-blue-600" id="pct">60%</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="bar" style="width:60%"></div>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-2xl border border-slate-100 overflow-hidden mb-6">
+    <div id="list">
+      <div class="habit-row done flex items-center gap-4 px-6 py-4 border-b border-slate-50" data-habit>
+        <div class="check-box done" onclick="toggleHabit(this)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="flex-1">
+          <p class="habit-text font-semibold text-sm">早上喝一杯水</p>
+          <p class="text-xs text-slate-400">07:30 提醒</p>
+        </div>
+        <span class="text-xs bg-green-50 text-green-600 px-2 py-1 rounded-full font-medium">+1 滴</span>
+      </div>
+      <div class="habit-row done flex items-center gap-4 px-6 py-4 border-b border-slate-50" data-habit>
+        <div class="check-box done" onclick="toggleHabit(this)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="flex-1">
+          <p class="habit-text font-semibold text-sm">走樓梯不搭電梯</p>
+          <p class="text-xs text-slate-400">全天任何時段</p>
+        </div>
+        <span class="text-xs bg-green-50 text-green-600 px-2 py-1 rounded-full font-medium">+1 滴</span>
+      </div>
+      <div class="habit-row done flex items-center gap-4 px-6 py-4 border-b border-slate-50" data-habit>
+        <div class="check-box done" onclick="toggleHabit(this)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="flex-1">
+          <p class="habit-text font-semibold text-sm">午休閉眼休息 5 分鐘</p>
+          <p class="text-xs text-slate-400">12:30 提醒</p>
+        </div>
+        <span class="text-xs bg-green-50 text-green-600 px-2 py-1 rounded-full font-medium">+1 滴</span>
+      </div>
+      <div class="habit-row flex items-center gap-4 px-6 py-4 border-b border-slate-50" data-habit>
+        <div class="check-box" onclick="toggleHabit(this)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="flex-1">
+          <p class="habit-text font-semibold text-sm">睡前讀 10 分鐘書</p>
+          <p class="text-xs text-slate-400">22:00 提醒</p>
+        </div>
+        <span class="text-xs bg-slate-50 text-slate-400 px-2 py-1 rounded-full font-medium">+1 滴</span>
+      </div>
+      <div class="habit-row flex items-center gap-4 px-6 py-4" data-habit>
+        <div class="check-box" onclick="toggleHabit(this)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="flex-1">
+          <p class="habit-text font-semibold text-sm">記錄今天的心情</p>
+          <p class="text-xs text-slate-400">睡前任何時間</p>
+        </div>
+        <span class="text-xs bg-slate-50 text-slate-400 px-2 py-1 rounded-full font-medium">+1 滴</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-hover bg-white rounded-2xl border border-slate-100 p-6 mb-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="font-semibold text-sm">完成提醒震動</p>
+        <p class="text-xs text-slate-400 mt-1">打勾的瞬間手機會輕輕震一下</p>
+      </div>
+      <div class="toggle on" onclick="this.classList.toggle('on')"><div class="knob"></div></div>
+    </div>
+  </div>
+
+  <button class="ripple-btn w-full bg-blue-600 text-white font-semibold py-3.5 rounded-2xl" onclick="rippleEffect(event)">新增一個習慣</button>
+
+  <div id="toastWrap" class="fixed bottom-6 left-0 right-0 flex justify-center pointer-events-none"></div>
+
+</main>
+
+<script>
+function toggleHabit(box){
+  box.classList.toggle('done');
+  const row = box.closest('[data-habit]');
+  row.classList.toggle('done');
+  const badge = row.querySelector('span.text-xs.rounded-full');
+  if(box.classList.contains('done')){
+    badge.classList.remove('bg-slate-50','text-slate-400');
+    badge.classList.add('bg-green-50','text-green-600');
+    showToast('💧 +1 滴，太棒了！');
+  } else {
+    badge.classList.add('bg-slate-50','text-slate-400');
+    badge.classList.remove('bg-green-50','text-green-600');
+  }
+  updateProgress();
+}
+function updateProgress(){
+  const rows = document.querySelectorAll('[data-habit]');
+  const done = document.querySelectorAll('[data-habit].done').length;
+  const pct = Math.round(done / rows.length * 100);
+  document.getElementById('bar').style.width = pct + '%';
+  document.getElementById('pct').textContent = pct + '%';
+}
+function rippleEffect(e){
+  const btn = e.currentTarget;
+  const circle = document.createElement('span');
+  const d = Math.max(btn.clientWidth, btn.clientHeight);
+  circle.style.width = circle.style.height = d + 'px';
+  circle.style.left = (e.clientX - btn.getBoundingClientRect().left - d/2) + 'px';
+  circle.style.top = (e.clientY - btn.getBoundingClientRect().top - d/2) + 'px';
+  circle.classList.add('ripple');
+  btn.appendChild(circle);
+  setTimeout(()=>circle.remove(), 550);
+  showToast('✨ 已新增「每天微笑看鏡子」');
+}
+function showToast(msg){
+  const wrap = document.getElementById('toastWrap');
+  const t = document.createElement('div');
+  t.className = 'toast bg-slate-900 text-white text-sm px-4 py-2 rounded-full shadow-lg mb-2';
+  t.textContent = msg;
+  wrap.appendChild(t);
+  setTimeout(()=>{ t.style.transition='opacity .3s'; t.style.opacity='0'; setTimeout(()=>t.remove(),300); }, 1600);
+}
+</script>
+
+</body>
+</html>

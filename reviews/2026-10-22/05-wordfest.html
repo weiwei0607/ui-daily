@@ -1,0 +1,79 @@
+<!-- style #38 Neubrutalism -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>字句祭 WordFest｜獨立書店文學節</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Space Grotesk','Noto Sans TC',sans-serif; background:#fff8ec; color:#111; }
+  .display{ font-family:'Archivo Black','Noto Sans TC',sans-serif; }
+  .nb-box{ border:3px solid #111; box-shadow:7px 7px 0 #111; }
+  .nb-box-sm{ border:3px solid #111; box-shadow:5px 5px 0 #111; }
+  .nb-btn{ border:3px solid #111; box-shadow:5px 5px 0 #111; transition:transform .12s, box-shadow .12s; }
+  .nb-btn:hover{ transform:translate(-2px,-2px); box-shadow:7px 7px 0 #111; }
+  .nb-btn:active{ transform:translate(1px,1px); box-shadow:2px 2px 0 #111; }
+  .rot-2{ transform:rotate(-2deg); }
+  .rot-1{ transform:rotate(1.5deg); }
+  .rot-n1{ transform:rotate(-1.2deg); }
+</style>
+</head>
+<body class="min-h-screen">
+
+<header class="border-b-[3px] border-black bg-[#ffe66d] px-6 py-4 flex items-center justify-between">
+  <span class="display text-xl">字句祭 WORDFEST</span>
+  <span class="nb-btn-sm bg-white border-[3px] border-black px-3 py-1.5 text-xs font-bold">11/08-11/09</span>
+</header>
+
+<section class="px-6 py-14 max-w-5xl mx-auto text-center">
+  <div class="inline-block nb-box bg-[#ff6b6b] text-white px-6 py-2 mb-8 rot-n1">
+    <span class="font-bold text-sm">全台最野的獨立書店文學節 ‧ 第五屆</span>
+  </div>
+  <h1 class="display text-4xl md:text-6xl leading-[1.1] mb-6">
+    把句子<span class="bg-[#4ecdc4] px-2">撞</span>出來
+  </h1>
+  <p class="max-w-lg mx-auto text-base mb-10">兩天、38 間獨立書店、120 場講座與市集攤位，門票一張，整座城市的文字都歸你。</p>
+  <button class="nb-btn bg-[#ffe66d] display text-sm px-8 py-4">買票進場 →</button>
+</section>
+
+<section class="px-6 py-10 max-w-5xl mx-auto">
+  <h2 class="display text-2xl mb-8 rot-1 inline-block">本屆亮點場次</h2>
+  <div class="grid md:grid-cols-3 gap-7">
+    <div class="nb-box bg-white p-6 rot-n1">
+      <div class="display text-sm bg-[#4ecdc4] inline-block px-2 py-1 mb-4">主舞台</div>
+      <p class="font-bold text-lg mb-2">小說家的壞習慣</p>
+      <p class="text-sm text-gray-600">三位小說家聊寫作時最難戒掉的毛病。</p>
+      <p class="text-xs mt-4 font-bold">11/08 ‧ 14:00</p>
+    </div>
+    <div class="nb-box bg-white p-6 rot-2">
+      <div class="display text-sm bg-[#ff6b6b] text-white inline-block px-2 py-1 mb-4">詩歌帳</div>
+      <p class="font-bold text-lg mb-2">詩可以亂讀嗎</p>
+      <p class="text-sm text-gray-600">現場開放觀眾亂序朗讀詩句，比對意外的新意思。</p>
+      <p class="text-xs mt-4 font-bold">11/08 ‧ 16:30</p>
+    </div>
+    <div class="nb-box bg-white p-6 rot-n1">
+      <div class="display text-sm bg-[#a388ee] text-white inline-block px-2 py-1 mb-4">書店巷</div>
+      <p class="font-bold text-lg mb-2">38 間書店尋寶</p>
+      <p class="text-sm text-gray-600">每間書店藏一句暗號，集滿兌換限定帆布袋。</p>
+      <p class="text-xs mt-4 font-bold">11/08-11/09 全天</p>
+    </div>
+  </div>
+</section>
+
+<section class="px-6 py-14 max-w-3xl mx-auto">
+  <div class="nb-box bg-[#4ecdc4] p-8 text-center rot-1">
+    <p class="display text-2xl mb-4">單日票 NT$390</p>
+    <p class="text-sm mb-6 font-medium">含全場講座、市集抵用券一張、限定書衣一枚</p>
+    <button class="nb-btn bg-white display text-sm px-8 py-3">前往購票</button>
+  </div>
+</section>
+
+<footer class="border-t-[3px] border-black bg-[#ffe66d] px-6 py-6 text-center text-xs font-bold">
+  字句祭 WORDFEST ‧ 由全台獨立書店聯合舉辦
+</footer>
+
+</body>
+</html>

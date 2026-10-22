@@ -1,0 +1,163 @@
+<!-- style #11 Retro-Futurism -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>磁浮快軌 MagLine｜未來城際運輸</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Share+Tech+Mono&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cyan:#00ffff; --magenta:#ff006e; --navy:#1a1a2e; --navy2:#12121f;
+  }
+  *{box-sizing:border-box}
+  body{
+    background:var(--navy);
+    font-family:'Share Tech Mono','Noto Sans TC',monospace;
+    color:#e8f8ff;
+    overflow-x:hidden;
+  }
+  .display{font-family:'Audiowide','Noto Sans TC',sans-serif;}
+  .neon-cyan{color:var(--cyan); text-shadow:0 0 6px var(--cyan),0 0 18px rgba(0,255,255,.6),0 0 36px rgba(0,255,255,.3);}
+  .neon-magenta{color:var(--magenta); text-shadow:0 0 6px var(--magenta),0 0 18px rgba(255,0,110,.6),0 0 36px rgba(255,0,110,.3);}
+  .border-neon{border:1px solid var(--cyan); box-shadow:0 0 10px rgba(0,255,255,.35), inset 0 0 10px rgba(0,255,255,.15);}
+  .border-neon-m{border:1px solid var(--magenta); box-shadow:0 0 10px rgba(255,0,110,.35), inset 0 0 10px rgba(255,0,110,.15);}
+
+  .horizon{
+    position:relative;
+    height:52vh;
+    background:linear-gradient(to top, var(--navy2) 0%, #241b3a 35%, #ff006e 55%, #ffb37a 62%, #1a1a2e 100%);
+    overflow:hidden;
+  }
+  .sun{
+    position:absolute; left:50%; top:38%; transform:translate(-50%,-50%);
+    width:220px; height:220px; border-radius:50%;
+    background:repeating-linear-gradient(to bottom, #ffdd55 0 6px, transparent 6px 12px), radial-gradient(circle,#ffb800,#ff4d8d);
+    box-shadow:0 0 80px rgba(255,100,150,.7);
+  }
+  .grid-floor{
+    position:absolute; bottom:0; left:0; right:0; height:55%;
+    background:
+      linear-gradient(90deg, transparent 49%, var(--cyan) 49.5%, transparent 50.5%) ,
+      linear-gradient(0deg, transparent 0 2px, var(--cyan) 2px 3px, transparent 3px);
+    background-size: 10% 100%, 100% 10%;
+    opacity:.55;
+    transform:perspective(220px) rotateX(55deg);
+    transform-origin:bottom;
+  }
+  .scanline{
+    position:absolute; left:0; right:0; height:2px; background:rgba(255,255,255,.5);
+    animation:scan 4s linear infinite;
+  }
+  @keyframes scan{ 0%{top:0%} 100%{top:100%} }
+
+  .ticket-card{
+    background:rgba(18,18,31,.75);
+    backdrop-filter:blur(4px);
+  }
+  .track-dot{animation:pulse 1.6s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:1; box-shadow:0 0 4px var(--cyan)} 50%{opacity:.4; box-shadow:0 0 14px var(--cyan)}}
+
+  .btn-neon{
+    background:transparent; border:2px solid var(--cyan); color:var(--cyan);
+    font-family:'Audiowide',sans-serif; letter-spacing:.05em;
+    transition:all .25s;
+  }
+  .btn-neon:hover{ background:var(--cyan); color:var(--navy2); box-shadow:0 0 25px rgba(0,255,255,.8);}
+</style>
+</head>
+<body>
+
+<header class="fixed top-0 left-0 right-0 z-30 flex items-center justify-between px-6 md:px-10 py-4 bg-[#12121f]/80 backdrop-blur border-b border-cyan-500/20">
+  <div class="display text-xl neon-cyan">MAGLINE 磁浮快軌</div>
+  <nav class="hidden md:flex gap-8 text-sm" style="font-family:'Share Tech Mono',monospace">
+    <a href="#routes" class="hover:text-cyan-300">路線網</a>
+    <a href="#status" class="hover:text-cyan-300">即時動態</a>
+    <a href="#book" class="hover:text-cyan-300">訂票</a>
+  </nav>
+  <button class="btn-neon px-4 py-2 text-xs">登入會員</button>
+</header>
+
+<section class="horizon">
+  <div class="scanline"></div>
+  <div class="sun"></div>
+  <div class="grid-floor"></div>
+  <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
+    <p class="neon-magenta text-sm tracking-[0.3em] mb-4" style="font-family:'Share Tech Mono',monospace">下一世代城際運輸系統</p>
+    <h1 class="display text-4xl md:text-6xl neon-cyan leading-tight">速度　沒有終點</h1>
+    <p class="mt-6 text-sm md:text-base text-cyan-100/80 max-w-md" style="font-family:'Noto Sans TC',sans-serif">磁浮快軌以 580 公里／時巡航，台北到高雄 48 分鐘，準點率 99.7%。</p>
+  </div>
+</section>
+
+<section id="status" class="px-6 md:px-10 py-16 max-w-6xl mx-auto">
+  <h2 class="display text-2xl neon-magenta mb-8">即時動態 // LIVE STATUS</h2>
+  <div class="grid md:grid-cols-3 gap-5">
+    <div class="ticket-card border-neon rounded p-6">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="w-2 h-2 rounded-full bg-cyan-400 track-dot"></span>
+        <span class="text-xs text-cyan-300">M1 ‧ 行駛中</span>
+      </div>
+      <p class="display text-xl neon-cyan">台北 → 高雄</p>
+      <p class="text-sm mt-2 text-cyan-100/70">目前時速 562 km/h ‧ 剩餘 19 分</p>
+      <div class="mt-4 h-1 bg-cyan-900/50 rounded overflow-hidden">
+        <div class="h-full bg-cyan-400" style="width:64%; box-shadow:0 0 8px #00ffff"></div>
+      </div>
+    </div>
+    <div class="ticket-card border-neon-m rounded p-6">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="w-2 h-2 rounded-full bg-pink-400 track-dot"></span>
+        <span class="text-xs text-pink-300">M2 ‧ 準備發車</span>
+      </div>
+      <p class="display text-xl neon-magenta">台中 → 花蓮</p>
+      <p class="text-sm mt-2 text-pink-100/70">07:42 發車 ‧ 第 3 月台</p>
+      <div class="mt-4 h-1 bg-pink-900/50 rounded overflow-hidden">
+        <div class="h-full bg-pink-400" style="width:8%; box-shadow:0 0 8px #ff006e"></div>
+      </div>
+    </div>
+    <div class="ticket-card border-neon rounded p-6">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="w-2 h-2 rounded-full bg-cyan-400 track-dot"></span>
+        <span class="text-xs text-cyan-300">M5 ‧ 行駛中</span>
+      </div>
+      <p class="display text-xl neon-cyan">新竹 → 台南</p>
+      <p class="text-sm mt-2 text-cyan-100/70">目前時速 541 km/h ‧ 剩餘 27 分</p>
+      <div class="mt-4 h-1 bg-cyan-900/50 rounded overflow-hidden">
+        <div class="h-full bg-cyan-400" style="width:38%; box-shadow:0 0 8px #00ffff"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="book" class="px-6 md:px-10 py-16 max-w-4xl mx-auto">
+  <h2 class="display text-2xl neon-cyan mb-8">立即訂票 // BOOK A SEAT</h2>
+  <div class="ticket-card border-neon-m rounded-lg p-8">
+    <div class="grid md:grid-cols-2 gap-5 mb-6">
+      <div>
+        <label class="block text-xs text-pink-300 mb-2">出發站</label>
+        <select class="w-full bg-[#1a1a2e] border border-pink-400/50 rounded px-3 py-2 text-cyan-100 focus:outline-none focus:border-pink-300" style="font-family:'Noto Sans TC',sans-serif">
+          <option>台北</option><option>台中</option><option>台南</option><option>高雄</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-xs text-pink-300 mb-2">抵達站</label>
+        <select class="w-full bg-[#1a1a2e] border border-pink-400/50 rounded px-3 py-2 text-cyan-100 focus:outline-none focus:border-pink-300" style="font-family:'Noto Sans TC',sans-serif">
+          <option>高雄</option><option>花蓮</option><option>台南</option><option>台北</option>
+        </select>
+      </div>
+    </div>
+    <button onclick="document.getElementById('fare').classList.remove('hidden')" class="btn-neon w-full py-3">計算票價</button>
+    <div id="fare" class="hidden mt-6 flex items-center justify-between border-t border-pink-400/30 pt-5">
+      <span class="text-sm text-cyan-100/70" style="font-family:'Noto Sans TC',sans-serif">標準艙單程票價</span>
+      <span class="display text-2xl neon-magenta">NT$ 1,480</span>
+    </div>
+  </div>
+</section>
+
+<footer class="px-6 md:px-10 py-8 text-center text-xs text-cyan-200/40 border-t border-cyan-500/10" style="font-family:'Noto Sans TC',sans-serif">
+  © 2026 磁浮快軌 MagLine ‧ 國家級高速運輸基礎建設
+</footer>
+
+</body>
+</html>
