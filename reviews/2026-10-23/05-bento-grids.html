@@ -1,0 +1,181 @@
+<!-- style #53 Bento Grids -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>光格 Framewell｜攝影師作品便當格</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f3f1ec;
+    --card:#ffffff;
+    --ink:#1c1c1c;
+    --accent:#d97757;
+    --muted:#8a8578;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Noto Sans TC","Figtree",sans-serif;
+  }
+  .heading{font-family:"Figtree","Noto Sans TC",sans-serif;font-weight:800;letter-spacing:-0.01em;}
+  .cell{
+    background:var(--card);
+    border-radius:22px;
+    overflow:hidden;
+    position:relative;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .cell:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px rgba(0,0,0,0.08);
+  }
+  .bento-grid{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 120px;
+    gap: 16px;
+  }
+  @media (max-width: 768px){
+    .bento-grid{ grid-template-columns: repeat(2, 1fr); grid-auto-rows: 110px; }
+  }
+  .ph{
+    position:absolute; inset:0;
+    background-size:cover; background-position:center;
+  }
+  .veil{
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.55));
+  }
+</style>
+</head>
+<body>
+
+  <nav class="max-w-6xl mx-auto px-6 pt-8 flex items-center justify-between">
+    <div class="heading text-xl">光格 <span style="color:var(--accent);">Framewell</span></div>
+    <div class="flex items-center gap-6 text-sm">
+      <a href="#" class="hidden md:inline">作品集</a>
+      <a href="#" class="hidden md:inline">關於</a>
+      <button class="px-5 py-2 rounded-full text-white text-sm" style="background:var(--ink);">合作邀約</button>
+    </div>
+  </nav>
+
+  <header class="max-w-6xl mx-auto px-6 pt-14 pb-10">
+    <p class="text-sm mb-3" style="color:var(--accent);">攝影師 · 陳映辰 的作品便當格</p>
+    <h1 class="heading text-4xl md:text-6xl leading-tight max-w-2xl">
+      每一格,<br>都是一次按下快門的理由。
+    </h1>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6 pb-20">
+    <div class="bento-grid">
+
+      <!-- 大格：主視覺 -->
+      <div class="cell col-span-2 row-span-2">
+        <div class="ph" style="background:linear-gradient(135deg,#d97757,#f3c9a0);"></div>
+        <div class="veil"></div>
+        <div class="absolute bottom-0 p-5 text-white">
+          <p class="text-xs opacity-80 mb-1">SERIES 01</p>
+          <p class="heading text-xl">山徑之間</p>
+        </div>
+      </div>
+
+      <!-- 統計卡 -->
+      <div class="cell col-span-2 row-span-1 flex items-center justify-between px-6">
+        <div>
+          <p class="text-xs" style="color:var(--muted);">累積拍攝案件</p>
+          <p class="heading text-3xl mt-1">312</p>
+        </div>
+        <div>
+          <p class="text-xs" style="color:var(--muted);">平均好評</p>
+          <p class="heading text-3xl mt-1">4.9★</p>
+        </div>
+      </div>
+
+      <!-- 小格 -->
+      <div class="cell col-span-1 row-span-1">
+        <div class="ph" style="background:linear-gradient(135deg,#6b7a8f,#c7d2dd);"></div>
+        <div class="veil"></div>
+        <div class="absolute bottom-0 p-4 text-white text-xs heading">城市夜色</div>
+      </div>
+      <div class="cell col-span-1 row-span-1">
+        <div class="ph" style="background:linear-gradient(135deg,#4a6b57,#a9c9a4);"></div>
+        <div class="veil"></div>
+        <div class="absolute bottom-0 p-4 text-white text-xs heading">田野微光</div>
+      </div>
+
+      <!-- 引言卡 -->
+      <div class="cell col-span-2 row-span-1 p-6 flex items-center" style="background:var(--ink); color:#f3f1ec;">
+        <p class="text-sm leading-relaxed">「我拍的不是風景,是風景讓我想起的那個人。」</p>
+      </div>
+
+      <!-- 直式大格 -->
+      <div class="cell col-span-1 row-span-2">
+        <div class="ph" style="background:linear-gradient(200deg,#d97757,#7a4a30);"></div>
+        <div class="veil"></div>
+        <div class="absolute bottom-0 p-4 text-white">
+          <p class="text-xs opacity-80">SERIES 02</p>
+          <p class="heading text-sm">人物肖像</p>
+        </div>
+      </div>
+
+      <!-- 聯絡卡 -->
+      <div class="cell col-span-1 row-span-2 p-6 flex flex-col justify-between" style="background:var(--accent); color:white;">
+        <p class="heading text-lg">想預約<br>拍攝檔期？</p>
+        <button id="contactBtn" class="self-start px-4 py-2 rounded-full bg-white text-sm" style="color:var(--accent);">查看空檔 →</button>
+      </div>
+
+      <!-- 小格 x2 -->
+      <div class="cell col-span-1 row-span-1">
+        <div class="ph" style="background:linear-gradient(135deg,#8a7c66,#e6dcc4);"></div>
+        <div class="veil"></div>
+        <div class="absolute bottom-0 p-4 text-white text-xs heading">靜物練習</div>
+      </div>
+      <div class="cell col-span-1 row-span-1">
+        <div class="ph" style="background:linear-gradient(135deg,#3b4a6b,#9fb3d9);"></div>
+        <div class="veil"></div>
+        <div class="absolute bottom-0 p-4 text-white text-xs heading">海岸之間</div>
+      </div>
+
+      <!-- 互動：年份篩選卡 -->
+      <div class="cell col-span-2 row-span-1 p-6">
+        <p class="text-xs mb-3" style="color:var(--muted);">依年份瀏覽作品</p>
+        <div class="flex gap-2" id="yearFilter">
+          <button data-year="2026" class="year-btn px-4 py-1.5 rounded-full text-sm" style="background:var(--ink); color:white;">2026</button>
+          <button data-year="2025" class="year-btn px-4 py-1.5 rounded-full text-sm" style="background:#eee;">2025</button>
+          <button data-year="2024" class="year-btn px-4 py-1.5 rounded-full text-sm" style="background:#eee;">2024</button>
+        </div>
+        <p id="yearResult" class="text-sm mt-3" style="color:var(--muted);">2026 年共拍攝 48 個案件</p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="max-w-6xl mx-auto px-6 pb-10 text-center text-xs" style="color:var(--muted);">
+    © 2026 光格 Framewell · 陳映辰攝影工作室
+  </footer>
+
+<script>
+  document.getElementById('contactBtn').addEventListener('click', ()=>{
+    alert('檔期查詢功能即將上線，先用 Email 聯絡我吧：hello@framewell.tw');
+  });
+
+  const counts = {2026:48, 2025:112, 2024:97};
+  document.querySelectorAll('.year-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.year-btn').forEach(b=>{
+        b.style.background = '#eee'; b.style.color = '#1c1c1c';
+      });
+      btn.style.background = 'var(--ink)';
+      btn.style.color = 'white';
+      document.getElementById('yearResult').textContent = `${btn.dataset.year} 年共拍攝 ${counts[btn.dataset.year]} 個案件`;
+    });
+  });
+</script>
+</body>
+</html>

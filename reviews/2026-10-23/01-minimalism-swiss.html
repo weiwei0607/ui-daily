@@ -1,0 +1,255 @@
+<!-- style #01 Minimalism / Swiss -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案本 Ledgerly｜財務報表，寫得像一本書</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,500&family=Noto+Serif+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f5f1e8;
+    --ink:#111111;
+    --rule:#111111;
+    --accent:#b3291e;
+  }
+  *{box-sizing:border-box;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Noto Serif TC","Newsreader",serif;
+    margin:0;
+  }
+  .serif{font-family:"Newsreader","Noto Serif TC",serif;}
+  .grid-line{border-color:var(--ink);}
+  .headline{
+    font-family:"Newsreader","Noto Serif TC",serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    line-height:0.98;
+  }
+  .kicker{
+    font-family:"Noto Serif TC",serif;
+    letter-spacing:0.22em;
+    font-size:0.72rem;
+  }
+  .hairline{height:1px;background:var(--ink);}
+  .num{font-style:italic;}
+  a.underline-grow{position:relative;text-decoration:none;}
+  a.underline-grow::after{
+    content:"";position:absolute;left:0;bottom:-2px;width:100%;height:1px;background:var(--ink);
+    transform:scaleX(0);transform-origin:left;transition:transform .3s ease;
+  }
+  a.underline-grow:hover::after{transform:scaleX(1);}
+  .btn-ink{
+    border:1px solid var(--ink);
+    transition:background .2s, color .2s;
+  }
+  .btn-ink:hover{background:var(--ink);color:var(--paper);}
+</style>
+</head>
+<body class="antialiased">
+
+  <!-- 頂部報頭 -->
+  <header class="max-w-[1180px] mx-auto px-6 pt-10">
+    <div class="flex items-end justify-between hairline pb-4 grid-line">
+      <div class="kicker">第 42 期 · 財務敘事週刊</div>
+      <div class="kicker">NT$ 內部文件｜機密等級：一般</div>
+    </div>
+    <div class="hairline mb-10"></div>
+    <div class="grid grid-cols-12 gap-6 items-baseline">
+      <h1 class="col-span-12 md:col-span-9 headline text-[12vw] md:text-[5.6rem]">案本</h1>
+      <p class="col-span-12 md:col-span-3 text-sm leading-relaxed md:text-right">
+        把報表寫成<br class="hidden md:block">能讀的句子——<br class="hidden md:block">
+        給財務團隊的<br class="hidden md:block">敘事式記帳工具。
+      </p>
+    </div>
+  </header>
+
+  <!-- 導覽，網格化 -->
+  <nav class="max-w-[1180px] mx-auto px-6 mt-10">
+    <div class="hairline mb-3"></div>
+    <div class="grid grid-cols-2 md:grid-cols-6 gap-3 text-sm">
+      <a href="#why" class="underline-grow">為什麼寫報表</a>
+      <a href="#chapters" class="underline-grow">三個章節</a>
+      <a href="#numbers" class="underline-grow">數字有來源</a>
+      <a href="#pricing" class="underline-grow">訂閱方案</a>
+      <a href="#team" class="underline-grow">誰在用</a>
+      <a href="#start" class="underline-grow font-semibold">開始使用</a>
+    </div>
+    <div class="hairline mt-3"></div>
+  </nav>
+
+  <!-- Hero 陳述 -->
+  <section id="why" class="max-w-[1180px] mx-auto px-6 py-16 md:py-24">
+    <div class="grid grid-cols-12 gap-x-6 gap-y-10">
+      <div class="col-span-12 md:col-span-7">
+        <p class="kicker mb-6">宣言 · 01</p>
+        <h2 class="headline text-4xl md:text-6xl mb-8">
+          報表是寫給<br>未來的自己看的<br>一篇文章。
+        </h2>
+        <p class="text-base md:text-lg leading-[1.9] max-w-[46ch]">
+          財務不是試算表的堆疊，是一連串決策的因果。
+          「案本」把每一筆分類帳變成一段可以被讀懂的敘事：
+          誰花了、為什麼花、花完之後發生什麼事。
+          我們相信，看得懂的報表，才會被真的拿去做決定。
+        </p>
+      </div>
+      <div class="col-span-12 md:col-span-4 md:col-start-9 flex flex-col justify-end">
+        <div class="hairline mb-4"></div>
+        <dl class="space-y-5 text-sm">
+          <div class="flex justify-between items-baseline">
+            <dt>本月已敘事化的分類帳</dt>
+            <dd class="num text-2xl md:text-3xl">1,248</dd>
+          </div>
+          <div class="flex justify-between items-baseline">
+            <dt>平均每篇報表字數</dt>
+            <dd class="num text-2xl md:text-3xl">612</dd>
+          </div>
+          <div class="flex justify-between items-baseline">
+            <dt>使用團隊的續約率</dt>
+            <dd class="num text-2xl md:text-3xl">94%</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-[1180px] mx-auto px-6"><div class="hairline"></div></div>
+
+  <!-- 三章節，純格線排版 -->
+  <section id="chapters" class="max-w-[1180px] mx-auto px-6 py-16 md:py-24">
+    <p class="kicker mb-10">結構 · 02</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-0">
+      <article class="md:border-r md:pr-10 grid-line">
+        <p class="num text-sm mb-3">第一章</p>
+        <h3 class="headline text-2xl mb-4">收支的起點</h3>
+        <p class="text-sm leading-[1.9] text-neutral-700">
+          自動從銀行與發票匯入原始數字，案本先問一句：
+          「這筆錢，背後是哪個決定？」再開始分類。
+        </p>
+      </article>
+      <article class="md:border-r md:px-10 grid-line">
+        <p class="num text-sm mb-3">第二章</p>
+        <h3 class="headline text-2xl mb-4">因果的展開</h3>
+        <p class="text-sm leading-[1.9] text-neutral-700">
+          把孤立的交易連成時間線，標出異常與轉折，
+          讓主管一眼看出「這個月為什麼不一樣」。
+        </p>
+      </article>
+      <article class="md:pl-10">
+        <p class="num text-sm mb-3">第三章</p>
+        <h3 class="headline text-2xl mb-4">給下一個決策</h3>
+        <p class="text-sm leading-[1.9] text-neutral-700">
+          每篇月報結尾附上「建議的下一步」，
+          報表不再只是回顧，而是真正推動行動。
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <div class="max-w-[1180px] mx-auto px-6"><div class="hairline"></div></div>
+
+  <!-- 互動：拖曳切換敘事語氣，純CSS/JS小互動 -->
+  <section id="numbers" class="max-w-[1180px] mx-auto px-6 py-16 md:py-24">
+    <div class="grid grid-cols-12 gap-6">
+      <div class="col-span-12 md:col-span-4">
+        <p class="kicker mb-6">實測 · 03</p>
+        <h3 class="headline text-3xl mb-6">同一筆數字，<br>三種寫法</h3>
+        <p class="text-sm leading-[1.8] text-neutral-700 mb-6">
+          點一下左側標籤，看案本如何用不同語氣，
+          把同一筆「行銷支出超支 18%」寫成報表段落。
+        </p>
+        <div class="flex flex-col gap-2 text-sm" id="toneTabs">
+          <button data-tone="exec" class="btn-ink text-left px-4 py-2">給董事會：精簡直述</button>
+          <button data-tone="team" class="btn-ink text-left px-4 py-2">給團隊：帶著脈絡</button>
+          <button data-tone="plain" class="btn-ink text-left px-4 py-2">給自己：誠實備忘</button>
+        </div>
+      </div>
+      <div class="col-span-12 md:col-span-7 md:col-start-6">
+        <div class="hairline mb-6"></div>
+        <p id="toneOutput" class="serif text-xl md:text-2xl leading-[1.8] min-h-[180px]">
+          九月行銷支出為 NT$842,000，較預算超出 18%，
+          主因為新品上市加碼投放。建議第四季度調降 10% 以回補缺口。
+        </p>
+        <div class="hairline mt-6"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 方案，表格式 -->
+  <section id="pricing" class="max-w-[1180px] mx-auto px-6 py-16 md:py-24">
+    <p class="kicker mb-10">訂閱 · 04</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 border-t border-b grid-line divide-y md:divide-y-0 md:divide-x divide-black">
+      <div class="py-10 md:px-10">
+        <p class="text-sm mb-2">單人工作室</p>
+        <p class="headline text-5xl mb-4">NT$<span class="num">990</span><span class="text-base">／月</span></p>
+        <p class="text-sm text-neutral-700 leading-relaxed">1 個帳本、每月 3 篇敘事報表、Email 匯出</p>
+      </div>
+      <div class="py-10 md:px-10">
+        <p class="text-sm mb-2">成長團隊</p>
+        <p class="headline text-5xl mb-4">NT$<span class="num">2,980</span><span class="text-base">／月</span></p>
+        <p class="text-sm text-neutral-700 leading-relaxed">5 個帳本、無限報表、季度敘事回顧會議紀要</p>
+      </div>
+      <div class="py-10 md:px-10">
+        <p class="text-sm mb-2">企業客製</p>
+        <p class="headline text-5xl mb-4">議價</p>
+        <p class="text-sm text-neutral-700 leading-relaxed">專屬敘事風格訓練、API 整合、審計留痕</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 誰在用 -->
+  <section id="team" class="max-w-[1180px] mx-auto px-6 py-16 md:py-24">
+    <p class="kicker mb-10">引用 · 05</p>
+    <blockquote class="headline text-2xl md:text-4xl max-w-[42ch] leading-[1.5]">
+      「以前每月結算要靠財務長口頭解釋，
+      現在報表自己把故事講完了。」
+    </blockquote>
+    <p class="text-sm mt-6 text-neutral-700">— 林敬亭，順田食品 財務副總</p>
+  </section>
+
+  <!-- CTA -->
+  <section id="start" class="max-w-[1180px] mx-auto px-6 pb-24">
+    <div class="hairline mb-10"></div>
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+      <h2 class="headline text-4xl md:text-6xl max-w-[16ch]">讓這個月的數字，<br>有個開頭跟結尾。</h2>
+      <button class="btn-ink px-8 py-4 text-sm whitespace-nowrap self-start">預約 14 天試用 →</button>
+    </div>
+  </section>
+
+  <footer class="max-w-[1180px] mx-auto px-6 pb-10">
+    <div class="hairline mb-4"></div>
+    <div class="flex justify-between text-xs text-neutral-600">
+      <span>© 2026 案本 Ledgerly</span>
+      <span>台北市信義區</span>
+    </div>
+  </footer>
+
+<script>
+  const tones = {
+    exec: "九月行銷支出為 NT$842,000，較預算超出 18%，主因為新品上市加碼投放。建議第四季度調降 10% 以回補缺口。",
+    team: "大家這個月手都很鬆——行銷花了 84 萬，比原本說好的多出快兩成。不是亂花，是新品上市那波真的加碼了，但也因此我們第四季要把力道收回來一點，一起把缺口補上。",
+    plain: "說實話，這筆超支我早就有預感。新品上市那週臨時加碼廣告，當下覺得值得，現在回頭看，有一半是情緒決策。下次要先設好停損線再衝。"
+  };
+  const buttons = document.querySelectorAll('#toneTabs button');
+  const output = document.getElementById('toneOutput');
+  buttons.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      buttons.forEach(b=>b.classList.remove('bg-black','text-[var(--paper)]'));
+      btn.classList.add('bg-black');
+      btn.style.background = '#111';
+      btn.style.color = '#f5f1e8';
+      output.style.opacity = 0;
+      setTimeout(()=>{
+        output.textContent = tones[btn.dataset.tone];
+        output.style.opacity = 1;
+      }, 150);
+    });
+  });
+  output.style.transition = 'opacity .15s ease';
+</script>
+</body>
+</html>

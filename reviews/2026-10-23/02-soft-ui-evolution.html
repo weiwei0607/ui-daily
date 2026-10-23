@@ -1,0 +1,229 @@
+<!-- style #19 Soft UI Evolution -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>好眠泡泡｜陪孩子一起睡好覺</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky:#bfe3ff;
+    --pink:#ffd3e0;
+    --mint:#c9f5df;
+    --ink:#4a4458;
+    --card:#fbfaf7;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Zen Maru Gothic","Quicksand",sans-serif;
+    color:var(--ink);
+    background:linear-gradient(160deg,#eaf6ff 0%, #fdeef3 50%, #eafff3 100%);
+    min-height:100vh;
+  }
+  .rounded-font{font-family:"Quicksand","Zen Maru Gothic",sans-serif;font-weight:700;}
+  .soft-card{
+    background:var(--card);
+    border-radius:32px;
+    box-shadow:
+      8px 8px 20px rgba(170,180,210,0.35),
+      -8px -8px 20px rgba(255,255,255,0.9);
+  }
+  .soft-inset{
+    border-radius:24px;
+    box-shadow:
+      inset 4px 4px 10px rgba(170,180,210,0.25),
+      inset -4px -4px 10px rgba(255,255,255,0.85);
+  }
+  .soft-btn{
+    border-radius:999px;
+    box-shadow:6px 6px 14px rgba(170,180,210,0.35), -6px -6px 14px rgba(255,255,255,0.9);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .soft-btn:active{
+    box-shadow: inset 4px 4px 10px rgba(170,180,210,0.3), inset -4px -4px 10px rgba(255,255,255,0.8);
+    transform: translateY(1px) scale(0.98);
+  }
+  .bubble{
+    position:absolute;
+    border-radius:50%;
+    opacity:0.5;
+    filter:blur(2px);
+    animation: float 9s ease-in-out infinite;
+  }
+  @keyframes float{
+    0%,100%{ transform: translateY(0px); }
+    50%{ transform: translateY(-18px); }
+  }
+  .toggle-track{
+    width:56px;height:30px;border-radius:999px;
+    background: #e3ecff;
+    box-shadow: inset 3px 3px 8px rgba(170,180,210,0.3), inset -3px -3px 8px rgba(255,255,255,0.8);
+    position:relative;cursor:pointer;
+    transition: background .25s ease;
+  }
+  .toggle-dot{
+    width:24px;height:24px;border-radius:50%;
+    background: #fff;
+    box-shadow: 3px 3px 8px rgba(170,180,210,0.4);
+    position:absolute; top:3px; left:3px;
+    transition: left .25s ease;
+  }
+  .toggle-track.on{ background: #d8f3e4; }
+  .toggle-track.on .toggle-dot{ left:29px; }
+</style>
+</head>
+<body class="relative overflow-x-hidden">
+
+  <div class="bubble" style="width:140px;height:140px;top:5%;left:4%;background:var(--sky);"></div>
+  <div class="bubble" style="width:90px;height:90px;top:30%;right:8%;background:var(--pink);animation-delay:1.5s;"></div>
+  <div class="bubble" style="width:110px;height:110px;bottom:10%;left:10%;background:var(--mint);animation-delay:3s;"></div>
+
+  <!-- Nav -->
+  <nav class="relative z-10 max-w-5xl mx-auto px-6 pt-8 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <div class="w-10 h-10 soft-card flex items-center justify-center text-xl">🫧</div>
+      <span class="rounded-font text-lg">好眠泡泡</span>
+    </div>
+    <div class="hidden md:flex gap-6 text-sm rounded-font">
+      <a href="#features">功能</a>
+      <a href="#routine">睡前流程</a>
+      <a href="#pricing">方案</a>
+    </div>
+    <button class="soft-btn px-5 py-2 text-sm rounded-font bg-[var(--sky)]">下載 App</button>
+  </nav>
+
+  <!-- Hero -->
+  <header class="relative z-10 max-w-5xl mx-auto px-6 pt-16 pb-20 text-center">
+    <p class="rounded-font text-sm mb-4 inline-block px-4 py-1 soft-inset bg-white/60">給 3–8 歲孩子的睡前陪伴 App</p>
+    <h1 class="rounded-font text-4xl md:text-6xl leading-[1.3] mb-6">
+      把睡前的哭鬧，<br>變成一起吹的泡泡。
+    </h1>
+    <p class="text-base md:text-lg max-w-xl mx-auto mb-10 leading-relaxed">
+      好眠泡泡用柔和的呼吸引導、溫柔的故事語音，
+      陪孩子在 15 分鐘內自然放鬆入睡，爸媽也能喘口氣。
+    </p>
+    <div class="flex justify-center gap-4">
+      <button class="soft-btn px-8 py-4 rounded-font bg-[var(--pink)]">免費體驗 7 天</button>
+      <button class="soft-btn px-8 py-4 rounded-font bg-white/70">看看怎麼用</button>
+    </div>
+  </header>
+
+  <!-- 呼吸互動卡 -->
+  <section class="relative z-10 max-w-5xl mx-auto px-6 pb-20">
+    <div class="soft-card p-8 md:p-12 flex flex-col md:flex-row items-center gap-10">
+      <div class="flex-1">
+        <h2 class="rounded-font text-2xl md:text-3xl mb-4">先跟孩子一起試試看</h2>
+        <p class="text-sm md:text-base leading-relaxed mb-6">
+          點一下泡泡，跟著它變大吸氣、變小吐氣，
+          這是 App 裡最受歡迎的「泡泡呼吸」練習。
+        </p>
+        <div class="flex items-center gap-4">
+          <span class="rounded-font text-sm">背景音效</span>
+          <div class="toggle-track on" id="soundToggle">
+            <div class="toggle-dot"></div>
+          </div>
+        </div>
+      </div>
+      <div class="flex-1 flex flex-col items-center">
+        <div id="breatheBubble" class="rounded-full flex items-center justify-center rounded-font text-white text-lg"
+             style="width:160px;height:160px;background:linear-gradient(135deg,var(--sky),var(--pink));
+             box-shadow:10px 10px 24px rgba(170,180,210,0.4), -10px -10px 24px rgba(255,255,255,0.9);
+             transition: transform 4s ease-in-out;">
+          吸氣
+        </div>
+        <p class="text-xs mt-4 text-[var(--ink)]/70">點泡泡開始練習</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 功能卡片 -->
+  <section id="features" class="relative z-10 max-w-5xl mx-auto px-6 pb-20">
+    <h2 class="rounded-font text-2xl md:text-3xl text-center mb-10">三個讓孩子安心的小細節</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="soft-card p-6">
+        <div class="w-14 h-14 soft-inset flex items-center justify-center text-2xl mb-4 bg-[var(--sky)]/40">🌙</div>
+        <h3 class="rounded-font text-lg mb-2">漸暗夜燈模式</h3>
+        <p class="text-sm leading-relaxed">螢幕亮度跟著故事情節慢慢變暗，不會突然刺眼。</p>
+      </div>
+      <div class="soft-card p-6">
+        <div class="w-14 h-14 soft-inset flex items-center justify-center text-2xl mb-4 bg-[var(--pink)]/40">🎵</div>
+        <h3 class="rounded-font text-lg mb-2">溫柔語音故事</h3>
+        <p class="text-sm leading-relaxed">真人錄製的輕聲語調，每週更新一篇新故事。</p>
+      </div>
+      <div class="soft-card p-6">
+        <div class="w-14 h-14 soft-inset flex items-center justify-center text-2xl mb-4 bg-[var(--mint)]/40">📈</div>
+        <h3 class="rounded-font text-lg mb-2">入睡紀錄給爸媽</h3>
+        <p class="text-sm leading-relaxed">每天自動記錄入睡時間，抓到孩子的睡眠規律。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 睡前流程 -->
+  <section id="routine" class="relative z-10 max-w-5xl mx-auto px-6 pb-20">
+    <div class="soft-card p-8 md:p-12">
+      <h2 class="rounded-font text-2xl md:text-3xl mb-8 text-center">15 分鐘睡前流程</h2>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
+        <div>
+          <div class="w-16 h-16 mx-auto soft-inset flex items-center justify-center rounded-full text-xl mb-3 bg-[var(--sky)]/40">1</div>
+          <p class="text-sm">泡泡呼吸練習</p>
+        </div>
+        <div>
+          <div class="w-16 h-16 mx-auto soft-inset flex items-center justify-center rounded-full text-xl mb-3 bg-[var(--pink)]/40">2</div>
+          <p class="text-sm">今天的心情小星星</p>
+        </div>
+        <div>
+          <div class="w-16 h-16 mx-auto soft-inset flex items-center justify-center rounded-full text-xl mb-3 bg-[var(--mint)]/40">3</div>
+          <p class="text-sm">溫柔語音故事</p>
+        </div>
+        <div>
+          <div class="w-16 h-16 mx-auto soft-inset flex items-center justify-center rounded-full text-xl mb-3 bg-[var(--sky)]/40">4</div>
+          <p class="text-sm">漸暗夜燈倒數</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 方案 -->
+  <section id="pricing" class="relative z-10 max-w-5xl mx-auto px-6 pb-24">
+    <h2 class="rounded-font text-2xl md:text-3xl text-center mb-10">選一個泡泡方案</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="soft-card p-8">
+        <h3 class="rounded-font text-xl mb-2">單個孩子</h3>
+        <p class="rounded-font text-3xl mb-4">NT$129<span class="text-sm">／月</span></p>
+        <p class="text-sm leading-relaxed">1 個孩子檔案、完整故事庫、睡眠紀錄</p>
+      </div>
+      <div class="soft-card p-8 bg-[var(--pink)]/30">
+        <h3 class="rounded-font text-xl mb-2">全家庭方案</h3>
+        <p class="rounded-font text-3xl mb-4">NT$199<span class="text-sm">／月</span></p>
+        <p class="text-sm leading-relaxed">最多 4 個孩子檔案、雙語故事、家長共享紀錄</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="relative z-10 max-w-5xl mx-auto px-6 pb-10 text-center text-xs text-[var(--ink)]/60">
+    © 2026 好眠泡泡 · 一起好好睡覺
+  </footer>
+
+<script>
+  const toggle = document.getElementById('soundToggle');
+  toggle.addEventListener('click', () => toggle.classList.toggle('on'));
+
+  const bubble = document.getElementById('breatheBubble');
+  let breathingIn = true;
+  bubble.addEventListener('click', () => {
+    breathingIn = !breathingIn;
+    if(breathingIn){
+      bubble.style.transform = 'scale(1.25)';
+      bubble.textContent = '吸氣';
+    } else {
+      bubble.style.transform = 'scale(0.85)';
+      bubble.textContent = '吐氣';
+    }
+  });
+</script>
+</body>
+</html>

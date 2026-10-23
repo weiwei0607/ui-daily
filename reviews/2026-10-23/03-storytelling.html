@@ -1,0 +1,175 @@
+<!-- style #27 Storytelling -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>順田農場｜從一顆種子開始的故事</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Noto+Serif+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --soil:#3e2f24;
+    --paper:#f7f2e7;
+    --leaf:#5c7a4a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Noto Serif TC","Merriweather",serif;
+    background:var(--paper);
+    color:var(--soil);
+  }
+  .serif-en{font-family:"Merriweather","Noto Serif TC",serif;}
+  .chapter{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+    padding:4rem 1.5rem;
+  }
+  .chapter-num{
+    font-family:"Merriweather",serif;
+    font-style:italic;
+    opacity:0.5;
+    font-size:5rem;
+    line-height:1;
+  }
+  .parallax-bg{
+    position:absolute;
+    inset:-10% -10% -10% -10%;
+    background-size:cover;
+    background-position:center;
+    will-change: transform;
+    z-index:0;
+  }
+  .veil{
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(247,242,231,0.2), rgba(247,242,231,0.92));
+    z-index:1;
+  }
+  .content{ position:relative; z-index:2; max-width:760px; margin:0 auto; }
+  .progress-rail{
+    position:fixed; left:0; top:0; height:3px; background:var(--leaf); z-index:50; width:0%;
+    transition: width 0.1s linear;
+  }
+  .leaf-divider::before{
+    content:"🌿";
+    display:block;
+    text-align:center;
+    font-size:1.5rem;
+    margin:2rem 0;
+  }
+</style>
+</head>
+<body>
+<div class="progress-rail" id="progressRail"></div>
+
+<!-- 序章 -->
+<section class="chapter" style="background:var(--soil);">
+  <div class="parallax-bg" data-speed="0.15" style="background:radial-gradient(circle at 30% 30%, #5c7a4a55, transparent 60%), var(--soil);"></div>
+  <div class="content text-center" style="color:#f7f2e7;">
+    <p class="serif-en italic text-sm tracking-widest mb-6">A FARM STORY · 2009–2026</p>
+    <h1 class="serif-en text-5xl md:text-7xl mb-6 leading-tight">順田農場</h1>
+    <p class="text-lg md:text-xl leading-relaxed opacity-90">
+      一塊被放棄的地、一個不信農藥的固執老農，<br>
+      以及十七年後,終於有人願意聽完的故事。
+    </p>
+    <p class="mt-10 text-sm opacity-60 serif-en">↓ 往下滑，開始第一章</p>
+  </div>
+</section>
+
+<!-- 第一章 -->
+<section class="chapter" style="background:#eee6d3;">
+  <div class="parallax-bg" data-speed="0.3" style="background:linear-gradient(135deg,#d8cba8,#eee6d3);"></div>
+  <div class="veil"></div>
+  <div class="content">
+    <p class="chapter-num mb-4">01</p>
+    <h2 class="serif-en text-3xl md:text-5xl mb-6">那塊沒人要的地</h2>
+    <p class="text-base md:text-lg leading-[2] mb-4">
+      2009 年，雲林的這塊地剛被前一位地主放棄——連續三年種不出像樣的收成，
+      土壤硬得像水泥。順田的創辦人阿成,原本只是來幫忙整地的工人，
+      卻在翻土的第一天，蹲下來聞了聞土味，決定把它租下來。
+    </p>
+    <p class="text-base md:text-lg leading-[2]">
+      「別人說這塊地壞了，我倒覺得它只是太久沒有人認真對待。」
+      他後來常這樣跟來訪的客人說。
+    </p>
+  </div>
+</section>
+
+<!-- 第二章 -->
+<section class="chapter" style="background:#3e2f24;">
+  <div class="parallax-bg" data-speed="0.2" style="background:radial-gradient(circle at 70% 60%, #5c7a4a40, transparent 55%), #3e2f24;"></div>
+  <div class="content" style="color:#f7f2e7;">
+    <p class="chapter-num mb-4" style="opacity:0.35;">02</p>
+    <h2 class="serif-en text-3xl md:text-5xl mb-6">七年的虧損,換來的微生物</h2>
+    <p class="text-base md:text-lg leading-[2] mb-4 opacity-90">
+      前七年，順田幾乎沒有賺錢。阿成堅持不灑農藥、不用化肥，
+      靠輪作豆科植物和自製堆肥慢慢養地。鄰田的收成是他的三倍，
+      他的妻子一度勸他放棄。
+    </p>
+    <p class="text-base md:text-lg leading-[2] opacity-90">
+      第八年，土壤檢測報告出來那天，阿成哭了——
+      有機質含量終於回到了這塊地二十年前的水準。
+    </p>
+  </div>
+</section>
+
+<!-- 第三章 -->
+<section class="chapter" style="background:#f7f2e7;">
+  <div class="parallax-bg" data-speed="0.25" style="background:linear-gradient(160deg,#fdf9ef,#e3dcc4);"></div>
+  <div class="content">
+    <p class="chapter-num mb-4">03</p>
+    <h2 class="serif-en text-3xl md:text-5xl mb-6">第一箱賣到台北的米</h2>
+    <p class="text-base md:text-lg leading-[2] mb-4">
+      2018 年，一位台北的主廚無意間買到順田的米，煮出來的飯香讓他多問了一句「哪裡來的」。
+      從那箱米開始，順田的訂單慢慢從雲林走到了全台灣的餐桌。
+    </p>
+    <div class="leaf-divider"></div>
+    <p class="text-base md:text-lg leading-[2]">
+      現在，順田每年固定把 5% 的收入投入土壤研究，
+      阿成說：「土地養好了，故事才有下一章可以寫。」
+    </p>
+  </div>
+</section>
+
+<!-- 終章 / CTA -->
+<section class="chapter" style="background:var(--leaf);">
+  <div class="parallax-bg" data-speed="0.1" style="background:linear-gradient(135deg,#5c7a4a,#3e2f24);"></div>
+  <div class="content text-center" style="color:#f7f2e7;">
+    <p class="serif-en italic text-sm tracking-widest mb-6">EPILOGUE</p>
+    <h2 class="serif-en text-3xl md:text-5xl mb-8">現在,換你接著寫這塊地的故事</h2>
+    <p class="text-base md:text-lg leading-relaxed mb-10 opacity-90">
+      訂閱順田的季節限定箱，每一箱都附上一張手寫的田間筆記，
+      告訴你這個月的土地發生了什麼事。
+    </p>
+    <button class="serif-en px-10 py-4 bg-[#f7f2e7] text-[#3e2f24] rounded-full text-base hover:opacity-90 transition">
+      訂閱當季箱 →
+    </button>
+  </div>
+</section>
+
+<footer class="py-10 text-center text-xs" style="background:var(--soil); color:#f7f2e7; opacity:0.7;">
+  © 2026 順田農場 ShunTian Farm · 雲林 莿桐
+</footer>
+
+<script>
+  const layers = document.querySelectorAll('.parallax-bg');
+  const rail = document.getElementById('progressRail');
+  function onScroll(){
+    const scrollTop = window.scrollY;
+    const docHeight = document.body.scrollHeight - window.innerHeight;
+    rail.style.width = (scrollTop / docHeight * 100) + '%';
+    layers.forEach(layer=>{
+      const speed = parseFloat(layer.dataset.speed || 0.2);
+      layer.style.transform = `translateY(${scrollTop * speed * 0.3}px)`;
+    });
+  }
+  document.addEventListener('scroll', onScroll);
+  onScroll();
+</script>
+</body>
+</html>

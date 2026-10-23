@@ -1,0 +1,194 @@
+<!-- style #34 Predictive Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>慧眼 DemandSight｜需求預測後台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0f1420;
+    --panel:#161d2e;
+    --line:#26304a;
+    --actual:#3b82f6;
+    --predict:#a855f7;
+    --good:#10b981;
+    --warn:#f59e0b;
+    --bad:#f43f5e;
+    --text:#e6e9f2;
+    --muted:#8993ad;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:"Noto Sans TC","Hanken Grotesk",sans-serif;
+  }
+  .heading{font-family:"Hanken Grotesk","Noto Sans TC",sans-serif;font-weight:700;}
+  .mono{font-family:"JetBrains Mono",monospace;}
+  .panel{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:14px;
+  }
+  .predict-border{
+    border:1px dashed var(--predict);
+  }
+  .tag{
+    font-size:0.7rem;
+    padding:2px 8px;
+    border-radius:999px;
+  }
+  .chart-wrap{position:relative; height:220px;}
+  .legend-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px;}
+</style>
+</head>
+<body class="min-h-screen">
+
+  <div class="flex">
+    <!-- 側邊欄 -->
+    <aside class="w-56 shrink-0 border-r border-[var(--line)] min-h-screen p-5 hidden md:block">
+      <div class="heading text-lg mb-10">慧眼 <span class="text-[var(--predict)]">DemandSight</span></div>
+      <nav class="flex flex-col gap-1 text-sm">
+        <a class="px-3 py-2 rounded-lg bg-[var(--line)] text-white" href="#">需求預測</a>
+        <a class="px-3 py-2 rounded-lg text-[var(--muted)] hover:text-white" href="#">庫存健康度</a>
+        <a class="px-3 py-2 rounded-lg text-[var(--muted)] hover:text-white" href="#">補貨建議</a>
+        <a class="px-3 py-2 rounded-lg text-[var(--muted)] hover:text-white" href="#">模型版本</a>
+        <a class="px-3 py-2 rounded-lg text-[var(--muted)] hover:text-white" href="#">警示紀錄</a>
+      </nav>
+      <div class="mt-10 panel p-4">
+        <p class="text-xs text-[var(--muted)] mb-2">模型信心指數</p>
+        <p class="heading text-2xl mono text-[var(--good)]">91.4%</p>
+        <p class="text-xs text-[var(--muted)] mt-1">較上週 +1.2pt</p>
+      </div>
+    </aside>
+
+    <!-- 主內容 -->
+    <main class="flex-1 p-6 md:p-10">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+        <div>
+          <h1 class="heading text-2xl">全品類需求預測</h1>
+          <p class="text-sm text-[var(--muted)] mt-1">資料截至 2026-10-23 06:00，下次模型更新 18:00</p>
+        </div>
+        <div class="flex gap-3">
+          <select class="panel px-4 py-2 text-sm text-[var(--text)]" id="rangeSelect">
+            <option value="7">未來 7 天</option>
+            <option value="14" selected>未來 14 天</option>
+            <option value="30">未來 30 天</option>
+          </select>
+          <button class="panel px-4 py-2 text-sm hover:bg-[var(--line)] transition">匯出報告</button>
+        </div>
+      </div>
+
+      <!-- KPI 卡 -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="panel p-5">
+          <p class="text-xs text-[var(--muted)] mb-2">預測總需求量</p>
+          <p class="heading text-2xl mono" id="kpiDemand">48,230</p>
+          <p class="text-xs mt-2"><span class="text-[var(--good)]">▲ 6.2%</span> 較上期</p>
+        </div>
+        <div class="panel p-5">
+          <p class="text-xs text-[var(--muted)] mb-2">預測準確率(MAPE)</p>
+          <p class="heading text-2xl mono">8.3%</p>
+          <p class="text-xs mt-2 text-[var(--muted)]">目標 &lt; 10%</p>
+        </div>
+        <div class="panel p-5">
+          <p class="text-xs text-[var(--muted)] mb-2">缺貨風險 SKU</p>
+          <p class="heading text-2xl mono text-[var(--bad)]">14</p>
+          <p class="text-xs mt-2 text-[var(--muted)]">需 72 小時內補貨</p>
+        </div>
+        <div class="panel p-5">
+          <p class="text-xs text-[var(--muted)] mb-2">預測區間寬度</p>
+          <p class="heading text-2xl mono">±9.1%</p>
+          <p class="text-xs mt-2"><span class="text-[var(--warn)]">▲ 1.4pt</span> 波動加大</p>
+        </div>
+      </div>
+
+      <!-- 主圖：實際 vs 預測 -->
+      <div class="panel p-6 mb-8">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="heading text-base">整體需求：實際值 vs 預測區間</h2>
+          <div class="flex gap-4 text-xs text-[var(--muted)]">
+            <span><span class="legend-dot" style="background:var(--actual);"></span>實際值</span>
+            <span><span class="legend-dot" style="background:var(--predict);"></span>預測值</span>
+          </div>
+        </div>
+        <div class="chart-wrap">
+          <svg viewBox="0 0 600 220" class="w-full h-full">
+            <!-- 格線 -->
+            <g stroke="#26304a" stroke-width="1">
+              <line x1="0" y1="40" x2="600" y2="40"/>
+              <line x1="0" y1="90" x2="600" y2="90"/>
+              <line x1="0" y1="140" x2="600" y2="140"/>
+              <line x1="0" y1="190" x2="600" y2="190"/>
+            </g>
+            <!-- 預測區間帶 -->
+            <polygon points="330,90 380,75 430,65 480,55 530,45 580,40 580,120 530,110 480,100 430,95 380,100 330,120"
+                      fill="rgba(168,85,247,0.15)" stroke="none"/>
+            <!-- 實際值折線 -->
+            <polyline points="20,170 70,150 120,160 170,130 220,135 270,110 320,100" fill="none" stroke="var(--actual)" stroke-width="2.5"/>
+            <!-- 預測值虛線延伸 -->
+            <polyline points="320,100 380,88 430,80 480,70 530,60 580,52" fill="none" stroke="var(--predict)" stroke-width="2.5" stroke-dasharray="6,5"/>
+            <circle cx="320" cy="100" r="4" fill="#fff"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- SKU 表格 -->
+      <div class="panel p-6">
+        <h2 class="heading text-base mb-4">高風險 SKU 補貨建議</h2>
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="text-[var(--muted)] text-xs border-b border-[var(--line)]">
+              <th class="text-left py-2">SKU</th>
+              <th class="text-left py-2">品名</th>
+              <th class="text-right py-2">目前庫存</th>
+              <th class="text-right py-2">14日預測需求</th>
+              <th class="text-right py-2">預測區間</th>
+              <th class="text-right py-2">狀態</th>
+            </tr>
+          </thead>
+          <tbody id="skuTable" class="mono">
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+<script>
+  const data = [
+    {sku:"SK-1042", name:"燕麥奶 1L", stock:120, demand:860, range:"±62", status:"缺貨風險"},
+    {sku:"SK-2210", name:"手沖濾掛咖啡 10入", stock:340, demand:410, range:"±28", status:"注意"},
+    {sku:"SK-3087", name:"無糖氣泡水 500ml", stock:980, demand:1120, range:"±54", status:"注意"},
+    {sku:"SK-4456", name:"全麥吐司", stock:60, demand:520, range:"±41", status:"缺貨風險"},
+    {sku:"SK-5120", name:"冷凍水餃 20顆", stock:210, demand:230, range:"±18", status:"正常"},
+  ];
+  const statusColor = {
+    "缺貨風險":"var(--bad)","注意":"var(--warn)","正常":"var(--good)"
+  };
+  const tbody = document.getElementById('skuTable');
+  data.forEach(row=>{
+    const tr = document.createElement('tr');
+    tr.className = "border-b border-[var(--line)]/60";
+    tr.innerHTML = `
+      <td class="py-3">${row.sku}</td>
+      <td class="py-3" style="font-family:'Noto Sans TC',sans-serif;">${row.name}</td>
+      <td class="py-3 text-right">${row.stock}</td>
+      <td class="py-3 text-right">${row.demand}</td>
+      <td class="py-3 text-right text-[var(--muted)]">${row.range}</td>
+      <td class="py-3 text-right"><span class="tag" style="background:${statusColor[row.status]}22;color:${statusColor[row.status]};">${row.status}</span></td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  document.getElementById('rangeSelect').addEventListener('change', (e)=>{
+    const mult = {7:0.5, 14:1, 30:2.1}[e.target.value];
+    document.getElementById('kpiDemand').textContent = Math.round(48230*mult).toLocaleString();
+  });
+</script>
+</body>
+</html>

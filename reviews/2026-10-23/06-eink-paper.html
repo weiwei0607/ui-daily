@@ -1,0 +1,186 @@
+<!-- style #56 E-Ink / Paper -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>墨讀 InkRead｜像紙一樣的閱讀器</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600&family=JetBrains+Mono:wght@400;500;600&family=Noto+Serif+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f5f1eb;
+    --ink:#1a1a1a;
+    --gray:#6b6b6b;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Noto Serif TC","Newsreader",serif;
+  }
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      radial-gradient(rgba(0,0,0,0.025) 1px, transparent 1px);
+    background-size: 3px 3px;
+    pointer-events:none;
+    z-index:1;
+  }
+  .serif-en{font-family:"Newsreader","Noto Serif TC",serif;}
+  .mono{font-family:"JetBrains Mono",monospace;}
+  .no-shadow-border{border:1px solid var(--ink);}
+  .page{
+    background:var(--paper);
+    border:1px solid var(--ink);
+  }
+  .divider{border-top:1px solid var(--ink);}
+  .btn-flat{
+    border:1px solid var(--ink);
+    transition: background .15s, color .15s;
+  }
+  .btn-flat:hover{ background:var(--ink); color:var(--paper); }
+  .progress-dot{ width:6px; height:6px; border-radius:50%; background:var(--ink); display:inline-block; }
+  .progress-dot.off{ background:transparent; border:1px solid var(--gray); }
+  @keyframes cursorBlink{ 0%,50%{opacity:1;} 51%,100%{opacity:0;} }
+  .cursor{ animation: cursorBlink 1s step-end infinite; }
+</style>
+</head>
+<body class="relative z-10 min-h-screen">
+
+  <!-- 頂欄，模擬電子書狀態列 -->
+  <div class="max-w-3xl mx-auto px-6 pt-6 flex items-center justify-between mono text-xs" style="color:var(--gray);">
+    <span>墨讀 InkRead</span>
+    <span id="clock">10:23</span>
+    <span>電量 62%</span>
+  </div>
+
+  <main class="max-w-3xl mx-auto px-6 pt-10 pb-24">
+
+    <!-- 書籤欄 -->
+    <div class="flex items-center justify-between mb-8 text-sm">
+      <button class="btn-flat px-4 py-1.5" id="libraryBtn">← 書庫</button>
+      <div class="flex items-center gap-1" id="progressDots"></div>
+      <button class="btn-flat px-4 py-1.5" id="bookmarkBtn">☆ 加入書籤</button>
+    </div>
+
+    <div class="divider mb-10"></div>
+
+    <!-- 書名頁 -->
+    <header class="text-center mb-14">
+      <p class="mono text-xs tracking-widest mb-4" style="color:var(--gray);">第七章 · 離開與回來</p>
+      <h1 class="serif-en text-3xl md:text-4xl mb-3">鹽的重量</h1>
+      <p class="text-sm" style="color:var(--gray);">作者：周知言　譯者：—</p>
+    </header>
+
+    <!-- 正文 -->
+    <article class="serif-en text-[1.05rem] md:text-lg leading-[2.1] space-y-6">
+      <p>
+        她回到小鎮的那天，海的味道還是跟十年前一樣鹹。計程車司機沒認出她，
+        只在經過老漁市場時隨口說了一句：「這裡以前很熱鬧，現在都搬走了。」
+      </p>
+      <p>
+        阿嬷的房子鑄鐵門鏽得更深了，但那把老舊的鑰匙居然還能轉動。她站在門口，
+        想起小時候每個夏天都在這裡曬鹽、數浪，直到離開前的那一通電話——
+        母親在電話那頭只說了三個字：「別回來。」
+      </p>
+      <p>
+        十年後，她終於明白，那三個字裡藏著多少她當時聽不懂的重量。
+        就像這罐她隨身帶著的鹽，從來不只是調味，是她唯一能證明
+        自己曾經屬於這裡的東西。
+      </p>
+      <p>
+        她把鹽罐放回灶台上原來的位置,動作輕得像是怕吵醒什麼。
+        窗外,潮水正慢慢漫上灘地,一如十年前的任何一個黃昏。
+      </p>
+    </article>
+
+    <div class="divider mt-14 mb-6"></div>
+
+    <!-- 底部控制列 -->
+    <footer class="flex items-center justify-between text-sm">
+      <button class="btn-flat px-4 py-2" id="prevPage">← 上一頁</button>
+      <span class="mono text-xs" style="color:var(--gray);">第 142 / 286 頁　<span class="cursor">│</span></span>
+      <button class="btn-flat px-4 py-2" id="nextPage">下一頁 →</button>
+    </footer>
+
+    <!-- 字級與版面控制 -->
+    <div class="mt-10 page p-5 text-sm">
+      <p class="mono text-xs mb-3" style="color:var(--gray);">閱讀設定</p>
+      <div class="flex items-center gap-4">
+        <span>字級</span>
+        <button class="btn-flat w-8 h-8" id="fontMinus">A-</button>
+        <button class="btn-flat w-8 h-8" id="fontPlus">A+</button>
+        <span class="ml-4">主題</span>
+        <button class="btn-flat px-3 py-1" id="themeToggle">紙白 / 墨黑</button>
+      </div>
+    </div>
+
+  </main>
+
+<script>
+  // 時鐘
+  function updateClock(){
+    const now = new Date();
+    const h = String(now.getHours()).padStart(2,'0');
+    const m = String(now.getMinutes()).padStart(2,'0');
+    document.getElementById('clock').textContent = `${h}:${m}`;
+  }
+  updateClock();
+  setInterval(updateClock, 30000);
+
+  // 進度點
+  const dotsWrap = document.getElementById('progressDots');
+  const total = 8, filled = 5;
+  for(let i=0;i<total;i++){
+    const d = document.createElement('span');
+    d.className = 'progress-dot' + (i < filled ? '' : ' off');
+    dotsWrap.appendChild(d);
+  }
+
+  // 書籤
+  const bookmarkBtn = document.getElementById('bookmarkBtn');
+  let bookmarked = false;
+  bookmarkBtn.addEventListener('click', ()=>{
+    bookmarked = !bookmarked;
+    bookmarkBtn.textContent = bookmarked ? '★ 已加入書籤' : '☆ 加入書籤';
+  });
+
+  document.getElementById('libraryBtn').addEventListener('click', ()=>{
+    alert('返回書庫（示範頁，尚未串接真正書庫）');
+  });
+
+  let page = 142;
+  const pageLabel = document.querySelector('footer .mono');
+  document.getElementById('prevPage').addEventListener('click', ()=>{
+    if(page>1){ page--; pageLabel.innerHTML = `第 ${page} / 286 頁　<span class="cursor">│</span>`; }
+  });
+  document.getElementById('nextPage').addEventListener('click', ()=>{
+    if(page<286){ page++; pageLabel.innerHTML = `第 ${page} / 286 頁　<span class="cursor">│</span>`; }
+  });
+
+  // 字級調整
+  const article = document.querySelector('article');
+  let fontSize = 1.05;
+  document.getElementById('fontPlus').addEventListener('click', ()=>{
+    fontSize = Math.min(1.5, fontSize + 0.1);
+    article.style.fontSize = fontSize + 'rem';
+  });
+  document.getElementById('fontMinus').addEventListener('click', ()=>{
+    fontSize = Math.max(0.85, fontSize - 0.1);
+    article.style.fontSize = fontSize + 'rem';
+  });
+
+  // 主題切換
+  let dark = false;
+  document.getElementById('themeToggle').addEventListener('click', ()=>{
+    dark = !dark;
+    document.documentElement.style.setProperty('--paper', dark ? '#1a1a1a' : '#f5f1eb');
+    document.documentElement.style.setProperty('--ink', dark ? '#f5f1eb' : '#1a1a1a');
+  });
+</script>
+</body>
+</html>
