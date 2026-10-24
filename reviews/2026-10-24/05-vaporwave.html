@@ -1,0 +1,111 @@
+<!-- style #45 Vaporwave -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>幻波 VaporCast｜復古電台串流 App</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'VT323','Noto Sans TC',monospace; font-size:20px;
+    background: linear-gradient(180deg,#2a0a4a 0%, #6a1b9a 45%, #ff71ce 100%);
+    color:#f5e6ff; min-height:100vh; overflow-x:hidden;
+  }
+  .font-pixel{ font-family:'Press Start 2P','Noto Sans TC',monospace; }
+  .chrome{
+    background: linear-gradient(180deg,#fff 0%, #c0c0c0 25%, #8a8a9a 50%, #fff 75%, #c0c0c0 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    text-shadow: 0 2px 0 rgba(255,255,255,.4);
+  }
+  .grid-floor{
+    position:absolute; left:0; right:0; bottom:0; height:46%;
+    background-image: linear-gradient(rgba(255,113,206,.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,113,206,.5) 1px, transparent 1px);
+    background-size: 40px 40px;
+    transform: perspective(300px) rotateX(60deg);
+    transform-origin: bottom;
+    animation: scroll 2.5s linear infinite;
+  }
+  @keyframes scroll{ from{ background-position:0 0,0 0 } to{ background-position:0 40px,0 0 } }
+  .sun{ position:absolute; left:50%; top:18%; transform:translateX(-50%); width:220px; height:220px; border-radius:50%;
+    background: repeating-linear-gradient(0deg, #ffd166 0 6px, #ff6b9d 6px 12px, #ff2e9a 12px 18px);
+    box-shadow: 0 0 80px #ff71ce;
+  }
+  .glitch{ animation: glitch 3s infinite; }
+  @keyframes glitch{ 0%,97%{ transform:translate(0,0) } 97.5%{ transform:translate(-2px,1px) } 98%{ transform:translate(2px,-1px) } 98.5%{ transform:translate(0,0) } }
+  .panel{ background: rgba(20,0,40,.55); border:2px solid #00e5ff; box-shadow: 0 0 20px rgba(0,229,255,.4), inset 0 0 20px rgba(255,113,206,.2); }
+  .btn-vapor{ background: linear-gradient(90deg,#ff2e9a,#00e5ff); border:2px solid #fff; }
+  marquee{ font-family:'VT323'; }
+</style>
+</head>
+<body class="relative">
+
+  <div class="sun"></div>
+  <div class="grid-floor"></div>
+
+  <div class="relative z-10 max-w-4xl mx-auto px-5 pt-8 pb-16">
+    <header class="flex justify-between items-center mb-10">
+      <h1 class="font-pixel chrome text-sm md:text-base glitch">幻波 VAPORCAST</h1>
+      <div class="font-pixel text-[10px] text-cyan-200 border border-cyan-300 px-3 py-2">ONLINE ● 現場 1,204 人收聽中</div>
+    </header>
+
+    <section class="text-center mb-10">
+      <h2 class="font-pixel chrome text-xl md:text-3xl mb-4 leading-relaxed">夜間電台・永不打烊</h2>
+      <p class="text-xl md:text-2xl text-pink-100">把 1987 年的霓虹燈與合成器音色，<br>重新播放給 2026 年的你</p>
+    </section>
+
+    <div class="panel rounded-xl p-5 md:p-7 mb-8">
+      <div class="flex items-center gap-4 mb-5">
+        <div class="w-16 h-16 rounded-full border-2 border-pink-300 flex items-center justify-center text-2xl" style="background:conic-gradient(#ff2e9a,#00e5ff,#ff2e9a)">💾</div>
+        <div class="flex-1">
+          <p class="font-pixel text-[11px] text-cyan-200 mb-1">NOW PLAYING</p>
+          <p class="text-2xl">《霓虹高速公路》— 合成波電台 01</p>
+        </div>
+        <button id="playBtn" onclick="togglePlay()" class="btn-vapor font-pixel text-[10px] text-white px-5 py-3 rounded">▶ 播放</button>
+      </div>
+      <div class="w-full h-2 bg-purple-900 rounded-full overflow-hidden">
+        <div id="bar" class="h-full" style="width:34%; background:linear-gradient(90deg,#ff2e9a,#00e5ff)"></div>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-4 mb-10">
+      <div class="panel rounded-xl p-4 text-center">
+        <p class="font-pixel text-[10px] text-cyan-200 mb-2">頻道 02</p>
+        <p class="text-xl">落日雕像廣播</p>
+      </div>
+      <div class="panel rounded-xl p-4 text-center">
+        <p class="font-pixel text-[10px] text-cyan-200 mb-2">頻道 03</p>
+        <p class="text-xl">8bit 購物中心</p>
+      </div>
+      <div class="panel rounded-xl p-4 text-center">
+        <p class="font-pixel text-[10px] text-cyan-200 mb-2">頻道 04</p>
+        <p class="text-xl">雨夜高架橋</p>
+      </div>
+    </div>
+
+    <div class="border-t-2 border-pink-300 pt-3">
+      <marquee class="text-pink-100 text-lg">★ 幻波電台 24 小時不間斷播送 ★ 本週新增「東京午夜計程車」頻道 ★ 會員可下載離線音檔 ★ 感謝收聽，請保持電波暢通 ★</marquee>
+    </div>
+  </div>
+
+<script>
+  let playing = false;
+  function togglePlay(){
+    playing = !playing;
+    document.getElementById('playBtn').textContent = playing ? '❙❙ 暫停' : '▶ 播放';
+    const bar = document.getElementById('bar');
+    if(playing){
+      window._v = setInterval(()=>{
+        let w = parseFloat(bar.style.width);
+        w = w >= 100 ? 0 : w + 1;
+        bar.style.width = w + '%';
+      }, 300);
+    } else {
+      clearInterval(window._v);
+    }
+  }
+</script>
+</body>
+</html>

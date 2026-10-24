@@ -1,0 +1,131 @@
+<!-- style #21 Conversion-Optimized -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>理財力｜30 天打造自己的理財系統</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Figtree','Noto Sans TC',sans-serif; }
+  .btn-cta{ background:linear-gradient(135deg,#ff7a45,#ff4d4d); box-shadow:0 10px 25px -8px rgba(255,77,77,.6); }
+  .btn-cta:hover{ transform:translateY(-2px); box-shadow:0 14px 30px -8px rgba(255,77,77,.7); }
+  .sticky-cta{ position:fixed; left:0; right:0; bottom:0; z-index:50; }
+</style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+  <!-- Hero -->
+  <section class="bg-gradient-to-b from-orange-50 to-slate-50 px-5 pt-10 pb-14 md:pt-16 md:pb-20">
+    <div class="max-w-3xl mx-auto text-center">
+      <div class="inline-flex items-center gap-2 bg-orange-100 text-orange-700 text-xs font-700 px-3 py-1 rounded-full mb-5">
+        🔥 本月已有 3,241 人加入
+      </div>
+      <h1 class="text-3xl md:text-5xl font-800 leading-tight mb-5">
+        不用懂投資，<span class="text-orange-500">30 天</span>讓你的錢<br class="hidden md:block">自己排好隊
+      </h1>
+      <p class="text-base md:text-lg text-slate-500 mb-8">理財力用最直覺的每日 5 分鐘任務，<br class="md:hidden">陪你建立記帳、存錢、投資的完整系統。</p>
+
+      <button class="btn-cta text-white font-700 text-lg px-10 py-4 rounded-2xl mb-3">
+        免費開始我的理財計畫 →
+      </button>
+      <p class="text-xs text-slate-400">不需要信用卡・隨時可取消・已有 12,800+ 人完成第一階段</p>
+
+      <div class="mt-10 flex items-center justify-center gap-6 text-sm text-slate-500">
+        <div class="flex items-center gap-1">
+          <span class="text-yellow-400">★★★★★</span><span class="font-600">4.9</span>
+        </div>
+        <span>・</span>
+        <span>App Store 財經類 <b class="text-slate-700">第 1 名</b></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 社會證明 logo 牆 -->
+  <section class="px-5 py-8 border-y border-slate-200 bg-white">
+    <p class="text-center text-xs text-slate-400 mb-4">超過 8 萬人正在使用理財力管理資產</p>
+    <div class="max-w-4xl mx-auto grid grid-cols-3 md:grid-cols-6 gap-4 text-center text-slate-400 text-sm font-600">
+      <div>國泰數位</div><div>玉山銀行</div><div>台新Richart</div><div>LINE Bank</div><div>永豐銀行</div><div>台灣企銀</div>
+    </div>
+  </section>
+
+  <!-- 痛點 → 解方 -->
+  <section class="px-5 py-14 max-w-5xl mx-auto">
+    <h2 class="text-2xl md:text-3xl font-800 text-center mb-10">你是不是也這樣？</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+        <div class="text-3xl mb-3">😮‍💨</div>
+        <h3 class="font-700 mb-2">記帳撐不過三天</h3>
+        <p class="text-sm text-slate-500">理財力只要 5 秒拍照記帳，AI 自動分類，不用再手動輸入。</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+        <div class="text-3xl mb-3">💸</div>
+        <h3 class="font-700 mb-2">月底總是不知道錢去哪了</h3>
+        <p class="text-sm text-slate-500">每週自動產出消費報告，用一張圖看懂自己的錢流向。</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+        <div class="text-3xl mb-3">📈</div>
+        <h3 class="font-700 mb-2">想投資卻不知道怎麼開始</h3>
+        <p class="text-sm text-slate-500">依你的風險屬性，一鍵生成適合新手的資產配置建議。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 倒數限時方案 + 計時器 -->
+  <section class="px-5 py-14 bg-slate-900 text-white">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="text-2xl md:text-3xl font-800 mb-3">早鳥方案倒數中</h2>
+      <p class="text-slate-300 mb-6">前 500 名加入可享終身方案 7 折，優惠倒數：</p>
+      <div id="countdown" class="flex justify-center gap-3 mb-8">
+        <div class="bg-white/10 rounded-xl px-4 py-3 w-20"><div id="cd-h" class="text-3xl font-800">23</div><div class="text-xs text-slate-400">時</div></div>
+        <div class="bg-white/10 rounded-xl px-4 py-3 w-20"><div id="cd-m" class="text-3xl font-800">59</div><div class="text-xs text-slate-400">分</div></div>
+        <div class="bg-white/10 rounded-xl px-4 py-3 w-20"><div id="cd-s" class="text-3xl font-800">47</div><div class="text-xs text-slate-400">秒</div></div>
+      </div>
+      <button class="btn-cta text-white font-700 text-lg px-10 py-4 rounded-2xl">
+        搶先加入早鳥方案
+      </button>
+    </div>
+  </section>
+
+  <!-- 客戶見證 -->
+  <section class="px-5 py-14 max-w-4xl mx-auto">
+    <h2 class="text-2xl md:text-3xl font-800 text-center mb-10">真實用戶怎麼說</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+        <p class="text-yellow-400 mb-2">★★★★★</p>
+        <p class="text-sm text-slate-600 mb-4">「用了兩個月，第一次知道自己每個月手搖飲花了快 3000 元，現在存款多了快兩萬。」</p>
+        <p class="text-xs text-slate-400">— 阿廷，28 歲・行銷企劃</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+        <p class="text-yellow-400 mb-2">★★★★★</p>
+        <p class="text-sm text-slate-600 mb-4">「介面很直覺，連我媽都說她看得懂報表，現在我們全家都在用。」</p>
+        <p class="text-xs text-slate-400">— 筠筠，34 歲・自由接案</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 底部 sticky CTA -->
+  <div class="sticky-cta bg-white border-t border-slate-200 px-5 py-3 flex items-center justify-between shadow-[0_-8px_20px_rgba(0,0,0,0.06)]">
+    <div class="text-sm">
+      <p class="font-700">免費開始，不綁約</p>
+      <p class="text-xs text-slate-400">7 天內取消全額退費</p>
+    </div>
+    <button class="btn-cta text-white font-700 px-6 py-3 rounded-xl text-sm whitespace-nowrap">立即加入 →</button>
+  </div>
+  <div class="h-20"></div>
+
+<script>
+  let total = 23*3600 + 59*60 + 47;
+  setInterval(() => {
+    if (total <= 0) return;
+    total--;
+    const h = Math.floor(total/3600), m = Math.floor((total%3600)/60), s = total%60;
+    document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+  }, 1000);
+</script>
+</body>
+</html>

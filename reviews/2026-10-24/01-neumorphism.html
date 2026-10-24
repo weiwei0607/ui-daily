@@ -1,0 +1,99 @@
+<!-- style #02 Neumorphism -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>靜眠 ZenSleep｜睡眠冥想 App</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#e6e4e0; --shadow-dark:#c7c5c1; --shadow-light:#ffffff; --accent:#8a9a7e; --text:#5c5a54; }
+  body{ background:var(--bg); font-family:'Quicksand','Noto Sans TC',sans-serif; color:var(--text); }
+  .font-head{ font-family:'Baloo 2','Noto Sans TC',sans-serif; }
+  .neu{ background:var(--bg); border-radius:28px; box-shadow: 10px 10px 24px var(--shadow-dark), -10px -10px 24px var(--shadow-light); }
+  .neu-inset{ background:var(--bg); border-radius:24px; box-shadow: inset 7px 7px 16px var(--shadow-dark), inset -7px -7px 16px var(--shadow-light); }
+  .neu-btn{ background:var(--bg); border-radius:999px; box-shadow: 6px 6px 14px var(--shadow-dark), -6px -6px 14px var(--shadow-light); transition: all .15s ease; }
+  .neu-btn:active{ box-shadow: inset 5px 5px 12px var(--shadow-dark), inset -5px -5px 12px var(--shadow-light); }
+  .neu-icon{ width:56px; height:56px; border-radius:20px; background:var(--bg); box-shadow: 6px 6px 14px var(--shadow-dark), -6px -6px 14px var(--shadow-light); display:flex; align-items:center; justify-content:center; }
+  .toggle{ width:56px; height:30px; border-radius:999px; background:var(--bg); box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light); position:relative; cursor:pointer; }
+  .toggle .dot{ width:22px; height:22px; border-radius:999px; background:var(--accent); position:absolute; top:4px; left:4px; box-shadow: 3px 3px 6px var(--shadow-dark); transition: left .25s ease; }
+  .toggle.on .dot{ left:30px; }
+</style>
+</head>
+<body class="min-h-screen px-5 py-10 md:px-10">
+  <div class="max-w-5xl mx-auto">
+
+    <header class="flex items-center justify-between mb-10">
+      <div class="flex items-center gap-3">
+        <div class="neu-icon"><span class="text-2xl">🌙</span></div>
+        <h1 class="font-head text-2xl font-600">靜眠 <span class="text-base font-normal opacity-60">ZenSleep</span></h1>
+      </div>
+      <div class="neu px-5 py-2 text-sm">今晚 22:30 入睡提醒已開啟</div>
+    </header>
+
+    <section class="grid md:grid-cols-3 gap-6 mb-8">
+      <div class="neu p-6 md:col-span-2">
+        <p class="text-sm opacity-60 mb-1">昨夜睡眠品質</p>
+        <div class="flex items-end gap-4">
+          <h2 class="font-head text-5xl font-700" style="color:var(--accent)">86<span class="text-xl opacity-50">分</span></h2>
+          <p class="text-sm pb-2">比上週平均進步 <b>+9%</b>，深層睡眠時間延長了 42 分鐘</p>
+        </div>
+        <div class="neu-inset mt-6 p-5">
+          <div class="flex justify-between text-xs opacity-60 mb-3">
+            <span>23:00</span><span>01:00</span><span>03:00</span><span>05:00</span><span>07:00</span>
+          </div>
+          <div class="flex items-end gap-1 h-20">
+            <div class="flex-1 rounded-full" style="height:30%;background:var(--accent);opacity:.5"></div>
+            <div class="flex-1 rounded-full" style="height:70%;background:var(--accent);opacity:.8"></div>
+            <div class="flex-1 rounded-full" style="height:95%;background:var(--accent)"></div>
+            <div class="flex-1 rounded-full" style="height:60%;background:var(--accent);opacity:.7"></div>
+            <div class="flex-1 rounded-full" style="height:40%;background:var(--accent);opacity:.5"></div>
+            <div class="flex-1 rounded-full" style="height:25%;background:var(--accent);opacity:.4"></div>
+            <div class="flex-1 rounded-full" style="height:20%;background:var(--accent);opacity:.3"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="neu p-6 flex flex-col justify-between">
+        <p class="text-sm opacity-60 mb-3">今晚助眠音景</p>
+        <div class="neu-inset p-4 flex items-center gap-3 mb-3">
+          <div class="neu-icon" style="width:44px;height:44px;border-radius:14px;"><span>🌧️</span></div>
+          <div class="flex-1">
+            <p class="text-sm font-600">雨夜森林</p>
+            <p class="text-xs opacity-50">45 分鐘 · 白噪音</p>
+          </div>
+        </div>
+        <button class="neu-btn w-full py-3 font-head font-600" style="color:var(--accent)" onclick="document.getElementById('playstate').textContent='▶ 播放中・已淡入 30 秒'">
+          開始播放
+        </button>
+        <p id="playstate" class="text-xs text-center mt-2 opacity-50">尚未播放</p>
+      </div>
+    </section>
+
+    <section class="neu p-6">
+      <h3 class="font-head font-600 mb-4">睡前設定</h3>
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="neu-inset p-4 flex items-center justify-between">
+          <span class="text-sm">勿擾模式</span>
+          <div class="toggle on" onclick="this.classList.toggle('on')"><div class="dot"></div></div>
+        </div>
+        <div class="neu-inset p-4 flex items-center justify-between">
+          <span class="text-sm">螢幕暖色調</span>
+          <div class="toggle on" onclick="this.classList.toggle('on')"><div class="dot"></div></div>
+        </div>
+        <div class="neu-inset p-4 flex items-center justify-between">
+          <span class="text-sm">晨間溫柔喚醒</span>
+          <div class="toggle" onclick="this.classList.toggle('on')"><div class="dot"></div></div>
+        </div>
+      </div>
+      <div class="flex gap-4 mt-6">
+        <button class="neu-btn px-6 py-3 font-head font-600 flex-1" style="color:var(--accent)">記錄今日心情</button>
+        <button class="neu-btn px-6 py-3 font-head font-600 flex-1">查看完整睡眠報告</button>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>

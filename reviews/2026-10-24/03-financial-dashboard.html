@@ -1,0 +1,128 @@
+<!-- style #36 Financial Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>錢線 MoneyLine｜個人理財追蹤後台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Inter','Noto Sans TC',sans-serif; background:#0f1521; color:#e2e8f0; }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+  .card{ background:#161d2b; border:1px solid #232b3d; border-radius:14px; }
+  .up{ color:#10b981; } .down{ color:#f43f5e; }
+  table td, table th{ border-bottom:1px solid #232b3d; }
+</style>
+</head>
+<body class="min-h-screen px-5 py-8 md:px-10">
+  <div class="max-w-6xl mx-auto">
+
+    <header class="flex flex-wrap items-center justify-between gap-4 mb-8">
+      <div>
+        <h1 class="text-xl font-700">錢線 <span class="mono text-slate-500 text-sm">MoneyLine</span></h1>
+        <p class="text-xs text-slate-500 mt-1">最後更新：2026-10-24 09:12</p>
+      </div>
+      <div class="flex gap-2">
+        <button class="card px-4 py-2 text-sm text-slate-300">匯出報表</button>
+        <button class="px-4 py-2 text-sm bg-emerald-600 rounded-lg font-600">＋ 新增帳戶</button>
+      </div>
+    </header>
+
+    <section class="grid md:grid-cols-4 gap-4 mb-6">
+      <div class="card p-5">
+        <p class="text-xs text-slate-500 mb-2">總資產</p>
+        <p class="mono text-2xl font-700">NT$ 2,184,320</p>
+        <p class="text-xs up mt-1 mono">+3.2% 較上月</p>
+      </div>
+      <div class="card p-5">
+        <p class="text-xs text-slate-500 mb-2">本月淨現金流</p>
+        <p class="mono text-2xl font-700 up">+NT$ 38,560</p>
+        <p class="text-xs text-slate-500 mt-1 mono">收入 86,000 ／支出 47,440</p>
+      </div>
+      <div class="card p-5">
+        <p class="text-xs text-slate-500 mb-2">投資總損益</p>
+        <p class="mono text-2xl font-700 up">+NT$ 162,900</p>
+        <p class="text-xs up mt-1 mono">+14.8% 累積報酬</p>
+      </div>
+      <div class="card p-5">
+        <p class="text-xs text-slate-500 mb-2">負債餘額</p>
+        <p class="mono text-2xl font-700 down">NT$ 312,000</p>
+        <p class="text-xs down mt-1 mono">房貸＋信貸</p>
+      </div>
+    </section>
+
+    <section class="grid md:grid-cols-3 gap-4 mb-6">
+      <div class="card p-5 md:col-span-2">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-sm font-600 text-slate-300">資產成長趨勢（近 12 個月）</h2>
+          <span class="text-xs text-slate-500 mono">單位：萬元</span>
+        </div>
+        <div class="flex items-end gap-2 h-36">
+          <div class="flex-1 bg-emerald-900/50 rounded" style="height:40%"></div>
+          <div class="flex-1 bg-emerald-900/50 rounded" style="height:45%"></div>
+          <div class="flex-1 bg-emerald-900/60 rounded" style="height:50%"></div>
+          <div class="flex-1 bg-emerald-800/70 rounded" style="height:58%"></div>
+          <div class="flex-1 bg-emerald-800/70 rounded" style="height:55%"></div>
+          <div class="flex-1 bg-emerald-700/80 rounded" style="height:63%"></div>
+          <div class="flex-1 bg-emerald-700/80 rounded" style="height:68%"></div>
+          <div class="flex-1 bg-emerald-600/90 rounded" style="height:72%"></div>
+          <div class="flex-1 bg-emerald-600/90 rounded" style="height:80%"></div>
+          <div class="flex-1 bg-emerald-500 rounded" style="height:85%"></div>
+          <div class="flex-1 bg-emerald-500 rounded" style="height:92%"></div>
+          <div class="flex-1 bg-emerald-400 rounded" style="height:100%"></div>
+        </div>
+        <div class="flex justify-between text-xs text-slate-500 mt-2 mono">
+          <span>11月</span><span>1月</span><span>3月</span><span>5月</span><span>7月</span><span>9月</span>
+        </div>
+      </div>
+
+      <div class="card p-5">
+        <h2 class="text-sm font-600 text-slate-300 mb-4">資產配置</h2>
+        <div class="space-y-3 text-sm">
+          <div class="flex justify-between items-center">
+            <span class="text-slate-400">股票 ETF</span>
+            <span class="mono">48%</span>
+          </div>
+          <div class="w-full bg-slate-800 rounded-full h-1.5"><div class="bg-emerald-500 h-1.5 rounded-full" style="width:48%"></div></div>
+          <div class="flex justify-between items-center">
+            <span class="text-slate-400">定存現金</span>
+            <span class="mono">27%</span>
+          </div>
+          <div class="w-full bg-slate-800 rounded-full h-1.5"><div class="bg-sky-500 h-1.5 rounded-full" style="width:27%"></div></div>
+          <div class="flex justify-between items-center">
+            <span class="text-slate-400">房地產權益</span>
+            <span class="mono">18%</span>
+          </div>
+          <div class="w-full bg-slate-800 rounded-full h-1.5"><div class="bg-amber-500 h-1.5 rounded-full" style="width:18%"></div></div>
+          <div class="flex justify-between items-center">
+            <span class="text-slate-400">加密貨幣</span>
+            <span class="mono">7%</span>
+          </div>
+          <div class="w-full bg-slate-800 rounded-full h-1.5"><div class="bg-fuchsia-500 h-1.5 rounded-full" style="width:7%"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card p-5">
+      <h2 class="text-sm font-600 text-slate-300 mb-4">近期交易</h2>
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="text-left text-slate-500 text-xs">
+            <th class="pb-2">日期</th><th class="pb-2">項目</th><th class="pb-2">分類</th><th class="pb-2 text-right">金額</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="py-2 mono text-slate-400">10/23</td><td class="py-2">薪資入帳</td><td class="py-2 text-slate-500">收入</td><td class="py-2 text-right mono up">+56,000</td></tr>
+          <tr><td class="py-2 mono text-slate-400">10/22</td><td class="py-2">0050 加碼 3 股</td><td class="py-2 text-slate-500">投資</td><td class="py-2 text-right mono down">-4,350</td></tr>
+          <tr><td class="py-2 mono text-slate-400">10/21</td><td class="py-2">房租</td><td class="py-2 text-slate-500">居住</td><td class="py-2 text-right mono down">-18,000</td></tr>
+          <tr><td class="py-2 mono text-slate-400">10/20</td><td class="py-2">接案收入</td><td class="py-2 text-slate-500">收入</td><td class="py-2 text-right mono up">+12,000</td></tr>
+          <tr><td class="py-2 mono text-slate-400">10/19</td><td class="py-2">信用卡費自動扣款</td><td class="py-2 text-slate-500">卡費</td><td class="py-2 text-right mono down">-9,840</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+  </div>
+</body>
+</html>
