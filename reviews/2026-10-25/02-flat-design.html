@@ -1,0 +1,183 @@
+<!-- style #12 Flat Design 2.0 -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>掛好 ClinicGo · 線上掛號</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:"Noto Sans TC", sans-serif; background:#fdfcf8; margin:0; }
+  .display{ font-family:"Manrope","Noto Sans TC",sans-serif; }
+  .flat-card{
+    background:#fff;
+    border-radius:20px;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+  }
+  .dept-icon{
+    width:52px; height:52px;
+    border-radius:16px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:24px;
+  }
+  .step-dot{
+    width:28px; height:28px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:13px;
+    font-weight:700;
+    background:#e9e6da;
+    color:#6b6757;
+  }
+  .step-dot.active{ background:#3498db; color:#fff; }
+  .step-dot.done{ background:#27ae60; color:#fff; }
+  .slot-btn{
+    border:2px solid #e9e6da;
+    border-radius:12px;
+    transition: all .15s ease;
+  }
+  .slot-btn:hover{ border-color:#3498db; }
+  .slot-btn.selected{ background:#3498db; color:#fff; border-color:#3498db; }
+  .slot-btn.full{ opacity:.35; cursor:not-allowed; }
+</style>
+</head>
+<body>
+
+  <header class="max-w-4xl mx-auto px-6 pt-8 pb-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <div class="w-9 h-9 rounded-xl bg-[#3498db] text-white flex items-center justify-center display font-extrabold">掛</div>
+      <span class="display font-extrabold text-xl text-[#1f2d3a]">ClinicGo 掛好</span>
+    </div>
+    <span class="text-sm text-[#6b6757]">您好，<b class="text-[#1f2d3a]">陳怡安</b></span>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-6 pb-20">
+
+    <section class="flat-card p-6 mb-6">
+      <div class="flex items-center justify-between mb-6">
+        <h1 class="display text-xl font-extrabold text-[#1f2d3a]">線上掛號</h1>
+        <div class="flex items-center gap-2">
+          <div class="step-dot active" id="dotA">1</div>
+          <div class="w-6 h-px bg-[#e9e6da]"></div>
+          <div class="step-dot" id="dotB">2</div>
+          <div class="w-6 h-px bg-[#e9e6da]"></div>
+          <div class="step-dot" id="dotC">3</div>
+        </div>
+      </div>
+
+      <p class="text-sm font-bold text-[#6b6757] mb-3">STEP 1 · 選擇科別</p>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="deptGrid">
+        <button class="flat-card border border-[#e9e6da] p-4 text-left dept-btn" data-dept="家醫科">
+          <div class="dept-icon bg-[#eaf4fb] mb-3">🩺</div>
+          <p class="font-bold text-sm text-[#1f2d3a]">家庭醫學科</p>
+          <p class="text-xs text-[#6b6757] mt-1">今日尚有 12 號</p>
+        </button>
+        <button class="flat-card border border-[#e9e6da] p-4 text-left dept-btn" data-dept="耳鼻喉科">
+          <div class="dept-icon bg-[#fdecec] mb-3">👂</div>
+          <p class="font-bold text-sm text-[#1f2d3a]">耳鼻喉科</p>
+          <p class="text-xs text-[#6b6757] mt-1">今日尚有 6 號</p>
+        </button>
+        <button class="flat-card border border-[#e9e6da] p-4 text-left dept-btn" data-dept="皮膚科">
+          <div class="dept-icon bg-[#eafaf1] mb-3">🧴</div>
+          <p class="font-bold text-sm text-[#1f2d3a]">皮膚科</p>
+          <p class="text-xs text-[#6b6757] mt-1">今日尚有 9 號</p>
+        </button>
+        <button class="flat-card border border-[#e9e6da] p-4 text-left dept-btn" data-dept="復健科">
+          <div class="dept-icon bg-[#fef6e7] mb-3">🦵</div>
+          <p class="font-bold text-sm text-[#1f2d3a]">復健科</p>
+          <p class="text-xs text-[#6b6757] mt-1">今日尚有 3 號</p>
+        </button>
+      </div>
+    </section>
+
+    <section class="flat-card p-6 mb-6">
+      <p class="text-sm font-bold text-[#6b6757] mb-3">STEP 2 · 選擇時段（<span id="selectedDeptLabel">請先選擇科別</span>）</p>
+      <div class="grid grid-cols-3 md:grid-cols-6 gap-2" id="slotGrid">
+        <button class="slot-btn py-2 text-sm font-semibold" data-slot="09:00">09:00</button>
+        <button class="slot-btn py-2 text-sm font-semibold" data-slot="09:20">09:20</button>
+        <button class="slot-btn py-2 text-sm font-semibold full" data-slot="09:40" disabled>09:40</button>
+        <button class="slot-btn py-2 text-sm font-semibold" data-slot="10:00">10:00</button>
+        <button class="slot-btn py-2 text-sm font-semibold" data-slot="10:20">10:20</button>
+        <button class="slot-btn py-2 text-sm font-semibold full" data-slot="10:40" disabled>10:40</button>
+        <button class="slot-btn py-2 text-sm font-semibold" data-slot="14:00">14:00</button>
+        <button class="slot-btn py-2 text-sm font-semibold" data-slot="14:20">14:20</button>
+        <button class="slot-btn py-2 text-sm font-semibold" data-slot="14:40">14:40</button>
+        <button class="slot-btn py-2 text-sm font-semibold" data-slot="15:00">15:00</button>
+        <button class="slot-btn py-2 text-sm font-semibold full" data-slot="15:20" disabled>15:20</button>
+        <button class="slot-btn py-2 text-sm font-semibold" data-slot="15:40">15:40</button>
+      </div>
+    </section>
+
+    <section class="flat-card p-6">
+      <p class="text-sm font-bold text-[#6b6757] mb-4">STEP 3 · 確認掛號資訊</p>
+      <div class="grid md:grid-cols-2 gap-4 mb-6">
+        <div class="bg-[#f6f4ec] rounded-xl p-4">
+          <p class="text-xs text-[#6b6757] mb-1">科別</p>
+          <p class="font-bold text-[#1f2d3a]" id="confirmDept">—</p>
+        </div>
+        <div class="bg-[#f6f4ec] rounded-xl p-4">
+          <p class="text-xs text-[#6b6757] mb-1">時段</p>
+          <p class="font-bold text-[#1f2d3a]" id="confirmSlot">—</p>
+        </div>
+      </div>
+      <button id="submitBtn" class="w-full bg-[#27ae60] text-white rounded-xl py-3 font-bold display disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+        確認送出掛號
+      </button>
+      <p id="successMsg" class="text-center text-sm text-[#27ae60] font-semibold mt-4 opacity-0 transition-opacity">
+        掛號成功！請於看診時段前 15 分鐘到院報到 ✓
+      </p>
+    </section>
+
+  </main>
+
+<script>
+  let chosenDept = null, chosenSlot = null;
+  const dotB = document.getElementById('dotB');
+  const dotC = document.getElementById('dotC');
+  const confirmDept = document.getElementById('confirmDept');
+  const confirmSlot = document.getElementById('confirmSlot');
+  const submitBtn = document.getElementById('submitBtn');
+  const selectedDeptLabel = document.getElementById('selectedDeptLabel');
+
+  document.querySelectorAll('.dept-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.dept-btn').forEach(b=>b.classList.remove('ring-2','ring-[#3498db]'));
+      btn.classList.add('ring-2','ring-[#3498db]');
+      chosenDept = btn.dataset.dept;
+      selectedDeptLabel.textContent = chosenDept;
+      confirmDept.textContent = chosenDept;
+      dotB.classList.add('active');
+      checkReady();
+    });
+  });
+
+  document.querySelectorAll('.slot-btn:not(.full)').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.slot-btn').forEach(b=>b.classList.remove('selected'));
+      btn.classList.add('selected');
+      chosenSlot = btn.dataset.slot;
+      confirmSlot.textContent = chosenSlot;
+      dotC.classList.add('active');
+      checkReady();
+    });
+  });
+
+  function checkReady(){
+    if(chosenDept && chosenSlot){
+      submitBtn.disabled = false;
+    }
+  }
+
+  submitBtn.addEventListener('click', ()=>{
+    document.getElementById('dotA').classList.add('done');
+    dotB.classList.add('done');
+    dotC.classList.add('done');
+    submitBtn.disabled = true;
+    submitBtn.textContent = "已送出";
+    document.getElementById('successMsg').style.opacity = 1;
+  });
+</script>
+</body>
+</html>

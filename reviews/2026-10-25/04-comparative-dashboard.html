@@ -1,0 +1,182 @@
+<!-- style #33 Comparative Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>電費透視 PowerScope · 電價方案比較後台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:"Noto Sans TC", sans-serif; background:#0f1620; color:#e7ecf2; margin:0; }
+  .display{ font-family:"Red Hat Display","Noto Sans TC",sans-serif; }
+  .mono{ font-family:"JetBrains Mono", monospace; }
+  .panel{ background:#161e2b; border:1px solid #232d3d; border-radius:16px; }
+  .bar-track{ background:#1f2838; border-radius:6px; overflow:hidden; height:10px; }
+  .bar-fill{ height:100%; border-radius:6px; transition: width .6s ease; }
+  .plan-row{ transition: background .15s ease; cursor:pointer; }
+  .plan-row:hover{ background:#1b2433; }
+  .plan-row.selected{ background:#1a2d3f; }
+  .diff-pos{ color:#ef5b5b; }
+  .diff-neg{ color:#3ad29f; }
+  .toggle-chip{ border:1px solid #2a3547; border-radius:999px; padding:6px 14px; font-size:12px; cursor:pointer; }
+  .toggle-chip.active{ background:#2563eb; border-color:#2563eb; color:#fff; }
+</style>
+</head>
+<body>
+
+  <div class="max-w-6xl mx-auto px-6 py-8">
+
+    <header class="flex items-center justify-between mb-8">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-[#2563eb] flex items-center justify-center display font-extrabold text-sm">P</div>
+        <span class="display font-extrabold text-lg">PowerScope 電費透視</span>
+      </div>
+      <div class="flex items-center gap-3 text-xs text-[#8b99ad]">
+        <span class="mono">更新時間 2026-10-25 09:00</span>
+        <div class="w-2 h-2 rounded-full bg-[#3ad29f]"></div>
+      </div>
+    </header>
+
+    <section class="grid md:grid-cols-4 gap-4 mb-6">
+      <div class="panel p-4">
+        <p class="text-xs text-[#8b99ad] mb-2">用電戶類型</p>
+        <p class="display font-bold text-lg">商業型 · 營業用電</p>
+      </div>
+      <div class="panel p-4">
+        <p class="text-xs text-[#8b99ad] mb-2">月平均用電量</p>
+        <p class="mono font-bold text-lg">2,840 <span class="text-xs text-[#8b99ad]">kWh</span></p>
+      </div>
+      <div class="panel p-4">
+        <p class="text-xs text-[#8b99ad] mb-2">目前方案月費</p>
+        <p class="mono font-bold text-lg text-[#ef5b5b]">NT$ 11,460</p>
+      </div>
+      <div class="panel p-4">
+        <p class="text-xs text-[#8b99ad] mb-2">可節省空間</p>
+        <p class="mono font-bold text-lg text-[#3ad29f]" id="savingHeadline">NT$ 1,280 / 月</p>
+      </div>
+    </section>
+
+    <section class="panel p-6 mb-6">
+      <div class="flex items-center justify-between mb-5">
+        <h2 class="display font-bold">三方案逐月費用比較</h2>
+        <div class="flex gap-2" id="viewToggle">
+          <span class="toggle-chip active" data-view="month">月費</span>
+          <span class="toggle-chip" data-view="year">年費</span>
+        </div>
+      </div>
+      <div class="space-y-4" id="planBars">
+        <div>
+          <div class="flex justify-between text-sm mb-1">
+            <span>目前方案 · 時段電價 A</span>
+            <span class="mono" data-base="11460">NT$ 11,460</span>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width:100%; background:#ef5b5b;"></div></div>
+        </div>
+        <div>
+          <div class="flex justify-between text-sm mb-1">
+            <span>推薦方案 · 彈性時間電價</span>
+            <span class="mono" data-base="10180">NT$ 10,180</span>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width:88.8%; background:#f5b942;"></div></div>
+        </div>
+        <div>
+          <div class="flex justify-between text-sm mb-1">
+            <span>綠電優惠方案 · 夜間用電型</span>
+            <span class="mono" data-base="9960">NT$ 9,960</span>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width:86.9%; background:#3ad29f;"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel p-6">
+      <h2 class="display font-bold mb-4">方案明細比較表</h2>
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="text-left text-[#8b99ad] border-b border-[#232d3d]">
+            <th class="pb-3 font-normal">方案名稱</th>
+            <th class="pb-3 font-normal mono">基本費</th>
+            <th class="pb-3 font-normal mono">尖峰費率</th>
+            <th class="pb-3 font-normal mono">離峰費率</th>
+            <th class="pb-3 font-normal mono">預估月費</th>
+            <th class="pb-3 font-normal mono">與目前差異</th>
+          </tr>
+        </thead>
+        <tbody id="planTable">
+          <tr class="plan-row border-b border-[#1d2636] selected" data-plan="0">
+            <td class="py-3">時段電價 A（目前使用）</td>
+            <td class="py-3 mono">NT$ 980</td>
+            <td class="py-3 mono">4.2 元/kWh</td>
+            <td class="py-3 mono">1.9 元/kWh</td>
+            <td class="py-3 mono font-bold">NT$ 11,460</td>
+            <td class="py-3 mono">—</td>
+          </tr>
+          <tr class="plan-row border-b border-[#1d2636]" data-plan="1">
+            <td class="py-3">彈性時間電價</td>
+            <td class="py-3 mono">NT$ 860</td>
+            <td class="py-3 mono">3.9 元/kWh</td>
+            <td class="py-3 mono">1.7 元/kWh</td>
+            <td class="py-3 mono font-bold">NT$ 10,180</td>
+            <td class="py-3 mono diff-neg">-1,280</td>
+          </tr>
+          <tr class="plan-row" data-plan="2">
+            <td class="py-3">綠電優惠方案（夜間用電型）</td>
+            <td class="py-3 mono">NT$ 1,050</td>
+            <td class="py-3 mono">3.7 元/kWh</td>
+            <td class="py-3 mono">1.5 元/kWh</td>
+            <td class="py-3 mono font-bold">NT$ 9,960</td>
+            <td class="py-3 mono diff-neg">-1,500</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="text-xs text-[#8b99ad] mt-4">點擊任一列可切換為「比較基準」方案，右側節省金額會隨之重新計算。</p>
+    </section>
+
+  </div>
+
+<script>
+  const plans = [
+    { base: 11460 },
+    { base: 10180 },
+    { base: 9960 },
+  ];
+
+  document.querySelectorAll('.plan-row').forEach(row=>{
+    row.addEventListener('click', ()=>{
+      document.querySelectorAll('.plan-row').forEach(r=>r.classList.remove('selected'));
+      row.classList.add('selected');
+      const idx = parseInt(row.dataset.plan);
+      const baseline = plans[idx].base;
+      document.querySelectorAll('.plan-row').forEach((r,i)=>{
+        const cell = r.children[5];
+        const diff = plans[i].base - baseline;
+        if(i === idx){ cell.textContent = "—"; cell.className = "py-3 mono"; }
+        else{
+          cell.textContent = (diff > 0 ? "+" : "") + diff.toLocaleString('en-US');
+          cell.className = "py-3 mono " + (diff > 0 ? "diff-pos" : "diff-neg");
+        }
+      });
+      const cheapest = Math.min(...plans.map(p=>p.base));
+      const saving = baseline - cheapest;
+      document.getElementById('savingHeadline').textContent =
+        saving > 0 ? `NT$ ${saving.toLocaleString('en-US')} / 月` : `已是最省方案`;
+    });
+  });
+
+  document.querySelectorAll('#viewToggle .toggle-chip').forEach(chip=>{
+    chip.addEventListener('click', ()=>{
+      document.querySelectorAll('#viewToggle .toggle-chip').forEach(c=>c.classList.remove('active'));
+      chip.classList.add('active');
+      const isYear = chip.dataset.view === 'year';
+      document.querySelectorAll('#planBars [data-base]').forEach(span=>{
+        const base = parseInt(span.dataset.base);
+        const val = isYear ? base * 12 : base;
+        span.textContent = "NT$ " + val.toLocaleString('en-US');
+      });
+    });
+  });
+</script>
+</body>
+</html>

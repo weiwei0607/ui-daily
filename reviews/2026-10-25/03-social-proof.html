@@ -1,0 +1,181 @@
+<!-- style #24 Social Proof-Focused -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>學習動力 LearnForce · 企業內訓平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:"Noto Sans TC", sans-serif; background:#fbfaf7; margin:0; color:#1b2430; }
+  .display{ font-family:"Work Sans","Noto Sans TC",sans-serif; }
+  .logo-row{ filter: grayscale(1) opacity(.55); transition:.2s; }
+  .logo-row:hover{ filter:none; opacity:1; }
+  .stat-num{ font-family:"Work Sans",sans-serif; }
+  .avatar{
+    width:44px; height:44px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:700; color:#fff; font-size:15px;
+  }
+  .testi-dot{ width:8px; height:8px; border-radius:50%; background:#d8d4c6; }
+  .testi-dot.active{ background:#1c4ed8; width:24px; border-radius:4px; }
+  .fade-in{ animation: fadeIn .4s ease; }
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+</style>
+</head>
+<body>
+
+  <header class="max-w-6xl mx-auto px-6 pt-8 pb-6 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <div class="w-9 h-9 rounded-lg bg-[#1c4ed8] text-white flex items-center justify-center display font-extrabold">L</div>
+      <span class="display font-extrabold text-xl">LearnForce 學習動力</span>
+    </div>
+    <button class="bg-[#1c4ed8] text-white rounded-full px-5 py-2 text-sm font-semibold display">預約顧問諮詢</button>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6">
+
+    <section class="text-center py-12">
+      <p class="text-[#1c4ed8] text-sm font-bold tracking-wide mb-3">已有 480+ 家企業採用</p>
+      <h1 class="display text-3xl md:text-4xl font-extrabold leading-tight mb-5 max-w-3xl mx-auto">
+        讓每一次內訓，都變成<span class="text-[#1c4ed8]">看得到的業績</span>
+      </h1>
+      <p class="text-[#5b6472] max-w-xl mx-auto mb-8">
+        LearnForce 整合課程規劃、學習追蹤與成效報表，是台灣中大型企業最常選擇的內訓管理平台。
+      </p>
+      <div class="flex items-center justify-center gap-3">
+        <button class="bg-[#1c4ed8] text-white rounded-full px-6 py-3 font-bold display">免費試用 14 天</button>
+        <button class="border border-[#d8d4c6] rounded-full px-6 py-3 font-semibold display text-[#1b2430]">觀看 3 分鐘介紹</button>
+      </div>
+    </section>
+
+    <section class="pb-10 border-b border-[#eceae0]">
+      <p class="text-center text-xs text-[#8a8577] font-semibold mb-5 tracking-wide">產業領導品牌都在用</p>
+      <div class="flex flex-wrap justify-center gap-x-10 gap-y-4 logo-row">
+        <span class="display font-extrabold text-lg">鼎昌科技</span>
+        <span class="display font-extrabold text-lg">泰豐金融</span>
+        <span class="display font-extrabold text-lg">安聯保險</span>
+        <span class="display font-extrabold text-lg">樂群零售</span>
+        <span class="display font-extrabold text-lg">昇陽製造</span>
+        <span class="display font-extrabold text-lg">遠見醫療</span>
+      </div>
+    </section>
+
+    <section class="py-14 grid md:grid-cols-4 gap-6 text-center" id="statGrid">
+      <div>
+        <p class="stat-num text-4xl font-extrabold text-[#1c4ed8]" data-target="480">0</p>
+        <p class="text-sm text-[#5b6472] mt-1">家企業客戶</p>
+      </div>
+      <div>
+        <p class="stat-num text-4xl font-extrabold text-[#1c4ed8]" data-target="92">0</p>
+        <p class="text-sm text-[#5b6472] mt-1">% 課程完課率</p>
+      </div>
+      <div>
+        <p class="stat-num text-4xl font-extrabold text-[#1c4ed8]" data-target="310000">0</p>
+        <p class="text-sm text-[#5b6472] mt-1">名學員累積使用</p>
+      </div>
+      <div>
+        <p class="stat-num text-4xl font-extrabold text-[#1c4ed8]" data-target="4.8">0</p>
+        <p class="text-sm text-[#5b6472] mt-1">/5 客戶滿意度</p>
+      </div>
+    </section>
+
+    <section class="py-14">
+      <h2 class="display text-2xl font-bold text-center mb-10">客戶怎麼說</h2>
+      <div class="max-w-2xl mx-auto relative overflow-hidden">
+        <div id="testiWrap">
+          <div class="testi-slide fade-in">
+            <p class="text-lg leading-relaxed text-[#1b2430] mb-6">「導入 LearnForce 之後，我們的新人訓練時程從 6 週縮短到 3 週，而且主管終於能用數據跟我討論訓練成效，不再只是憑感覺。」</p>
+            <div class="flex items-center gap-3">
+              <div class="avatar bg-[#1c4ed8]">王</div>
+              <div>
+                <p class="font-bold text-sm">王敏婷</p>
+                <p class="text-xs text-[#8a8577]">鼎昌科技 · 人資長</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-center gap-2 mt-8" id="testiDots">
+          <span class="testi-dot active" data-i="0"></span>
+          <span class="testi-dot" data-i="1"></span>
+          <span class="testi-dot" data-i="2"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-14 border-t border-[#eceae0] text-center">
+      <h2 class="display text-2xl font-bold mb-4">準備好用數據證明內訓的價值了嗎？</h2>
+      <button class="bg-[#1c4ed8] text-white rounded-full px-7 py-3 font-bold display">免費試用 14 天，不需信用卡</button>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-xs text-[#8a8577] py-8">© 2026 LearnForce 學習動力股份有限公司</footer>
+
+<script>
+  // count-up stats on scroll into view
+  const statGrid = document.getElementById('statGrid');
+  let counted = false;
+  function countUp(el){
+    const target = parseFloat(el.dataset.target);
+    const isDecimal = target % 1 !== 0;
+    let cur = 0;
+    const step = target / 40;
+    const tick = () => {
+      cur += step;
+      if(cur >= target){ cur = target; }
+      el.textContent = isDecimal ? cur.toFixed(1) : Math.floor(cur).toLocaleString('zh-Hant-TW');
+      if(cur < target) requestAnimationFrame(tick);
+    };
+    tick();
+  }
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting && !counted){
+        counted = true;
+        document.querySelectorAll('.stat-num').forEach(countUp);
+      }
+    });
+  }, { threshold: 0.4 });
+  obs.observe(statGrid);
+
+  // testimonial carousel
+  const testimonials = [
+    {
+      quote: "導入 LearnForce 之後，我們的新人訓練時程從 6 週縮短到 3 週，而且主管終於能用數據跟我討論訓練成效，不再只是憑感覺。",
+      name: "王敏婷", role: "鼎昌科技 · 人資長", initial:"王", color:"#1c4ed8"
+    },
+    {
+      quote: "最有感的是報表功能，以前要花三天整理各部門受訓紀錄，現在系統自動生成，主管會議前五分鐘就能拉出完整數據。",
+      name: "林冠宇", role: "泰豐金融 · 訓練部經理", initial:"林", color:"#0ea5a4"
+    },
+    {
+      quote: "客服回覆速度是我們換平台的關鍵理由，遇到問題平均 20 分鐘內就有專人處理，這在同類產品裡很少見。",
+      name: "陳怡君", role: "樂群零售 · 教育訓練主任", initial:"陳", color:"#e0732b"
+    },
+  ];
+  const testiWrap = document.getElementById('testiWrap');
+  document.querySelectorAll('#testiDots .testi-dot').forEach(dot=>{
+    dot.addEventListener('click', ()=>{
+      const i = parseInt(dot.dataset.i);
+      document.querySelectorAll('#testiDots .testi-dot').forEach(d=>d.classList.remove('active'));
+      dot.classList.add('active');
+      const t = testimonials[i];
+      testiWrap.innerHTML = `
+        <div class="testi-slide fade-in">
+          <p class="text-lg leading-relaxed text-[#1b2430] mb-6">「${t.quote}」</p>
+          <div class="flex items-center gap-3">
+            <div class="avatar" style="background:${t.color}">${t.initial}</div>
+            <div>
+              <p class="font-bold text-sm">${t.name}</p>
+              <p class="text-xs text-[#8a8577]">${t.role}</p>
+            </div>
+          </div>
+        </div>`;
+    });
+  });
+</script>
+</body>
+</html>

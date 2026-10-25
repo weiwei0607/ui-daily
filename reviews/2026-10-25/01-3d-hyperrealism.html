@@ -1,0 +1,224 @@
+<!-- style #05 3D / Hyperrealism -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>琥光 AmberGlow · 精品香氛</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold:#ffd700;
+    --silver:#c0c0c0;
+    --violet:#5b2a86;
+    --indigo:#2b1055;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    font-family:"Noto Sans TC", sans-serif;
+    background:
+      radial-gradient(circle at 20% 15%, rgba(255,215,0,0.12), transparent 45%),
+      radial-gradient(circle at 80% 85%, rgba(91,42,134,0.35), transparent 50%),
+      linear-gradient(160deg, #0f0a1f 0%, #1b1033 45%, #2b1055 100%);
+    color:#f3eef7;
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  .display{ font-family:"Syne", sans-serif; }
+
+  .bottle-stage{
+    position:relative;
+    width:260px;
+    height:380px;
+    margin:0 auto;
+    perspective: 1000px;
+  }
+  .bottle{
+    position:absolute;
+    inset:0;
+    border-radius: 18px 18px 60px 60px;
+    background:
+      linear-gradient(135deg, #ffe9a8 0%, #ffd700 18%, #b8860b 32%, #fff6d6 46%, #ffd700 60%, #8a6a1a 78%, #ffe9a8 100%);
+    box-shadow:
+      inset -14px -18px 30px rgba(0,0,0,0.35),
+      inset 14px 18px 24px rgba(255,255,255,0.45),
+      0 30px 60px -10px rgba(91,42,134,0.55),
+      0 10px 40px rgba(0,0,0,0.4);
+    animation: rotate-sheen 7s ease-in-out infinite;
+    transform-style: preserve-3d;
+  }
+  .bottle::before{
+    content:"";
+    position:absolute;
+    top:0; left:50%;
+    transform:translateX(-50%);
+    width:70px; height:46px;
+    border-radius: 10px 10px 0 0;
+    background: linear-gradient(135deg,#e8e8e8,#8d8d8d 40%,#fff 60%,#9a9a9a);
+    box-shadow: inset -4px -6px 10px rgba(0,0,0,0.4), inset 4px 6px 10px rgba(255,255,255,0.5);
+  }
+  .bottle::after{
+    content:"";
+    position:absolute;
+    top:-18px; left:50%;
+    transform:translateX(-50%);
+    width:28px; height:22px;
+    border-radius:4px;
+    background: linear-gradient(135deg,#fdf3cf,#ffd700,#b8860b);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  }
+  .glow-halo{
+    position:absolute;
+    left:50%; top:52%;
+    width:340px; height:340px;
+    transform:translate(-50%,-50%);
+    background: radial-gradient(circle, rgba(255,215,0,0.35), rgba(91,42,134,0.25) 55%, transparent 75%);
+    filter: blur(10px);
+    animation: pulse-glow 4s ease-in-out infinite;
+    z-index:-1;
+  }
+  @keyframes rotate-sheen{
+    0%,100%{ transform: rotateY(-8deg) rotateX(2deg); }
+    50%{ transform: rotateY(8deg) rotateX(-2deg); }
+  }
+  @keyframes pulse-glow{
+    0%,100%{ opacity:.65; transform:translate(-50%,-50%) scale(1); }
+    50%{ opacity:1; transform:translate(-50%,-50%) scale(1.08); }
+  }
+
+  .chip-metal{
+    background: linear-gradient(135deg,#f4f4f4,#c0c0c0 40%,#fff 55%,#9a9a9a);
+    color:#2b1055;
+    box-shadow: inset -2px -2px 4px rgba(0,0,0,0.3), inset 2px 2px 4px rgba(255,255,255,0.7);
+  }
+  .card-glass{
+    background: linear-gradient(160deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+    border:1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(6px);
+  }
+  .btn-gold{
+    background: linear-gradient(135deg,#fff6d6,#ffd700 35%,#b8860b 70%,#ffe9a8);
+    color:#2b1055;
+    box-shadow: 0 8px 20px -4px rgba(255,215,0,0.5), inset 0 1px 1px rgba(255,255,255,0.8);
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .btn-gold:hover{ transform: translateY(-2px); box-shadow: 0 14px 28px -6px rgba(255,215,0,0.65), inset 0 1px 1px rgba(255,255,255,0.9); }
+  .btn-gold:active{ transform: translateY(0) scale(.98); }
+
+  .note-pill{
+    border:1px solid rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.04);
+  }
+  .note-pill.active{
+    background: linear-gradient(135deg, rgba(255,215,0,0.25), rgba(192,192,192,0.15));
+    border-color: rgba(255,215,0,0.6);
+    box-shadow: 0 6px 16px -4px rgba(255,215,0,0.35);
+  }
+  ::-webkit-scrollbar{ height:6px; width:6px; }
+  ::-webkit-scrollbar-thumb{ background: rgba(255,215,0,0.4); border-radius:3px; }
+</style>
+</head>
+<body>
+
+  <header class="max-w-5xl mx-auto px-6 pt-10 pb-6 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-full chip-metal flex items-center justify-center display font-bold text-xs">琥</div>
+      <span class="display font-bold text-lg tracking-wide">AmberGlow 琥光</span>
+    </div>
+    <nav class="hidden md:flex gap-6 text-sm text-violet-100/70">
+      <a href="#" class="hover:text-white">系列</a>
+      <a href="#" class="hover:text-white">香氛筆記</a>
+      <a href="#" class="hover:text-white">品牌故事</a>
+    </nav>
+    <button class="btn-gold rounded-full px-5 py-2 text-sm display font-semibold">立即選購</button>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6 pb-24">
+    <section class="grid md:grid-cols-2 gap-10 items-center pt-6">
+      <div>
+        <p class="text-amber-200/80 text-xs tracking-[0.3em] mb-4 display">LIMITED EDITION · 琉金限定款</p>
+        <h1 class="display text-4xl md:text-5xl font-800 leading-tight mb-5">
+          把一瓶<span class="text-amber-300">琉金</span>的重量，<br>留在手腕上。
+        </h1>
+        <p class="text-violet-100/70 leading-relaxed mb-8 max-w-md">
+          琥光第三代琉金瓶身，採用十二道鏡面拋光工序，前調佛手柑與粉紅胡椒，中調大馬士革玫瑰，尾韻琥珀木質——每一次揮灑都像打開一盞暖燈。
+        </p>
+        <div class="flex items-center gap-4">
+          <button class="btn-gold rounded-full px-7 py-3 display font-bold">加入購物車 · NT$2,980</button>
+          <button id="sampleBtn" class="chip-metal rounded-full px-5 py-3 display font-semibold text-sm">索取試香卡</button>
+        </div>
+        <p id="sampleMsg" class="text-amber-200 text-sm mt-4 opacity-0 transition-opacity">已為您加入試香卡申請，將隨下一筆訂單附贈 ✓</p>
+      </div>
+
+      <div class="relative">
+        <div class="glow-halo"></div>
+        <div class="bottle-stage">
+          <div class="bottle"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-24">
+      <h2 class="display text-2xl font-bold mb-6 text-center">挑選你的香氛調性</h2>
+      <div class="flex flex-wrap justify-center gap-3" id="noteSelector">
+        <button class="note-pill active rounded-full px-5 py-2 text-sm" data-note="amber">琥珀木質</button>
+        <button class="note-pill rounded-full px-5 py-2 text-sm" data-note="rose">大馬士革玫瑰</button>
+        <button class="note-pill rounded-full px-5 py-2 text-sm" data-note="citrus">佛手柑微醺</button>
+        <button class="note-pill rounded-full px-5 py-2 text-sm" data-note="musk">晚香玉白麝香</button>
+      </div>
+      <div id="noteDetail" class="card-glass rounded-2xl mt-8 max-w-xl mx-auto p-7 text-center">
+        <p class="display text-amber-200 font-bold mb-2" id="noteTitle">琥珀木質</p>
+        <p class="text-violet-100/70 text-sm leading-relaxed" id="noteDesc">
+          以琥珀脂與檀木為底，溫暖厚實，像冬夜裡壁爐旁的那件羊毛毯，留香可達 8 小時以上。
+        </p>
+      </div>
+    </section>
+
+    <section class="mt-24 grid md:grid-cols-3 gap-6">
+      <div class="card-glass rounded-2xl p-6">
+        <p class="display text-3xl font-bold text-amber-300 mb-1">12 道</p>
+        <p class="text-sm text-violet-100/60">鏡面玻璃拋光工序，每瓶皆為手工檢驗出貨</p>
+      </div>
+      <div class="card-glass rounded-2xl p-6">
+        <p class="display text-3xl font-bold text-amber-300 mb-1">8hr+</p>
+        <p class="text-sm text-violet-100/60">實測留香時間，尾韻琥珀木質最耐久</p>
+      </div>
+      <div class="card-glass rounded-2xl p-6">
+        <p class="display text-3xl font-bold text-amber-300 mb-1">#3</p>
+        <p class="text-sm text-violet-100/60">品牌第三代瓶身設計，獲 2026 年度包裝設計獎提名</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="text-center text-xs text-violet-100/40 pb-10">© 2026 AmberGlow 琥光香氛工作室</footer>
+
+<script>
+  const notes = {
+    amber: { title:"琥珀木質", desc:"以琥珀脂與檀木為底，溫暖厚實，像冬夜裡壁爐旁的那件羊毛毯，留香可達 8 小時以上。" },
+    rose: { title:"大馬士革玫瑰", desc:"保加利亞玫瑰與粉紅胡椒的碰撞，花香不甜膩，帶一點辛香的成熟氣息。" },
+    citrus: { title:"佛手柑微醺", desc:"清亮的佛手柑與青檬調和，前調十五分鐘的清新感，適合白天通勤使用。" },
+    musk: { title:"晚香玉白麝香", desc:"晚香玉的濃郁花香收束在乾淨的白麝香裡，適合夜晚約會或重要場合。" },
+  };
+  document.querySelectorAll('#noteSelector .note-pill').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('#noteSelector .note-pill').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const n = notes[btn.dataset.note];
+      document.getElementById('noteTitle').textContent = n.title;
+      document.getElementById('noteDesc').textContent = n.desc;
+    });
+  });
+
+  const sampleBtn = document.getElementById('sampleBtn');
+  const sampleMsg = document.getElementById('sampleMsg');
+  sampleBtn.addEventListener('click', ()=>{
+    sampleMsg.style.opacity = 1;
+    sampleBtn.textContent = "已申請 ✓";
+    sampleBtn.disabled = true;
+  });
+</script>
+</body>
+</html>

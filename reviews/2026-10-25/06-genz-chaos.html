@@ -1,0 +1,210 @@
+<!-- style #57 Gen Z Chaos -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>爛梗吧 MemeDump · 迷因投稿牆</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Space+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:"Noto Sans TC", sans-serif;
+    background:#fff6e9;
+    margin:0;
+    color:#1a1a1a;
+    background-image: radial-gradient(#00000012 1px, transparent 1px);
+    background-size: 18px 18px;
+  }
+  .display{ font-family:"Bricolage Grotesque","Noto Sans TC",sans-serif; }
+  .mono{ font-family:"Space Mono", monospace; }
+  .sticker{
+    border:3px solid #111;
+    box-shadow: 5px 5px 0 #111;
+    background:#fff;
+  }
+  .tilt-1{ transform: rotate(-2deg); }
+  .tilt-2{ transform: rotate(1.5deg); }
+  .tilt-3{ transform: rotate(-1deg); }
+  .tilt-4{ transform: rotate(2deg); }
+  .dashed-divider{ border-top: 3px dashed #111; }
+  .chaos-btn{
+    border:3px solid #111;
+    box-shadow: 4px 4px 0 #111;
+    transition: transform .1s ease, box-shadow .1s ease;
+  }
+  .chaos-btn:hover{ transform: translate(-2px,-2px); box-shadow: 6px 6px 0 #111; }
+  .chaos-btn:active{ transform: translate(2px,2px); box-shadow: 1px 1px 0 #111; }
+  .tag-pill{
+    border:2px solid #111;
+    font-family:"Space Mono", monospace;
+    font-size:11px;
+    transform: rotate(-3deg);
+  }
+  .upvote-btn{ cursor:pointer; user-select:none; transition: transform .12s ease; }
+  .upvote-btn:active{ transform: scale(1.4) rotate(10deg); }
+  .marquee-track{
+    display:flex; white-space:nowrap;
+    animation: marquee 14s linear infinite;
+  }
+  @keyframes marquee{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+  @keyframes wiggle{ 0%,100%{ transform: rotate(-2deg); } 50%{ transform: rotate(2deg); } }
+  .wiggle{ animation: wiggle 2.4s ease-in-out infinite; }
+</style>
+</head>
+<body>
+
+  <div class="bg-[#111] text-[#fff6e9] py-2 overflow-hidden">
+    <div class="marquee-track mono text-xs font-bold">
+      <span class="px-6">📌 本週精選梗王：那隻一直被退貨的倉鼠</span>
+      <span class="px-6">📌 投稿前先看規則不然會被噴</span>
+      <span class="px-6">📌 禮拜五晚上 9 點開直播選梗王</span>
+      <span class="px-6">📌 本週精選梗王：那隻一直被退貨的倉鼠</span>
+      <span class="px-6">📌 投稿前先看規則不然會被噴</span>
+      <span class="px-6">📌 禮拜五晚上 9 點開直播選梗王</span>
+    </div>
+  </div>
+
+  <header class="max-w-4xl mx-auto px-5 pt-8 pb-4 flex items-center justify-between">
+    <h1 class="display text-3xl font-extrabold wiggle">爛梗吧<span class="text-[#ff5c4d]">.</span></h1>
+    <button id="postBtn" class="chaos-btn bg-[#ffe156] px-5 py-2 display font-bold rounded-full">+ 丟一個梗</button>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-5 pb-20">
+
+    <p class="mono text-xs mb-6 bg-[#c9f2e0] inline-block px-3 py-1 sticker tilt-1">今天已經有 1,247 則投稿，自己注意</p>
+
+    <div id="postForm" class="sticker tilt-2 rounded-2xl p-5 mb-8 hidden">
+      <p class="display font-bold mb-3">丟一個梗上來：</p>
+      <input id="memeInput" type="text" placeholder="輸入你覺得好笑的那句話..." class="w-full border-3 border-[#111] rounded-lg p-3 mb-3 mono text-sm" style="border-width:3px;">
+      <div class="flex gap-2">
+        <button id="submitMeme" class="chaos-btn bg-[#ff5c4d] text-white px-5 py-2 rounded-full display font-bold text-sm">丟出去！</button>
+        <button id="cancelMeme" class="chaos-btn bg-white px-5 py-2 rounded-full display font-bold text-sm">算了</button>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6" id="memeGrid">
+
+      <div class="sticker tilt-1 rounded-2xl p-5">
+        <div class="flex gap-2 mb-3">
+          <span class="tag-pill bg-[#ffe156] px-2 py-1 rounded-full">#職場</span>
+          <span class="tag-pill bg-[#c9f2e0] px-2 py-1 rounded-full">#週一</span>
+        </div>
+        <p class="display font-bold text-lg mb-4">主管說「這個很簡單，你今天應該做得完」然後消失三天</p>
+        <div class="flex items-center justify-between">
+          <span class="mono text-xs text-[#666]">@摸魚系工程師</span>
+          <div class="flex items-center gap-2">
+            <span class="upvote-btn text-xl" data-count="328">🔥</span>
+            <span class="mono text-sm font-bold vote-count">328</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sticker tilt-2 rounded-2xl p-5">
+        <div class="flex gap-2 mb-3">
+          <span class="tag-pill bg-[#ffb4c6] px-2 py-1 rounded-full">#家人</span>
+          <span class="tag-pill bg-[#c7d8ff] px-2 py-1 rounded-full">#過年</span>
+        </div>
+        <p class="display font-bold text-lg mb-4">親戚問「什麼時候要結婚」我回「你先告訴我樂透號碼」</p>
+        <div class="flex items-center justify-between">
+          <span class="mono text-xs text-[#666]">@單身是種生活方式</span>
+          <div class="flex items-center gap-2">
+            <span class="upvote-btn text-xl" data-count="561">🔥</span>
+            <span class="mono text-sm font-bold vote-count">561</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sticker tilt-3 rounded-2xl p-5">
+        <div class="flex gap-2 mb-3">
+          <span class="tag-pill bg-[#ffe156] px-2 py-1 rounded-full">#外送</span>
+        </div>
+        <p class="display font-bold text-lg mb-4">外送備註寫「麻煩不要辣」結果送來一碗純辣油拌麵</p>
+        <div class="flex items-center justify-between">
+          <span class="mono text-xs text-[#666]">@舌頭還在復健</span>
+          <div class="flex items-center gap-2">
+            <span class="upvote-btn text-xl" data-count="203">🔥</span>
+            <span class="mono text-sm font-bold vote-count">203</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sticker tilt-4 rounded-2xl p-5">
+        <div class="flex gap-2 mb-3">
+          <span class="tag-pill bg-[#c9f2e0] px-2 py-1 rounded-full">#省錢</span>
+          <span class="tag-pill bg-[#ffb4c6] px-2 py-1 rounded-full">#月底</span>
+        </div>
+        <p class="display font-bold text-lg mb-4">月初告訴自己要存錢，月底打開記帳 App 直接把它關掉</p>
+        <div class="flex items-center justify-between">
+          <span class="mono text-xs text-[#666]">@薛丁格的存款</span>
+          <div class="flex items-center gap-2">
+            <span class="upvote-btn text-xl" data-count="447">🔥</span>
+            <span class="mono text-sm font-bold vote-count">447</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+<script>
+  document.querySelectorAll('.upvote-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const countEl = btn.nextElementSibling;
+      let count = parseInt(btn.dataset.count);
+      count += 1;
+      btn.dataset.count = count;
+      countEl.textContent = count;
+    });
+  });
+
+  const postBtn = document.getElementById('postBtn');
+  const postForm = document.getElementById('postForm');
+  const memeInput = document.getElementById('memeInput');
+  const memeGrid = document.getElementById('memeGrid');
+  const tilts = ['tilt-1','tilt-2','tilt-3','tilt-4'];
+  const bgTags = ['#ffe156','#c9f2e0','#ffb4c6','#c7d8ff'];
+
+  postBtn.addEventListener('click', ()=>{
+    postForm.classList.toggle('hidden');
+    memeInput.focus();
+  });
+  document.getElementById('cancelMeme').addEventListener('click', ()=>{
+    postForm.classList.add('hidden');
+    memeInput.value = '';
+  });
+  document.getElementById('submitMeme').addEventListener('click', ()=>{
+    const text = memeInput.value.trim();
+    if(!text) return;
+    const tilt = tilts[Math.floor(Math.random()*tilts.length)];
+    const tagBg = bgTags[Math.floor(Math.random()*bgTags.length)];
+    const card = document.createElement('div');
+    card.className = `sticker ${tilt} rounded-2xl p-5`;
+    card.innerHTML = `
+      <div class="flex gap-2 mb-3">
+        <span class="tag-pill px-2 py-1 rounded-full" style="background:${tagBg}">#新鮮梗</span>
+      </div>
+      <p class="display font-bold text-lg mb-4">${text}</p>
+      <div class="flex items-center justify-between">
+        <span class="mono text-xs text-[#666]">@匿名吃瓜群眾</span>
+        <div class="flex items-center gap-2">
+          <span class="upvote-btn text-xl" data-count="1">🔥</span>
+          <span class="mono text-sm font-bold vote-count">1</span>
+        </div>
+      </div>`;
+    card.querySelector('.upvote-btn').addEventListener('click', (e)=>{
+      const btn = e.target;
+      const countEl = btn.nextElementSibling;
+      let count = parseInt(btn.dataset.count) + 1;
+      btn.dataset.count = count;
+      countEl.textContent = count;
+    });
+    memeGrid.prepend(card);
+    memeInput.value = '';
+    postForm.classList.add('hidden');
+  });
+</script>
+</body>
+</html>
