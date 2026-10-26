@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>韡寧的 UI 待審 · 2026-10-26</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Noto Sans TC',sans-serif; background:#f2f2f5; }
+  .card{ background:#fff; border-radius:16px; box-shadow:0 2px 10px rgba(0,0,0,.06); overflow:hidden; }
+  .frame-wrap{ position:relative; width:100%; padding-top:65%; background:#e8e8ee; overflow:hidden; }
+  .frame-wrap iframe{
+    position:absolute; top:0; left:0;
+    width:200%; height:200%;
+    transform:scale(.5); transform-origin:top left;
+    border:0;
+  }
+  .heart{ transition:transform .15s ease; cursor:pointer; user-select:none; }
+  .heart:hover{ transform:scale(1.2); }
+  .heart.liked{ color:#ff4d6d; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="max-w-6xl mx-auto px-5 py-8">
+  <div class="flex items-center justify-between mb-6">
+    <h1 class="text-3xl font-black text-gray-800">韡寧的 UI 待審 · 2026-10-26</h1>
+    <a href="../index.html" class="text-sm text-gray-500 hover:underline">← 回所有日期</a>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="gallery">
+
+    <div class="card" data-id="01">
+      <div class="frame-wrap"><iframe src="01-vibrant-block.html" loading="lazy"></iframe></div>
+      <div class="p-4 flex items-center justify-between">
+        <div>
+          <div class="font-bold text-gray-800">#01 Vibrant Block</div>
+          <div class="text-xs text-gray-400">派對來了 PartyGo · 高飽和色塊</div>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="01-vibrant-block.html" target="_blank" class="text-sm text-blue-600 hover:underline">開啟 ↗</a>
+          <span class="heart text-2xl" data-id="01">♡</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-id="02">
+      <div class="frame-wrap"><iframe src="02-claymorphism.html" loading="lazy"></iframe></div>
+      <div class="p-4 flex items-center justify-between">
+        <div>
+          <div class="font-bold text-gray-800">#02 Claymorphism</div>
+          <div class="text-xs text-gray-400">好眠星球 · 黏土圓潤風</div>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="02-claymorphism.html" target="_blank" class="text-sm text-blue-600 hover:underline">開啟 ↗</a>
+          <span class="heart text-2xl" data-id="02">♡</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-id="03">
+      <div class="frame-wrap"><iframe src="03-trust-authority.html" loading="lazy"></iframe></div>
+      <div class="p-4 flex items-center justify-between">
+        <div>
+          <div class="font-bold text-gray-800">#03 Trust &amp; Authority</div>
+          <div class="text-xs text-gray-400">恆信家族辦公室 · 報紙體權威感</div>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="03-trust-authority.html" target="_blank" class="text-sm text-blue-600 hover:underline">開啟 ↗</a>
+          <span class="heart text-2xl" data-id="03">♡</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-id="04">
+      <div class="frame-wrap"><iframe src="04-executive-summary-dashboard.html" loading="lazy"></iframe></div>
+      <div class="p-4 flex items-center justify-between">
+        <div>
+          <div class="font-bold text-gray-800">#04 Executive Summary Dashboard</div>
+          <div class="text-xs text-gray-400">北極星 · 經營層戰情儀表板</div>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="04-executive-summary-dashboard.html" target="_blank" class="text-sm text-blue-600 hover:underline">開啟 ↗</a>
+          <span class="heart text-2xl" data-id="04">♡</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-id="05">
+      <div class="frame-wrap"><iframe src="05-memphis-revival.html" loading="lazy"></iframe></div>
+      <div class="p-4 flex items-center justify-between">
+        <div>
+          <div class="font-bold text-gray-800">#05 Memphis Revival</div>
+          <div class="text-xs text-gray-400">狂想音樂祭 · 孟菲斯幾何塗鴉</div>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="05-memphis-revival.html" target="_blank" class="text-sm text-blue-600 hover:underline">開啟 ↗</a>
+          <span class="heart text-2xl" data-id="05">♡</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-id="06">
+      <div class="frame-wrap"><iframe src="06-hud-scifi.html" loading="lazy"></iframe></div>
+      <div class="p-4 flex items-center justify-between">
+        <div>
+          <div class="font-bold text-gray-800">#06 HUD / Sci-Fi</div>
+          <div class="text-xs text-gray-400">深空監測站 ORBIT-9 · 科幻抬頭顯示器</div>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="06-hud-scifi.html" target="_blank" class="text-sm text-blue-600 hover:underline">開啟 ↗</a>
+          <span class="heart text-2xl" data-id="06">♡</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const DATE = "2026-10-26";
+  const DB_BASE = "https://b-battle-580b5-default-rtdb.firebaseio.com/uigallery";
+
+  function setLiked(el, liked){
+    el.textContent = liked ? "♥" : "♡";
+    el.classList.toggle("liked", liked);
+  }
+
+  document.querySelectorAll(".heart").forEach(el => {
+    el.addEventListener("click", () => {
+      const id = el.dataset.id;
+      const liked = !el.classList.contains("liked");
+      setLiked(el, liked);
+      fetch(`${DB_BASE}/${DATE}_${id}.json`, { method: "PUT", body: JSON.stringify(liked) })
+        .catch(() => {});
+    });
+  });
+
+  fetch(`${DB_BASE}.json`)
+    .then(r => r.json())
+    .then(data => {
+      if (!data) return;
+      document.querySelectorAll(".heart").forEach(el => {
+        const key = `${DATE}_${el.dataset.id}`;
+        if (data[key] === true) setLiked(el, true);
+      });
+    })
+    .catch(() => {});
+</script>
+
+</body>
+</html>

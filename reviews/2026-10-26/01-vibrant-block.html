@@ -1,0 +1,136 @@
+<!-- style #06 Vibrant Block -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>派對來了 PartyGo · 活動票務平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cyan:#00ffff; --magenta:#bf00ff; --green:#39ff14; --pink:#ff1493; --ink:#0b0b12;
+  }
+  *{font-family:'Space Grotesk',sans-serif;}
+  body{background:var(--ink); color:#fff; overflow-x:hidden;}
+  .block{border:3px solid #0b0b12; box-shadow: 6px 6px 0 #0b0b12;}
+  .block-light{border:3px solid #fff;}
+  .tag{display:inline-block; padding:.25rem .75rem; font-weight:700; border-radius:999px;}
+  .btn-pop{transition:transform .15s ease, box-shadow .15s ease;}
+  .btn-pop:hover{transform:translate(-3px,-3px); box-shadow:8px 8px 0 #0b0b12;}
+  .marquee{white-space:nowrap; animation:scroll 18s linear infinite;}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .glow-text{text-shadow:0 0 18px currentColor;}
+</style>
+</head>
+<body>
+
+<nav class="flex items-center justify-between px-6 md:px-12 py-6">
+  <div class="text-2xl font-bold" style="color:var(--green)">PartyGo<span style="color:var(--pink)">.</span></div>
+  <div class="hidden md:flex gap-8 font-medium">
+    <a href="#" class="hover:text-[var(--cyan)]">活動列表</a>
+    <a href="#" class="hover:text-[var(--magenta)]">主辦方專區</a>
+    <a href="#" class="hover:text-[var(--green)]">常見問題</a>
+  </div>
+  <button class="block btn-pop px-5 py-2 font-bold" style="background:var(--cyan); color:#0b0b12;">登入</button>
+</nav>
+
+<div class="py-2 border-y-3" style="border-color:var(--magenta); background:#15081c;">
+  <div class="marquee text-sm font-bold" style="color:var(--pink)">
+    🔥 跨年倒數派對開賣中 🔥 早鳥票剩 48 小時 🔥 學生證件優惠 8 折 🔥 跨年倒數派對開賣中 🔥 早鳥票剩 48 小時 🔥 學生證件優惠 8 折 🔥
+  </div>
+</div>
+
+<section class="px-6 md:px-12 pt-16 pb-20 grid md:grid-cols-2 gap-10 items-center">
+  <div>
+    <span class="tag mb-6" style="background:var(--green); color:#0b0b12;">全台最大活動票務平台</span>
+    <h1 class="text-5xl md:text-7xl font-bold leading-[1.05] mt-6 glow-text" style="color:var(--cyan)">
+      找到下一場<br>讓你尖叫的派對
+    </h1>
+    <p class="mt-6 text-lg text-gray-300 max-w-md">
+      音樂祭、夜店主題夜、校園活動、快閃市集——PartyGo 把全台最有梗的活動都收進一個 App，滑一滑就能訂票。
+    </p>
+    <div class="mt-8 flex flex-wrap gap-4">
+      <button class="block btn-pop px-8 py-4 text-lg font-bold" style="background:var(--pink); color:#0b0b12;">
+        立即找活動 →
+      </button>
+      <button class="block-light btn-pop px-8 py-4 text-lg font-bold bg-transparent" style="color:#fff;">
+        我是主辦方
+      </button>
+    </div>
+    <div class="mt-10 flex gap-8">
+      <div><div class="text-3xl font-bold" style="color:var(--green)">3,200+</div><div class="text-sm text-gray-400">上架活動</div></div>
+      <div><div class="text-3xl font-bold" style="color:var(--pink)">86 萬</div><div class="text-sm text-gray-400">累積售票</div></div>
+      <div><div class="text-3xl font-bold" style="color:var(--cyan)">4.8★</div><div class="text-sm text-gray-400">用戶評價</div></div>
+    </div>
+  </div>
+
+  <div class="relative h-[460px]">
+    <div class="absolute top-0 left-4 w-56 h-72 block rotate-[-6deg]" style="background:var(--pink);"></div>
+    <div class="absolute top-10 right-0 w-56 h-72 block rotate-[5deg]" style="background:var(--green);"></div>
+    <div class="absolute bottom-0 left-1/4 w-48 h-56 block rotate-[2deg] flex items-center justify-center text-6xl" style="background:var(--cyan);">🎉</div>
+  </div>
+</section>
+
+<section class="px-6 md:px-12 py-16">
+  <h2 class="text-4xl font-bold mb-10" style="color:var(--magenta)">本週熱門活動</h2>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="block p-6" style="background:var(--green); color:#0b0b12;">
+      <div class="text-sm font-bold mb-2">12/31（三）23:00</div>
+      <div class="text-2xl font-bold mb-3">跨年倒數音浪派對</div>
+      <p class="text-sm mb-4">信義威秀廣場・電音 DJ 卡司・免費氣球牆</p>
+      <div class="flex justify-between items-center"><span class="font-bold">NT$ 980 起</span><span class="tag" style="background:#0b0b12;color:var(--green)">熱賣中</span></div>
+    </div>
+    <div class="block p-6" style="background:var(--pink); color:#0b0b12;">
+      <div class="text-sm font-bold mb-2">01/10（六）19:00</div>
+      <div class="text-2xl font-bold mb-3">校園巷口快閃市集</div>
+      <p class="text-sm mb-4">台大側門商圈・30+ 攤位・街頭樂團演出</p>
+      <div class="flex justify-between items-center"><span class="font-bold">免費入場</span><span class="tag" style="background:#0b0b12;color:var(--pink)">本週新上架</span></div>
+    </div>
+    <div class="block p-6" style="background:var(--cyan); color:#0b0b12;">
+      <div class="text-sm font-bold mb-2">01/18（日）20:00</div>
+      <div class="text-2xl font-bold mb-3">頂樓星空主題夜</div>
+      <p class="text-sm mb-4">西門町頂樓酒吧・調酒無限暢飲・限量 120 位</p>
+      <div class="flex justify-between items-center"><span class="font-bold">NT$ 1,280</span><span class="tag" style="background:#0b0b12;color:var(--cyan)">剩 23 席</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="px-6 md:px-12 py-16" style="background:#15081c;">
+  <h2 class="text-4xl font-bold mb-10 text-center" style="color:var(--green)">三步驟，搞定一場派對</h2>
+  <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+    <div class="block-light p-6 text-center">
+      <div class="text-5xl mb-3">🔍</div>
+      <div class="text-xl font-bold mb-2" style="color:var(--cyan)">找活動</div>
+      <p class="text-sm text-gray-300">依城市、日期、類型篩選，演算法還會推薦你的口味</p>
+    </div>
+    <div class="block-light p-6 text-center">
+      <div class="text-5xl mb-3">🎟️</div>
+      <div class="text-xl font-bold mb-2" style="color:var(--pink)">一鍵購票</div>
+      <p class="text-sm text-gray-300">Apple Pay／信用卡秒付款，電子票券直接進錢包</p>
+    </div>
+    <div class="block-light p-6 text-center">
+      <div class="text-5xl mb-3">🚪</div>
+      <div class="text-xl font-bold mb-2" style="color:var(--green)">刷碼入場</div>
+      <p class="text-sm text-gray-300">現場掃 QR Code，免列印、免排隊，3 秒進場</p>
+    </div>
+  </div>
+</section>
+
+<section class="px-6 md:px-12 py-20 text-center">
+  <h2 class="text-4xl md:text-5xl font-bold mb-6 glow-text" style="color:var(--pink)">不要再錯過下一場派對</h2>
+  <p class="text-gray-300 mb-8">下載 PartyGo App，把城市的所有熱鬧收進口袋</p>
+  <div class="flex justify-center gap-4 flex-wrap">
+    <button class="block btn-pop px-8 py-4 font-bold" style="background:var(--cyan); color:#0b0b12;">App Store 下載</button>
+    <button class="block btn-pop px-8 py-4 font-bold" style="background:var(--green); color:#0b0b12;">Google Play 下載</button>
+  </div>
+</section>
+
+<footer class="px-6 md:px-12 py-8 border-t-3 text-sm text-gray-400 flex justify-between" style="border-color:#2a2a2a;">
+  <span>© 2026 PartyGo 派對來了</span>
+  <span>台北市大安區忠孝東路四段 · 客服信箱 hi@partygo.tw</span>
+</footer>
+
+</body>
+</html>

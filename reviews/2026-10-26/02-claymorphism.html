@@ -1,0 +1,128 @@
+<!-- style #09 Claymorphism -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>好眠星球 · 睡前放鬆 App</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Quicksand',sans-serif;
+    background:linear-gradient(160deg,#fdeef0 0%,#eaf6ff 45%,#f0fff4 100%);
+    color:#4a4458;
+  }
+  h1,h2,h3,.title-font{font-family:'Baloo 2',sans-serif;}
+  .clay{
+    background:#fdfbf7;
+    border-radius:32px;
+    box-shadow: 8px 8px 20px rgba(190,180,210,0.45), -8px -8px 20px rgba(255,255,255,0.9);
+  }
+  .clay-in{
+    border-radius:28px;
+    box-shadow: inset 6px 6px 14px rgba(190,180,210,0.4), inset -6px -6px 14px rgba(255,255,255,0.85);
+  }
+  .clay-btn{
+    border-radius:999px;
+    box-shadow: 6px 6px 14px rgba(190,180,210,0.45), -6px -6px 14px rgba(255,255,255,0.9);
+    transition: all .2s ease;
+  }
+  .clay-btn:hover{ transform: translateY(2px); box-shadow: 3px 3px 8px rgba(190,180,210,0.45), -3px -3px 8px rgba(255,255,255,0.9); }
+  .blob{border-radius:60% 40% 55% 45% / 50% 55% 45% 50%;}
+</style>
+</head>
+<body class="min-h-screen">
+
+<nav class="flex items-center justify-between px-6 md:px-14 py-6">
+  <div class="title-font text-2xl font-bold" style="color:#9b8fd1;">☁️ 好眠星球</div>
+  <div class="hidden md:flex gap-8 font-medium text-[#6b6480]">
+    <a href="#">睡眠音景</a>
+    <a href="#">冥想課程</a>
+    <a href="#">睡眠報告</a>
+  </div>
+  <button class="clay-btn px-6 py-2.5 font-bold" style="background:#c7f0d8; color:#3f7a5a;">免費試用</button>
+</nav>
+
+<section class="px-6 md:px-14 pt-10 pb-20 grid md:grid-cols-2 gap-12 items-center">
+  <div>
+    <span class="clay-in inline-block px-4 py-2 text-sm font-bold" style="background:#ffe3ea; color:#c06b86;">每晚多睡 52 分鐘的秘密</span>
+    <h1 class="title-font text-5xl md:text-6xl font-extrabold mt-6 leading-tight" style="color:#7a6fae;">
+      把今天的煩惱<br>輕輕放下，好好睡
+    </h1>
+    <p class="mt-6 text-lg" style="color:#8782a0;">
+      300+ 首助眠音景、呼吸引導冥想、睡眠週期分析，陪你從翻來覆去到一覺天亮。
+    </p>
+    <div class="mt-8 flex flex-wrap gap-4">
+      <button class="clay-btn px-8 py-4 text-lg font-bold" style="background:#d9c9f7; color:#5c4b8c;">開始 7 天體驗 🌙</button>
+      <button class="clay-btn px-8 py-4 text-lg font-bold" style="background:#fff; color:#9b8fd1;">看看怎麼用</button>
+    </div>
+    <div class="mt-10 flex gap-6">
+      <div class="clay-in px-5 py-3" style="background:#eaf6ff;">
+        <div class="title-font text-2xl font-bold" style="color:#6fa8d6;">4.9</div>
+        <div class="text-xs" style="color:#8782a0;">App 評分</div>
+      </div>
+      <div class="clay-in px-5 py-3" style="background:#fdeef0;">
+        <div class="title-font text-2xl font-bold" style="color:#d68fa6;">210 萬</div>
+        <div class="text-xs" style="color:#8782a0;">累積使用人次</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="relative h-[420px] flex items-center justify-center">
+    <div class="blob absolute w-72 h-72" style="background:#e3d6fb;"></div>
+    <div class="clay w-64 p-6 relative z-10">
+      <div class="text-center">
+        <div class="text-5xl mb-3">🌙</div>
+        <div class="title-font text-xl font-bold mb-1" style="color:#7a6fae;">今晚睡眠評分</div>
+        <div class="title-font text-5xl font-extrabold my-3" style="color:#9b8fd1;">87</div>
+        <div class="clay-in h-3 w-full mt-2" style="background:#eee9fb;">
+          <div class="h-3 rounded-full" style="width:87%; background:#c7b3f0;"></div>
+        </div>
+        <p class="text-sm mt-3" style="color:#8782a0;">深睡比例提升 18%，比上週更安穩</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="px-6 md:px-14 py-16">
+  <h2 class="title-font text-4xl font-bold text-center mb-12" style="color:#7a6fae;">為什麼大家睡得更好了</h2>
+  <div class="grid md:grid-cols-3 gap-8">
+    <div class="clay p-8 text-center">
+      <div class="blob w-20 h-20 mx-auto mb-4 flex items-center justify-center text-3xl" style="background:#ffe3ea;">🎧</div>
+      <h3 class="title-font text-xl font-bold mb-2" style="color:#c06b86;">助眠音景</h3>
+      <p class="text-sm" style="color:#8782a0;">雨聲、森林、白噪音，隨心情混搭出專屬睡眠配方</p>
+    </div>
+    <div class="clay p-8 text-center">
+      <div class="blob w-20 h-20 mx-auto mb-4 flex items-center justify-center text-3xl" style="background:#eaf6ff;">🧘</div>
+      <h3 class="title-font text-xl font-bold mb-2" style="color:#6fa8d6;">睡前冥想</h3>
+      <p class="text-sm" style="color:#8782a0;">10 分鐘呼吸引導，放慢心跳速度，準備進入夢鄉</p>
+    </div>
+    <div class="clay p-8 text-center">
+      <div class="blob w-20 h-20 mx-auto mb-4 flex items-center justify-center text-3xl" style="background:#eafbe9;">📊</div>
+      <h3 class="title-font text-xl font-bold mb-2" style="color:#5a9c74;">睡眠報告</h3>
+      <p class="text-sm" style="color:#8782a0;">每天早上一份溫柔的睡眠分析，陪你調整作息</p>
+    </div>
+  </div>
+</section>
+
+<section class="px-6 md:px-14 py-16">
+  <div class="clay max-w-3xl mx-auto p-10 text-center">
+    <div class="text-4xl mb-4">💬</div>
+    <p class="title-font text-2xl font-bold mb-4" style="color:#7a6fae;">「失眠三年，用了兩週就睡著得比較快」</p>
+    <p style="color:#8782a0;">——陳小姐，台北・使用好眠星球 42 天</p>
+  </div>
+</section>
+
+<section class="px-6 md:px-14 py-20 text-center">
+  <h2 class="title-font text-4xl md:text-5xl font-bold mb-6" style="color:#9b8fd1;">今晚，就睡個好覺吧</h2>
+  <button class="clay-btn px-10 py-5 text-lg font-bold" style="background:#d9c9f7; color:#5c4b8c;">免費下載 好眠星球</button>
+</section>
+
+<footer class="px-6 md:px-14 py-8 text-sm text-center" style="color:#a9a3bd;">
+  © 2026 好眠星球 Somnia Planet · 台北市信義區松仁路 100 號
+</footer>
+
+</body>
+</html>

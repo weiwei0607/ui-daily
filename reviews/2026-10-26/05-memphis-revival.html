@@ -1,0 +1,112 @@
+<!-- style #44 Memphis Revival -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>狂想音樂祭 WildFest · 售票頁</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Poppins',sans-serif; background:#fdf6e9; color:#2b2420; overflow-x:hidden; }
+  .display{ font-family:'Archivo Black',sans-serif; }
+  .zig{ clip-path: polygon(0 20%, 15% 0, 30% 20%, 45% 0, 60% 20%, 75% 0, 90% 20%, 100% 0, 100% 100%, 0 100%); }
+  .triangle{ width:0; height:0; border-style:solid; }
+  .dot{ border-radius:50%; }
+  .squiggle{ position:absolute; }
+  .wobble{ animation: wobble 4s ease-in-out infinite; }
+  @keyframes wobble{ 0%,100%{transform:rotate(-3deg)} 50%{transform:rotate(3deg)} }
+</style>
+</head>
+<body>
+
+<nav class="flex items-center justify-between px-6 md:px-14 py-6 relative z-10">
+  <div class="display text-2xl" style="color:#ff6b6b;">WILD<span style="color:#1aa6a0;">FEST</span></div>
+  <div class="hidden md:flex gap-8 font-semibold">
+    <a href="#">陣容</a><a href="#">舞台地圖</a><a href="#">購票</a>
+  </div>
+  <button class="px-6 py-2.5 font-bold border-[3px] border-[#2b2420]" style="background:#ffe156;">立即搶票</button>
+</nav>
+
+<section class="relative px-6 md:px-14 pt-10 pb-24 overflow-hidden">
+  <div class="absolute top-10 right-10 w-16 h-16 dot wobble" style="background:#ff6b6b;"></div>
+  <div class="absolute top-40 right-40 triangle wobble" style="border-width:0 25px 45px 25px; border-color:transparent transparent #1aa6a0 transparent;"></div>
+  <div class="absolute bottom-10 left-10 w-20 h-20" style="background:#a388ee; border-radius:50% 50% 0 50%;"></div>
+  <div class="absolute top-0 left-1/3 w-10 h-10 dot" style="background:#ffe156; border:3px solid #2b2420;"></div>
+
+  <div class="relative z-10 text-center max-w-4xl mx-auto">
+    <div class="inline-block px-5 py-2 mb-6 font-bold border-[3px] border-[#2b2420] -rotate-2" style="background:#fff;">2027.01.24—26 · 台中花博園區</div>
+    <h1 class="display text-6xl md:text-8xl leading-[1.05]" style="color:#2b2420;">
+      狂想<span style="color:#ff6b6b;">音樂祭</span>
+    </h1>
+    <p class="mt-6 text-xl font-medium">三天三夜，40 組樂團，一場不睡覺也值得的瘋狂</p>
+    <div class="mt-10 flex justify-center gap-4 flex-wrap">
+      <button class="display text-lg px-8 py-4 border-[3px] border-[#2b2420]" style="background:#1aa6a0; color:#fff; box-shadow:6px 6px 0 #2b2420;">三日套票 NT$2,980</button>
+      <button class="display text-lg px-8 py-4 border-[3px] border-[#2b2420]" style="background:#fff; box-shadow:6px 6px 0 #2b2420;">單日票</button>
+    </div>
+  </div>
+</section>
+
+<div class="zig h-16" style="background:#2b2420;"></div>
+
+<section class="px-6 md:px-14 py-16" style="background:#2b2420; color:#fdf6e9;">
+  <h2 class="display text-4xl md:text-5xl text-center mb-12" style="color:#ffe156;">壓軸陣容</h2>
+  <div class="grid md:grid-cols-4 gap-6">
+    <div class="p-5 border-[3px] text-center" style="border-color:#ffe156; background:#3a332c;">
+      <div class="text-5xl mb-3">🎸</div>
+      <div class="font-bold text-lg">海浪製造機</div>
+      <div class="text-sm opacity-70 mt-1">主舞台・週五 21:00</div>
+    </div>
+    <div class="p-5 border-[3px] text-center" style="border-color:#ff6b6b; background:#3a332c;">
+      <div class="text-5xl mb-3">🎤</div>
+      <div class="font-bold text-lg">貓咪拆船隊</div>
+      <div class="text-sm opacity-70 mt-1">主舞台・週六 22:00</div>
+    </div>
+    <div class="p-5 border-[3px] text-center" style="border-color:#1aa6a0; background:#3a332c;">
+      <div class="text-5xl mb-3">🎹</div>
+      <div class="font-bold text-lg">電子螞蟻窩</div>
+      <div class="text-sm opacity-70 mt-1">副舞台・週五 23:30</div>
+    </div>
+    <div class="p-5 border-[3px] text-center" style="border-color:#a388ee; background:#3a332c;">
+      <div class="text-5xl mb-3">🥁</div>
+      <div class="font-bold text-lg">鼓聲不打烊</div>
+      <div class="text-sm opacity-70 mt-1">副舞台・週日 20:00</div>
+    </div>
+  </div>
+</section>
+
+<section class="px-6 md:px-14 py-16 relative overflow-hidden">
+  <div class="absolute top-6 left-1/2 w-14 h-14 dot" style="background:#ffe156; border:3px solid #2b2420;"></div>
+  <h2 class="display text-4xl text-center mb-12">三天的玩法</h2>
+  <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+    <div class="p-6 border-[3px] border-[#2b2420] -rotate-1" style="background:#ff6b6b; color:#fff;">
+      <div class="display text-3xl mb-2">DAY 1</div>
+      <p class="font-medium">開幕派對・市集開張・樂團輪番上場到午夜</p>
+    </div>
+    <div class="p-6 border-[3px] border-[#2b2420] rotate-1" style="background:#1aa6a0; color:#fff;">
+      <div class="display text-3xl mb-2">DAY 2</div>
+      <p class="font-medium">壓軸嘉賓登場・草地野餐區・限定快閃攤位</p>
+    </div>
+    <div class="p-6 border-[3px] border-[#2b2420] -rotate-1" style="background:#a388ee; color:#fff;">
+      <div class="display text-3xl mb-2">DAY 3</div>
+      <p class="font-medium">日落場・全場大合唱收尾・限定紀念周邊販售</p>
+    </div>
+  </div>
+</section>
+
+<section class="px-6 md:px-14 py-20 text-center" style="background:#ffe156;">
+  <h2 class="display text-5xl mb-6">早鳥票只剩 3 天</h2>
+  <p class="font-semibold mb-8 text-lg">過了今晚，票價直接漲 500 元</p>
+  <button class="display text-xl px-10 py-5 border-[3px] border-[#2b2420]" style="background:#2b2420; color:#ffe156; box-shadow:6px 6px 0 #ff6b6b;">搶最後一波早鳥票</button>
+</section>
+
+<footer class="px-6 md:px-14 py-8 text-sm" style="background:#2b2420; color:#fdf6e9;">
+  <div class="flex justify-between flex-wrap gap-2">
+    <span>© 2027 狂想音樂祭 WildFest</span>
+    <span>台中市后里區豐年路 8 號 花博園區</span>
+  </div>
+</footer>
+
+</body>
+</html>

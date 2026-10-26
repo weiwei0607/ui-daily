@@ -1,0 +1,145 @@
+<!-- style #30 Executive Summary Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>北極星 · 經營層戰情儀表板</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Plus Jakarta Sans',sans-serif; background:#f4f5f7; color:#1c2230; }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+  .card{ background:#fff; border-radius:16px; border:1px solid #e6e8ee; }
+  .up{color:#0f9d58;} .down{color:#d93025;}
+  .pill{border-radius:999px; font-size:.7rem; font-weight:700; padding:.15rem .6rem;}
+  .bar{height:8px; border-radius:999px; background:#eceef2;}
+  .bar-fill{height:8px; border-radius:999px;}
+</style>
+</head>
+<body>
+
+<div class="max-w-7xl mx-auto px-6 py-8">
+
+  <div class="flex items-center justify-between mb-8">
+    <div>
+      <div class="text-sm text-gray-400 mono">EXECUTIVE DASHBOARD · Q4 2026</div>
+      <h1 class="text-3xl font-extrabold mt-1">北極星｜經營層戰情室</h1>
+    </div>
+    <div class="flex items-center gap-4">
+      <div class="text-right">
+        <div class="text-sm text-gray-400">最後更新</div>
+        <div class="font-semibold mono">2026-10-26 09:00</div>
+      </div>
+      <div class="w-11 h-11 rounded-full bg-[#1c2230] text-white flex items-center justify-center font-bold">CEO</div>
+    </div>
+  </div>
+
+  <!-- KPI Row -->
+  <div class="grid md:grid-cols-4 gap-5 mb-8">
+    <div class="card p-6">
+      <div class="text-sm text-gray-400 mb-2">本季營收</div>
+      <div class="text-3xl font-extrabold mono">NT$ 4.82<span class="text-lg">億</span></div>
+      <div class="mt-3 flex items-center gap-2 text-sm">
+        <span class="up font-semibold mono">▲ 12.4%</span><span class="text-gray-400">較上季</span>
+      </div>
+    </div>
+    <div class="card p-6">
+      <div class="text-sm text-gray-400 mb-2">毛利率</div>
+      <div class="text-3xl font-extrabold mono">41.6%</div>
+      <div class="mt-3 flex items-center gap-2 text-sm">
+        <span class="down font-semibold mono">▼ 1.2 pt</span><span class="text-gray-400">較上季</span>
+      </div>
+    </div>
+    <div class="card p-6">
+      <div class="text-sm text-gray-400 mb-2">客戶留存率</div>
+      <div class="text-3xl font-extrabold mono">93.8%</div>
+      <div class="mt-3 flex items-center gap-2 text-sm">
+        <span class="up font-semibold mono">▲ 0.6 pt</span><span class="text-gray-400">較上季</span>
+      </div>
+    </div>
+    <div class="card p-6">
+      <div class="text-sm text-gray-400 mb-2">現金水位</div>
+      <div class="text-3xl font-extrabold mono">NT$ 2.1<span class="text-lg">億</span></div>
+      <div class="mt-3 flex items-center gap-2 text-sm">
+        <span class="pill" style="background:#eaf6ea;color:#0f9d58;">健康</span><span class="text-gray-400">可支撐 14 個月</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-5 mb-8">
+
+    <div class="card p-6 md:col-span-2">
+      <div class="flex justify-between items-center mb-5">
+        <h2 class="font-bold text-lg">各事業部營收達成率</h2>
+        <span class="pill" style="background:#eef1ff;color:#3b55e0;">目標達成 87%</span>
+      </div>
+      <div class="space-y-5">
+        <div>
+          <div class="flex justify-between text-sm mb-1.5"><span>雲端服務事業部</span><span class="mono font-semibold">NT$ 2.1 億 / 2.3 億</span></div>
+          <div class="bar"><div class="bar-fill" style="width:91%; background:#3b55e0;"></div></div>
+        </div>
+        <div>
+          <div class="flex justify-between text-sm mb-1.5"><span>硬體與設備事業部</span><span class="mono font-semibold">NT$ 1.4 億 / 1.8 億</span></div>
+          <div class="bar"><div class="bar-fill" style="width:78%; background:#0f9d58;"></div></div>
+        </div>
+        <div>
+          <div class="flex justify-between text-sm mb-1.5"><span>顧問與導入服務</span><span class="mono font-semibold">NT$ 0.9 億 / 1.0 億</span></div>
+          <div class="bar"><div class="bar-fill" style="width:90%; background:#e8a63b;"></div></div>
+        </div>
+        <div>
+          <div class="flex justify-between text-sm mb-1.5"><span>海外市場開發</span><span class="mono font-semibold">NT$ 0.42 億 / 0.6 億</span></div>
+          <div class="bar"><div class="bar-fill" style="width:70%; background:#d93025;"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-6">
+      <h2 class="font-bold text-lg mb-5">風險雷達</h2>
+      <div class="space-y-4">
+        <div class="flex justify-between items-start">
+          <div>
+            <div class="font-semibold text-sm">應收帳款天數上升</div>
+            <div class="text-xs text-gray-400 mt-0.5">較上季增加 6 天</div>
+          </div>
+          <span class="pill" style="background:#fdeeee;color:#d93025;">高</span>
+        </div>
+        <div class="flex justify-between items-start">
+          <div>
+            <div class="font-semibold text-sm">關鍵供應商交期延遲</div>
+            <div class="text-xs text-gray-400 mt-0.5">東南亞原料廠延遲 3 週</div>
+          </div>
+          <span class="pill" style="background:#fff6e6;color:#b8860b;">中</span>
+        </div>
+        <div class="flex justify-between items-start">
+          <div>
+            <div class="font-semibold text-sm">海外市場匯率波動</div>
+            <div class="text-xs text-gray-400 mt-0.5">已做 60% 避險</div>
+          </div>
+          <span class="pill" style="background:#eaf6ea;color:#0f9d58;">低</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card p-6">
+    <h2 class="font-bold text-lg mb-5">本週決議事項追蹤</h2>
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="text-left text-gray-400 border-b border-gray-100">
+          <th class="py-2">決議事項</th><th>負責人</th><th>期限</th><th class="text-right">狀態</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100">
+        <tr><td class="py-3">核准海外辦公室擴編 6 人</td><td>人資長</td><td class="mono">11/15</td><td class="text-right"><span class="pill" style="background:#eaf6ea;color:#0f9d58;">進行中</span></td></tr>
+        <tr><td class="py-3">雲端事業部定價策略調整</td><td>產品長</td><td class="mono">11/01</td><td class="text-right"><span class="pill" style="background:#eef1ff;color:#3b55e0;">待審核</span></td></tr>
+        <tr><td class="py-3">應收帳款催收專案啟動</td><td>財務長</td><td class="mono">10/30</td><td class="text-right"><span class="pill" style="background:#fdeeee;color:#d93025;">逾期</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+</body>
+</html>
