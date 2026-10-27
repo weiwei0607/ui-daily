@@ -1,0 +1,174 @@
+<!-- style #01 Minimalism / Swiss -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>隱頁 Ledger｜財務分析報告</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Noto+Serif+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f5f1e8;
+    --ink:#111111;
+    --gray:#6b6b63;
+    --rule:#111111;
+  }
+  body{background:var(--paper); color:var(--ink); font-family:'Noto Serif TC', serif;}
+  .headline{font-family:'Playfair Display','Noto Serif TC',serif;}
+  .grid-line{border-color:#00000022;}
+  .num{font-feature-settings:"tnum";}
+  .mast{letter-spacing:0.28em;}
+  .drop-rule{border-top:3px solid var(--ink); border-bottom:1px solid var(--ink);}
+  .hairline{border-top:1px solid #00000033;}
+  .tag{border:1px solid var(--ink);}
+</style>
+</head>
+<body class="min-h-screen">
+
+  <header class="max-w-6xl mx-auto px-6 pt-10 pb-6">
+    <div class="flex items-end justify-between drop-rule py-3">
+      <h1 class="mast text-2xl md:text-3xl font-black">隱頁 LEDGER</h1>
+      <div class="text-xs md:text-sm text-right text-[var(--gray)] mast">
+        第 47 期 · 2026 年 10 月 27 日<br class="hidden md:block">季度財務觀察
+      </div>
+    </div>
+    <nav class="hidden md:flex gap-8 text-sm mast py-3 border-b border-black/20">
+      <span class="font-bold">總覽</span><span>資本配置</span><span>風險揭露</span><span>委託管理</span><span>訂閱</span>
+    </nav>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6">
+    <!-- Hero headline block -->
+    <section class="grid md:grid-cols-12 gap-10 py-10 border-b border-black/20">
+      <div class="md:col-span-8">
+        <p class="mast text-xs text-[var(--gray)] mb-4">封面故事 — 資產配置</p>
+        <h2 class="headline text-4xl md:text-6xl font-bold leading-[1.05] mb-6">
+          當利率轉向，<br>資金該往哪裡走？
+        </h2>
+        <p class="text-lg leading-relaxed text-[var(--gray)] max-w-xl">
+          我們整理了過去十二個月、超過兩千筆機構委託帳戶的實際調倉紀錄，
+          拆解三種常見的資產重新配置路徑，並標出其中最常被忽略的稅務時機。
+        </p>
+        <div class="mt-8 flex gap-4">
+          <button class="px-6 py-3 bg-black text-[var(--paper)] mast text-sm hover:bg-neutral-800 transition">
+            閱讀完整報告 →
+          </button>
+          <button class="px-6 py-3 tag mast text-sm hover:bg-black hover:text-[var(--paper)] transition">
+            下載 PDF
+          </button>
+        </div>
+      </div>
+      <div class="md:col-span-4 flex flex-col justify-between">
+        <div class="hairline pt-4">
+          <p class="mast text-xs text-[var(--gray)] mb-2">本月焦點指標</p>
+          <p class="headline text-5xl font-bold num">4.8%</p>
+          <p class="text-sm text-[var(--gray)] mt-1">十年期公債殖利率，較上季下降 0.6 個百分點</p>
+        </div>
+        <div class="hairline pt-4 mt-6">
+          <p class="mast text-xs text-[var(--gray)] mb-2">委託帳戶淨流入</p>
+          <p class="headline text-5xl font-bold num">NT$ 18.3B</p>
+          <p class="text-sm text-[var(--gray)] mt-1">本季較去年同期成長 22%</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Three column editorial grid -->
+    <section class="grid md:grid-cols-3 gap-10 py-10 border-b border-black/20">
+      <article>
+        <p class="mast text-xs text-[var(--gray)] mb-3">01 — 市場觀察</p>
+        <h3 class="headline text-2xl font-bold mb-3 leading-snug">固定收益部位的隱性成本</h3>
+        <p class="text-[var(--gray)] leading-relaxed">
+          許多委託人忽略了債券基金的內扣費用在利率下降週期中會被放大，
+          我們用三個真實帳戶的對照表說明差異。
+        </p>
+      </article>
+      <article>
+        <p class="mast text-xs text-[var(--gray)] mb-3">02 — 風險揭露</p>
+        <h3 class="headline text-2xl font-bold mb-3 leading-snug">集中度風險的三個警訊</h3>
+        <p class="text-[var(--gray)] leading-relaxed">
+          當單一產業佔比超過 35%，歷史數據顯示回撤幅度平均擴大 1.7 倍，
+          本文列出我們內部用來示警的門檻設計。
+        </p>
+      </article>
+      <article>
+        <p class="mast text-xs text-[var(--gray)] mb-3">03 — 委託管理</p>
+        <h3 class="headline text-2xl font-bold mb-3 leading-snug">再平衡的最佳時機窗口</h3>
+        <p class="text-[var(--gray)] leading-relaxed">
+          不是每次偏離都值得交易，我們用成本模型回測出一個五個工作日的
+          觀察窗，過早動作往往反而侵蝕報酬。
+        </p>
+      </article>
+    </section>
+
+    <!-- Data table, swiss grid -->
+    <section class="py-10 border-b border-black/20">
+      <p class="mast text-xs text-[var(--gray)] mb-4">資料附錄 — 各類資產本季表現</p>
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="drop-rule mast text-left">
+            <th class="py-3">資產類別</th>
+            <th class="py-3 text-right">本季報酬</th>
+            <th class="py-3 text-right">年化波動</th>
+            <th class="py-3 text-right">委託佔比</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-black/15">
+          <tr>
+            <td class="py-4">全球股票（已開發市場）</td>
+            <td class="py-4 text-right num">+6.2%</td>
+            <td class="py-4 text-right num">14.1%</td>
+            <td class="py-4 text-right num">41%</td>
+          </tr>
+          <tr>
+            <td class="py-4">新興市場股票</td>
+            <td class="py-4 text-right num">+3.4%</td>
+            <td class="py-4 text-right num">19.8%</td>
+            <td class="py-4 text-right num">12%</td>
+          </tr>
+          <tr>
+            <td class="py-4">投資級公司債</td>
+            <td class="py-4 text-right num">+2.1%</td>
+            <td class="py-4 text-right num">5.3%</td>
+            <td class="py-4 text-right num">24%</td>
+          </tr>
+          <tr>
+            <td class="py-4">不動產信託（REITs）</td>
+            <td class="py-4 text-right num">-1.8%</td>
+            <td class="py-4 text-right num">17.2%</td>
+            <td class="py-4 text-right num">9%</td>
+          </tr>
+          <tr>
+            <td class="py-4">現金與短期票券</td>
+            <td class="py-4 text-right num">+1.0%</td>
+            <td class="py-4 text-right num">0.4%</td>
+            <td class="py-4 text-right num">14%</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Subscribe strip -->
+    <section class="py-10 grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <h4 class="headline text-3xl font-bold mb-3">每週三，直送你的信箱</h4>
+        <p class="text-[var(--gray)] leading-relaxed">
+          不談明牌、不做預測，只整理機構真實的資金動向與風險揭露。
+          目前有 6,400 位委託經理人訂閱。
+        </p>
+      </div>
+      <form class="flex gap-0 border border-black">
+        <input type="email" placeholder="輸入您的工作信箱" class="flex-1 px-4 py-3 bg-transparent outline-none text-sm">
+        <button class="px-6 py-3 bg-black text-[var(--paper)] mast text-sm shrink-0">訂閱</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="max-w-6xl mx-auto px-6 py-8 drop-rule mt-6 flex flex-col md:flex-row justify-between gap-2 text-xs text-[var(--gray)] mast">
+    <p>© 2026 隱頁 LEDGER 財務研究室</p>
+    <p>本報告僅供參考，不構成投資建議</p>
+  </footer>
+
+</body>
+</html>

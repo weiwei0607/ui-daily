@@ -21,6 +21,9 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-10-27（6 個，#01 Minimalism/Swiss / #19 Soft UI Evolution / #27 Storytelling / #37 Sales Intelligence Dashboard / #48 Kinetic Typography / #40 Y2K Revival）
+- ⚠️ 本輪 Firebase ❤️ 讀取（`b-battle-580b5-default-rtdb.firebaseio.com`）與 Telegram `getMe`（`api.telegram.org`）皆再次測試連線失敗（curl 回 exit code 56，連線被拒），與長期以來同一組環境網路限制一致（自 2026-09-01 起持續至今），非暫時性問題，無法讀取上一批按讚結果，沿用「已確認偏好」規則生成本輪；Telegram 改走系統 PushNotification 管道發送通知。本輪避開最近三天（10-24/25/26）已用過的 17 種風格，挑了 6 個跨 A/B/C/D 組、字體刻意不重複（報紙襯線、圓體、敘事襯線、Space Grotesk+JetBrains Mono、Bebas Neue、Orbitron）的方向。
+
 ### 2026-10-26（6 個，#06 Vibrant Block / #09 Claymorphism / #26 Trust & Authority / #30 Executive Summary Dashboard / #44 Memphis Revival / #51 HUD/Sci-Fi）
 - ⚠️ 本輪 Firebase ❤️ 讀取（`b-battle-580b5-default-rtdb.firebaseio.com`）與 Telegram `getMe`（`api.telegram.org`）皆再次測試連線失敗（curl 回 `CONNECT tunnel failed, response 403` / HTTP code 000），與長期以來同一組環境網路限制一致，非暫時性問題，無法讀取上一批按讚結果，沿用「已確認偏好」規則生成本輪；Telegram 改走系統 PushNotification 管道發送通知。GitHub `api.github.com` 測試回 200 連線正常。
 - 本輪挑選依據：統計全部歷史 `reviews/` 的 `<!-- style #NN 風格名 -->` 標頭使用次數，避開最近 3 天（10-23/24/25）用過的全部風格，從低使用次數中跨 A/B/C/D 四組挑選：**Vibrant Block #06**（A 組，Space Grotesk，做成活動票務 App「派對來了 PartyGo」）、**Claymorphism #09**（A 組，依「已確認偏好」圓潤風規則改用 Baloo 2 + Quicksand 取代配方表預設 Nunito，做成睡眠冥想 App「好眠星球」）、**Trust & Authority #26**（B 組，依「已確認偏好」敘事/權威風規則用 Playfair Display + Noto Serif TC 報紙體，做成家族辦公室財富顧問網站「恆信家族辦公室」）、**Executive Summary Dashboard #30**（C 組，Plus Jakarta Sans + JetBrains Mono 等寬數字，做成經營層戰情儀表板「北極星」）、**Memphis Revival #44**（D 組，Archivo Black + Poppins 粗展示字，做成音樂祭售票頁「狂想音樂祭 WildFest」）、**HUD / Sci-Fi #51**（D 組，Orbitron + Share Tech Mono，做成衛星任務監控台「深空監測站 ORBIT-9」）。全數繁體中文文案，刻意避開 Inter/Helvetica 作為實際渲染字體（驗證：6 個檔案 grep 皆無 `'Inter'` / `Helvetica` 字體宣告），也以簡體字清單逐檔掃描確認無簡體污染（僅「后」出現於地名「台中市后里區」，為合法繁體地名用字非簡體）。
