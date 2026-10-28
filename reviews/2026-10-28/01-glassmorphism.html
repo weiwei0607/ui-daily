@@ -1,0 +1,153 @@
+<!-- style #03 Glassmorphism -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>綻放 Blossom｜社群動態 App</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --glass-bg: rgba(255,255,255,0.22);
+    --glass-border: rgba(255,255,255,0.45);
+  }
+  body{
+    font-family:'Quicksand','Zen Maru Gothic',sans-serif;
+    background: radial-gradient(circle at 15% 10%, #8ecbff 0%, transparent 45%),
+                radial-gradient(circle at 85% 20%, #ffb6e6 0%, transparent 50%),
+                radial-gradient(circle at 50% 90%, #c3b6ff 0%, transparent 55%),
+                linear-gradient(135deg,#667eea 0%,#764ba2 45%,#f093fb 100%);
+    min-height:100vh;
+    background-attachment: fixed;
+  }
+  .font-display{font-family:'Baloo 2','Zen Maru Gothic',sans-serif;}
+  .glass{
+    background: var(--glass-bg);
+    border:1px solid var(--glass-border);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    box-shadow: 0 8px 32px rgba(31,38,135,0.18);
+  }
+  .glass-strong{
+    background: rgba(255,255,255,0.35);
+    border:1px solid rgba(255,255,255,0.55);
+    backdrop-filter: blur(24px) saturate(150%);
+    -webkit-backdrop-filter: blur(24px) saturate(150%);
+    box-shadow: 0 8px 32px rgba(31,38,135,0.2);
+  }
+  .float-blob{
+    position:absolute; border-radius:50%; filter:blur(50px); opacity:.55; z-index:0;
+    animation: floaty 10s ease-in-out infinite;
+  }
+  @keyframes floaty{
+    0%,100%{ transform: translate(0,0) scale(1); }
+    50%{ transform: translate(20px,-30px) scale(1.08); }
+  }
+  .pulse-dot{animation: pulseDot 1.8s ease-in-out infinite;}
+  @keyframes pulseDot{0%,100%{opacity:1}50%{opacity:.35}}
+  ::-webkit-scrollbar{width:10px}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.4); border-radius:10px;}
+</style>
+</head>
+<body class="relative overflow-x-hidden text-slate-800">
+
+  <div class="float-blob bg-pink-300" style="width:260px;height:260px; top:8%; left:4%;"></div>
+  <div class="float-blob bg-cyan-200" style="width:320px;height:320px; top:40%; right:3%;"></div>
+  <div class="float-blob bg-violet-300" style="width:280px;height:280px; bottom:4%; left:20%;"></div>
+
+  <nav class="relative z-10 max-w-6xl mx-auto px-6 pt-6 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <div class="w-10 h-10 rounded-2xl glass-strong flex items-center justify-center text-xl">🌸</div>
+      <span class="font-display text-2xl text-white drop-shadow-sm">綻放 Blossom</span>
+    </div>
+    <div class="hidden md:flex items-center gap-6 glass rounded-full px-6 py-2 text-white/90 font-medium">
+      <a href="#" class="hover:text-white">探索</a>
+      <a href="#" class="hover:text-white">圈子</a>
+      <a href="#" class="hover:text-white">活動</a>
+      <a href="#" class="hover:text-white">關於我們</a>
+    </div>
+    <button class="glass-strong text-white font-display px-5 py-2 rounded-full hover:scale-105 transition">立即下載</button>
+  </nav>
+
+  <header class="relative z-10 max-w-6xl mx-auto px-6 pt-16 pb-20 grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <span class="inline-block glass rounded-full px-4 py-1 text-sm text-white/90 mb-5">✨ 已有 42 萬人在用</span>
+      <h1 class="font-display text-5xl md:text-6xl text-white leading-tight drop-shadow-md">
+        把生活的<br><span class="text-pink-100">小美好</span>，<br>輕輕分享出去
+      </h1>
+      <p class="mt-6 text-lg text-white/85 max-w-md">
+        綻放是一個溫柔的社群動態 App，記錄日常、追蹤朋友的近況，讓每一次互動都像收到一封小卡片。
+      </p>
+      <div class="mt-8 flex flex-wrap gap-4">
+        <button class="glass-strong text-white font-display text-lg px-7 py-3 rounded-full shadow-lg hover:scale-105 transition">免費開始使用</button>
+        <button class="glass text-white font-display text-lg px-7 py-3 rounded-full hover:bg-white/30 transition">觀看介紹影片 ▶</button>
+      </div>
+      <div class="mt-10 flex items-center gap-4">
+        <div class="flex -space-x-3">
+          <div class="w-10 h-10 rounded-full glass-strong border-2 border-white/60"></div>
+          <div class="w-10 h-10 rounded-full glass-strong border-2 border-white/60"></div>
+          <div class="w-10 h-10 rounded-full glass-strong border-2 border-white/60"></div>
+        </div>
+        <p class="text-white/80 text-sm">本週有 <b class="text-white">3,208</b> 則溫暖貼文被分享</p>
+      </div>
+    </div>
+
+    <div class="relative">
+      <div class="glass-strong rounded-[2.5rem] p-6 max-w-sm mx-auto shadow-2xl">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-11 h-11 rounded-full bg-gradient-to-br from-pink-300 to-violet-300"></div>
+          <div>
+            <p class="font-display text-white">阿芝</p>
+            <p class="text-xs text-white/70">3 分鐘前・台北</p>
+          </div>
+          <span class="ml-auto pulse-dot w-2 h-2 rounded-full bg-emerald-300"></span>
+        </div>
+        <div class="rounded-2xl h-40 bg-gradient-to-br from-sky-200/60 via-pink-200/60 to-violet-200/60 mb-4 flex items-center justify-center text-5xl">☕🌿</div>
+        <p class="text-white/90 text-sm mb-4">今天的手沖咖啡特別順口，窗邊的光剛好灑在桌上，想把這份安靜分享給大家。</p>
+        <div class="flex items-center gap-5 text-white/80 text-sm">
+          <span>❤️ 128</span>
+          <span>💬 36</span>
+          <span>↗️ 分享</span>
+        </div>
+      </div>
+      <div class="glass rounded-3xl p-4 absolute -bottom-6 -left-6 w-44 shadow-xl hidden sm:block">
+        <p class="font-display text-white text-sm mb-1">今日圈子活躍</p>
+        <p class="text-white text-2xl font-display">+18%</p>
+      </div>
+    </div>
+  </header>
+
+  <section class="relative z-10 max-w-6xl mx-auto px-6 pb-20">
+    <h2 class="font-display text-3xl text-white text-center mb-10 drop-shadow-sm">為什麼大家留在綻放</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="glass rounded-3xl p-7 text-white hover:-translate-y-1 transition">
+        <div class="text-4xl mb-4">🫧</div>
+        <h3 class="font-display text-xl mb-2">柔和的動態牆</h3>
+        <p class="text-white/80 text-sm leading-relaxed">沒有演算法焦慮，只依照時間排序，朋友的近況不會被廣告淹沒。</p>
+      </div>
+      <div class="glass rounded-3xl p-7 text-white hover:-translate-y-1 transition">
+        <div class="text-4xl mb-4">🪄</div>
+        <h3 class="font-display text-xl mb-2">小圈子限定</h3>
+        <p class="text-white/80 text-sm leading-relaxed">建立專屬的「圈子」，只有被邀請的人才能看到，私密又安心。</p>
+      </div>
+      <div class="glass rounded-3xl p-7 text-white hover:-translate-y-1 transition">
+        <div class="text-4xl mb-4">🌙</div>
+        <h3 class="font-display text-xl mb-2">夜間玻璃模式</h3>
+        <p class="text-white/80 text-sm leading-relaxed">深夜瀏覽也不刺眼，毛玻璃介面搭配柔光配色，陪你安靜入睡。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="relative z-10 max-w-4xl mx-auto px-6 pb-24 text-center">
+    <div class="glass-strong rounded-[2.5rem] p-10">
+      <h2 class="font-display text-3xl text-white mb-3">準備好綻放了嗎？</h2>
+      <p class="text-white/85 mb-7">加入圈子，和真正在乎的人保持溫度。</p>
+      <button class="glass text-white font-display text-lg px-8 py-3 rounded-full hover:bg-white/30 transition">免費下載 App</button>
+    </div>
+    <p class="text-white/60 text-xs mt-8">© 2026 綻放 Blossom・一個溫柔對待動態牆的地方</p>
+  </section>
+
+</body>
+</html>

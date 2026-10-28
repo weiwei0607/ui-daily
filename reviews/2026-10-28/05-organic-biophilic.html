@@ -1,0 +1,127 @@
+<!-- style #42 Organic Biophilic -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>綠境 Verdana｜永續植物訂閱</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body{
+    background:#f5f1e8;
+    color:#3e4a32;
+    font-family:'Nunito',sans-serif;
+  }
+  .serif-title{ font-family:'Cormorant Garamond', serif; }
+  .leaf-bg{
+    background-image: radial-gradient(circle at 10% 20%, rgba(143,188,143,0.25), transparent 40%),
+                       radial-gradient(circle at 90% 10%, rgba(222,184,135,0.25), transparent 45%);
+  }
+  .organic-card{
+    background:#fffdf8;
+    border-radius: 2rem 1rem 2rem 1rem;
+    box-shadow: 0 10px 30px rgba(62,74,50,0.08);
+  }
+  .organic-btn{
+    border-radius: 2rem 0.6rem 2rem 0.6rem;
+  }
+  .wavy-divider{
+    height:40px;
+    background: #f5f1e8;
+    mask-image: radial-gradient(circle at 10px -5px, transparent 12px, black 13px);
+    mask-size: 24px 20px;
+    mask-repeat: repeat-x;
+  }
+</style>
+</head>
+<body class="leaf-bg">
+
+  <nav class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="text-2xl">🌿</span>
+      <span class="serif-title text-2xl italic" style="font-weight:600;">綠境 Verdana</span>
+    </div>
+    <div class="hidden md:flex gap-8 font-semibold text-sm">
+      <a href="#" class="hover:text-[#8fbc8f]">本月植物</a>
+      <a href="#" class="hover:text-[#8fbc8f]">訂閱方案</a>
+      <a href="#" class="hover:text-[#8fbc8f]">植物日記</a>
+      <a href="#" class="hover:text-[#8fbc8f]">養護指南</a>
+    </div>
+    <button class="organic-btn bg-[#3e4a32] text-[#f5f1e8] px-5 py-2 text-sm font-semibold">開始訂閱</button>
+  </nav>
+
+  <header class="max-w-6xl mx-auto px-6 py-14 grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <p class="serif-title italic text-xl text-[#8fbc8f] mb-3">— 讓一株植物，陪你過一整年 —</p>
+      <h1 class="serif-title text-5xl md:text-6xl font-semibold leading-tight mb-6">
+        每個月，收到<br>一份會呼吸的<br>禮物
+      </h1>
+      <p class="text-base leading-relaxed max-w-md mb-8 text-[#4a573c]">
+        綠境每月為你挑選一株適合季節與居家光線的植物，附上手寫養護卡與可分解花器，讓陽台慢慢長出自己的生態系。
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <button class="organic-btn bg-[#3e4a32] text-[#f5f1e8] px-7 py-3 font-semibold">立即訂閱・每月 $480</button>
+        <button class="organic-btn border-2 border-[#3e4a32] px-7 py-3 font-semibold">先選一株試試看</button>
+      </div>
+      <div class="flex gap-8 mt-10 text-sm">
+        <div><p class="serif-title text-3xl">98%</p><p>植物存活率</p></div>
+        <div><p class="serif-title text-3xl">100%</p><p>可分解包材</p></div>
+        <div><p class="serif-title text-3xl">6,200+</p><p>訂閱家庭</p></div>
+      </div>
+    </div>
+
+    <div class="relative">
+      <div class="organic-card p-6">
+        <div class="h-64 rounded-[2rem_1rem_2rem_1rem] bg-gradient-to-br from-[#e8f0d9] to-[#cfe3c0] flex items-center justify-center text-7xl mb-5">🪴</div>
+        <h3 class="serif-title text-2xl mb-1">十月精選：白鶴芋</h3>
+        <p class="text-sm text-[#4a573c] mb-4">耐陰好照顧，白色花苞是空間裡最安靜的風景。</p>
+        <div class="flex items-center justify-between text-sm">
+          <span class="text-[#6b7a5a]">適合光線：半日照</span>
+          <span class="font-semibold text-[#3e4a32]">剩餘 46 份</span>
+        </div>
+      </div>
+      <div class="absolute -bottom-6 -right-4 bg-[#8fbc8f] text-[#1f2a17] organic-card px-5 py-3 text-sm font-semibold hidden sm:block">
+        🌱 已幫 6,200 個家庭養活植物
+      </div>
+    </div>
+  </header>
+
+  <div class="wavy-divider"></div>
+
+  <section class="max-w-6xl mx-auto px-6 py-16">
+    <h2 class="serif-title text-4xl text-center mb-10">訂閱裡的三份心意</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="organic-card p-7">
+        <div class="text-4xl mb-4">📖</div>
+        <h3 class="serif-title text-xl mb-2">手寫養護卡</h3>
+        <p class="text-sm text-[#4a573c] leading-relaxed">每株植物附上栽培師手寫的季節性照顧建議，不是罐頭說明書。</p>
+      </div>
+      <div class="organic-card p-7">
+        <div class="text-4xl mb-4">🪸</div>
+        <h3 class="serif-title text-xl mb-2">可分解花器</h3>
+        <p class="text-sm text-[#4a573c] leading-relaxed">花器以椰纖與米糠製成，用完直接埋進土裡就能分解。</p>
+      </div>
+      <div class="organic-card p-7">
+        <div class="text-4xl mb-4">🌤️</div>
+        <h3 class="serif-title text-xl mb-2">依光線挑選</h3>
+        <p class="text-sm text-[#4a573c] leading-relaxed">填寫居家採光後，系統會為你排除不適合的品種，減少枯死率。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-6 py-16 text-center">
+    <div class="organic-card p-10">
+      <p class="serif-title italic text-2xl mb-4 text-[#4a573c]">「我連仙人掌都養不活，現在陽台有 9 株了。」</p>
+      <p class="text-sm text-[#6b7a5a]">—— 訂閱第 11 個月的用戶，台南</p>
+      <button class="organic-btn bg-[#3e4a32] text-[#f5f1e8] px-8 py-3 font-semibold mt-7">加入綠境訂閱</button>
+    </div>
+  </section>
+
+  <footer class="max-w-6xl mx-auto px-6 py-8 text-center text-sm text-[#6b7a5a]">
+    © 2026 綠境 Verdana・用一株植物慢下來
+  </footer>
+
+</body>
+</html>

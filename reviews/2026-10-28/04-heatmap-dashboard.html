@@ -1,0 +1,139 @@
+<!-- style #29 Heatmap & Density Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>熱域 Heatfield｜網站流量熱力儀表板</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body{
+    background:#0b1220;
+    color:#e2e8f0;
+    font-family:'IBM Plex Sans',sans-serif;
+  }
+  .mono{font-family:'JetBrains Mono',monospace;}
+  .panel{
+    background:#121a2e;
+    border:1px solid #1e293b;
+    border-radius:14px;
+  }
+  .cell{ border-radius:3px; }
+  @keyframes pulseLive{0%,100%{opacity:1}50%{opacity:.4}}
+  .live-dot{animation: pulseLive 1.6s ease-in-out infinite;}
+  .scrollnum{font-variant-numeric: tabular-nums;}
+</style>
+</head>
+<body class="min-h-screen">
+
+  <div class="max-w-7xl mx-auto px-6 py-6">
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-sky-400 to-blue-700 flex items-center justify-center font-bold">熱</div>
+        <div>
+          <h1 class="text-lg font-semibold">熱域 Heatfield</h1>
+          <p class="mono text-xs text-slate-400">網站流量與密度分析</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <span class="mono text-xs text-slate-400">site: shop.vernia.tw</span>
+        <span class="flex items-center gap-2 text-sm text-emerald-400"><span class="w-2 h-2 rounded-full bg-emerald-400 live-dot"></span>即時連線</span>
+        <div class="w-9 h-9 rounded-full bg-slate-700"></div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <div class="panel p-4">
+        <p class="mono text-xs text-slate-400 mb-1">即時訪客</p>
+        <p class="mono text-3xl font-semibold scrollnum">1,284</p>
+        <p class="mono text-xs text-emerald-400 mt-1">▲ 6.2% 較上小時</p>
+      </div>
+      <div class="panel p-4">
+        <p class="mono text-xs text-slate-400 mb-1">平均停留</p>
+        <p class="mono text-3xl font-semibold scrollnum">3m 41s</p>
+        <p class="mono text-xs text-rose-400 mt-1">▼ 0.8% 較上小時</p>
+      </div>
+      <div class="panel p-4">
+        <p class="mono text-xs text-slate-400 mb-1">熱區點擊率</p>
+        <p class="mono text-3xl font-semibold scrollnum">38.6%</p>
+        <p class="mono text-xs text-emerald-400 mt-1">▲ 2.1% 較上小時</p>
+      </div>
+      <div class="panel p-4">
+        <p class="mono text-xs text-slate-400 mb-1">跳出率</p>
+        <p class="mono text-3xl font-semibold scrollnum">22.4%</p>
+        <p class="mono text-xs text-emerald-400 mt-1">▼ 1.4% 較上小時</p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-5">
+      <div class="panel p-5 md:col-span-2">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="font-semibold">頁面點擊密度 — 24 小時 × 7 日</h2>
+          <span class="mono text-xs text-slate-400">單位：點擊 / 千次曝光</span>
+        </div>
+        <div class="grid" style="grid-template-columns: 40px repeat(24, 1fr); gap:3px;">
+          <div></div>
+          <!-- hour labels row -->
+          <template id="x"></template>
+          <div class="mono text-[9px] text-slate-500 col-span-24" style="grid-column: span 24;">
+            <div class="grid" style="grid-template-columns: repeat(24,1fr);">
+              <span>0</span><span></span><span></span><span></span><span>4</span><span></span><span></span><span></span><span>8</span><span></span><span></span><span></span><span>12</span><span></span><span></span><span></span><span>16</span><span></span><span></span><span></span><span>20</span><span></span><span></span><span></span>
+            </div>
+          </div>
+        </div>
+        <div id="heatgrid" class="grid mt-1" style="grid-template-columns: 40px repeat(24, 1fr); gap:3px;"></div>
+        <div class="flex items-center gap-2 mt-4 text-xs text-slate-400">
+          <span>冷</span>
+          <div class="flex gap-0.5">
+            <span class="w-4 h-3 rounded-sm" style="background:#1e293b"></span>
+            <span class="w-4 h-3 rounded-sm" style="background:#1e3a5f"></span>
+            <span class="w-4 h-3 rounded-sm" style="background:#1d5c9e"></span>
+            <span class="w-4 h-3 rounded-sm" style="background:#2593d8"></span>
+            <span class="w-4 h-3 rounded-sm" style="background:#38bdf8"></span>
+            <span class="w-4 h-3 rounded-sm" style="background:#a5e9ff"></span>
+          </div>
+          <span>熱</span>
+        </div>
+      </div>
+
+      <div class="panel p-5">
+        <h2 class="font-semibold mb-4">熱區頁面排行</h2>
+        <div class="space-y-3 mono text-sm">
+          <div class="flex justify-between"><span class="text-slate-300">/產品/限量聯名款</span><span class="text-sky-300">92%</span></div>
+          <div class="flex justify-between"><span class="text-slate-300">/結帳/付款方式</span><span class="text-sky-300">81%</span></div>
+          <div class="flex justify-between"><span class="text-slate-300">/首頁/主視覺按鈕</span><span class="text-sky-300">74%</span></div>
+          <div class="flex justify-between"><span class="text-slate-300">/活動/雙十一專區</span><span class="text-sky-300">63%</span></div>
+          <div class="flex justify-between"><span class="text-slate-300">/會員/積分兌換</span><span class="text-sky-300">41%</span></div>
+        </div>
+        <div class="mt-6 pt-4 border-t border-slate-700">
+          <p class="text-sm text-slate-400 mb-2">本週建議</p>
+          <p class="text-sm text-slate-300">結帳頁的「分期付款」按鈕熱度高但轉換率偏低，建議調整文案與位置。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const grid = document.getElementById('heatgrid');
+    const days = ['一','二','三','四','五','六','日'];
+    const colors = ['#1e293b','#1e3a5f','#1d5c9e','#2593d8','#38bdf8','#a5e9ff'];
+    days.forEach(d => {
+      const label = document.createElement('div');
+      label.className = 'mono text-[10px] text-slate-500 flex items-center';
+      label.textContent = d;
+      grid.appendChild(label);
+      for (let h = 0; h < 24; h++) {
+        const cell = document.createElement('div');
+        const peak = (h > 10 && h < 23) ? 1 : 0.3;
+        const r = Math.min(5, Math.floor(Math.random() * 3 * peak + Math.random()*2));
+        cell.className = 'cell h-4';
+        cell.style.background = colors[Math.max(0, Math.min(5, r))];
+        grid.appendChild(cell);
+      }
+    });
+  </script>
+
+</body>
+</html>

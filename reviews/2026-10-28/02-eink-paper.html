@@ -1,0 +1,135 @@
+<!-- style #56 E-Ink / Paper -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>紙頁 Paperly｜閱讀追蹤</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Noto+Serif+TC:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body{
+    background:#f5f1eb;
+    color:#1a1a1a;
+    font-family:'Newsreader','Noto Serif TC',serif;
+    background-image:
+      radial-gradient(rgba(0,0,0,0.025) 1px, transparent 1px);
+    background-size: 3px 3px;
+  }
+  .mono{font-family:'JetBrains Mono',monospace;}
+  .serif-cjk{font-family:'Noto Serif TC',serif;}
+  .no-shadow-card{
+    background:#f5f1eb;
+    border:1px solid #1a1a1a;
+  }
+  .rule{border-top:2px solid #1a1a1a;}
+  .rule-thin{border-top:1px solid #1a1a1a;}
+  .ink-btn{
+    background:#1a1a1a; color:#f5f1eb;
+    border:1px solid #1a1a1a;
+    transition: none;
+  }
+  .ink-btn:hover{ background:#f5f1eb; color:#1a1a1a; }
+  .outline-btn{
+    background:transparent; color:#1a1a1a; border:1px solid #1a1a1a;
+  }
+  .outline-btn:hover{ background:#1a1a1a; color:#f5f1eb; }
+  .progress-track{ background:repeating-linear-gradient(90deg,#1a1a1a 0,#1a1a1a 2px,transparent 2px,transparent 6px); height:1px; }
+  .cap-letter{ font-size:3.4rem; line-height:0.8; font-weight:600; }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <header class="max-w-5xl mx-auto px-6 pt-8">
+    <div class="flex items-center justify-between rule pt-3">
+      <p class="mono text-xs tracking-widest">VOL. 04 — NO. 112</p>
+      <h1 class="serif-cjk text-2xl font-bold tracking-wide">紙 頁　Paperly</h1>
+      <p class="mono text-xs tracking-widest">2026 年刊</p>
+    </div>
+    <nav class="flex items-center justify-center gap-8 py-4 rule-thin mt-2 text-sm serif-cjk">
+      <a href="#" class="hover:underline">書架</a>
+      <a href="#" class="hover:underline">本週統計</a>
+      <a href="#" class="hover:underline">書摘筆記</a>
+      <a href="#" class="hover:underline">社群書評</a>
+      <button class="outline-btn px-4 py-1 text-xs mono ml-4">登入帳號</button>
+    </nav>
+  </header>
+
+  <section class="max-w-5xl mx-auto px-6 py-14 grid md:grid-cols-5 gap-10">
+    <div class="md:col-span-3 rule pt-6">
+      <p class="mono text-xs tracking-widest mb-3">HEADLINE — 閱讀習慣養成</p>
+      <h2 class="text-5xl font-semibold leading-[1.15] mb-6">
+        <span class="cap-letter float-left mr-2">把</span>每天 20 分鐘的閱讀，
+        變成看得見的累積
+      </h2>
+      <p class="text-lg leading-relaxed text-neutral-800 max-w-xl">
+        紙頁用最安靜的介面，記錄你讀過的每一頁、每一本書、每一句畫線筆記。沒有通知轟炸，只有紙本般的專注，像是一份每天更新的個人報紙。
+      </p>
+      <div class="flex gap-4 mt-8">
+        <button class="ink-btn px-6 py-3 serif-cjk text-base">建立我的書架</button>
+        <button class="outline-btn px-6 py-3 serif-cjk text-base">看看範例報告</button>
+      </div>
+    </div>
+
+    <div class="md:col-span-2 rule pt-6">
+      <p class="mono text-xs tracking-widest mb-3">本週摘要</p>
+      <div class="no-shadow-card p-5 mb-4">
+        <div class="flex justify-between items-baseline mb-1">
+          <span class="serif-cjk">閱讀時間</span>
+          <span class="mono text-2xl">4h 52m</span>
+        </div>
+        <div class="progress-track w-full"></div>
+        <p class="mono text-xs mt-2 text-neutral-600">較上週 +38 分鐘</p>
+      </div>
+      <div class="no-shadow-card p-5 mb-4">
+        <div class="flex justify-between items-baseline mb-1">
+          <span class="serif-cjk">完成頁數</span>
+          <span class="mono text-2xl">318</span>
+        </div>
+        <div class="progress-track w-full"></div>
+        <p class="mono text-xs mt-2 text-neutral-600">距離書架目標剩 82 頁</p>
+      </div>
+      <div class="no-shadow-card p-5">
+        <div class="flex justify-between items-baseline mb-1">
+          <span class="serif-cjk">連續閱讀</span>
+          <span class="mono text-2xl">21 天</span>
+        </div>
+        <p class="mono text-xs mt-2 text-neutral-600">歷史最長紀錄：34 天</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-5xl mx-auto px-6 pb-10">
+    <p class="mono text-xs tracking-widest rule pt-4 mb-6">正在閱讀的三本書</p>
+    <div class="grid md:grid-cols-3 gap-8">
+      <article class="rule-thin pt-4">
+        <p class="mono text-xs text-neutral-500 mb-2">小說 / 進度 64%</p>
+        <h3 class="text-xl font-semibold mb-2 serif-cjk">《潮間帶》</h3>
+        <p class="text-sm text-neutral-700 leading-relaxed">一部關於離島漁村三代人的家族史，筆調緩慢卻後勁十足。</p>
+        <p class="mono text-xs mt-3 text-neutral-500">上次閱讀：昨晚 23:14</p>
+      </article>
+      <article class="rule-thin pt-4">
+        <p class="mono text-xs text-neutral-500 mb-2">商業 / 進度 28%</p>
+        <h3 class="text-xl font-semibold mb-2 serif-cjk">《慢公司的勝算》</h3>
+        <p class="text-sm text-neutral-700 leading-relaxed">探討不追求爆發式成長、反而活得更久的企業案例。</p>
+        <p class="mono text-xs mt-3 text-neutral-500">上次閱讀：3 天前</p>
+      </article>
+      <article class="rule-thin pt-4">
+        <p class="mono text-xs text-neutral-500 mb-2">散文 / 進度 91%</p>
+        <h3 class="text-xl font-semibold mb-2 serif-cjk">《廚房裡的信件》</h3>
+        <p class="text-sm text-neutral-700 leading-relaxed">作者與已故母親的食譜對話，讀來溫柔又酸楚。</p>
+        <p class="mono text-xs mt-3 text-neutral-500">上次閱讀：今天 07:40</p>
+      </article>
+    </div>
+  </section>
+
+  <footer class="max-w-5xl mx-auto px-6 pb-12">
+    <div class="rule pt-4 flex justify-between items-center text-xs mono text-neutral-600">
+      <span>PAPERLY ARCHIVE · 建立屬於自己的年度閱讀報告</span>
+      <span>第 4 版 · 2026</span>
+    </div>
+  </footer>
+
+</body>
+</html>

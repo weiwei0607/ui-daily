@@ -21,7 +21,9 @@
 
 ## 紀錄（每輪追加，最新在上）
 
-### 2026-10-27（6 個，#01 Minimalism/Swiss / #19 Soft UI Evolution / #27 Storytelling / #37 Sales Intelligence Dashboard / #48 Kinetic Typography / #40 Y2K Revival）
+### 2026-10-28（6 個，#03 Glassmorphism / #56 E-Ink Paper / #38 Neubrutalism / #29 Heatmap & Density Dashboard / #42 Organic Biophilic / #08 Accessible/Ethical）
+- ⚠️ 本輪開工前先用 `curl -m 15` 分別測試三個 host：Firebase（`b-battle-580b5-default-rtdb.firebaseio.com`）回 `CONNECT tunnel failed, response 403`（exit 56）、Telegram（`api.telegram.org`）同樣回 403（exit 56），皆連線失敗；GitHub（`api.github.com/repos/weiwei0607/ui-daily`）回 200，連線正常。這與自 2026-09-01 起持續至今的同一組環境網路限制一致，非暫時性問題，無法讀取上一批按讚結果，沿用「已確認偏好」規則生成本輪；Telegram 改走系統 PushNotification 管道補發通知，GitHub 發布走 `publish.py`。
+- 本輪避開最近三天（10-25/26/27）已用過的 18 種風格，挑了跨 A/C/D 組、字體刻意不重複的 6 個方向：Glassmorphism 用 Baloo 2 + Quicksand + Zen Maru Gothic（圓體）、E-Ink/Paper 用 Newsreader + Noto Serif TC（報紙襯線）+ JetBrains Mono（數據）、Neubrutalism 用 Archivo Black + Space Grotesk（展示字，她明講 #38 是唯一字體對上的風格）、Heatmap Dashboard 用 IBM Plex Sans + JetBrains Mono（數據慣例組合）、Organic Biophilic 用 Cormorant Garamond（襯線）+ Nunito、Accessible/Ethical 用 Atkinson Hyperlegible（高可讀性字體）。六個皆未使用 Inter/Helvetica 當主美術字體。
 - ⚠️ 本輪 Firebase ❤️ 讀取（`b-battle-580b5-default-rtdb.firebaseio.com`）與 Telegram `getMe`（`api.telegram.org`）皆再次測試連線失敗（curl 回 exit code 56，連線被拒），與長期以來同一組環境網路限制一致（自 2026-09-01 起持續至今），非暫時性問題，無法讀取上一批按讚結果，沿用「已確認偏好」規則生成本輪；Telegram 改走系統 PushNotification 管道發送通知。本輪避開最近三天（10-24/25/26）已用過的 17 種風格，挑了 6 個跨 A/B/C/D 組、字體刻意不重複（報紙襯線、圓體、敘事襯線、Space Grotesk+JetBrains Mono、Bebas Neue、Orbitron）的方向。
 
 ### 2026-10-26（6 個，#06 Vibrant Block / #09 Claymorphism / #26 Trust & Authority / #30 Executive Summary Dashboard / #44 Memphis Revival / #51 HUD/Sci-Fi）

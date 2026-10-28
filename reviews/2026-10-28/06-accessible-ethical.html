@@ -1,0 +1,139 @@
+<!-- style #08 Accessible / Ethical -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>安心通 — 社福補助申請入口</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Atkinson Hyperlegible', sans-serif;
+    background:#ffffff;
+    color:#0a0a0a;
+  }
+  a, button{ font-family:'Atkinson Hyperlegible', sans-serif; }
+  :focus-visible{
+    outline: 3px solid #0066cc;
+    outline-offset: 3px;
+  }
+  .btn-primary{
+    background:#0066cc; color:#fff;
+    border-radius:6px;
+  }
+  .btn-primary:hover{ background:#004c99; }
+  .btn-danger-outline{
+    border:2px solid #d32f2f; color:#d32f2f; border-radius:6px;
+  }
+  .high-contrast-card{
+    border:2px solid #0a0a0a; border-radius:8px;
+  }
+  .skip-link{
+    position:absolute; left:-999px; top:0; background:#0a0a0a; color:#fff; padding:10px 16px; z-index:50;
+  }
+  .skip-link:focus{ left:10px; top:10px; }
+  .text-link{ text-decoration: underline; text-decoration-thickness: 2px; }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <a href="#main" class="skip-link">跳到主要內容</a>
+
+  <div class="bg-[#003366] text-white text-sm py-2 px-6 text-center">
+    這是中央社會福利補助申請入口・本網站符合 AA 級無障礙規範
+  </div>
+
+  <header class="border-b-2 border-black">
+    <div class="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-full bg-[#0066cc] text-white flex items-center justify-center font-bold text-lg">安</div>
+        <span class="text-2xl font-bold">安心通　社福補助入口</span>
+      </div>
+      <div class="flex items-center gap-4 text-sm font-bold">
+        <button class="high-contrast-card px-3 py-1">A-</button>
+        <button class="high-contrast-card px-3 py-1">A+</button>
+        <button class="btn-primary px-4 py-2">登入 / 註冊</button>
+      </div>
+    </div>
+    <nav class="max-w-5xl mx-auto px-6 py-3 flex gap-8 font-bold text-base" aria-label="主選單">
+      <a href="#" class="text-link">首頁</a>
+      <a href="#" class="text-link">補助項目查詢</a>
+      <a href="#" class="text-link">申請進度</a>
+      <a href="#" class="text-link">常見問題</a>
+      <a href="#" class="text-link">聯絡客服 1957</a>
+    </nav>
+  </header>
+
+  <main id="main" class="max-w-5xl mx-auto px-6 py-10">
+    <section class="mb-12">
+      <h1 class="text-4xl font-bold mb-4 leading-snug">三分鐘，查出你能申請的補助</h1>
+      <p class="text-lg leading-relaxed max-w-2xl mb-7">
+        不管是租屋補助、育兒津貼還是長照喘息服務，只要填寫基本資料，系統會列出你現在就符合資格的項目，全程中文語音朗讀輔助。
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <button class="btn-primary px-7 py-4 text-lg font-bold">開始資格試算</button>
+        <button class="high-contrast-card px-7 py-4 text-lg font-bold">查看申請教學影片</button>
+      </div>
+    </section>
+
+    <section class="mb-12" aria-labelledby="status-heading">
+      <h2 id="status-heading" class="text-2xl font-bold mb-5">目前最多人申請的三項補助</h2>
+      <div class="grid md:grid-cols-3 gap-5">
+        <article class="high-contrast-card p-5">
+          <h3 class="text-xl font-bold mb-2">租金補貼 2.0</h3>
+          <p class="mb-3">每月最高補助 8,000 元，針對租屋族與青年首租者。</p>
+          <p class="font-bold text-[#0066cc]">本月受理中・剩 12 天</p>
+          <a href="#" class="text-link font-bold inline-block mt-3">查看申請資格 →</a>
+        </article>
+        <article class="high-contrast-card p-5">
+          <h3 class="text-xl font-bold mb-2">育兒津貼</h3>
+          <p class="mb-3">0 到 5 歲孩童每月補助，雙寶家庭另有加成。</p>
+          <p class="font-bold text-[#0066cc]">全年受理</p>
+          <a href="#" class="text-link font-bold inline-block mt-3">查看申請資格 →</a>
+        </article>
+        <article class="high-contrast-card p-5">
+          <h3 class="text-xl font-bold mb-2">長照喘息服務</h3>
+          <p class="mb-3">提供家庭照顧者每月最多 14 天喘息時數。</p>
+          <p class="font-bold text-[#0066cc]">全年受理</p>
+          <a href="#" class="text-link font-bold inline-block mt-3">查看申請資格 →</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="mb-12 high-contrast-card p-7" aria-labelledby="track-heading">
+      <h2 id="track-heading" class="text-2xl font-bold mb-5">查詢我的申請進度</h2>
+      <div class="grid md:grid-cols-4 gap-4 items-end">
+        <div class="md:col-span-2">
+          <label for="idnum" class="block font-bold mb-2">身分證號 / 居留證號</label>
+          <input id="idnum" type="text" class="w-full border-2 border-black rounded-md px-4 py-3 text-lg" placeholder="A123456789">
+        </div>
+        <div>
+          <label for="casenum" class="block font-bold mb-2">申請案號</label>
+          <input id="casenum" type="text" class="w-full border-2 border-black rounded-md px-4 py-3 text-lg" placeholder="選填">
+        </div>
+        <button class="btn-primary py-3 text-lg font-bold">查詢進度</button>
+      </div>
+      <p class="mt-4 text-base">找不到案號？可致電免付費客服專線 <span class="font-bold">1957</span>，提供真人協助查詢。</p>
+    </section>
+
+    <section class="high-contrast-card p-7" aria-labelledby="help-heading">
+      <h2 id="help-heading" class="text-2xl font-bold mb-4">需要協助填表嗎？</h2>
+      <p class="text-lg mb-5">各縣市社會福利服務中心提供免費代填服務，不需要自己摸索表單。</p>
+      <div class="flex flex-wrap gap-4">
+        <button class="btn-primary px-6 py-3 font-bold">預約到場協助</button>
+        <button class="btn-danger-outline px-6 py-3 font-bold bg-white">緊急紓困申請</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t-2 border-black mt-10">
+    <div class="max-w-5xl mx-auto px-6 py-8 text-base">
+      <p class="font-bold mb-2">安心通　社福補助申請入口</p>
+      <p>客服專線：1957（24 小時免付費）・本網站通過無障礙網站 AA 級檢測</p>
+    </div>
+  </footer>
+
+</body>
+</html>
