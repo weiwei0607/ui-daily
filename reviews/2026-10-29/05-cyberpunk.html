@@ -1,0 +1,154 @@
+<!-- style #41 Cyberpunk -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>夜城電馭｜深夜無人配送網路</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root{ --cyan:#00f6ff; --magenta:#ff2bd6; --bg:#070410; --panel:#0d0a1a; }
+  body{ font-family:'Share Tech Mono', monospace; background:var(--bg); color:#dce9ff; overflow-x:hidden; position:relative; }
+  h1,h2,h3,.display{ font-family:'Orbitron', sans-serif; }
+  .neon-cyan{ color:var(--cyan); text-shadow:0 0 6px var(--cyan), 0 0 18px rgba(0,246,255,.6); }
+  .neon-magenta{ color:var(--magenta); text-shadow:0 0 6px var(--magenta), 0 0 18px rgba(255,43,214,.6); }
+  .panel{
+    background:rgba(13,10,26,.85); border:1px solid rgba(0,246,255,.35);
+    box-shadow: 0 0 20px rgba(0,246,255,.08), inset 0 0 20px rgba(255,43,214,.04);
+    position:relative;
+  }
+  .panel::before{
+    content:''; position:absolute; top:-1px; left:16px; width:30px; height:2px; background:var(--cyan);
+  }
+  .btn-neon{
+    background:transparent; border:1.5px solid var(--cyan); color:var(--cyan); font-family:'Orbitron';
+    font-weight:700; letter-spacing:.05em; transition:.2s; text-shadow:0 0 6px var(--cyan);
+  }
+  .btn-neon:hover{ background:var(--cyan); color:#070410; box-shadow:0 0 24px var(--cyan); }
+  .btn-magenta{
+    background:var(--magenta); color:#070410; font-family:'Orbitron'; font-weight:700;
+    letter-spacing:.05em; box-shadow:0 0 18px rgba(255,43,214,.6);
+  }
+  .btn-magenta:hover{ box-shadow:0 0 30px rgba(255,43,214,.9); }
+  .scanlines{
+    position:fixed; inset:0; z-index:40; pointer-events:none; opacity:.08;
+    background:repeating-linear-gradient(0deg, #fff 0px, transparent 1px, transparent 3px);
+  }
+  .grid-floor{
+    position:absolute; inset:0; z-index:0; opacity:.25;
+    background-image: linear-gradient(rgba(0,246,255,.3) 1px, transparent 1px), linear-gradient(90deg, rgba(0,246,255,.3) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: linear-gradient(to bottom, transparent, black 60%);
+  }
+  @keyframes glitch{
+    0%,100%{ transform:translate(0,0); }
+    20%{ transform:translate(-2px,1px); }
+    40%{ transform:translate(2px,-1px); }
+    60%{ transform:translate(-1px,2px); }
+    80%{ transform:translate(1px,-2px); }
+  }
+  .glitch-hover:hover{ animation: glitch .25s linear infinite; }
+  .status-dot{ width:8px; height:8px; border-radius:50%; background:var(--cyan); box-shadow:0 0 8px var(--cyan); animation: pulse 1.4s ease-in-out infinite; display:inline-block; }
+  @keyframes pulse{ 0%,100%{ opacity:1; } 50%{ opacity:.3; } }
+  .tag{ border:1px solid var(--magenta); color:var(--magenta); font-size:.7rem; padding:.15rem .5rem; }
+  .divider{ background:linear-gradient(90deg, transparent, var(--cyan), transparent); height:1px; }
+</style>
+</head>
+<body>
+
+<div class="scanlines"></div>
+<div class="grid-floor"></div>
+
+<header class="relative z-10 border-b border-[rgba(0,246,255,.25)]">
+  <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+    <div class="display font-black text-xl neon-cyan glitch-hover">夜城電馭 // NC-DRIVE</div>
+    <nav class="hidden md:flex gap-8 text-sm" style="font-family:'Orbitron';">
+      <a href="#map" class="hover:text-[var(--cyan)]">即時地圖</a>
+      <a href="#fleet" class="hover:text-[var(--cyan)]">無人車隊</a>
+      <a href="#pricing" class="hover:text-[var(--cyan)]">資費方案</a>
+    </nav>
+    <button class="btn-neon px-5 py-2 text-sm">啟動連線</button>
+  </div>
+  <div class="divider"></div>
+</header>
+
+<main class="relative z-10 max-w-6xl mx-auto px-6">
+
+  <section class="py-20 text-center">
+    <p class="tag inline-block mb-6">LIVE · 信義-內湖走廊</p>
+    <h1 class="display text-4xl md:text-6xl font-black leading-tight mb-6">
+      <span class="neon-cyan">24 小時</span>無人配送<br>
+      <span class="neon-magenta">穿梭霓虹夜城</span>
+    </h1>
+    <p class="text-[#9fb4d8] max-w-xl mx-auto mb-10 text-lg">
+      深夜急件、冷鏈餐飲、跑腿代買——電馭自駕車隊全天候運行，平均配送時間 18 分鐘。
+    </p>
+    <div class="flex flex-wrap gap-4 justify-center">
+      <button class="btn-magenta px-8 py-4 text-base">立即叫車</button>
+      <button class="btn-neon px-8 py-4 text-base">查看即時車況</button>
+    </div>
+  </section>
+
+  <section id="map" class="pb-20">
+    <div class="panel p-6 grid md:grid-cols-[1fr_280px] gap-6">
+      <div class="rounded relative h-72 overflow-hidden" style="background:radial-gradient(circle at 30% 30%, rgba(0,246,255,.12), transparent 60%), radial-gradient(circle at 70% 70%, rgba(255,43,214,.12), transparent 60%);">
+        <div class="grid-floor" style="opacity:.4;"></div>
+        <div class="absolute top-[30%] left-[25%] status-dot"></div>
+        <div class="absolute top-[55%] left-[60%] status-dot"></div>
+        <div class="absolute top-[70%] left-[35%] status-dot"></div>
+        <p class="absolute bottom-3 left-3 text-xs neon-cyan">NC-07 · NC-12 · NC-19 執勤中</p>
+      </div>
+      <div>
+        <h3 class="display font-bold mb-4 neon-cyan">派遣狀態</h3>
+        <div class="space-y-3 text-sm">
+          <div class="flex justify-between"><span>可用車輛</span><span class="neon-cyan">37 台</span></div>
+          <div class="flex justify-between"><span>平均延遲</span><span class="neon-magenta">0.4 秒</span></div>
+          <div class="flex justify-between"><span>今日完成單</span><span class="neon-cyan">2,841</span></div>
+          <div class="flex justify-between"><span>系統狀態</span><span class="neon-cyan"><span class="status-dot mr-1"></span>正常</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="fleet" class="pb-20">
+    <h2 class="display text-2xl font-bold mb-8 text-center neon-cyan">自駕車隊型號</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="panel p-6">
+        <p class="tag mb-4 inline-block">NC-S1</p>
+        <h3 class="display font-bold mb-2">輕型快遞艇</h3>
+        <p class="text-[#9fb4d8] text-sm mb-4">適合小型文件與餐飲，最高速度 35km/h，全天候運行。</p>
+        <p class="neon-cyan text-sm">NT$ 45 起 / 單</p>
+      </div>
+      <div class="panel p-6" style="border-color:var(--magenta); box-shadow:0 0 20px rgba(255,43,214,.15);">
+        <p class="tag mb-4 inline-block">NC-M3</p>
+        <h3 class="display font-bold mb-2">冷鏈配送艇</h3>
+        <p class="text-[#9fb4d8] text-sm mb-4">內建恒溫艙體，生鮮冷凍不斷鏈，支援 -18°C 保存。</p>
+        <p class="neon-magenta text-sm">NT$ 89 起 / 單</p>
+      </div>
+      <div class="panel p-6">
+        <p class="tag mb-4 inline-block">NC-X9</p>
+        <h3 class="display font-bold mb-2">重型貨運艇</h3>
+        <p class="text-[#9fb4d8] text-sm mb-4">載重上限 120kg，適合大型商業批量配送需求。</p>
+        <p class="neon-cyan text-sm">NT$ 180 起 / 單</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="pb-24">
+    <div class="panel p-10 text-center">
+      <h2 class="display text-2xl font-bold mb-3 neon-magenta">加入電馭會員網路</h2>
+      <p class="text-[#9fb4d8] mb-8">月付 NT$299，無限次市區配送，凌晨時段運費全免。</p>
+      <button class="btn-magenta px-10 py-4 text-base">立即註冊會員</button>
+    </div>
+  </section>
+
+</main>
+
+<footer class="relative z-10 border-t border-[rgba(0,246,255,.2)] py-8 text-center text-xs text-[#6b7fa3]">
+  夜城電馭 NC-DRIVE SYSTEM © 2026　//　客服頻道 24/7 開放
+</footer>
+
+</body>
+</html>

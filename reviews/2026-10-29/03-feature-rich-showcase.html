@@ -1,0 +1,179 @@
+<!-- style #22 Feature-Rich Showcase -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>協作流｜團隊專案管理 SaaS</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{ --brand:#4338ca; --brand-light:#eef2ff; --teal:#0d9488; }
+  body{ font-family:'IBM Plex Sans', sans-serif; color:#1e1b2e; background:#fbfbfd; }
+  h1,h2,h3,.display{ font-family:'Sora', sans-serif; }
+  .btn-primary{ background:var(--brand); color:#fff; font-weight:600; border-radius:12px; transition:.2s; }
+  .btn-primary:hover{ background:#362f99; }
+  .btn-outline{ border:1.5px solid #d6d3f0; color:var(--brand); font-weight:600; border-radius:12px; background:#fff; }
+  .btn-outline:hover{ background:var(--brand-light); }
+  .chip{ background:var(--brand-light); color:var(--brand); font-weight:600; font-size:.8rem; padding:.3rem .75rem; border-radius:999px; }
+  .section-card{ border:1px solid #ece9f8; border-radius:20px; background:#fff; box-shadow: 0 2px 10px rgba(30,20,80,.04); }
+  .feature-img{ border-radius:18px; border:1px solid #ece9f8; background:linear-gradient(135deg,#eef2ff,#f4f3ff); }
+  .nav-link{ color:#4b4766; font-weight:500; }
+  .nav-link:hover{ color:var(--brand); }
+  .logo-dot{ width:34px; height:34px; border-radius:10px; background:var(--brand); }
+  .stat-num{ font-family:'Sora',sans-serif; font-weight:800; }
+</style>
+</head>
+<body>
+
+<header class="border-b border-[#ece9f8] sticky top-0 bg-white/90 backdrop-blur z-20">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-2 display text-xl font-bold">
+      <span class="logo-dot"></span>
+      協作流
+    </div>
+    <nav class="hidden md:flex items-center gap-8 nav-link text-sm">
+      <a href="#features">功能總覽</a>
+      <a href="#automation">自動化</a>
+      <a href="#integration">整合串接</a>
+      <a href="#pricing">方案價格</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <a href="#" class="nav-link text-sm font-semibold hidden sm:inline">登入</a>
+      <a href="#" class="btn-primary px-5 py-2.5 text-sm">免費試用 14 天</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="max-w-6xl mx-auto px-6 pt-20 pb-16 text-center">
+    <span class="chip inline-block mb-5">功能齊全的團隊協作平台</span>
+    <h1 class="display text-4xl md:text-5xl font-extrabold leading-tight mb-6 max-w-3xl mx-auto">
+      專案進度、文件、溝通，<br>一個地方全部搞定
+    </h1>
+    <p class="text-lg text-[#5a5676] max-w-xl mx-auto mb-9">
+      超過 6,000 個台灣團隊用協作流取代零散的表單與訊息，讓每個專案都看得到全貌。
+    </p>
+    <div class="flex flex-wrap gap-4 justify-center">
+      <a href="#" class="btn-primary px-7 py-3.5 text-base">免費開始使用</a>
+      <a href="#" class="btn-outline px-7 py-3.5 text-base">預約產品 Demo</a>
+    </div>
+    <div class="grid grid-cols-3 gap-6 max-w-lg mx-auto mt-14 text-center">
+      <div><p class="stat-num text-2xl" style="color:var(--brand);">6,200+</p><p class="text-sm text-[#5a5676]">使用團隊</p></div>
+      <div><p class="stat-num text-2xl" style="color:var(--brand);">99.95%</p><p class="text-sm text-[#5a5676]">服務可用率</p></div>
+      <div><p class="stat-num text-2xl" style="color:var(--brand);">4.8/5</p><p class="text-sm text-[#5a5676]">用戶評價</p></div>
+    </div>
+  </section>
+
+  <section id="features" class="max-w-6xl mx-auto px-6 py-10 grid md:grid-cols-2 gap-10 items-center">
+    <div class="feature-img h-72 flex items-center justify-center p-6">
+      <div class="section-card w-full h-full p-5">
+        <p class="text-xs font-semibold text-[#8a84ab] mb-3">看板視圖</p>
+        <div class="grid grid-cols-3 gap-3 h-[80%]">
+          <div class="bg-[#f6f5fc] rounded-xl p-3 space-y-2">
+            <p class="text-xs font-semibold text-[#5a5676] mb-1">待處理</p>
+            <div class="bg-white rounded-lg p-2 text-xs shadow-sm">官網改版文案</div>
+            <div class="bg-white rounded-lg p-2 text-xs shadow-sm">Q4 行銷企劃</div>
+          </div>
+          <div class="bg-[#f6f5fc] rounded-xl p-3 space-y-2">
+            <p class="text-xs font-semibold text-[#5a5676] mb-1">進行中</p>
+            <div class="bg-white rounded-lg p-2 text-xs shadow-sm border-l-4" style="border-color:var(--brand);">App 新版上架</div>
+          </div>
+          <div class="bg-[#f6f5fc] rounded-xl p-3 space-y-2">
+            <p class="text-xs font-semibold text-[#5a5676] mb-1">已完成</p>
+            <div class="bg-white rounded-lg p-2 text-xs shadow-sm opacity-60 line-through">客服流程文件</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <span class="chip mb-4 inline-block">核心功能</span>
+      <h2 class="display text-3xl font-bold mb-4">看板、時程、文件，三種視角隨時切換</h2>
+      <p class="text-[#5a5676] leading-relaxed mb-6">同一份資料，可以用看板盤進度、用時間軸排檔期、用清單追細節，不用在不同工具間複製貼上。</p>
+      <ul class="space-y-3">
+        <li class="flex gap-3"><span class="chip">✓</span><span>拖拉即可調整任務狀態與負責人</span></li>
+        <li class="flex gap-3"><span class="chip">✓</span><span>每個任務附完整留言與版本紀錄</span></li>
+        <li class="flex gap-3"><span class="chip">✓</span><span>自訂欄位，符合你們團隊的工作流程</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="automation" class="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-10 items-center">
+    <div class="order-2 md:order-1">
+      <span class="chip mb-4 inline-block" style="background:#e6f7f4; color:var(--teal);">自動化</span>
+      <h2 class="display text-3xl font-bold mb-4">重複的事交給自動化規則</h2>
+      <p class="text-[#5a5676] leading-relaxed mb-6">任務逾期自動提醒、狀態變更自動通知負責人、每週自動產出進度摘要——設定一次，之後都不用再手動做。</p>
+      <ul class="space-y-3">
+        <li class="flex gap-3"><span class="chip" style="background:#e6f7f4; color:var(--teal);">✓</span><span>超過 40 種觸發條件可組合</span></li>
+        <li class="flex gap-3"><span class="chip" style="background:#e6f7f4; color:var(--teal);">✓</span><span>無需工程背景，拖拉即可設定</span></li>
+      </ul>
+    </div>
+    <div class="order-1 md:order-2 feature-img h-72 flex items-center justify-center p-6" style="background:linear-gradient(135deg,#e6f7f4,#f0fbf9);">
+      <div class="section-card w-full p-5">
+        <p class="text-xs font-semibold text-[#8a84ab] mb-3">自動化規則</p>
+        <div class="flex items-center gap-3 bg-[#f6f5fc] rounded-xl p-3 mb-3 text-sm">
+          <span>當任務</span><span class="chip" style="background:#e6f7f4; color:var(--teal);">逾期 1 天</span><span>→</span><span class="font-semibold">通知負責人</span>
+        </div>
+        <div class="flex items-center gap-3 bg-[#f6f5fc] rounded-xl p-3 text-sm">
+          <span>每週五</span><span class="chip" style="background:#e6f7f4; color:var(--teal);">17:00</span><span>→</span><span class="font-semibold">寄出週報摘要</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="integration" class="bg-[#fafaff] py-16">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <span class="chip mb-4 inline-block">串接整合</span>
+      <h2 class="display text-3xl font-bold mb-4">跟你原本就在用的工具一起工作</h2>
+      <p class="text-[#5a5676] max-w-xl mx-auto mb-10">免移轉資料，直接串接現有帳號就能開始。</p>
+      <div class="grid grid-cols-3 md:grid-cols-6 gap-4 max-w-3xl mx-auto">
+        <div class="section-card py-5 font-semibold text-sm">Slack</div>
+        <div class="section-card py-5 font-semibold text-sm">Google 日曆</div>
+        <div class="section-card py-5 font-semibold text-sm">Line 工作</div>
+        <div class="section-card py-5 font-semibold text-sm">GitHub</div>
+        <div class="section-card py-5 font-semibold text-sm">Notion</div>
+        <div class="section-card py-5 font-semibold text-sm">Figma</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="max-w-6xl mx-auto px-6 py-16">
+    <h2 class="display text-3xl font-bold text-center mb-10">簡單透明的方案</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="section-card p-7">
+        <h3 class="display font-bold text-lg mb-2">入門版</h3>
+        <p class="stat-num text-3xl mb-4">NT$0</p>
+        <p class="text-sm text-[#5a5676] mb-6">適合 5 人以下小團隊</p>
+        <a href="#" class="btn-outline w-full block text-center py-2.5">開始使用</a>
+      </div>
+      <div class="section-card p-7 relative" style="border-color:var(--brand); border-width:2px;">
+        <span class="chip absolute -top-3 left-6">最受歡迎</span>
+        <h3 class="display font-bold text-lg mb-2">團隊版</h3>
+        <p class="stat-num text-3xl mb-4">NT$399<span class="text-sm font-normal">／人／月</span></p>
+        <p class="text-sm text-[#5a5676] mb-6">無限專案、自動化規則</p>
+        <a href="#" class="btn-primary w-full block text-center py-2.5">免費試用 14 天</a>
+      </div>
+      <div class="section-card p-7">
+        <h3 class="display font-bold text-lg mb-2">企業版</h3>
+        <p class="stat-num text-3xl mb-4">客製報價</p>
+        <p class="text-sm text-[#5a5676] mb-6">SSO、專屬客服、資安審核</p>
+        <a href="#" class="btn-outline w-full block text-center py-2.5">聯絡銷售團隊</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="border-t border-[#ece9f8] py-10 text-sm text-[#8a84ab]">
+  <div class="max-w-6xl mx-auto px-6 flex flex-wrap justify-between gap-4">
+    <p>© 2026 協作流科技股份有限公司</p>
+    <div class="flex gap-6">
+      <a href="#" class="hover:text-[var(--brand)]">服務條款</a>
+      <a href="#" class="hover:text-[var(--brand)]">隱私權政策</a>
+      <a href="#" class="hover:text-[var(--brand)]">聯絡我們</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -21,6 +21,10 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-10-29（6 個，#17 Inclusive Design / #14 Liquid Glass / #22 Feature-Rich Showcase / #36 Financial Dashboard / #41 Cyberpunk / #50 Swiss Modernism 2.0）
+- ⚠️ 本輪開工前測試三個 host：Firebase（`b-battle-580b5-default-rtdb.firebaseio.com`）與 Telegram（`api.telegram.org`）皆回連線失敗（curl exit 56，代理 403 CONNECT 拒絕），GitHub（`api.github.com/repos/weiwei0607/ui-daily`）回 200 正常。與自 2026-09-01 起持續至今的同一組環境網路限制一致，非暫時性問題。無法讀取上一批按讚結果，沿用「已確認偏好」規則生成本輪；Telegram 改走系統 PushNotification 管道補發通知，GitHub 發布走 `publish.py`。此限制僅影響本容器對外連線，不影響使用者瀏覽器端，畫廊頁內的 ❤️ fetch 邏輯仍完整保留，韡寧實際點讚時應可正常寫入 Firebase。
+- 本輪避開最近三天（10-26/27/28）已用過的 18 種風格，挑了跨 A/B/C/D 四組、字體刻意不重複的 6 個方向：Inclusive Design 用 Atkinson Hyperlegible（高可讀性字體，延續已確認偏好規則）、Liquid Glass 用 Baloo 2 + Quicksand + Zen Maru Gothic（圓體，依「圓潤/柔和風格」規則，非字體庫預設的 Inter）、Feature-Rich Showcase 用 Sora + IBM Plex Sans（避開 Inter 當主美術字體的 SaaS 展示字）、Financial Dashboard 用 Space Grotesk + JetBrains Mono（數據慣例組合，標題避開 Inter）、Cyberpunk 用 Orbitron + Share Tech Mono（霓虹科幻展示字）、Swiss Modernism 2.0 用 Playfair Display + Noto Serif TC（報紙襯線，依「編輯/Swiss/權威」規則，非字體庫預設的 Helvetica Neue）。六個皆未使用 Inter/Helvetica 當主美術字體。
+
 ### 2026-10-28（6 個，#03 Glassmorphism / #56 E-Ink Paper / #38 Neubrutalism / #29 Heatmap & Density Dashboard / #42 Organic Biophilic / #08 Accessible/Ethical）
 - ⚠️ 本輪開工前先用 `curl -m 15` 分別測試三個 host：Firebase（`b-battle-580b5-default-rtdb.firebaseio.com`）回 `CONNECT tunnel failed, response 403`（exit 56）、Telegram（`api.telegram.org`）同樣回 403（exit 56），皆連線失敗；GitHub（`api.github.com/repos/weiwei0607/ui-daily`）回 200，連線正常。這與自 2026-09-01 起持續至今的同一組環境網路限制一致，非暫時性問題，無法讀取上一批按讚結果，沿用「已確認偏好」規則生成本輪；Telegram 改走系統 PushNotification 管道補發通知，GitHub 發布走 `publish.py`。
 - 本輪避開最近三天（10-25/26/27）已用過的 18 種風格，挑了跨 A/C/D 組、字體刻意不重複的 6 個方向：Glassmorphism 用 Baloo 2 + Quicksand + Zen Maru Gothic（圓體）、E-Ink/Paper 用 Newsreader + Noto Serif TC（報紙襯線）+ JetBrains Mono（數據）、Neubrutalism 用 Archivo Black + Space Grotesk（展示字，她明講 #38 是唯一字體對上的風格）、Heatmap Dashboard 用 IBM Plex Sans + JetBrains Mono（數據慣例組合）、Organic Biophilic 用 Cormorant Garamond（襯線）+ Nunito、Accessible/Ethical 用 Atkinson Hyperlegible（高可讀性字體）。六個皆未使用 Inter/Helvetica 當主美術字體。

@@ -1,0 +1,173 @@
+<!-- style #36 Financial Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>資產雷達｜企業財務儀表板</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#0f172a; --panel:#1b2436; --panel-2:#222d42; --line:#2b3650; --ink:#e6eaf2; --sub:#8b96ad;
+         --green:#10b981; --red:#f43f5e; --blue:#3b82f6; }
+  body{ font-family:'IBM Plex Sans', sans-serif; background:var(--bg); color:var(--ink); }
+  h1,h2,h3,.display{ font-family:'Space Grotesk', sans-serif; }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+  .panel{ background:var(--panel); border:1px solid var(--line); border-radius:14px; }
+  .panel-2{ background:var(--panel-2); border:1px solid var(--line); border-radius:12px; }
+  .up{ color:var(--green); } .down{ color:var(--red); }
+  .tag{ font-size:.72rem; font-weight:600; padding:.2rem .55rem; border-radius:6px; }
+  .tag-up{ background:rgba(16,185,129,.14); color:var(--green); }
+  .tag-down{ background:rgba(244,63,94,.14); color:var(--red); }
+  .sidebar-link{ color:var(--sub); font-weight:500; border-radius:10px; }
+  .sidebar-link.active, .sidebar-link:hover{ background:var(--panel-2); color:var(--ink); }
+  table{ border-collapse:collapse; width:100%; }
+  th{ text-align:left; color:var(--sub); font-weight:500; font-size:.78rem; padding:.6rem .8rem; border-bottom:1px solid var(--line); }
+  td{ padding:.7rem .8rem; border-bottom:1px solid var(--line); font-size:.9rem; }
+  .btn{ background:var(--blue); color:#fff; font-weight:600; border-radius:10px; }
+  .btn:hover{ background:#2563eb; }
+  .sparkline-up{ color:var(--green); } .sparkline-down{ color:var(--red); }
+</style>
+</head>
+<body>
+
+<div class="flex min-h-screen">
+  <aside class="w-60 shrink-0 panel m-3 rounded-2xl p-4 hidden lg:flex flex-col">
+    <div class="flex items-center gap-2 display font-bold text-lg mb-8 px-2">
+      <span class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:var(--blue);">📡</span>
+      資產雷達
+    </div>
+    <nav class="space-y-1 text-sm">
+      <a class="sidebar-link active flex items-center gap-3 px-3 py-2.5" href="#">📊 總覽</a>
+      <a class="sidebar-link flex items-center gap-3 px-3 py-2.5" href="#">💰 現金流</a>
+      <a class="sidebar-link flex items-center gap-3 px-3 py-2.5" href="#">📈 損益表</a>
+      <a class="sidebar-link flex items-center gap-3 px-3 py-2.5" href="#">🏦 投資組合</a>
+      <a class="sidebar-link flex items-center gap-3 px-3 py-2.5" href="#">🧾 應收應付</a>
+      <a class="sidebar-link flex items-center gap-3 px-3 py-2.5" href="#">⚙️ 設定</a>
+    </nav>
+    <div class="mt-auto panel-2 p-3 text-xs text-[var(--sub)]">
+      <p class="mono up mb-1">● 資料連線正常</p>
+      <p>最後同步：14:02:08</p>
+    </div>
+  </aside>
+
+  <main class="flex-1 p-3 space-y-3">
+    <div class="flex flex-wrap items-center justify-between gap-3 px-2 py-2">
+      <div>
+        <h1 class="display text-xl font-bold">財務總覽</h1>
+        <p class="text-sm text-[var(--sub)]">2026 年 10 月 29 日・台北時間 14:02</p>
+      </div>
+      <div class="flex gap-2">
+        <button class="panel-2 px-4 py-2 text-sm font-medium">匯出報表</button>
+        <button class="btn px-4 py-2 text-sm">+ 新增交易</button>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-4 gap-3">
+      <div class="panel p-5">
+        <p class="text-sm text-[var(--sub)] mb-2">總資產</p>
+        <p class="mono text-2xl font-bold">NT$ 48,206,340</p>
+        <p class="tag tag-up mt-2 inline-block">▲ 3.2% 較上月</p>
+      </div>
+      <div class="panel p-5">
+        <p class="text-sm text-[var(--sub)] mb-2">本月營收</p>
+        <p class="mono text-2xl font-bold">NT$ 6,812,900</p>
+        <p class="tag tag-up mt-2 inline-block">▲ 8.4% 較上月</p>
+      </div>
+      <div class="panel p-5">
+        <p class="text-sm text-[var(--sub)] mb-2">應收帳款</p>
+        <p class="mono text-2xl font-bold">NT$ 1,934,500</p>
+        <p class="tag tag-down mt-2 inline-block">▼ 1.1% 較上月</p>
+      </div>
+      <div class="panel p-5">
+        <p class="text-sm text-[var(--sub)] mb-2">現金儲備</p>
+        <p class="mono text-2xl font-bold">NT$ 12,440,800</p>
+        <p class="tag tag-up mt-2 inline-block">▲ 0.6% 較上月</p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-3">
+      <div class="panel p-5 md:col-span-2">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="display font-semibold">營收 vs 支出（近 6 個月）</h2>
+          <div class="flex gap-4 text-xs text-[var(--sub)]">
+            <span><span class="inline-block w-2.5 h-2.5 rounded-full mr-1" style="background:var(--blue);"></span>營收</span>
+            <span><span class="inline-block w-2.5 h-2.5 rounded-full mr-1" style="background:var(--red);"></span>支出</span>
+          </div>
+        </div>
+        <svg viewBox="0 0 600 180" class="w-full h-44">
+          <polyline points="0,120 100,100 200,90 300,70 400,55 500,40 600,30" fill="none" stroke="#3b82f6" stroke-width="3"/>
+          <polyline points="0,150 100,145 200,130 300,135 400,120 500,110 600,105" fill="none" stroke="#f43f5e" stroke-width="3"/>
+          <g class="mono" font-size="10" fill="#8b96ad">
+            <text x="0" y="172">5月</text><text x="100" y="172">6月</text><text x="200" y="172">7月</text>
+            <text x="300" y="172">8月</text><text x="400" y="172">9月</text><text x="500" y="172">10月</text>
+          </g>
+        </svg>
+      </div>
+      <div class="panel p-5">
+        <h2 class="display font-semibold mb-4">投資組合配置</h2>
+        <div class="space-y-3">
+          <div>
+            <div class="flex justify-between text-sm mb-1"><span>股票型基金</span><span class="mono">42%</span></div>
+            <div class="h-2 rounded-full bg-[var(--panel-2)]"><div class="h-2 rounded-full" style="width:42%; background:var(--blue);"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-1"><span>債券</span><span class="mono">31%</span></div>
+            <div class="h-2 rounded-full bg-[var(--panel-2)]"><div class="h-2 rounded-full" style="width:31%; background:var(--green);"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-1"><span>現金</span><span class="mono">18%</span></div>
+            <div class="h-2 rounded-full bg-[var(--panel-2)]"><div class="h-2 rounded-full" style="width:18%; background:#a78bfa;"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-1"><span>其他</span><span class="mono">9%</span></div>
+            <div class="h-2 rounded-full bg-[var(--panel-2)]"><div class="h-2 rounded-full" style="width:9%; background:var(--sub);"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel p-5">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="display font-semibold">近期交易</h2>
+        <a href="#" class="text-sm text-[var(--blue)]">查看全部 →</a>
+      </div>
+      <table>
+        <thead>
+          <tr><th>日期</th><th>項目</th><th>類別</th><th>狀態</th><th class="text-right">金額（NT$）</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="mono">10/28</td><td>遠傳電信 B2B 合約尾款</td><td>營收</td>
+            <td><span class="tag tag-up">已入帳</span></td>
+            <td class="mono text-right up">+ 1,280,000</td>
+          </tr>
+          <tr>
+            <td class="mono">10/27</td><td>內湖辦公室租金</td><td>營運支出</td>
+            <td><span class="tag tag-down">已付款</span></td>
+            <td class="mono text-right down">- 320,000</td>
+          </tr>
+          <tr>
+            <td class="mono">10/26</td><td>雲端服務年約（AWS）</td><td>基礎設施</td>
+            <td><span class="tag tag-down">已付款</span></td>
+            <td class="mono text-right down">- 186,400</td>
+          </tr>
+          <tr>
+            <td class="mono">10/25</td><td>零售通路 10 月分潤</td><td>營收</td>
+            <td><span class="tag tag-up">已入帳</span></td>
+            <td class="mono text-right up">+ 904,200</td>
+          </tr>
+          <tr>
+            <td class="mono">10/24</td><td>員工薪資發放</td><td>人事</td>
+            <td><span class="tag tag-down">已付款</span></td>
+            <td class="mono text-right down">- 2,140,000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

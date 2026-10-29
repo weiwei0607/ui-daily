@@ -1,0 +1,236 @@
+<!-- style #17 Inclusive Design -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>學無礙｜無障礙線上學習平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#003366;
+    --navy-deep:#001f3f;
+    --orange:#d9530f;
+    --orange-dark:#a93d08;
+    --ink:#0b0b0b;
+    --paper:#ffffff;
+  }
+  *{font-family:'Atkinson Hyperlegible', sans-serif;}
+  body{background:var(--paper); color:var(--ink);}
+  .skip-link{
+    position:absolute; left:-999px; top:0; background:var(--orange); color:#fff;
+    padding:12px 20px; font-weight:700; z-index:100;
+  }
+  .skip-link:focus{left:16px; top:16px;}
+  a, button, [tabindex]{outline-offset:3px;}
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible{
+    outline:4px solid var(--orange); outline-offset:3px; border-radius:2px;
+  }
+  .btn-primary{
+    background:var(--orange); color:#fff; font-weight:700; font-size:1.125rem;
+    padding:1rem 2rem; border-radius:10px; border:3px solid var(--orange-dark);
+    min-height:56px; display:inline-flex; align-items:center; gap:.5rem;
+  }
+  .btn-primary:hover{background:var(--orange-dark);}
+  .btn-secondary{
+    background:#fff; color:var(--navy); font-weight:700; font-size:1.125rem;
+    padding:1rem 2rem; border-radius:10px; border:3px solid var(--navy);
+    min-height:56px; display:inline-flex; align-items:center; gap:.5rem;
+  }
+  .btn-secondary:hover{background:#eef4fb;}
+  .navbar-link{
+    font-weight:700; font-size:1.0625rem; padding:.75rem 1rem; border-radius:8px;
+    min-height:48px; display:flex; align-items:center;
+  }
+  .navbar-link:hover{background:#eef4fb;}
+  .card{
+    border:3px solid var(--navy); border-radius:16px; background:#fff;
+  }
+  .badge{
+    background:var(--navy); color:#fff; font-weight:700; font-size:.9rem;
+    padding:.35rem .75rem; border-radius:999px; display:inline-flex; align-items:center; gap:.4rem;
+  }
+  .progress-track{background:#dbe6f2; border-radius:999px; height:18px; border:2px solid var(--navy);}
+  .progress-fill{background:var(--orange); height:100%; border-radius:999px;}
+  .font-size-toggle button{
+    border:3px solid var(--navy); background:#fff; color:var(--navy); font-weight:800;
+    width:44px; height:44px; border-radius:8px;
+  }
+  .font-size-toggle button[aria-pressed="true"]{background:var(--navy); color:#fff;}
+  .high-contrast-strip{background:var(--navy-deep);}
+  footer a{text-decoration:underline; text-decoration-thickness:2px;}
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">跳到主要內容</a>
+
+<div class="high-contrast-strip text-white text-sm">
+  <div class="max-w-6xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-2">
+    <p class="font-bold">✓ 本站通過 WCAG 2.1 AA 無障礙檢核，持續優化中</p>
+    <div class="flex items-center gap-3 font-size-toggle">
+      <span class="font-bold">文字大小</span>
+      <button type="button" aria-pressed="false" aria-label="標準字體大小">A</button>
+      <button type="button" aria-pressed="true" aria-label="放大字體大小">A+</button>
+      <button type="button" aria-pressed="false" aria-label="最大字體大小">A++</button>
+    </div>
+  </div>
+</div>
+
+<header class="border-b-[3px]" style="border-color:var(--navy);">
+  <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+    <a href="#main" class="flex items-center gap-3 font-extrabold text-2xl" style="color:var(--navy);">
+      <span class="w-11 h-11 rounded-xl flex items-center justify-center text-white" style="background:var(--navy);">學</span>
+      學無礙
+    </a>
+    <nav aria-label="主要導覽" class="hidden md:flex items-center gap-1">
+      <a href="#courses" class="navbar-link" style="color:var(--navy);">課程總覽</a>
+      <a href="#features" class="navbar-link" style="color:var(--navy);">無障礙功能</a>
+      <a href="#support" class="navbar-link" style="color:var(--navy);">學習支援</a>
+      <a href="#pricing" class="navbar-link" style="color:var(--navy);">方案與補助</a>
+    </nav>
+    <a href="#signup" class="btn-primary">免費建立帳號</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="max-w-6xl mx-auto px-4 py-16 grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <span class="badge mb-5">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+        政府教育雲合作單位
+      </span>
+      <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-6" style="color:var(--navy);">
+        每個人，<br>都該有清楚易懂的學習方式
+      </h1>
+      <p class="text-xl leading-relaxed mb-8 max-w-lg">
+        字幕、語音朗讀、高對比模式、鍵盤完整操作——學無礙把「看得清楚、聽得明白、點得到」當成基本設計，不是加值選項。
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a href="#signup" class="btn-primary">
+          立即開始學習
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="#demo" class="btn-secondary">觀看導覽影片（含字幕）</a>
+      </div>
+      <ul class="mt-8 space-y-2 text-base">
+        <li class="flex items-center gap-2"><strong style="color:var(--orange-dark);">✓</strong> 支援螢幕報讀軟體（NVDA / VoiceOver）</li>
+        <li class="flex items-center gap-2"><strong style="color:var(--orange-dark);">✓</strong> 全站可用鍵盤 Tab 操作，無死角</li>
+        <li class="flex items-center gap-2"><strong style="color:var(--orange-dark);">✓</strong> 色彩對比皆達 AAA 等級</li>
+      </ul>
+    </div>
+    <div class="card p-6">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-extrabold" style="color:var(--navy);">我的學習進度</h2>
+        <span class="badge">本週 +12%</span>
+      </div>
+      <div class="space-y-5">
+        <div>
+          <div class="flex justify-between text-base font-bold mb-2"><span>基礎國文識讀</span><span>80%</span></div>
+          <div class="progress-track"><div class="progress-fill" style="width:80%"></div></div>
+        </div>
+        <div>
+          <div class="flex justify-between text-base font-bold mb-2"><span>生活英語會話</span><span>45%</span></div>
+          <div class="progress-track"><div class="progress-fill" style="width:45%"></div></div>
+        </div>
+        <div>
+          <div class="flex justify-between text-base font-bold mb-2"><span>手機數位應用</span><span>62%</span></div>
+          <div class="progress-track"><div class="progress-fill" style="width:62%"></div></div>
+        </div>
+      </div>
+      <a href="#courses" class="btn-secondary w-full justify-center mt-6">查看完整課程表</a>
+    </div>
+  </section>
+
+  <section id="features" class="py-16" style="background:#f3f7fb;">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-3xl font-extrabold mb-3" style="color:var(--navy);">無障礙功能，不是口號</h2>
+      <p class="text-lg mb-10 max-w-2xl">每一項功能都經過實際使用者（含視障、聽障、高齡與學習障礙學員）測試後才上線。</p>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="card p-6">
+          <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-4 text-white font-bold text-xl" style="background:var(--orange);">Aa</div>
+          <h3 class="text-xl font-extrabold mb-2" style="color:var(--navy);">自由調整文字</h3>
+          <p class="leading-relaxed">字體大小、行距、字間距都能自訂，閱讀障礙學員可切換專用易讀排版。</p>
+        </div>
+        <div class="card p-6">
+          <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-4 text-white font-bold text-xl" style="background:var(--orange);">🔊</div>
+          <h3 class="text-xl font-extrabold mb-2" style="color:var(--navy);">全文語音朗讀</h3>
+          <p class="leading-relaxed">每篇課程文字都可一鍵朗讀，語速可調整，支援繁體中文自然發音。</p>
+        </div>
+        <div class="card p-6">
+          <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-4 text-white font-bold text-xl" style="background:var(--orange);">⌨</div>
+          <h3 class="text-xl font-extrabold mb-2" style="color:var(--navy);">完整鍵盤操作</h3>
+          <p class="leading-relaxed">不需要滑鼠，Tab、Enter、方向鍵即可完成所有操作，焦點框清楚可見。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="support" class="max-w-6xl mx-auto px-4 py-16">
+    <div class="card p-8 grid md:grid-cols-[1fr_auto] gap-8 items-center" style="background:var(--navy); border-color:var(--navy);">
+      <div class="text-white">
+        <h2 class="text-2xl md:text-3xl font-extrabold mb-3">需要協助？真人客服隨時在線</h2>
+        <p class="text-lg leading-relaxed">我們提供文字客服、視訊手語翻譯與電話協助，週一到週六 09:00–21:00，平均 2 分鐘內回覆。</p>
+      </div>
+      <a href="#contact" class="btn-primary whitespace-nowrap">聯絡學習支援</a>
+    </div>
+  </section>
+
+  <section id="pricing" class="max-w-6xl mx-auto px-4 py-16">
+    <h2 class="text-3xl font-extrabold mb-8 text-center" style="color:var(--navy);">方案與政府補助</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="card p-6 flex flex-col">
+        <h3 class="text-xl font-extrabold mb-2" style="color:var(--navy);">基礎方案</h3>
+        <p class="text-3xl font-extrabold mb-4">NT$0<span class="text-base font-normal">／永久免費</span></p>
+        <ul class="space-y-2 mb-6 flex-1">
+          <li>✓ 5 門入門課程</li>
+          <li>✓ 全部無障礙功能</li>
+          <li>✓ 社群討論區</li>
+        </ul>
+        <a href="#signup" class="btn-secondary w-full justify-center">選擇此方案</a>
+      </div>
+      <div class="card p-6 flex flex-col" style="border-color:var(--orange); border-width:3px;">
+        <span class="badge mb-2 w-fit" style="background:var(--orange);">最多人選擇</span>
+        <h3 class="text-xl font-extrabold mb-2" style="color:var(--navy);">進階方案</h3>
+        <p class="text-3xl font-extrabold mb-4">NT$299<span class="text-base font-normal">／月</span></p>
+        <ul class="space-y-2 mb-6 flex-1">
+          <li>✓ 全部 120+ 門課程</li>
+          <li>✓ 真人手語翻譯預約</li>
+          <li>✓ 學習成效報表</li>
+        </ul>
+        <a href="#signup" class="btn-primary w-full justify-center">選擇此方案</a>
+      </div>
+      <div class="card p-6 flex flex-col">
+        <h3 class="text-xl font-extrabold mb-2" style="color:var(--navy);">補助方案</h3>
+        <p class="text-3xl font-extrabold mb-4">依資格<span class="text-base font-normal">減免</span></p>
+        <ul class="space-y-2 mb-6 flex-1">
+          <li>✓ 身心障礙者全額補助</li>
+          <li>✓ 中低收入戶 8 折</li>
+          <li>✓ 需上傳證明文件審核</li>
+        </ul>
+        <a href="#support" class="btn-secondary w-full justify-center">查詢補助資格</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="border-t-[3px] py-10" style="border-color:var(--navy); background:#f3f7fb;">
+  <div class="max-w-6xl mx-auto px-4 flex flex-wrap justify-between gap-6 text-base">
+    <div>
+      <p class="font-extrabold text-lg mb-2" style="color:var(--navy);">學無礙</p>
+      <p>無障礙線上學習平台</p>
+    </div>
+    <nav aria-label="頁尾連結" class="flex flex-wrap gap-6">
+      <a href="#" style="color:var(--navy);">無障礙聲明</a>
+      <a href="#" style="color:var(--navy);">隱私權政策</a>
+      <a href="#" style="color:var(--navy);">聯絡我們</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
