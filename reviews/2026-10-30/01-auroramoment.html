@@ -1,0 +1,206 @@
+<!-- style #10 Aurora UI -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>極光時刻 AuroraMoment｜每天 10 分鐘的安靜時刻</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --aurora-1:#0080ff; --aurora-2:#8b00ff; --aurora-3:#ff1493; --aurora-4:#00ffff;
+  }
+  body{
+    font-family:'Quicksand','Zen Maru Gothic',sans-serif;
+    background:#0b0b1f;
+    color:#f5f3ff;
+    overflow-x:hidden;
+  }
+  .font-display{font-family:'Baloo 2','Zen Maru Gothic',sans-serif;}
+  .aurora-bg{
+    position:fixed; inset:0; z-index:-2;
+    background:
+      radial-gradient(circle at 20% 20%, var(--aurora-1) 0%, transparent 45%),
+      radial-gradient(circle at 80% 30%, var(--aurora-2) 0%, transparent 50%),
+      radial-gradient(circle at 50% 80%, var(--aurora-3) 0%, transparent 50%),
+      radial-gradient(circle at 90% 90%, var(--aurora-4) 0%, transparent 45%),
+      #0b0b1f;
+    filter: blur(60px) saturate(140%);
+    opacity:.55;
+    animation: auroraFlow 18s ease-in-out infinite alternate;
+  }
+  @keyframes auroraFlow{
+    0%{ transform: translate(0,0) scale(1) rotate(0deg); }
+    50%{ transform: translate(-3%, 4%) scale(1.15) rotate(8deg); }
+    100%{ transform: translate(4%, -3%) scale(1.05) rotate(-6deg); }
+  }
+  .noise-veil{
+    position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.035'/></svg>");
+    mix-blend-mode:overlay;
+  }
+  .glass{
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid rgba(255,255,255,0.18);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+  }
+  .glow-ring{
+    box-shadow: 0 0 40px 6px rgba(139,0,255,0.35), 0 0 80px 20px rgba(0,128,255,0.15);
+  }
+  .btn-aurora{
+    background: linear-gradient(120deg, var(--aurora-1), var(--aurora-2), var(--aurora-3));
+    background-size: 200% 200%;
+    animation: gradShift 6s ease infinite;
+    box-shadow: 0 10px 30px rgba(139,0,255,0.4);
+  }
+  @keyframes gradShift{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+  }
+  .breath-circle{
+    width:160px; height:160px; border-radius:50%;
+    background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.5), rgba(139,0,255,0.25) 60%, transparent 75%);
+    border:1px solid rgba(255,255,255,0.3);
+    animation: breathe 8s ease-in-out infinite;
+  }
+  @keyframes breathe{
+    0%,100%{ transform: scale(0.85); opacity:.75; }
+    50%{ transform: scale(1.15); opacity:1; }
+  }
+  .pill{ border-radius:999px; }
+  .mood-chip{
+    transition: all .25s ease;
+  }
+  .mood-chip.active{
+    background: linear-gradient(120deg, var(--aurora-1), var(--aurora-2));
+    box-shadow: 0 0 25px rgba(139,0,255,0.5);
+  }
+</style>
+</head>
+<body class="min-h-screen">
+<div class="aurora-bg"></div>
+<div class="noise-veil"></div>
+
+<header class="max-w-6xl mx-auto px-6 pt-8 flex items-center justify-between">
+  <div class="flex items-center gap-2">
+    <div class="w-9 h-9 rounded-full glow-ring" style="background:linear-gradient(135deg,var(--aurora-1),var(--aurora-3));"></div>
+    <span class="font-display text-xl font-bold tracking-wide">極光時刻</span>
+  </div>
+  <nav class="hidden md:flex gap-8 text-sm text-white/75">
+    <a href="#practice" class="hover:text-white transition">練習</a>
+    <a href="#mood" class="hover:text-white transition">心情記錄</a>
+    <a href="#plan" class="hover:text-white transition">方案</a>
+  </nav>
+  <button class="pill px-5 py-2 text-sm font-semibold btn-aurora">免費開始</button>
+</header>
+
+<main class="max-w-6xl mx-auto px-6">
+  <section class="pt-16 pb-20 text-center">
+    <p class="inline-block pill px-4 py-1 text-xs tracking-widest text-white/70 glass mb-6">每天 10 分鐘・找回安靜</p>
+    <h1 class="font-display text-4xl md:text-6xl font-extrabold leading-tight mb-6">
+      在喧囂裡，<br class="md:hidden">
+      <span class="bg-clip-text text-transparent" style="background-image:linear-gradient(120deg,var(--aurora-1),var(--aurora-2),var(--aurora-3)); -webkit-background-clip:text;">
+        留一段極光時刻
+      </span>
+    </h1>
+    <p class="text-white/70 max-w-xl mx-auto mb-10 leading-relaxed">
+      結合呼吸引導、情緒紀錄與輕柔音景的冥想練習 App，陪你把每一天的焦躁，慢慢調回柔和的頻率。
+    </p>
+    <div class="flex items-center justify-center gap-4">
+      <button class="pill px-7 py-3 font-bold btn-aurora">立即開始練習</button>
+      <button class="pill px-7 py-3 font-semibold glass hover:bg-white/15 transition">看看怎麼用</button>
+    </div>
+  </section>
+
+  <section id="practice" class="py-16">
+    <div class="grid md:grid-cols-2 gap-10 items-center glass rounded-[2rem] p-8 md:p-12">
+      <div class="flex flex-col items-center">
+        <div class="breath-circle flex items-center justify-center text-center">
+          <span id="breathLabel" class="font-display text-sm text-white/90">吸氣</span>
+        </div>
+        <p class="mt-6 text-white/60 text-sm">跟著光暈的節奏，緩緩吸氣、吐氣</p>
+      </div>
+      <div>
+        <h2 class="font-display text-2xl font-bold mb-4">一個會呼吸的引導圈</h2>
+        <p class="text-white/70 leading-relaxed mb-6">
+          不用倒數、不用計算秒數，光暈擴張時吸氣，縮小時吐氣。我們把呼吸練習做成最不費力的樣子，點一下就能開始。
+        </p>
+        <ul class="space-y-3 text-sm text-white/75">
+          <li class="flex items-center gap-3"><span class="w-2 h-2 rounded-full" style="background:var(--aurora-4);"></span>4-7-8 呼吸法・睡前推薦</li>
+          <li class="flex items-center gap-3"><span class="w-2 h-2 rounded-full" style="background:var(--aurora-3);"></span>箱式呼吸・專注前暖身</li>
+          <li class="flex items-center gap-3"><span class="w-2 h-2 rounded-full" style="background:var(--aurora-1);"></span>自由節奏・純粹放鬆</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="mood" class="py-16">
+    <h2 class="font-display text-2xl md:text-3xl font-bold text-center mb-3">今天，你是什麼顏色的心情？</h2>
+    <p class="text-center text-white/60 mb-10">點一下最貼近的感覺，我們會悄悄記下，陪你看見這週的情緒曲線</p>
+    <div class="flex flex-wrap justify-center gap-3 mb-8" id="moodChips">
+      <button class="mood-chip glass pill px-5 py-2 text-sm" data-mood="平靜">🌙 平靜</button>
+      <button class="mood-chip glass pill px-5 py-2 text-sm" data-mood="疲憊">🌫️ 疲憊</button>
+      <button class="mood-chip glass pill px-5 py-2 text-sm" data-mood="焦慮">⚡ 焦慮</button>
+      <button class="mood-chip glass pill px-5 py-2 text-sm" data-mood="開心">✨ 開心</button>
+      <button class="mood-chip glass pill px-5 py-2 text-sm" data-mood="低落">🌧️ 低落</button>
+    </div>
+    <p id="moodResult" class="text-center text-white/80 font-semibold min-h-[1.5rem]"></p>
+  </section>
+
+  <section id="plan" class="py-16 grid md:grid-cols-3 gap-6">
+    <div class="glass rounded-3xl p-8">
+      <h3 class="font-display text-lg font-bold mb-2">輕量體驗</h3>
+      <p class="text-3xl font-extrabold mb-4">免費</p>
+      <p class="text-white/60 text-sm mb-6">每週 3 次引導練習、基礎情緒記錄</p>
+      <button class="pill w-full py-2.5 glass font-semibold">開始使用</button>
+    </div>
+    <div class="glass glow-ring rounded-3xl p-8 scale-105">
+      <p class="text-xs text-white/70 mb-2">最多人選擇</p>
+      <h3 class="font-display text-lg font-bold mb-2">極光會員</h3>
+      <p class="text-3xl font-extrabold mb-4">NT$149<span class="text-sm text-white/60">／月</span></p>
+      <p class="text-white/70 text-sm mb-6">無限引導練習、完整音景庫、情緒曲線分析</p>
+      <button class="pill w-full py-2.5 btn-aurora font-bold">立即升級</button>
+    </div>
+    <div class="glass rounded-3xl p-8">
+      <h3 class="font-display text-lg font-bold mb-2">團隊方案</h3>
+      <p class="text-3xl font-extrabold mb-4">洽詢</p>
+      <p class="text-white/60 text-sm mb-6">企業員工身心福利，含每月心理師直播</p>
+      <button class="pill w-full py-2.5 glass font-semibold">聯絡我們</button>
+    </div>
+  </section>
+</main>
+
+<footer class="max-w-6xl mx-auto px-6 py-10 text-center text-white/40 text-xs">
+  © 2026 極光時刻 AuroraMoment・陪你找回呼吸的節奏
+</footer>
+
+<script>
+  const breathLabel = document.getElementById('breathLabel');
+  const states = ['吸氣','停留','吐氣','停留'];
+  let i = 0;
+  setInterval(()=>{ i=(i+1)%states.length; breathLabel.textContent = states[i]; }, 2000);
+
+  const chips = document.querySelectorAll('.mood-chip');
+  const result = document.getElementById('moodResult');
+  const msgs = {
+    '平靜':'很好，今天的你像夜晚的湖面一樣安穩。',
+    '疲憊':'辛苦了，今晚給自己一段 4-7-8 呼吸練習吧。',
+    '焦慮':'先吸氣 4 秒、停留 7 秒、吐氣 8 秒，我們陪你。',
+    '開心':'太好了！把這份好心情也記進你的極光日記吧。',
+    '低落':'沒關係的，允許自己慢下來，我們都在。'
+  };
+  chips.forEach(chip=>{
+    chip.addEventListener('click', ()=>{
+      chips.forEach(c=>c.classList.remove('active'));
+      chip.classList.add('active');
+      result.textContent = msgs[chip.dataset.mood];
+    });
+  });
+</script>
+</body>
+</html>

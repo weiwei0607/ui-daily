@@ -1,0 +1,125 @@
+<!-- style #53 Bento Grids -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>格物工作室 GeWu Studio｜設計接案作品集</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Instrument Sans','Noto Sans TC',sans-serif; background:#fafaf8; color:#171717; }
+  .bento{ display:grid; grid-template-columns: repeat(4, 1fr); gap:1rem; }
+  @media (max-width: 768px){ .bento{ grid-template-columns: repeat(2, 1fr); } }
+  .cell{ border-radius:1.5rem; transition: transform .25s ease, box-shadow .25s ease; }
+  .cell:hover{ transform: translateY(-4px); box-shadow: 0 16px 30px rgba(0,0,0,0.08); }
+  .span-2{ grid-column: span 2; }
+  .span-2-row{ grid-row: span 2; }
+  .filter-pill{ transition: all .2s ease; cursor:pointer; }
+  .filter-pill.active{ background:#171717; color:#fff; }
+  .hide{ display:none; }
+</style>
+</head>
+<body>
+
+<header class="max-w-6xl mx-auto px-6 pt-8 flex items-center justify-between">
+  <div class="font-bold text-lg">格物 <span class="text-sm text-gray-400 font-normal">GeWu Studio</span></div>
+  <nav class="hidden md:flex gap-8 text-sm text-gray-500">
+    <a href="#work" class="hover:text-black">作品</a>
+    <a href="#about" class="hover:text-black">關於</a>
+    <a href="#contact" class="hover:text-black">合作洽詢</a>
+  </nav>
+  <a href="#contact" class="rounded-full border border-gray-300 px-5 py-2 text-sm font-semibold hover:border-black transition">聊聊你的專案</a>
+</header>
+
+<section class="max-w-6xl mx-auto px-6 pt-14 pb-10">
+  <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">一格一個作品，<br>如實呈現每次設計的樣子</h1>
+  <p class="text-gray-500 max-w-xl">格物工作室接案五年，專注品牌識別與產品介面設計。以下是依年份篩選的精選作品。</p>
+</section>
+
+<section id="work" class="max-w-6xl mx-auto px-6 pb-20">
+  <div class="flex gap-3 mb-8 flex-wrap" id="filters">
+    <span class="filter-pill active border border-gray-300 rounded-full px-4 py-1.5 text-sm" data-year="all">全部</span>
+    <span class="filter-pill border border-gray-300 rounded-full px-4 py-1.5 text-sm" data-year="2024">2024</span>
+    <span class="filter-pill border border-gray-300 rounded-full px-4 py-1.5 text-sm" data-year="2023">2023</span>
+    <span class="filter-pill border border-gray-300 rounded-full px-4 py-1.5 text-sm" data-year="2022">2022</span>
+  </div>
+
+  <div class="bento" id="bentoGrid">
+    <div class="cell span-2 span-2-row bg-[#e7ddcf] p-6 flex flex-col justify-end" data-year="2024">
+      <p class="text-xs text-gray-600 mb-1">品牌識別・2024</p>
+      <h3 class="text-xl font-bold">暖室烘焙 品牌重塑</h3>
+    </div>
+    <div class="cell bg-[#dbe4e0] p-5 flex flex-col justify-end" data-year="2024">
+      <p class="text-xs text-gray-600 mb-1">App UI・2024</p>
+      <h3 class="font-bold">記帳 App「略算」</h3>
+    </div>
+    <div class="cell bg-[#171717] text-white p-5 flex flex-col justify-end" data-year="2023">
+      <p class="text-xs text-gray-400 mb-1">網站設計・2023</p>
+      <h3 class="font-bold">建築事務所官網</h3>
+    </div>
+    <div class="cell span-2 bg-[#f0ddd3] p-5 flex flex-col justify-end" data-year="2023">
+      <p class="text-xs text-gray-600 mb-1">包裝設計・2023</p>
+      <h3 class="font-bold text-lg">手沖咖啡豆包裝系列</h3>
+    </div>
+    <div class="cell bg-[#dde3f0] p-5 flex flex-col justify-end" data-year="2022">
+      <p class="text-xs text-gray-600 mb-1">Dashboard・2022</p>
+      <h3 class="font-bold">物流後台介面重設計</h3>
+    </div>
+    <div class="cell span-2 bg-[#e5e0d8] p-5 flex flex-col justify-end" data-year="2024">
+      <p class="text-xs text-gray-600 mb-1">活動視覺・2024</p>
+      <h3 class="font-bold text-lg">城市音樂祭主視覺</h3>
+    </div>
+    <div class="cell bg-[#eadfe9] p-5 flex flex-col justify-end" data-year="2022">
+      <p class="text-xs text-gray-600 mb-1">LOGO・2022</p>
+      <h3 class="font-bold">選物店識別設計</h3>
+    </div>
+    <div class="cell bg-[#d9ece0] p-5 flex flex-col justify-end" data-year="2023">
+      <p class="text-xs text-gray-600 mb-1">App UI・2023</p>
+      <h3 class="font-bold">植物照護 App「葉伴」</h3>
+    </div>
+  </div>
+
+  <p id="emptyState" class="hide text-center text-gray-400 py-10">這個年份目前沒有作品，換個篩選試試。</p>
+</section>
+
+<section id="about" class="py-20 bg-[#171717] text-white">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    <h2 class="text-3xl font-bold mb-6">關於格物</h2>
+    <p class="text-gray-300 leading-relaxed">我們是一個三人小團隊，相信好的設計不需要華麗的詞彙，只需要把每個細節做對。從品牌識別到產品介面，格物陪客戶把模糊的想法，變成可以實際使用的樣子。</p>
+  </div>
+</section>
+
+<section id="contact" class="max-w-4xl mx-auto px-6 py-20 text-center">
+  <h2 class="text-3xl font-bold mb-4">有新專案想討論嗎？</h2>
+  <p class="text-gray-500 mb-8">填寫簡單的需求表單，我們會在兩個工作日內回覆。</p>
+  <button class="bg-[#171717] text-white rounded-full px-8 py-3.5 font-bold">填寫合作表單</button>
+</section>
+
+<footer class="max-w-6xl mx-auto px-6 py-10 text-center text-xs text-gray-400">
+  © 2026 格物工作室 GeWu Studio
+</footer>
+
+<script>
+  const pills = document.querySelectorAll('.filter-pill');
+  const cells = document.querySelectorAll('#bentoGrid .cell');
+  const empty = document.getElementById('emptyState');
+
+  pills.forEach(pill=>{
+    pill.addEventListener('click', ()=>{
+      pills.forEach(p=>p.classList.remove('active'));
+      pill.classList.add('active');
+      const year = pill.dataset.year;
+      let visibleCount = 0;
+      cells.forEach(cell=>{
+        const match = year === 'all' || cell.dataset.year === year;
+        cell.classList.toggle('hide', !match);
+        if (match) visibleCount++;
+      });
+      empty.classList.toggle('hide', visibleCount > 0);
+    });
+  });
+</script>
+</body>
+</html>

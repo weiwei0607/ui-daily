@@ -1,0 +1,151 @@
+<!-- style #46 Dimensional Layering -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>疆界建築 Boundary Architects｜空間作品集</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Urbanist','Noto Sans TC',sans-serif; background:#ececec; color:#141414; }
+  .layer-card{
+    position:relative;
+    transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease;
+  }
+  .layer-stack{ position:relative; }
+  .layer-stack .layer-card:nth-child(1){ transform: translate(0,0); z-index:3; }
+  .layer-stack .layer-card:nth-child(2){ transform: translate(14px,14px); z-index:2; opacity:.85; }
+  .layer-stack .layer-card:nth-child(3){ transform: translate(28px,28px); z-index:1; opacity:.6; }
+  .layer-stack:hover .layer-card:nth-child(1){ transform: translate(-6px,-10px) rotate(-1deg); box-shadow: 0 30px 50px rgba(0,0,0,.18); }
+  .layer-stack:hover .layer-card:nth-child(2){ transform: translate(16px,20px) rotate(1deg); }
+  .layer-stack:hover .layer-card:nth-child(3){ transform: translate(36px,42px) rotate(-0.5deg); }
+  .project-card{
+    cursor:pointer;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+    transition: transform .3s ease, box-shadow .3s ease;
+  }
+  .project-card:hover{ transform: translateY(-8px); box-shadow: 0 24px 40px rgba(0,0,0,0.15); }
+  .depth-tag{ backdrop-filter: blur(6px); background: rgba(255,255,255,0.7); }
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(10,10,10,0.6); backdrop-filter: blur(4px);
+    display:flex; align-items:center; justify-content:center; z-index:50;
+    opacity:0; pointer-events:none; transition: opacity .25s ease;
+  }
+  .modal-overlay.show{ opacity:1; pointer-events:auto; }
+  .modal-box{ transform: translateY(20px) scale(.97); transition: transform .25s ease; }
+  .modal-overlay.show .modal-box{ transform: translateY(0) scale(1); }
+</style>
+</head>
+<body>
+
+<header class="max-w-6xl mx-auto px-6 pt-8 flex items-center justify-between">
+  <div class="font-extrabold text-xl tracking-tight">疆界 <span class="text-sm font-medium text-gray-400">BOUNDARY ARCHITECTS</span></div>
+  <nav class="hidden md:flex gap-8 text-sm text-gray-500">
+    <a href="#works" class="hover:text-black">作品</a>
+    <a href="#philosophy" class="hover:text-black">設計理念</a>
+    <a href="#contact" class="hover:text-black">聯繫我們</a>
+  </nav>
+  <a href="#contact" class="text-sm font-bold border border-black rounded-full px-5 py-2 hover:bg-black hover:text-white transition">預約洽談</a>
+</header>
+
+<section class="max-w-6xl mx-auto px-6 pt-20 pb-24 grid md:grid-cols-2 gap-14 items-center">
+  <div>
+    <p class="text-sm text-gray-400 mb-4 tracking-widest">空間設計事務所・成立於 2014</p>
+    <h1 class="text-5xl font-extrabold leading-tight mb-6">在每一層<br>光影堆疊之間，<br>找到空間的邊界</h1>
+    <p class="text-gray-500 leading-relaxed mb-8">疆界建築專注於住宅與商業空間的量體設計，透過層層退縮與材質堆疊，讓建築本身講述屬於它的敘事。</p>
+    <a href="#works" class="inline-block bg-black text-white rounded-full px-7 py-3 font-bold">瀏覽作品集</a>
+  </div>
+  <div class="layer-stack flex justify-center py-10">
+    <div class="layer-card absolute w-60 h-72 bg-[#d6d2c4] rounded-2xl"></div>
+    <div class="layer-card absolute w-60 h-72 bg-[#bcb6a0] rounded-2xl"></div>
+    <div class="layer-card w-60 h-72 bg-[#141414] rounded-2xl flex items-end p-5">
+      <p class="text-white text-sm font-semibold">層間 Project 07</p>
+    </div>
+  </div>
+</section>
+
+<section id="works" class="max-w-6xl mx-auto px-6 py-20">
+  <div class="flex items-end justify-between mb-10">
+    <h2 class="text-3xl font-extrabold">精選作品</h2>
+    <p class="text-sm text-gray-400">點擊卡片查看完整案例</p>
+  </div>
+  <div class="grid md:grid-cols-3 gap-8" id="projectGrid">
+    <div class="project-card rounded-2xl overflow-hidden bg-white" data-id="p1">
+      <div class="h-48 bg-gradient-to-br from-[#8a8370] to-[#3d3a30] relative">
+        <span class="depth-tag absolute top-3 left-3 text-xs font-bold px-3 py-1 rounded-full">住宅</span>
+      </div>
+      <div class="p-5">
+        <h3 class="font-bold text-lg mb-1">層間別墅</h3>
+        <p class="text-sm text-gray-400">新竹・2023・450㎡</p>
+      </div>
+    </div>
+    <div class="project-card rounded-2xl overflow-hidden bg-white" data-id="p2">
+      <div class="h-48 bg-gradient-to-br from-[#5b6b73] to-[#1d2328] relative">
+        <span class="depth-tag absolute top-3 left-3 text-xs font-bold px-3 py-1 rounded-full">商辦</span>
+      </div>
+      <div class="p-5">
+        <h3 class="font-bold text-lg mb-1">迴廊商務中心</h3>
+        <p class="text-sm text-gray-400">台北・2022・2,100㎡</p>
+      </div>
+    </div>
+    <div class="project-card rounded-2xl overflow-hidden bg-white" data-id="p3">
+      <div class="h-48 bg-gradient-to-br from-[#9c8360] to-[#4a3b26] relative">
+        <span class="depth-tag absolute top-3 left-3 text-xs font-bold px-3 py-1 rounded-full">文化空間</span>
+      </div>
+      <div class="p-5">
+        <h3 class="font-bold text-lg mb-1">疊影美術館</h3>
+        <p class="text-sm text-gray-400">台中・2024・3,600㎡</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="philosophy" class="py-20" style="background:#141414;color:#f0efe8;">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    <h2 class="text-3xl font-extrabold mb-6">設計不是堆砌，而是分層的誠實</h2>
+    <p class="leading-loose text-gray-300">我們相信每一棟建築都該誠實地展現它的結構層次——承重的、保護的、裝飾的，各自退讓出一點空間，讓光影自然地落進縫隙之間，這就是「疆界」存在的意義。</p>
+  </div>
+</section>
+
+<section id="contact" class="max-w-4xl mx-auto px-6 py-20 text-center">
+  <h2 class="text-3xl font-extrabold mb-4">想和我們談談您的空間？</h2>
+  <p class="text-gray-500 mb-8">不論是住宅改造或商業空間規劃，歡迎與我們預約初次諮詢。</p>
+  <button class="bg-black text-white rounded-full px-8 py-3.5 font-bold">預約免費諮詢</button>
+</section>
+
+<footer class="max-w-6xl mx-auto px-6 py-10 text-center text-xs text-gray-400">
+  © 2026 疆界建築 Boundary Architects
+</footer>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box bg-white rounded-2xl max-w-md w-[90%] p-8 relative">
+    <button id="modalClose" class="absolute top-4 right-4 text-gray-400 hover:text-black">✕</button>
+    <h3 id="modalTitle" class="text-2xl font-extrabold mb-2"></h3>
+    <p id="modalMeta" class="text-sm text-gray-400 mb-4"></p>
+    <p id="modalDesc" class="text-gray-600 leading-relaxed"></p>
+  </div>
+</div>
+
+<script>
+  const projects = {
+    p1:{ title:'層間別墅', meta:'新竹・2023・450㎡・住宅', desc:'沿著緩坡地形設計三層退縮量體，每層樓板都比上層往外延伸，創造出隱蔽的半戶外露台與自然光廊道。' },
+    p2:{ title:'迴廊商務中心', meta:'台北・2022・2,100㎡・商辦', desc:'以環形動線串聯六棟獨立量體，中央形成共享中庭，立面採用深淺不一的垂直百葉，隨時間產生不同光影層次。' },
+    p3:{ title:'疊影美術館', meta:'台中・2024・3,600㎡・文化空間', desc:'建築主體由五個錯位堆疊的展覽量體構成，每個量體的錯位角度皆對應不同展區的採光需求，形成獨特的疊影立面。' },
+  };
+  const overlay = document.getElementById('modalOverlay');
+  document.querySelectorAll('.project-card').forEach(card=>{
+    card.addEventListener('click', ()=>{
+      const p = projects[card.dataset.id];
+      document.getElementById('modalTitle').textContent = p.title;
+      document.getElementById('modalMeta').textContent = p.meta;
+      document.getElementById('modalDesc').textContent = p.desc;
+      overlay.classList.add('show');
+    });
+  });
+  document.getElementById('modalClose').addEventListener('click', ()=> overlay.classList.remove('show'));
+  overlay.addEventListener('click', (e)=>{ if(e.target===overlay) overlay.classList.remove('show'); });
+</script>
+</body>
+</html>

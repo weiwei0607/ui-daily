@@ -1,0 +1,124 @@
+<!-- style #20 Hero-Centric（皮膚：Organic Biophilic） -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>森光 ForestLumen｜來自雲霧森林的修護精華</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Nunito:wght@400;500;600;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Nunito','Noto Serif TC',sans-serif;
+    background:#f5f1e8;
+    color:#2e3a26;
+  }
+  .font-display{ font-family:'Fraunces','Noto Serif TC',serif; }
+  .blob{
+    border-radius: 58% 42% 38% 62% / 55% 45% 58% 42%;
+  }
+  .hero-blob{
+    background: radial-gradient(circle at 35% 30%, #a9c79b, #6f8f5b 60%, #3e4a32 100%);
+    filter: drop-shadow(0 30px 50px rgba(62,74,50,0.35));
+    animation: blobMove 10s ease-in-out infinite;
+  }
+  @keyframes blobMove{
+    0%,100%{ border-radius: 58% 42% 38% 62% / 55% 45% 58% 42%; }
+    50%{ border-radius: 42% 58% 62% 38% / 45% 58% 42% 55%; }
+  }
+  .leaf-line{ stroke-dasharray: 6 6; }
+  .btn-primary{
+    background:#3e4a32; color:#f5f1e8;
+  }
+  .btn-primary:hover{ background:#2e3a26; }
+  .texture{
+    background-image: radial-gradient(#00000008 1px, transparent 1px);
+    background-size: 14px 14px;
+  }
+</style>
+</head>
+<body>
+
+<header class="max-w-6xl mx-auto px-6 pt-8 flex items-center justify-between">
+  <div class="font-display text-xl font-semibold tracking-wide" style="color:#3e4a32;">森光 <span class="text-sm font-sans tracking-widest text-[#6f8f5b]">FORESTLUMEN</span></div>
+  <nav class="hidden md:flex gap-8 text-sm" style="color:#4a5a3c;">
+    <a href="#story" class="hover:opacity-70">品牌故事</a>
+    <a href="#product" class="hover:opacity-70">核心成分</a>
+    <a href="#ritual" class="hover:opacity-70">使用儀式</a>
+  </nav>
+  <button class="btn-primary rounded-full px-5 py-2 text-sm font-semibold transition">立即選購</button>
+</header>
+
+<section class="max-w-6xl mx-auto px-6 pt-16 pb-24 grid md:grid-cols-2 gap-12 items-center">
+  <div>
+    <p class="text-sm tracking-widest mb-4" style="color:#8fbc8f;">來自海拔 2000 公尺的雲霧森林</p>
+    <h1 class="font-display text-5xl md:text-6xl leading-[1.15] mb-6" style="color:#2e3a26;">
+      一滴精華，<br>留住森林的呼吸
+    </h1>
+    <p class="text-lg leading-relaxed mb-8" style="color:#4a5a3c;">
+      森光從台灣高山苔蘚與蕨類萃取出修護因子，用最溫柔的方式，把雨林的濕潤與安定，帶回你每天的肌膚儀式。
+    </p>
+    <div class="flex items-center gap-4">
+      <button class="btn-primary rounded-full px-8 py-3.5 font-semibold text-lg transition">體驗旅行組 NT$480</button>
+      <a href="#story" class="font-display underline" style="color:#3e4a32;">閱讀我們的森林故事 →</a>
+    </div>
+  </div>
+  <div class="relative flex justify-center">
+    <div class="hero-blob blob w-72 h-72 md:w-96 md:h-96"></div>
+    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-white/80 backdrop-blur rounded-2xl px-6 py-4 shadow-xl text-center">
+      <p class="font-display text-2xl" style="color:#3e4a32;">98%</p>
+      <p class="text-xs" style="color:#6f8f5b;">天然來源成分</p>
+    </div>
+  </div>
+</section>
+
+<section id="story" class="py-20" style="background:#eef0e3;">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    <h2 class="font-display text-3xl md:text-4xl mb-6" style="color:#2e3a26;">我們相信，肌膚和森林一樣需要生態平衡</h2>
+    <p class="leading-loose text-lg" style="color:#4a5a3c;">
+      2019 年，三位植物研究者在阿里山雲霧帶發現一株耐旱又飽含水分的苔蘚。他們花了四年時間，
+      把這份「在惡劣環境裡依然柔軟」的生命力，萃取、純化，做成了森光的第一瓶精華。
+      我們不追求速效，只想讓肌膚重新學會，像森林一樣自己調節濕度與平衡。
+    </p>
+  </div>
+</section>
+
+<section id="product" class="max-w-6xl mx-auto px-6 py-20">
+  <h2 class="font-display text-3xl text-center mb-12" style="color:#2e3a26;">三個核心成分，三種森林的力量</h2>
+  <div class="grid md:grid-cols-3 gap-8">
+    <div class="texture rounded-[2rem] p-8 border" style="border-color:#d8ddc8;">
+      <div class="blob w-16 h-16 mb-5" style="background:#98ff98;"></div>
+      <h3 class="font-display text-xl mb-2" style="color:#2e3a26;">高山苔蘚萃取</h3>
+      <p class="text-sm leading-relaxed" style="color:#5a6a4a;">鎖水力是玻尿酸的 2 倍，24 小時維持肌膚濕潤不緊繃。</p>
+    </div>
+    <div class="texture rounded-[2rem] p-8 border" style="border-color:#d8ddc8;">
+      <div class="blob w-16 h-16 mb-5" style="background:#8fbc8f;"></div>
+      <h3 class="font-display text-xl mb-2" style="color:#2e3a26;">蕨類多醣修護因子</h3>
+      <p class="text-sm leading-relaxed" style="color:#5a6a4a;">強化角質屏障，舒緩泛紅與敏感不適。</p>
+    </div>
+    <div class="texture rounded-[2rem] p-8 border" style="border-color:#d8ddc8;">
+      <div class="blob w-16 h-16 mb-5" style="background:#6f8f5b;"></div>
+      <h3 class="font-display text-xl mb-2" style="color:#2e3a26;">檜木精油複方</h3>
+      <p class="text-sm leading-relaxed" style="color:#5a6a4a;">淡雅木質香氣，塗抹瞬間像走進一座森林。</p>
+    </div>
+  </div>
+</section>
+
+<section id="ritual" class="py-20" style="background:#3e4a32; color:#f5f1e8;">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    <h2 class="font-display text-3xl mb-10">每天兩分鐘的森林儀式</h2>
+    <div class="grid md:grid-cols-3 gap-8 text-left">
+      <div><p class="font-display text-4xl mb-2 opacity-70">01</p><p class="text-sm leading-relaxed opacity-90">潔顏後，取三滴於掌心溫熱</p></div>
+      <div><p class="font-display text-4xl mb-2 opacity-70">02</p><p class="text-sm leading-relaxed opacity-90">由內而外輕輕按壓於全臉</p></div>
+      <div><p class="font-display text-4xl mb-2 opacity-70">03</p><p class="text-sm leading-relaxed opacity-90">深呼吸三次，讓香氣安定情緒</p></div>
+    </div>
+  </div>
+</section>
+
+<footer class="max-w-6xl mx-auto px-6 py-10 text-center text-sm" style="color:#6f8f5b;">
+  © 2026 森光 ForestLumen・取自森林，歸還於你
+</footer>
+
+</body>
+</html>

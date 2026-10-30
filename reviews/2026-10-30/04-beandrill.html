@@ -1,0 +1,202 @@
+<!-- style #32 Drill-Down Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>豆鑽 BeanDrill｜連鎖門市營運儀表板</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Figtree','Noto Sans TC',sans-serif; background:#f1f3f5; color:#1b1f23; }
+  .font-mono{ font-family:'JetBrains Mono',monospace; }
+  .card{ background:#fff; border:1px solid #e4e7eb; border-radius:16px; }
+  .crumb{ cursor:pointer; }
+  .crumb:hover{ text-decoration:underline; }
+  .bar-fill{ transition: width .4s ease; }
+  tr.row-clickable{ cursor:pointer; }
+  tr.row-clickable:hover{ background:#f8f9fc; }
+  .badge-up{ color:#15803d; background:#dcfce7; }
+  .badge-down{ color:#b91c1c; background:#fee2e2; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="flex">
+  <aside class="hidden md:flex w-56 flex-col h-screen sticky top-0 bg-[#18181f] text-gray-300 px-5 py-6">
+    <div class="flex items-center gap-2 mb-10">
+      <div class="w-8 h-8 rounded-lg bg-[#b08968] flex items-center justify-center font-black text-white">豆</div>
+      <span class="font-bold text-white">豆鑽 <span class="font-mono text-xs text-gray-500">BeanDrill</span></span>
+    </div>
+    <nav class="flex flex-col gap-1 text-sm">
+      <a class="px-3 py-2 rounded-lg bg-white/10 text-white font-semibold">營運下鑽</a>
+      <a class="px-3 py-2 rounded-lg hover:bg-white/5">門市總覽</a>
+      <a class="px-3 py-2 rounded-lg hover:bg-white/5">商品分析</a>
+      <a class="px-3 py-2 rounded-lg hover:bg-white/5">會員經營</a>
+      <a class="px-3 py-2 rounded-lg hover:bg-white/5">設定</a>
+    </nav>
+    <div class="mt-auto text-xs text-gray-500 font-mono">v2.4.1・資料同步 09:02</div>
+  </aside>
+
+  <main class="flex-1 px-6 md:px-10 py-8 max-w-6xl">
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h1 class="text-2xl font-extrabold">營運下鑽分析</h1>
+        <p class="text-sm text-gray-500 mt-1">點擊任一列，從全台 → 縣市 → 單店逐層下鑽</p>
+      </div>
+      <div class="text-right">
+        <p class="text-xs text-gray-400">本月累計營收</p>
+        <p class="font-mono text-2xl font-bold">NT$ 18,420,600</p>
+      </div>
+    </div>
+
+    <div id="breadcrumb" class="flex items-center gap-2 text-sm font-semibold text-gray-500 mb-5">
+      <span class="crumb text-[#8a5a3c]" data-level="0">全台門市</span>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <div class="card p-4">
+        <p class="text-xs text-gray-400 mb-1">本層營收</p>
+        <p id="kpiRevenue" class="font-mono text-xl font-bold">NT$ 18.42M</p>
+      </div>
+      <div class="card p-4">
+        <p class="text-xs text-gray-400 mb-1">同期成長</p>
+        <p id="kpiGrowth" class="font-mono text-xl font-bold text-green-600">+6.8%</p>
+      </div>
+      <div class="card p-4">
+        <p class="text-xs text-gray-400 mb-1">平均客單價</p>
+        <p id="kpiAov" class="font-mono text-xl font-bold">NT$ 142</p>
+      </div>
+      <div class="card p-4">
+        <p class="text-xs text-gray-400 mb-1">下鑽層級</p>
+        <p id="kpiLevel" class="font-mono text-xl font-bold">全台</p>
+      </div>
+    </div>
+
+    <div class="card p-6">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="text-left text-gray-400 border-b border-gray-100">
+            <th class="pb-3 font-semibold">名稱</th>
+            <th class="pb-3 font-semibold text-right">營收</th>
+            <th class="pb-3 font-semibold text-right">成長率</th>
+            <th class="pb-3 font-semibold text-right">佔比</th>
+            <th class="pb-3 font-semibold"></th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+
+    <p id="hint" class="text-xs text-gray-400 mt-4">提示：點擊列表任一列可往下鑽到下一層，點上方麵包屑可回到上層。</p>
+  </main>
+</div>
+
+<script>
+const data = {
+  name: '全台門市', level: '全台',
+  revenue: 18420600, growth: 6.8, aov: 142,
+  children: [
+    { name:'台北市', level:'縣市', revenue: 6120000, growth: 8.2, aov: 158,
+      children:[
+        { name:'信義門市', level:'單店', revenue: 2310000, growth: 11.4, aov: 162 },
+        { name:'大安門市', level:'單店', revenue: 1980000, growth: 4.1, aov: 155 },
+        { name:'中山門市', level:'單店', revenue: 1830000, growth: 9.6, aov: 150 },
+      ]
+    },
+    { name:'新北市', level:'縣市', revenue: 4580000, growth: 3.4, aov: 136,
+      children:[
+        { name:'板橋門市', level:'單店', revenue: 2100000, growth: 5.0, aov: 140 },
+        { name:'新莊門市', level:'單店', revenue: 1480000, growth: -1.2, aov: 128 },
+        { name:'永和門市', level:'單店', revenue: 1000000, growth: 6.7, aov: 138 },
+      ]
+    },
+    { name:'台中市', level:'縣市', revenue: 3620000, growth: 9.1, aov: 145,
+      children:[
+        { name:'西區門市', level:'單店', revenue: 1620000, growth: 12.3, aov: 149 },
+        { name:'北屯門市', level:'單店', revenue: 1200000, growth: 7.8, aov: 141 },
+        { name:'后里門市', level:'單店', revenue: 800000, growth: 3.5, aov: 139 },
+      ]
+    },
+    { name:'高雄市', level:'縣市', revenue: 2800000, growth: -2.3, aov: 131,
+      children:[
+        { name:'左營門市', level:'單店', revenue: 1300000, growth: -3.8, aov: 129 },
+        { name:'苓雅門市', level:'單店', revenue: 950000, growth: 1.2, aov: 132 },
+        { name:'鳳山門市', level:'單店', revenue: 550000, growth: -5.1, aov: 126 },
+      ]
+    },
+    { name:'其他縣市', level:'縣市', revenue: 1300600, growth: 2.0, aov: 120 }
+  ]
+};
+
+let path = [data];
+
+function current(){ return path[path.length-1]; }
+
+function render(){
+  const node = current();
+  document.getElementById('kpiRevenue').textContent = 'NT$ ' + (node.revenue/1_000_000).toFixed(2) + 'M';
+  document.getElementById('kpiGrowth').textContent = (node.growth>=0?'+':'') + node.growth + '%';
+  document.getElementById('kpiGrowth').className = 'font-mono text-xl font-bold ' + (node.growth>=0?'text-green-600':'text-red-600');
+  document.getElementById('kpiAov').textContent = 'NT$ ' + node.aov;
+  document.getElementById('kpiLevel').textContent = node.level;
+
+  const crumbWrap = document.getElementById('breadcrumb');
+  crumbWrap.innerHTML = path.map((p,i)=>
+    `<span class="crumb ${i===path.length-1?'text-gray-900':'text-[#8a5a3c]'}" data-idx="${i}">${p.name}</span>` +
+    (i<path.length-1 ? '<span class="text-gray-300">/</span>' : '')
+  ).join('');
+  crumbWrap.querySelectorAll('.crumb').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const idx = parseInt(el.dataset.idx);
+      path = path.slice(0, idx+1);
+      render();
+    });
+  });
+
+  const tbody = document.getElementById('tableBody');
+  const rows = node.children || [];
+  const total = rows.reduce((s,r)=>s+r.revenue, 0) || node.revenue;
+
+  if (rows.length === 0){
+    tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-gray-400">已到達最細層級（單店），沒有更多下鑽資料。</td></tr>`;
+    document.getElementById('hint').textContent = '這是最細的層級了，點上方麵包屑可回到上一層。';
+    return;
+  }
+  document.getElementById('hint').textContent = '提示：點擊列表任一列可往下鑽到下一層，點上方麵包屑可回到上層。';
+
+  tbody.innerHTML = rows.map(r=>{
+    const pct = Math.round((r.revenue/total)*100);
+    const badgeClass = r.growth>=0 ? 'badge-up' : 'badge-down';
+    return `
+      <tr class="row-clickable border-b border-gray-50 last:border-0" data-name="${r.name}">
+        <td class="py-3 font-semibold">${r.name}</td>
+        <td class="py-3 text-right font-mono">NT$ ${r.revenue.toLocaleString()}</td>
+        <td class="py-3 text-right"><span class="font-mono text-xs px-2 py-1 rounded-full ${badgeClass}">${r.growth>=0?'+':''}${r.growth}%</span></td>
+        <td class="py-3 text-right">
+          <div class="flex items-center gap-2 justify-end">
+            <div class="w-20 h-2 bg-gray-100 rounded-full overflow-hidden"><div class="bar-fill h-full bg-[#b08968]" style="width:${pct}%"></div></div>
+            <span class="font-mono text-xs text-gray-400 w-8 text-right">${pct}%</span>
+          </div>
+        </td>
+        <td class="py-3 text-right text-gray-300">${r.children ? '›' : ''}</td>
+      </tr>`;
+  }).join('');
+
+  tbody.querySelectorAll('tr.row-clickable').forEach(tr=>{
+    const name = tr.dataset.name;
+    const child = rows.find(r=>r.name===name);
+    if (child.children){
+      tr.addEventListener('click', ()=>{
+        path.push(child);
+        render();
+      });
+    }
+  });
+}
+
+render();
+</script>
+</body>
+</html>
