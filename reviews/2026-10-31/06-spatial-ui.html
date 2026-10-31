@@ -1,0 +1,124 @@
+<!-- style #55 Spatial UI -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>浮窗 FloatNote</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *{font-family:'Outfit','Noto Sans TC',sans-serif;}
+  body{
+    background: radial-gradient(circle at 20% 20%, #2a2d55 0%, #0b0c1f 55%, #05050d 100%);
+    color:#eef0ff; min-height:100vh; perspective:1400px; overflow-x:hidden;
+  }
+  .glass{
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.14);
+    backdrop-filter: blur(22px);
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.08);
+  }
+  .float-card{
+    transform-style:preserve-3d;
+    transition: transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease;
+  }
+  .float-card:hover{
+    transform: translateZ(40px) rotateX(2deg) rotateY(-2deg) translateY(-6px);
+  }
+  @keyframes drift{
+    0%,100%{ transform: translateY(0px); }
+    50%{ transform: translateY(-14px); }
+  }
+  .drift{ animation: drift 6s ease-in-out infinite; }
+  .drift-slow{ animation: drift 9s ease-in-out infinite; animation-delay: 1.5s; }
+  .orb{
+    position:absolute; border-radius:50%; filter:blur(40px); opacity:.5;
+  }
+  .depth-layer-1{ transform: translateZ(0px); }
+  .depth-layer-2{ transform: translateZ(60px); }
+</style>
+</head>
+<body>
+
+  <div class="orb drift" style="width:280px;height:280px;background:#7c6bff;top:-60px;left:-60px;"></div>
+  <div class="orb drift-slow" style="width:220px;height:220px;background:#52e5c6;top:40%;right:-40px;"></div>
+
+  <nav class="relative z-10 flex items-center justify-between px-10 py-6">
+    <div class="glass float-card rounded-2xl px-5 py-2 flex items-center gap-2 font-600">
+      <span>🫧</span> 浮窗 FloatNote
+    </div>
+    <div class="glass float-card rounded-2xl px-5 py-2 text-sm text-[#b9bfff]">空間模式已啟用</div>
+  </nav>
+
+  <main class="relative z-10 max-w-5xl mx-auto px-6 py-10">
+    <div class="text-center mb-14 drift">
+      <h1 class="text-4xl md:text-5xl font-600 mb-4">把想法,放進空間裡</h1>
+      <p class="text-[#b9bfff] max-w-xl mx-auto">每張筆記都是一片懸浮的玻璃,拖動、傾斜、疊放——像真的在桌面上整理思緒。</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6" id="noteGrid">
+      <div class="glass float-card depth-layer-2 rounded-3xl p-6 cursor-grab" draggable="true">
+        <div class="text-xs text-[#9aa0ff] mb-2">靈感 · 剛剛</div>
+        <div class="text-lg">把產品 Demo 的開場改成一個問題,不要先介紹功能。</div>
+      </div>
+      <div class="glass float-card depth-layer-1 rounded-3xl p-6 cursor-grab" draggable="true">
+        <div class="text-xs text-[#9aa0ff] mb-2">會議 · 2 小時前</div>
+        <div class="text-lg">下週五前確認三個合作夥伴的報價,週會上要比較。</div>
+      </div>
+      <div class="glass float-card depth-layer-2 rounded-3xl p-6 cursor-grab" draggable="true">
+        <div class="text-xs text-[#9aa0ff] mb-2">閱讀筆記 · 昨天</div>
+        <div class="text-lg">空間運算的介面,重點不是立體效果,是「層次對應優先序」。</div>
+      </div>
+    </div>
+
+    <div class="glass float-card rounded-3xl p-6 mt-8 flex gap-3">
+      <input id="newNote" class="flex-1 bg-transparent outline-none placeholder:text-[#8a90cc]" placeholder="在這裡輸入,按 Enter 讓它浮起來…" />
+      <button id="addBtn" class="glass rounded-xl px-5 py-2 text-sm">放進空間</button>
+    </div>
+
+    <div class="mt-10 text-center">
+      <button id="arrangeBtn" class="glass float-card rounded-2xl px-8 py-3 text-sm">自動依優先序排列</button>
+      <div id="arrangeMsg" class="text-sm text-[#9aa0ff] mt-3 h-5"></div>
+    </div>
+  </main>
+
+<script>
+  const grid = document.getElementById('noteGrid');
+  const input = document.getElementById('newNote');
+  const depths = ['depth-layer-1','depth-layer-2'];
+  let i = 0;
+
+  function addNote(text){
+    const card = document.createElement('div');
+    card.className = 'glass float-card ' + depths[i % 2] + ' rounded-3xl p-6 cursor-grab opacity-0 translate-y-4';
+    card.draggable = true;
+    card.innerHTML = `<div class="text-xs text-[#9aa0ff] mb-2">新增 · 剛剛</div><div class="text-lg">${text}</div>`;
+    grid.appendChild(card);
+    i++;
+    requestAnimationFrame(()=>{
+      card.style.transition = 'opacity .5s ease, transform .5s ease';
+      card.style.opacity = '1';
+      card.style.transform = 'translateY(0)';
+    });
+  }
+
+  document.getElementById('addBtn').addEventListener('click', ()=>{
+    const v = input.value.trim();
+    if(!v) return;
+    addNote(v);
+    input.value = '';
+  });
+  input.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter') document.getElementById('addBtn').click();
+  });
+
+  document.getElementById('arrangeBtn').addEventListener('click', ()=>{
+    const cards = [...grid.children];
+    cards.sort(()=> Math.random() - .5).forEach(c=> grid.appendChild(c));
+    document.getElementById('arrangeMsg').textContent = '已依優先序重新排列空間層次 ✓';
+  });
+</script>
+</body>
+</html>

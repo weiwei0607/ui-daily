@@ -1,0 +1,113 @@
+<!-- style #54 Neubrutalism v2 -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>重擊 KICKSTRIKE</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{ --yellow:#ffe156; --pink:#ff6b6b; --cyan:#4ecdc4; --purple:#a388ee; --ink:#171410; }
+  *{font-family:'Space Grotesk','Noto Sans TC',sans-serif;}
+  .display{font-family:'Archivo Black','Noto Sans TC',sans-serif;}
+  body{background:#f5f1e8; color:var(--ink);}
+  .brutal-card{
+    border:3px solid var(--ink);
+    box-shadow: 8px 8px 0 var(--ink);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .brutal-card:hover{ transform:translate(-4px,-4px); box-shadow: 12px 12px 0 var(--ink); }
+  .brutal-btn{
+    border:3px solid var(--ink); box-shadow:5px 5px 0 var(--ink);
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .brutal-btn:hover{ transform:translate(-3px,-3px); box-shadow:8px 8px 0 var(--ink); }
+  .brutal-btn:active{ transform:translate(2px,2px); box-shadow:2px 2px 0 var(--ink); }
+  .rotate-tag{ transform:rotate(-4deg); }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <header class="border-b-3 border-black px-6 py-4 flex items-center justify-between" style="border-bottom:3px solid var(--ink);">
+    <div class="display text-2xl">重擊<span style="color:var(--pink)">KICKSTRIKE</span></div>
+    <button class="brutal-btn display text-xs px-5 py-3 bg-[var(--yellow)]">購物車 (2)</button>
+  </header>
+
+  <section class="px-6 py-16 max-w-6xl mx-auto">
+    <div class="grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <div class="rotate-tag inline-block bg-[var(--purple)] brutal-card px-4 py-1 display text-xs mb-6">NEW DROP</div>
+        <h1 class="display text-5xl md:text-6xl leading-[1.05] mb-6">
+          不是鞋,<br>是一記<span style="color:var(--pink)">重擊</span>。
+        </h1>
+        <p class="text-lg mb-8">限量聯名系列,每雙都有獨立編號。賣完真的沒了,不會補貨,別等。</p>
+        <div class="flex gap-4">
+          <button id="buyBtn" class="brutal-btn display text-sm px-8 py-4 bg-[var(--yellow)]">立即搶購 NT$4,980</button>
+          <button class="brutal-btn display text-sm px-8 py-4 bg-white">查看尺寸表</button>
+        </div>
+        <div id="buyMsg" class="mt-4 text-sm font-700"></div>
+      </div>
+      <div class="brutal-card bg-[var(--cyan)] rounded-2xl p-10 text-center">
+        <div class="text-8xl mb-4">👟</div>
+        <div class="display text-xl">STRIKE-01 / 編號 #0427</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16 max-w-6xl mx-auto">
+    <h2 class="display text-3xl mb-10">選你的配色</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6" id="colorGrid">
+      <div class="brutal-card bg-[var(--yellow)] rounded-xl p-6 cursor-pointer" data-color="檸檬黃">
+        <div class="text-5xl mb-3">👟</div><div class="display text-sm">檸檬黃</div>
+      </div>
+      <div class="brutal-card bg-[var(--pink)] rounded-xl p-6 cursor-pointer" data-color="爆擊粉">
+        <div class="text-5xl mb-3">👟</div><div class="display text-sm">爆擊粉</div>
+      </div>
+      <div class="brutal-card bg-[var(--cyan)] rounded-xl p-6 cursor-pointer" data-color="冰河青">
+        <div class="text-5xl mb-3">👟</div><div class="display text-sm">冰河青</div>
+      </div>
+      <div class="brutal-card bg-[var(--purple)] rounded-xl p-6 cursor-pointer" data-color="紫電">
+        <div class="text-5xl mb-3">👟</div><div class="display text-sm">紫電</div>
+      </div>
+    </div>
+    <div id="selectedColor" class="display text-xl mt-8">已選：檸檬黃</div>
+  </section>
+
+  <section class="px-6 py-16 max-w-6xl mx-auto grid md:grid-cols-3 gap-6">
+    <div class="brutal-card bg-white rounded-xl p-6">
+      <div class="display text-3xl mb-2">872</div>
+      <div class="text-sm">雙已售出,剩餘有限</div>
+    </div>
+    <div class="brutal-card bg-[var(--yellow)] rounded-xl p-6">
+      <div class="display text-3xl mb-2">48hr</div>
+      <div class="text-sm">限時優惠倒數結束</div>
+    </div>
+    <div class="brutal-card bg-white rounded-xl p-6">
+      <div class="display text-3xl mb-2">4.9★</div>
+      <div class="text-sm">來自 2,103 位重擊會員</div>
+    </div>
+  </section>
+
+  <footer class="border-t-3 px-6 py-10 text-center display text-sm" style="border-top:3px solid var(--ink);">
+    © 2026 重擊 KICKSTRIKE — 穿上它,別客氣
+  </footer>
+
+<script>
+  const buyBtn = document.getElementById('buyBtn');
+  const buyMsg = document.getElementById('buyMsg');
+  buyBtn.addEventListener('click', ()=>{
+    buyMsg.textContent = '已加入購物車,手刀結帳去 →';
+  });
+
+  const colorGrid = document.getElementById('colorGrid');
+  const selectedColor = document.getElementById('selectedColor');
+  colorGrid.addEventListener('click', (e)=>{
+    const card = e.target.closest('[data-color]');
+    if(!card) return;
+    selectedColor.textContent = '已選：' + card.dataset.color;
+  });
+</script>
+</body>
+</html>

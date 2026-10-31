@@ -1,0 +1,184 @@
+<!-- style #15 Motion-Driven -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>脈動 PulseFit</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0c10; --card:#15171c; --accent:#9dff5a; --accent2:#5affd6; --muted:#8b93a1;
+  }
+  *{font-family:'Noto Sans TC','Sora',sans-serif;}
+  .font-display{font-family:'Sora','Noto Sans TC',sans-serif;}
+  body{background:var(--bg); color:#f4f6f8; overflow-x:hidden;}
+
+  @keyframes floatUp{
+    0%{opacity:0; transform:translateY(40px);}
+    100%{opacity:1; transform:translateY(0);}
+  }
+  .reveal{opacity:0; animation:floatUp .9s cubic-bezier(.2,.8,.2,1) forwards;}
+  .delay-1{animation-delay:.1s} .delay-2{animation-delay:.25s} .delay-3{animation-delay:.4s} .delay-4{animation-delay:.55s}
+
+  @keyframes pulseGlow{
+    0%,100%{box-shadow:0 0 0 0 rgba(157,255,90,.35);}
+    50%{box-shadow:0 0 0 14px rgba(157,255,90,0);}
+  }
+  .pulse-ring{animation:pulseGlow 2.2s infinite;}
+
+  @keyframes heartbeat{
+    0%,100%{transform:scaleY(1);}
+    50%{transform:scaleY(1.6);}
+  }
+  .bar{animation:heartbeat 1.1s ease-in-out infinite;}
+  .bar:nth-child(2){animation-delay:.1s}
+  .bar:nth-child(3){animation-delay:.2s}
+  .bar:nth-child(4){animation-delay:.3s}
+  .bar:nth-child(5){animation-delay:.15s}
+  .bar:nth-child(6){animation-delay:.25s}
+
+  .hover-tilt{transition:transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s;}
+  .hover-tilt:hover{transform:translateY(-10px) rotate(-1deg); box-shadow:0 30px 60px -20px rgba(157,255,90,.25);}
+
+  .cta-btn{position:relative; overflow:hidden;}
+  .cta-btn::after{
+    content:''; position:absolute; inset:0; background:linear-gradient(120deg,transparent,rgba(255,255,255,.35),transparent);
+    transform:translateX(-120%); transition:none;
+  }
+  .cta-btn:hover::after{animation:sweep .9s ease;}
+  @keyframes sweep{to{transform:translateX(120%);}}
+
+  .scroll-fade{opacity:0; transform:translateY(60px); transition:opacity .8s ease, transform .8s ease;}
+  .scroll-fade.in{opacity:1; transform:translateY(0);}
+
+  .count-num{font-variant-numeric:tabular-nums;}
+</style>
+</head>
+<body class="min-h-screen">
+
+  <nav class="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-black/30 border-b border-white/5">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="font-display font-800 text-xl tracking-tight">脈動<span class="text-[var(--accent)]">PulseFit</span></div>
+      <div class="hidden md:flex gap-8 text-sm text-[var(--muted)]">
+        <a href="#features" class="hover:text-white transition-colors">功能</a>
+        <a href="#demo" class="hover:text-white transition-colors">即時監測</a>
+        <a href="#plan" class="hover:text-white transition-colors">方案</a>
+      </div>
+      <button class="cta-btn bg-[var(--accent)] text-black text-sm font-bold px-5 py-2 rounded-full">免費試用</button>
+    </div>
+  </nav>
+
+  <section class="relative max-w-6xl mx-auto px-6 pt-36 pb-28 text-center">
+    <div class="reveal delay-1 inline-block text-xs tracking-widest text-[var(--accent2)] border border-[var(--accent2)]/30 rounded-full px-4 py-1 mb-6">動態回饋 · 每一秒都在說話</div>
+    <h1 class="reveal delay-2 font-display font-800 text-5xl md:text-7xl leading-[1.05] tracking-tight">
+      讓身體的每個<br class="md:hidden">
+      <span class="text-[var(--accent)]">節奏</span>，都被看見
+    </h1>
+    <p class="reveal delay-3 text-[var(--muted)] mt-6 max-w-xl mx-auto text-lg">
+      脈動不只記錄數字，它用動畫把你的心跳、呼吸、爆發力即時演給你看——訓練不再是猜測。
+    </p>
+    <div class="reveal delay-4 mt-10 flex flex-wrap gap-4 justify-center">
+      <button class="cta-btn pulse-ring bg-[var(--accent)] text-black font-bold px-8 py-3 rounded-full">開始 14 天體驗</button>
+      <button class="border border-white/20 px-8 py-3 rounded-full hover:bg-white/5 transition-colors">看它怎麼動 ↓</button>
+    </div>
+
+    <div class="reveal delay-4 mt-20 mx-auto max-w-md bg-[var(--card)] border border-white/5 rounded-3xl p-8">
+      <div class="flex items-end justify-center gap-2 h-24">
+        <div class="bar w-3 bg-[var(--accent)] rounded-full h-6"></div>
+        <div class="bar w-3 bg-[var(--accent2)] rounded-full h-10"></div>
+        <div class="bar w-3 bg-[var(--accent)] rounded-full h-16"></div>
+        <div class="bar w-3 bg-[var(--accent2)] rounded-full h-8"></div>
+        <div class="bar w-3 bg-[var(--accent)] rounded-full h-20"></div>
+        <div class="bar w-3 bg-[var(--accent2)] rounded-full h-12"></div>
+      </div>
+      <div class="mt-4 text-sm text-[var(--muted)]">目前心率 <span id="hr" class="text-white font-bold count-num">142</span> bpm · 有氧燃脂區</div>
+    </div>
+  </section>
+
+  <section id="features" class="max-w-6xl mx-auto px-6 py-24">
+    <h2 class="scroll-fade font-display font-700 text-3xl md:text-4xl text-center mb-16">三個會「動」給你看的功能</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="scroll-fade hover-tilt bg-[var(--card)] rounded-3xl p-8 border border-white/5">
+        <div class="w-12 h-12 rounded-2xl bg-[var(--accent)]/15 flex items-center justify-center text-2xl mb-6">🫀</div>
+        <h3 class="font-display font-700 text-xl mb-3">即時心率曲線</h3>
+        <p class="text-[var(--muted)] text-sm leading-relaxed">訓練中曲線即時起伏，不是跑完才看報表,而是邊動邊給你反應。</p>
+      </div>
+      <div class="scroll-fade hover-tilt bg-[var(--card)] rounded-3xl p-8 border border-white/5">
+        <div class="w-12 h-12 rounded-2xl bg-[var(--accent2)]/15 flex items-center justify-center text-2xl mb-6">⚡</div>
+        <h3 class="font-display font-700 text-xl mb-3">爆發力回放</h3>
+        <p class="text-[var(--muted)] text-sm leading-relaxed">每一次深蹲、衝刺,動畫把力量輸出的瞬間放慢重播給你看。</p>
+      </div>
+      <div class="scroll-fade hover-tilt bg-[var(--card)] rounded-3xl p-8 border border-white/5">
+        <div class="w-12 h-12 rounded-2xl bg-[var(--accent)]/15 flex items-center justify-center text-2xl mb-6">🎯</div>
+        <h3 class="font-display font-700 text-xl mb-3">目標進場動畫</h3>
+        <p class="text-[var(--muted)] text-sm leading-relaxed">達標的瞬間畫面會真的「跳」一下——那種回饋,比數字更有感。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="demo" class="max-w-4xl mx-auto px-6 py-24 text-center">
+    <h2 class="scroll-fade font-display font-700 text-3xl md:text-4xl mb-6">試試看,點一下</h2>
+    <p class="scroll-fade text-[var(--muted)] mb-10">按下開始,看心率跳動怎麼即時影響畫面</p>
+    <button id="demoBtn" class="scroll-fade cta-btn bg-[var(--accent2)] text-black font-bold px-10 py-4 rounded-full text-lg">開始模擬訓練</button>
+    <div id="demoStatus" class="scroll-fade mt-6 text-sm text-[var(--muted)] h-5"></div>
+  </section>
+
+  <section id="plan" class="max-w-5xl mx-auto px-6 py-24">
+    <h2 class="scroll-fade font-display font-700 text-3xl md:text-4xl text-center mb-16">方案</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="scroll-fade hover-tilt bg-[var(--card)] rounded-3xl p-10 border border-white/5">
+        <div class="text-[var(--muted)] text-sm mb-2">個人</div>
+        <div class="font-display font-800 text-4xl mb-4">NT$199<span class="text-base text-[var(--muted)]">/月</span></div>
+        <ul class="text-sm text-[var(--muted)] space-y-2 mb-8">
+          <li>✓ 即時心率動畫</li><li>✓ 爆發力回放</li><li>✓ 單一裝置同步</li>
+        </ul>
+        <button class="w-full border border-white/20 rounded-full py-3 hover:bg-white/5 transition-colors">選擇方案</button>
+      </div>
+      <div class="scroll-fade hover-tilt bg-gradient-to-br from-[var(--accent)]/20 to-[var(--accent2)]/10 rounded-3xl p-10 border border-[var(--accent)]/30 relative">
+        <div class="absolute -top-3 right-8 bg-[var(--accent)] text-black text-xs font-bold px-3 py-1 rounded-full">最受歡迎</div>
+        <div class="text-[var(--muted)] text-sm mb-2">教練方案</div>
+        <div class="font-display font-800 text-4xl mb-4">NT$499<span class="text-base text-[var(--muted)]">/月</span></div>
+        <ul class="text-sm text-[var(--muted)] space-y-2 mb-8">
+          <li>✓ 全部個人功能</li><li>✓ 帶 20 位學員即時面板</li><li>✓ 團體節奏同步動畫</li>
+        </ul>
+        <button class="cta-btn w-full bg-[var(--accent)] text-black font-bold rounded-full py-3">立即升級</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="border-t border-white/5 py-10 text-center text-sm text-[var(--muted)]">
+    © 2026 脈動 PulseFit · 讓每一個動作都值得被看見
+  </footer>
+
+<script>
+  const hrEl = document.getElementById('hr');
+  setInterval(()=>{
+    const v = 120 + Math.floor(Math.random()*40);
+    hrEl.textContent = v;
+  }, 1400);
+
+  const demoBtn = document.getElementById('demoBtn');
+  const demoStatus = document.getElementById('demoStatus');
+  demoBtn.addEventListener('click', ()=>{
+    demoBtn.disabled = true;
+    let step = 0;
+    const steps = ['暖身中…心率 98 bpm','進入燃脂區…心率 136 bpm','衝刺！心率 168 bpm','恢復中…心率 110 bpm','訓練結束,已記錄這次的節奏曲線 ✅'];
+    const run = ()=>{
+      demoStatus.textContent = steps[step];
+      step++;
+      if(step < steps.length){ setTimeout(run, 900); }
+      else { setTimeout(()=>{ demoBtn.disabled=false; }, 500); }
+    };
+    run();
+  });
+
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
+  }, {threshold:.15});
+  document.querySelectorAll('.scroll-fade').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

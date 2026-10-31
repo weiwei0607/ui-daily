@@ -1,0 +1,107 @@
+<!-- style #23 Minimal & Direct -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>簡址 SimpleLink</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *{font-family:'Hanken Grotesk','Noto Sans TC',sans-serif;}
+  body{
+    background:
+      radial-gradient(1px 1px at 10% 20%, rgba(0,0,0,.05) 50%, transparent 50%),
+      radial-gradient(1px 1px at 40% 70%, rgba(0,0,0,.05) 50%, transparent 50%),
+      radial-gradient(1px 1px at 70% 30%, rgba(0,0,0,.05) 50%, transparent 50%),
+      radial-gradient(1px 1px at 90% 80%, rgba(0,0,0,.05) 50%, transparent 50%),
+      #f7f6f3;
+    background-size: 120px 120px, 160px 160px, 140px 140px, 100px 100px;
+  }
+  .noise::before{
+    content:''; position:fixed; inset:0; pointer-events:none; opacity:.04; mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .accent{color:#ff5a36;}
+  .btn-main{background:#141311; color:#fff;}
+  .btn-main:hover{background:#ff5a36;}
+</style>
+</head>
+<body class="noise min-h-screen text-[#141311]">
+
+  <div class="max-w-3xl mx-auto px-6 min-h-screen flex flex-col justify-center py-16">
+
+    <div class="text-sm tracking-widest text-[#8a8578] mb-10">簡址 SIMPLELINK — 一屏講完</div>
+
+    <h1 class="text-5xl md:text-6xl font-800 leading-[1.1] mb-6">
+      一個連結,<br>一個頁面,<br><span class="accent">一個決定。</span>
+    </h1>
+
+    <p class="text-lg text-[#4a463e] max-w-xl mb-10">
+      把所有連結變成一個網址。沒有複雜設定、沒有教學影片、沒有第二個畫面——貼上、縮短、分享,三步結束。
+    </p>
+
+    <form id="shortenForm" class="flex flex-col sm:flex-row gap-3 mb-4" onsubmit="return false;">
+      <input id="urlInput" type="text" placeholder="貼上你的長網址…" class="flex-1 px-5 py-4 rounded-xl border border-[#141311]/15 bg-white focus:outline-none focus:border-[#141311]/40" />
+      <button id="shortenBtn" class="btn-main px-8 py-4 rounded-xl font-700 transition-colors">立即縮短</button>
+    </form>
+    <div id="resultBox" class="hidden mb-10 px-5 py-4 rounded-xl bg-white border border-[#141311]/10 flex items-center justify-between">
+      <span id="resultLink" class="font-700 accent"></span>
+      <button id="copyBtn" class="text-sm text-[#8a8578] hover:text-[#141311]">複製</button>
+    </div>
+
+    <div class="grid grid-cols-3 gap-6 border-t border-[#141311]/10 pt-10">
+      <div>
+        <div class="text-3xl font-800">NT$0</div>
+        <div class="text-sm text-[#8a8578] mt-1">個人版,永久免費</div>
+      </div>
+      <div>
+        <div class="text-3xl font-800">3 秒</div>
+        <div class="text-sm text-[#8a8578] mt-1">平均產生時間</div>
+      </div>
+      <div>
+        <div class="text-3xl font-800">無限</div>
+        <div class="text-sm text-[#8a8578] mt-1">連結數量上限</div>
+      </div>
+    </div>
+
+    <div class="mt-14">
+      <button id="getStarted" class="btn-main px-10 py-4 rounded-xl font-700 transition-colors">開始使用,不用信用卡</button>
+      <span class="text-sm text-[#8a8578] ml-4" id="startedHint"></span>
+    </div>
+  </div>
+
+<script>
+  const btn = document.getElementById('shortenBtn');
+  const input = document.getElementById('urlInput');
+  const box = document.getElementById('resultBox');
+  const link = document.getElementById('resultLink');
+  const copyBtn = document.getElementById('copyBtn');
+
+  btn.addEventListener('click', ()=>{
+    const v = input.value.trim();
+    if(!v){
+      input.classList.add('border-red-400');
+      input.placeholder = '請先貼上網址';
+      setTimeout(()=>input.classList.remove('border-red-400'), 1200);
+      return;
+    }
+    const code = Math.random().toString(36).slice(2,8);
+    link.textContent = 'simp.ly/' + code;
+    box.classList.remove('hidden');
+  });
+
+  copyBtn.addEventListener('click', ()=>{
+    navigator.clipboard.writeText(link.textContent).then(()=>{
+      copyBtn.textContent = '已複製';
+      setTimeout(()=>copyBtn.textContent='複製', 1500);
+    });
+  });
+
+  document.getElementById('getStarted').addEventListener('click', ()=>{
+    document.getElementById('startedHint').textContent = '已為你建立免費帳戶 ✓';
+  });
+</script>
+</body>
+</html>
