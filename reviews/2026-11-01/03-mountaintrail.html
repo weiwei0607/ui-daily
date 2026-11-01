@@ -1,0 +1,140 @@
+<!-- style #49 Parallax Storytelling -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>山徑紀行 · 一條路走進去的三個人</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{font-family:'Noto Serif TC','Lora',serif;}
+  html{scroll-behavior:smooth;}
+  body{background:#f5f1e8;color:#2b2520;}
+  .chapter{
+    min-height:100vh; position:relative; overflow:hidden;
+    display:flex; align-items:center;
+  }
+  .layer{position:absolute; inset:0; will-change:transform;}
+  .ridge-1{background:linear-gradient(180deg,transparent,#d9cdb4 70%);}
+  .ridge-2{opacity:.5;}
+  .caption{
+    font-style:italic; color:#8a7a5c; letter-spacing:.08em; font-size:.8rem;
+  }
+  .fade-in{opacity:0; transform:translateY(24px); transition:opacity 1s ease, transform 1s ease;}
+  .fade-in.visible{opacity:1; transform:translateY(0);}
+  .divider{width:1px; height:60px; background:#b5a687; margin:0 auto;}
+  .drop-cap::first-letter{
+    font-size:3.2em; float:left; line-height:.8; margin-right:.08em; margin-top:.05em;
+    font-weight:600; color:#6b5a3a;
+  }
+  #progressBar{
+    position:fixed; top:0; left:0; height:3px; background:#6b5a3a; z-index:50; width:0%;
+    transition:width .1s linear;
+  }
+</style>
+</head>
+<body>
+
+<div id="progressBar"></div>
+
+<nav class="fixed top-0 right-0 z-40 p-6 text-sm text-[#5a4c32] tracking-widest hidden md:block">山徑紀行</nav>
+
+<!-- 第一章：起點 -->
+<section class="chapter px-6" style="background:linear-gradient(180deg,#eae2cd,#d4c7a8);">
+  <div class="layer" id="parallax1" style="background-image:radial-gradient(circle at 70% 30%, rgba(255,255,255,.4), transparent 60%);"></div>
+  <div class="relative z-10 max-w-2xl mx-auto text-center fade-in">
+    <p class="caption mb-4">CHAPTER ONE · 起點</p>
+    <h1 class="text-4xl md:text-6xl font-semibold mb-6 leading-tight">山徑紀行</h1>
+    <p class="text-lg text-[#5a4c32] max-w-md mx-auto leading-relaxed">
+      三個人，一條走了四天的稜線。這不是攻略，是我們記下來、怕自己忘記的那些片刻。
+    </p>
+    <div class="divider mt-10"></div>
+  </div>
+</section>
+
+<!-- 第二章 -->
+<section class="chapter px-6" style="background:linear-gradient(180deg,#d4c7a8,#a8926a);">
+  <div class="layer ridge-2" id="parallax2" style="background-image:linear-gradient(180deg,transparent 60%, rgba(0,0,0,.12));"></div>
+  <div class="relative z-10 max-w-xl mx-auto fade-in">
+    <p class="caption mb-4">第一天 · 林道</p>
+    <p class="drop-cap text-xl leading-loose text-[#2b2520]">
+      清晨六點，霧還沒散，我們在登山口核對名冊。前兩公里是碎石林道，背包還很重，話也還很多——後來才知道，話是會隨著海拔變少的。
+    </p>
+  </div>
+</section>
+
+<!-- 第三章 -->
+<section class="chapter px-6" style="background:linear-gradient(180deg,#a8926a,#6b5a3a);">
+  <div class="relative z-10 max-w-xl mx-auto ml-auto text-right fade-in">
+    <p class="caption mb-4 text-right">第二天 · 稜線</p>
+    <p class="text-xl leading-loose text-[#f5f1e8]">
+      上稜線那一刻，風大得幾乎站不穩，雲海卻在腳下翻湧。沒有人說話，只有相機快門聲，和彼此確認安全的手勢。
+      <br><br>
+      <span class="text-sm italic text-[#d9cdb4]">— 那是我這輩子，離天空最近的一次。</span>
+    </p>
+  </div>
+</section>
+
+<!-- 第四章：數字 -->
+<section class="chapter px-6" style="background:linear-gradient(180deg,#6b5a3a,#3a3024);">
+  <div class="relative z-10 max-w-3xl mx-auto fade-in">
+    <p class="caption mb-8 text-[#d9cdb4]">第三天 · 這段路，數字是這樣的</p>
+    <div class="grid grid-cols-3 gap-6 text-center">
+      <div>
+        <p class="text-4xl md:text-5xl font-semibold text-[#f5f1e8]">42</p>
+        <p class="text-sm text-[#b5a687] mt-2">公里總長</p>
+      </div>
+      <div>
+        <p class="text-4xl md:text-5xl font-semibold text-[#f5f1e8]">3,886</p>
+        <p class="text-sm text-[#b5a687] mt-2">公尺最高點</p>
+      </div>
+      <div>
+        <p class="text-4xl md:text-5xl font-semibold text-[#f5f1e8]">4</p>
+        <p class="text-sm text-[#b5a687] mt-2">天三夜</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 第五章：下山 -->
+<section class="chapter px-6" style="background:linear-gradient(180deg,#3a3024,#1f1a14);">
+  <div class="relative z-10 max-w-2xl mx-auto text-center fade-in">
+    <p class="caption mb-4 text-[#b5a687]">第四天 · 終點，也是開始</p>
+    <p class="text-xl md:text-2xl leading-loose text-[#f5f1e8] mb-10">
+      下山的車上，大家都睡了。我看著窗外飛快倒退的行道樹，想著：山一直都在那裡，走不走進去，是我們自己決定的。
+    </p>
+    <button id="restartBtn" class="border border-[#b5a687] text-[#d9cdb4] px-6 py-3 rounded-full text-sm tracking-widest hover:bg-[#b5a687] hover:text-[#1f1a14] transition">
+      回到起點，再走一次 ↑
+    </button>
+  </div>
+</section>
+
+<footer class="py-10 text-center text-xs text-[#8a7a5c] bg-[#1f1a14]">山徑紀行 · 寫給所有還想往山裡走的人</footer>
+
+<script>
+  // 進度條
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    document.getElementById('progressBar').style.width = pct + '%';
+
+    const p1 = document.getElementById('parallax1');
+    const p2 = document.getElementById('parallax2');
+    if (p1) p1.style.transform = `translateY(${window.scrollY * 0.15}px)`;
+    if (p2) p2.style.transform = `translateY(${window.scrollY * 0.08}px)`;
+  });
+
+  // 淡入觀察
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+
+  document.getElementById('restartBtn').addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+</body>
+</html>

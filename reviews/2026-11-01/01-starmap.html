@@ -1,0 +1,179 @@
+<!-- style #07 Dark Mode (OLED) -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星圖 StarMap · 夜觀星空紀錄</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0a;
+    --panel:#121212;
+    --accent:#39ff86;
+    --accent-dim:#1f8a4c;
+  }
+  *{font-family:'Noto Sans TC','Chakra Petch',sans-serif;}
+  .font-display{font-family:'Chakra Petch','Noto Sans TC',sans-serif;}
+  .font-mono{font-family:'Space Mono','Noto Sans TC',monospace;}
+  body{background:var(--bg);color:#e8f5ec;}
+  .glow-text{color:var(--accent);text-shadow:0 0 8px rgba(57,255,134,.6),0 0 20px rgba(57,255,134,.25);}
+  .glow-border{border:1px solid var(--accent-dim);box-shadow:0 0 0 1px rgba(57,255,134,.08) inset,0 0 24px rgba(57,255,134,.06);}
+  .star{position:absolute;border-radius:50%;background:#fff;opacity:.6;animation:twinkle 3s ease-in-out infinite;}
+  @keyframes twinkle{0%,100%{opacity:.15;}50%{opacity:.9;}}
+  @keyframes pulse-dot{0%,100%{box-shadow:0 0 0 0 rgba(57,255,134,.6);}70%{box-shadow:0 0 0 8px rgba(57,255,134,0);}}
+  .pulse{animation:pulse-dot 2s infinite;}
+  .scanline::before{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(transparent 50%, rgba(57,255,134,.015) 50%);
+    background-size:100% 4px;pointer-events:none;
+  }
+  .panel{background:var(--panel);}
+  .tick{color:#5b6b61;}
+  ::selection{background:var(--accent);color:#000;}
+  .progress-ring{transition:stroke-dashoffset 1.2s ease;}
+</style>
+</head>
+<body class="min-h-screen relative overflow-x-hidden">
+
+<div id="stars" class="fixed inset-0 pointer-events-none z-0"></div>
+
+<header class="relative z-10 border-b border-[#1c1f1c] px-6 md:px-12 py-5 flex items-center justify-between">
+  <div class="flex items-center gap-3">
+    <div class="w-2.5 h-2.5 rounded-full bg-[var(--accent)] pulse"></div>
+    <span class="font-display font-bold text-lg tracking-widest glow-text">星圖 STARMAP</span>
+  </div>
+  <nav class="hidden md:flex gap-8 font-mono text-xs tick">
+    <a href="#" class="hover:text-[var(--accent)] transition">觀測紀錄</a>
+    <a href="#" class="hover:text-[var(--accent)] transition">今夜星象</a>
+    <a href="#" class="hover:text-[var(--accent)] transition">裝備清單</a>
+  </nav>
+  <div class="font-mono text-xs tick" id="clock">--:--:--</div>
+</header>
+
+<main class="relative z-10 px-6 md:px-12 py-10 max-w-6xl mx-auto">
+
+  <section class="mb-14">
+    <p class="font-mono text-xs tick mb-2 tracking-widest">// 今夜觀測視窗已開啟</p>
+    <h1 class="font-display text-4xl md:text-6xl font-bold mb-4 leading-tight">
+      在黑暗裡，<span class="glow-text">把星星記下來。</span>
+    </h1>
+    <p class="text-[#8fa89a] max-w-xl leading-relaxed">
+      星圖是為夜觀者打造的純黑記錄工具，螢幕只留一盞微光，不打擾你的夜視能力，也省你手機的電。
+    </p>
+  </section>
+
+  <section class="grid md:grid-cols-3 gap-5 mb-14">
+    <div class="panel glow-border rounded-xl p-6 scanline relative overflow-hidden">
+      <p class="font-mono text-xs tick mb-3">目前天空亮度</p>
+      <p class="font-display text-3xl font-bold glow-text mb-1" id="bortle">Bortle 3</p>
+      <p class="text-xs text-[#6b8577]">鄉村夜空 · 肉眼可見銀河</p>
+    </div>
+    <div class="panel glow-border rounded-xl p-6 scanline relative overflow-hidden">
+      <p class="font-mono text-xs tick mb-3">本月累積觀測</p>
+      <p class="font-display text-3xl font-bold glow-text mb-1"><span id="hours">37.5</span> 小時</p>
+      <p class="text-xs text-[#6b8577]">較上月 <span class="text-[var(--accent)]">+12%</span></p>
+    </div>
+    <div class="panel glow-border rounded-xl p-6 scanline relative overflow-hidden">
+      <p class="font-mono text-xs tick mb-3">下一個最佳觀測窗</p>
+      <p class="font-display text-3xl font-bold glow-text mb-1">今晚 23:40</p>
+      <p class="text-xs text-[#6b8577]">月相：新月，雲量 8%</p>
+    </div>
+  </section>
+
+  <section class="mb-14">
+    <h2 class="font-display text-xl font-bold mb-5 tracking-wide">本夜觀測清單</h2>
+    <div class="panel glow-border rounded-xl divide-y divide-[#1c1f1c]" id="targetList">
+    </div>
+  </section>
+
+  <section class="panel glow-border rounded-xl p-8 flex flex-col md:flex-row items-center gap-8">
+    <div class="relative w-40 h-40 shrink-0">
+      <svg viewBox="0 0 120 120" class="w-40 h-40 -rotate-90">
+        <circle cx="60" cy="60" r="52" fill="none" stroke="#1c1f1c" stroke-width="10"/>
+        <circle id="ring" cx="60" cy="60" r="52" fill="none" stroke="var(--accent)" stroke-width="10"
+          stroke-dasharray="326" stroke-dashoffset="326" class="progress-ring" stroke-linecap="round"/>
+      </svg>
+      <div class="absolute inset-0 flex items-center justify-center font-display text-2xl font-bold glow-text" id="ringLabel">0%</div>
+    </div>
+    <div class="flex-1">
+      <p class="font-mono text-xs tick mb-2">// 曝光堆疊進度</p>
+      <h3 class="font-display text-xl font-bold mb-2">M31 仙女座星系 · 60 張疊圖中</h3>
+      <p class="text-[#8fa89a] text-sm mb-4">點擊下方按鈕模擬開始堆疊曝光，數值僅為示範，實際以你的拍攝軌道電腦為準。</p>
+      <button id="startBtn" class="font-mono text-sm px-5 py-2 rounded-md border border-[var(--accent-dim)] text-[var(--accent)] hover:bg-[var(--accent)] hover:text-black transition">
+        開始模擬堆疊 ▸
+      </button>
+    </div>
+  </section>
+
+</main>
+
+<footer class="relative z-10 text-center text-xs tick font-mono py-10">
+  星圖 STARMAP — 給所有抬頭看天空的人
+</footer>
+
+<script>
+  // 星空背景
+  const starsEl = document.getElementById('stars');
+  for(let i=0;i<120;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    const size=Math.random()*2+0.5;
+    s.style.width=size+'px';
+    s.style.height=size+'px';
+    s.style.left=Math.random()*100+'%';
+    s.style.top=Math.random()*100+'%';
+    s.style.animationDelay=(Math.random()*3)+'s';
+    starsEl.appendChild(s);
+  }
+
+  // 時鐘
+  function tick(){
+    const d=new Date();
+    document.getElementById('clock').textContent = d.toLocaleTimeString('zh-TW',{hour12:false});
+  }
+  tick(); setInterval(tick,1000);
+
+  // 觀測清單
+  const targets=[
+    {name:'M42 獵戶座大星雲',note:'東南方 32° · 建議 02:00 後觀測',status:'待觀測'},
+    {name:'M31 仙女座星系',note:'目前 68° 高空 · 最佳位置',status:'觀測中'},
+    {name:'土星',note:'西方低空 18° · 即將落下',status:'即將結束'},
+    {name:'M45 昴宿星團',note:'東方 45° · 肉眼可見',status:'待觀測'},
+  ];
+  const list=document.getElementById('targetList');
+  targets.forEach(t=>{
+    const row=document.createElement('div');
+    row.className='flex items-center justify-between px-6 py-4 hover:bg-[#161b17] transition cursor-pointer';
+    const statusColor = t.status==='觀測中' ? 'text-[var(--accent)]' : t.status==='即將結束' ? 'text-amber-400' : 'text-[#6b8577]';
+    row.innerHTML = `
+      <div>
+        <p class="font-medium">${t.name}</p>
+        <p class="text-xs tick font-mono mt-1">${t.note}</p>
+      </div>
+      <span class="font-mono text-xs ${statusColor}">${t.status}</span>
+    `;
+    list.appendChild(row);
+  });
+
+  // 堆疊模擬
+  const ring=document.getElementById('ring');
+  const ringLabel=document.getElementById('ringLabel');
+  const startBtn=document.getElementById('startBtn');
+  const circumference=326;
+  let progress=0, timer=null;
+  startBtn.addEventListener('click',()=>{
+    if(timer){clearInterval(timer);timer=null;startBtn.textContent='開始模擬堆疊 ▸';return;}
+    startBtn.textContent='堆疊中⋯ 點擊暫停';
+    timer=setInterval(()=>{
+      progress = Math.min(progress + 2, 100);
+      ring.style.strokeDashoffset = circumference - (circumference*progress/100);
+      ringLabel.textContent = progress + '%';
+      if(progress>=100){clearInterval(timer);timer=null;startBtn.textContent='堆疊完成 · 重新開始';}
+    },120);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!-- style #47 Exaggerated Minimalism -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>刻 KE · 一支錶，一個決定</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *{font-family:'Noto Sans TC','Unbounded',sans-serif;}
+  .font-display{font-family:'Unbounded','Noto Sans TC',sans-serif;}
+  body{background:#fff;color:#0a0a0a;}
+  .huge{font-weight:900; letter-spacing:-0.02em; line-height:.92;}
+  .hairline{height:1px; background:#0a0a0a;}
+  .invert{background:#0a0a0a; color:#fff;}
+  .dot{width:8px;height:8px;background:#0a0a0a;border-radius:50%;}
+  .num{font-family:'Unbounded',sans-serif; font-weight:800;}
+</style>
+</head>
+<body class="overflow-x-hidden">
+
+<header class="flex items-center justify-between px-6 md:px-14 py-6">
+  <span class="font-display font-black text-xl">刻 KE</span>
+  <nav class="hidden md:flex gap-10 text-sm font-medium">
+    <a href="#" class="hover:opacity-50">錶款</a>
+    <a href="#" class="hover:opacity-50">理念</a>
+    <a href="#" class="hover:opacity-50">門市</a>
+  </nav>
+  <button class="text-sm border border-black rounded-full px-5 py-2 hover:bg-black hover:text-white transition">預約試戴</button>
+</header>
+
+<div class="hairline mx-6 md:mx-14"></div>
+
+<!-- 巨型標題 -->
+<section class="px-6 md:px-14 py-20 md:py-28">
+  <p class="font-display text-sm font-bold tracking-[0.3em] mb-6">MINIMAL TIMEPIECE</p>
+  <h1 class="huge font-display text-[16vw] md:text-[9vw] tracking-tight">
+    少，<br class="md:hidden">才看得到<br>時間。
+  </h1>
+</section>
+
+<div class="hairline mx-6 md:mx-14"></div>
+
+<!-- 單一巨大產品描述 -->
+<section class="px-6 md:px-14 py-16 grid md:grid-cols-2 gap-10 items-center">
+  <div class="aspect-square bg-[#f2f2f2] rounded-full flex items-center justify-center">
+    <div class="w-2/3 aspect-square rounded-full border-[10px] border-black flex items-center justify-center relative">
+      <div class="absolute top-4 left-1/2 -translate-x-1/2 dot"></div>
+      <div class="absolute bottom-4 left-1/2 -translate-x-1/2 dot"></div>
+      <div class="absolute left-4 top-1/2 -translate-y-1/2 dot"></div>
+      <div class="absolute right-4 top-1/2 -translate-y-1/2 dot"></div>
+      <p class="num text-3xl" id="clockDisplay">--:--</p>
+    </div>
+  </div>
+  <div>
+    <p class="font-display font-black text-4xl md:text-5xl mb-6">KE·01</p>
+    <p class="text-lg leading-relaxed text-[#444] mb-8">
+      一個指針。一個刻度。沒有日期視窗、沒有品牌字樣、沒有多餘的一道線。
+      我們拿掉了所有能拿掉的，只留下你真正需要看的那件事——現在幾點。
+    </p>
+    <div class="flex items-center gap-6">
+      <p class="font-display font-black text-3xl">NT$ 12,800</p>
+      <button id="buyBtn" class="bg-black text-white rounded-full px-8 py-3 text-sm font-bold hover:opacity-80 transition">加入購物車</button>
+    </div>
+    <p id="buyMsg" class="text-sm text-[#888] mt-3 opacity-0 transition-opacity">已加入購物車 — 刻 KE·01</p>
+  </div>
+</section>
+
+<div class="hairline mx-6 md:mx-14"></div>
+
+<!-- 極簡數字區塊 -->
+<section class="px-6 md:px-14 py-16 grid grid-cols-3 gap-4 text-center">
+  <div>
+    <p class="num text-6xl md:text-7xl">38</p>
+    <p class="text-sm text-[#888] mt-2">毫米錶徑</p>
+  </div>
+  <div>
+    <p class="num text-6xl md:text-7xl">5</p>
+    <p class="text-sm text-[#888] mt-2">年電池續航</p>
+  </div>
+  <div>
+    <p class="num text-6xl md:text-7xl">1</p>
+    <p class="text-sm text-[#888] mt-2">個指針設計</p>
+  </div>
+</section>
+
+<div class="hairline mx-6 md:mx-14"></div>
+
+<!-- 反白收尾 -->
+<section class="invert px-6 md:px-14 py-24 text-center">
+  <p class="huge font-display text-[13vw] md:text-[7vw]">夠了，就是夠了。</p>
+  <button id="scrollTopBtn" class="mt-10 border border-white rounded-full px-8 py-3 text-sm hover:bg-white hover:text-black transition">回到最上面 ↑</button>
+</section>
+
+<footer class="px-6 md:px-14 py-8 text-xs text-[#888] flex justify-between">
+  <span>© 刻 KE</span>
+  <span>台北 · 大安</span>
+</footer>
+
+<script>
+  function updateClock() {
+    const d = new Date();
+    document.getElementById('clockDisplay').textContent =
+      String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+  }
+  updateClock(); setInterval(updateClock, 1000);
+
+  document.getElementById('buyBtn').addEventListener('click', () => {
+    const msg = document.getElementById('buyMsg');
+    msg.style.opacity = 1;
+    setTimeout(() => { msg.style.opacity = 0; }, 2200);
+  });
+
+  document.getElementById('scrollTopBtn').addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+</body>
+</html>

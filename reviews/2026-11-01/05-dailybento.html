@@ -1,0 +1,179 @@
+<!-- style #39 Bento Box -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日常拼圖 DailyBento</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500;700;900&family=Red+Hat+Text:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *{font-family:'Noto Sans TC','Red Hat Text',sans-serif;}
+  .font-display{font-family:'Red Hat Display','Noto Sans TC',sans-serif;}
+  body{background:#f4f1ea;color:#1f1b16;}
+  .cell{
+    background:#fff; border-radius:20px; border:1px solid #ece6d9;
+    box-shadow:0 2px 10px rgba(31,27,22,.04);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .cell:hover{transform:translateY(-3px); box-shadow:0 10px 24px rgba(31,27,22,.08);}
+  .accent-sage{background:#e4ebe0;}
+  .accent-sun{background:#f6e3b4;}
+  .accent-clay{background:#f0d9cb;}
+  .accent-sky{background:#dcebf0;}
+  .habit-done{background:#2f3e2a !important; color:#fff;}
+  .habit-check{transition:all .2s ease;}
+</style>
+</head>
+<body class="min-h-screen py-10 px-4">
+
+<div class="max-w-5xl mx-auto">
+
+  <header class="mb-8 flex items-end justify-between flex-wrap gap-3">
+    <div>
+      <p class="text-sm text-[#8a8070] mb-1 font-display font-bold tracking-wide">11 月 1 日 · 星期日</p>
+      <h1 class="font-display text-3xl font-black">日常拼圖 <span class="text-[#8a8070] font-medium text-xl">DailyBento</span></h1>
+    </div>
+    <p class="text-sm text-[#8a8070]">把一天的生活，拼成看得懂的格子</p>
+  </header>
+
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[110px]">
+
+    <!-- 大格：今日心情 -->
+    <div class="cell accent-sun col-span-2 row-span-2 p-6 flex flex-col justify-between">
+      <div>
+        <p class="font-display font-bold text-sm text-[#7a5c1f] mb-1">今日心情</p>
+        <p class="text-5xl" id="moodEmoji">🙂</p>
+      </div>
+      <div class="flex gap-2" id="moodPicker">
+        <button data-emoji="😄" class="text-xl hover:scale-125 transition">😄</button>
+        <button data-emoji="🙂" class="text-xl hover:scale-125 transition">🙂</button>
+        <button data-emoji="😐" class="text-xl hover:scale-125 transition">😐</button>
+        <button data-emoji="😫" class="text-xl hover:scale-125 transition">😫</button>
+      </div>
+    </div>
+
+    <!-- 小格：步數 -->
+    <div class="cell accent-sky col-span-1 row-span-1 p-4 flex flex-col justify-center">
+      <p class="font-display font-black text-2xl">7,842</p>
+      <p class="text-xs text-[#5c7680]">步數</p>
+    </div>
+
+    <!-- 小格：水分 -->
+    <div class="cell accent-sky col-span-1 row-span-1 p-4 flex flex-col justify-center">
+      <button id="waterBtn" class="text-left w-full">
+        <p class="font-display font-black text-2xl"><span id="waterCount">4</span>/8</p>
+        <p class="text-xs text-[#5c7680]">杯水 · 點我+1</p>
+      </button>
+    </div>
+
+    <!-- 中格：待辦清單 -->
+    <div class="cell col-span-2 row-span-2 p-5">
+      <p class="font-display font-bold text-sm mb-3">今日待辦</p>
+      <ul class="space-y-2 text-sm" id="todoList"></ul>
+    </div>
+
+    <!-- 中格：習慣養成 -->
+    <div class="cell accent-sage col-span-2 row-span-1 p-5">
+      <p class="font-display font-bold text-sm mb-3 text-[#2f3e2a]">習慣追蹤</p>
+      <div class="flex gap-2" id="habitList"></div>
+    </div>
+
+    <!-- 小格：睡眠 -->
+    <div class="cell accent-clay col-span-1 row-span-1 p-4 flex flex-col justify-center">
+      <p class="font-display font-black text-2xl">7h 20m</p>
+      <p class="text-xs text-[#8a5c45]">昨晚睡眠</p>
+    </div>
+
+    <!-- 小格：天氣 -->
+    <div class="cell col-span-1 row-span-1 p-4 flex flex-col justify-center">
+      <p class="font-display font-black text-2xl">24°C</p>
+      <p class="text-xs text-[#8a8070]">多雲 · 台北</p>
+    </div>
+
+    <!-- 長格：本週花費 -->
+    <div class="cell col-span-2 md:col-span-4 row-span-1 p-5 flex items-center gap-6 overflow-x-auto">
+      <p class="font-display font-bold text-sm whitespace-nowrap">本週花費</p>
+      <div class="flex items-end gap-3 flex-1" id="spendBars"></div>
+      <p class="font-display font-black text-xl whitespace-nowrap">NT$ 3,280</p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // 心情選擇
+  document.querySelectorAll('#moodPicker button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.getElementById('moodEmoji').textContent = btn.dataset.emoji;
+    });
+  });
+
+  // 喝水
+  let water = 4;
+  document.getElementById('waterBtn').addEventListener('click', () => {
+    water = water < 8 ? water + 1 : 0;
+    document.getElementById('waterCount').textContent = water;
+  });
+
+  // 待辦
+  const todos = [
+    { text: '回覆設計稿意見', done: true },
+    { text: '買今晚的晚餐食材', done: false },
+    { text: '繳信用卡帳單', done: false },
+    { text: '整理週報', done: false },
+  ];
+  const todoList = document.getElementById('todoList');
+  function renderTodos() {
+    todoList.innerHTML = '';
+    todos.forEach((t, i) => {
+      const li = document.createElement('li');
+      li.className = 'flex items-center gap-2 cursor-pointer';
+      li.innerHTML = `
+        <span class="w-4 h-4 rounded-full border border-[#c9c0ab] flex items-center justify-center text-[10px] ${t.done ? 'bg-[#2f3e2a] text-white border-[#2f3e2a]' : ''}">${t.done ? '✓' : ''}</span>
+        <span class="${t.done ? 'line-through text-[#a39c8a]' : ''}">${t.text}</span>
+      `;
+      li.addEventListener('click', () => { t.done = !t.done; renderTodos(); });
+      todoList.appendChild(li);
+    });
+  }
+  renderTodos();
+
+  // 習慣
+  const habits = [
+    { icon: '📖', label: '閱讀', done: true },
+    { icon: '🏃', label: '運動', done: true },
+    { icon: '🧘', label: '冥想', done: false },
+    { icon: '💧', label: '早睡', done: false },
+  ];
+  const habitList = document.getElementById('habitList');
+  function renderHabits() {
+    habitList.innerHTML = '';
+    habits.forEach(h => {
+      const el = document.createElement('button');
+      el.className = `habit-check flex-1 rounded-xl py-3 text-center ${h.done ? 'habit-done' : 'bg-white border border-[#d7ddd1]'}`;
+      el.innerHTML = `<div class="text-lg">${h.icon}</div><div class="text-[11px] mt-1">${h.label}</div>`;
+      el.addEventListener('click', () => { h.done = !h.done; renderHabits(); });
+      habitList.appendChild(el);
+    });
+  }
+  renderHabits();
+
+  // 花費長條
+  const spend = [120, 480, 90, 650, 210, 1200, 530];
+  const days = ['一','二','三','四','五','六','日'];
+  const maxSpend = Math.max(...spend);
+  const spendBars = document.getElementById('spendBars');
+  spend.forEach((v, i) => {
+    const bar = document.createElement('div');
+    bar.className = 'flex flex-col items-center gap-1';
+    bar.innerHTML = `
+      <div class="w-6 bg-[#1f1b16] rounded-t-md" style="height:${(v/maxSpend*48)}px"></div>
+      <span class="text-[10px] text-[#8a8070]">${days[i]}</span>
+    `;
+    spendBars.appendChild(bar);
+  });
+</script>
+</body>
+</html>

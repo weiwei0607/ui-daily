@@ -1,0 +1,192 @@
+<!-- style #35 User Behavior Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>足跡 UserTrace · 使用者行為儀表板</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *{font-family:'Noto Sans TC','Instrument Sans',sans-serif;}
+  .font-mono{font-family:'JetBrains Mono','Noto Sans TC',monospace;}
+  body{background:#0f1115;color:#e6e8ec;}
+  .card{background:#171a21;border:1px solid #262b35;}
+  .up{color:#34d399;}
+  .down{color:#f87171;}
+  .bar{transition:width 1s cubic-bezier(.2,.8,.2,1);}
+  .tab-active{background:#262b35;color:#fff;}
+  .sparkline{stroke:#60a5fa; fill:none; stroke-width:2;}
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="max-w-7xl mx-auto px-6 py-8">
+
+  <header class="flex flex-wrap items-center justify-between gap-4 mb-8">
+    <div>
+      <p class="font-mono text-xs text-[#6b7280] mb-1">USER BEHAVIOR ANALYTICS</p>
+      <h1 class="text-2xl font-bold">足跡 <span class="text-[#6b7280] font-normal">UserTrace</span></h1>
+    </div>
+    <div class="flex items-center gap-3 font-mono text-xs">
+      <button data-range="7" class="range-btn tab-active px-3 py-1.5 rounded-md">7 天</button>
+      <button data-range="30" class="range-btn px-3 py-1.5 rounded-md text-[#6b7280]">30 天</button>
+      <button data-range="90" class="range-btn px-3 py-1.5 rounded-md text-[#6b7280]">90 天</button>
+    </div>
+  </header>
+
+  <!-- KPI -->
+  <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+    <div class="card rounded-xl p-5">
+      <p class="text-xs text-[#6b7280] mb-2">活躍使用者</p>
+      <p class="text-2xl font-mono font-bold" id="kpiDau">48,210</p>
+      <p class="text-xs up mt-1 font-mono">▲ 6.4%</p>
+    </div>
+    <div class="card rounded-xl p-5">
+      <p class="text-xs text-[#6b7280] mb-2">平均停留時間</p>
+      <p class="text-2xl font-mono font-bold" id="kpiTime">4m 12s</p>
+      <p class="text-xs up mt-1 font-mono">▲ 2.1%</p>
+    </div>
+    <div class="card rounded-xl p-5">
+      <p class="text-xs text-[#6b7280] mb-2">次日留存率</p>
+      <p class="text-2xl font-mono font-bold" id="kpiRetain">38.7%</p>
+      <p class="text-xs down mt-1 font-mono">▼ 1.3%</p>
+    </div>
+    <div class="card rounded-xl p-5">
+      <p class="text-xs text-[#6b7280] mb-2">流失使用者</p>
+      <p class="text-2xl font-mono font-bold" id="kpiChurn">1,902</p>
+      <p class="text-xs down mt-1 font-mono">▼ 0.8%</p>
+    </div>
+  </section>
+
+  <div class="grid md:grid-cols-5 gap-6 mb-8">
+
+    <!-- 轉換漏斗 -->
+    <div class="card rounded-xl p-6 md:col-span-3">
+      <div class="flex items-center justify-between mb-5">
+        <h2 class="font-semibold">轉換漏斗</h2>
+        <span class="font-mono text-xs text-[#6b7280]">註冊 → 付費</span>
+      </div>
+      <div class="space-y-4" id="funnel"></div>
+    </div>
+
+    <!-- 留存曲線 -->
+    <div class="card rounded-xl p-6 md:col-span-2">
+      <h2 class="font-semibold mb-4">留存曲線（第 0–13 天）</h2>
+      <svg viewBox="0 0 280 120" class="w-full h-32" id="retentionSvg"></svg>
+      <p class="font-mono text-xs text-[#6b7280] mt-3">D1 <span class="text-[#e6e8ec]">38.7%</span> · D7 <span class="text-[#e6e8ec]">21.4%</span> · D14 <span class="text-[#e6e8ec]">14.9%</span></p>
+    </div>
+  </div>
+
+  <!-- 路徑表 -->
+  <div class="card rounded-xl p-6">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="font-semibold">熱門使用者路徑</h2>
+      <input id="pathFilter" type="text" placeholder="搜尋頁面關鍵字…" class="bg-[#0f1115] border border-[#262b35] rounded-md px-3 py-1.5 text-sm font-mono outline-none focus:border-[#60a5fa] w-48">
+    </div>
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="text-left text-[#6b7280] font-mono text-xs border-b border-[#262b35]">
+          <th class="py-2">路徑</th><th class="py-2 text-right">使用者數</th><th class="py-2 text-right">完成率</th>
+        </tr>
+      </thead>
+      <tbody id="pathTbody"></tbody>
+    </table>
+    <p id="pathEmpty" class="hidden text-center text-[#6b7280] text-sm py-6">沒有符合「<span id="pathEmptyKeyword"></span>」的路徑紀錄</p>
+  </div>
+
+</div>
+
+<script>
+  const funnelData = [
+    { label: '造訪首頁', value: 48210, color: '#60a5fa' },
+    { label: '完成註冊', value: 31940, color: '#34d399' },
+    { label: '啟用首次功能', value: 19870, color: '#fbbf24' },
+    { label: '開始免費試用', value: 9340, color: '#f97316' },
+    { label: '完成付費轉換', value: 3012, color: '#f87171' },
+  ];
+  const max = funnelData[0].value;
+  const funnelEl = document.getElementById('funnel');
+  funnelData.forEach((d, i) => {
+    const pct = (d.value / max * 100).toFixed(1);
+    const row = document.createElement('div');
+    row.innerHTML = `
+      <div class="flex justify-between text-sm mb-1.5">
+        <span>${d.label}</span>
+        <span class="font-mono text-[#9ca3af]">${d.value.toLocaleString()} 人 · ${pct}%</span>
+      </div>
+      <div class="h-3 bg-[#0f1115] rounded-full overflow-hidden">
+        <div class="bar h-full rounded-full" style="width:0%;background:${d.color}"></div>
+      </div>
+    `;
+    funnelEl.appendChild(row);
+    setTimeout(() => { row.querySelector('.bar').style.width = pct + '%'; }, 80 * i);
+  });
+
+  // 留存曲線 SVG
+  const retention = [100,38.7,32.1,28.4,25.9,24.2,22.8,21.4,19.8,18.6,17.5,16.4,15.6,14.9];
+  const svg = document.getElementById('retentionSvg');
+  const w = 280, h = 120, padding = 6;
+  const points = retention.map((v,i) => {
+    const x = padding + (i/(retention.length-1)) * (w-2*padding);
+    const y = h - padding - (v/100) * (h-2*padding);
+    return `${x},${y}`;
+  }).join(' ');
+  svg.innerHTML = `
+    <polyline points="${points}" class="sparkline" />
+    ${retention.map((v,i)=>{
+      const x = padding + (i/(retention.length-1)) * (w-2*padding);
+      const y = h - padding - (v/100) * (h-2*padding);
+      return `<circle cx="${x}" cy="${y}" r="2" fill="#60a5fa"/>`;
+    }).join('')}
+  `;
+
+  // 路徑表
+  const paths = [
+    { p: '首頁 → 商品頁 → 購物車 → 結帳', users: 12402, rate: 68 },
+    { p: '搜尋頁 → 商品頁 → 收藏', users: 8210, rate: 41 },
+    { p: '首頁 → 活動頁 → 分享', users: 5304, rate: 29 },
+    { p: '登入 → 會員中心 → 設定', users: 3987, rate: 82 },
+    { p: '首頁 → 客服中心 → 離開', users: 2140, rate: 12 },
+  ];
+  const tbody = document.getElementById('pathTbody');
+  function renderPaths(keyword) {
+    tbody.innerHTML = '';
+    const filtered = paths.filter(r => !keyword || r.p.includes(keyword));
+    document.getElementById('pathEmpty').classList.toggle('hidden', filtered.length > 0);
+    document.getElementById('pathEmptyKeyword').textContent = keyword;
+    filtered.forEach(r => {
+      const tr = document.createElement('tr');
+      tr.className = 'border-b border-[#1c2029]';
+      tr.innerHTML = `
+        <td class="py-3">${r.p}</td>
+        <td class="py-3 text-right font-mono">${r.users.toLocaleString()}</td>
+        <td class="py-3 text-right font-mono ${r.rate>50?'up':'down'}">${r.rate}%</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+  renderPaths('');
+  document.getElementById('pathFilter').addEventListener('input', (e) => renderPaths(e.target.value.trim()));
+
+  // 區間切換（示範性改變 KPI 數值）
+  const rangeData = {
+    7:  { dau:'48,210', time:'4m 12s', retain:'38.7%', churn:'1,902' },
+    30: { dau:'182,440', time:'3m 54s', retain:'34.2%', churn:'9,870' },
+    90: { dau:'512,003', time:'3m 40s', retain:'29.8%', churn:'31,220' },
+  };
+  document.querySelectorAll('.range-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.range-btn').forEach(b => { b.classList.remove('tab-active'); b.classList.add('text-[#6b7280]'); });
+      btn.classList.add('tab-active'); btn.classList.remove('text-[#6b7280]');
+      const d = rangeData[btn.dataset.range];
+      document.getElementById('kpiDau').textContent = d.dau;
+      document.getElementById('kpiTime').textContent = d.time;
+      document.getElementById('kpiRetain').textContent = d.retain;
+      document.getElementById('kpiChurn').textContent = d.churn;
+    });
+  });
+</script>
+</body>
+</html>
