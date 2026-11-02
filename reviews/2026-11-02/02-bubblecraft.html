@@ -1,0 +1,94 @@
+<!-- style #09 Claymorphism -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>泡泡手作 BubbleCraft</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Quicksand', sans-serif; background:linear-gradient(160deg,#fdeef0,#eaf6ff 60%,#eafff0); color:#5b4a52;}
+  h1,h2,h3,.disp{font-family:'Baloo 2', cursive;}
+  .clay{
+    border-radius: 32px;
+    background: #fdfcff;
+    box-shadow:
+      -10px -10px 24px rgba(255,255,255,0.9),
+      14px 14px 28px rgba(190,170,190,0.35);
+  }
+  .clay-pink{ background:#fdbcb4; box-shadow:-10px -10px 22px rgba(255,255,255,.7), 12px 12px 24px rgba(230,120,110,.35);}
+  .clay-blue{ background:#add8e6; box-shadow:-10px -10px 22px rgba(255,255,255,.7), 12px 12px 24px rgba(100,160,190,.35);}
+  .clay-green{ background:#98ff98; box-shadow:-10px -10px 22px rgba(255,255,255,.7), 12px 12px 24px rgba(100,190,120,.35);}
+  .clay-btn{ border-radius:999px; box-shadow:-6px -6px 14px rgba(255,255,255,.8), 8px 8px 18px rgba(190,150,160,.4); transition:.2s; }
+  .clay-btn:active{ box-shadow: inset 4px 4px 10px rgba(190,150,160,.4), inset -4px -4px 10px rgba(255,255,255,.6); transform:scale(.97);}
+  .blob{ border-radius:50% 60% 55% 45%/55% 45% 60% 50%; }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <header class="max-w-5xl mx-auto px-6 pt-8 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="clay-pink blob w-12 h-12 flex items-center justify-center text-2xl">🧸</div>
+      <span class="disp text-2xl text-[#7a5566]">泡泡手作</span>
+    </div>
+    <button class="clay-btn clay-pink px-6 py-3 disp text-[#7a4050]">立即預約</button>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6">
+
+    <section class="grid md:grid-cols-2 gap-10 items-center py-14">
+      <div>
+        <p class="mb-3 text-[#a98a95]">給 4–10 歲小朋友的手作教室</p>
+        <h1 class="disp text-4xl md:text-6xl text-[#6a4858] leading-tight mb-6">揉一揉、<br>捏出今天的心情</h1>
+        <p class="text-lg mb-8 text-[#8a6b78]">黏土、羊毛氈、輕陶土——每週一個新主題，讓孩子的手比螢幕更忙碌。台北 / 新竹 兩館開課中。</p>
+        <div class="flex gap-4 flex-wrap">
+          <button class="clay-btn clay-blue px-8 py-4 disp text-xl text-[#355]">看本週課表</button>
+          <button class="clay-btn px-8 py-4 disp text-xl text-[#6a4858]">免費試上一次</button>
+        </div>
+      </div>
+      <div class="clay p-10 relative">
+        <div class="clay-green blob w-28 h-28 absolute -top-6 -left-6 flex items-center justify-center text-4xl">🐣</div>
+        <div class="clay-blue blob w-20 h-20 absolute bottom-6 -right-6 flex items-center justify-center text-3xl">🫧</div>
+        <p class="disp text-2xl mb-3 text-[#6a4858]">本週主題</p>
+        <p class="text-xl text-[#8a6b78] mb-6">「海底世界」輕陶土課 — 捏一隻屬於自己的水母夜燈</p>
+        <div class="clay-pink rounded-2xl p-4 text-center disp text-lg text-[#7a4050]">11/08（六）10:00–11:30</div>
+      </div>
+    </section>
+
+    <section class="py-10">
+      <h2 class="disp text-3xl md:text-4xl text-center mb-10 text-[#6a4858]">三種質地，三種玩法</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="clay p-8 text-center">
+          <div class="clay-pink blob w-20 h-20 mx-auto mb-5 flex items-center justify-center text-4xl">🎨</div>
+          <h3 class="disp text-xl mb-2 text-[#6a4858]">輕陶土</h3>
+          <p class="text-[#8a6b78]">風乾就定型，當天完成、當天帶回家。</p>
+        </div>
+        <div class="clay p-8 text-center">
+          <div class="clay-blue blob w-20 h-20 mx-auto mb-5 flex items-center justify-center text-4xl">🧶</div>
+          <h3 class="disp text-xl mb-2 text-[#6a4858]">羊毛氈</h3>
+          <p class="text-[#8a6b78]">戳一戳就有療效，適合比較靜得下來的孩子。</p>
+        </div>
+        <div class="clay p-8 text-center">
+          <div class="clay-green blob w-20 h-20 mx-auto mb-5 flex items-center justify-center text-4xl">🫙</div>
+          <h3 class="disp text-xl mb-2 text-[#6a4858]">感統黏土</h3>
+          <p class="text-[#8a6b78]">加了重量粉，特別適合坐不住、需要手部重量感的孩子。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-10 pb-20">
+      <div class="clay clay-pink p-10 text-center">
+        <h2 class="disp text-3xl text-[#6a4858] mb-3">第一次來，免費試上一次</h2>
+        <p class="text-[#7a4050] mb-6">不滿意不收費，材料我們準備好，只要帶孩子來就好。</p>
+        <button class="clay-btn bg-white px-10 py-4 disp text-xl text-[#6a4858]">預約免費試上 →</button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="text-center py-8 text-[#a98a95]">泡泡手作 © 2026・台北大安館・新竹東區館</footer>
+
+</body>
+</html>

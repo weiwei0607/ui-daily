@@ -1,0 +1,86 @@
+<!-- style #52 Pixel Art / Retro Gaming -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>8位元俱樂部</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+  :root{ --gb1:#0f380f; --gb2:#306230; --gb3:#8bac0f; --gb4:#9bce0f; }
+  body{ background:var(--gb1); color:var(--gb3); font-family:'VT323', monospace; font-size:20px; image-rendering: pixelated; }
+  .px{ font-family:'Press Start 2P', monospace; }
+  .screen{ border:8px solid var(--gb2); background:var(--gb4); color:var(--gb1); box-shadow: 0 0 0 4px var(--gb1), inset 0 0 0 4px var(--gb2); }
+  .pxbtn{ border:4px solid var(--gb1); background:var(--gb3); color:var(--gb1); box-shadow:4px 4px 0 var(--gb1); }
+  .pxbtn:active{ transform:translate(4px,4px); box-shadow:0 0 0 var(--gb1); }
+  .dots{ background-image: radial-gradient(var(--gb2) 2px, transparent 2px); background-size: 16px 16px; }
+  @keyframes blink{ 0%,49%{opacity:1;} 50%,100%{opacity:0;} }
+  .blink{ animation:blink 1s step-end infinite; }
+</style>
+</head>
+<body class="min-h-screen dots">
+
+  <div class="max-w-4xl mx-auto px-4 py-8">
+
+    <header class="screen px-6 py-5 mb-8 flex items-center justify-between">
+      <h1 class="px text-sm md:text-lg">8位元俱樂部</h1>
+      <span class="px text-xs blink">▮ ONLINE</span>
+    </header>
+
+    <section class="screen p-8 mb-8 text-center">
+      <p class="px text-xs mb-4">PRESS START</p>
+      <h2 class="px text-lg md:text-2xl leading-loose mb-5">復古遊戲<br>同好會</h2>
+      <p class="text-xl mb-6">每週六晚上，台北中山區實體店聚會。紅白機、GBA、街機全部開放暢玩，不限時。</p>
+      <button class="pxbtn px text-xs px-6 py-4">加入本週聚會</button>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="px text-sm mb-5">▸ 本週機台陣容</h2>
+      <div class="grid md:grid-cols-3 gap-5">
+        <div class="screen p-5">
+          <p class="px text-xs mb-3">SLOT 01</p>
+          <p class="text-xl mb-1">快打天地 Ⅱ</p>
+          <p class="text-base">雙人對戰機台，排隊制</p>
+        </div>
+        <div class="screen p-5">
+          <p class="px text-xs mb-3">SLOT 02</p>
+          <p class="text-xl mb-1">超級瑪利歐世界</p>
+          <p class="text-base">速通挑戰榜持續更新中</p>
+        </div>
+        <div class="screen p-5">
+          <p class="px text-xs mb-3">SLOT 03</p>
+          <p class="text-xl mb-1">俄羅斯方塊 99</p>
+          <p class="text-base">每晚 21:00 開一場內部賽</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen p-8 mb-8">
+      <h2 class="px text-sm mb-5">▸ 本月排行榜</h2>
+      <div class="space-y-3 text-xl">
+        <div class="flex justify-between border-b-4 border-dashed border-[var(--gb1)] pb-2">
+          <span>① 阿凱</span><span class="px text-xs">99,840 PT</span>
+        </div>
+        <div class="flex justify-between border-b-4 border-dashed border-[var(--gb1)] pb-2">
+          <span>② 小魚乾</span><span class="px text-xs">87,120 PT</span>
+        </div>
+        <div class="flex justify-between">
+          <span>③ 貓貓老闆</span><span class="px text-xs">76,450 PT</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen p-8 text-center mb-8">
+      <p class="px text-xs mb-4">入會方式</p>
+      <p class="text-xl mb-6">月費 $350，不限次數暢玩全部機台，含一杯復古汽水。</p>
+      <button class="pxbtn px text-xs px-6 py-4">查看加入方式 →</button>
+    </section>
+
+    <footer class="text-center px text-xs text-[var(--gb2)]">© 2026 8位元俱樂部・台北中山區</footer>
+
+  </div>
+
+</body>
+</html>

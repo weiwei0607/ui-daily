@@ -1,0 +1,110 @@
+<!-- style #04 Brutalism -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>噪音現場 NOISESCENE</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#ff0000; --blue:#0000ff; --yellow:#ffff00; --ink:#0a0a0a; --paper:#f5f1e8;
+  }
+  *{font-family:'Space Mono', monospace;}
+  .disp{font-family:'Archivo Black', sans-serif;}
+  body{background:var(--paper); color:var(--ink);}
+  .hardbox{border:4px solid var(--ink); box-shadow: 8px 8px 0 var(--ink); background:#fff;}
+  .hardbox:hover{transform:translate(-2px,-2px); box-shadow:10px 10px 0 var(--ink);}
+  .tilt{transform:rotate(-1.2deg);}
+  .tilt2{transform:rotate(1deg);}
+  .stamp{border:3px solid var(--ink); transform:rotate(-6deg);}
+  marquee, .marq{overflow:hidden; white-space:nowrap;}
+  @keyframes scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+  .scrollbar{display:flex; animation:scroll 14s linear infinite;}
+</style>
+</head>
+<body class="overflow-x-hidden">
+
+  <header class="border-b-4 border-black bg-[var(--yellow)] sticky top-0 z-50">
+    <div class="scrollbar py-2 disp text-xl md:text-2xl tracking-tight">
+      <span class="px-6">⚡ 噪音現場 搶票中 ⚡</span>
+      <span class="px-6">⚡ 12/20 台北 大港倉庫 ⚡</span>
+      <span class="px-6">⚡ 售票一開即秒殺 ⚡</span>
+      <span class="px-6">⚡ 噪音現場 搶票中 ⚡</span>
+      <span class="px-6">⚡ 12/20 台北 大港倉庫 ⚡</span>
+      <span class="px-6">⚡ 售票一開即秒殺 ⚡</span>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-5 py-14">
+
+    <section class="relative mb-16">
+      <div class="hardbox tilt p-8 md:p-14 bg-[var(--blue)] text-white relative">
+        <p class="text-sm md:text-base mb-3">2026.12.20（六）19:00 入場・台北・大港倉庫</p>
+        <h1 class="disp text-5xl md:text-8xl leading-[0.95] mb-6">噪音<br>現場</h1>
+        <p class="text-lg md:text-xl max-w-xl">五組地下樂團、一夜不睡。沒有座位、沒有廉價濾鏡，只有喇叭炸到你耳膜的真實震動。</p>
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a href="#tickets" class="hardbox disp text-xl px-8 py-4 bg-[var(--yellow)] text-black inline-block">立刻買票 →</a>
+          <a href="#lineup" class="hardbox disp text-xl px-8 py-4 bg-white text-black inline-block">看陣容</a>
+        </div>
+      </div>
+      <div class="stamp absolute -top-6 -right-4 md:right-10 bg-[var(--red)] text-white disp text-sm px-5 py-3 hidden md:block">限量 400 張</div>
+    </section>
+
+    <section id="lineup" class="mb-16">
+      <h2 class="disp text-3xl md:text-5xl mb-8 tilt2 inline-block bg-black text-[var(--yellow)] px-4 py-2">演出陣容</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="hardbox p-6">
+          <p class="text-xs mb-1">21:30 主秀</p>
+          <h3 class="disp text-2xl mb-2">鐵皮共鳴 TINROAR</h3>
+          <p>硬核車庫搖滾，現場從不對嘴。</p>
+        </div>
+        <div class="hardbox p-6 bg-[var(--red)] text-white">
+          <p class="text-xs mb-1">20:45</p>
+          <h3 class="disp text-2xl mb-2">斷電儀式 BLACKOUT RITE</h3>
+          <p>工業噪音＋破嗓主唱，開場十分鐘就斷一次電。</p>
+        </div>
+        <div class="hardbox p-6 bg-[var(--yellow)]">
+          <p class="text-xs mb-1">20:00</p>
+          <h3 class="disp text-2xl mb-2">螺絲鬆了 LOOSE BOLT</h3>
+          <p>龐克三件式，唱得比彈得還快。</p>
+        </div>
+        <div class="hardbox p-6">
+          <p class="text-xs mb-1">19:20 開場</p>
+          <h3 class="disp text-2xl mb-2">地下水位 UNDERTOW</h3>
+          <p>南部上來的新面孔，首張 EP 現場先聽。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="tickets" class="mb-16">
+      <h2 class="disp text-3xl md:text-5xl mb-8">票價 / 進場規則</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="hardbox p-6 text-center">
+          <p class="text-sm mb-2">早鳥（已售罄）</p>
+          <p class="disp text-4xl line-through text-gray-400">$580</p>
+        </div>
+        <div class="hardbox p-6 text-center bg-[var(--blue)] text-white tilt">
+          <p class="text-sm mb-2">現正販售・一般票</p>
+          <p class="disp text-5xl">$780</p>
+        </div>
+        <div class="hardbox p-6 text-center">
+          <p class="text-sm mb-2">站立搖滾區加購</p>
+          <p class="disp text-4xl">+$200</p>
+        </div>
+      </div>
+      <p class="mt-6 text-sm border-l-4 border-black pl-4">現場禁帶玻璃瓶、禁止錄影轉播、未滿 16 歲謝絕入場。退換票一律不受理，請務必確認日期。</p>
+      <a href="#" class="hardbox disp text-2xl px-10 py-5 bg-[var(--yellow)] inline-block mt-8">進入購票頁 →</a>
+    </section>
+
+    <footer class="border-t-4 border-black pt-6 text-sm flex flex-wrap justify-between gap-4">
+      <span>噪音現場 © 2026 大港倉庫製作</span>
+      <span>主辦單位保留活動內容變更之權利</span>
+    </footer>
+
+  </main>
+
+</body>
+</html>

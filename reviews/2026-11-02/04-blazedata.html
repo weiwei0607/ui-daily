@@ -1,0 +1,147 @@
+<!-- style #30 Executive Summary Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>爍食數據 · 經營層戰情室</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Plus Jakarta Sans', sans-serif; background:#f6f7fb; color:#1c1f2a;}
+  .mono{font-family:'JetBrains Mono', monospace;}
+  .card{background:#fff; border-radius:18px; box-shadow:0 1px 2px rgba(20,20,43,.04), 0 8px 24px rgba(20,20,43,.06);}
+  .up{color:#10b981;} .down{color:#ef4444;}
+  .barbg{background:#eef0f6;}
+</style>
+</head>
+<body class="min-h-screen">
+
+  <div class="max-w-6xl mx-auto px-6 py-8">
+
+    <header class="flex items-center justify-between mb-8">
+      <div>
+        <p class="text-sm text-[#7a7f93]">經營層摘要 · 2026年11月2日 06:00 更新</p>
+        <h1 class="text-2xl font-extrabold">爍食數據 戰情室</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="mono text-xs px-3 py-1 rounded-full bg-[#eafff3] text-[#0a8a53]">● 68 間門市即時連線</span>
+      </div>
+    </header>
+
+    <section class="grid md:grid-cols-4 gap-5 mb-8">
+      <div class="card p-6">
+        <p class="text-sm text-[#7a7f93] mb-2">今日營收（全店）</p>
+        <p class="mono text-3xl font-semibold">$4,218,900</p>
+        <p class="text-sm up mt-2">▲ 6.4% 較上週同日</p>
+      </div>
+      <div class="card p-6">
+        <p class="text-sm text-[#7a7f93] mb-2">平均客單價</p>
+        <p class="mono text-3xl font-semibold">$286</p>
+        <p class="text-sm down mt-2">▼ 1.2% 較上週同日</p>
+      </div>
+      <div class="card p-6">
+        <p class="text-sm text-[#7a7f93] mb-2">本月目標達成率</p>
+        <p class="mono text-3xl font-semibold">87.3%</p>
+        <p class="text-sm text-[#7a7f93] mt-2">距月底還有 11 天</p>
+      </div>
+      <div class="card p-6">
+        <p class="text-sm text-[#7a7f93] mb-2">食材損耗率</p>
+        <p class="mono text-3xl font-semibold">2.1%</p>
+        <p class="text-sm up mt-2">▲ 0.3% 需留意</p>
+      </div>
+    </section>
+
+    <section class="grid md:grid-cols-3 gap-5 mb-8">
+      <div class="card p-6 md:col-span-2">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="font-semibold">近 7 日營收趨勢</h2>
+          <span class="text-xs text-[#7a7f93]">單位：萬元</span>
+        </div>
+        <div class="flex items-end gap-3 h-40">
+          <div class="flex-1 flex flex-col items-center gap-2">
+            <div class="barbg w-full rounded-lg relative" style="height:62%"><div class="absolute bottom-0 w-full bg-[#6366f1] rounded-lg" style="height:100%"></div></div>
+            <span class="mono text-xs text-[#7a7f93]">週三</span>
+          </div>
+          <div class="flex-1 flex flex-col items-center gap-2">
+            <div class="barbg w-full rounded-lg relative" style="height:70%"><div class="absolute bottom-0 w-full bg-[#6366f1] rounded-lg" style="height:100%"></div></div>
+            <span class="mono text-xs text-[#7a7f93]">週四</span>
+          </div>
+          <div class="flex-1 flex flex-col items-center gap-2">
+            <div class="barbg w-full rounded-lg relative" style="height:58%"><div class="absolute bottom-0 w-full bg-[#6366f1] rounded-lg" style="height:100%"></div></div>
+            <span class="mono text-xs text-[#7a7f93]">週五</span>
+          </div>
+          <div class="flex-1 flex flex-col items-center gap-2">
+            <div class="barbg w-full rounded-lg relative" style="height:91%"><div class="absolute bottom-0 w-full bg-[#6366f1] rounded-lg" style="height:100%"></div></div>
+            <span class="mono text-xs text-[#7a7f93]">週六</span>
+          </div>
+          <div class="flex-1 flex flex-col items-center gap-2">
+            <div class="barbg w-full rounded-lg relative" style="height:97%"><div class="absolute bottom-0 w-full bg-[#6366f1] rounded-lg" style="height:100%"></div></div>
+            <span class="mono text-xs text-[#7a7f93]">週日</span>
+          </div>
+          <div class="flex-1 flex flex-col items-center gap-2">
+            <div class="barbg w-full rounded-lg relative" style="height:48%"><div class="absolute bottom-0 w-full bg-[#9ea3ba] rounded-lg" style="height:100%"></div></div>
+            <span class="mono text-xs text-[#7a7f93]">週一</span>
+          </div>
+          <div class="flex-1 flex flex-col items-center gap-2">
+            <div class="barbg w-full rounded-lg relative" style="height:76%"><div class="absolute bottom-0 w-full bg-[#111827] rounded-lg" style="height:100%"></div></div>
+            <span class="mono text-xs text-[#7a7f93]">今日</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card p-6">
+        <h2 class="font-semibold mb-4">需要關注</h2>
+        <div class="space-y-3 text-sm">
+          <div class="flex items-start gap-3">
+            <span class="mt-1 w-2 h-2 rounded-full bg-[#ef4444]"></span>
+            <p>台中西屯店 — 連續 3 日客訴食材新鮮度，已派督導現場複查</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="mt-1 w-2 h-2 rounded-full bg-[#f59e0b]"></span>
+            <p>高雄三多店 — 午餐時段人力短缺，排班需於本週補齊</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="mt-1 w-2 h-2 rounded-full bg-[#10b981]"></span>
+            <p>新開幕板橋店 — 首月營收超越展店目標 23%</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card p-6">
+      <h2 class="font-semibold mb-4">分區營運排行（本月至今）</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="text-left text-[#7a7f93] border-b">
+              <th class="pb-3">區域</th>
+              <th class="pb-3">門市數</th>
+              <th class="pb-3">營收達成率</th>
+              <th class="pb-3">客單價</th>
+              <th class="pb-3">損耗率</th>
+            </tr>
+          </thead>
+          <tbody class="mono">
+            <tr class="border-b border-[#f0f1f6]">
+              <td class="py-3">北區</td><td>28</td><td class="up">94.2%</td><td>$291</td><td>1.8%</td>
+            </tr>
+            <tr class="border-b border-[#f0f1f6]">
+              <td class="py-3">中區</td><td>16</td><td class="down">81.6%</td><td>$277</td><td>2.6%</td>
+            </tr>
+            <tr class="border-b border-[#f0f1f6]">
+              <td class="py-3">南區</td><td>19</td><td class="up">88.9%</td><td>$283</td><td>2.0%</td>
+            </tr>
+            <tr>
+              <td class="py-3">東區</td><td>5</td><td class="up">90.1%</td><td>$301</td><td>1.5%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </div>
+
+</body>
+</html>
