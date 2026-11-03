@@ -1,0 +1,100 @@
+<!-- style #38 Neubrutalism -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>挖寶所 · 二手市集</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Space Grotesk','Noto Sans TC',sans-serif; background:#fdf6e9; color:#111; }
+  .display{ font-family:'Archivo Black','Noto Sans TC',sans-serif; }
+  .brut{
+    border: 3px solid #111;
+    box-shadow: 6px 6px 0 #111;
+  }
+  .brut-sm{ border:2px solid #111; box-shadow: 4px 4px 0 #111; }
+  .btn:hover{ transform: translate(-2px,-2px); box-shadow: 8px 8px 0 #111; }
+  .btn{ transition: all .12s ease; }
+</style>
+</head>
+<body class="px-5 py-6 md:px-10">
+  <div class="max-w-6xl mx-auto">
+    <!-- Nav -->
+    <div class="flex items-center justify-between mb-8">
+      <div class="display text-2xl px-3 py-1" style="background:#ffe156; border:3px solid #111;">挖寶所</div>
+      <div class="flex gap-3 items-center">
+        <span class="hidden md:inline text-sm font-500">#二手不等於便宜貨</span>
+        <button class="brut-sm btn px-4 py-2 font-700 text-sm" style="background:#4ecdc4;">刊登物件</button>
+      </div>
+    </div>
+
+    <!-- Hero -->
+    <div class="brut p-6 md:p-10 mb-8 relative" style="background:#ff6b6b;">
+      <p class="font-700 text-sm mb-2 inline-block px-2 py-1" style="background:#111; color:#fdf6e9;">本週新上架 213 件</p>
+      <h1 class="display text-4xl md:text-6xl leading-tight mb-4" style="color:#111;">好物不該<br>只睡在倉庫裡。</h1>
+      <p class="font-600 text-lg max-w-xl mb-6" style="color:#1a1a1a;">從老家具到絕版球鞋，挖寶所讓每件東西找到下一個主人——附近取貨、議價保護、無手續費上架。</p>
+      <div class="flex flex-wrap gap-3">
+        <button class="brut-sm btn px-6 py-3 display text-base" style="background:#111; color:#ffe156;">開始挖寶 →</button>
+        <button class="brut-sm btn px-6 py-3 font-700 text-base" style="background:#fdf6e9;">免費刊登</button>
+      </div>
+    </div>
+
+    <!-- Categories -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      <div class="brut-sm btn p-5 text-center" style="background:#4ecdc4;"><p class="text-3xl mb-1">🪑</p><p class="font-700">家具家飾</p></div>
+      <div class="brut-sm btn p-5 text-center" style="background:#ffe66d;"><p class="text-3xl mb-1">👟</p><p class="font-700">鞋款服飾</p></div>
+      <div class="brut-sm btn p-5 text-center" style="background:#a388ee;"><p class="text-3xl mb-1">📷</p><p class="font-700">相機器材</p></div>
+      <div class="brut-sm btn p-5 text-center" style="background:#ff6b6b;"><p class="text-3xl mb-1">📚</p><p class="font-700">書籍文具</p></div>
+    </div>
+
+    <!-- Listings -->
+    <h2 class="display text-2xl mb-4">熱門挖寶中</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+      <div class="brut-sm" style="background:#fff;">
+        <div class="h-40 border-b-[3px] border-[#111]" style="background:repeating-linear-gradient(45deg,#ffe156,#ffe156 10px,#fff8e1 10px,#fff8e1 20px);"></div>
+        <div class="p-4">
+          <p class="font-700 text-lg mb-1">丹麥古董木椅</p>
+          <p class="text-sm mb-3 font-500" style="color:#444;">1970 年代原木，椅面微磨損但結構完好</p>
+          <div class="flex justify-between items-center">
+            <span class="display text-xl">$3,200</span>
+            <span class="text-xs px-2 py-1 font-700" style="background:#4ecdc4; border:2px solid #111;">板橋可面交</span>
+          </div>
+        </div>
+      </div>
+      <div class="brut-sm" style="background:#fff;">
+        <div class="h-40 border-b-[3px] border-[#111]" style="background:repeating-linear-gradient(45deg,#ff6b6b,#ff6b6b 10px,#ffe3e3 10px,#ffe3e3 20px);"></div>
+        <div class="p-4">
+          <p class="font-700 text-lg mb-1">絕版聯名球鞋 US9</p>
+          <p class="text-sm mb-3 font-500" style="color:#444;">僅試穿兩次，附原盒與鞋拔</p>
+          <div class="flex justify-between items-center">
+            <span class="display text-xl">$4,800</span>
+            <span class="text-xs px-2 py-1 font-700" style="background:#ffe66d; border:2px solid #111;">可議價</span>
+          </div>
+        </div>
+      </div>
+      <div class="brut-sm" style="background:#fff;">
+        <div class="h-40 border-b-[3px] border-[#111]" style="background:repeating-linear-gradient(45deg,#a388ee,#a388ee 10px,#ece3ff 10px,#ece3ff 20px);"></div>
+        <div class="p-4">
+          <p class="font-700 text-lg mb-1">膠片相機 整理品</p>
+          <p class="text-sm mb-3 font-500" style="color:#444;">已校光測漏，隨機附一捲過期底片</p>
+          <div class="flex justify-between items-center">
+            <span class="display text-xl">$2,100</span>
+            <span class="text-xs px-2 py-1 font-700" style="background:#ff6b6b; border:2px solid #111;">已售出 2 件</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trust strip -->
+    <div class="brut p-6 flex flex-wrap gap-6 justify-between items-center" style="background:#111; color:#fdf6e9;">
+      <div><p class="display text-3xl">0%</p><p class="text-sm font-500">上架手續費</p></div>
+      <div><p class="display text-3xl">4.9★</p><p class="text-sm font-500">交易滿意度</p></div>
+      <div><p class="display text-3xl">6萬+</p><p class="text-sm font-500">物件成功轉手</p></div>
+      <button class="brut-sm btn px-6 py-3 display text-base" style="background:#ffe156; color:#111;">立刻加入</button>
+    </div>
+  </div>
+</body>
+</html>

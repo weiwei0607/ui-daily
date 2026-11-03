@@ -1,0 +1,147 @@
+<!-- style #19 Soft UI Evolution -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>好眠日記 · 柔和新拟態睡眠追蹤</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky:#87ceeb; --pink:#ffb6c1; --mint:#90ee90; --base:#f3f7fb;
+  }
+  body{ font-family:'Quicksand','Noto Sans TC',sans-serif; background:var(--base); color:#3a4a5c; }
+  h1,h2,h3,.display{ font-family:'Baloo 2','Noto Sans TC',sans-serif; }
+  .soft-card{
+    background: linear-gradient(145deg,#ffffff,#eef3f8);
+    border-radius: 28px;
+    box-shadow: 10px 10px 24px rgba(165,185,210,0.35), -10px -10px 24px rgba(255,255,255,0.9);
+    border: 1px solid rgba(255,255,255,0.6);
+  }
+  .soft-card-inset{
+    background: #eef3f8;
+    border-radius: 20px;
+    box-shadow: inset 6px 6px 14px rgba(165,185,210,0.35), inset -6px -6px 14px rgba(255,255,255,0.9);
+  }
+  .soft-btn{
+    background: linear-gradient(145deg,#ffffff,#e6ecf3);
+    box-shadow: 6px 6px 14px rgba(165,185,210,0.4), -6px -6px 14px rgba(255,255,255,0.9);
+    border-radius: 18px;
+    transition: all .2s ease;
+  }
+  .soft-btn:active{
+    box-shadow: inset 4px 4px 10px rgba(165,185,210,0.4), inset -4px -4px 10px rgba(255,255,255,0.9);
+  }
+  .pill{ border-radius: 999px; }
+  .glow-ring{
+    background: conic-gradient(from 0deg, var(--sky), var(--pink), var(--mint), var(--sky));
+    border-radius: 999px;
+    padding: 10px;
+  }
+</style>
+</head>
+<body class="min-h-screen px-5 py-8 md:px-10">
+  <div class="max-w-5xl mx-auto">
+    <!-- Top nav -->
+    <div class="flex items-center justify-between mb-8">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 soft-btn flex items-center justify-center text-xl">🌙</div>
+        <span class="display text-xl font-700" style="color:#5b7a94;">好眠日記</span>
+      </div>
+      <div class="soft-btn px-5 py-2 pill text-sm font-medium" style="color:#6b8aa3;">晚安，雅婷 ☁️</div>
+    </div>
+
+    <!-- Hero score -->
+    <div class="soft-card p-8 md:p-10 mb-6">
+      <div class="flex flex-col md:flex-row items-center gap-8">
+        <div class="glow-ring shrink-0">
+          <div class="w-40 h-40 rounded-full bg-[#f3f7fb] flex flex-col items-center justify-center">
+            <span class="display text-5xl font-800" style="color:#5b7a94;">87</span>
+            <span class="text-sm" style="color:#8aa3b8;">睡眠分數</span>
+          </div>
+        </div>
+        <div class="flex-1 text-center md:text-left">
+          <h1 class="display text-2xl md:text-3xl font-700 mb-2" style="color:#4a6278;">昨晚睡得比平常更深沉一些</h1>
+          <p class="text-base mb-5" style="color:#7d93a8;">深層睡眠比例提升了 12%，入睡時間縮短到 9 分鐘。持續保持睡前放鬆的習慣，你的身體正在感謝你。</p>
+          <div class="flex flex-wrap gap-3 justify-center md:justify-start">
+            <span class="soft-card-inset px-4 py-2 text-sm pill" style="color:#6b8aa3;">🛏️ 總睡眠 7 時 42 分</span>
+            <span class="soft-card-inset px-4 py-2 text-sm pill" style="color:#6b8aa3;">💓 平均心率 56</span>
+            <span class="soft-card-inset px-4 py-2 text-sm pill" style="color:#6b8aa3;">🌬️ 呼吸穩定度 良好</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stage breakdown -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+      <div class="soft-card p-6">
+        <h3 class="display text-lg font-600 mb-4" style="color:#4a6278;">睡眠階段分布</h3>
+        <div class="space-y-3">
+          <div>
+            <div class="flex justify-between text-sm mb-1" style="color:#7d93a8;"><span>深層睡眠</span><span>2 時 18 分</span></div>
+            <div class="soft-card-inset h-3 overflow-hidden"><div class="h-full rounded-full" style="width:62%; background:linear-gradient(90deg,#90ee90,#87ceeb);"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-1" style="color:#7d93a8;"><span>淺層睡眠</span><span>4 時 05 分</span></div>
+            <div class="soft-card-inset h-3 overflow-hidden"><div class="h-full rounded-full" style="width:85%; background:linear-gradient(90deg,#87ceeb,#ffb6c1);"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-1" style="color:#7d93a8;"><span>快速動眼期</span><span>1 時 19 分</span></div>
+            <div class="soft-card-inset h-3 overflow-hidden"><div class="h-full rounded-full" style="width:40%; background:linear-gradient(90deg,#ffb6c1,#90ee90);"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="soft-card p-6 flex flex-col">
+        <h3 class="display text-lg font-600 mb-4" style="color:#4a6278;">本週趨勢</h3>
+        <div class="flex-1 flex items-end gap-2">
+          <div class="flex-1 soft-card-inset rounded-t-xl" style="height:55%"></div>
+          <div class="flex-1 soft-card-inset rounded-t-xl" style="height:70%"></div>
+          <div class="flex-1 soft-card-inset rounded-t-xl" style="height:40%"></div>
+          <div class="flex-1 soft-card-inset rounded-t-xl" style="height:85%"></div>
+          <div class="flex-1 soft-card-inset rounded-t-xl" style="height:65%"></div>
+          <div class="flex-1 soft-card-inset rounded-t-xl" style="height:95%; background:linear-gradient(180deg,#e9fbe9,#eef3f8);"></div>
+          <div class="flex-1 soft-card-inset rounded-t-xl" style="height:78%"></div>
+        </div>
+        <div class="flex justify-between text-xs mt-2" style="color:#9ab0c2;">
+          <span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span>
+        </div>
+      </div>
+
+      <div class="soft-card p-6">
+        <h3 class="display text-lg font-600 mb-4" style="color:#4a6278;">今晚的入睡建議</h3>
+        <ul class="space-y-3 text-sm" style="color:#7d93a8;">
+          <li class="flex gap-2"><span>🕯️</span>22:30 前調暗燈光，啟動放鬆模式</li>
+          <li class="flex gap-2"><span>🎧</span>播放「深海呼吸」白噪音 15 分鐘</li>
+          <li class="flex gap-2"><span>📵</span>手機於 23:00 自動轉為勿擾</li>
+        </ul>
+        <button class="soft-btn w-full mt-5 py-3 text-sm font-600 pill" style="color:#5b7a94;">啟動今晚放鬆流程</button>
+      </div>
+    </div>
+
+    <!-- Weekly cards -->
+    <div class="soft-card p-6 md:p-8">
+      <div class="flex items-center justify-between mb-5">
+        <h3 class="display text-lg font-600" style="color:#4a6278;">睡眠小日記</h3>
+        <button class="soft-btn px-4 py-1.5 text-xs pill" style="color:#6b8aa3;">查看全部</button>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="soft-card-inset p-5">
+          <p class="text-xs mb-1" style="color:#9ab0c2;">11 月 2 日</p>
+          <p class="text-sm" style="color:#6b8aa3;">「泡了熱水澡，睡前沒看手機，感覺整個人沉下去的那種好睡。」</p>
+        </div>
+        <div class="soft-card-inset p-5">
+          <p class="text-xs mb-1" style="color:#9ab0c2;">11 月 1 日</p>
+          <p class="text-sm" style="color:#6b8aa3;">「加班到十一點，翻來覆去睡不好，心率一直偏高。」</p>
+        </div>
+        <div class="soft-card-inset p-5">
+          <p class="text-xs mb-1" style="color:#9ab0c2;">10 月 31 日</p>
+          <p class="text-sm" style="color:#6b8aa3;">「萬聖節派對後倒頭就睡，深層睡眠意外的長。」</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
