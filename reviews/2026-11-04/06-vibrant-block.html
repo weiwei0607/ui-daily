@@ -1,0 +1,104 @@
+<!-- style #06 Vibrant Block -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>火花市集 SPARK · 創作者快閃活動</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Space Grotesk',sans-serif; background:#0d0d0d; color:#111; }
+  .block-cyan{ background:#00f5ff; }
+  .block-purple{ background:#bf00ff; color:#fff; }
+  .block-green{ background:#39ff14; }
+  .block-pink{ background:#ff1493; color:#fff; }
+  .block-yellow{ background:#fff700; }
+  .hard-border{ border:4px solid #0d0d0d; }
+  .tilt{ transform: rotate(-1.2deg); }
+  .tilt2{ transform: rotate(1.4deg); }
+</style>
+</head>
+<body class="overflow-x-hidden">
+
+  <nav class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+    <div class="block-yellow hard-border px-4 py-1.5 font-extrabold text-lg">火花市集 SPARK</div>
+    <div class="hidden md:flex gap-6 font-bold text-white">
+      <a href="#" class="hover:text-cyan-300">攤位</a>
+      <a href="#" class="hover:text-cyan-300">舞台時刻表</a>
+      <a href="#" class="hover:text-cyan-300">交通資訊</a>
+    </div>
+    <button class="block-pink hard-border px-5 py-2.5 font-extrabold">搶購門票</button>
+  </nav>
+
+  <header class="max-w-6xl mx-auto px-6 pt-10 pb-16 text-center">
+    <div class="block-green hard-border inline-block px-4 py-1.5 font-bold mb-6 tilt">12/06–12/07 · 華山園區</div>
+    <h1 class="text-5xl md:text-7xl font-extrabold leading-[1.05] text-white mb-6">
+      兩天，<span class="block-purple px-3 hard-border inline-block tilt2">200 個攤位</span><br class="hidden md:block">
+      一次塞滿你的週末
+    </h1>
+    <p class="text-white/80 max-w-xl mx-auto text-lg mb-9">
+      獨立創作者、地下樂團、街頭小吃全部擠進同一個園區，
+      沒有排練過的現場表演，才是最好看的那種。
+    </p>
+    <div class="flex items-center justify-center gap-5 flex-wrap">
+      <button class="block-cyan hard-border px-8 py-4 font-extrabold text-lg">立即購票 NT$380</button>
+      <button class="block-yellow hard-border px-8 py-4 font-extrabold text-lg tilt">查看攤位地圖</button>
+    </div>
+  </header>
+
+  <section class="max-w-6xl mx-auto px-6 pb-20">
+    <div class="grid md:grid-cols-4 gap-5">
+      <div class="block-pink hard-border p-6 tilt">
+        <p class="text-4xl font-extrabold mb-2">200+</p>
+        <p class="font-bold">獨立創作攤位</p>
+      </div>
+      <div class="block-cyan hard-border p-6">
+        <p class="text-4xl font-extrabold mb-2">38</p>
+        <p class="font-bold">現場演出場次</p>
+      </div>
+      <div class="block-green hard-border p-6 tilt2">
+        <p class="text-4xl font-extrabold mb-2">12</p>
+        <p class="font-bold">街頭小吃餐車</p>
+      </div>
+      <div class="block-yellow hard-border p-6">
+        <p class="text-4xl font-extrabold mb-2">2</p>
+        <p class="font-bold">天不夠你逛完</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-6 pb-20">
+    <h2 class="text-3xl font-extrabold text-white mb-8">舞台時刻表搶先看</h2>
+    <div class="space-y-4">
+      <div class="flex flex-wrap items-center gap-4 block-purple hard-border p-5">
+        <span class="font-extrabold text-xl w-28">13:00</span>
+        <span class="font-bold text-lg flex-1">草地上的貓 — 開場演出</span>
+        <span class="block-yellow text-black hard-border px-3 py-1 font-bold text-sm">主舞台</span>
+      </div>
+      <div class="flex flex-wrap items-center gap-4 block-cyan hard-border p-5 tilt">
+        <span class="font-extrabold text-xl w-28">15:30</span>
+        <span class="font-bold text-lg flex-1">夜行動物樂團 — 首次公演</span>
+        <span class="block-pink hard-border px-3 py-1 font-bold text-sm">副舞台</span>
+      </div>
+      <div class="flex flex-wrap items-center gap-4 block-green hard-border p-5">
+        <span class="font-extrabold text-xl w-28">19:00</span>
+        <span class="font-bold text-lg flex-1">市集壓軸 DJ 接力</span>
+        <span class="block-purple hard-border px-3 py-1 font-bold text-sm">主舞台</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-6 pb-20 text-center">
+    <div class="block-yellow hard-border p-10 tilt2">
+      <h2 class="text-3xl font-extrabold mb-4">早鳥票只到本週五</h2>
+      <p class="font-bold mb-7">之後票價直接跳到 NT$480，別等到現場排隊才後悔</p>
+      <button class="bg-black text-white hard-border px-8 py-4 font-extrabold text-lg">搶早鳥票 NT$380</button>
+    </div>
+  </section>
+
+  <footer class="text-center pb-10 text-white/60 font-bold">© 2026 火花市集 SPARK MARKET</footer>
+
+</body>
+</html>

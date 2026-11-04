@@ -1,0 +1,140 @@
+<!-- style #22 Feature-Rich Showcase -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>單據通 · 一站式發票與報帳平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Manrope',sans-serif; background:#f7f7f5; }
+  .accent{ color:#2f5d50; }
+  .bg-accent{ background:#2f5d50; }
+  .card-shadow{ box-shadow: 0 1px 2px rgba(16,24,20,0.04), 0 8px 24px -8px rgba(16,24,20,0.08); }
+  .num-badge{ font-family:'Manrope',sans-serif; font-weight:800; }
+  .feature-img{
+    background: linear-gradient(160deg,#eef3f0,#dfe9e3);
+  }
+</style>
+</head>
+<body class="text-[#1c2420]">
+
+  <nav class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-lg bg-accent flex items-center justify-center text-white font-extrabold text-sm">單</div>
+      <span class="font-extrabold text-lg">單據通</span>
+    </div>
+    <div class="hidden md:flex gap-8 text-sm font-semibold text-[#4a5650]">
+      <a href="#" class="hover:text-[#1c2420]">功能總覽</a>
+      <a href="#" class="hover:text-[#1c2420]">適用對象</a>
+      <a href="#" class="hover:text-[#1c2420]">價格方案</a>
+      <a href="#" class="hover:text-[#1c2420]">合作夥伴</a>
+    </div>
+    <button class="bg-accent text-white px-5 py-2.5 rounded-lg text-sm font-bold">預約 Demo</button>
+  </nav>
+
+  <header class="max-w-5xl mx-auto px-6 pt-14 pb-10 text-center">
+    <span class="inline-block bg-[#e4ede8] accent text-xs font-bold px-3 py-1 rounded-full mb-5">中小企業最愛的報帳工具</span>
+    <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-5">
+      一張發票，從拍照到<br class="hidden md:block">核銷，中間不用再碰紙本
+    </h1>
+    <p class="text-[#5b6660] text-lg max-w-2xl mx-auto">
+      單據通整合掃描辨識、簽核流程、會計系統對接與報表產出，
+      把每個月最花時間的報帳工作，壓縮到幾分鐘內。
+    </p>
+  </header>
+
+  <section class="max-w-6xl mx-auto px-6 py-6 space-y-20">
+
+    <div class="grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <div class="num-badge text-sm accent mb-3">功能 01</div>
+        <h2 class="text-2xl font-extrabold mb-4">拍一張照，自動填完整張報帳單</h2>
+        <p class="text-[#5b6660] leading-relaxed mb-5">
+          OCR 辨識引擎針對台灣統一發票格式特別訓練，品名、稅額、
+          載具號碼一次讀出，辨識錯誤還能用紅框圈出來人工微調。
+        </p>
+        <ul class="space-y-2 text-sm text-[#3a443e]">
+          <li class="flex gap-2"><span class="accent font-bold">✓</span>支援二聯式、三聯式、電子發票</li>
+          <li class="flex gap-2"><span class="accent font-bold">✓</span>自動判斷可否抵扣營業稅</li>
+          <li class="flex gap-2"><span class="accent font-bold">✓</span>重複單據自動標記提醒</li>
+        </ul>
+      </div>
+      <div class="feature-img rounded-2xl h-72 card-shadow flex items-center justify-center">
+        <div class="bg-white rounded-xl p-5 w-56 card-shadow">
+          <div class="h-2 w-16 bg-[#dbe5df] rounded mb-3"></div>
+          <div class="h-20 bg-[#eef3f0] rounded mb-3 flex items-center justify-center text-3xl">🧾</div>
+          <div class="h-2 w-full bg-[#dbe5df] rounded mb-2"></div>
+          <div class="h-2 w-2/3 bg-[#dbe5df] rounded"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-10 items-center">
+      <div class="feature-img rounded-2xl h-72 card-shadow flex items-center justify-center order-2 md:order-1">
+        <div class="bg-white rounded-xl p-5 w-64 card-shadow space-y-2">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-semibold">王小美的報帳單</span>
+            <span class="bg-[#fde8d0] text-[#9a5a12] px-2 py-0.5 rounded-full">待主管核准</span>
+          </div>
+          <div class="h-1.5 bg-[#eef3f0] rounded"><div class="h-1.5 w-2/3 bg-accent rounded"></div></div>
+          <p class="text-[10px] text-[#8a958f]">第 2 關 / 共 3 關簽核</p>
+        </div>
+      </div>
+      <div class="order-1 md:order-2">
+        <div class="num-badge text-sm accent mb-3">功能 02</div>
+        <h2 class="text-2xl font-extrabold mb-4">簽核流程自己設定，不用等工程師</h2>
+        <p class="text-[#5b6660] leading-relaxed mb-5">
+          拖拉就能畫出核准關卡，依金額自動分流到不同主管，
+          超過期限還會自動催辦，核銷進度全員透明可查。
+        </p>
+        <ul class="space-y-2 text-sm text-[#3a443e]">
+          <li class="flex gap-2"><span class="accent font-bold">✓</span>多關卡並簽、串簽彈性設定</li>
+          <li class="flex gap-2"><span class="accent font-bold">✓</span>手機也能一鍵核准</li>
+          <li class="flex gap-2"><span class="accent font-bold">✓</span>逾期自動提醒負責主管</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <div class="num-badge text-sm accent mb-3">功能 03</div>
+        <h2 class="text-2xl font-extrabold mb-4">月底結算，自動對上會計系統</h2>
+        <p class="text-[#5b6660] leading-relaxed mb-5">
+          報帳資料整理成標準格式，直接匯出到旗下慣用的會計軟體，
+          會計師不用再手動核對一張一張單據。
+        </p>
+        <ul class="space-y-2 text-sm text-[#3a443e]">
+          <li class="flex gap-2"><span class="accent font-bold">✓</span>支援主流會計系統格式匯出</li>
+          <li class="flex gap-2"><span class="accent font-bold">✓</span>部門別、專案別費用自動分類</li>
+          <li class="flex gap-2"><span class="accent font-bold">✓</span>一鍵產出月度費用報表</li>
+        </ul>
+      </div>
+      <div class="feature-img rounded-2xl h-72 card-shadow flex items-center justify-center">
+        <div class="bg-white rounded-xl p-5 w-60 card-shadow">
+          <p class="text-xs font-semibold mb-3">10 月費用分類</p>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2 text-[11px]"><span class="w-2 h-2 rounded-full bg-accent"></span>交通 32%</div>
+            <div class="flex items-center gap-2 text-[11px]"><span class="w-2 h-2 rounded-full bg-[#9db8ac]"></span>餐飲 24%</div>
+            <div class="flex items-center gap-2 text-[11px]"><span class="w-2 h-2 rounded-full bg-[#dbe5df]"></span>辦公用品 18%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="max-w-4xl mx-auto px-6 py-20 text-center">
+    <div class="bg-accent text-white rounded-3xl px-10 py-14">
+      <h2 class="text-2xl md:text-3xl font-extrabold mb-4">讓會計不用再追著大家要發票</h2>
+      <p class="text-white/85 mb-7">14 天免費試用，不需要信用卡，隨時可以取消</p>
+      <button class="bg-white text-[#2f5d50] px-7 py-3.5 rounded-lg font-bold">立即預約導入說明會</button>
+    </div>
+  </section>
+
+  <footer class="text-center pb-10 text-sm text-[#8a958f]">© 2026 單據通 ShanjuTong</footer>
+
+</body>
+</html>

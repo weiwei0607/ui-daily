@@ -21,6 +21,10 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-11-04（6 個，#01–06）
+- 本輪選了 #03 Glassmorphism（雲抽屜 CloudDesk，圓體 Baloo 2 + Zen Maru Gothic）、#22 Feature-Rich Showcase（單據通報帳平台，Manrope）、#50 Swiss Modernism 2.0（島嶼觀察室產業報告，Playfair Display + Noto Serif TC 報紙體）、#41 Cyberpunk（夜網 NightNet，Orbitron + Share Tech Mono）、#29 Heatmap & Density Dashboard（門市熱點後台，IBM Plex Sans + JetBrains Mono）、#06 Vibrant Block（火花市集活動頁，Space Grotesk），六個皆未用 Inter/Helvetica 當主美術字體，跨 A/B/C/D 四組，避開 11-01～11-03 用過的 18 種風格（04/07/09/11/13/19/26/27/30/35/36/38/39/42/47/49/52/56）。
+- ⚠️ 本輪開工前用 `curl -m 10` 測試三個 host：Firebase（`b-battle-580b5-default-rtdb.firebaseio.com`）與 Telegram（`api.telegram.org` getMe）皆回 `CONNECT tunnel failed, response 403` / HTTP code 000，連線失敗；GitHub（`api.github.com/repos/weiwei0607/ui-daily`）回 200 正常。與自 2026-09-01 起持續至今的同一組環境網路限制一致，非暫時性問題，無法讀取上一批（11-03）按讚結果，沿用「已確認偏好」規則生成本輪；Telegram 改走系統 PushNotification 管道補發通知，GitHub 發布走 `publish.py`。
+
 ### 2026-11-03（6 個，#01–06）
 - ⚠️ 本輪開工前測試三個 host：Firebase（`b-battle-580b5-default-rtdb.firebaseio.com`）與 Telegram（`api.telegram.org`）皆回連線失敗（`curl -m 10` CONNECT tunnel failed, response 403 / exit 56），GitHub（`api.github.com/repos/weiwei0607/ui-daily`）回 200 正常。與自 2026-09-01 起持續至今的同一組環境網路限制一致，非暫時性問題。無法讀取上一批（11-02）按讚結果，沿用「已確認偏好」規則生成本輪；Telegram 改走系統 PushNotification 管道補發通知。
 - 本輪避開最近三天（11-02/11-01/10-31）用過的 18 種風格，挑了 6 個跨 A/B/C/D 四組、字體嚴格依「已確認偏好」分流的方向：**Soft UI Evolution #19**（A 組，圓體 Baloo 2 + Quicksand，做成睡眠追蹤 App「好眠日記」）、**Storytelling #27**（B 組，襯線報紙體 Playfair Display + Newsreader + Noto Serif TC，做成野菜採集品牌故事頁「山行採集社」）、**Financial Dashboard #36**（C 組，IBM Plex Sans + JetBrains Mono 等寬數字，做成財務後台「帳目通」）、**Neubrutalism #38**（D 組，粗展示字 Archivo Black + Space Grotesk，做成二手市集「挖寶所」）、**Organic Biophilic #42**（D 組，襯線 Cormorant Garamond + 圓潤 Nunito，做成植物選物所「綠意生活」）、**Retro-Futurism #11**（D 組，Orbitron 標題字，做成復古未來電競廳「電馳遊樂場」）。全數繁體中文文案，皆未使用 Inter/Helvetica 當主美術字體；逐檔以 Python 腳本比對簡體字清單（这/时/为/国/会/来/应/还/没/从/与/点/于/后/进/经/济/间/现/实/业/长/门/问/题/习/惯等），確認全數零命中。

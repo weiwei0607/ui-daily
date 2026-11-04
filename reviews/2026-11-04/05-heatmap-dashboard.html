@@ -1,0 +1,147 @@
+<!-- style #29 Heatmap & Density Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>門市熱點 · 顧客動線密度後台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'IBM Plex Sans',sans-serif; background:#0b1220; color:#dbe6f3; }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+  .card{ background:#111a2d; border:1px solid #1e2b45; }
+  .heat-cell{ transition: transform .15s; }
+  .heat-cell:hover{ transform: scale(1.15); z-index:10; }
+</style>
+</head>
+<body>
+
+  <div class="flex">
+    <aside class="w-56 shrink-0 h-screen sticky top-0 border-r border-[#1e2b45] px-5 py-6 hidden md:block">
+      <p class="font-bold text-lg mb-8">門市熱點</p>
+      <nav class="space-y-1 text-sm">
+        <a href="#" class="block px-3 py-2 rounded bg-[#1e2b45] text-white">動線密度</a>
+        <a href="#" class="block px-3 py-2 rounded text-[#8a9bb8] hover:bg-[#161f33]">結帳排隊</a>
+        <a href="#" class="block px-3 py-2 rounded text-[#8a9bb8] hover:bg-[#161f33]">貨架停留</a>
+        <a href="#" class="block px-3 py-2 rounded text-[#8a9bb8] hover:bg-[#161f33]">歷史回放</a>
+        <a href="#" class="block px-3 py-2 rounded text-[#8a9bb8] hover:bg-[#161f33]">門市設定</a>
+      </nav>
+      <div class="mt-10 pt-6 border-t border-[#1e2b45]">
+        <p class="text-xs text-[#5e6f8c] mb-2 mono">選擇門市</p>
+        <select class="w-full bg-[#161f33] border border-[#1e2b45] rounded px-3 py-2 text-sm">
+          <option>信義忠孝店</option>
+          <option>板橋車站店</option>
+          <option>台中公益店</option>
+        </select>
+      </div>
+    </aside>
+
+    <main class="flex-1 px-6 py-6">
+
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h1 class="text-xl font-bold">信義忠孝店 · 即時動線密度</h1>
+          <p class="text-sm text-[#8a9bb8] mono">更新時間 2026-11-04 14:32:08</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="flex items-center gap-1.5 text-xs text-[#8a9bb8]"><span class="w-2 h-2 rounded-full bg-emerald-400"></span>連線中</span>
+          <button class="bg-[#1e2b45] px-4 py-2 rounded text-sm font-medium">匯出報表</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-4 gap-4 mb-6">
+        <div class="card rounded-xl p-4">
+          <p class="text-xs text-[#8a9bb8] mb-1">目前在店人數</p>
+          <p class="mono text-2xl font-bold">184</p>
+          <p class="text-xs text-emerald-400 mt-1 mono">▲ 12% 較上週同時段</p>
+        </div>
+        <div class="card rounded-xl p-4">
+          <p class="text-xs text-[#8a9bb8] mb-1">平均停留時間</p>
+          <p class="mono text-2xl font-bold">8 分 42 秒</p>
+          <p class="text-xs text-[#8a9bb8] mt-1 mono">與昨日持平</p>
+        </div>
+        <div class="card rounded-xl p-4">
+          <p class="text-xs text-[#8a9bb8] mb-1">結帳平均等候</p>
+          <p class="mono text-2xl font-bold">2 分 15 秒</p>
+          <p class="text-xs text-rose-400 mt-1 mono">▲ 超出目標 45 秒</p>
+        </div>
+        <div class="card rounded-xl p-4">
+          <p class="text-xs text-[#8a9bb8] mb-1">熱區貨架</p>
+          <p class="mono text-2xl font-bold">生鮮冷藏區</p>
+          <p class="text-xs text-[#8a9bb8] mt-1 mono">密度 92 / 100</p>
+        </div>
+      </div>
+
+      <div class="card rounded-xl p-5 mb-6">
+        <div class="flex items-center justify-between mb-4">
+          <p class="font-semibold">樓層密度熱圖</p>
+          <div class="flex items-center gap-2 text-xs mono text-[#8a9bb8]">
+            <span>低</span>
+            <span class="flex h-2 w-32 rounded-full overflow-hidden">
+              <span class="flex-1" style="background:#1e293b"></span>
+              <span class="flex-1" style="background:#1e4976"></span>
+              <span class="flex-1" style="background:#1d6fa5"></span>
+              <span class="flex-1" style="background:#38bdf8"></span>
+              <span class="flex-1" style="background:#a7e8ff"></span>
+            </span>
+            <span>高</span>
+          </div>
+        </div>
+        <div class="grid grid-cols-12 gap-1" id="heatgrid"></div>
+        <script>
+          const colors=['#1e293b','#1e3a5f','#1e4976','#1d6fa5','#2491c9','#38bdf8','#7dd3fc','#a7e8ff'];
+          const grid=document.getElementById('heatgrid');
+          for(let i=0;i<96;i++){
+            const c=colors[Math.floor(Math.random()*colors.length)];
+            const cell=document.createElement('div');
+            cell.className='heat-cell h-7 rounded-sm';
+            cell.style.background=c;
+            grid.appendChild(cell);
+          }
+        </script>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="card rounded-xl p-5">
+          <p class="font-semibold mb-4">結帳櫃台排隊分布</p>
+          <div class="space-y-3">
+            <div>
+              <div class="flex justify-between text-xs mono mb-1"><span>1 號櫃</span><span>4 人</span></div>
+              <div class="h-2 bg-[#1e2b45] rounded"><div class="h-2 bg-sky-400 rounded" style="width:70%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mono mb-1"><span>2 號櫃</span><span>2 人</span></div>
+              <div class="h-2 bg-[#1e2b45] rounded"><div class="h-2 bg-sky-400 rounded" style="width:35%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mono mb-1"><span>自助結帳區</span><span>6 人</span></div>
+              <div class="h-2 bg-[#1e2b45] rounded"><div class="h-2 bg-rose-400 rounded" style="width:95%"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="card rounded-xl p-5">
+          <p class="font-semibold mb-4">今日密度警示紀錄</p>
+          <ul class="space-y-3 text-sm">
+            <li class="flex justify-between items-start">
+              <span>生鮮冷藏區密度超過閾值</span>
+              <span class="mono text-xs text-[#8a9bb8]">13:58</span>
+            </li>
+            <li class="flex justify-between items-start">
+              <span>自助結帳區排隊超過 5 分鐘</span>
+              <span class="mono text-xs text-[#8a9bb8]">12:21</span>
+            </li>
+            <li class="flex justify-between items-start">
+              <span>入口閘門人流恢復正常</span>
+              <span class="mono text-xs text-[#8a9bb8]">11:05</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+</body>
+</html>

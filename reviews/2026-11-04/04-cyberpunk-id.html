@@ -1,0 +1,122 @@
+<!-- style #41 Cyberpunk -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>夜網 NightNet · 匿名身分防護</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Share Tech Mono',monospace;
+    background:#070710;
+    color:#e8f7ff;
+    overflow-x:hidden;
+  }
+  .orbitron{ font-family:'Orbitron',sans-serif; }
+  .neon-cyan{ color:#00ffff; text-shadow:0 0 6px #00ffffaa,0 0 18px #00ffff55; }
+  .neon-magenta{ color:#ff006e; text-shadow:0 0 6px #ff006eaa,0 0 18px #ff006e55; }
+  .panel{
+    background: linear-gradient(180deg, rgba(0,255,255,0.05), rgba(255,0,110,0.03));
+    border: 1px solid rgba(0,255,255,0.3);
+    position:relative;
+  }
+  .panel::before{
+    content:''; position:absolute; inset:0; pointer-events:none;
+    background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 3px);
+  }
+  .scanline{
+    position:fixed; left:0; right:0; height:2px; background:rgba(0,255,255,0.5);
+    box-shadow:0 0 12px 2px rgba(0,255,255,0.6);
+    animation: scan 6s linear infinite;
+    z-index:50; pointer-events:none;
+  }
+  @keyframes scan{ 0%{top:0%} 100%{top:100%} }
+  .glitch-btn{
+    transition: all .15s;
+    box-shadow: 4px 0 0 #ff006e, -4px 0 0 #00ffff;
+  }
+  .glitch-btn:hover{ transform: translate(-1px,1px); }
+  .grid-bg{
+    background-image:
+      linear-gradient(rgba(0,255,255,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,255,0.08) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .status-dot{ box-shadow:0 0 8px 2px currentColor; }
+</style>
+</head>
+<body class="grid-bg relative">
+  <div class="scanline"></div>
+
+  <nav class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between border-b border-cyan-400/20">
+    <div class="orbitron font-black text-xl neon-cyan">夜網 // NIGHTNET</div>
+    <div class="hidden md:flex gap-8 text-sm uppercase tracking-widest">
+      <a href="#" class="hover:text-cyan-300">身分防護</a>
+      <a href="#" class="hover:text-cyan-300">威脅情報</a>
+      <a href="#" class="hover:text-cyan-300">資費</a>
+      <a href="#" class="hover:text-cyan-300">文件</a>
+    </div>
+    <button class="glitch-btn orbitron text-xs font-bold uppercase bg-black border border-cyan-400 px-4 py-2">啟動防護</button>
+  </nav>
+
+  <header class="max-w-5xl mx-auto px-6 pt-20 pb-16 text-center relative">
+    <p class="orbitron text-xs uppercase tracking-[0.3em] neon-magenta mb-5">SYSTEM STATUS: ONLINE // 第 7 代加密核心</p>
+    <h1 class="orbitron text-4xl md:text-6xl font-black leading-tight mb-6">
+      <span class="neon-cyan">你的身分</span>，<br class="md:hidden">
+      <span class="neon-magenta">不該是誰都能掃到的數據</span>
+    </h1>
+    <p class="max-w-2xl mx-auto text-cyan-100/80 leading-relaxed mb-10">
+      夜網在你的裝置與每一個連線之間，疊上一層會自我變異的加密殼，
+      連我們自己都看不到你實際在做什麼。
+    </p>
+    <div class="flex items-center justify-center gap-5 flex-wrap">
+      <button class="glitch-btn orbitron font-bold bg-cyan-400 text-black px-8 py-4 uppercase text-sm">立即匿蹤 →</button>
+      <button class="orbitron font-bold border border-magenta-400 px-8 py-4 uppercase text-sm neon-magenta">查看威脅報告</button>
+    </div>
+  </header>
+
+  <section class="max-w-6xl mx-auto px-6 pb-20">
+    <div class="grid md:grid-cols-3 gap-5">
+      <div class="panel p-6">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 status-dot text-cyan-400"></span>
+          <p class="orbitron text-xs uppercase tracking-widest neon-cyan">多層跳躍路由</p>
+        </div>
+        <p class="text-sm text-cyan-100/75 leading-relaxed">流量經過七個隨機節點跳躍，每 90 秒自動重新洗牌一次路徑，追蹤者永遠慢半步。</p>
+      </div>
+      <div class="panel p-6">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="w-2.5 h-2.5 rounded-full bg-pink-500 status-dot text-pink-500"></span>
+          <p class="orbitron text-xs uppercase tracking-widest neon-magenta">即時洩露偵測</p>
+        </div>
+        <p class="text-sm text-cyan-100/75 leading-relaxed">你的帳號資料一旦出現在暗網交易中，系統在 90 秒內推播警報，附上該採取的三個步驟。</p>
+      </div>
+      <div class="panel p-6">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 status-dot text-cyan-400"></span>
+          <p class="orbitron text-xs uppercase tracking-widest neon-cyan">裝置指紋偽裝</p>
+        </div>
+        <p class="text-sm text-cyan-100/75 leading-relaxed">每次連線都呈現不同的裝置特徵，廣告追蹤器拼不出你真正的瀏覽輪廓。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-6 pb-20">
+    <div class="panel p-8 md:p-10 text-center">
+      <p class="orbitron text-xs uppercase tracking-widest neon-magenta mb-3">終端方案 // TIER_02</p>
+      <div class="flex items-end justify-center gap-2 mb-4">
+        <span class="orbitron text-5xl font-black neon-cyan">NT$299</span>
+        <span class="text-cyan-100/70 pb-2">/ 月</span>
+      </div>
+      <p class="text-sm text-cyan-100/70 mb-7">涵蓋 5 個裝置，取消隨時生效，無綁約</p>
+      <button class="glitch-btn orbitron font-bold bg-pink-500 text-black px-10 py-4 uppercase text-sm">解鎖完整防護</button>
+    </div>
+  </section>
+
+  <footer class="text-center pb-10 text-xs text-cyan-400/50 orbitron uppercase tracking-widest">夜網 NIGHTNET © 2026 // ENCRYPTED</footer>
+
+</body>
+</html>
