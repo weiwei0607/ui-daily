@@ -1,0 +1,113 @@
+<!-- style #10 Aurora UI -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>靈息 Lumen · 助眠冥想聲音 App</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Noto Sans TC',sans-serif; background:#0b0d1e; color:#eef0fb; overflow-x:hidden; }
+  .disp{ font-family:'Unbounded', 'Noto Sans TC', sans-serif; }
+  .aurora-bg{
+    position: fixed; inset: -10%; z-index: 0; filter: blur(60px); opacity:.85;
+    background:
+      radial-gradient(40% 35% at 20% 25%, #0080ff 0%, transparent 70%),
+      radial-gradient(45% 40% at 75% 15%, #8b00ff 0%, transparent 70%),
+      radial-gradient(40% 45% at 60% 70%, #ff1493 0%, transparent 70%),
+      radial-gradient(50% 40% at 15% 80%, #00ffff 0%, transparent 70%);
+    animation: drift 18s ease-in-out infinite alternate;
+  }
+  @keyframes drift{
+    0%{ transform: translate(0,0) scale(1); }
+    50%{ transform: translate(3%, -2%) scale(1.08); }
+    100%{ transform: translate(-3%, 2%) scale(1); }
+  }
+  .glass{
+    background: rgba(255,255,255,.06);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,.14);
+    box-shadow: 0 8px 40px rgba(0,0,0,.35);
+  }
+  .glow-btn{
+    background: linear-gradient(90deg,#0080ff,#8b00ff,#ff1493);
+    box-shadow: 0 0 30px rgba(139,0,255,.5);
+  }
+  .pulse-ring{
+    position:absolute; inset:0; border-radius:999px;
+    border:1px solid rgba(255,255,255,.35);
+    animation: ring 3.2s ease-out infinite;
+  }
+  @keyframes ring{
+    0%{ transform: scale(.8); opacity:.9; }
+    100%{ transform: scale(1.8); opacity:0; }
+  }
+</style>
+</head>
+<body class="min-h-screen relative">
+  <div class="aurora-bg"></div>
+
+  <div class="relative z-10 max-w-5xl mx-auto px-5 py-12">
+
+    <header class="flex items-center justify-between mb-14">
+      <p class="disp text-lg font-semibold tracking-wide">Lumen 靈息</p>
+      <nav class="hidden md:flex gap-8 text-sm text-white/70">
+        <a href="#">聲音庫</a><a href="#">睡眠報告</a><a href="#">社群</a>
+      </nav>
+      <button class="glow-btn text-sm font-semibold px-5 py-2 rounded-full">開始七日試用</button>
+    </header>
+
+    <section class="text-center mb-16">
+      <p class="disp text-xs tracking-[0.3em] text-white/60 uppercase mb-5">AMBIENT SOUND · GUIDED REST</p>
+      <h1 class="disp text-4xl md:text-6xl font-extrabold leading-tight mb-6">
+        讓今晚的腦袋<br class="md:hidden"/>慢下來，像極光一樣
+      </h1>
+      <p class="text-white/70 max-w-lg mx-auto mb-9">
+        用聲音場景、呼吸引導與漸層光感，陪你從焦躁的白天滑進安穩的夜晚。每天 10 分鐘，找回睡前的儀式感。
+      </p>
+      <div class="flex gap-4 justify-center">
+        <button class="glow-btn px-7 py-3 rounded-full font-semibold">免費聆聽今晚聲景</button>
+        <button class="glass px-7 py-3 rounded-full font-semibold">看看怎麼運作</button>
+      </div>
+    </section>
+
+    <section class="grid md:grid-cols-3 gap-6 mb-16">
+      <div class="glass rounded-3xl p-7">
+        <div class="relative w-14 h-14 mb-5">
+          <div class="pulse-ring"></div>
+          <div class="w-14 h-14 rounded-full glow-btn flex items-center justify-center text-xl">🌙</div>
+        </div>
+        <h3 class="font-bold text-lg mb-2">深眠聲景</h3>
+        <p class="text-white/65 text-sm leading-7">森林雨聲、海浪、低頻白噪音，36 種場景任意疊加。</p>
+      </div>
+      <div class="glass rounded-3xl p-7">
+        <div class="relative w-14 h-14 mb-5">
+          <div class="pulse-ring" style="animation-delay:1s"></div>
+          <div class="w-14 h-14 rounded-full glow-btn flex items-center justify-center text-xl">🫁</div>
+        </div>
+        <h3 class="font-bold text-lg mb-2">呼吸引導</h3>
+        <p class="text-white/65 text-sm leading-7">4-7-8 呼吸法搭配光暈呼吸節奏，跟著光慢慢吸氣吐氣。</p>
+      </div>
+      <div class="glass rounded-3xl p-7">
+        <div class="relative w-14 h-14 mb-5">
+          <div class="pulse-ring" style="animation-delay:2s"></div>
+          <div class="w-14 h-14 rounded-full glow-btn flex items-center justify-center text-xl">📊</div>
+        </div>
+        <h3 class="font-bold text-lg mb-2">睡眠報告</h3>
+        <p class="text-white/65 text-sm leading-7">記錄入睡時間與心率變化，每週幫你畫出睡眠趨勢。</p>
+      </div>
+    </section>
+
+    <section class="glass rounded-3xl p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div>
+        <h3 class="disp text-2xl font-bold mb-2">今晚，先從三分鐘開始</h3>
+        <p class="text-white/65">超過 48 萬人用 Lumen 結束他們混亂的一天。</p>
+      </div>
+      <button class="glow-btn px-8 py-3 rounded-full font-semibold shrink-0">立即下載 App</button>
+    </section>
+
+  </div>
+</body>
+</html>

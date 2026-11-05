@@ -1,0 +1,92 @@
+<!-- style #57 Gen Z Chaos -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>亂買 ChaosBuy · 二手時尚轉售 App</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Space+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Noto Sans TC',sans-serif; background:#fff6e5; color:#1a1a1a; }
+  .disp{ font-family:'Bungee','Noto Sans TC',cursive; }
+  .mono{ font-family:'Space Mono',monospace; }
+  .tilt1{ transform: rotate(-2deg); }
+  .tilt2{ transform: rotate(1.5deg); }
+  .tilt3{ transform: rotate(-1deg); }
+  .sticker{
+    border: 3px solid #1a1a1a; border-radius: 16px;
+    box-shadow: 5px 5px 0 #1a1a1a;
+    background: #fff;
+  }
+  .tape{
+    position:absolute; top:-14px; left:50%; transform:translateX(-50%) rotate(-4deg);
+    width:90px; height:26px; background: rgba(255,230,0,.85);
+    border:1px solid rgba(0,0,0,.2);
+  }
+  .dashed{ border: 3px dashed #1a1a1a; }
+  .marker{ background: #ff5c5c; }
+  .splat{ color:#ff5c5c; }
+  .wiggle{ animation: wiggle 2.4s ease-in-out infinite; }
+  @keyframes wiggle{ 0%,100%{ transform: rotate(-2deg);} 50%{ transform: rotate(2deg);} }
+  .confetti{ position:absolute; font-size:22px; }
+</style>
+</head>
+<body class="px-5 py-8 overflow-x-hidden">
+  <div class="max-w-5xl mx-auto relative">
+
+    <header class="flex items-center justify-between mb-10 flex-wrap gap-3">
+      <h1 class="disp text-xl md:text-2xl tilt1" style="color:#ff5c5c">亂買 CHAOS//BUY</h1>
+      <div class="flex gap-3 items-center">
+        <span class="mono sticker px-3 py-1 text-xs tilt2">🔥 今日新品 214 件</span>
+        <button class="marker sticker disp text-xs px-4 py-2 text-white tilt3">上架我的衣櫃</button>
+      </div>
+    </header>
+
+    <section class="relative mb-14 text-center py-10">
+      <span class="confetti tilt1" style="top:0;left:8%">✂️</span>
+      <span class="confetti tilt2" style="top:10%;right:10%">⭐</span>
+      <span class="confetti tilt3" style="bottom:0;left:15%">💿</span>
+      <h2 class="disp text-3xl md:text-5xl leading-snug mb-5 wiggle inline-block" style="color:#1a1a1a">
+        衣櫃爆炸中？<br/>丟給下一個人愛
+      </h2>
+      <p class="mono text-lg max-w-xl mx-auto mb-7">沒在穿的衣服別壓箱底，拍三張照、打個價，五分鐘就能上架賣掉。</p>
+      <div class="flex gap-4 justify-center flex-wrap">
+        <button class="marker sticker disp text-sm px-7 py-4 text-white tilt2">立刻上架 →</button>
+        <button class="sticker disp text-sm px-7 py-4 tilt3">逛逛別人的衣櫃</button>
+      </div>
+    </section>
+
+    <section class="grid md:grid-cols-3 gap-7 mb-14">
+      <div class="sticker p-5 tilt2 relative">
+        <div class="tape"></div>
+        <p class="mono text-xs splat mb-2">#早九晚五穿搭</p>
+        <p class="disp text-base mb-2">二手西裝外套</p>
+        <p class="mono">NT$ 450 · 9 成新</p>
+      </div>
+      <div class="sticker p-5 tilt1 relative">
+        <div class="tape"></div>
+        <p class="mono text-xs splat mb-2">#Y2K復古</p>
+        <p class="disp text-base mb-2">銀色鍊帶小包</p>
+        <p class="mono">NT$ 280 · 全新未拆</p>
+      </div>
+      <div class="sticker p-5 tilt3 relative">
+        <div class="tape"></div>
+        <p class="mono text-xs splat mb-2">#街頭風</p>
+        <p class="disp text-base mb-2">塗鴉帽T</p>
+        <p class="mono">NT$ 320 · 8 成新</p>
+      </div>
+    </section>
+
+    <section class="dashed rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between gap-6 tilt1">
+      <div>
+        <p class="disp text-xl mb-2" style="color:#ff5c5c">別讓衣服睡在箱子裡！</p>
+        <p class="mono">加入 ChaosBuy，跟 38 萬個亂買魂一起循環時尚。</p>
+      </div>
+      <button class="marker sticker disp text-sm px-7 py-4 text-white tilt3 shrink-0">下載 App</button>
+    </section>
+
+  </div>
+</body>
+</html>

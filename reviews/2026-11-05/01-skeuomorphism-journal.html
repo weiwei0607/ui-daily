@@ -1,0 +1,126 @@
+<!-- style #13 Skeuomorphism -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>墨痕手帳 · 真實感皮革日記 App</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --leather:#6b4226; --leather-dark:#4a2d18; --paper:#f3e8d3; --ink:#2c1e12; --stitch:#d9c08f; }
+  body{ font-family:'Noto Serif TC','PT Serif',serif; background:
+    radial-gradient(circle at 30% 20%, #7a4e2e, #5a3620 60%),
+    linear-gradient(135deg,#6b4226,#3f2714); min-height:100vh; color:var(--ink); }
+  .en{ font-family:'PT Serif',serif; }
+  .cover{
+    background: linear-gradient(160deg,#7a4e2e,#5a3620 55%,#3f2714);
+    border-radius: 18px;
+    box-shadow: 0 30px 60px rgba(0,0,0,.45), inset 0 2px 4px rgba(255,255,255,.08), inset 0 -8px 20px rgba(0,0,0,.4);
+    position: relative;
+  }
+  .cover::before{
+    content:""; position:absolute; inset:14px; border-radius:10px;
+    border:2px dashed var(--stitch); opacity:.5; pointer-events:none;
+  }
+  .emboss-title{
+    text-shadow: 0 1px 0 rgba(255,255,255,.15), 0 2px 3px rgba(0,0,0,.6);
+  }
+  .brass{
+    background: linear-gradient(145deg,#f1d98a,#b9892e 45%,#7a5518);
+    box-shadow: 0 2px 4px rgba(0,0,0,.5), inset 0 1px 1px rgba(255,255,255,.6), inset 0 -2px 3px rgba(0,0,0,.4);
+    border-radius: 999px;
+  }
+  .page{
+    background: linear-gradient(180deg,#fbf3e2,#f3e8d3 90%);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.05), 0 10px 20px rgba(0,0,0,.35), 0 1px 0 rgba(255,255,255,.4);
+    border-radius: 6px 10px 10px 6px;
+    background-image: repeating-linear-gradient(to bottom, transparent 0 34px, rgba(120,90,50,.08) 34px 35px);
+  }
+  .ribbon{
+    background: linear-gradient(180deg,#b23a3a,#7c2424);
+    box-shadow: 0 2px 4px rgba(0,0,0,.4), inset 0 1px 1px rgba(255,255,255,.25);
+  }
+  .btn-leather{
+    background: linear-gradient(160deg,#8a5a34,#5a3620);
+    box-shadow: 0 6px 12px rgba(0,0,0,.35), inset 0 1px 1px rgba(255,255,255,.2), inset 0 -3px 6px rgba(0,0,0,.35);
+    border: 1px solid #3f2714;
+  }
+  .btn-leather:active{ box-shadow: inset 0 3px 8px rgba(0,0,0,.5); transform: translateY(1px); }
+  .stitch-border{ border: 2px dashed var(--stitch); }
+  .stat-plate{
+    background: linear-gradient(160deg,#e9d8b4,#d7c19a);
+    box-shadow: inset 0 1px 2px rgba(255,255,255,.6), inset 0 -2px 4px rgba(0,0,0,.15), 0 2px 3px rgba(0,0,0,.2);
+    border-radius: 10px;
+  }
+</style>
+</head>
+<body class="px-5 py-10">
+  <div class="max-w-5xl mx-auto">
+
+    <div class="cover p-8 md:p-12 mb-8">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="en text-[#e8cf9c] text-xs tracking-[0.3em] uppercase mb-2">EST. 2019 · 手工真皮數位手帳</p>
+          <h1 class="emboss-title text-[#f3e3c4] text-4xl md:text-5xl font-bold mb-3">墨痕手帳</h1>
+          <p class="text-[#e3cba0] text-base md:text-lg max-w-md">把每一天的心情、靈感與待辦，裝訂進一本會呼吸的皮革日記。翻頁有聲音，書寫有重量。</p>
+        </div>
+        <div class="brass w-16 h-16 md:w-20 md:h-20 shrink-0 flex items-center justify-center text-2xl">🖋️</div>
+      </div>
+      <div class="flex gap-3 mt-8">
+        <button class="btn-leather text-[#f3e3c4] px-6 py-3 rounded-lg font-semibold">翻開今日頁面</button>
+        <button class="px-6 py-3 rounded-lg text-[#e3cba0] stitch-border font-semibold">瀏覽歷年卷冊</button>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 mb-8">
+      <div class="page p-6 md:col-span-2">
+        <p class="en text-[#9c7b45] text-xs tracking-widest uppercase mb-1">2026 年 11 月 5 日 · 星期四</p>
+        <h2 class="text-2xl font-bold mb-4 text-[#2c1e12]">今日札記</h2>
+        <p class="leading-8 text-[#3a2a18]">
+          早上整理好提案，心裡的石頭總算落了地。午後去巷口買了新的鋼筆墨水，顏色是深栗棕，很合這本手帳的脾氣。晚上想把這週的待辦重新謄一次，字跡工整一點，也算是給自己一個交代。
+        </p>
+        <div class="flex gap-2 mt-5">
+          <span class="ribbon text-[#f3e3c4] text-xs px-3 py-1 rounded-sm">靈感</span>
+          <span class="ribbon text-[#f3e3c4] text-xs px-3 py-1 rounded-sm">工作</span>
+          <span class="ribbon text-[#f3e3c4] text-xs px-3 py-1 rounded-sm">生活</span>
+        </div>
+      </div>
+      <div class="page p-6">
+        <h3 class="font-bold text-[#2c1e12] mb-4">本月紙頁用量</h3>
+        <div class="stat-plate p-4 mb-3">
+          <p class="text-3xl font-bold text-[#5a3620]">127</p>
+          <p class="text-sm text-[#7a5b38]">頁已書寫</p>
+        </div>
+        <div class="stat-plate p-4">
+          <p class="text-3xl font-bold text-[#5a3620]">18</p>
+          <p class="text-sm text-[#7a5b38]">天連續紀錄</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cover p-6 md:p-8">
+      <h3 class="emboss-title text-[#f3e3c4] text-xl font-bold mb-5">書架上的卷冊</h3>
+      <div class="grid md:grid-cols-3 gap-5">
+        <div class="page p-5">
+          <p class="en text-xs text-[#9c7b45] tracking-widest mb-1">VOL. 03</p>
+          <p class="font-bold text-[#2c1e12]">旅行筆記</p>
+          <p class="text-sm text-[#5a3f24] mt-1">32 篇 · 2025 秋冬</p>
+        </div>
+        <div class="page p-5">
+          <p class="en text-xs text-[#9c7b45] tracking-widest mb-1">VOL. 02</p>
+          <p class="font-bold text-[#2c1e12]">工作手記</p>
+          <p class="text-sm text-[#5a3f24] mt-1">58 篇 · 2025 春夏</p>
+        </div>
+        <div class="page p-5">
+          <p class="en text-xs text-[#9c7b45] tracking-widest mb-1">VOL. 01</p>
+          <p class="font-bold text-[#2c1e12]">心情雜記</p>
+          <p class="text-sm text-[#5a3f24] mt-1">41 篇 · 2024 全年</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!-- style #28 Data-Dense Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>營運戰情室 OpsRoom · 電商即時數據後台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Noto Sans TC','Outfit',sans-serif; background:#0f1115; color:#e6e8ee; }
+  .disp{ font-family:'Outfit','Noto Sans TC',sans-serif; }
+  .num{ font-family:'JetBrains Mono',monospace; }
+  .panel{ background:#161922; border:1px solid #262b38; border-radius:10px; }
+  .up{ color:#22c55e; } .down{ color:#ef4444; }
+  .bar{ background:#1d2230; border-radius:3px; overflow:hidden; height:6px; }
+  .bar-fill{ background: linear-gradient(90deg,#3b82f6,#60a5fa); height:100%; }
+  table{ border-collapse: collapse; width:100%; }
+  th{ text-align:left; font-weight:500; color:#8a90a3; font-size:.75rem; padding:8px 10px; border-bottom:1px solid #262b38; }
+  td{ padding:9px 10px; border-bottom:1px solid #1d2230; font-size:.85rem; }
+  .pill{ font-size:.7rem; padding:2px 8px; border-radius:999px; }
+  .sparkline{ height:28px; }
+</style>
+</head>
+<body class="min-h-screen">
+  <div class="max-w-6xl mx-auto px-5 py-8">
+
+    <header class="flex items-center justify-between mb-7 flex-wrap gap-3">
+      <div>
+        <p class="disp font-semibold text-lg">OpsRoom <span class="text-[#8a90a3] font-normal">營運戰情室</span></p>
+        <p class="num text-xs text-[#5f6579] mt-1">最後更新 2026-11-05 14:32:07 · 自動刷新 30s</p>
+      </div>
+      <div class="flex gap-2">
+        <span class="pill bg-[#132a1f] up">● 系統正常</span>
+        <button class="disp text-sm px-4 py-2 rounded-md bg-[#3b82f6] text-white font-medium">匯出報表</button>
+      </div>
+    </header>
+
+    <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <div class="panel p-4">
+        <p class="text-xs text-[#8a90a3] mb-2">今日營收 (GMV)</p>
+        <p class="num text-2xl font-bold">NT$ 4,218,960</p>
+        <p class="num text-xs up mt-1">▲ 12.4% vs 昨日</p>
+      </div>
+      <div class="panel p-4">
+        <p class="text-xs text-[#8a90a3] mb-2">訂單數</p>
+        <p class="num text-2xl font-bold">8,142</p>
+        <p class="num text-xs up mt-1">▲ 6.1% vs 昨日</p>
+      </div>
+      <div class="panel p-4">
+        <p class="text-xs text-[#8a90a3] mb-2">轉換率</p>
+        <p class="num text-2xl font-bold">3.82%</p>
+        <p class="num text-xs down mt-1">▼ 0.3pt vs 昨日</p>
+      </div>
+      <div class="panel p-4">
+        <p class="text-xs text-[#8a90a3] mb-2">客單價 (AOV)</p>
+        <p class="num text-2xl font-bold">NT$ 518</p>
+        <p class="num text-xs up mt-1">▲ 2.0% vs 昨日</p>
+      </div>
+    </section>
+
+    <section class="grid md:grid-cols-3 gap-5 mb-6">
+      <div class="panel p-5 md:col-span-2">
+        <div class="flex items-center justify-between mb-4">
+          <p class="disp font-semibold">各管道即時訂單</p>
+          <span class="pill bg-[#1d2230] text-[#8a90a3] num">每 30 秒更新</span>
+        </div>
+        <table>
+          <thead><tr><th>管道</th><th>訂單</th><th>營收</th><th>轉換率</th><th>趨勢</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>官方 App</td><td class="num">3,208</td><td class="num">NT$ 1,682,400</td><td class="num up">4.5%</td>
+              <td><div class="bar"><div class="bar-fill" style="width:78%"></div></div></td>
+            </tr>
+            <tr>
+              <td>官網（桌機）</td><td class="num">1,940</td><td class="num">NT$ 995,100</td><td class="num">3.1%</td>
+              <td><div class="bar"><div class="bar-fill" style="width:52%"></div></div></td>
+            </tr>
+            <tr>
+              <td>官網（行動版）</td><td class="num">2,114</td><td class="num">NT$ 1,082,300</td><td class="num down">2.6%</td>
+              <td><div class="bar"><div class="bar-fill" style="width:44%"></div></div></td>
+            </tr>
+            <tr>
+              <td>LINE 購物</td><td class="num">880</td><td class="num">NT$ 459,160</td><td class="num up">5.2%</td>
+              <td><div class="bar"><div class="bar-fill" style="width:33%"></div></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="panel p-5">
+        <p class="disp font-semibold mb-4">庫存警示</p>
+        <div class="space-y-3">
+          <div class="flex justify-between items-center">
+            <div><p class="text-sm">防風外套 M 碼</p><p class="num text-xs text-[#8a90a3]">剩 12 件</p></div>
+            <span class="pill bg-[#2a1818] down">低庫存</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <div><p class="text-sm">保溫杯 500ml</p><p class="num text-xs text-[#8a90a3]">剩 4 件</p></div>
+            <span class="pill bg-[#2a1818] down">低庫存</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <div><p class="text-sm">棉質毛毯</p><p class="num text-xs text-[#8a90a3]">剩 206 件</p></div>
+            <span class="pill bg-[#132a1f] up">充足</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel p-5">
+      <p class="disp font-semibold mb-4">24 小時流量熱度</p>
+      <div class="grid grid-cols-12 gap-1 sparkline">
+        <div class="bg-[#1d2230] rounded" style="opacity:.3"></div>
+        <div class="bg-[#3b82f6] rounded" style="opacity:.4"></div>
+        <div class="bg-[#3b82f6] rounded" style="opacity:.5"></div>
+        <div class="bg-[#3b82f6] rounded" style="opacity:.6"></div>
+        <div class="bg-[#3b82f6] rounded" style="opacity:.75"></div>
+        <div class="bg-[#3b82f6] rounded" style="opacity:.9"></div>
+        <div class="bg-[#60a5fa] rounded" style="opacity:1"></div>
+        <div class="bg-[#3b82f6] rounded" style="opacity:.85"></div>
+        <div class="bg-[#3b82f6] rounded" style="opacity:.7"></div>
+        <div class="bg-[#3b82f6] rounded" style="opacity:.55"></div>
+        <div class="bg-[#3b82f6] rounded" style="opacity:.4"></div>
+        <div class="bg-[#1d2230] rounded" style="opacity:.3"></div>
+      </div>
+      <div class="num flex justify-between text-xs text-[#5f6579] mt-2">
+        <span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>23:59</span>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>

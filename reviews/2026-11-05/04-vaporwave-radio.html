@@ -1,0 +1,102 @@
+<!-- style #45 Vaporwave -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>霓波電臺 NeonWave · 復古線上電台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'VT323','Noto Sans TC',monospace; font-size:18px; background:#120a28; color:#ffe9fb; overflow-x:hidden; }
+  .pixel{ font-family:'Press Start 2P','Noto Sans TC',cursive; }
+  .scene{
+    position: relative; min-height: 70vh; border-radius: 16px; overflow:hidden;
+    background: linear-gradient(180deg,#1a0a3a 0%, #4a1a6a 35%, #ff71ce 70%, #ff9ecb 100%);
+  }
+  .sun{
+    position:absolute; left:50%; top:38%; width:220px; height:220px; transform:translate(-50%,-50%);
+    border-radius:50%;
+    background: repeating-linear-gradient(to bottom, #fff176 0 8px, transparent 8px 16px), radial-gradient(circle,#fff176,#ff71ce 70%);
+    box-shadow: 0 0 80px 20px rgba(255,113,206,.6);
+  }
+  .grid-floor{
+    position:absolute; left:0; right:0; bottom:0; height:55%;
+    background-image:
+      linear-gradient(rgba(0,255,255,.6) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,255,.6) 1px, transparent 1px);
+    background-size: 40px 40px;
+    transform: perspective(200px) rotateX(55deg);
+    transform-origin: bottom;
+    animation: scroll 1.2s linear infinite;
+  }
+  @keyframes scroll{ from{ background-position:0 0; } to{ background-position:0 40px; } }
+  .scanlines::before{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background: repeating-linear-gradient(to bottom, rgba(0,0,0,.15) 0 2px, transparent 2px 4px);
+  }
+  .chrome-text{
+    background: linear-gradient(180deg,#fff 0%, #c0c0c0 45%, #8a8a9e 55%, #fff 100%);
+    -webkit-background-clip: text; background-clip:text; color:transparent;
+    text-shadow: 0 2px 0 rgba(0,0,0,.2);
+  }
+  .glitch{ text-shadow: 2px 0 #00ffff, -2px 0 #ff00ff; }
+  .crt-card{
+    background: rgba(18,10,40,.75);
+    border: 2px solid #00ffff;
+    box-shadow: 0 0 20px rgba(0,255,255,.35), inset 0 0 20px rgba(255,113,206,.15);
+  }
+  .neon-btn{
+    background:#ff71ce; color:#120a28; border:2px solid #fff;
+    box-shadow: 0 0 20px rgba(255,113,206,.8);
+  }
+</style>
+</head>
+<body class="px-4 py-8">
+  <div class="max-w-5xl mx-auto">
+
+    <header class="flex items-center justify-between mb-6">
+      <h1 class="pixel text-sm md:text-lg chrome-text">NEONWAVE 霓波電臺</h1>
+      <p class="text-[#9cf6ff]">ON AIR ▸ 02:47:19</p>
+    </header>
+
+    <div class="scene scanlines flex items-center justify-center mb-8">
+      <div class="sun"></div>
+      <div class="grid-floor"></div>
+      <div class="relative z-10 text-center px-6">
+        <p class="glitch pixel text-xs text-cyan-200 mb-5 tracking-widest">夜間頻道 · 24 小時播送</p>
+        <h2 class="chrome-text pixel text-2xl md:text-4xl mb-6 leading-relaxed">
+          深夜<br/>屬於電波
+        </h2>
+        <p class="text-xl md:text-2xl text-[#ffe9fb] mb-6">重回錄音帶時代的聲音質感，每晚陪你開到天亮</p>
+        <button class="neon-btn pixel text-xs px-6 py-4 rounded">▶ 收聽現場直播</button>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-5 mb-8">
+      <div class="crt-card rounded-lg p-5">
+        <p class="pixel text-[10px] text-pink-300 mb-3">CHANNEL 01</p>
+        <p class="text-2xl text-[#9cf6ff]">合成器之夜</p>
+        <p class="text-[#ffe9fb] mt-1">主持人：小霧 · 每週三 22:00</p>
+      </div>
+      <div class="crt-card rounded-lg p-5">
+        <p class="pixel text-[10px] text-pink-300 mb-3">CHANNEL 02</p>
+        <p class="text-2xl text-[#9cf6ff]">錄音帶考古</p>
+        <p class="text-[#ffe9fb] mt-1">主持人：阿凱 · 每週五 23:30</p>
+      </div>
+      <div class="crt-card rounded-lg p-5">
+        <p class="pixel text-[10px] text-pink-300 mb-3">CHANNEL 03</p>
+        <p class="text-2xl text-[#9cf6ff]">城市夜間新聞</p>
+        <p class="text-[#ffe9fb] mt-1">主持人：夏雨 · 每日 00:00</p>
+      </div>
+    </div>
+
+    <div class="crt-card rounded-lg p-6 flex items-center justify-between flex-wrap gap-4">
+      <p class="pixel text-xs text-[#9cf6ff]">訂閱頻道 ▸ 不錯過任何一次深夜直播</p>
+      <button class="neon-btn pixel text-[10px] px-5 py-3 rounded">加入會員</button>
+    </div>
+
+  </div>
+</body>
+</html>
