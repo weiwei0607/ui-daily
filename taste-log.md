@@ -21,6 +21,11 @@
 
 ## 紀錄（每輪追加，最新在上）
 
+### 2026-11-05（6 個，#01–06）
+- 本輪選了 #13 Skeuomorphism（墨痕手帳 皮革日記 App，PT Serif + Noto Serif TC，皮革紋理與仿真縫線）、#10 Aurora UI（靈息 Lumen 助眠冥想 App，Unbounded + Noto Sans TC，流動極光漸層）、#08 Accessible/Ethical 結合 #24 Social Proof 結構（安心採購 TrustBuy 企業採購平台，Atkinson Hyperlegible + Noto Sans TC，AAA 高對比）、#45 Vaporwave（霓波電臺 NeonWave 復古線上電台，Press Start 2P + VT323，落日網格+掃描線）、#57 Gen Z Chaos（亂買 ChaosBuy 二手時尚轉售 App，Bungee + Space Mono，歪斜貼紙感）、#28 Data-Dense Dashboard（營運戰情室 OpsRoom 電商後台，Outfit + JetBrains Mono，高密度即時數據），六個皆未用 Inter/Helvetica 當主美術字體，跨 A/B/C/D 四組，避開 11-02～11-04 用過的 18 種風格（03/04/06/09/11/19/22/26/27/29/30/36/38/41/42/50/52/56）。
+- ⚠️ 本輪開工前測試三個 host：Firebase（`b-battle-580b5-default-rtdb.firebaseio.com`）回 `exit 56 connect_rejected`（agent proxy 拒絕連線），Telegram（`api.telegram.org` getMe）回 HTTP code 000 連線失敗；GitHub（`api.github.com/repos/weiwei0607/ui-daily`）回 200 正常。與自 2026-09-01 起持續至今的同一組環境網路限制一致，非暫時性問題，無法讀取上一批（11-04）按讚結果，沿用「已確認偏好」規則生成本輪；Telegram 改走系統 PushNotification 管道補發通知。
+- ⚠️ 本輪 `publish.py`（`GH_TOKEN` 直接呼叫 Git Data API `POST /git/blobs`）再次被代理擋下（403「Write access to this GitHub API path is not permitted through this proxy.」），改走 GitHub MCP 工具 `push_files` 直接提交成功；本機 `git` 憑證檢查（`git config credential.helper` 等）會被 Claude Code 權限分類器判定為「Credential Exploration」擋下，故全程未嘗試讀取/使用本機 git 憑證，僅用 `push_files` 發布。
+
 ### 2026-11-04（6 個，#01–06）
 - 本輪選了 #03 Glassmorphism（雲抽屜 CloudDesk，圓體 Baloo 2 + Zen Maru Gothic）、#22 Feature-Rich Showcase（單據通報帳平台，Manrope）、#50 Swiss Modernism 2.0（島嶼觀察室產業報告，Playfair Display + Noto Serif TC 報紙體）、#41 Cyberpunk（夜網 NightNet，Orbitron + Share Tech Mono）、#29 Heatmap & Density Dashboard（門市熱點後台，IBM Plex Sans + JetBrains Mono）、#06 Vibrant Block（火花市集活動頁，Space Grotesk），六個皆未用 Inter/Helvetica 當主美術字體，跨 A/B/C/D 四組，避開 11-01～11-03 用過的 18 種風格（04/07/09/11/13/19/26/27/30/35/36/38/39/42/47/49/52/56）。
 - ⚠️ 本輪開工前用 `curl -m 10` 測試三個 host：Firebase（`b-battle-580b5-default-rtdb.firebaseio.com`）與 Telegram（`api.telegram.org` getMe）皆回 `CONNECT tunnel failed, response 403` / HTTP code 000，連線失敗；GitHub（`api.github.com/repos/weiwei0607/ui-daily`）回 200 正常。與自 2026-09-01 起持續至今的同一組環境網路限制一致，非暫時性問題，無法讀取上一批（11-03）按讚結果，沿用「已確認偏好」規則生成本輪；Telegram 改走系統 PushNotification 管道補發通知，GitHub 發布走 `publish.py`。
