@@ -1,0 +1,115 @@
+<!-- style #46 Dimensional Layering -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>層疊 Layered Studio · 設計作品集</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Noto Sans TC',sans-serif; background:#ececec; color:#141414;}
+  .disp{font-family:'Fraunces','Noto Sans TC',serif;}
+  .layer{
+    background:#fff;
+    box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 20px 40px -10px rgba(0,0,0,.15);
+    transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease;
+  }
+  .layer:hover{ transform: translateY(-10px) scale(1.01); box-shadow: 0 1px 2px rgba(0,0,0,.05), 0 36px 60px -12px rgba(0,0,0,.25); }
+  .stack{ position:relative; }
+  .stack .plate{ position:absolute; inset:0; border-radius:1.25rem; }
+  .plate-1{ background:#dcdcdc; transform: translate(10px,14px) rotate(-1.4deg); }
+  .plate-2{ background:#c9c9c9; transform: translate(20px,26px) rotate(1.8deg); }
+  .tag{ background:#141414; color:#ececec; }
+</style>
+</head>
+<body>
+
+<header class="max-w-5xl mx-auto px-6 py-8 flex items-center justify-between">
+  <div class="disp text-xl italic">Layered Studio</div>
+  <nav class="hidden md:flex gap-8 text-sm text-neutral-600">
+    <a href="#" class="hover:text-black">作品</a>
+    <a href="#" class="hover:text-black">關於工作室</a>
+    <a href="#" class="hover:text-black">聯繫</a>
+  </nav>
+</header>
+
+<section class="max-w-5xl mx-auto px-6 pt-6 pb-20">
+  <h1 class="disp text-5xl md:text-6xl leading-[1.1] mb-6">
+    我們把平面<br class="hidden md:block"> 一層一層疊出<span class="italic">景深</span>。
+  </h1>
+  <p class="text-neutral-600 max-w-xl mb-10 leading-8">層疊 Layered Studio 是一間專注品牌視覺與互動介面的設計工作室，擅長用陰影與錯位，讓畫面在平面上也看得出遠近。</p>
+</section>
+
+<section class="max-w-5xl mx-auto px-6 pb-20">
+  <div class="grid md:grid-cols-2 gap-16">
+
+    <div class="stack h-72">
+      <div class="plate plate-2"></div>
+      <div class="plate plate-1"></div>
+      <div class="layer relative rounded-[1.25rem] h-72 p-6 flex flex-col justify-between">
+        <span class="tag text-xs px-3 py-1 rounded-full w-fit">品牌識別</span>
+        <div>
+          <h3 class="disp text-2xl mb-1">晨室咖啡 MORNING</h3>
+          <p class="text-sm text-neutral-500">視覺識別 · 包裝 · 空間導引系統</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack h-72">
+      <div class="plate plate-2"></div>
+      <div class="plate plate-1"></div>
+      <div class="layer relative rounded-[1.25rem] h-72 p-6 flex flex-col justify-between">
+        <span class="tag text-xs px-3 py-1 rounded-full w-fit">App 介面</span>
+        <div>
+          <h3 class="disp text-2xl mb-1">步行 WalkNote</h3>
+          <p class="text-sm text-neutral-500">城市散步紀錄 App · 互動原型</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack h-72">
+      <div class="plate plate-2"></div>
+      <div class="plate plate-1"></div>
+      <div class="layer relative rounded-[1.25rem] h-72 p-6 flex flex-col justify-between">
+        <span class="tag text-xs px-3 py-1 rounded-full w-fit">展覽視覺</span>
+        <div>
+          <h3 class="disp text-2xl mb-1">浮光年代展</h3>
+          <p class="text-sm text-neutral-500">主視覺 · 現場裝置 · 導覽摺頁</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack h-72">
+      <div class="plate plate-2"></div>
+      <div class="plate plate-1"></div>
+      <div class="layer relative rounded-[1.25rem] h-72 p-6 flex flex-col justify-between">
+        <span class="tag text-xs px-3 py-1 rounded-full w-fit">網站設計</span>
+        <div>
+          <h3 class="disp text-2xl mb-1">山行製帽所</h3>
+          <p class="text-sm text-neutral-500">官方網站 · 電商模組 · 攝影指導</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="max-w-5xl mx-auto px-6 pb-20">
+  <div class="layer rounded-[1.5rem] p-10 flex flex-col md:flex-row items-center justify-between gap-6">
+    <div>
+      <h3 class="disp text-2xl mb-2">有個案子想找我們聊聊？</h3>
+      <p class="text-neutral-500">目前接受 2027 年第一季新案洽詢。</p>
+    </div>
+    <button class="tag px-7 py-3 rounded-full text-sm font-medium whitespace-nowrap">預約初談</button>
+  </div>
+</section>
+
+<footer class="max-w-5xl mx-auto px-6 py-8 text-xs text-neutral-400 flex justify-between">
+  <span>© 2026 Layered Studio 層疊設計工作室</span>
+  <span>台北・台中 雙工作室</span>
+</footer>
+
+</body>
+</html>

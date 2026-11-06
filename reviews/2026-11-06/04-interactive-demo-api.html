@@ -1,0 +1,118 @@
+<!-- style #25 Interactive Demo -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>接點實驗室 ConnectLab · 串接前先試一次</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Noto Sans TC',sans-serif; background:#f6f7f9; color:#0f172a;}
+  .disp{font-family:'Space Grotesk','Noto Sans TC',sans-serif;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  .accent{color:#3b82f6;}
+  .pill{background:#eef2ff; color:#3b82f6;}
+  .panel{background:#0f172a;}
+  .btn{background:#3b82f6; color:#fff;}
+  .btn:hover{background:#2563eb;}
+  select, input{font-family:'JetBrains Mono',monospace;}
+</style>
+</head>
+<body>
+
+<header class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+  <div class="disp text-xl font-bold">接點實驗室 <span class="accent">ConnectLab</span></div>
+  <nav class="hidden md:flex gap-8 text-sm text-slate-500">
+    <a href="#" class="hover:text-slate-900">API 文件</a>
+    <a href="#" class="hover:text-slate-900">定價</a>
+    <a href="#" class="hover:text-slate-900">狀態頁</a>
+  </nav>
+  <button class="btn px-5 py-2 rounded-lg text-sm font-semibold">取得測試金鑰</button>
+</header>
+
+<section class="max-w-6xl mx-auto px-6 pt-8 pb-10">
+  <span class="pill inline-block px-3 py-1 rounded-full text-xs font-semibold mb-5">開發者優先 · 5 分鐘內跑出第一筆結果</span>
+  <h1 class="disp text-4xl md:text-5xl font-bold leading-tight mb-5 max-w-3xl">別只看文件，<br>右邊這個就是真的在打 API。</h1>
+  <p class="text-slate-500 max-w-2xl">選一個端點、填幾個欄位，按下「送出請求」，看真實回應長什麼樣子——這不是截圖，是這個頁面當下真的算給你看的。</p>
+</section>
+
+<section class="max-w-6xl mx-auto px-6 pb-20 grid md:grid-cols-2 gap-8">
+
+  <div class="bg-white rounded-2xl border border-slate-200 p-6">
+    <p class="text-xs font-semibold text-slate-400 mb-3 mono">REQUEST</p>
+    <div class="flex gap-2 mb-4">
+      <select id="endpoint" class="text-sm bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 flex-1">
+        <option value="risk">POST /v1/risk-score</option>
+        <option value="geo">GET /v1/geo-lookup</option>
+        <option value="fx">GET /v1/fx-rate</option>
+      </select>
+    </div>
+    <label class="block text-xs text-slate-400 mb-1 mono">amount</label>
+    <input id="amount" type="number" value="48500" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm mb-3">
+    <label class="block text-xs text-slate-400 mb-1 mono">country</label>
+    <input id="country" type="text" value="TW" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm mb-5">
+    <button onclick="runDemo()" class="btn w-full py-3 rounded-lg font-semibold text-sm">送出請求 →</button>
+    <p class="text-xs text-slate-400 mt-3">此為前端模擬示範，正式串接請改用你的測試金鑰呼叫正式端點。</p>
+  </div>
+
+  <div class="panel rounded-2xl p-6 text-slate-100">
+    <p class="text-xs font-semibold text-slate-500 mb-3 mono">RESPONSE <span id="status" class="text-emerald-400">200 OK</span></p>
+    <pre id="output" class="mono text-sm leading-7 overflow-x-auto">{
+  "endpoint": "risk-score",
+  "amount": 48500,
+  "country": "TW",
+  "score": 12,
+  "level": "low",
+  "latency_ms": 86
+}</pre>
+  </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-6 pb-20 grid md:grid-cols-3 gap-6">
+  <div class="bg-white rounded-2xl border border-slate-200 p-6">
+    <p class="disp font-semibold mb-2">平均延遲</p>
+    <p class="mono text-3xl accent">86ms</p>
+  </div>
+  <div class="bg-white rounded-2xl border border-slate-200 p-6">
+    <p class="disp font-semibold mb-2">本月呼叫次數</p>
+    <p class="mono text-3xl accent">2.4M</p>
+  </div>
+  <div class="bg-white rounded-2xl border border-slate-200 p-6">
+    <p class="disp font-semibold mb-2">服務可用率</p>
+    <p class="mono text-3xl accent">99.98%</p>
+  </div>
+</section>
+
+<footer class="text-center text-xs text-slate-400 pb-10">© 2026 ConnectLab 接點實驗室．給台灣開發團隊的串接練習場</footer>
+
+<script>
+function runDemo(){
+  const endpoint = document.getElementById('endpoint').value;
+  const amount = document.getElementById('amount').value || 0;
+  const country = document.getElementById('country').value || 'TW';
+  const statusEl = document.getElementById('status');
+  const out = document.getElementById('output');
+  statusEl.textContent = '請求中…';
+  statusEl.className = 'text-amber-400';
+  setTimeout(()=>{
+    let body;
+    const latency = Math.floor(60 + Math.random()*120);
+    if(endpoint === 'risk'){
+      const score = Math.floor(Math.random()*40);
+      body = {endpoint:'risk-score', amount:Number(amount), country, score, level: score<20?'low':score<35?'medium':'high', latency_ms: latency};
+    } else if(endpoint === 'geo'){
+      body = {endpoint:'geo-lookup', country, region: country==='TW'?'Asia/Taipei':'Unknown', timezone:'+08:00', latency_ms: latency};
+    } else {
+      body = {endpoint:'fx-rate', base: country, quote:'USD', rate:(28 + Math.random()*2).toFixed(3), latency_ms: latency};
+    }
+    out.textContent = JSON.stringify(body, null, 2);
+    statusEl.textContent = '200 OK';
+    statusEl.className = 'text-emerald-400';
+  }, 650);
+}
+</script>
+
+</body>
+</html>

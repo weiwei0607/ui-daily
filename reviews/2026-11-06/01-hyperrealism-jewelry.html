@@ -1,0 +1,129 @@
+<!-- style #05 3D / Hyperrealism -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>璨金珠寶 LuxGem · 高級珠寶電商</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Noto+Serif+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold:#ffd700; --gold-deep:#b8860b; --silver:#c9ccd1; --violet:#5b4b8a; --ink:#1b1626;
+  }
+  body{
+    font-family:'Noto Serif TC', serif;
+    background: radial-gradient(circle at 20% -10%, #3a2d5e 0%, #1b1626 45%, #0e0a16 100%);
+    color:#f4eee0;
+  }
+  .disp{font-family:'Cormorant Garamond', 'Noto Serif TC', serif;}
+  .gold-sheen{
+    background: linear-gradient(135deg,#8a6d1e 0%,#ffe9a8 22%,#b8860b 38%,#fff6d8 52%,#9a7a1a 70%,#ffd700 86%,#7a5f16 100%);
+    background-size: 200% 200%;
+    animation: sheen 6s ease-in-out infinite;
+  }
+  @keyframes sheen{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+  .gem-card{
+    background: linear-gradient(160deg, rgba(255,255,255,.08), rgba(255,255,255,.02) 40%, rgba(0,0,0,.25));
+    border:1px solid rgba(255,215,0,.25);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.3) inset,
+      0 -20px 40px rgba(0,0,0,.35) inset,
+      0 30px 60px -20px rgba(0,0,0,.6);
+    backdrop-filter: blur(6px);
+  }
+  .gem-face{
+    background: conic-gradient(from 210deg, #c9ccd1, #ffffff, #8ea0c2, #ffffff, #c9ccd1);
+    box-shadow: 0 10px 30px rgba(0,0,0,.5), inset 0 2px 6px rgba(255,255,255,.8), inset 0 -8px 16px rgba(0,0,0,.3);
+  }
+  .silver-ring{
+    background: linear-gradient(145deg,#eef0f3,#9aa0ab 35%,#e9ebee 55%,#6c7280 80%,#dfe2e6);
+    box-shadow: inset 0 2px 4px rgba(255,255,255,.9), inset 0 -6px 10px rgba(0,0,0,.35), 0 20px 40px -10px rgba(0,0,0,.6);
+  }
+  .price-tag{font-family:'Cormorant Garamond', serif; font-weight:600;}
+  .btn-gold{
+    background: linear-gradient(135deg,#ffe9a8,#ffd700 40%,#b8860b 70%,#ffe9a8);
+    color:#2a1e0a; box-shadow:0 10px 30px -8px rgba(255,215,0,.5);
+  }
+  .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,215,0,.5),transparent);}
+</style>
+</head>
+<body class="min-h-screen">
+
+<header class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+  <div class="disp text-2xl tracking-widest">璨金珠寶 <span class="opacity-60 text-sm">LuxGem</span></div>
+  <nav class="hidden md:flex gap-8 text-sm opacity-80">
+    <a href="#" class="hover:text-[var(--gold)] transition">新品系列</a>
+    <a href="#" class="hover:text-[var(--gold)] transition">訂製服務</a>
+    <a href="#" class="hover:text-[var(--gold)] transition">品牌工藝</a>
+    <a href="#" class="hover:text-[var(--gold)] transition">預約鑑賞</a>
+  </nav>
+  <button class="btn-gold px-5 py-2 rounded-full text-sm font-semibold">預約到店鑑賞</button>
+</header>
+
+<section class="max-w-6xl mx-auto px-6 pt-10 pb-20 grid md:grid-cols-2 gap-12 items-center">
+  <div>
+    <p class="gold-sheen text-transparent bg-clip-text disp text-sm tracking-[0.3em] mb-4">AUTUMN COLLECTION · 2026</p>
+    <h1 class="disp text-5xl md:text-6xl leading-tight mb-6">光，<br>是寶石給世界的回信。</h1>
+    <p class="text-base leading-8 opacity-80 mb-8 max-w-md">每一件璨金作品，皆由台北工坊的匠師手工鑲嵌，以 18K 金底座托住每一道切面反射，讓光線在指尖停留得更久一些。</p>
+    <div class="flex gap-4">
+      <button class="btn-gold px-7 py-3 rounded-full font-semibold">探索系列</button>
+      <button class="px-7 py-3 rounded-full border border-white/20 hover:border-[var(--gold)] transition">了解工藝故事</button>
+    </div>
+    <div class="divider my-10"></div>
+    <div class="grid grid-cols-3 gap-6 text-center">
+      <div><p class="disp text-3xl gold-sheen text-transparent bg-clip-text">32</p><p class="text-xs opacity-60 mt-1">年工藝傳承</p></div>
+      <div><p class="disp text-3xl gold-sheen text-transparent bg-clip-text">4.9</p><p class="text-xs opacity-60 mt-1">鑑賞回購評價</p></div>
+      <div><p class="disp text-3xl gold-sheen text-transparent bg-clip-text">100%</p><p class="text-xs opacity-60 mt-1">終身保養承諾</p></div>
+    </div>
+  </div>
+
+  <div class="relative">
+    <div class="gem-card rounded-[2rem] p-10 flex flex-col items-center">
+      <div class="gem-face w-40 h-40 rounded-full mb-8" style="clip-path: polygon(50% 0%, 90% 25%, 100% 65%, 70% 100%, 30% 100%, 0% 65%, 10% 25%);"></div>
+      <div class="silver-ring w-56 h-10 rounded-full mb-6"></div>
+      <h3 class="disp text-2xl mb-1">星宇项鍊 · 紫水晶款</h3>
+      <p class="text-sm opacity-60 mb-4">18K 金托 · 手工鑲嵌 · 附鑑定書</p>
+      <p class="price-tag gold-sheen text-transparent bg-clip-text text-3xl">NT$ 86,000</p>
+    </div>
+    <div class="absolute -top-6 -right-6 gem-card rounded-full w-24 h-24 flex items-center justify-center rotate-6">
+      <p class="disp text-xs text-center opacity-80 leading-tight">限量<br>12 件</p>
+    </div>
+  </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-6 pb-20">
+  <div class="flex items-end justify-between mb-10">
+    <h2 class="disp text-3xl">本季鑑賞精選</h2>
+    <a href="#" class="text-sm opacity-70 hover:text-[var(--gold)]">查看全系列 →</a>
+  </div>
+  <div class="grid md:grid-cols-3 gap-8">
+    <div class="gem-card rounded-2xl p-7">
+      <div class="gem-face w-full h-36 rounded-xl mb-5" style="clip-path: polygon(10% 0,90% 0,100% 50%,90% 100%,10% 100%,0 50%);"></div>
+      <h4 class="disp text-xl mb-1">月光耳墜 · 銀系列</h4>
+      <p class="text-sm opacity-60 mb-3">925 純銀 · 月光石 · 手作拋光</p>
+      <p class="price-tag text-xl">NT$ 12,800</p>
+    </div>
+    <div class="gem-card rounded-2xl p-7">
+      <div class="gem-face w-full h-36 rounded-xl mb-5" style="background: conic-gradient(from 90deg,#ffd700,#fff6d8,#b8860b,#fff6d8,#ffd700); clip-path: polygon(50% 0,100% 38%,82% 100%,18% 100%,0 38%);"></div>
+      <h4 class="disp text-xl mb-1">晨曦手環 · 金系列</h4>
+      <p class="text-sm opacity-60 mb-3">18K 金 · 無縫鑲嵌 · 可微調尺寸</p>
+      <p class="price-tag text-xl">NT$ 54,500</p>
+    </div>
+    <div class="gem-card rounded-2xl p-7">
+      <div class="gem-face w-full h-36 rounded-xl mb-5" style="background: conic-gradient(from 45deg,#8ea0c2,#ffffff,#5b4b8a,#ffffff,#8ea0c2); clip-path: polygon(50% 0,90% 25%,100% 65%,70% 100%,30% 100%,0% 65%,10% 25%);"></div>
+      <h4 class="disp text-xl mb-1">暮色戒 · 紫晶款</h4>
+      <p class="text-sm opacity-60 mb-3">18K 金托 · 天然紫水晶 · 附保卡</p>
+      <p class="price-tag text-xl">NT$ 38,000</p>
+    </div>
+  </div>
+</section>
+
+<footer class="max-w-6xl mx-auto px-6 py-10 border-t border-white/10 flex flex-col md:flex-row justify-between gap-4 text-xs opacity-50">
+  <p>© 2026 璨金珠寶 LuxGem．台北市大安區工坊鑑賞預約制</p>
+  <p>客服專線 02-2771-0088　週二至週日 11:00–19:00</p>
+</footer>
+
+</body>
+</html>

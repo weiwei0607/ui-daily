@@ -1,0 +1,117 @@
+<!-- style #32 Drill-Down Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>深挖 DrillBI · 零售營運鑽取儀表板</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Noto Sans TC','IBM Plex Sans',sans-serif; background:#f1f3f6; color:#121826;}
+  .disp{font-family:'IBM Plex Sans','Noto Sans TC',sans-serif;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  .crumb{color:#64748b;}
+  .crumb-active{color:#121826; font-weight:600;}
+  .card{background:#fff; border:1px solid #e3e7ee;}
+  .up{color:#0ea65e;} .down{color:#e0453c;}
+  .row:hover{background:#f6f8fb; cursor:pointer;}
+  .bar{background:#dbe4f0;}
+  .bar-fill{background:#2a5bd7;}
+</style>
+</head>
+<body>
+
+<div class="max-w-6xl mx-auto px-6 py-6">
+
+  <header class="flex items-center justify-between mb-6">
+    <div class="disp text-lg font-bold">深挖 <span class="text-[#2a5bd7]">DrillBI</span></div>
+    <div class="flex items-center gap-4 text-sm crumb">
+      <span>11 月 06 日 09:00 更新</span>
+      <button class="px-3 py-1.5 rounded-lg bg-[#2a5bd7] text-white text-xs font-semibold">匯出報表</button>
+    </div>
+  </header>
+
+  <nav class="text-sm mb-6 flex items-center gap-2">
+    <span class="crumb-active">全台營收</span>
+    <span class="crumb">›</span>
+    <span class="crumb-active">北區</span>
+    <span class="crumb">›</span>
+    <span class="crumb">信義門市</span>
+    <span class="crumb">（點擊下方分店可再下鑽）</span>
+  </nav>
+
+  <div class="grid md:grid-cols-4 gap-4 mb-8">
+    <div class="card rounded-xl p-5">
+      <p class="text-xs text-slate-400 mb-1">北區總營收</p>
+      <p class="mono text-2xl font-semibold">NT$ 8.42M</p>
+      <p class="text-xs up mt-1">▲ 6.3% 較上月</p>
+    </div>
+    <div class="card rounded-xl p-5">
+      <p class="text-xs text-slate-400 mb-1">門市數</p>
+      <p class="mono text-2xl font-semibold">18</p>
+      <p class="text-xs text-slate-400 mt-1">含 2 間新開店</p>
+    </div>
+    <div class="card rounded-xl p-5">
+      <p class="text-xs text-slate-400 mb-1">平均客單價</p>
+      <p class="mono text-2xl font-semibold">NT$ 640</p>
+      <p class="text-xs down mt-1">▼ 1.8% 較上月</p>
+    </div>
+    <div class="card rounded-xl p-5">
+      <p class="text-xs text-slate-400 mb-1">異常警示</p>
+      <p class="mono text-2xl font-semibold text-[#e0453c]">3 間</p>
+      <p class="text-xs text-slate-400 mt-1">庫存週轉偏低</p>
+    </div>
+  </div>
+
+  <div class="card rounded-xl p-6 mb-8">
+    <div class="flex items-center justify-between mb-5">
+      <h3 class="disp font-semibold">北區各門市營收（點擊展開單店明細）</h3>
+      <span class="text-xs text-slate-400">單位：萬元</span>
+    </div>
+
+    <div class="space-y-3">
+      <div class="row flex items-center gap-4 p-3 rounded-lg">
+        <span class="w-28 text-sm font-medium">信義門市</span>
+        <div class="bar flex-1 h-3 rounded-full overflow-hidden"><div class="bar-fill h-full rounded-full" style="width:92%"></div></div>
+        <span class="mono text-sm w-16 text-right">842</span>
+        <span class="text-xs up w-14 text-right">▲4.1%</span>
+      </div>
+      <div class="row flex items-center gap-4 p-3 rounded-lg">
+        <span class="w-28 text-sm font-medium">天母門市</span>
+        <div class="bar flex-1 h-3 rounded-full overflow-hidden"><div class="bar-fill h-full rounded-full" style="width:71%"></div></div>
+        <span class="mono text-sm w-16 text-right">651</span>
+        <span class="text-xs up w-14 text-right">▲2.0%</span>
+      </div>
+      <div class="row flex items-center gap-4 p-3 rounded-lg">
+        <span class="w-28 text-sm font-medium">西門門市</span>
+        <div class="bar flex-1 h-3 rounded-full overflow-hidden"><div class="bar-fill h-full rounded-full" style="width:58%"></div></div>
+        <span class="mono text-sm w-16 text-right">533</span>
+        <span class="text-xs down w-14 text-right">▼0.6%</span>
+      </div>
+      <div class="row flex items-center gap-4 p-3 rounded-lg bg-[#fff5f4]">
+        <span class="w-28 text-sm font-medium">板橋門市</span>
+        <div class="bar flex-1 h-3 rounded-full overflow-hidden"><div class="bar-fill h-full rounded-full bg-[#e0453c]" style="width:34%"></div></div>
+        <span class="mono text-sm w-16 text-right">298</span>
+        <span class="text-xs down w-14 text-right">▼7.2%</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card rounded-xl p-6">
+    <h3 class="disp font-semibold mb-4">信義門市・單日分時段鑽取（示範已展開三層）</h3>
+    <div class="grid grid-cols-6 gap-3 text-center text-xs">
+      <div><p class="text-slate-400 mb-1">10–12</p><p class="mono font-semibold">58 單</p></div>
+      <div><p class="text-slate-400 mb-1">12–14</p><p class="mono font-semibold">124 單</p></div>
+      <div><p class="text-slate-400 mb-1">14–16</p><p class="mono font-semibold">96 單</p></div>
+      <div><p class="text-slate-400 mb-1">16–18</p><p class="mono font-semibold">142 單</p></div>
+      <div><p class="text-slate-400 mb-1">18–20</p><p class="mono font-semibold">188 單</p></div>
+      <div><p class="text-slate-400 mb-1">20–22</p><p class="mono font-semibold">101 單</p></div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
