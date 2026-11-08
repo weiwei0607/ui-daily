@@ -1,0 +1,123 @@
+<!-- style #40 Y2K Revival -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>千禧電幻 Y2KPulse · 復古未來潮流選物</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Noto Sans TC',sans-serif;
+    background: radial-gradient(circle at 20% 20%, #2a0a4a 0%, #0a0a1a 55%, #000 100%);
+    color:#fff; overflow-x:hidden;
+  }
+  .orb{ font-family:'Orbitron', sans-serif; }
+  .chrome-text{
+    background: linear-gradient(180deg, #fff 0%, #c0c0c0 35%, #8a8a8a 50%, #fff 65%, #c0c0c0 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    text-shadow: 0 0 20px rgba(255,255,255,.3);
+  }
+  .neon-pink{ color:#ff00ff; text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff; }
+  .neon-cyan{ color:#00ffff; text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; }
+  .star-sparkle{
+    position:absolute; width:4px; height:4px; background:#fff; border-radius:50%;
+    animation: twinkle 2.5s infinite ease-in-out;
+    box-shadow: 0 0 6px 2px #fff;
+  }
+  @keyframes twinkle{ 0%,100%{opacity:.2;} 50%{opacity:1;} }
+  .card-y2k{
+    background: linear-gradient(135deg, rgba(255,0,255,.12), rgba(0,255,255,.12));
+    border: 1px solid rgba(255,255,255,.25);
+    backdrop-filter: blur(6px);
+    transition: transform .2s ease;
+  }
+  .card-y2k:hover{ transform: translateY(-6px) scale(1.02); }
+  .btn-chrome{
+    background: linear-gradient(180deg, #fff, #c0c0c0, #fff);
+    color:#1a1a2e;
+  }
+  .flash{ animation: flash 3s infinite; }
+  @keyframes flash{ 0%,90%,100%{opacity:1;} 95%{opacity:.4;} }
+</style>
+</head>
+<body class="min-h-screen relative">
+
+<div id="stars"></div>
+
+<header class="relative z-10 max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+  <h1 class="orb text-xl font-black chrome-text">Y2K<span class="neon-pink">PULSE</span></h1>
+  <nav class="hidden md:flex gap-6 text-sm font-bold">
+    <a href="#" class="neon-cyan">新品</a>
+    <a href="#" class="text-white/70 hover:text-white">配件</a>
+    <a href="#" class="text-white/70 hover:text-white">音樂聯名</a>
+  </nav>
+  <button class="btn-chrome px-5 py-2 rounded-full orb text-xs font-bold">購物車 (<span id="cartCount">0</span>)</button>
+</header>
+
+<section class="relative z-10 max-w-6xl mx-auto px-6 pt-12 pb-20 text-center">
+  <p class="orb text-xs tracking-[0.3em] neon-pink mb-4 flash">// LOADING FUTURE_2000.EXE</p>
+  <h2 class="orb text-4xl md:text-6xl font-black chrome-text mb-6 leading-tight">千禧電幻<br/>YOUR Y2K ERA</h2>
+  <p class="text-white/70 max-w-xl mx-auto mb-8">金屬光澤、螢光撞色、千禧年的未來幻想——限量復刻單品，每件都編號。</p>
+  <button class="btn-chrome orb px-8 py-4 rounded-full font-bold text-sm">進入選物店 →</button>
+</section>
+
+<section class="relative z-10 max-w-6xl mx-auto px-6 pb-20">
+  <h3 class="orb neon-cyan text-lg font-bold mb-6">★ 本週限量單品 ★</h3>
+  <div class="grid md:grid-cols-3 gap-6" id="productGrid"></div>
+</section>
+
+<footer class="relative z-10 max-w-6xl mx-auto px-6 pb-10 text-center text-white/40 text-xs orb">
+  © 2026 Y2KPULSE · ALL SYSTEMS NOMINAL
+</footer>
+
+<script>
+const starsBox = document.getElementById('stars');
+for(let i=0;i<60;i++){
+  const s = document.createElement('div');
+  s.className = 'star-sparkle';
+  s.style.left = Math.random()*100+'vw';
+  s.style.top = Math.random()*100+'vh';
+  s.style.animationDelay = (Math.random()*3)+'s';
+  starsBox.appendChild(s);
+}
+
+const PRODUCTS = [
+  {name:'鉻銀太陽鏡', price:1280, tag:'NEW'},
+  {name:'全息漸層腰包', price:1680, tag:'HOT'},
+  {name:'螢光唇釦項鍊', price:980, tag:'限量'},
+  {name:'金屬感厚底靴', price:3200, tag:'NEW'},
+  {name:'透明果凍手機殼', price:560, tag: ''},
+  {name:'千禧電幻 T-Shirt', price:890, tag:'HOT'},
+];
+
+const grid = document.getElementById('productGrid');
+let cart = 0;
+PRODUCTS.forEach(p => {
+  const card = document.createElement('div');
+  card.className = 'card-y2k rounded-2xl p-5';
+  card.innerHTML = `
+    <div class="w-full h-32 rounded-xl mb-4 flex items-center justify-center orb font-black text-2xl chrome-text" style="background: linear-gradient(135deg, rgba(255,0,255,.25), rgba(0,255,255,.25));">
+      ${p.name.slice(0,2)}
+    </div>
+    <div class="flex items-center justify-between mb-2">
+      <h4 class="font-bold">${p.name}</h4>
+      ${p.tag ? `<span class="orb text-[10px] neon-pink border border-pink-400 rounded-full px-2 py-0.5">${p.tag}</span>` : ''}
+    </div>
+    <div class="flex items-center justify-between">
+      <span class="orb neon-cyan font-bold">NT$ ${p.price}</span>
+      <button class="addBtn btn-chrome orb text-xs font-bold px-3 py-1.5 rounded-full">加入</button>
+    </div>
+  `;
+  card.querySelector('.addBtn').onclick = () => {
+    cart++;
+    document.getElementById('cartCount').textContent = cart;
+  };
+  grid.appendChild(card);
+});
+</script>
+
+</body>
+</html>

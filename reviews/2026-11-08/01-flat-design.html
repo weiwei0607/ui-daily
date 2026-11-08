@@ -1,0 +1,185 @@
+<!-- style #12 Flat Design 2.0 -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>好取 GoodPickup · 餐飲外帶預訂</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#3498db; --red:#e74c3c; --green:#27ae60; --orange:#f39c12;
+    --ink:#2d3436; --bg:#f7f9fb;
+  }
+  body{ font-family:'Figtree','Noto Sans TC',sans-serif; background:var(--bg); color:var(--ink); }
+  .flat-shadow{ box-shadow: 0 6px 0 rgba(0,0,0,0.06); }
+  .tab-active{ background:var(--blue); color:#fff; }
+  .chip{ transition: transform .12s ease, box-shadow .12s ease; }
+  .chip:active{ transform: scale(.96); }
+  .slot-disabled{ opacity:.35; text-decoration: line-through; cursor:not-allowed; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<header class="bg-white border-b-4" style="border-color:var(--blue)">
+  <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <div class="w-10 h-10 rounded-xl flex items-center justify-center text-white text-xl font-extrabold" style="background:var(--blue)">好</div>
+      <span class="text-xl font-extrabold">好取 <span class="font-normal text-sm text-slate-400">GoodPickup</span></span>
+    </div>
+    <nav class="hidden md:flex gap-6 text-sm font-semibold text-slate-500">
+      <a href="#" class="text-slate-900">點餐</a>
+      <a href="#">我的訂單</a>
+      <a href="#">常去店家</a>
+    </nav>
+    <button class="px-4 py-2 rounded-lg font-bold text-white flat-shadow" style="background:var(--orange)">登入</button>
+  </div>
+</header>
+
+<main class="max-w-5xl mx-auto px-6 py-8">
+
+  <section class="rounded-2xl p-8 mb-8 text-white flat-shadow" style="background:var(--blue)">
+    <p class="text-sm font-bold opacity-80 mb-1">中午好，要訂午餐了嗎？</p>
+    <h1 class="text-3xl md:text-4xl font-extrabold mb-4">選好時段，到店不用等</h1>
+    <div class="flex flex-wrap gap-3">
+      <span class="px-3 py-1 rounded-full bg-white/20 text-sm font-semibold">今日已有 1,204 筆外帶預訂</span>
+      <span class="px-3 py-1 rounded-full bg-white/20 text-sm font-semibold">平均提早 6 分鐘取餐</span>
+    </div>
+  </section>
+
+  <div class="flex gap-3 mb-6 flex-wrap" id="categoryTabs">
+    <button class="tab px-4 py-2 rounded-lg font-bold text-sm tab-active" data-cat="全部">全部</button>
+    <button class="tab px-4 py-2 rounded-lg font-bold text-sm bg-white text-slate-600" data-cat="便當">便當</button>
+    <button class="tab px-4 py-2 rounded-lg font-bold text-sm bg-white text-slate-600" data-cat="麵食">麵食</button>
+    <button class="tab px-4 py-2 rounded-lg font-bold text-sm bg-white text-slate-600" data-cat="飲料">飲料</button>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-5 mb-10" id="menuGrid">
+    <!-- cards injected by JS -->
+  </div>
+
+  <section class="bg-white rounded-2xl p-6 flat-shadow mb-10">
+    <h2 class="text-xl font-extrabold mb-4">選取餐時段 · 興隆路店</h2>
+    <div class="grid grid-cols-4 md:grid-cols-6 gap-3" id="slotGrid"></div>
+    <p class="text-xs text-slate-400 mt-3">灰色為已額滿時段，點選其他時段即可預訂</p>
+  </section>
+
+  <section class="fixed bottom-0 left-0 right-0 bg-white border-t-4" style="border-color:var(--green)">
+    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div>
+        <p class="text-sm text-slate-400">購物車</p>
+        <p class="text-lg font-extrabold" id="cartSummary">尚未選取餐點</p>
+      </div>
+      <button id="checkoutBtn" class="px-6 py-3 rounded-lg font-extrabold text-white flat-shadow" style="background:var(--green)" disabled>前往結帳</button>
+    </div>
+  </section>
+
+</main>
+
+<div class="h-24"></div>
+
+<script>
+const MENU = [
+  {name:'香煎雞腿便當', cat:'便當', price:95, color:'var(--orange)', desc:'嚴選雞腿肉，附三樣配菜'},
+  {name:'滷肉飯套餐', cat:'便當', price:80, color:'var(--orange)', desc:'經典滷肉飯＋燙青菜＋滷蛋'},
+  {name:'牛肉麵', cat:'麵食', price:130, color:'var(--red)', desc:'紅燒湯頭，牛肉燉煮四小時'},
+  {name:'炸醬麵', cat:'麵食', price:75, color:'var(--red)', desc:'手工炸醬，附酸辣湯'},
+  {name:'古早味紅茶', cat:'飲料', price:30, color:'var(--blue)', desc:'冷泡八小時，甜度可調'},
+  {name:'檸檬氣泡飲', cat:'飲料', price:45, color:'var(--blue)', desc:'現切檸檬，無人工香料'},
+];
+
+const grid = document.getElementById('menuGrid');
+const cart = {};
+let activeCat = '全部';
+
+function renderMenu(){
+  grid.innerHTML = '';
+  MENU.filter(m => activeCat === '全部' || m.cat === activeCat).forEach((item, idx) => {
+    const key = item.name;
+    const qty = cart[key] || 0;
+    const card = document.createElement('div');
+    card.className = 'bg-white rounded-2xl p-5 flat-shadow';
+    card.innerHTML = `
+      <div class="w-full h-24 rounded-xl mb-3 flex items-center justify-center text-white text-2xl font-extrabold" style="background:${item.color}">${item.name.slice(0,2)}</div>
+      <h3 class="font-extrabold text-lg">${item.name}</h3>
+      <p class="text-sm text-slate-400 mb-3">${item.desc}</p>
+      <div class="flex items-center justify-between">
+        <span class="font-extrabold" style="color:${item.color}">NT$ ${item.price}</span>
+        <div class="flex items-center gap-2">
+          <button class="minus w-8 h-8 rounded-lg bg-slate-100 font-bold chip">−</button>
+          <span class="qty font-bold w-5 text-center">${qty}</span>
+          <button class="plus w-8 h-8 rounded-lg text-white font-bold chip" style="background:${item.color}">＋</button>
+        </div>
+      </div>
+    `;
+    card.querySelector('.plus').onclick = () => { cart[key] = (cart[key]||0)+1; updateCart(); };
+    card.querySelector('.minus').onclick = () => { cart[key] = Math.max(0,(cart[key]||0)-1); updateCart(); };
+    grid.appendChild(card);
+  });
+}
+
+function updateCart(){
+  renderMenu();
+  const items = Object.entries(cart).filter(([,q]) => q > 0);
+  const total = items.reduce((sum, [name, q]) => sum + q * MENU.find(m=>m.name===name).price, 0);
+  const count = items.reduce((s,[,q]) => s+q, 0);
+  const summary = document.getElementById('cartSummary');
+  const btn = document.getElementById('checkoutBtn');
+  if(count === 0){
+    summary.textContent = '尚未選取餐點';
+    btn.disabled = true;
+    btn.classList.add('opacity-40');
+  } else {
+    summary.textContent = `共 ${count} 項，小計 NT$ ${total}`;
+    btn.disabled = false;
+    btn.classList.remove('opacity-40');
+  }
+}
+
+document.querySelectorAll('#categoryTabs .tab').forEach(btn => {
+  btn.onclick = () => {
+    activeCat = btn.dataset.cat;
+    document.querySelectorAll('#categoryTabs .tab').forEach(b => {
+      b.classList.remove('tab-active');
+      b.classList.add('bg-white','text-slate-600');
+    });
+    btn.classList.add('tab-active');
+    btn.classList.remove('bg-white','text-slate-600');
+    renderMenu();
+  };
+});
+
+const slots = ['11:30','11:45','12:00','12:15','12:30','12:45','13:00','13:15','13:30','13:45','14:00','14:15'];
+const full = ['12:00','12:15','12:30'];
+const slotGrid = document.getElementById('slotGrid');
+let selectedSlot = null;
+slots.forEach(s => {
+  const b = document.createElement('button');
+  const isFull = full.includes(s);
+  b.textContent = s;
+  b.className = `py-2 rounded-lg font-bold text-sm chip ${isFull ? 'slot-disabled bg-slate-200' : 'bg-white border-2'}`;
+  if(!isFull){
+    b.style.borderColor = 'var(--blue)';
+    b.onclick = () => {
+      selectedSlot = s;
+      document.querySelectorAll('#slotGrid button').forEach(x => { x.style.background=''; x.style.color=''; });
+      b.style.background = 'var(--blue)'; b.style.color = '#fff';
+    };
+  } else {
+    b.disabled = true;
+  }
+  slotGrid.appendChild(b);
+});
+
+document.getElementById('checkoutBtn').onclick = () => {
+  if(!selectedSlot){ alert('請先選擇取餐時段'); return; }
+  alert(`已送出預訂，將於 ${selectedSlot} 到店取餐，請準時出現～`);
+};
+
+renderMenu();
+</script>
+
+</body>
+</html>

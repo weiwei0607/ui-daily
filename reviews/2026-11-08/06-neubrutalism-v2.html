@@ -1,0 +1,113 @@
+<!-- style #54 Neubrutalism v2 -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>炸街 SMASH · 街頭服飾選物</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Space Grotesk','Noto Sans TC',sans-serif; background:#ffe156; color:#111; }
+  .display{ font-family:'Archivo Black','Noto Sans TC',sans-serif; }
+  .nb-box{ border:3px solid #111; border-radius:18px; box-shadow: 8px 8px 0 #111; background:#fff; }
+  .nb-btn{ border:3px solid #111; border-radius:12px; box-shadow: 5px 5px 0 #111; transition: transform .12s ease, box-shadow .12s ease; }
+  .nb-btn:active{ transform: translate(3px,3px); box-shadow: 2px 2px 0 #111; }
+  .nb-card:hover{ transform: translate(-4px,-4px); box-shadow: 12px 12px 0 #111; transition: all .15s ease; }
+  .tag{ border:2.5px solid #111; border-radius:999px; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<header class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+  <h1 class="display text-2xl">炸街<span class="text-sm ml-1">SMASH</span></h1>
+  <nav class="hidden md:flex gap-4 text-sm font-bold">
+    <a href="#" class="tag px-4 py-1.5 bg-[#4ecdc4]">新品</a>
+    <a href="#" class="tag px-4 py-1.5 bg-[#ff6b6b]">聯名</a>
+    <a href="#" class="tag px-4 py-1.5 bg-[#a388ee]">清倉</a>
+  </nav>
+  <button class="nb-btn px-5 py-2 bg-white display text-sm">購物袋 (<span id="cartCount">0</span>)</button>
+</header>
+
+<section class="max-w-6xl mx-auto px-6 py-10">
+  <div class="nb-box p-8 md:p-12 bg-[#ff6b6b]">
+    <p class="display text-xs mb-3">LIMITED DROP · 每週三上新</p>
+    <h2 class="display text-4xl md:text-6xl leading-tight mb-5">穿出來<br/>就是要吵。</h2>
+    <p class="font-semibold mb-6 max-w-md">街頭單品、大膽色塊、絕不低調。每件限量編號，手慢售完。</p>
+    <button class="nb-btn px-6 py-3 bg-white display text-sm">逛逛新品 →</button>
+  </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-6 pb-10">
+  <div class="flex gap-3 mb-6 flex-wrap" id="filterTags">
+    <button data-color="全部" class="filterBtn tag px-4 py-1.5 font-bold text-sm bg-[#ffe156]">全部</button>
+    <button data-color="黃" class="filterBtn tag px-4 py-1.5 font-bold text-sm bg-white">黃</button>
+    <button data-color="粉" class="filterBtn tag px-4 py-1.5 font-bold text-sm bg-white">粉</button>
+    <button data-color="青" class="filterBtn tag px-4 py-1.5 font-bold text-sm bg-white">青</button>
+    <button data-color="紫" class="filterBtn tag px-4 py-1.5 font-bold text-sm bg-white">紫</button>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-6" id="productGrid"></div>
+</section>
+
+<footer class="max-w-6xl mx-auto px-6 pb-10 text-center display text-xs">
+  © 2026 SMASH · 炸街不是口號
+</footer>
+
+<script>
+const PRODUCTS = [
+  {name:'爆炸字體連帽外套', price:1980, color:'黃', hex:'#ffe156'},
+  {name:'撞色工裝短褲', price:1280, color:'粉', hex:'#ff6b6b'},
+  {name:'粗體 LOGO 棉T', price:780, color:'青', hex:'#4ecdc4'},
+  {name:'厚底帆布鞋', price:2680, color:'紫', hex:'#a388ee'},
+  {name:'漁夫帽・字母刺繡', price:650, color:'黃', hex:'#ffe156'},
+  {name:'尼龍斜背包', price:980, color:'青', hex:'#4ecdc4'},
+];
+
+const grid = document.getElementById('productGrid');
+let activeColor = '全部';
+let cart = 0;
+
+function renderGrid(){
+  grid.innerHTML = '';
+  PRODUCTS.filter(p => activeColor === '全部' || p.color === activeColor).forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'nb-box nb-card p-5';
+    card.innerHTML = `
+      <div class="w-full h-32 rounded-xl mb-4 border-3 flex items-center justify-center display" style="background:${p.hex}; border:3px solid #111;">
+        ${p.name.slice(0,2)}
+      </div>
+      <h3 class="font-bold mb-1">${p.name}</h3>
+      <div class="flex items-center justify-between">
+        <span class="display text-lg">NT$${p.price}</span>
+        <button class="addBtn nb-btn px-3 py-1.5 bg-[#ffe156] text-xs font-bold">加入</button>
+      </div>
+    `;
+    card.querySelector('.addBtn').onclick = () => {
+      cart++;
+      document.getElementById('cartCount').textContent = cart;
+    };
+    grid.appendChild(card);
+  });
+  if(grid.children.length === 0){
+    grid.innerHTML = `<p class="font-bold col-span-3 text-center py-10">這個顏色目前沒有上架單品，換個顏色看看～</p>`;
+  }
+}
+
+document.querySelectorAll('.filterBtn').forEach(btn => {
+  btn.onclick = () => {
+    activeColor = btn.dataset.color;
+    document.querySelectorAll('.filterBtn').forEach(b => b.classList.remove('bg-[#ffe156]'));
+    document.querySelectorAll('.filterBtn').forEach(b => b.classList.add('bg-white'));
+    btn.classList.remove('bg-white');
+    btn.classList.add('bg-[#ffe156]');
+    renderGrid();
+  };
+});
+
+renderGrid();
+</script>
+
+</body>
+</html>

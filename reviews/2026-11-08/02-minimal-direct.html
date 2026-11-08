@@ -1,0 +1,105 @@
+<!-- style #23 Minimal & Direct -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>快碼 QuickCode · 一秒產生 QR Code</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Sora','Noto Sans TC',sans-serif; background:#f5f1e8; color:#1a1a1a; }
+  .noise::before{
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .qr-cell{ background:#1a1a1a; }
+  .btn-primary{ transition: transform .1s ease; }
+  .btn-primary:active{ transform: scale(.97); }
+</style>
+</head>
+<body class="noise min-h-screen flex items-center justify-center px-6 relative">
+
+  <div class="max-w-xl w-full relative z-10 py-16">
+    <p class="text-sm font-bold tracking-widest text-slate-400 mb-3">QUICKCODE · 免註冊、免安裝</p>
+    <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4">貼網址，<br/>立刻變成 QR Code。</h1>
+    <p class="text-slate-500 mb-10">不用帳號、不用等、沒有浮水印。輸入完直接下載 PNG。</p>
+
+    <div class="flex gap-3 mb-3">
+      <input id="urlInput" type="text" placeholder="https://your-link.com"
+        class="flex-1 px-5 py-4 rounded-xl border-2 border-slate-900 bg-white text-base focus:outline-none">
+      <button id="genBtn" class="btn-primary px-6 py-4 rounded-xl bg-slate-900 text-white font-bold">產生</button>
+    </div>
+    <p id="errorMsg" class="text-sm text-red-500 mb-6 hidden">請輸入有效的網址，例如 https://example.com</p>
+
+    <div id="resultBox" class="hidden">
+      <div class="bg-white rounded-2xl border-2 border-slate-900 p-8 flex flex-col items-center gap-5">
+        <div id="qrCanvas" class="grid gap-[2px] bg-white p-3 rounded-lg" style="grid-template-columns: repeat(21, 1fr); width:220px; height:220px;"></div>
+        <p id="qrLabel" class="text-sm text-slate-400 break-all text-center"></p>
+        <div class="flex gap-3 w-full">
+          <button id="copyBtn" class="btn-primary flex-1 py-3 rounded-lg border-2 border-slate-900 font-bold">複製連結</button>
+          <button id="downloadBtn" class="btn-primary flex-1 py-3 rounded-lg bg-slate-900 text-white font-bold">下載 PNG</button>
+        </div>
+      </div>
+    </div>
+
+    <p class="text-xs text-slate-400 mt-10">已有 38,201 個連結在快碼產生過 QR Code</p>
+  </div>
+
+<script>
+const input = document.getElementById('urlInput');
+const genBtn = document.getElementById('genBtn');
+const errorMsg = document.getElementById('errorMsg');
+const resultBox = document.getElementById('resultBox');
+const qrCanvas = document.getElementById('qrCanvas');
+const qrLabel = document.getElementById('qrLabel');
+
+function fakeQrPattern(seedStr){
+  // 視覺化示意用的假 QR 網格：依字串雜湊決定每格明暗，純前端展示效果
+  let hash = 0;
+  for(let i=0;i<seedStr.length;i++){ hash = (hash * 31 + seedStr.charCodeAt(i)) & 0xffffffff; }
+  qrCanvas.innerHTML = '';
+  for(let i=0;i<441;i++){
+    const cell = document.createElement('div');
+    hash = (hash * 1103515245 + 12345) & 0x7fffffff;
+    const on = (hash % 5) < 2;
+    cell.className = on ? 'qr-cell' : 'bg-white';
+    qrCanvas.appendChild(cell);
+  }
+}
+
+function isValidUrl(str){
+  return /^https?:\/\/[^\s]+\.[^\s]+/.test(str.trim());
+}
+
+genBtn.onclick = () => {
+  const val = input.value.trim();
+  if(!isValidUrl(val)){
+    errorMsg.classList.remove('hidden');
+    resultBox.classList.add('hidden');
+    return;
+  }
+  errorMsg.classList.add('hidden');
+  fakeQrPattern(val);
+  qrLabel.textContent = val;
+  resultBox.classList.remove('hidden');
+};
+
+input.addEventListener('keydown', e => { if(e.key === 'Enter') genBtn.click(); });
+
+document.getElementById('copyBtn').onclick = () => {
+  navigator.clipboard?.writeText(input.value.trim());
+  const btn = document.getElementById('copyBtn');
+  const orig = btn.textContent;
+  btn.textContent = '已複製！';
+  setTimeout(() => btn.textContent = orig, 1500);
+};
+
+document.getElementById('downloadBtn').onclick = () => {
+  alert('已開始下載 qrcode.png（示意，實際版本會輸出真實 QR 圖檔）');
+};
+</script>
+
+</body>
+</html>
