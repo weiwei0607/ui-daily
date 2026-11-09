@@ -1,0 +1,79 @@
+<!-- style #20 Hero-Centric (皮膚 Soft UI / Neumorphism) -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>暖眠 WarmSleep</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#eef1f6; --ink:#3a4256; --sub:#8893a8; --accent:#a78bfa; --accent2:#f0abfc; }
+  body{ font-family:'Quicksand','Baloo 2',sans-serif; background:var(--bg); color:var(--ink); }
+  .disp{ font-family:'Baloo 2','Quicksand',sans-serif; }
+  .soft{
+    background: var(--bg);
+    border-radius: 28px;
+    box-shadow: 10px 10px 24px rgba(166,174,196,.45), -10px -10px 24px rgba(255,255,255,.9);
+  }
+  .soft-sm{
+    background: var(--bg);
+    border-radius: 18px;
+    box-shadow: 6px 6px 14px rgba(166,174,196,.4), -6px -6px 14px rgba(255,255,255,.9);
+  }
+  .soft-in{
+    background: var(--bg);
+    border-radius: 18px;
+    box-shadow: inset 5px 5px 12px rgba(166,174,196,.4), inset -5px -5px 12px rgba(255,255,255,.9);
+  }
+  .btn-soft{ transition: box-shadow .15s ease, transform .15s ease; }
+  .btn-soft:active{ box-shadow: inset 5px 5px 12px rgba(166,174,196,.45), inset -5px -5px 12px rgba(255,255,255,.9); transform: scale(.98); }
+  @keyframes breathe{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+  .moon{ animation: breathe 4s ease-in-out infinite; }
+</style>
+</head>
+<body class="min-h-screen">
+  <div class="max-w-xl mx-auto px-6 py-10 text-center">
+    <div class="flex items-center justify-center gap-2 mb-10">
+      <div class="soft-sm w-10 h-10 flex items-center justify-center text-lg">🌙</div>
+      <span class="disp font-bold text-lg">暖眠 WarmSleep</span>
+    </div>
+
+    <!-- single hero visual -->
+    <div class="soft w-56 h-56 mx-auto mb-10 flex items-center justify-center relative">
+      <div class="moon soft-in w-36 h-36 flex items-center justify-center text-5xl">🌙</div>
+    </div>
+
+    <h1 class="disp text-3xl md:text-4xl font-bold leading-snug mb-4">今晚，讓身體<br>先睡著。</h1>
+    <p class="text-sm md:text-base mb-8" style="color:var(--sub)">暖眠膳食纖維飲，睡前一小杯，溫和助眠配方，明天起床不喊累。</p>
+
+    <button id="ctaBtn" onclick="handleCta()" class="btn-soft soft-sm px-8 py-4 disp font-bold text-base mb-3" style="color:var(--accent)">立即試喝一盒 →</button>
+    <p id="ctaMsg" class="text-xs opacity-0 transition-opacity duration-300" style="color:var(--sub)">已幫你保留名額，稍後會寄送試喝資訊到你的信箱。</p>
+
+    <div class="mt-12 grid grid-cols-3 gap-3 text-xs">
+      <div class="soft-sm py-4 px-2">
+        <p class="disp text-xl font-bold" style="color:var(--accent)">92%</p>
+        <p style="color:var(--sub)">使用者入睡更快</p>
+      </div>
+      <div class="soft-sm py-4 px-2">
+        <p class="disp text-xl font-bold" style="color:var(--accent2)">0</p>
+        <p style="color:var(--sub)">人工香精添加</p>
+      </div>
+      <div class="soft-sm py-4 px-2">
+        <p class="disp text-xl font-bold" style="color:var(--accent)">14</p>
+        <p style="color:var(--sub)">天養成好眠感</p>
+      </div>
+    </div>
+  </div>
+
+<script>
+function handleCta(){
+  const msg = document.getElementById('ctaMsg');
+  const btn = document.getElementById('ctaBtn');
+  btn.textContent = '已登記，等你好眠 ✓';
+  msg.classList.remove('opacity-0');
+}
+</script>
+</body>
+</html>

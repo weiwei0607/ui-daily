@@ -1,0 +1,161 @@
+<!-- style #16 Micro-interactions -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>輕觸記 TapNote</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#3b82f6; --red:#ef4444; --green:#22c55e; --amber:#f59e0b;
+    --bg:#f8fafc; --card:#ffffff; --ink:#0f172a; --sub:#64748b;
+  }
+  *{font-family:'Hanken Grotesk','Noto Sans TC',sans-serif;}
+  body{background:var(--bg); color:var(--ink);}
+  .ripple{position:relative; overflow:hidden;}
+  .ripple-dot{position:absolute; border-radius:50%; background:rgba(255,255,255,.55); transform:scale(0); animation:rip .55s ease-out forwards; pointer-events:none;}
+  @keyframes rip{to{transform:scale(3); opacity:0;}}
+  .task-check{
+    width:26px; height:26px; border-radius:9px; border:2px solid #cbd5e1;
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+    transition:all .18s cubic-bezier(.34,1.56,.64,1); flex-shrink:0;
+  }
+  .task-check.done{background:var(--green); border-color:var(--green); transform:scale(1.08);}
+  .task-check svg{opacity:0; transform:scale(.4); transition:all .18s ease;}
+  .task-check.done svg{opacity:1; transform:scale(1);}
+  .task-row{transition:all .25s ease;}
+  .task-row.done .task-label{color:#94a3b8; text-decoration:line-through;}
+  .toggle{width:46px; height:26px; border-radius:999px; background:#e2e8f0; position:relative; cursor:pointer; transition:background .2s;}
+  .toggle.on{background:var(--blue);}
+  .toggle-knob{position:absolute; top:3px; left:3px; width:20px; height:20px; border-radius:50%; background:white; box-shadow:0 1px 3px rgba(0,0,0,.25); transition:left .22s cubic-bezier(.34,1.56,.64,1);}
+  .toggle.on .toggle-knob{left:23px;}
+  .btn-pop{transition:transform .12s ease;}
+  .btn-pop:active{transform:scale(.93);}
+  .card-hover{transition:transform .2s ease, box-shadow .2s ease;}
+  .card-hover:hover{transform:translateY(-3px); box-shadow:0 12px 28px -8px rgba(15,23,42,.12);}
+  .confetti{position:fixed; width:8px; height:8px; top:-10px; pointer-events:none; z-index:50; border-radius:2px;}
+  @keyframes fall{to{transform:translateY(100vh) rotate(540deg); opacity:0;}}
+  .streak-dot{width:10px; height:10px; border-radius:50%; background:#e2e8f0; transition:all .2s;}
+  .streak-dot.hit{background:var(--amber); transform:scale(1.25);}
+  .tab-pill{transition:all .2s ease;}
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="max-w-md mx-auto px-5 pt-8 pb-16">
+  <header class="flex items-center justify-between mb-6">
+    <div>
+      <h1 class="text-2xl font-extrabold">輕觸記</h1>
+      <p class="text-sm" style="color:var(--sub)">每個小動作，都值得一點回饋</p>
+    </div>
+    <div class="w-11 h-11 rounded-2xl flex items-center justify-center text-lg font-bold text-white" style="background:var(--blue)">阿</div>
+  </header>
+
+  <!-- streak -->
+  <div class="rounded-2xl p-4 mb-5 card-hover" style="background:var(--card); border:1px solid #e2e8f0">
+    <div class="flex items-center justify-between mb-3">
+      <span class="text-sm font-semibold" style="color:var(--sub)">本週連續打卡</span>
+      <span id="streakCount" class="text-sm font-bold" style="color:var(--amber)">3 天</span>
+    </div>
+    <div class="flex gap-2">
+      <div class="streak-dot hit"></div><div class="streak-dot hit"></div><div class="streak-dot hit"></div>
+      <div class="streak-dot" id="d4"></div><div class="streak-dot" id="d5"></div>
+      <div class="streak-dot" id="d6"></div><div class="streak-dot" id="d7"></div>
+    </div>
+  </div>
+
+  <!-- water counter -->
+  <div class="rounded-2xl p-4 mb-5 flex items-center justify-between card-hover" style="background:var(--card); border:1px solid #e2e8f0">
+    <div>
+      <p class="text-sm font-semibold" style="color:var(--sub)">今日喝水</p>
+      <p class="text-2xl font-extrabold"><span id="waterCount">4</span> <span class="text-sm font-medium" style="color:var(--sub)">/ 8 杯</span></p>
+    </div>
+    <button id="waterBtn" onclick="addWater(event)" class="ripple btn-pop w-14 h-14 rounded-full text-white text-2xl font-bold flex items-center justify-center" style="background:var(--blue)">＋</button>
+  </div>
+
+  <!-- tasks -->
+  <div class="rounded-2xl p-4 mb-5 card-hover" style="background:var(--card); border:1px solid #e2e8f0">
+    <p class="text-sm font-semibold mb-3" style="color:var(--sub)">今日待辦</p>
+    <div class="space-y-3" id="taskList">
+      <div class="task-row flex items-center gap-3" data-task>
+        <div class="task-check" onclick="toggleTask(this)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span class="task-label text-sm font-medium">喝完一杯溫水</span>
+      </div>
+      <div class="task-row flex items-center gap-3" data-task>
+        <div class="task-check" onclick="toggleTask(this)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span class="task-label text-sm font-medium">十分鐘伸展</span>
+      </div>
+      <div class="task-row flex items-center gap-3" data-task>
+        <div class="task-check" onclick="toggleTask(this)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span class="task-label text-sm font-medium">記錄今天的心情</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- toggles -->
+  <div class="rounded-2xl p-4 mb-5 card-hover" style="background:var(--card); border:1px solid #e2e8f0">
+    <p class="text-sm font-semibold mb-3" style="color:var(--sub)">提醒設定</p>
+    <div class="flex items-center justify-between py-2">
+      <span class="text-sm font-medium">晚間九點提醒喝水</span>
+      <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
+    </div>
+    <div class="flex items-center justify-between py-2">
+      <span class="text-sm font-medium">完成任務播放音效</span>
+      <div class="toggle" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
+    </div>
+  </div>
+
+  <button onclick="celebrate()" class="ripple btn-pop w-full py-3.5 rounded-2xl text-white font-bold text-sm" style="background:var(--green)">全部完成，給自己一個小慶祝 🎉</button>
+</div>
+
+<script>
+function ripple(el, ev){
+  const r = el.getBoundingClientRect();
+  const d = document.createElement('span');
+  d.className = 'ripple-dot';
+  const size = Math.max(r.width, r.height);
+  d.style.width = d.style.height = size + 'px';
+  d.style.left = (ev.clientX - r.left - size/2) + 'px';
+  d.style.top = (ev.clientY - r.top - size/2) + 'px';
+  el.appendChild(d);
+  setTimeout(()=>d.remove(), 600);
+}
+function addWater(ev){
+  ripple(document.getElementById('waterBtn'), ev);
+  const el = document.getElementById('waterCount');
+  let v = parseInt(el.textContent);
+  if(v < 8){ el.textContent = v+1; el.parentElement.style.transform='scale(1.08)'; setTimeout(()=>el.parentElement.style.transform='scale(1)',150); }
+  if(v+1 === 8){ setTimeout(celebrate, 200); }
+}
+function toggleTask(el){
+  el.classList.toggle('done');
+  el.closest('[data-task]').classList.toggle('done');
+  const allDone = [...document.querySelectorAll('[data-task]')].every(t=>t.classList.contains('done'));
+  if(allDone) setTimeout(celebrate, 300);
+}
+function celebrate(ev){
+  if(ev) ripple(ev.target, ev);
+  const colors = ['#3b82f6','#ef4444','#22c55e','#f59e0b'];
+  for(let i=0;i<40;i++){
+    const c = document.createElement('div');
+    c.className = 'confetti';
+    c.style.left = Math.random()*100 + 'vw';
+    c.style.background = colors[Math.floor(Math.random()*colors.length)];
+    c.style.animation = `fall ${0.8+Math.random()*0.8}s ease-in forwards`;
+    c.style.animationDelay = (Math.random()*0.3)+'s';
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(), 2000);
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!-- style #43 AI-Native -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>靈語 LingYu</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Varela+Round&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  *{font-family:'Varela Round','Zen Maru Gothic',sans-serif;}
+  body{
+    background: linear-gradient(135deg,#667eea 0%, #764ba2 45%, #f093fb 100%);
+    min-height:100vh;
+  }
+  .glass{
+    background: rgba(255,255,255,.14);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    border: 1px solid rgba(255,255,255,.3);
+  }
+  .glass-solid{
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(22px);
+  }
+  .glow{
+    box-shadow: 0 0 60px rgba(240,147,251,.35);
+  }
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  .orb{animation: float 6s ease-in-out infinite; position:absolute; border-radius:50%; filter:blur(40px); opacity:.5;}
+  .bubble-in{animation: bubbleIn .4s cubic-bezier(.34,1.56,.64,1) both;}
+  @keyframes bubbleIn{from{opacity:0; transform:translateY(12px) scale(.92)} to{opacity:1; transform:translateY(0) scale(1)}}
+  .typing-dot{width:7px; height:7px; border-radius:50%; background:#764ba2; animation: bounce 1.2s infinite;}
+  .typing-dot:nth-child(2){animation-delay:.15s} .typing-dot:nth-child(3){animation-delay:.3s}
+  @keyframes bounce{0%,60%,100%{transform:translateY(0); opacity:.4}30%{transform:translateY(-5px); opacity:1}}
+  .chip{transition: all .2s ease;}
+  .chip:hover{background: rgba(255,255,255,.3); transform: translateY(-2px);}
+  .send-btn{transition: transform .15s ease;}
+  .send-btn:active{transform: scale(.9);}
+</style>
+</head>
+<body class="relative overflow-x-hidden">
+  <div class="orb w-72 h-72 bg-pink-300" style="top:-5%; left:-10%;"></div>
+  <div class="orb w-96 h-96 bg-indigo-300" style="bottom:0%; right:-10%; animation-delay:2s;"></div>
+
+  <div class="relative max-w-lg mx-auto px-5 py-8 min-h-screen flex flex-col">
+    <header class="flex items-center justify-between mb-6">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-full glass glow flex items-center justify-center text-xl">✨</div>
+        <div>
+          <h1 class="text-white font-bold text-lg">靈語 LingYu</h1>
+          <p class="text-white/70 text-xs">你的文案與靈感夥伴</p>
+        </div>
+      </div>
+      <button class="glass text-white text-xs font-semibold px-3 py-1.5 rounded-full">新對話</button>
+    </header>
+
+    <!-- suggestion chips -->
+    <div class="flex gap-2 overflow-x-auto pb-1 mb-5 scrollbar-hide">
+      <button class="chip glass text-white text-xs font-medium px-4 py-2 rounded-full whitespace-nowrap">幫我寫一段產品介紹</button>
+      <button class="chip glass text-white text-xs font-medium px-4 py-2 rounded-full whitespace-nowrap">把這段話改得更口語</button>
+      <button class="chip glass text-white text-xs font-medium px-4 py-2 rounded-full whitespace-nowrap">想三個標題</button>
+    </div>
+
+    <!-- conversation -->
+    <div class="flex-1 space-y-4 mb-5" id="chatArea">
+      <div class="flex justify-end bubble-in">
+        <div class="glass-solid rounded-2xl rounded-tr-sm px-4 py-3 max-w-[80%] shadow-lg">
+          <p class="text-sm" style="color:#4c1d95">幫我寫一句新品上市的開場白，語氣要溫暖一點</p>
+        </div>
+      </div>
+      <div class="flex justify-start bubble-in" style="animation-delay:.15s">
+        <div class="flex gap-2 max-w-[85%]">
+          <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-sm glass">🤖</div>
+          <div class="glass rounded-2xl rounded-tl-sm px-4 py-3">
+            <p class="text-white text-sm leading-relaxed">「這次我們想把一直在路上磨出來的小心意，交到你手上——不是為了驚喜，而是想讓你在平凡的一天裡，多一個會心一笑的理由。」</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- typing indicator (live demo) -->
+    <div id="typingBubble" class="hidden flex justify-start mb-4 bubble-in">
+      <div class="flex gap-2">
+        <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-sm glass">🤖</div>
+        <div class="glass-solid rounded-2xl rounded-tl-sm px-4 py-3 flex gap-1.5 items-center">
+          <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- input -->
+    <div class="glass rounded-3xl p-2 flex items-center gap-2">
+      <input id="chatInput" type="text" placeholder="跟靈語說說你想寫什麼..." class="flex-1 bg-transparent text-white placeholder-white/60 text-sm px-3 py-2 outline-none">
+      <button onclick="sendMsg()" class="send-btn w-11 h-11 rounded-full flex items-center justify-center text-white text-lg" style="background:linear-gradient(135deg,#f093fb,#764ba2)">↑</button>
+    </div>
+  </div>
+
+<script>
+const replies = [
+  "「有些東西不用多說，用的人自然會懂——這次我們只想把最實在的那部分，做得更好一點。」",
+  "標題試試看：『不急著快，但從不讓你等太久』／『留一點時間，給值得的事』／『今天開始，換個方式對自己好』",
+  "可以改成：『欸，跟你說，這個我們真的做了很久，但我覺得值得。』——更口語、更像朋友在跟你聊天。"
+];
+function sendMsg(){
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if(!text) return;
+  const chat = document.getElementById('chatArea');
+  const userBubble = document.createElement('div');
+  userBubble.className = 'flex justify-end bubble-in';
+  userBubble.innerHTML = `<div class="glass-solid rounded-2xl rounded-tr-sm px-4 py-3 max-w-[80%] shadow-lg"><p class="text-sm" style="color:#4c1d95">${text}</p></div>`;
+  chat.appendChild(userBubble);
+  input.value = '';
+  const typing = document.getElementById('typingBubble');
+  typing.classList.remove('hidden');
+  typing.scrollIntoView({behavior:'smooth'});
+  setTimeout(()=>{
+    typing.classList.add('hidden');
+    const reply = document.createElement('div');
+    reply.className = 'flex justify-start bubble-in';
+    const r = replies[Math.floor(Math.random()*replies.length)];
+    reply.innerHTML = `<div class="flex gap-2 max-w-[85%]"><div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-sm glass">🤖</div><div class="glass rounded-2xl rounded-tl-sm px-4 py-3"><p class="text-white text-sm leading-relaxed">${r}</p></div></div>`;
+    chat.appendChild(reply);
+    reply.scrollIntoView({behavior:'smooth'});
+  }, 1100);
+}
+document.getElementById('chatInput').addEventListener('keydown', e=>{ if(e.key==='Enter') sendMsg(); });
+document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click', ()=>{ document.getElementById('chatInput').value = c.textContent; sendMsg(); }));
+</script>
+</body>
+</html>

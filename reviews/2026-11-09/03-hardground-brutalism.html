@@ -1,0 +1,131 @@
+<!-- style #04 Brutalism -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>硬地滑板 HARDGROUND</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{ --red:#ff0000; --blue:#0000ff; --yellow:#ffff00; }
+  body{ font-family:'Space Mono','Noto Sans TC',monospace; background:#fff; color:#000; }
+  .disp{ font-family:'Archivo Black','Noto Sans TC',sans-serif; }
+  .hard{ border:4px solid #000; box-shadow: 8px 8px 0 #000; }
+  .hard-sm{ border:3px solid #000; box-shadow: 5px 5px 0 #000; }
+  .btn-hard{ transition: transform .08s ease, box-shadow .08s ease; }
+  .btn-hard:active{ transform: translate(5px,5px); box-shadow: 0 0 0 #000; }
+  .tag{ border:3px solid #000; }
+  marquee-track{ display:flex; animation: scroll 14s linear infinite; }
+  @keyframes scroll{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+</style>
+</head>
+<body>
+  <!-- marquee -->
+  <div class="bg-black text-white overflow-hidden whitespace-nowrap py-2 border-b-4 border-black">
+    <div class="flex" style="animation: scroll 16s linear infinite; width:200%;">
+      <span class="disp text-sm px-6">硬地從不妥協 ★ 全台門市限時進貨 ★ 滑板不是運動，是態度 ★ 硬地從不妥協 ★ 全台門市限時進貨 ★ 滑板不是運動，是態度 ★</span>
+    </div>
+  </div>
+
+  <div class="max-w-5xl mx-auto px-5 py-10">
+    <!-- hero -->
+    <header class="mb-10">
+      <div class="flex items-center justify-between mb-8">
+        <div class="disp text-2xl">HARDGROUND</div>
+        <nav class="hidden md:flex gap-4 text-sm font-bold">
+          <span class="tag bg-[var(--yellow)] px-3 py-1">滑板</span>
+          <span class="tag bg-white px-3 py-1">鞋款</span>
+          <span class="tag bg-white px-3 py-1">保護具</span>
+        </nav>
+        <button class="hard-sm bg-[var(--red)] text-white disp text-xs px-4 py-2 btn-hard">購物車 (2)</button>
+      </div>
+      <div class="hard bg-[var(--yellow)] p-8 md:p-12 relative overflow-hidden">
+        <h1 class="disp text-4xl md:text-6xl leading-[1.05] mb-4">摔過才算<br>滑過。</h1>
+        <p class="font-bold text-sm md:text-base max-w-md mb-6">硬地不做漂亮話，我們只做經得起磨的板子。上路，別想太多。</p>
+        <button class="hard bg-[var(--blue)] text-white disp text-sm px-6 py-3 btn-hard">立即選板 →</button>
+        <div class="absolute -right-6 -bottom-10 w-40 h-40 rounded-full bg-[var(--red)] hard"></div>
+      </div>
+    </header>
+
+    <!-- products -->
+    <section class="mb-10">
+      <h2 class="disp text-2xl mb-5">本週硬貨</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="productGrid">
+        <div class="hard bg-white p-5" data-color="red">
+          <div class="h-32 bg-[var(--red)] mb-4 flex items-center justify-center disp text-white text-xl">DECK 01</div>
+          <p class="disp text-lg mb-1">街頭基本款</p>
+          <p class="text-xs font-bold mb-3">楓木七層 / 8.0 吋 / 耐磨板面</p>
+          <div class="flex items-center justify-between">
+            <span class="disp text-lg">NT$2,480</span>
+            <button class="hard-sm bg-black text-white text-xs font-bold px-3 py-1.5 btn-hard add-cart">加入</button>
+          </div>
+        </div>
+        <div class="hard bg-white p-5" data-color="blue">
+          <div class="h-32 bg-[var(--blue)] mb-4 flex items-center justify-center disp text-white text-xl">DECK 02</div>
+          <p class="disp text-lg mb-1">碗池實戰款</p>
+          <p class="text-xs font-bold mb-3">加厚層壓 / 7.75 吋 / 抗裂結構</p>
+          <div class="flex items-center justify-between">
+            <span class="disp text-lg">NT$2,980</span>
+            <button class="hard-sm bg-black text-white text-xs font-bold px-3 py-1.5 btn-hard add-cart">加入</button>
+          </div>
+        </div>
+        <div class="hard bg-white p-5" data-color="yellow">
+          <div class="h-32 bg-[var(--yellow)] mb-4 flex items-center justify-center disp text-black text-xl">DECK 03</div>
+          <p class="disp text-lg mb-1">新手練習款</p>
+          <p class="text-xs font-bold mb-3">寬板穩定 / 8.25 吋 / 防滑貼面</p>
+          <div class="flex items-center justify-between">
+            <span class="disp text-lg">NT$1,980</span>
+            <button class="hard-sm bg-black text-white text-xs font-bold px-3 py-1.5 btn-hard add-cart">加入</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- filter demo -->
+    <section class="mb-10">
+      <h2 class="disp text-2xl mb-5">依色號篩選</h2>
+      <div class="flex gap-3 mb-5">
+        <button class="hard-sm bg-white px-4 py-2 text-xs font-bold btn-hard filter-btn" data-filter="all">全部</button>
+        <button class="hard-sm bg-[var(--red)] text-white px-4 py-2 text-xs font-bold btn-hard filter-btn" data-filter="red">紅</button>
+        <button class="hard-sm bg-[var(--blue)] text-white px-4 py-2 text-xs font-bold btn-hard filter-btn" data-filter="blue">藍</button>
+        <button class="hard-sm bg-[var(--yellow)] px-4 py-2 text-xs font-bold btn-hard filter-btn" data-filter="yellow">黃</button>
+        <button class="hard-sm bg-black text-white px-4 py-2 text-xs font-bold btn-hard filter-btn" data-filter="green">綠</button>
+      </div>
+      <p id="filterMsg" class="disp text-sm hidden">查無此色號商品，下批進貨再通知你。</p>
+    </section>
+
+    <!-- CTA bottom -->
+    <section class="hard bg-black text-white p-8 text-center">
+      <p class="disp text-2xl mb-3">別等了，板子在等你摔。</p>
+      <button class="hard bg-white text-black disp text-sm px-6 py-3 btn-hard">加入會員，解鎖門市優惠</button>
+    </section>
+  </div>
+
+<script>
+document.querySelectorAll('.add-cart').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const orig = btn.textContent;
+    btn.textContent = '已加入 ✓';
+    btn.style.background = '#ff0000';
+    setTimeout(()=>{ btn.textContent = orig; btn.style.background = '#000'; }, 1200);
+  });
+});
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const f = btn.dataset.filter;
+    const msg = document.getElementById('filterMsg');
+    const cards = document.querySelectorAll('#productGrid > div');
+    let found = false;
+    cards.forEach(c=>{
+      const show = f === 'all' || c.dataset.color === f;
+      c.style.display = show ? '' : 'none';
+      if(show) found = true;
+    });
+    msg.classList.toggle('hidden', found);
+  });
+});
+</script>
+</body>
+</html>
