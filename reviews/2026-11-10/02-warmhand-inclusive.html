@@ -1,0 +1,235 @@
+<!-- style #17 Inclusive Design -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>暖手 WarmHand · 長照服務預約</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0b2b4a; --orange:#d9530f; --paper:#fffdf7; --line:#0b2b4a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:'Atkinson Hyperlegible','Noto Sans TC',sans-serif;
+    background:var(--paper); color:var(--navy);
+    font-size:18px; line-height:1.75;
+  }
+  .disp{font-weight:700;}
+  /* 高對比、清楚的 focus 狀態，鍵盤操作一定看得見 */
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible{
+    outline:4px solid var(--orange);
+    outline-offset:3px;
+    border-radius:4px;
+  }
+  .btn{
+    font-weight:700; font-size:1.05rem; padding:1rem 1.6rem; border-radius:10px;
+    border:3px solid var(--navy); transition:background .15s ease, color .15s ease;
+    min-height:56px;
+  }
+  .btn-primary{background:var(--navy); color:#fff;}
+  .btn-primary:hover{background:var(--orange); border-color:var(--orange);}
+  .btn-secondary{background:#fff; color:var(--navy);}
+  .btn-secondary:hover{background:#fef0e6;}
+  .tap-target{min-height:56px; min-width:56px;}
+  .card{border:3px solid var(--navy); border-radius:14px; background:#fff;}
+  .skip-link{position:absolute; left:-999px; top:0; background:var(--navy); color:#fff; padding:.75rem 1.25rem; z-index:100;}
+  .skip-link:focus{left:1rem; top:1rem;}
+  .step-num{
+    width:2.75rem; height:2.75rem; border-radius:50%; border:3px solid var(--navy);
+    display:flex; align-items:center; justify-content:center; font-weight:700; font-size:1.25rem; flex-shrink:0;
+  }
+  .step-num.done{background:var(--navy); color:#fff;}
+  .font-toggle{border:3px solid var(--navy); border-radius:10px; overflow:hidden;}
+  .font-toggle button{padding:.5rem 1rem; font-weight:700; border:none; background:#fff; color:var(--navy);}
+  .font-toggle button.active{background:var(--navy); color:#fff;}
+  .underline-link{text-decoration:underline; text-decoration-thickness:2px;}
+  body.large-text{font-size:21px;}
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">跳到主要內容</a>
+
+<header class="border-b-4 border-[var(--navy)]">
+  <div class="max-w-5xl mx-auto px-6 py-5 flex flex-wrap items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <div class="w-11 h-11 rounded-full bg-[var(--navy)] flex items-center justify-center text-white text-xl">🤝</div>
+      <span class="disp text-2xl">暖手 WarmHand</span>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="text-sm">文字大小</span>
+      <div class="font-toggle">
+        <button id="sizeNormal" class="active tap-target" onclick="setTextSize(false)">標準</button>
+        <button id="sizeLarge" class="tap-target" onclick="setTextSize(true)">放大</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="max-w-5xl mx-auto px-6 py-12">
+
+  <section class="mb-14">
+    <p class="inline-block bg-[#fef0e6] border-2 border-[var(--orange)] text-[var(--orange)] disp px-4 py-1.5 rounded-full mb-5">免費撥打 0800-123-456 · 專線有真人服務</p>
+    <h1 class="disp text-4xl md:text-5xl mb-5 leading-tight">長照服務，<br>三步驟就能預約</h1>
+    <p class="max-w-2xl mb-8 text-lg">不需要先會用電腦。每一步都說明清楚、按鈕夠大，看不清楚可以按右上角「放大」。有任何問題，隨時可以打專線請人協助。</p>
+    <div class="flex flex-wrap gap-4">
+      <button class="btn btn-primary tap-target" onclick="goToStep(1)">開始預約 →</button>
+      <a href="#call" class="btn btn-secondary tap-target inline-flex items-center">我想先打電話問</a>
+    </div>
+  </section>
+
+  <section class="mb-14 card p-6 md:p-8" id="steps">
+    <h2 class="disp text-2xl mb-6">預約流程（第 <span id="curStep">1</span> 步 / 共 3 步）</h2>
+
+    <div class="flex items-center gap-3 mb-8 flex-wrap">
+      <div class="flex items-center gap-2">
+        <div id="dot1" class="step-num done">1</div>
+        <span class="disp">選服務</span>
+      </div>
+      <div class="h-1 w-8 bg-[var(--navy)]"></div>
+      <div class="flex items-center gap-2">
+        <div id="dot2" class="step-num">2</div>
+        <span>選時間</span>
+      </div>
+      <div class="h-1 w-8 bg-[var(--navy)]"></div>
+      <div class="flex items-center gap-2">
+        <div id="dot3" class="step-num">3</div>
+        <span>確認資料</span>
+      </div>
+    </div>
+
+    <div id="stepPanel1">
+      <p class="disp text-xl mb-4">請選擇需要的服務：</p>
+      <div class="grid md:grid-cols-3 gap-4" role="radiogroup" aria-label="服務種類">
+        <button class="service-btn card p-5 text-left tap-target" data-service="居家照顧" onclick="selectService(this)">
+          <span class="text-3xl block mb-2">🏠</span>
+          <span class="disp text-lg block">居家照顧</span>
+          <span class="text-sm">照服員到家協助</span>
+        </button>
+        <button class="service-btn card p-5 text-left tap-target" data-service="復健交通車" onclick="selectService(this)">
+          <span class="text-3xl block mb-2">🚐</span>
+          <span class="disp text-lg block">復健交通車</span>
+          <span class="text-sm">往返醫院接送</span>
+        </button>
+        <button class="service-btn card p-5 text-left tap-target" data-service="送餐服務" onclick="selectService(this)">
+          <span class="text-3xl block mb-2">🍱</span>
+          <span class="disp text-lg block">送餐服務</span>
+          <span class="text-sm">每日定時送餐</span>
+        </button>
+      </div>
+      <button id="toStep2" class="btn btn-primary tap-target mt-6" disabled onclick="goToStep(2)">下一步 →</button>
+    </div>
+
+    <div id="stepPanel2" class="hidden">
+      <p class="disp text-xl mb-4">請選擇方便的時間：</p>
+      <div class="grid md:grid-cols-3 gap-4">
+        <button class="time-btn card p-5 text-left tap-target" data-time="週一上午" onclick="selectTime(this)">
+          <span class="disp block">週一上午</span><span class="text-sm">09:00–12:00</span>
+        </button>
+        <button class="time-btn card p-5 text-left tap-target" data-time="週三下午" onclick="selectTime(this)">
+          <span class="disp block">週三下午</span><span class="text-sm">14:00–17:00</span>
+        </button>
+        <button class="time-btn card p-5 text-left tap-target" data-time="週五上午" onclick="selectTime(this)">
+          <span class="disp block">週五上午</span><span class="text-sm">09:00–12:00</span>
+        </button>
+      </div>
+      <div class="flex gap-3 mt-6">
+        <button class="btn btn-secondary tap-target" onclick="goToStep(1)">← 上一步</button>
+        <button id="toStep3" class="btn btn-primary tap-target" disabled onclick="goToStep(3)">下一步 →</button>
+      </div>
+    </div>
+
+    <div id="stepPanel3" class="hidden">
+      <p class="disp text-xl mb-4">請留下聯絡方式，我們會請專員回電確認：</p>
+      <div class="max-w-md space-y-4">
+        <label class="block">
+          <span class="disp block mb-1">姓名</span>
+          <input id="nameInput" type="text" class="w-full border-3 border-[var(--navy)] rounded-lg p-3 text-lg" style="border-width:3px;">
+        </label>
+        <label class="block">
+          <span class="disp block mb-1">聯絡電話</span>
+          <input id="phoneInput" type="tel" class="w-full border-3 border-[var(--navy)] rounded-lg p-3 text-lg" style="border-width:3px;">
+        </label>
+      </div>
+      <div class="flex gap-3 mt-6">
+        <button class="btn btn-secondary tap-target" onclick="goToStep(2)">← 上一步</button>
+        <button class="btn btn-primary tap-target" onclick="submitBooking()">送出預約</button>
+      </div>
+    </div>
+
+    <div id="doneMsg" class="hidden mt-6 card p-6 bg-[#eef6ea] border-green-700">
+      <p class="disp text-xl mb-1">✅ 預約已送出</p>
+      <p id="summaryText"></p>
+    </div>
+  </section>
+
+  <section id="call" class="card p-6 md:p-8 flex flex-wrap items-center justify-between gap-6">
+    <div>
+      <h2 class="disp text-2xl mb-2">不方便用網路？直接打給我們</h2>
+      <p>服務時間：每日上午 8 點到晚上 8 點，都有真人接聽。</p>
+    </div>
+    <a href="tel:0800123456" class="btn btn-primary tap-target underline-link whitespace-nowrap">📞 0800-123-456</a>
+  </section>
+
+</main>
+
+<footer class="border-t-4 border-[var(--navy)] mt-10">
+  <div class="max-w-5xl mx-auto px-6 py-6 text-sm">暖手 WarmHand © 2026 · 本站通過高對比與鍵盤可操作性檢核</div>
+</footer>
+
+<script>
+  function setTextSize(large){
+    document.body.classList.toggle('large-text', large);
+    document.getElementById('sizeNormal').classList.toggle('active', !large);
+    document.getElementById('sizeLarge').classList.toggle('active', large);
+  }
+
+  let chosenService = null, chosenTime = null;
+
+  function selectService(btn){
+    document.querySelectorAll('.service-btn').forEach(b=>{
+      b.classList.remove('bg-[var(--navy)]','text-white');
+      b.setAttribute('aria-pressed','false');
+    });
+    btn.classList.add('bg-[var(--navy)]','text-white');
+    btn.setAttribute('aria-pressed','true');
+    chosenService = btn.dataset.service;
+    document.getElementById('toStep2').disabled = false;
+  }
+
+  function selectTime(btn){
+    document.querySelectorAll('.time-btn').forEach(b=>{
+      b.classList.remove('bg-[var(--navy)]','text-white');
+      b.setAttribute('aria-pressed','false');
+    });
+    btn.classList.add('bg-[var(--navy)]','text-white');
+    btn.setAttribute('aria-pressed','true');
+    chosenTime = btn.dataset.time;
+    document.getElementById('toStep3').disabled = false;
+  }
+
+  function goToStep(n){
+    [1,2,3].forEach(i=>{
+      document.getElementById('stepPanel'+i).classList.toggle('hidden', i!==n);
+      document.getElementById('dot'+i).classList.toggle('done', i<=n);
+    });
+    document.getElementById('curStep').textContent = n;
+    document.getElementById('steps').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  function submitBooking(){
+    const name = document.getElementById('nameInput').value.trim() || '這位朋友';
+    const phone = document.getElementById('phoneInput').value.trim() || '（未填寫電話）';
+    document.getElementById('doneMsg').classList.remove('hidden');
+    document.getElementById('summaryText').textContent =
+      `${name} 您好，已收到「${chosenService || '服務'}」在「${chosenTime || '選定時段'}」的預約，專員將以 ${phone} 回電確認。`;
+    document.getElementById('doneMsg').scrollIntoView({behavior:'smooth'});
+  }
+</script>
+
+</body>
+</html>

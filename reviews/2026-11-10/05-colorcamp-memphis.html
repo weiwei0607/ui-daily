@@ -1,0 +1,144 @@
+<!-- style #44 Memphis Revival -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>色塊營 ColorCamp · 兒童創意夏令營</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --yellow:#ffe156; --pink:#ff6ec7; --teal:#2ec4b6; --purple:#8c52ff; --cream:#fff8ec; --ink:#1a1a1a;
+  }
+  *{box-sizing:border-box;}
+  body{ font-family:'Poppins','Noto Sans TC',sans-serif; background:var(--cream); color:var(--ink); overflow-x:hidden; }
+  .disp{ font-family:'Archivo Black','Noto Sans TC',sans-serif; letter-spacing:-.01em; }
+  .dots{ background-image:radial-gradient(var(--ink) 2.5px, transparent 2.5px); background-size:16px 16px; }
+  .stripe{ background:repeating-linear-gradient(45deg, var(--ink) 0 6px, transparent 6px 16px); }
+  .zig{ clip-path: polygon(0 0,100% 0,100% 85%,90% 100%,80% 85%,70% 100%,60% 85%,50% 100%,40% 85%,30% 100%,20% 85%,10% 100%,0 85%); }
+  .blob-shape{ clip-path: polygon(20% 0%, 80% 0%, 100% 30%, 100% 70%, 80% 100%, 20% 100%, 0% 70%, 0% 30%); }
+  .wobble{ transition: transform .2s cubic-bezier(.34,1.56,.64,1); }
+  .wobble:hover{ transform: rotate(-3deg) scale(1.05); }
+  .hard-shadow{ box-shadow:6px 6px 0 var(--ink); border:3px solid var(--ink); }
+  .hard-shadow-sm{ box-shadow:4px 4px 0 var(--ink); border:3px solid var(--ink); }
+  @keyframes spin-slow{ to{ transform:rotate(360deg); } }
+  .spin-slow{ animation:spin-slow 10s linear infinite; }
+  @keyframes float{ 0%,100%{transform:translateY(0) rotate(-6deg);} 50%{transform:translateY(-10px) rotate(6deg);} }
+  .float{ animation:float 3.5s ease-in-out infinite; }
+  .tri{ width:0; height:0; border-left:16px solid transparent; border-right:16px solid transparent; border-bottom:26px solid var(--purple); }
+</style>
+</head>
+<body class="antialiased">
+
+<header class="relative px-6 py-5 border-b-4 border-[var(--ink)] bg-[var(--yellow)] overflow-hidden">
+  <div class="max-w-6xl mx-auto flex items-center justify-between relative z-10">
+    <div class="disp text-xl md:text-2xl">色塊營<span class="text-[var(--pink)]"> ● </span>COLORCAMP</div>
+    <button class="hard-shadow-sm wobble bg-[var(--pink)] disp text-sm px-5 py-2.5" onclick="document.getElementById('join').scrollIntoView({behavior:'smooth'})">報名 →</button>
+  </div>
+  <div class="absolute -right-6 -top-10 w-28 h-28 rounded-full bg-[var(--purple)] border-4 border-[var(--ink)] spin-slow opacity-80"></div>
+</header>
+
+<section class="relative px-6 pt-16 pb-24 max-w-6xl mx-auto overflow-hidden">
+  <div class="absolute left-4 top-4 w-24 h-24 dots opacity-70 hidden md:block"></div>
+  <div class="absolute right-10 top-24 tri float hidden md:block"></div>
+  <div class="absolute right-0 bottom-0 w-40 h-40 rounded-full border-[6px] border-[var(--teal)] hidden md:block"></div>
+
+  <div class="relative z-10 text-center max-w-3xl mx-auto">
+    <span class="hard-shadow-sm inline-block bg-white disp text-xs px-4 py-2 mb-6 -rotate-2">暑假限定 · 名額每梯只收 24 人</span>
+    <h1 class="disp text-4xl md:text-6xl leading-[1.1] mb-6">
+      顏色不用<span class="text-[var(--pink)]">乖乖排隊</span><br>
+      讓小孩自己<span class="text-[var(--purple)]">撞色</span>！
+    </h1>
+    <p class="text-lg mb-10">色塊營用拼貼、黏土、噴漆帆布，帶孩子玩出屬於自己的孟菲斯風格作品。四天三夜，回家還會嫌家裡太單色。</p>
+    <div class="flex flex-wrap items-center justify-center gap-5">
+      <button class="hard-shadow wobble bg-[var(--teal)] disp text-lg px-8 py-4" onclick="document.getElementById('join').scrollIntoView({behavior:'smooth'})">我要報名</button>
+      <button class="hard-shadow wobble bg-white disp text-lg px-8 py-4" onclick="document.getElementById('sched').scrollIntoView({behavior:'smooth'})">看梯次 ↓</button>
+    </div>
+  </div>
+</section>
+
+<!-- 特色 -->
+<section class="px-6 py-20 bg-[var(--purple)] border-y-4 border-[var(--ink)]">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="disp text-3xl md:text-4xl text-white mb-10 text-center">三種玩法，顏色全開</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="hard-shadow wobble bg-[var(--yellow)] p-6">
+        <div class="text-4xl mb-3">🎨</div>
+        <h3 class="disp text-xl mb-2">撞色拼貼課</h3>
+        <p class="text-sm">用撕紙、貼布做出不講道理但超好看的配色練習。</p>
+      </div>
+      <div class="hard-shadow wobble bg-[var(--pink)] p-6">
+        <div class="text-4xl mb-3">🧶</div>
+        <h3 class="disp text-xl mb-2">黏土幾何工作坊</h3>
+        <p class="text-sm">捏出三角形、波浪線、鋸齒邊，組成自己的立體雕塑。</p>
+      </div>
+      <div class="hard-shadow wobble bg-[var(--teal)] p-6">
+        <div class="text-4xl mb-3">🖌️</div>
+        <h3 class="disp text-xl mb-2">噴漆帆布牆</h3>
+        <p class="text-sm">大面帆布讓孩子盡情噴灑，結營當天直接帶作品回家。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 梯次選擇 -->
+<section id="sched" class="px-6 py-20 max-w-5xl mx-auto">
+  <h2 class="disp text-3xl md:text-4xl mb-8 text-center">選一個梯次</h2>
+  <div class="grid md:grid-cols-3 gap-6" id="schedGrid">
+    <button class="sched-btn hard-shadow bg-white p-6 text-left wobble" data-batch="7/7–7/10" data-seats="6" onclick="pickBatch(this)">
+      <p class="disp text-lg mb-1">第一梯</p>
+      <p class="text-sm mb-3">7/7（一）–7/10（四）</p>
+      <p class="text-xs font-bold text-[var(--pink)]">剩 6 個名額</p>
+    </button>
+    <button class="sched-btn hard-shadow bg-white p-6 text-left wobble" data-batch="7/21–7/24" data-seats="13" onclick="pickBatch(this)">
+      <p class="disp text-lg mb-1">第二梯</p>
+      <p class="text-sm mb-3">7/21（一）–7/24（四）</p>
+      <p class="text-xs font-bold text-[var(--teal)]">剩 13 個名額</p>
+    </button>
+    <button class="sched-btn hard-shadow bg-white p-6 text-left wobble" data-batch="8/4–8/7" data-seats="2" onclick="pickBatch(this)">
+      <p class="disp text-lg mb-1">第三梯</p>
+      <p class="text-sm mb-3">8/4（一）–8/7（四）</p>
+      <p class="text-xs font-bold text-[var(--purple)]">剩 2 個名額 · 快滿</p>
+    </button>
+  </div>
+</section>
+
+<!-- 報名 -->
+<section id="join" class="px-6 py-20 bg-[var(--yellow)] border-y-4 border-[var(--ink)]">
+  <div class="max-w-xl mx-auto text-center">
+    <h2 class="disp text-3xl md:text-4xl mb-6">報名色塊營</h2>
+    <p class="mb-2" id="pickedInfo">目前尚未選擇梯次，先到上面選一個吧！</p>
+    <form class="hard-shadow bg-white p-6 mt-6 flex flex-col gap-4" onsubmit="return submitJoin(event)">
+      <input id="kidName" type="text" required placeholder="小朋友的名字" class="border-3 border-[var(--ink)] px-4 py-3" style="border-width:3px;">
+      <input id="parentPhone" type="tel" required placeholder="家長聯絡電話" class="border-3 border-[var(--ink)] px-4 py-3" style="border-width:3px;">
+      <button type="submit" class="hard-shadow-sm wobble bg-[var(--pink)] disp text-lg px-6 py-3">送出報名表</button>
+    </form>
+    <p id="joinResult" class="disp mt-5 hidden"></p>
+  </div>
+</section>
+
+<footer class="px-6 py-8 text-center disp text-sm">色塊營 COLORCAMP © 2026</footer>
+
+<script>
+  let picked = null;
+  function pickBatch(btn){
+    document.querySelectorAll('.sched-btn').forEach(b=>b.classList.remove('ring-4'));
+    btn.classList.add('ring-4','ring-[var(--pink)]');
+    picked = btn.dataset.batch;
+    document.getElementById('pickedInfo').textContent = `已選梯次：${picked}，填好下面資料就完成報名！`;
+  }
+  function submitJoin(e){
+    e.preventDefault();
+    const kid = document.getElementById('kidName').value.trim();
+    const phone = document.getElementById('parentPhone').value.trim();
+    const result = document.getElementById('joinResult');
+    result.classList.remove('hidden');
+    result.textContent = `✅ ${kid || '這位小朋友'} 已排進「${picked || '尚未選擇的梯次'}」，稍後會用 ${phone} 聯絡家長！`;
+    return false;
+  }
+</script>
+
+</body>
+</html>

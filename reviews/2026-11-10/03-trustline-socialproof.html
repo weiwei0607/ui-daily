@@ -1,0 +1,208 @@
+<!-- style #24 Social Proof-Focused -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>信任通 TrustLine · 企業採購顧問平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --ink:#1c1b19; --paper:#f7f4ec; --line:#d9d2bf; --accent:#8a3324; }
+  body{ font-family:'Noto Sans TC',sans-serif; background:var(--paper); color:var(--ink); }
+  .serif{ font-family:'Newsreader','Noto Serif TC',serif; }
+  .masthead{ border-top:4px solid var(--ink); border-bottom:1px solid var(--ink); }
+  .rule{ border-top:1px solid var(--line); }
+  .quote-mark{ font-family:'Newsreader',serif; font-size:3.5rem; line-height:1; color:var(--accent); }
+  .logo-item{ filter:grayscale(1) contrast(1.1); opacity:.65; transition:opacity .2s ease, filter .2s ease; }
+  .logo-item:hover{ opacity:1; filter:none; }
+  .star{ color:var(--accent); }
+  .tab-btn{ border-bottom:3px solid transparent; }
+  .tab-btn.active{ border-bottom-color:var(--accent); color:var(--accent); }
+  .num{ font-variant-numeric:tabular-nums; }
+  .card{ background:#fffdf8; border:1px solid var(--line); }
+</style>
+</head>
+<body class="antialiased">
+
+<header class="masthead">
+  <div class="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between">
+    <div class="serif text-2xl font-semibold tracking-tight">信任通 <span class="text-[var(--accent)]">TrustLine</span></div>
+    <nav class="hidden md:flex gap-8 text-sm">
+      <a href="#proof" class="hover:text-[var(--accent)]">客戶見證</a>
+      <a href="#cases" class="hover:text-[var(--accent)]">成功案例</a>
+      <a href="#numbers" class="hover:text-[var(--accent)]">數據總覽</a>
+    </nav>
+    <button class="border border-[var(--ink)] px-5 py-2 text-sm font-semibold hover:bg-[var(--ink)] hover:text-white transition">預約顧問</button>
+  </div>
+</header>
+
+<!-- HERO：先丟數字與社會證明，再談產品 -->
+<section class="max-w-5xl mx-auto px-6 py-16 text-center">
+  <p class="text-xs tracking-[0.2em] uppercase text-neutral-500 mb-4">採購顧問 · 風險稽核 · 供應鏈整合</p>
+  <h1 class="serif text-4xl md:text-6xl font-semibold leading-tight mb-6">
+    超過 <span class="text-[var(--accent)]">1,200</span> 家企業<br>用信任通做採購決策
+  </h1>
+  <p class="max-w-xl mx-auto text-neutral-600 mb-8">在找新供應商之前，先看看同業怎麼評價我們。</p>
+  <div class="flex flex-wrap justify-center gap-4 mb-12">
+    <button class="bg-[var(--ink)] text-white px-7 py-3 font-semibold">預約顧問諮詢</button>
+    <button class="border border-[var(--ink)] px-7 py-3 font-semibold" onclick="document.getElementById('proof').scrollIntoView({behavior:'smooth'})">看客戶怎麼說 ↓</button>
+  </div>
+
+  <div class="rule pt-8 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 opacity-90">
+    <span class="logo-item serif text-xl font-semibold">恆基集團</span>
+    <span class="logo-item serif text-xl font-semibold">宏鼎工業</span>
+    <span class="logo-item serif text-xl font-semibold">昇陽物流</span>
+    <span class="logo-item serif text-xl font-semibold">海灣製藥</span>
+    <span class="logo-item serif text-xl font-semibold">晨曜金融</span>
+  </div>
+</section>
+
+<!-- NUMBERS -->
+<section id="numbers" class="rule border-b bg-[#f1ecdf] py-14">
+  <div class="max-w-5xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+    <div>
+      <div class="serif num text-4xl font-semibold text-[var(--accent)]">98%</div>
+      <p class="text-sm text-neutral-600 mt-1">客戶續約率</p>
+    </div>
+    <div>
+      <div class="serif num text-4xl font-semibold text-[var(--accent)]">4.9</div>
+      <p class="text-sm text-neutral-600 mt-1">顧客滿意平均分</p>
+    </div>
+    <div>
+      <div class="serif num text-4xl font-semibold text-[var(--accent)]">18%</div>
+      <p class="text-sm text-neutral-600 mt-1">平均採購成本降幅</p>
+    </div>
+    <div>
+      <div class="serif num text-4xl font-semibold text-[var(--accent)]">12 年</div>
+      <p class="text-sm text-neutral-600 mt-1">服務產業經驗</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="proof" class="max-w-5xl mx-auto px-6 py-20">
+  <h2 class="serif text-3xl font-semibold mb-2">客戶怎麼說</h2>
+  <p class="text-neutral-600 mb-10">以下是真實客戶在合作後留下的評語，點選標籤可切換產業。</p>
+
+  <div class="flex gap-6 mb-8 text-sm font-semibold" id="tabBar">
+    <button class="tab-btn active pb-2" data-tag="全部" onclick="filterTag(this)">全部</button>
+    <button class="tab-btn pb-2" data-tag="製造業" onclick="filterTag(this)">製造業</button>
+    <button class="tab-btn pb-2" data-tag="金融業" onclick="filterTag(this)">金融業</button>
+    <button class="tab-btn pb-2" data-tag="物流業" onclick="filterTag(this)">物流業</button>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-6" id="testiGrid">
+    <div class="testi card p-6" data-tag="製造業">
+      <span class="quote-mark">"</span>
+      <p class="serif text-lg leading-relaxed mb-4">他們在三個月內重新談判了我們六成的供應合約，省下的金額比顧問費高出十倍。</p>
+      <div class="flex items-center justify-between text-sm">
+        <span class="font-semibold">陳怡君 · 宏鼎工業採購總監</span>
+        <span class="star">★★★★★</span>
+      </div>
+    </div>
+    <div class="testi card p-6" data-tag="金融業">
+      <span class="quote-mark">"</span>
+      <p class="serif text-lg leading-relaxed mb-4">稽核報告的細緻度超出我們預期，連隱藏在合約附則裡的風險都被抓出來了。</p>
+      <div class="flex items-center justify-between text-sm">
+        <span class="font-semibold">林柏宏 · 晨曜金融風控長</span>
+        <span class="star">★★★★★</span>
+      </div>
+    </div>
+    <div class="testi card p-6" data-tag="物流業">
+      <span class="quote-mark">"</span>
+      <p class="serif text-lg leading-relaxed mb-4">供應鏈整合後，我們的到貨準確率從八成提升到九成七，客訴少了一大半。</p>
+      <div class="flex items-center justify-between text-sm">
+        <span class="font-semibold">黃淑芬 · 昇陽物流營運長</span>
+        <span class="star">★★★★☆</span>
+      </div>
+    </div>
+    <div class="testi card p-6" data-tag="製造業">
+      <span class="quote-mark">"</span>
+      <p class="serif text-lg leading-relaxed mb-4">過去我們總是被原料價格波動牽著走，現在有了真正能預測風險的夥伴。</p>
+      <div class="flex items-center justify-between text-sm">
+        <span class="font-semibold">吳建志 · 恆基集團供應鏈副總</span>
+        <span class="star">★★★★★</span>
+      </div>
+    </div>
+    <div class="testi card p-6" data-tag="金融業">
+      <span class="quote-mark">"</span>
+      <p class="serif text-lg leading-relaxed mb-4">他們的報告寫給董事會看都不丟臉，這點比任何數字都重要。</p>
+      <div class="flex items-center justify-between text-sm">
+        <span class="font-semibold">楊美霞 · 晨曜金融董事會顧問</span>
+        <span class="star">★★★★★</span>
+      </div>
+    </div>
+    <div class="testi card p-6" data-tag="物流業">
+      <span class="quote-mark">"</span>
+      <p class="serif text-lg leading-relaxed mb-4">合作一年，倉儲成本降了一成五，而且服務團隊真的會接電話。</p>
+      <div class="flex items-center justify-between text-sm">
+        <span class="font-semibold">海灣製藥 · 物流處處長</span>
+        <span class="star">★★★★☆</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASES -->
+<section id="cases" class="rule border-t bg-[#f1ecdf] py-20">
+  <div class="max-w-5xl mx-auto px-6">
+    <h2 class="serif text-3xl font-semibold mb-10 text-center">三個真實成果</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="card p-6">
+        <p class="text-xs tracking-widest uppercase text-neutral-500 mb-2">製造業 · 恆基集團</p>
+        <p class="serif text-3xl font-semibold text-[var(--accent)] mb-2">-18%</p>
+        <p class="text-sm text-neutral-700">重新談判六成供應合約後的年度採購成本變化</p>
+      </div>
+      <div class="card p-6">
+        <p class="text-xs tracking-widest uppercase text-neutral-500 mb-2">金融業 · 晨曜金融</p>
+        <p class="serif text-3xl font-semibold text-[var(--accent)] mb-2">42 項</p>
+        <p class="text-sm text-neutral-700">稽核過程中被揪出並修正的合約隱藏風險條款</p>
+      </div>
+      <div class="card p-6">
+        <p class="text-xs tracking-widest uppercase text-neutral-500 mb-2">物流業 · 昇陽物流</p>
+        <p class="serif text-3xl font-semibold text-[var(--accent)] mb-2">97%</p>
+        <p class="text-sm text-neutral-700">供應鏈整合計畫上線後的準時到貨率</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="max-w-3xl mx-auto px-6 py-20 text-center">
+  <h2 class="serif text-3xl font-semibold mb-4">讓下一位留言的，是你的公司</h2>
+  <p class="text-neutral-600 mb-8">留下聯絡方式，顧問會在一個工作日內回覆評估結果。</p>
+  <form class="flex flex-col sm:flex-row gap-3 justify-center" onsubmit="return submitLead(event)">
+    <input id="companyInput" type="text" required placeholder="公司名稱" class="px-5 py-3 border border-[var(--ink)] flex-1">
+    <button type="submit" class="bg-[var(--ink)] text-white px-7 py-3 font-semibold whitespace-nowrap">預約評估</button>
+  </form>
+  <p id="leadMsg" class="mt-4 text-sm font-semibold text-[var(--accent)] hidden"></p>
+</section>
+
+<footer class="masthead border-t py-8">
+  <div class="max-w-5xl mx-auto px-6 text-xs text-neutral-500">信任通 TrustLine © 2026 · 數據來源為客戶合作期間內部統計</div>
+</footer>
+
+<script>
+  function filterTag(btn){
+    document.querySelectorAll('#tabBar .tab-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const tag = btn.dataset.tag;
+    document.querySelectorAll('.testi').forEach(card=>{
+      card.style.display = (tag === '全部' || card.dataset.tag === tag) ? '' : 'none';
+    });
+  }
+  function submitLead(e){
+    e.preventDefault();
+    const val = document.getElementById('companyInput').value.trim();
+    const msg = document.getElementById('leadMsg');
+    if(!val) return false;
+    msg.textContent = `已收到「${val}」的評估邀約，顧問將於一個工作日內回覆。`;
+    msg.classList.remove('hidden');
+    return false;
+  }
+</script>
+
+</body>
+</html>

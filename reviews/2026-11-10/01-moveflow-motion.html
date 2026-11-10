@@ -1,0 +1,280 @@
+<!-- style #15 Motion-Driven -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>動感 MoveFlow · 線上課表</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0f1115; --paper:#f4f3ef; --brand:#ff4d3d; --brand2:#2f2bff; --accent:#1dd3b0;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:'Hanken Grotesk','Noto Sans TC',sans-serif;
+    background:var(--paper); color:var(--ink);
+    overflow-x:hidden;
+  }
+  .disp{font-family:'Hanken Grotesk','Noto Sans TC',sans-serif; font-weight:800; letter-spacing:-.02em;}
+
+  /* 進場動畫：隨著載入依序浮現 */
+  @keyframes riseIn{
+    from{opacity:0; transform:translateY(28px) scale(.98);}
+    to{opacity:1; transform:translateY(0) scale(1);}
+  }
+  .rise{animation:riseIn .8s cubic-bezier(.16,1,.3,1) both;}
+  .rise-1{animation-delay:.05s;} .rise-2{animation-delay:.18s;} .rise-3{animation-delay:.31s;} .rise-4{animation-delay:.44s;}
+
+  /* 滾動觸發 reveal */
+  .reveal{opacity:0; transform:translateY(40px); transition:opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);}
+  .reveal.show{opacity:1; transform:translateY(0);}
+
+  /* 背景持續流動的漸層光斑 */
+  @keyframes drift{
+    0%{transform:translate(0,0) rotate(0deg);}
+    50%{transform:translate(40px,-30px) rotate(20deg);}
+    100%{transform:translate(0,0) rotate(0deg);}
+  }
+  .blob{position:absolute; border-radius:50%; filter:blur(50px); opacity:.55; animation:drift 14s ease-in-out infinite;}
+
+  /* 跑動的進度條 */
+  @keyframes runbar{
+    0%{transform:translateX(-100%);}
+    100%{transform:translateX(220%);}
+  }
+  .runbar::after{
+    content:''; position:absolute; inset:0; width:40%;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,.9), transparent);
+    animation:runbar 2.2s ease-in-out infinite;
+  }
+
+  /* 按鈕互動微動畫 */
+  .btn-pulse{transition:transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease;}
+  .btn-pulse:hover{transform:translateY(-3px) scale(1.03); box-shadow:0 14px 30px -10px rgba(255,77,61,.5);}
+  .btn-pulse:active{transform:translateY(0) scale(.97);}
+
+  /* 課程卡片 hover 時圖示跳動 */
+  @keyframes bob{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-6px);}
+  }
+  .card-hover:hover .bob-icon{animation:bob .6s ease-in-out infinite;}
+  .card-hover{transition:transform .35s cubic-bezier(.16,1,.3,1), border-color .35s ease;}
+  .card-hover:hover{transform:translateY(-6px);}
+
+  /* 數字跑動效果用的樣式 */
+  .counter{font-variant-numeric:tabular-nums;}
+
+  /* 心率波形動畫 */
+  .pulse-line{stroke-dasharray: 400; stroke-dashoffset:400; animation:drawline 2.4s ease-in-out infinite;}
+  @keyframes drawline{
+    0%{stroke-dashoffset:400;}
+    60%{stroke-dashoffset:0;}
+    100%{stroke-dashoffset:-400;}
+  }
+
+  .ticker{display:flex; animation:ticker 18s linear infinite; white-space:nowrap;}
+  @keyframes ticker{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  .nav-underline{position:relative;}
+  .nav-underline::after{content:''; position:absolute; left:0; bottom:-4px; width:0; height:2px; background:var(--ink); transition:width .3s ease;}
+  .nav-underline:hover::after{width:100%;}
+</style>
+</head>
+<body class="antialiased">
+
+<!-- NAV -->
+<header class="fixed top-0 inset-x-0 z-50 backdrop-blur bg-[#f4f3ef]/80 border-b border-black/5">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="disp text-xl">MOVEFLOW <span class="text-[var(--brand)]">動感</span></div>
+    <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+      <a href="#courses" class="nav-underline">課表</a>
+      <a href="#stats" class="nav-underline">成效數據</a>
+      <a href="#join" class="nav-underline">方案</a>
+    </nav>
+    <button class="btn-pulse bg-[var(--ink)] text-white text-sm font-bold px-5 py-2.5 rounded-full">立即體驗</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="relative pt-32 pb-24 px-6 overflow-hidden">
+  <div class="blob w-72 h-72 bg-[var(--brand)]" style="top:-40px; left:-60px;"></div>
+  <div class="blob w-96 h-96 bg-[var(--brand2)]" style="top:120px; right:-120px; animation-delay:3s;"></div>
+  <div class="blob w-64 h-64 bg-[var(--accent)]" style="bottom:-60px; left:30%; animation-delay:6s;"></div>
+
+  <div class="relative max-w-4xl mx-auto text-center">
+    <p class="rise rise-1 inline-block text-xs font-bold tracking-widest uppercase bg-black text-white px-4 py-1.5 rounded-full mb-6">每一秒都在動 · 直播課表即時更新</p>
+    <h1 class="rise rise-2 disp text-5xl md:text-7xl leading-[0.95] mb-6">
+      讓身體<br>
+      <span class="relative inline-block">
+        先動起來
+        <svg class="absolute -bottom-2 left-0 w-full" height="14" viewBox="0 0 300 14" preserveAspectRatio="none">
+          <path d="M2 10 Q150 -4 298 10" stroke="var(--brand)" stroke-width="6" fill="none" stroke-linecap="round"/>
+        </svg>
+      </span>
+      ，再談其他
+    </h1>
+    <p class="rise rise-3 text-lg text-neutral-600 mb-10 max-w-xl mx-auto">即時直播課表、動態節奏提示、每一個轉場都在推你往前一步。現在報名，七天內課程全解鎖。</p>
+    <div class="rise rise-4 flex flex-wrap items-center justify-center gap-4">
+      <button onclick="startDemo()" class="btn-pulse bg-[var(--brand)] text-white font-bold px-8 py-4 rounded-full text-base">開始七天體驗</button>
+      <button onclick="scrollToCourses()" class="btn-pulse bg-white border border-black/10 font-bold px-8 py-4 rounded-full text-base">看本週課表 ↓</button>
+    </div>
+  </div>
+
+  <!-- 跑動進度條裝飾 -->
+  <div class="relative mt-16 max-w-3xl mx-auto h-2 rounded-full bg-black/10 overflow-hidden runbar"></div>
+  <p class="text-center text-xs text-neutral-500 mt-3 reveal" id="liveTag">● 直播中：核心燃脂 42 分鐘，目前 213 人同步跟練</p>
+</section>
+
+<!-- 跑馬燈 -->
+<div class="border-y border-black/10 bg-black text-white py-3 overflow-hidden">
+  <div class="ticker disp text-sm">
+    <span class="px-6">⚡ 新課：拳擊節奏 BOXBEAT</span>
+    <span class="px-6">🔥 本週熱門：核心燃脂 42</span>
+    <span class="px-6">🎵 節奏同步心率帶支援</span>
+    <span class="px-6">⚡ 新課：拳擊節奏 BOXBEAT</span>
+    <span class="px-6">🔥 本週熱門：核心燃脂 42</span>
+    <span class="px-6">🎵 節奏同步心率帶支援</span>
+  </div>
+</div>
+
+<!-- COURSES -->
+<section id="courses" class="px-6 py-24 max-w-6xl mx-auto">
+  <div class="reveal mb-12">
+    <h2 class="disp text-3xl md:text-4xl mb-2">本週直播課表</h2>
+    <p class="text-neutral-600">滑到哪、動到哪，卡片會隨你的節奏跳動。</p>
+  </div>
+  <div class="grid md:grid-cols-3 gap-6" id="courseGrid">
+    <div class="reveal card-hover bg-white rounded-3xl p-6 border border-black/10">
+      <div class="bob-icon text-4xl mb-4">🥊</div>
+      <h3 class="disp text-xl mb-1">拳擊節奏 BOXBEAT</h3>
+      <p class="text-sm text-neutral-500 mb-4">35 分鐘 · 高強度間歇</p>
+      <div class="flex items-center justify-between text-sm">
+        <span class="font-bold text-[var(--brand)]">今晚 20:00 開播</span>
+        <button class="underline" onclick="reserve(this,'拳擊節奏 BOXBEAT')">預約</button>
+      </div>
+    </div>
+    <div class="reveal card-hover bg-white rounded-3xl p-6 border border-black/10" style="transition-delay:.1s">
+      <div class="bob-icon text-4xl mb-4">🔥</div>
+      <h3 class="disp text-xl mb-1">核心燃脂 42</h3>
+      <p class="text-sm text-neutral-500 mb-4">42 分鐘 · 全身燃脂</p>
+      <div class="flex items-center justify-between text-sm">
+        <span class="font-bold text-[var(--accent)]">正在直播</span>
+        <button class="underline" onclick="reserve(this,'核心燃脂 42')">加入</button>
+      </div>
+    </div>
+    <div class="reveal card-hover bg-white rounded-3xl p-6 border border-black/10" style="transition-delay:.2s">
+      <div class="bob-icon text-4xl mb-4">🧘</div>
+      <h3 class="disp text-xl mb-1">流動伸展 FLOW</h3>
+      <p class="text-sm text-neutral-500 mb-4">28 分鐘 · 恢復放鬆</p>
+      <div class="flex items-center justify-between text-sm">
+        <span class="font-bold text-neutral-700">明早 07:00 開播</span>
+        <button class="underline" onclick="reserve(this,'流動伸展 FLOW')">預約</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats" class="px-6 py-24 bg-[var(--ink)] text-white">
+  <div class="max-w-5xl mx-auto">
+    <h2 class="reveal disp text-3xl md:text-4xl mb-4 text-center">數字不說謊，節奏會證明</h2>
+    <p class="reveal text-center text-white/60 mb-14">心率同步、課程完成率，全部即時跳動。</p>
+    <div class="grid md:grid-cols-4 gap-6 text-center">
+      <div class="reveal">
+        <div class="counter disp text-4xl md:text-5xl mb-1" data-target="12840">0</div>
+        <p class="text-white/60 text-sm">本月累積跟練人次</p>
+      </div>
+      <div class="reveal" style="transition-delay:.1s">
+        <div class="counter disp text-4xl md:text-5xl mb-1" data-target="96">0</div>
+        <p class="text-white/60 text-sm">％ 課程完成率</p>
+      </div>
+      <div class="reveal" style="transition-delay:.2s">
+        <div class="counter disp text-4xl md:text-5xl mb-1" data-target="138">0</div>
+        <p class="text-white/60 text-sm">平均心率（bpm）</p>
+      </div>
+      <div class="reveal" style="transition-delay:.3s">
+        <div class="counter disp text-4xl md:text-5xl mb-1" data-target="312">0</div>
+        <p class="text-white/60 text-sm">今日新加入學員</p>
+      </div>
+    </div>
+    <div class="reveal mt-14 bg-white/5 rounded-3xl p-6 border border-white/10">
+      <p class="text-sm text-white/60 mb-3">即時心率同步波形（示意）</p>
+      <svg viewBox="0 0 600 80" class="w-full h-16">
+        <polyline class="pulse-line" points="0,40 40,40 55,10 70,70 85,40 140,40 155,15 170,65 185,40 260,40 275,8 290,72 305,40 400,40 415,12 430,68 445,40 600,40" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- JOIN -->
+<section id="join" class="px-6 py-24 max-w-3xl mx-auto text-center">
+  <h2 class="reveal disp text-3xl md:text-4xl mb-4">別只是看著課表，動一下</h2>
+  <p class="reveal text-neutral-600 mb-8">七天體驗全課程，取消隨時可以，不綁約。</p>
+  <form class="reveal flex flex-col sm:flex-row gap-3 justify-center" onsubmit="return joinNow(event)">
+    <input id="emailInput" type="email" required placeholder="輸入信箱開始體驗" class="px-5 py-4 rounded-full border border-black/15 flex-1 outline-none focus:border-[var(--brand)]">
+    <button type="submit" class="btn-pulse bg-[var(--brand)] text-white font-bold px-8 py-4 rounded-full whitespace-nowrap">開始動起來</button>
+  </form>
+  <p id="joinMsg" class="reveal text-sm text-[var(--accent)] font-bold mt-4 hidden"></p>
+</section>
+
+<footer class="text-center text-xs text-neutral-400 py-10 border-t border-black/10">動感 MoveFlow © 2026 · 每一個轉場都算一次練習</footer>
+
+<script>
+  // 滾動 reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); } });
+  }, {threshold:.15});
+  revealEls.forEach(el=>io.observe(el));
+
+  // 數字跑動
+  document.querySelectorAll('.counter').forEach(el=>{
+    const target = parseInt(el.dataset.target,10);
+    const io2 = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting && !el.dataset.done){
+          el.dataset.done = '1';
+          let cur = 0;
+          const step = Math.max(1, Math.round(target/50));
+          const timer = setInterval(()=>{
+            cur += step;
+            if(cur >= target){ cur = target; clearInterval(timer); }
+            el.textContent = cur.toLocaleString('zh-Hant');
+          }, 24);
+        }
+      });
+    }, {threshold:.4});
+    io2.observe(el);
+  });
+
+  function scrollToCourses(){
+    document.getElementById('courses').scrollIntoView({behavior:'smooth'});
+  }
+  function startDemo(){
+    document.getElementById('join').scrollIntoView({behavior:'smooth'});
+  }
+  function reserve(btn, name){
+    btn.textContent = '已預約 ✓';
+    btn.classList.add('text-[var(--accent)]');
+    btn.disabled = true;
+    const tag = document.getElementById('liveTag');
+    tag.textContent = `● 已幫你排進「${name}」，開播前 10 分鐘會提醒`;
+  }
+  function joinNow(e){
+    e.preventDefault();
+    const val = document.getElementById('emailInput').value.trim();
+    const msg = document.getElementById('joinMsg');
+    if(!val){ return false; }
+    msg.textContent = `已收到 ${val}，體驗課程連結將會寄出，先去暖身吧！`;
+    msg.classList.remove('hidden');
+    msg.classList.add('show');
+    return false;
+  }
+</script>
+
+</body>
+</html>
