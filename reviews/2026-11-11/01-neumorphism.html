@@ -1,0 +1,213 @@
+<!-- style #02 Neumorphism -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>靜心日程 · 每日正念提醒</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#e6e9ef;
+    --shadow-dark:#b8bcc7;
+    --shadow-light:#ffffff;
+    --accent:#7c9eff;
+    --accent2:#9b8cff;
+  }
+  body{
+    background:var(--bg);
+    font-family:'Zen Maru Gothic','Baloo 2',sans-serif;
+    color:#4a4d57;
+  }
+  .font-display{ font-family:'Baloo 2','Zen Maru Gothic',sans-serif; }
+  .neu{
+    background:var(--bg);
+    border-radius:28px;
+    box-shadow: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
+  }
+  .neu-inset{
+    background:var(--bg);
+    border-radius:20px;
+    box-shadow: inset 6px 6px 12px var(--shadow-dark), inset -6px -6px 12px var(--shadow-light);
+  }
+  .neu-btn{
+    background:var(--bg);
+    border-radius:18px;
+    box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light);
+    transition: all .15s ease;
+  }
+  .neu-btn:active, .neu-btn.active{
+    box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+  }
+  .neu-icon{
+    background:var(--bg);
+    border-radius:50%;
+    box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+  }
+  .toggle-track{
+    width:56px;height:30px;border-radius:999px;
+    background:var(--bg);
+    box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+    position:relative; cursor:pointer;
+  }
+  .toggle-dot{
+    width:24px;height:24px;border-radius:50%;
+    background:linear-gradient(145deg,#f3f5f9,#dfe3ea);
+    box-shadow: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
+    position:absolute; top:3px; left:3px;
+    transition: left .2s ease, background .2s ease;
+  }
+  .toggle-track.on .toggle-dot{ left:29px; background:linear-gradient(145deg,var(--accent),var(--accent2)); }
+  .slider-track{
+    height:14px;border-radius:999px;
+    background:var(--bg);
+    box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+    position:relative;
+  }
+  .slider-fill{
+    height:14px;border-radius:999px;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    transition: width .2s ease;
+  }
+  .slider-handle{
+    width:28px;height:28px;border-radius:50%;
+    background:var(--bg);
+    box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+    position:absolute; top:-7px; transform:translateX(-50%);
+    cursor:pointer;
+  }
+</style>
+</head>
+<body class="min-h-screen px-5 py-10 md:py-16">
+
+<div class="max-w-md mx-auto">
+
+  <header class="flex items-center justify-between mb-8">
+    <div>
+      <p class="text-sm text-gray-400 font-display">早安，予安</p>
+      <h1 class="text-2xl font-display font-700" style="font-weight:700;">靜心日程</h1>
+    </div>
+    <div class="neu-icon w-14 h-14 flex items-center justify-center text-2xl">🧘‍♀️</div>
+  </header>
+
+  <!-- 今日進度 -->
+  <section class="neu p-6 mb-6">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="font-display font-700 text-lg" style="font-weight:700;">今日正念進度</h2>
+      <span id="progressLabel" class="text-sm text-gray-400">2 / 4 完成</span>
+    </div>
+    <div class="slider-track mb-2">
+      <div id="progressFill" class="slider-fill" style="width:50%;"></div>
+    </div>
+    <p class="text-xs text-gray-400 mt-3">再完成 2 項，今天就能點亮連續紀錄 🔥</p>
+  </section>
+
+  <!-- 呼吸練習倒數 -->
+  <section class="neu p-6 mb-6 text-center">
+    <h2 class="font-display font-700 text-lg mb-4" style="font-weight:700;">4-7-8 呼吸練習</h2>
+    <div class="neu-inset w-40 h-40 mx-auto flex items-center justify-center mb-4">
+      <span id="breathTimer" class="text-4xl font-display" style="font-weight:600;">00:00</span>
+    </div>
+    <p id="breathState" class="text-sm text-gray-400 mb-4">按下開始，跟著節奏吸氣、停留、吐氣</p>
+    <button id="breathBtn" class="neu-btn font-display px-8 py-3 text-base" style="font-weight:600; color:#5a6cff;">開始練習</button>
+  </section>
+
+  <!-- 任務清單 -->
+  <section class="neu p-6 mb-6">
+    <h2 class="font-display font-700 text-lg mb-4" style="font-weight:700;">提醒清單</h2>
+    <ul id="taskList" class="space-y-3">
+      <li class="flex items-center justify-between neu-inset px-4 py-3" data-done="true">
+        <span class="font-display text-sm">早晨三分鐘感恩日記</span>
+        <div class="toggle-track on" onclick="toggleTask(this)"><div class="toggle-dot"></div></div>
+      </li>
+      <li class="flex items-center justify-between neu-inset px-4 py-3" data-done="true">
+        <span class="font-display text-sm">午間伸展 5 分鐘</span>
+        <div class="toggle-track on" onclick="toggleTask(this)"><div class="toggle-dot"></div></div>
+      </li>
+      <li class="flex items-center justify-between neu-inset px-4 py-3" data-done="false">
+        <span class="font-display text-sm">晚間靜坐 10 分鐘</span>
+        <div class="toggle-track" onclick="toggleTask(this)"><div class="toggle-dot"></div></div>
+      </li>
+      <li class="flex items-center justify-between neu-inset px-4 py-3" data-done="false">
+        <span class="font-display text-sm">睡前放下手機提醒</span>
+        <div class="toggle-track" onclick="toggleTask(this)"><div class="toggle-dot"></div></div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- 音量/柔光調節 -->
+  <section class="neu p-6">
+    <h2 class="font-display font-700 text-lg mb-4" style="font-weight:700;">環境音量</h2>
+    <div class="flex items-center gap-4">
+      <span class="text-xl">🌙</span>
+      <div class="slider-track flex-1" id="volTrack" onclick="setVol(event)">
+        <div class="slider-fill" id="volFill" style="width:35%;"></div>
+        <div class="slider-handle" id="volHandle" style="left:35%;"></div>
+      </div>
+      <span class="text-xl">🔔</span>
+    </div>
+    <p id="volLabel" class="text-center text-xs text-gray-400 mt-3">雨聲白噪音 · 35%</p>
+  </section>
+
+</div>
+
+<script>
+function updateProgress(){
+  const items = document.querySelectorAll('#taskList li');
+  const done = [...items].filter(li => li.dataset.done === 'true').length;
+  document.getElementById('progressLabel').textContent = done + ' / ' + items.length + ' 完成';
+  document.getElementById('progressFill').style.width = (done/items.length*100) + '%';
+}
+function toggleTask(track){
+  const li = track.closest('li');
+  const isDone = li.dataset.done === 'true';
+  li.dataset.done = isDone ? 'false' : 'true';
+  track.classList.toggle('on');
+  updateProgress();
+}
+updateProgress();
+
+let breathing = false, breathSeconds = 0, breathInterval = null;
+const phases = [{name:'吸氣',len:4},{name:'停留',len:7},{name:'吐氣',len:8}];
+document.getElementById('breathBtn').addEventListener('click', ()=>{
+  if(breathing){
+    clearInterval(breathInterval);
+    breathing = false;
+    document.getElementById('breathBtn').textContent = '開始練習';
+    document.getElementById('breathState').textContent = '按下開始，跟著節奏吸氣、停留、吐氣';
+    document.getElementById('breathTimer').textContent = '00:00';
+    return;
+  }
+  breathing = true;
+  breathSeconds = 0;
+  document.getElementById('breathBtn').textContent = '停止練習';
+  let phaseIdx = 0, phaseElapsed = 0;
+  document.getElementById('breathState').textContent = phases[0].name + '…';
+  breathInterval = setInterval(()=>{
+    breathSeconds++;
+    phaseElapsed++;
+    const m = String(Math.floor(breathSeconds/60)).padStart(2,'0');
+    const s = String(breathSeconds%60).padStart(2,'0');
+    document.getElementById('breathTimer').textContent = m+':'+s;
+    if(phaseElapsed >= phases[phaseIdx].len){
+      phaseIdx = (phaseIdx+1) % phases.length;
+      phaseElapsed = 0;
+      document.getElementById('breathState').textContent = phases[phaseIdx].name + '…';
+    }
+  }, 1000);
+});
+
+function setVol(e){
+  const track = document.getElementById('volTrack');
+  const rect = track.getBoundingClientRect();
+  let pct = Math.min(100, Math.max(0, ((e.clientX - rect.left) / rect.width) * 100));
+  document.getElementById('volFill').style.width = pct + '%';
+  document.getElementById('volHandle').style.left = pct + '%';
+  document.getElementById('volLabel').textContent = '雨聲白噪音 · ' + Math.round(pct) + '%';
+}
+</script>
+
+</body>
+</html>

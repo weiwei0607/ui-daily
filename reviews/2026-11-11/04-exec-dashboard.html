@@ -1,0 +1,145 @@
+<!-- style #30 Executive Summary Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>戰情室 · CEO 經營摘要</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Manrope','Noto Sans TC',sans-serif; background:#f6f7f9; color:#14181f; }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+  .card{ background:#fff; border:1px solid #eceef1; border-radius:18px; }
+  .up{ color:#10b981; } .down{ color:#ef4444; }
+</style>
+</head>
+<body class="px-5 md:px-10 py-8">
+
+<div class="max-w-5xl mx-auto">
+
+  <header class="flex items-center justify-between mb-8">
+    <div>
+      <p class="text-xs text-gray-400 mb-1">2026 年 11 月 11 日 · 經營摘要</p>
+      <h1 class="text-2xl font-extrabold">戰情室</h1>
+    </div>
+    <div class="flex gap-2">
+      <button onclick="setRange('week')" id="btnWeek" class="range-btn text-xs font-semibold px-4 py-2 rounded-full border border-gray-200">本週</button>
+      <button onclick="setRange('month')" id="btnMonth" class="range-btn text-xs font-semibold px-4 py-2 rounded-full border border-gray-900 bg-gray-900 text-white">本月</button>
+      <button onclick="setRange('quarter')" id="btnQuarter" class="range-btn text-xs font-semibold px-4 py-2 rounded-full border border-gray-200">本季</button>
+    </div>
+  </header>
+
+  <!-- KPI 大數字區：少而精 -->
+  <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+    <div class="card p-6">
+      <p class="text-xs text-gray-400 mb-2">營收</p>
+      <p id="kpiRevenue" class="text-3xl font-extrabold mono">$4.82M</p>
+      <p id="kpiRevenueDelta" class="text-xs up mt-2">▲ 12.4% 較上期</p>
+    </div>
+    <div class="card p-6">
+      <p class="text-xs text-gray-400 mb-2">毛利率</p>
+      <p id="kpiMargin" class="text-3xl font-extrabold mono">58.3%</p>
+      <p id="kpiMarginDelta" class="text-xs up mt-2">▲ 1.2 pt 較上期</p>
+    </div>
+    <div class="card p-6">
+      <p class="text-xs text-gray-400 mb-2">新客戶數</p>
+      <p id="kpiCustomers" class="text-3xl font-extrabold mono">312</p>
+      <p id="kpiCustomersDelta" class="text-xs down mt-2">▼ 3.8% 較上期</p>
+    </div>
+    <div class="card p-6">
+      <p class="text-xs text-gray-400 mb-2">流失率</p>
+      <p id="kpiChurn" class="text-3xl font-extrabold mono">2.1%</p>
+      <p id="kpiChurnDelta" class="text-xs up mt-2">▼ 0.4 pt（下降為好）</p>
+    </div>
+  </section>
+
+  <div class="grid md:grid-cols-3 gap-5">
+    <!-- 營收趨勢 -->
+    <section class="card p-6 md:col-span-2">
+      <h2 class="font-bold mb-4">營收走勢</h2>
+      <svg id="trendSvg" viewBox="0 0 400 140" class="w-full h-36"></svg>
+      <div class="flex justify-between text-xs text-gray-400 mt-2 mono">
+        <span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>七</span>
+      </div>
+    </section>
+
+    <!-- 重點提醒 -->
+    <section class="card p-6">
+      <h2 class="font-bold mb-4">需要你關注</h2>
+      <ul class="space-y-3 text-sm">
+        <li class="flex gap-2"><span class="text-red-500">●</span><span>北區業績連續兩週未達標，建議召開檢討會</span></li>
+        <li class="flex gap-2"><span class="text-amber-500">●</span><span>客服回覆時間拉長至 6.2 小時，接近預警線</span></li>
+        <li class="flex gap-2"><span class="text-emerald-500">●</span><span>企業方案續約率創新高，達 94%</span></li>
+      </ul>
+    </section>
+  </div>
+
+  <!-- 部門表現 -->
+  <section class="card p-6 mt-5">
+    <h2 class="font-bold mb-4">部門達成率</h2>
+    <div id="deptList" class="space-y-4"></div>
+  </section>
+
+</div>
+
+<script>
+const dataSets = {
+  week:    { revenue:'$1.21M', revenueD:'▲ 4.1% 較上期', margin:'57.8%', marginD:'▲ 0.3 pt 較上期', customers:'84',  customersD:'▲ 2.0% 較上期', churn:'0.6%', churnD:'▼ 0.1 pt（下降為好）',
+             trend:[40,55,48,70,65,90,82], dept:[['業務部',92],['行銷部',78],['客服部',85],['產品部',66]] },
+  month:   { revenue:'$4.82M', revenueD:'▲ 12.4% 較上期', margin:'58.3%', marginD:'▲ 1.2 pt 較上期', customers:'312', customersD:'▼ 3.8% 較上期', churn:'2.1%', churnD:'▼ 0.4 pt（下降為好）',
+             trend:[30,45,38,60,72,68,95], dept:[['業務部',88],['行銷部',73],['客服部',91],['產品部',59]] },
+  quarter: { revenue:'$13.9M', revenueD:'▲ 8.9% 較上期', margin:'56.1%', marginD:'▼ 0.5 pt 較上期', customers:'940', customersD:'▲ 15.2% 較上期', churn:'2.8%', churnD:'▲ 0.3 pt（上升需留意）',
+             trend:[50,60,55,80,78,85,100], dept:[['業務部',101],['行銷部',84],['客服部',79],['產品部',70]] }
+};
+
+function drawTrend(points){
+  const svg = document.getElementById('trendSvg');
+  const max = Math.max(...points), min = Math.min(...points);
+  const w=400,h=140,pad=10;
+  const stepX = (w-pad*2)/(points.length-1);
+  const coords = points.map((v,i)=>{
+    const x = pad + i*stepX;
+    const y = h-pad - ((v-min)/(max-min||1))*(h-pad*2);
+    return [x,y];
+  });
+  const linePath = coords.map((c,i)=> (i===0?'M':'L')+c[0].toFixed(1)+','+c[1].toFixed(1)).join(' ');
+  const areaPath = linePath + ' L '+coords[coords.length-1][0]+','+(h-pad)+' L '+coords[0][0]+','+(h-pad)+' Z';
+  svg.innerHTML = '<path d="'+areaPath+'" fill="#3b82f633"></path><path d="'+linePath+'" fill="none" stroke="#3b82f6" stroke-width="2.5"></path>' +
+    coords.map(c=>'<circle cx="'+c[0]+'" cy="'+c[1]+'" r="3" fill="#3b82f6"></circle>').join('');
+}
+function drawDept(list){
+  const wrap = document.getElementById('deptList');
+  wrap.innerHTML = list.map(([name,pct])=>{
+    const over = pct>=100;
+    return '<div><div class="flex justify-between text-sm mb-1"><span class="font-medium">'+name+'</span><span class="mono '+(over?'up':'')+'">'+pct+'%</span></div>'+
+      '<div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden"><div class="h-full rounded-full" style="width:'+Math.min(pct,100)+'%; background:'+(over?'#10b981':'#3b82f6')+';"></div></div></div>';
+  }).join('');
+}
+function setRange(key){
+  const d = dataSets[key];
+  document.getElementById('kpiRevenue').textContent = d.revenue;
+  document.getElementById('kpiRevenueDelta').textContent = d.revenueD;
+  document.getElementById('kpiRevenueDelta').className = 'text-xs mt-2 ' + (d.revenueD.includes('▲')?'up':'down');
+  document.getElementById('kpiMargin').textContent = d.margin;
+  document.getElementById('kpiMarginDelta').textContent = d.marginD;
+  document.getElementById('kpiMarginDelta').className = 'text-xs mt-2 ' + (d.marginD.includes('▲')?'up':'down');
+  document.getElementById('kpiCustomers').textContent = d.customers;
+  document.getElementById('kpiCustomersDelta').textContent = d.customersD;
+  document.getElementById('kpiCustomersDelta').className = 'text-xs mt-2 ' + (d.customersD.includes('▲')?'up':'down');
+  document.getElementById('kpiChurn').textContent = d.churn;
+  document.getElementById('kpiChurnDelta').textContent = d.churnD;
+  drawTrend(d.trend);
+  drawDept(d.dept);
+  ['Week','Month','Quarter'].forEach(k=>{
+    const btn = document.getElementById('btn'+k);
+    const active = k.toLowerCase() === key;
+    btn.className = 'range-btn text-xs font-semibold px-4 py-2 rounded-full border ' + (active ? 'border-gray-900 bg-gray-900 text-white' : 'border-gray-200');
+  });
+}
+setRange('month');
+</script>
+
+</body>
+</html>

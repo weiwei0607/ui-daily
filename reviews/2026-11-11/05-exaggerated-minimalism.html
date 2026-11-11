@@ -1,0 +1,92 @@
+<!-- style #47 Exaggerated Minimalism -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>林知遠 · 平面設計作品集</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Space Grotesk','Noto Sans TC',sans-serif; background:#fff; color:#0a0a0a; }
+  .big{ font-weight:700; letter-spacing:-0.02em; line-height:0.95; }
+  .row{ border-top:1px solid #0a0a0a; }
+  .row:hover .proj-title{ color:#fff; }
+  .row:hover{ background:#0a0a0a; color:#fff; }
+  .row { transition: background .2s ease, color .2s ease; }
+  .cursor-dot{ position:fixed; width:90px; height:90px; border-radius:50%; background:#0a0a0a; color:#fff; font-size:13px; display:flex; align-items:center; justify-content:center; pointer-events:none; transform:translate(-50%,-50%) scale(0); transition:transform .15s ease; z-index:50; font-weight:700;}
+</style>
+</head>
+<body class="px-6 md:px-14 py-10 md:py-16">
+
+<div class="cursor-dot" id="cursorDot">查看</div>
+
+<header class="flex justify-between items-start mb-16 md:mb-28">
+  <div class="big text-2xl md:text-3xl">林知遠</div>
+  <nav class="text-sm font-medium text-right space-y-1">
+    <p>作品</p><p class="text-gray-400">關於</p><p class="text-gray-400">聯絡</p>
+  </nav>
+</header>
+
+<section class="mb-20 md:mb-32">
+  <h1 class="big text-[14vw] md:text-[9vw]">設計<br>就是<br>克制。</h1>
+</section>
+
+<section class="mb-16">
+  <p class="text-sm text-gray-400 mb-6">精選作品 · 2021—2026</p>
+
+  <div class="row py-6 md:py-8 flex items-center justify-between cursor-pointer" onmouseenter="showCursor(this)" onmouseleave="hideCursor()" onclick="openProject('北美館《靜物》展覽識別')">
+    <span class="proj-title text-2xl md:text-4xl font-bold">北美館《靜物》展覽識別</span>
+    <span class="text-sm text-gray-400 hidden md:inline">品牌識別 · 2026</span>
+  </div>
+  <div class="row py-6 md:py-8 flex items-center justify-between cursor-pointer" onmouseenter="showCursor(this)" onmouseleave="hideCursor()" onclick="openProject('山室茶行 包裝系統')">
+    <span class="proj-title text-2xl md:text-4xl font-bold">山室茶行 包裝系統</span>
+    <span class="text-sm text-gray-400 hidden md:inline">包裝設計 · 2025</span>
+  </div>
+  <div class="row py-6 md:py-8 flex items-center justify-between cursor-pointer" onmouseenter="showCursor(this)" onmouseleave="hideCursor()" onclick="openProject('聲音建築 Podcast 視覺')">
+    <span class="proj-title text-2xl md:text-4xl font-bold">聲音建築 Podcast 視覺</span>
+    <span class="text-sm text-gray-400 hidden md:inline">視覺設計 · 2024</span>
+  </div>
+  <div class="row py-6 md:py-8 flex items-center justify-between cursor-pointer" onmouseenter="showCursor(this)" onmouseleave="hideCursor()" onclick="openProject('浮生書店 字體系統')">
+    <span class="proj-title text-2xl md:text-4xl font-bold">浮生書店 字體系統</span>
+    <span class="text-sm text-gray-400 hidden md:inline">字體設計 · 2023</span>
+  </div>
+  <div class="row border-b border-black"></div>
+</section>
+
+<section class="mb-20 flex flex-col md:flex-row justify-between gap-6 items-start">
+  <p class="text-sm text-gray-400 max-w-sm">目前接受 2027 年第一季的品牌識別委託案，名額有限。</p>
+  <a href="#" onclick="event.preventDefault(); openProject('聯絡表單');" class="text-xl md:text-3xl font-bold underline underline-offset-4">chihyuan.lin@studio.tw</a>
+</section>
+
+<div id="modal" class="fixed inset-0 bg-black/90 hidden items-center justify-center z-50 px-6">
+  <div class="bg-white max-w-md w-full p-8 relative">
+    <button onclick="closeModal()" class="absolute top-4 right-5 text-2xl">×</button>
+    <p class="text-xs text-gray-400 mb-2">作品詳情</p>
+    <h3 id="modalTitle" class="text-2xl font-bold mb-4"></h3>
+    <p class="text-sm text-gray-500">完整案例與過程紀錄將於近期更新至作品集，歡迎透過信箱索取完整提案 PDF。</p>
+  </div>
+</div>
+
+<script>
+const dot = document.getElementById('cursorDot');
+document.addEventListener('mousemove', e=>{
+  dot.style.left = e.clientX+'px';
+  dot.style.top = e.clientY+'px';
+});
+function showCursor(){ dot.style.transform = 'translate(-50%,-50%) scale(1)'; }
+function hideCursor(){ dot.style.transform = 'translate(-50%,-50%) scale(0)'; }
+function openProject(title){
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modal').classList.remove('hidden');
+  document.getElementById('modal').classList.add('flex');
+}
+function closeModal(){
+  document.getElementById('modal').classList.add('hidden');
+  document.getElementById('modal').classList.remove('flex');
+}
+</script>
+
+</body>
+</html>

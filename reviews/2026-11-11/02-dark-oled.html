@@ -1,0 +1,151 @@
+<!-- style #07 Dark Mode (OLED) -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>深夜電台 · Podcast 播放器</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --glow:#39ff8f; }
+  body{
+    background:#0a0a0a;
+    font-family:'Hanken Grotesk','Noto Sans TC',sans-serif;
+    color:#eaeaea;
+  }
+  .glow-text{ color:var(--glow); text-shadow:0 0 8px rgba(57,255,143,.6), 0 0 20px rgba(57,255,143,.25); }
+  .glow-ring{ box-shadow:0 0 0 1px rgba(57,255,143,.3), 0 0 24px rgba(57,255,143,.15); }
+  .card{ background:#121212; border:1px solid #1e1e1e; border-radius:20px; }
+  .bar{ background:var(--glow); box-shadow:0 0 6px rgba(57,255,143,.7); }
+  @keyframes pulseDot{ 0%,100%{opacity:1;} 50%{opacity:.35;} }
+  .live-dot{ animation:pulseDot 1.4s ease-in-out infinite; }
+</style>
+</head>
+<body class="min-h-screen px-5 py-10 md:py-16">
+<div class="max-w-md mx-auto">
+
+  <header class="flex items-center justify-between mb-8">
+    <div>
+      <p class="text-xs text-gray-500 tracking-widest">NIGHT FM</p>
+      <h1 class="text-2xl font-bold">深夜電台</h1>
+    </div>
+    <div class="flex items-center gap-2 text-xs text-gray-500">
+      <span class="w-2 h-2 rounded-full live-dot" style="background:var(--glow);"></span>
+      <span>1,204 人正在收聽</span>
+    </div>
+  </header>
+
+  <!-- 播放中節目卡 -->
+  <section class="card p-6 mb-6 glow-ring">
+    <p class="text-xs text-gray-500 mb-1">正在播放 · EP.182</p>
+    <h2 class="text-xl font-semibold mb-4">凌晨三點的城市迴響</h2>
+
+    <!-- 聲波視覺 -->
+    <div id="waveform" class="flex items-end gap-1 h-16 mb-4"></div>
+
+    <div class="flex items-center justify-between text-xs text-gray-500 mb-2">
+      <span id="curTime">12:07</span>
+      <span>43:52</span>
+    </div>
+    <div class="w-full h-1.5 bg-[#1e1e1e] rounded-full mb-6 overflow-hidden">
+      <div id="progBar" class="bar h-full rounded-full" style="width:28%;"></div>
+    </div>
+
+    <div class="flex items-center justify-center gap-8">
+      <button class="text-gray-400 hover:text-white text-xl" onclick="skip(-15)">⟲15</button>
+      <button id="playBtn" onclick="togglePlay()" class="w-16 h-16 rounded-full flex items-center justify-center text-2xl glow-ring" style="background:#121212; color:var(--glow);">▶</button>
+      <button class="text-gray-400 hover:text-white text-xl" onclick="skip(15)">15⟳</button>
+    </div>
+  </section>
+
+  <!-- 單一強調色操作：訂閱切換 -->
+  <section class="card p-6 mb-6 flex items-center justify-between">
+    <div>
+      <p class="font-semibold">訂閱這個節目</p>
+      <p class="text-xs text-gray-500 mt-1">新一集上線，第一時間通知你</p>
+    </div>
+    <button id="subBtn" onclick="toggleSub()" class="px-5 py-2 rounded-full text-sm font-semibold border border-[#2a2a2a]" style="color:#eaeaea;">追蹤</button>
+  </section>
+
+  <!-- 歷史收聽清單 -->
+  <section class="card p-6">
+    <h2 class="font-semibold mb-4">今晚的播放清單</h2>
+    <ul class="space-y-3 text-sm">
+      <li class="flex justify-between text-gray-400"><span>EP.181 ・ 失眠者的深夜對話</span><span>38:10</span></li>
+      <li class="flex justify-between"><span class="glow-text">EP.182 ・ 凌晨三點的城市迴響</span><span class="glow-text">43:52</span></li>
+      <li class="flex justify-between text-gray-400"><span>EP.183 ・ 給還沒睡的你</span><span>31:46</span></li>
+    </ul>
+  </section>
+
+</div>
+
+<script>
+// 聲波視覺（真的依播放狀態驅動高度變化）
+const wf = document.getElementById('waveform');
+const barsCount = 40;
+const bars = [];
+for(let i=0;i<barsCount;i++){
+  const b = document.createElement('div');
+  b.style.width = '3px';
+  b.style.borderRadius = '2px';
+  b.style.background = '#2a2a2a';
+  b.style.height = '6px';
+  b.style.transition = 'height .12s ease, background .12s ease';
+  wf.appendChild(b);
+  bars.push(b);
+}
+
+let playing = false, waveInterval = null, progInterval = null, seconds = 727; // 12:07
+function fmt(s){ const m=Math.floor(s/60); const sec=String(s%60).padStart(2,'0'); return m+':'+sec; }
+
+function animateWave(){
+  bars.forEach(b=>{
+    const h = playing ? (6 + Math.random()*56) : 6;
+    b.style.height = h+'px';
+    b.style.background = playing && h>20 ? '#39ff8f' : '#2a2a2a';
+  });
+}
+function togglePlay(){
+  playing = !playing;
+  document.getElementById('playBtn').textContent = playing ? '❙❙' : '▶';
+  if(playing){
+    waveInterval = setInterval(animateWave, 220);
+    progInterval = setInterval(()=>{
+      seconds++;
+      document.getElementById('curTime').textContent = fmt(seconds);
+      const pct = Math.min(100, (seconds/2632)*100);
+      document.getElementById('progBar').style.width = pct+'%';
+    }, 1000);
+  } else {
+    clearInterval(waveInterval);
+    clearInterval(progInterval);
+    animateWave();
+  }
+}
+function skip(delta){
+  seconds = Math.max(0, seconds+delta);
+  document.getElementById('curTime').textContent = fmt(seconds);
+}
+let subscribed = false;
+function toggleSub(){
+  subscribed = !subscribed;
+  const btn = document.getElementById('subBtn');
+  if(subscribed){
+    btn.textContent = '已追蹤 ✓';
+    btn.style.background = '#39ff8f';
+    btn.style.color = '#0a0a0a';
+    btn.style.borderColor = '#39ff8f';
+  } else {
+    btn.textContent = '追蹤';
+    btn.style.background = 'transparent';
+    btn.style.color = '#eaeaea';
+    btn.style.borderColor = '#2a2a2a';
+  }
+}
+animateWave();
+</script>
+
+</body>
+</html>

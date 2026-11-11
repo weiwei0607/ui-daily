@@ -1,0 +1,161 @@
+<!-- style #21 Conversion-Optimized -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>記帳快 BudgetFlow · 讓記帳變成兩秒鐘的事</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Sora','Noto Sans TC',sans-serif; background:#fbfaf7; color:#1d1d1f; }
+  .accent{ color:#ff5a36; }
+  .btn-cta{ background:#ff5a36; color:#fff; transition:transform .15s ease, box-shadow .15s ease; }
+  .btn-cta:hover{ transform:translateY(-2px); box-shadow:0 10px 24px rgba(255,90,54,.35); }
+  .sticky-cta{ position:fixed; left:0; right:0; bottom:0; z-index:40; }
+</style>
+</head>
+<body class="pb-24">
+
+<!-- Nav -->
+<nav class="max-w-5xl mx-auto flex items-center justify-between px-6 py-5">
+  <div class="font-extrabold text-lg">記帳快<span class="accent">.</span></div>
+  <button onclick="scrollToPricing()" class="hidden md:inline-block text-sm font-semibold border border-gray-300 rounded-full px-5 py-2 hover:border-gray-900 transition">立即開始</button>
+</nav>
+
+<!-- Hero -->
+<header class="max-w-3xl mx-auto text-center px-6 pt-8 pb-14">
+  <p class="inline-block text-xs font-bold tracking-wide bg-orange-50 text-orange-600 px-3 py-1 rounded-full mb-5">已有 82,000+ 人用它管好錢包</p>
+  <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-5">拍一張發票，<br>記帳就完成了</h1>
+  <p class="text-gray-500 text-lg mb-8">AI 自動辨識金額與類別，每天只要兩秒鐘，就能看懂自己的錢花去哪。</p>
+  <div class="flex flex-col sm:flex-row justify-center gap-3">
+    <button onclick="startTrial()" class="btn-cta font-bold px-8 py-4 rounded-full text-base">免費試用 14 天</button>
+    <button onclick="scrollToDemo()" class="font-semibold px-8 py-4 rounded-full text-base border border-gray-300">看 30 秒 Demo</button>
+  </div>
+  <p class="text-xs text-gray-400 mt-3">不須信用卡，隨時可取消</p>
+</header>
+
+<!-- Social proof logos -->
+<section class="max-w-4xl mx-auto px-6 pb-14 text-center">
+  <p class="text-xs text-gray-400 mb-4 tracking-widest">媒體與社群都在討論</p>
+  <div class="flex flex-wrap justify-center items-center gap-x-10 gap-y-4 text-gray-400 font-bold text-sm">
+    <span>數位時代</span><span>科技報橘</span><span>天下雜誌</span><span>Dcard 財經版</span><span>PTT 省錢板</span>
+  </div>
+</section>
+
+<!-- Interactive demo -->
+<section id="demo" class="max-w-md mx-auto px-6 pb-16">
+  <div class="bg-white border border-gray-200 rounded-3xl p-6 shadow-sm">
+    <p class="text-sm font-semibold mb-3 text-gray-500">試試看：輸入一筆消費</p>
+    <div class="flex gap-2 mb-3">
+      <input id="demoAmount" type="number" placeholder="金額，例如 150" class="flex-1 border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-400">
+      <button onclick="addDemo()" class="btn-cta font-bold px-5 rounded-xl text-sm">加入</button>
+    </div>
+    <select id="demoCat" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm mb-4">
+      <option>🍜 餐飲</option><option>🚗 交通</option><option>🎬 娛樂</option><option>🛒 日用品</option>
+    </select>
+    <div class="border-t border-gray-100 pt-4">
+      <p class="text-xs text-gray-400 mb-2">本月已記錄</p>
+      <ul id="demoList" class="space-y-2 text-sm mb-3"></ul>
+      <div class="flex justify-between font-bold text-base pt-2 border-t border-gray-100">
+        <span>總計</span><span id="demoTotal" class="accent">NT$ 0</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 數據先行的信任區 -->
+<section class="bg-gray-900 text-white py-16 px-6">
+  <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+    <div><p class="text-3xl font-extrabold">82,000+</p><p class="text-xs text-gray-400 mt-1">活躍使用者</p></div>
+    <div><p class="text-3xl font-extrabold">4.8 ★</p><p class="text-xs text-gray-400 mt-1">App 商店評分</p></div>
+    <div><p class="text-3xl font-extrabold">97%</p><p class="text-xs text-gray-400 mt-1">辨識正確率</p></div>
+    <div><p class="text-3xl font-extrabold">2 秒</p><p class="text-xs text-gray-400 mt-1">平均記帳時間</p></div>
+  </div>
+</section>
+
+<!-- 見證 -->
+<section class="max-w-5xl mx-auto px-6 py-16">
+  <h2 class="text-2xl font-extrabold text-center mb-10">用過的人都這麼說</h2>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="border border-gray-200 rounded-2xl p-6">
+      <p class="text-sm mb-4">「以前記帳三天就放棄，現在拍照就好，已經連續 40 天沒中斷。」</p>
+      <p class="text-xs text-gray-400 font-semibold">— 芯語，自由接案者</p>
+    </div>
+    <div class="border border-gray-200 rounded-2xl p-6">
+      <p class="text-sm mb-4">「月底結算報表一眼就看出亂花錢的類別，這個月餐飲費省了三千塊。」</p>
+      <p class="text-xs text-gray-400 font-semibold">— 建宏，軟體工程師</p>
+    </div>
+    <div class="border border-gray-200 rounded-2xl p-6">
+      <p class="text-sm mb-4">「跟另一半共用帳本，終於不用再對帳到吵架了。」</p>
+      <p class="text-xs text-gray-400 font-semibold">— 雅婷，國小老師</p>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section id="pricing" class="max-w-4xl mx-auto px-6 py-16">
+  <h2 class="text-2xl font-extrabold text-center mb-10">選一個方案，今天就開始</h2>
+  <div class="grid md:grid-cols-2 gap-6">
+    <div class="border border-gray-200 rounded-3xl p-8">
+      <p class="font-bold text-lg mb-1">免費版</p>
+      <p class="text-3xl font-extrabold mb-4">NT$ 0</p>
+      <ul class="text-sm text-gray-500 space-y-2 mb-6">
+        <li>✓ 手動記帳無限制</li>
+        <li>✓ 每月 20 張拍照辨識</li>
+        <li>✓ 基本分類報表</li>
+      </ul>
+      <button onclick="startFree()" class="w-full border border-gray-300 rounded-full py-3 font-semibold">選擇免費版</button>
+    </div>
+    <div class="border-2 border-orange-400 rounded-3xl p-8 relative">
+      <span class="absolute -top-3 right-6 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full">最多人選</span>
+      <p class="font-bold text-lg mb-1">進階版</p>
+      <p class="text-3xl font-extrabold mb-4">NT$ 99<span class="text-sm text-gray-400">/月</span></p>
+      <ul class="text-sm text-gray-500 space-y-2 mb-6">
+        <li>✓ 無限拍照辨識</li>
+        <li>✓ 多人共用帳本</li>
+        <li>✓ 自訂分類與月度趨勢</li>
+      </ul>
+      <button onclick="startTrial()" class="btn-cta w-full rounded-full py-3 font-bold">免費試用 14 天</button>
+    </div>
+  </div>
+</section>
+
+<div class="sticky-cta bg-white border-t border-gray-200 px-6 py-4 flex items-center justify-between shadow-[0_-4px_16px_rgba(0,0,0,0.06)]">
+  <span class="text-sm font-semibold hidden sm:block">準備好兩秒鐘記完帳了嗎？</span>
+  <button onclick="startTrial()" class="btn-cta font-bold px-6 py-3 rounded-full text-sm w-full sm:w-auto">免費試用 14 天</button>
+</div>
+
+<div id="toast" class="hidden fixed top-6 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-sm px-5 py-3 rounded-full z-50"></div>
+
+<script>
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.remove('hidden');
+  setTimeout(()=> t.classList.add('hidden'), 2000);
+}
+function startTrial(){ toast('已為你開始 14 天免費試用 🎉'); }
+function startFree(){ toast('免費版帳號已建立，馬上就能開始記帳'); }
+function scrollToPricing(){ document.getElementById('pricing').scrollIntoView({behavior:'smooth'}); }
+function scrollToDemo(){ document.getElementById('demo').scrollIntoView({behavior:'smooth'}); }
+
+let total = 0;
+function addDemo(){
+  const amountInput = document.getElementById('demoAmount');
+  const amount = parseFloat(amountInput.value);
+  if(!amount || amount<=0){ toast('請輸入有效金額'); return; }
+  const cat = document.getElementById('demoCat').value;
+  const li = document.createElement('li');
+  li.className = 'flex justify-between';
+  li.innerHTML = '<span>'+cat+'</span><span>NT$ '+amount.toLocaleString()+'</span>';
+  document.getElementById('demoList').prepend(li);
+  total += amount;
+  document.getElementById('demoTotal').textContent = 'NT$ ' + total.toLocaleString();
+  amountInput.value = '';
+}
+</script>
+
+</body>
+</html>
