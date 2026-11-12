@@ -1,0 +1,126 @@
+<!-- style #28 Data-Dense Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>電商戰情室 · 即時營運儀表板</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Manrope','Noto Sans TC',sans-serif; background:#0b0f17; color:#dde3ec; }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+  .card{ background:#121826; border:1px solid #1f2a3b; }
+  .up{ color:#34d399; }
+  .down{ color:#f87171; }
+  .grid-bg{
+    background-image: linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .bar{ transition: height .5s ease; }
+  table td, table th{ padding:8px 10px; }
+  table tr:not(:last-child) td{ border-bottom:1px solid #1f2a3b; }
+  .pill{ padding:2px 8px; border-radius:999px; font-size:11px; }
+</style>
+</head>
+<body class="px-4 md:px-8 py-6 grid-bg">
+
+<div class="max-w-7xl mx-auto">
+  <header class="flex items-center justify-between mb-6">
+    <div>
+      <p class="text-xs text-gray-500 mono">OPS-DASHBOARD · LIVE</p>
+      <h1 class="text-xl md:text-2xl font-extrabold">電商戰情室</h1>
+    </div>
+    <div class="flex items-center gap-3 text-xs">
+      <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>即時同步中</span>
+      <span class="mono text-gray-500" id="clock">00:00:00</span>
+    </div>
+  </header>
+
+  <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+    <div class="card rounded-xl p-4">
+      <p class="text-xs text-gray-500 mb-2">今日營收</p>
+      <p class="mono text-2xl font-bold">NT$ 1,284,920</p>
+      <p class="text-xs up mt-1">▲ 12.4% 較昨日</p>
+    </div>
+    <div class="card rounded-xl p-4">
+      <p class="text-xs text-gray-500 mb-2">訂單數</p>
+      <p class="mono text-2xl font-bold">3,042</p>
+      <p class="text-xs up mt-1">▲ 6.1% 較昨日</p>
+    </div>
+    <div class="card rounded-xl p-4">
+      <p class="text-xs text-gray-500 mb-2">轉換率</p>
+      <p class="mono text-2xl font-bold">2.87%</p>
+      <p class="text-xs down mt-1">▼ 0.3pt 較昨日</p>
+    </div>
+    <div class="card rounded-xl p-4">
+      <p class="text-xs text-gray-500 mb-2">客單價</p>
+      <p class="mono text-2xl font-bold">NT$ 1,422</p>
+      <p class="text-xs up mt-1">▲ 4.8% 較昨日</p>
+    </div>
+  </section>
+
+  <section class="grid md:grid-cols-3 gap-4 mb-6">
+    <div class="card rounded-xl p-5 md:col-span-2">
+      <div class="flex items-center justify-between mb-4">
+        <p class="font-bold text-sm">近 12 小時營收曲線</p>
+        <div class="flex gap-2 text-xs">
+          <button class="pill bg-white/10" onclick="setRange(this,'12h')">12H</button>
+          <button class="pill" onclick="setRange(this,'7d')">7D</button>
+          <button class="pill" onclick="setRange(this,'30d')">30D</button>
+        </div>
+      </div>
+      <div class="flex items-end gap-1.5 h-40" id="chart"></div>
+    </div>
+    <div class="card rounded-xl p-5">
+      <p class="font-bold text-sm mb-4">流量來源</p>
+      <div class="space-y-3 text-xs">
+        <div><div class="flex justify-between mb-1"><span>自然搜尋</span><span class="mono">38%</span></div><div class="h-1.5 bg-white/10 rounded"><div class="h-1.5 bg-sky-400 rounded" style="width:38%"></div></div></div>
+        <div><div class="flex justify-between mb-1"><span>社群廣告</span><span class="mono">29%</span></div><div class="h-1.5 bg-white/10 rounded"><div class="h-1.5 bg-violet-400 rounded" style="width:29%"></div></div></div>
+        <div><div class="flex justify-between mb-1"><span>電子報</span><span class="mono">16%</span></div><div class="h-1.5 bg-white/10 rounded"><div class="h-1.5 bg-amber-400 rounded" style="width:16%"></div></div></div>
+        <div><div class="flex justify-between mb-1"><span>聯盟行銷</span><span class="mono">17%</span></div><div class="h-1.5 bg-white/10 rounded"><div class="h-1.5 bg-rose-400 rounded" style="width:17%"></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card rounded-xl p-5">
+    <p class="font-bold text-sm mb-3">庫存異常警示</p>
+    <table class="w-full text-sm">
+      <thead class="text-gray-500 text-xs text-left"><tr><th>商品</th><th>SKU</th><th>庫存</th><th>日銷量</th><th>預估斷貨</th><th>狀態</th></tr></thead>
+      <tbody class="mono">
+        <tr><td class="font-sans">夜間修護精華 30ml</td><td>SK-2281</td><td>42</td><td>38</td><td>1.1 天</td><td><span class="pill bg-rose-500/20 down">緊急</span></td></tr>
+        <tr><td class="font-sans">輕量防曬噴霧</td><td>SK-1190</td><td>210</td><td>65</td><td>3.2 天</td><td><span class="pill bg-amber-500/20" style="color:#fbbf24">注意</span></td></tr>
+        <tr><td class="font-sans">胺基酸潔面乳</td><td>SK-0734</td><td>880</td><td>52</td><td>16.9 天</td><td><span class="pill bg-emerald-500/20 up">正常</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+</div>
+
+<script>
+  const chart = document.getElementById('chart');
+  function render(n, scale){
+    chart.innerHTML = '';
+    for(let i=0;i<n;i++){
+      const h = 20 + Math.random()*75;
+      const bar = document.createElement('div');
+      bar.className = 'bar flex-1 rounded-t bg-sky-400/80';
+      bar.style.height = h + '%';
+      chart.appendChild(bar);
+    }
+  }
+  function setRange(btn, range){
+    document.querySelectorAll('#chart').forEach(()=>{});
+    document.querySelectorAll('button.pill').forEach(b=>b.classList.remove('bg-white/10'));
+    btn.classList.add('bg-white/10');
+    render(range === '12h' ? 12 : range === '7d' ? 7 : 30);
+  }
+  render(12);
+  function tick(){
+    document.getElementById('clock').textContent = new Date().toLocaleTimeString('zh-TW', {hour12:false});
+  }
+  setInterval(tick, 1000); tick();
+</script>
+
+</body>
+</html>

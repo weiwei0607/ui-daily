@@ -1,0 +1,152 @@
+<!-- style #10 Aurora UI -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>絮語 Whisper · 每天陪你說說話的 AI</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Varela+Round&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --a1:#6ea8ff; --a2:#b084ff; --a3:#ff9ecb; --a4:#7df7d0;
+  }
+  body{
+    font-family:'Zen Maru Gothic','Varela Round',sans-serif;
+    background:#0d0f1e; color:#eef0fb;
+    overflow-x:hidden;
+  }
+  .font-display{ font-family:'Varela Round','Zen Maru Gothic',sans-serif; }
+  .aurora{
+    position:fixed; inset:0; z-index:0; filter:blur(60px); opacity:.65;
+    background:
+      radial-gradient(45% 35% at 20% 25%, var(--a1), transparent 60%),
+      radial-gradient(40% 30% at 80% 20%, var(--a2), transparent 60%),
+      radial-gradient(45% 35% at 70% 80%, var(--a3), transparent 60%),
+      radial-gradient(35% 30% at 15% 80%, var(--a4), transparent 60%);
+    animation: drift 18s ease-in-out infinite alternate;
+  }
+  @keyframes drift{
+    0%{ transform: translate(0,0) scale(1); }
+    50%{ transform: translate(2%,-3%) scale(1.08); }
+    100%{ transform: translate(-3%,2%) scale(1.02); }
+  }
+  .glass{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.18);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+  .glow-btn{
+    background:linear-gradient(120deg,var(--a1),var(--a2));
+    box-shadow:0 10px 30px -8px rgba(110,168,255,.6);
+  }
+  .glow-btn:hover{ filter:brightness(1.08); }
+  .bubble-mine{ background:linear-gradient(120deg,var(--a1),var(--a2)); color:#fff; }
+  .bubble-ai{ background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.15); }
+  .typing span{ animation: bounce 1.2s infinite; display:inline-block; }
+  .typing span:nth-child(2){ animation-delay:.15s; }
+  .typing span:nth-child(3){ animation-delay:.3s; }
+  @keyframes bounce{ 0%,60%,100%{ transform:translateY(0); opacity:.5;} 30%{ transform:translateY(-4px); opacity:1; } }
+  ::selection{ background:var(--a2); }
+</style>
+</head>
+<body class="relative min-h-screen">
+<div class="aurora"></div>
+
+<div class="relative z-10 max-w-6xl mx-auto px-6 md:px-10 py-8">
+  <nav class="flex items-center justify-between mb-14">
+    <span class="font-display text-xl font-bold">絮語 · Whisper</span>
+    <button class="glow-btn font-bold px-5 py-2.5 rounded-full text-sm">免費開始聊</button>
+  </nav>
+
+  <section class="grid md:grid-cols-2 gap-12 items-center mb-24">
+    <div>
+      <h1 class="font-display text-3xl md:text-5xl font-bold leading-tight mb-6">
+        累的時候，<br>有個不會嫌你煩的人<br>可以說說話
+      </h1>
+      <p class="text-white/70 text-base md:text-lg mb-8 max-w-md">絮語記得你上次說過的事、在意的人、最近的心情起伏，每天用溫柔但不說教的方式陪你聊十分鐘。</p>
+      <div class="flex gap-4">
+        <button class="glow-btn font-bold px-7 py-3.5 rounded-full">開始對話</button>
+        <button class="glass font-semibold px-7 py-3.5 rounded-full">看看它會說什麼</button>
+      </div>
+    </div>
+
+    <div class="glass rounded-3xl p-5 md:p-6">
+      <div class="space-y-3 mb-4" id="chatLog">
+        <div class="flex justify-end"><div class="bubble-mine rounded-2xl rounded-tr-sm px-4 py-2.5 max-w-[75%] text-sm">今天開會被念了，有點低落</div></div>
+        <div class="flex justify-start"><div class="bubble-ai rounded-2xl rounded-tl-sm px-4 py-2.5 max-w-[75%] text-sm">聽起來真的滿委屈的。是被念得不合理，還是你自己也覺得有些地方可以再做好？</div></div>
+      </div>
+      <div class="flex gap-2">
+        <input id="chatInput" type="text" placeholder="跟絮語說說今天怎麼樣…" class="flex-1 bg-white/10 border border-white/20 rounded-full px-4 py-2.5 text-sm placeholder-white/40 outline-none focus:border-white/40">
+        <button id="sendBtn" class="glow-btn w-10 h-10 rounded-full flex items-center justify-center text-lg">➤</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid md:grid-cols-3 gap-6 mb-24">
+    <div class="glass rounded-2xl p-6">
+      <div class="w-10 h-10 rounded-full mb-4" style="background:linear-gradient(120deg,var(--a1),var(--a4));"></div>
+      <h3 class="font-display font-bold text-lg mb-2">記得你的脈絡</h3>
+      <p class="text-white/60 text-sm leading-relaxed">提過的同事名字、最近在煩的事，絮語都會記住，不用每次重新解釋。</p>
+    </div>
+    <div class="glass rounded-2xl p-6">
+      <div class="w-10 h-10 rounded-full mb-4" style="background:linear-gradient(120deg,var(--a2),var(--a3));"></div>
+      <h3 class="font-display font-bold text-lg mb-2">情緒週報</h3>
+      <p class="text-white/60 text-sm leading-relaxed">每週整理你的心情起伏曲線，讓你看見自己這週經歷了什麼。</p>
+    </div>
+    <div class="glass rounded-2xl p-6">
+      <div class="w-10 h-10 rounded-full mb-4" style="background:linear-gradient(120deg,var(--a3),var(--a1));"></div>
+      <h3 class="font-display font-bold text-lg mb-2">完全私密</h3>
+      <p class="text-white/60 text-sm leading-relaxed">對話只存在你的裝置與加密雲端，不會被用來訓練模型或分享給第三方。</p>
+    </div>
+  </section>
+
+  <section class="text-center mb-10">
+    <h2 class="font-display text-2xl md:text-3xl font-bold mb-4">今晚，先跟絮語聊五分鐘看看</h2>
+    <button class="glow-btn font-bold px-8 py-4 rounded-full text-lg">免費開始聊</button>
+  </section>
+</div>
+
+<script>
+  const log = document.getElementById('chatLog');
+  const input = document.getElementById('chatInput');
+  const sendBtn = document.getElementById('sendBtn');
+  const replies = [
+    '這樣聽起來你已經很努力在扛了，要不要先放過自己一點？',
+    '如果今天可以重來一次，你會想換掉哪個時刻？',
+    '辛苦了。先深呼吸一下，我在這裡陪你慢慢說。',
+    '聽起來這件事對你來說很重要，才會這麼在意吧。'
+  ];
+  function addBubble(text, mine){
+    const wrap = document.createElement('div');
+    wrap.className = mine ? 'flex justify-end' : 'flex justify-start';
+    const bubble = document.createElement('div');
+    bubble.className = (mine ? 'bubble-mine' : 'bubble-ai') + ' rounded-2xl px-4 py-2.5 max-w-[75%] text-sm ' + (mine ? 'rounded-tr-sm' : 'rounded-tl-sm');
+    bubble.textContent = text;
+    wrap.appendChild(bubble);
+    log.appendChild(wrap);
+    log.scrollTop = log.scrollHeight;
+  }
+  function send(){
+    const text = input.value.trim();
+    if(!text) return;
+    addBubble(text, true);
+    input.value = '';
+    const typing = document.createElement('div');
+    typing.className = 'flex justify-start';
+    typing.innerHTML = '<div class="bubble-ai rounded-2xl rounded-tl-sm px-4 py-2.5 text-sm typing"><span>•</span><span>•</span><span>•</span></div>';
+    log.appendChild(typing);
+    log.scrollTop = log.scrollHeight;
+    setTimeout(() => {
+      typing.remove();
+      addBubble(replies[Math.floor(Math.random()*replies.length)], false);
+    }, 900);
+  }
+  sendBtn.addEventListener('click', send);
+  input.addEventListener('keydown', e => { if(e.key === 'Enter') send(); });
+</script>
+
+</body>
+</html>

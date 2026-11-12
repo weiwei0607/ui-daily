@@ -1,0 +1,174 @@
+<!-- style #05 3D / Hyperrealism -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>輝環 HaloRing · 戴在手上的健康感應</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold:#f3cf6b;
+    --gold-deep:#c9992e;
+    --silver:#dfe3e8;
+    --violet:#5b3df0;
+    --violet-deep:#2e1a78;
+    --bg:#0c0a16;
+  }
+  body{ background:var(--bg); color:#f4f2fb; font-family:'Noto Sans TC',sans-serif; }
+  .font-display{ font-family:'Syne','Noto Sans TC',sans-serif; }
+  .font-num{ font-family:'Space Grotesk','Noto Sans TC',sans-serif; }
+  .stage{
+    background:
+      radial-gradient(circle at 30% 20%, rgba(124,93,255,.35), transparent 55%),
+      radial-gradient(circle at 75% 70%, rgba(243,207,107,.18), transparent 50%),
+      linear-gradient(160deg,#120d24,#06050c 70%);
+  }
+  .ring3d{
+    width:260px;height:260px;border-radius:50%;
+    position:relative;
+    background:
+      conic-gradient(from 210deg,
+        #fff7df 0deg, var(--gold) 45deg, var(--gold-deep) 100deg,
+        #7a5a12 150deg, var(--gold-deep) 200deg, var(--gold) 260deg,
+        #fff7df 320deg, #fff7df 360deg);
+    box-shadow:
+      0 30px 60px -10px rgba(0,0,0,.6),
+      0 0 0 2px rgba(255,255,255,.08) inset,
+      0 -10px 30px rgba(255,255,255,.15) inset;
+    animation: spin 14s linear infinite;
+  }
+  .ring3d::before{
+    content:'';
+    position:absolute; inset:34px;
+    border-radius:50%;
+    background: radial-gradient(circle at 35% 30%, #1a1424, var(--bg) 70%);
+    box-shadow: 0 8px 20px rgba(0,0,0,.6) inset;
+  }
+  .ring3d::after{
+    content:'';
+    position:absolute; top:6%; left:16%;
+    width:28%; height:14%;
+    background:rgba(255,255,255,.55);
+    border-radius:50%;
+    filter:blur(3px);
+    transform:rotate(-20deg);
+  }
+  @keyframes spin{ from{ transform:rotate(0deg); } to{ transform:rotate(360deg); } }
+  .glow-card{
+    background:linear-gradient(155deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08);
+    backdrop-filter: blur(6px);
+  }
+  .metal-btn{
+    background:linear-gradient(145deg,#fff7df,var(--gold) 40%,var(--gold-deep) 100%);
+    color:#2b1d03;
+    box-shadow: 0 10px 25px -5px rgba(243,207,107,.5);
+  }
+  .metal-btn:hover{ filter:brightness(1.07); }
+  .chip-dot{ width:8px;height:8px;border-radius:50%; background:var(--gold); box-shadow:0 0 10px var(--gold); }
+  .pulse-bar{ transition: height .6s ease; }
+</style>
+</head>
+<body class="pb-20">
+
+<nav class="max-w-6xl mx-auto px-6 md:px-10 pt-8 flex items-center justify-between">
+  <div class="flex items-center gap-2">
+    <div class="w-7 h-7 rounded-full" style="background:conic-gradient(from 45deg,#fff7df,var(--gold),var(--gold-deep));"></div>
+    <span class="font-display font-bold text-lg tracking-wide">HaloRing</span>
+  </div>
+  <div class="hidden md:flex gap-8 text-sm text-gray-300 font-medium">
+    <a href="#features" class="hover:text-white">功能</a>
+    <a href="#specs" class="hover:text-white">規格</a>
+    <a href="#pricing" class="hover:text-white">購買</a>
+  </div>
+  <button class="metal-btn text-sm font-bold px-5 py-2 rounded-full">立即預購</button>
+</nav>
+
+<section class="stage mt-6 mx-4 md:mx-10 rounded-3xl px-6 md:px-16 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
+  <div>
+    <p class="text-xs font-bold tracking-[0.3em] text-amber-200/80 mb-4">PRECISION TITANIUM · 感應戒指</p>
+    <h1 class="font-display text-4xl md:text-6xl font-extrabold leading-[1.1] mb-6">
+      戴上去，<br><span style="color:var(--gold)">身體的訊號</span><br>就都看得見了
+    </h1>
+    <p class="text-gray-300 text-base md:text-lg mb-8 max-w-md">鈦合金錶身包覆七組感應元件，24 小時追蹤心率、血氧、體溫與睡眠分期，續航 7 天，洗澡游泳都不用脫下來。</p>
+    <div class="flex gap-4">
+      <button class="metal-btn font-bold px-7 py-3.5 rounded-full">預購 NT$ 6,980</button>
+      <button class="px-7 py-3.5 rounded-full border border-white/20 font-semibold hover:bg-white/5">觀看介紹影片</button>
+    </div>
+    <div class="flex gap-8 mt-10 text-sm">
+      <div><p class="font-num text-2xl font-bold" style="color:var(--gold)">7<span class="text-sm">天</span></p><p class="text-gray-400">單次續航</p></div>
+      <div><p class="font-num text-2xl font-bold" style="color:var(--gold)">0.4<span class="text-sm">mm</span></p><p class="text-gray-400">感應誤差</p></div>
+      <div><p class="font-num text-2xl font-bold" style="color:var(--gold)">50<span class="text-sm">m</span></p><p class="text-gray-400">防水深度</p></div>
+    </div>
+  </div>
+  <div class="flex justify-center">
+    <div class="ring3d"></div>
+  </div>
+</section>
+
+<section id="features" class="max-w-6xl mx-auto px-6 md:px-10 mt-20">
+  <h2 class="font-display text-2xl md:text-3xl font-bold mb-10">一枚戒指，裝了一整間睡眠實驗室</h2>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="glow-card rounded-2xl p-6">
+      <div class="chip-dot mb-4"></div>
+      <h3 class="font-bold text-lg mb-2">睡眠分期解析</h3>
+      <p class="text-gray-400 text-sm leading-relaxed">淺眠、深眠、REM 自動分段，搭配晨間喚醒建議，連續三晚睡不好會主動提醒你調整作息。</p>
+    </div>
+    <div class="glow-card rounded-2xl p-6">
+      <div class="chip-dot mb-4"></div>
+      <h3 class="font-bold text-lg mb-2">血氧與心率變異</h3>
+      <p class="text-gray-400 text-sm leading-relaxed">每 10 分鐘量測一次，異常值會同步到 App 並標記時間點,方便回頭對照當天發生的事。</p>
+    </div>
+    <div class="glow-card rounded-2xl p-6">
+      <div class="chip-dot mb-4"></div>
+      <h3 class="font-bold text-lg mb-2">壓力即時監測</h3>
+      <p class="text-gray-400 text-sm leading-relaxed">透過心率變異度推算壓力指數，超過閾值時戒身會以細微震動提醒你深呼吸三次。</p>
+    </div>
+  </div>
+</section>
+
+<section id="specs" class="max-w-6xl mx-auto px-6 md:px-10 mt-20">
+  <div class="glow-card rounded-3xl p-8 md:p-12 grid md:grid-cols-2 gap-10">
+    <div>
+      <h2 class="font-display text-2xl font-bold mb-6">即時體感模擬</h2>
+      <p class="text-gray-400 text-sm mb-6">拖動下方滑桿，模擬目前活動強度，右側感應波形會即時反應。</p>
+      <input id="intensitySlider" type="range" min="0" max="100" value="30" class="w-full accent-amber-300">
+      <p class="text-sm text-gray-400 mt-2">目前心率估算：<span id="hrValue" class="font-num font-bold text-amber-200">72</span> bpm</p>
+    </div>
+    <div class="flex items-end gap-2 h-40">
+      <div class="pulse-bar w-5 rounded-t-md" style="background:var(--gold); height:30%"></div>
+      <div class="pulse-bar w-5 rounded-t-md" style="background:var(--gold); height:55%"></div>
+      <div class="pulse-bar w-5 rounded-t-md" style="background:var(--gold); height:40%"></div>
+      <div class="pulse-bar w-5 rounded-t-md" style="background:var(--gold); height:70%"></div>
+      <div class="pulse-bar w-5 rounded-t-md" style="background:var(--gold); height:45%"></div>
+      <div class="pulse-bar w-5 rounded-t-md" style="background:var(--gold); height:60%"></div>
+      <div class="pulse-bar w-5 rounded-t-md" style="background:var(--gold); height:35%"></div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" class="max-w-4xl mx-auto px-6 md:px-10 mt-20 text-center">
+  <h2 class="font-display text-2xl md:text-3xl font-bold mb-4">第一批預購，加送充電艙</h2>
+  <p class="text-gray-400 mb-8">12 月中開始出貨，鈦黑 / 香檳金 / 銀霜三色可選。</p>
+  <button class="metal-btn font-bold px-10 py-4 rounded-full text-lg">預購 HaloRing · NT$ 6,980</button>
+</section>
+
+<script>
+  const slider = document.getElementById('intensitySlider');
+  const hrValue = document.getElementById('hrValue');
+  const bars = document.querySelectorAll('.pulse-bar');
+  slider.addEventListener('input', () => {
+    const v = parseInt(slider.value, 10);
+    hrValue.textContent = Math.round(60 + v * 0.9);
+    bars.forEach((bar, i) => {
+      const base = 25 + (i % 4) * 10;
+      bar.style.height = Math.min(95, base + v * 0.5 + Math.random() * 8) + '%';
+    });
+  });
+</script>
+
+</body>
+</html>

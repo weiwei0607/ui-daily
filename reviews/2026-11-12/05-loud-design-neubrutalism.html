@@ -1,0 +1,105 @@
+<!-- style #38 Neubrutalism -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大聲設計 LoudDesign · 給團隊的塗鴉協作板</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@500;600;700&family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Space Grotesk','Noto Sans TC',sans-serif; background:#fff7e8; color:#111; }
+  .font-display{ font-family:'Archivo Black','Noto Sans TC',sans-serif; }
+  .brut{ border:3px solid #111; box-shadow: 8px 8px 0 #111; }
+  .brut-sm{ border:3px solid #111; box-shadow: 5px 5px 0 #111; }
+  .btn{ transition: transform .1s ease, box-shadow .1s ease; }
+  .btn:active{ transform: translate(4px,4px); box-shadow: 2px 2px 0 #111 !important; }
+  .tilt{ transform: rotate(-1.5deg); }
+  .tilt2{ transform: rotate(1.2deg); }
+  .marquee-track{ animation: scroll 16s linear infinite; }
+  @keyframes scroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+</style>
+</head>
+<body class="px-4 md:px-10 py-8">
+
+<nav class="max-w-6xl mx-auto flex items-center justify-between mb-10">
+  <div class="font-display text-xl bg-[#ff6b6b] brut-sm px-3 py-1.5 tilt">大聲設計</div>
+  <button class="btn font-display text-sm bg-[#4ecdc4] brut-sm px-5 py-2.5">免費試用 →</button>
+</nav>
+
+<section class="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center mb-16">
+  <div>
+    <h1 class="font-display text-4xl md:text-6xl leading-[1.05] mb-6">
+      開會不用<br>再用 <span class="bg-[#ffe156] px-2 brut-sm inline-block tilt2">Word</span><br>討論設計了
+    </h1>
+    <p class="text-lg mb-8">一個畫布，團隊一起貼圖、畫重點、投票選方案。沒有多餘的選單，點兩下就能開始塗。</p>
+    <div class="flex gap-4">
+      <button class="btn font-display bg-[#ff6b6b] brut px-7 py-4">立刻開始畫</button>
+      <button class="btn font-display bg-white brut px-7 py-4">看 90 秒 Demo</button>
+    </div>
+  </div>
+  <div class="bg-white brut p-5 tilt">
+    <div class="flex gap-2 mb-3">
+      <div class="w-4 h-4 rounded-full bg-[#ff6b6b] brut-sm"></div>
+      <div class="w-4 h-4 rounded-full bg-[#ffe156] brut-sm"></div>
+      <div class="w-4 h-4 rounded-full bg-[#4ecdc4] brut-sm"></div>
+    </div>
+    <div class="grid grid-cols-2 gap-3">
+      <div class="bg-[#a388ee] brut-sm h-24 flex items-center justify-center font-display text-white text-sm">草稿 A</div>
+      <div class="bg-[#4ecdc4] brut-sm h-24 flex items-center justify-center font-display text-sm">草稿 B</div>
+      <div class="bg-[#ffe156] brut-sm h-24 flex items-center justify-center font-display text-sm col-span-2">👍 14　👎 2　已選定</div>
+    </div>
+  </div>
+</section>
+
+<div class="brut-sm bg-[#111] text-[#ffe156] font-display py-2.5 overflow-hidden mb-16 whitespace-nowrap">
+  <div class="marquee-track inline-block">
+    即時游標 ★ 貼圖投票 ★ 一鍵匯出 PDF ★ 零學習成本 ★ 即時游標 ★ 貼圖投票 ★ 一鍵匯出 PDF ★ 零學習成本 ★
+  </div>
+</div>
+
+<section class="max-w-6xl mx-auto grid md:grid-cols-3 gap-6 mb-16">
+  <div class="bg-[#ff6b6b] brut p-6">
+    <p class="font-display text-2xl mb-2">01</p>
+    <p class="font-bold text-lg mb-1">丟圖就能開畫</p>
+    <p class="text-sm">截圖、PDF、Figma 連結直接拖進畫布，馬上開始畫重點、寫留言。</p>
+  </div>
+  <div class="bg-[#4ecdc4] brut p-6">
+    <p class="font-display text-2xl mb-2">02</p>
+    <p class="font-bold text-lg mb-1">投票代替開會</p>
+    <p class="text-sm">丟出三個方案，貼個貼紙投票，五分鐘內知道大家真正喜歡哪個。</p>
+  </div>
+  <div class="bg-[#ffe156] brut p-6">
+    <p class="font-display text-2xl mb-2">03</p>
+    <p class="font-bold text-lg mb-1">決議自動存檔</p>
+    <p class="text-sm">每次投票結果、留言串自動變成一份紀錄，不怕之後吵「當初是誰決定的」。</p>
+  </div>
+</section>
+
+<section class="max-w-4xl mx-auto bg-white brut p-8 md:p-10 text-center mb-10">
+  <p class="font-display text-2xl md:text-3xl mb-4">試試看，拖一張圖上來</p>
+  <div id="dropZone" class="border-3 border-dashed border-black rounded-none p-10 cursor-pointer hover:bg-[#fff7e8] transition">
+    <p id="dropText" class="font-bold">把圖片拖進這裡，或點一下模擬上傳</p>
+  </div>
+</section>
+
+<footer class="max-w-6xl mx-auto text-center font-display text-sm pb-6">LOUDDESIGN © 2026 · 大聲把話說清楚</footer>
+
+<script>
+  const zone = document.getElementById('dropZone');
+  const text = document.getElementById('dropText');
+  const colors = ['#ff6b6b','#4ecdc4','#ffe156','#a388ee'];
+  let count = 0;
+  function dropIn(){
+    count++;
+    zone.style.background = colors[count % colors.length];
+    text.textContent = '已新增草稿 #' + count + '　— 再拖一張試試';
+  }
+  zone.addEventListener('click', dropIn);
+  zone.addEventListener('dragover', e => { e.preventDefault(); zone.style.borderColor = '#ff6b6b'; });
+  zone.addEventListener('drop', e => { e.preventDefault(); dropIn(); });
+</script>
+
+</body>
+</html>
