@@ -1,0 +1,145 @@
+<!-- style #29 Heatmap & Density -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>席位脈動 SeatPulse · 訂位熱力後台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Manrope','Noto Sans TC',sans-serif; background:#0f1b2d; color:#e6edf5; }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+  .panel{ background:#142640; border:1px solid rgba(255,255,255,.06); border-radius:16px; }
+  .cell{ aspect-ratio:1; border-radius:5px; transition: transform .12s ease; cursor:pointer; }
+  .cell:hover{ transform: scale(1.12); outline:1px solid rgba(255,255,255,.5); z-index:2; }
+</style>
+</head>
+<body class="px-5 md:px-10 py-8">
+
+<div class="max-w-5xl mx-auto">
+
+  <header class="flex items-center justify-between mb-6">
+    <div>
+      <p class="text-xs text-slate-400 mb-1">席位脈動 · 內用訂位密度</p>
+      <h1 class="text-xl md:text-2xl font-extrabold">本週各時段訂位熱力圖</h1>
+    </div>
+    <div class="flex gap-2" id="branchTabs">
+      <button class="branch-btn mono text-xs px-3 py-1.5 rounded-lg bg-sky-500 text-white font-bold" onclick="setBranch(this,'信義店')">信義店</button>
+      <button class="branch-btn mono text-xs px-3 py-1.5 rounded-lg bg-white/5 text-slate-300" onclick="setBranch(this,'西門店')">西門店</button>
+      <button class="branch-btn mono text-xs px-3 py-1.5 rounded-lg bg-white/5 text-slate-300" onclick="setBranch(this,'天母店')">天母店</button>
+    </div>
+  </header>
+
+  <div class="grid md:grid-cols-4 gap-4 mb-6">
+    <div class="panel p-4">
+      <p class="text-xs text-slate-400 mb-1">本週滿座時段數</p>
+      <p class="mono text-2xl font-bold text-sky-300" id="kpiFull">14</p>
+    </div>
+    <div class="panel p-4">
+      <p class="text-xs text-slate-400 mb-1">平均翻桌率</p>
+      <p class="mono text-2xl font-bold" id="kpiTurn">2.3x</p>
+    </div>
+    <div class="panel p-4">
+      <p class="text-xs text-slate-400 mb-1">尖峰時段</p>
+      <p class="mono text-2xl font-bold" id="kpiPeak">五 19:00</p>
+    </div>
+    <div class="panel p-4">
+      <p class="text-xs text-slate-400 mb-1">閒置率最高</p>
+      <p class="mono text-2xl font-bold text-slate-400" id="kpiIdle">二 15:00</p>
+    </div>
+  </div>
+
+  <div class="panel p-6">
+    <div class="flex items-center justify-between mb-4">
+      <p class="text-sm font-bold">訂位密度（11:00–21:00）</p>
+      <div class="flex items-center gap-2 text-xs text-slate-400">
+        <span>低</span>
+        <span class="w-3 h-3 rounded" style="background:#132a44"></span>
+        <span class="w-3 h-3 rounded" style="background:#1b4a78"></span>
+        <span class="w-3 h-3 rounded" style="background:#2e7dd6"></span>
+        <span class="w-3 h-3 rounded" style="background:#6fc3ff"></span>
+        <span class="w-3 h-3 rounded" style="background:#d7f0ff"></span>
+        <span>高</span>
+      </div>
+    </div>
+    <div class="grid" style="grid-template-columns: 50px repeat(11,1fr); gap:6px;" id="heatGrid"></div>
+    <p class="text-xs text-slate-400 mt-4" id="cellInfo">點格子看詳細佔位率</p>
+  </div>
+
+</div>
+
+<script>
+const HOURS = ['11','12','13','14','15','16','17','18','19','20','21'];
+const DAYS = ['一','二','三','四','五','六','日'];
+const SCALE = ['#132a44','#1b4a78','#2e7dd6','#6fc3ff','#d7f0ff'];
+
+const DATA = {
+  '信義店': [[20,30,45,25,15,35,55,70,90,80,40],[18,22,30,20,12,28,48,60,75,65,32],[22,35,50,30,18,40,60,78,92,82,45],[25,38,52,32,20,42,62,80,95,85,48],[30,45,60,38,25,55,80,95,100,96,60],[40,55,70,45,30,65,88,100,100,98,70],[35,48,62,40,28,58,78,92,98,88,55]],
+  '西門店': [[15,25,38,22,12,30,45,58,70,62,33],[14,20,28,18,10,25,40,52,65,55,28],[18,30,42,25,15,35,50,66,78,68,38],[20,32,46,28,18,38,55,70,82,72,42],[26,40,55,32,20,48,70,85,90,82,52],[35,50,65,40,25,58,78,90,95,88,62],[30,42,58,36,22,52,72,86,92,80,48]],
+  '天母店': [[10,18,28,16,8,22,35,45,55,48,22],[9,14,20,12,6,18,30,40,50,42,18],[13,22,32,18,10,26,38,50,60,52,28],[16,25,36,20,12,30,45,58,68,58,32],[20,32,44,26,16,38,58,70,78,70,40],[28,40,52,32,20,46,66,80,88,78,48],[24,34,46,28,18,42,62,76,84,74,42]]
+};
+
+let current = '信義店';
+
+function colorFor(v){
+  if(v<20) return SCALE[0];
+  if(v<40) return SCALE[1];
+  if(v<60) return SCALE[2];
+  if(v<80) return SCALE[3];
+  return SCALE[4];
+}
+
+function render(){
+  const grid = document.getElementById('heatGrid');
+  grid.innerHTML = '';
+  grid.appendChild(document.createElement('div'));
+  HOURS.forEach(h=>{
+    const el = document.createElement('div');
+    el.className = 'mono text-[10px] text-slate-400 text-center';
+    el.textContent = h + ':00';
+    grid.appendChild(el);
+  });
+  const rows = DATA[current];
+  let maxV = -1, maxPos = [0,0], minV = 101, minPos = [0,0], fullCount = 0;
+  DAYS.forEach((d,di)=>{
+    const label = document.createElement('div');
+    label.className = 'mono text-[11px] text-slate-400 flex items-center';
+    label.textContent = '週' + d;
+    grid.appendChild(label);
+    rows[di].forEach((v,hi)=>{
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+      cell.style.background = colorFor(v);
+      cell.onclick = ()=>{
+        document.getElementById('cellInfo').textContent = '週' + d + ' ' + HOURS[hi] + ':00 — 佔位率 ' + v + '%';
+      };
+      grid.appendChild(cell);
+      if(v>maxV){ maxV=v; maxPos=[di,hi]; }
+      if(v<minV){ minV=v; minPos=[di,hi]; }
+      if(v>=90) fullCount++;
+    });
+  });
+  document.getElementById('kpiFull').textContent = fullCount;
+  document.getElementById('kpiPeak').textContent = '週' + DAYS[maxPos[0]] + ' ' + HOURS[maxPos[1]] + ':00';
+  document.getElementById('kpiIdle').textContent = '週' + DAYS[minPos[0]] + ' ' + HOURS[minPos[1]] + ':00';
+  document.getElementById('kpiTurn').textContent = (1.6 + Math.random()*1.2).toFixed(1) + 'x';
+}
+
+function setBranch(btn, name){
+  current = name;
+  document.querySelectorAll('.branch-btn').forEach(b=>{
+    b.classList.remove('bg-sky-500','text-white','font-bold');
+    b.classList.add('bg-white/5','text-slate-300');
+  });
+  btn.classList.remove('bg-white/5','text-slate-300');
+  btn.classList.add('bg-sky-500','text-white','font-bold');
+  render();
+}
+
+render();
+</script>
+
+</body>
+</html>

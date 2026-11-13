@@ -1,0 +1,95 @@
+<!-- style #20 Hero-Centric 搭配 Claymorphism 皮膚 -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>汪嚐 WagBite · 現煮鮮食狗餐</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Quicksand',sans-serif; background:#fdf6ee; color:#4a3b2e; }
+  .font-display{ font-family:'Baloo 2','Quicksand',sans-serif; }
+  .clay{
+    background: linear-gradient(145deg,#fff6ec,#fbe8d3);
+    border-radius: 40px;
+    box-shadow: 10px 10px 24px rgba(200,150,100,.25), -10px -10px 24px rgba(255,255,255,.9);
+  }
+  .clay-sm{
+    background: linear-gradient(145deg,#fff6ec,#fbe8d3);
+    border-radius: 24px;
+    box-shadow: 6px 6px 14px rgba(200,150,100,.22), -6px -6px 14px rgba(255,255,255,.85);
+  }
+  .clay-btn{
+    background: linear-gradient(145deg,#ffb37a,#ff935a);
+    box-shadow: 6px 6px 14px rgba(200,110,50,.35), -4px -4px 10px rgba(255,255,255,.4);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .clay-btn:active{ transform: scale(.96); box-shadow: inset 4px 4px 10px rgba(180,90,40,.3); }
+  .bowl{ filter: drop-shadow(0 18px 20px rgba(200,140,80,.35)); }
+</style>
+</head>
+<body class="px-5 md:px-10 py-10">
+
+<div class="max-w-md mx-auto text-center">
+
+  <p class="font-display text-sm font-bold text-orange-600 mb-3">🐾 汪嚐 WAGBITE</p>
+
+  <div class="clay p-10 mb-8 relative overflow-hidden">
+    <div class="bowl text-7xl mb-4 select-none" id="bowlEmoji">🍲</div>
+    <h1 class="font-display text-3xl font-bold leading-snug mb-3">每天現煮，<br>給牠一碗真正的飯</h1>
+    <p class="text-sm text-[#7a6552] leading-relaxed mb-6">獸醫營養師配方，低溫烹調保留肉汁，冷鏈宅配到府，開封即可餵食。</p>
+    <button class="clay-btn text-white font-display font-bold rounded-full px-10 py-4 w-full" onclick="requestSample()">
+      <span id="ctaLabel">免費領取試吃包</span>
+    </button>
+    <p id="ctaMsg" class="text-xs text-orange-700 mt-3 hidden">✓ 已登記！明天會有專人與您聯繫</p>
+  </div>
+
+  <div class="grid grid-cols-3 gap-4 mb-8">
+    <div class="clay-sm p-4">
+      <p class="text-2xl mb-1">🥩</p>
+      <p class="text-xs font-bold text-[#7a6552]">鮮肉現煮</p>
+    </div>
+    <div class="clay-sm p-4">
+      <p class="text-2xl mb-1">❄️</p>
+      <p class="text-xs font-bold text-[#7a6552]">冷鏈配送</p>
+    </div>
+    <div class="clay-sm p-4">
+      <p class="text-2xl mb-1">🩺</p>
+      <p class="text-xs font-bold text-[#7a6552]">獸醫把關</p>
+    </div>
+  </div>
+
+  <div class="clay-sm p-6">
+    <p class="font-display text-sm font-bold mb-2">選擇你家寶貝的體型</p>
+    <div class="flex justify-center gap-3" id="sizeRow">
+      <button class="size-btn clay-sm px-5 py-2 text-sm font-bold" onclick="pickSize(this,'小型犬 · 1-10kg')">🐕 小型</button>
+      <button class="size-btn clay-sm px-5 py-2 text-sm font-bold" onclick="pickSize(this,'中型犬 · 10-25kg')">🐕‍🦺 中型</button>
+      <button class="size-btn clay-sm px-5 py-2 text-sm font-bold" onclick="pickSize(this,'大型犬 · 25kg+')">🦮 大型</button>
+    </div>
+    <p id="sizeResult" class="text-xs text-[#7a6552] mt-4">尚未選擇，選好後會算出建議每日份量</p>
+  </div>
+
+</div>
+
+<script>
+function requestSample(){
+  document.getElementById('ctaLabel').textContent = '已送出 🐾';
+  document.getElementById('ctaMsg').classList.remove('hidden');
+  const bowl = document.getElementById('bowlEmoji');
+  bowl.style.transform = 'scale(1.15) rotate(-6deg)';
+  setTimeout(()=> bowl.style.transition = 'transform .4s cubic-bezier(.34,1.56,.64,1)', 0);
+  setTimeout(()=> bowl.style.transform = 'scale(1) rotate(0deg)', 350);
+}
+
+const portions = { '小型犬 · 1-10kg': '每日建議 120–200g', '中型犬 · 10-25kg': '每日建議 250–400g', '大型犬 · 25kg+': '每日建議 450–700g' };
+function pickSize(btn, label){
+  document.querySelectorAll('.size-btn').forEach(b=>b.classList.remove('ring-2','ring-orange-400'));
+  btn.classList.add('ring-2','ring-orange-400');
+  document.getElementById('sizeResult').textContent = label + '，' + portions[label];
+}
+</script>
+
+</body>
+</html>

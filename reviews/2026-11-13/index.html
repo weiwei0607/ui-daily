@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>韡寧的 UI 待審 · 2026-11-13</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Noto Sans TC',sans-serif; background:#f4f4f6; color:#1a1a1f; }
+  .frame-wrap{ width:100%; height:260px; overflow:hidden; position:relative; background:#fff; border-radius:16px 16px 0 0; }
+  .frame-wrap iframe{
+    width:200%; height:200%;
+    transform:scale(.5);
+    transform-origin:top left;
+    border:none;
+    position:absolute; top:0; left:0;
+  }
+  .heart{ transition: transform .15s ease; cursor:pointer; user-select:none; }
+  .heart:active{ transform:scale(1.3); }
+  .heart.liked{ color:#ff3b5c; }
+</style>
+</head>
+<body class="px-5 md:px-10 py-10">
+
+<div class="max-w-5xl mx-auto">
+  <header class="mb-8">
+    <p class="text-xs text-gray-400 mb-1">每日 UI/UX 待審</p>
+    <h1 class="text-2xl md:text-3xl font-black">韡寧的 UI 待審 · 2026-11-13</h1>
+    <p class="text-sm text-gray-500 mt-2">共 6 個方向，喜歡的按 ❤️，會被學起來</p>
+  </header>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="cardGrid">
+
+    <div class="bg-white rounded-2xl shadow-sm overflow-hidden" data-id="01">
+      <div class="frame-wrap"><iframe src="01-season-literary.html"></iframe></div>
+      <div class="p-5 flex items-center justify-between">
+        <div>
+          <p class="text-xs text-gray-400">#01 Minimalism / Swiss</p>
+          <p class="font-bold">節氣誌 SEASON · 01</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="01-season-literary.html" target="_blank" class="text-sm font-semibold text-blue-600">開啟 ↗</a>
+          <span class="heart text-2xl" onclick="toggleLike(this)">🤍</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm overflow-hidden" data-id="02">
+      <div class="frame-wrap"><iframe src="02-wordplay-micro.html"></iframe></div>
+      <div class="p-5 flex items-center justify-between">
+        <div>
+          <p class="text-xs text-gray-400">#16 Micro-interactions</p>
+          <p class="font-bold">字遊 WordPlay · 02</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="02-wordplay-micro.html" target="_blank" class="text-sm font-semibold text-blue-600">開啟 ↗</a>
+          <span class="heart text-2xl" onclick="toggleLike(this)">🤍</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm overflow-hidden" data-id="03">
+      <div class="frame-wrap"><iframe src="03-wagbite-hero-clay.html"></iframe></div>
+      <div class="p-5 flex items-center justify-between">
+        <div>
+          <p class="text-xs text-gray-400">#20 Hero-Centric × Claymorphism</p>
+          <p class="font-bold">汪嚐 WagBite · 03</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="03-wagbite-hero-clay.html" target="_blank" class="text-sm font-semibold text-blue-600">開啟 ↗</a>
+          <span class="heart text-2xl" onclick="toggleLike(this)">🤍</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm overflow-hidden" data-id="04">
+      <div class="frame-wrap"><iframe src="04-seatpulse-heatmap.html"></iframe></div>
+      <div class="p-5 flex items-center justify-between">
+        <div>
+          <p class="text-xs text-gray-400">#29 Heatmap & Density</p>
+          <p class="font-bold">席位脈動 SeatPulse · 04</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="04-seatpulse-heatmap.html" target="_blank" class="text-sm font-semibold text-blue-600">開啟 ↗</a>
+          <span class="heart text-2xl" onclick="toggleLike(this)">🤍</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm overflow-hidden" data-id="05">
+      <div class="frame-wrap"><iframe src="05-readsoul-ai-native.html"></iframe></div>
+      <div class="p-5 flex items-center justify-between">
+        <div>
+          <p class="text-xs text-gray-400">#43 AI-Native</p>
+          <p class="font-bold">讀靈 ReadSoul · 05</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="05-readsoul-ai-native.html" target="_blank" class="text-sm font-semibold text-blue-600">開啟 ↗</a>
+          <span class="heart text-2xl" onclick="toggleLike(this)">🤍</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm overflow-hidden" data-id="06">
+      <div class="frame-wrap"><iframe src="06-neonwave-retrofuturism.html"></iframe></div>
+      <div class="p-5 flex items-center justify-between">
+        <div>
+          <p class="text-xs text-gray-400">#11 Retro-Futurism</p>
+          <p class="font-bold">霓虹電波 NEON WAVE FEST · 06</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="06-neonwave-retrofuturism.html" target="_blank" class="text-sm font-semibold text-blue-600">開啟 ↗</a>
+          <span class="heart text-2xl" onclick="toggleLike(this)">🤍</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const DATE = '2026-11-13';
+const DB_BASE = 'https://b-battle-580b5-default-rtdb.firebaseio.com/uigallery';
+
+function idFor(card){ return DATE + '_' + card.dataset.id; }
+
+function paintLiked(card, liked){
+  const heart = card.querySelector('.heart');
+  heart.textContent = liked ? '❤️' : '🤍';
+  heart.classList.toggle('liked', liked);
+}
+
+function toggleLike(heartEl){
+  const card = heartEl.closest('[data-id]');
+  const liked = heartEl.textContent.trim() === '🤍';
+  paintLiked(card, liked);
+  fetch(DB_BASE + '/' + idFor(card) + '.json', {
+    method: 'PUT',
+    body: JSON.stringify(liked)
+  }).catch(()=>{ /* 離線時忽略，畫面仍先反映點擊 */ });
+}
+
+// 載入時還原已喜歡狀態
+fetch(DB_BASE + '.json')
+  .then(r => r.json())
+  .then(all => {
+    if(!all) return;
+    document.querySelectorAll('[data-id]').forEach(card=>{
+      if(all[idFor(card)] === true) paintLiked(card, true);
+    });
+  })
+  .catch(()=>{ /* 讀取失敗時維持預設未按讚狀態 */ });
+</script>
+
+</body>
+</html>

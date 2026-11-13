@@ -1,0 +1,131 @@
+<!-- style #16 Micro-interactions -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>字遊 WordPlay · 每天五個字，玩出語感</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Hanken Grotesk','Noto Sans TC',sans-serif; background:#f7f8fa; color:#14161a; }
+  .font-zh{ font-family:'Noto Sans TC',sans-serif; }
+  .card3d{ perspective:1200px; }
+  .card-inner{ transition: transform .5s cubic-bezier(.2,.8,.2,1); transform-style: preserve-3d; }
+  .card-inner.flipped{ transform: rotateY(180deg); }
+  .face{ backface-visibility:hidden; }
+  .face-back{ transform: rotateY(180deg); }
+  .btn-pop{ transition: transform .12s ease; }
+  .btn-pop:active{ transform: scale(.92); }
+  .streak-dot{ transition: all .25s cubic-bezier(.34,1.56,.64,1); }
+  .toast{ transition: all .3s ease; }
+  @keyframes confetti-fall { to { transform: translateY(260px) rotate(540deg); opacity:0; } }
+  .confetti{ position:absolute; top:-10px; width:8px; height:8px; animation: confetti-fall 1s ease-out forwards; }
+</style>
+</head>
+<body class="px-5 md:px-10 py-10">
+
+<div class="max-w-md mx-auto">
+
+  <header class="flex items-center justify-between mb-8">
+    <div>
+      <p class="text-xs text-gray-400">字遊 WordPlay</p>
+      <h1 class="text-2xl font-extrabold font-zh">今日卡組 · 5 個字</h1>
+    </div>
+    <div class="flex items-center gap-1" id="streakRow">
+      <span class="text-xs text-orange-500 font-bold mr-1">🔥<span id="streakNum">12</span></span>
+    </div>
+  </header>
+
+  <div class="relative card3d mb-6" style="height:280px;">
+    <div id="cardInner" class="card-inner relative w-full h-full cursor-pointer" onclick="flipCard()">
+      <div class="face absolute inset-0 bg-white rounded-3xl shadow-sm flex flex-col items-center justify-center px-6">
+        <p class="text-xs text-gray-400 mb-3">第 <span id="cardIdx">1</span> / 5 題</p>
+        <p id="wordFront" class="font-zh text-4xl font-black mb-3">蹣跚</p>
+        <p class="text-sm text-gray-400">點卡片看解釋</p>
+      </div>
+      <div class="face face-back absolute inset-0 bg-indigo-600 text-white rounded-3xl shadow-sm flex flex-col items-center justify-center px-6">
+        <p id="wordBack" class="font-zh text-lg font-bold mb-2 text-center">形容走路緩慢、搖搖晃晃的樣子</p>
+        <p class="text-indigo-200 text-xs">老人蹣跚地走過廣場</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-2 gap-4 mb-8">
+    <button class="btn-pop bg-white rounded-2xl py-4 font-bold text-gray-500 shadow-sm" onclick="answer(false)">還不熟 😅</button>
+    <button class="btn-pop bg-indigo-600 text-white rounded-2xl py-4 font-bold shadow-sm" onclick="answer(true)">記住了 ✓</button>
+  </div>
+
+  <div class="bg-white rounded-2xl p-5 shadow-sm">
+    <div class="flex justify-between text-xs text-gray-400 mb-2">
+      <span>今日進度</span>
+      <span id="progressLabel">0 / 5</span>
+    </div>
+    <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+      <div id="progressBar" class="h-full bg-indigo-500 rounded-full transition-all duration-500" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div id="doneBanner" class="hidden mt-6 bg-emerald-500 text-white rounded-2xl p-5 text-center font-bold relative overflow-hidden">
+    🎉 今天的 5 個字都記住了，連續 <span id="streakNum2">13</span> 天！
+  </div>
+
+</div>
+
+<script>
+const WORDS = [
+  ['蹣跚','形容走路緩慢、搖搖晃晃的樣子','老人蹣跚地走過廣場'],
+  ['躊躇','猶豫不決、拿不定主意','她躊躇了很久才按下送出鍵'],
+  ['斑斕','色彩豐富、鮮明多樣','夕陽把天空染成斑斕的色彩'],
+  ['惺忪','剛睡醒、眼神迷濛的樣子','他睡眼惺忪地走出房間'],
+  ['翩然','動作輕快優雅的樣子','白鷺翩然飛過水面']
+];
+let idx = 0, flipped = false, streak = 12;
+
+function flipCard(){
+  flipped = !flipped;
+  document.getElementById('cardInner').classList.toggle('flipped', flipped);
+}
+
+function answer(known){
+  if(idx >= WORDS.length) return;
+  if(flipped){ flipCard(); }
+  idx++;
+  const pct = Math.min(idx / WORDS.length * 100, 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = idx + ' / ' + WORDS.length;
+  if(idx < WORDS.length){
+    setTimeout(()=>{
+      document.getElementById('cardIdx').textContent = idx + 1;
+      document.getElementById('wordFront').textContent = WORDS[idx][0];
+      document.getElementById('wordBack').textContent = WORDS[idx][1];
+    }, 200);
+  } else {
+    streak++;
+    document.getElementById('streakNum').textContent = streak;
+    document.getElementById('streakNum2').textContent = streak;
+    setTimeout(()=>{
+      document.getElementById('doneBanner').classList.remove('hidden');
+      launchConfetti();
+    }, 250);
+  }
+}
+
+function launchConfetti(){
+  const banner = document.getElementById('doneBanner');
+  const colors = ['#fde047','#f472b6','#60a5fa','#34d399','#fb923c'];
+  for(let i=0;i<24;i++){
+    const c = document.createElement('span');
+    c.className = 'confetti';
+    c.style.left = Math.random()*100 + '%';
+    c.style.background = colors[i % colors.length];
+    c.style.animationDelay = (Math.random()*0.3) + 's';
+    banner.appendChild(c);
+    setTimeout(()=>c.remove(), 1400);
+  }
+}
+</script>
+
+</body>
+</html>

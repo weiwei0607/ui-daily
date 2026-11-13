@@ -1,0 +1,119 @@
+<!-- style #43 AI-Native -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>讀靈 ReadSoul · 把長文章變成三分鐘</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Varela+Round&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Zen Maru Gothic','Varela Round',sans-serif;
+    background: radial-gradient(circle at 20% 15%, #4c3bcf 0%, transparent 55%),
+                radial-gradient(circle at 85% 10%, #a855f7 0%, transparent 50%),
+                radial-gradient(circle at 70% 90%, #ec4899 0%, transparent 55%),
+                #1a1333;
+    color:#f3eefc; min-height:100vh;
+  }
+  .font-round{ font-family:'Varela Round',sans-serif; }
+  .glass{ background: rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.14); backdrop-filter: blur(18px); border-radius:28px; }
+  .bubble-ai{ background: rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.16); backdrop-filter: blur(14px); }
+  .bubble-user{ background: linear-gradient(135deg,#8b5cf6,#d946ef); }
+  @keyframes pulse-dot { 0%,80%,100%{ opacity:.3; transform:scale(.8); } 40%{ opacity:1; transform:scale(1); } }
+  .dot{ animation: pulse-dot 1.2s infinite ease-in-out; }
+</style>
+</head>
+<body class="px-5 md:px-10 py-10">
+
+<div class="max-w-xl mx-auto">
+
+  <header class="text-center mb-8">
+    <p class="font-round text-xs text-purple-200 mb-2">✨ 讀靈 ReadSoul</p>
+    <h1 class="text-3xl font-black mb-2">貼上文章，我幫你讀完它</h1>
+    <p class="text-sm text-purple-200/80">長文、論文、會議記錄，三分鐘摘要出重點與行動項目</p>
+  </header>
+
+  <div class="glass p-5 md:p-7">
+
+    <div id="chatArea" class="space-y-4 mb-5 min-h-[160px]">
+      <div class="flex justify-start">
+        <div class="bubble-ai rounded-2xl rounded-bl-sm px-4 py-3 max-w-[85%] text-sm">
+          嗨，我是讀靈。貼上你想讀的文章連結或內容，我幫你濃縮成重點摘要 📖
+        </div>
+      </div>
+    </div>
+
+    <div class="flex gap-2">
+      <input id="pasteInput" type="text" placeholder="貼上文章連結或一段文字..." class="flex-1 bg-white/10 border border-white/20 rounded-full px-5 py-3 text-sm outline-none focus:border-purple-300 placeholder-purple-200/50">
+      <button onclick="summarize()" class="font-round bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-full px-6 py-3 text-sm font-bold whitespace-nowrap">生成摘要</button>
+    </div>
+    <div class="flex gap-2 mt-3">
+      <button class="text-xs text-purple-200/70 bg-white/5 rounded-full px-3 py-1.5" onclick="fillSample(this)">試試：一篇科技新聞</button>
+      <button class="text-xs text-purple-200/70 bg-white/5 rounded-full px-3 py-1.5" onclick="fillSample(this)">試試：會議逐字稿</button>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-3 gap-3 mt-6">
+    <div class="glass p-4 text-center">
+      <p class="text-xl mb-1">⚡️</p>
+      <p class="text-xs text-purple-200/80">平均 8 秒出摘要</p>
+    </div>
+    <div class="glass p-4 text-center">
+      <p class="text-xl mb-1">🗣️</p>
+      <p class="text-xs text-purple-200/80">支援中英混排</p>
+    </div>
+    <div class="glass p-4 text-center">
+      <p class="text-xl mb-1">✅</p>
+      <p class="text-xs text-purple-200/80">自動標出行動項目</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const SAMPLES = ['一篇科技新聞：某半導體廠宣布下一代製程將提前量產...','會議逐字稿：產品週會，討論了下個版本的三個功能優先序...'];
+function fillSample(btn){
+  const idx = Array.from(btn.parentElement.children).indexOf(btn);
+  document.getElementById('pasteInput').value = SAMPLES[idx];
+}
+
+const SUMMARIES = [
+  '摘要：該廠下一代製程預計提前兩個季度量產，主要受惠於良率突破。\n重點：① 良率已穩定在 92% 以上 ② 首批產能優先供應既有大客戶 ③ 法人預期毛利率上修。\n行動項目：留意下季法說會是否公布明確量產時程。',
+  '摘要：產品週會聚焦下個版本三項功能排序，團隊傾向先上線「離線模式」。\n重點：① 離線模式開發成本最低、使用者需求票數最高 ② 協作功能需等後端重構完成 ③ 設計資源本月優先支援離線模式。\n行動項目：PM 本週五前補齊離線模式的驗收標準文件。'
+];
+
+function summarize(){
+  const input = document.getElementById('pasteInput').value.trim();
+  if(!input) return;
+  const area = document.getElementById('chatArea');
+
+  const userBubble = document.createElement('div');
+  userBubble.className = 'flex justify-end';
+  userBubble.innerHTML = '<div class="bubble-user rounded-2xl rounded-br-sm px-4 py-3 max-w-[85%] text-sm text-white">' + input.slice(0,80) + '</div>';
+  area.appendChild(userBubble);
+
+  const typing = document.createElement('div');
+  typing.className = 'flex justify-start';
+  typing.innerHTML = '<div class="bubble-ai rounded-2xl rounded-bl-sm px-4 py-3 flex gap-1"><span class="dot">●</span><span class="dot" style="animation-delay:.15s">●</span><span class="dot" style="animation-delay:.3s">●</span></div>';
+  area.appendChild(typing);
+  area.scrollTop = area.scrollHeight;
+
+  const idx = SAMPLES.indexOf(input) >= 0 ? SAMPLES.indexOf(input) : Math.floor(Math.random()*SUMMARIES.length);
+
+  setTimeout(()=>{
+    typing.remove();
+    const aiBubble = document.createElement('div');
+    aiBubble.className = 'flex justify-start';
+    aiBubble.innerHTML = '<div class="bubble-ai rounded-2xl rounded-bl-sm px-4 py-3 max-w-[90%] text-sm whitespace-pre-line">' + SUMMARIES[idx] + '</div>';
+    area.appendChild(aiBubble);
+    area.scrollTop = area.scrollHeight;
+  }, 1100);
+
+  document.getElementById('pasteInput').value = '';
+}
+</script>
+
+</body>
+</html>
