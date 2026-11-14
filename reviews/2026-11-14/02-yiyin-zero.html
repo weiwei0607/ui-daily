@@ -1,0 +1,119 @@
+<!-- style #18 Zero Interface -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一念｜今天，想留下什麼</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --ink:#2a2a28; --faint:#bdb9b0; --bg:#fafaf5; }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:'Manrope','Noto Sans TC',sans-serif;
+    background:var(--bg); color:var(--ink);
+    min-height:100vh;
+    display:flex; flex-direction:column;
+  }
+  .wrap{ max-width:620px; margin:0 auto; width:100%; padding:0 1.5rem; flex:1; display:flex; flex-direction:column; }
+  .date{
+    font-weight:300; font-size:.85rem; letter-spacing:.08em; color:var(--faint);
+    padding-top:4rem; text-align:center;
+  }
+  .prompt{
+    font-weight:300; font-size:1.6rem; line-height:1.9; text-align:center;
+    margin:3.5rem 0 3rem; color:var(--ink); opacity:0; animation:fadeIn 1.4s ease forwards .2s;
+  }
+  @keyframes fadeIn{ to{ opacity:1; } }
+  .entry-zone{ flex:1; display:flex; align-items:center; justify-content:center; }
+  #intention{
+    width:100%; max-width:420px; border:none; background:transparent; outline:none;
+    text-align:center; font-family:'Noto Sans TC','Manrope',sans-serif; font-weight:400;
+    font-size:1.4rem; color:var(--ink); border-bottom:1px solid transparent;
+    transition:border-color .4s ease; padding-bottom:.5rem;
+  }
+  #intention:focus{ border-bottom-color:var(--faint); }
+  #intention::placeholder{ color:var(--faint); font-weight:300; }
+  .hint{
+    text-align:center; font-size:.75rem; color:var(--faint); letter-spacing:.05em;
+    margin-top:1.2rem; height:1rem; transition:opacity .5s ease; opacity:0;
+  }
+  .hint.show{ opacity:1; }
+  .kept{
+    text-align:center; padding-bottom:4rem;
+  }
+  .kept-line{
+    font-weight:300; font-size:1.1rem; color:var(--ink); opacity:0;
+    transition:opacity 1.2s ease;
+  }
+  .kept-line.show{ opacity:.75; }
+  .dot-row{
+    display:flex; justify-content:center; gap:.4rem; margin-top:1.5rem;
+  }
+  .dot{ width:5px; height:5px; border-radius:50%; background:var(--faint); opacity:.3; }
+  .dot.lit{ opacity:.9; background:var(--ink); }
+  .small-footer{
+    text-align:center; font-size:.65rem; color:var(--faint); letter-spacing:.1em;
+    padding-bottom:2rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="date" id="date-line"></div>
+  <div class="prompt">今天，<br>有什麼想留下來的一念？</div>
+
+  <div class="entry-zone">
+    <div style="width:100%;">
+      <input id="intention" type="text" placeholder="寫下一句話，按下 Enter" maxlength="40" autocomplete="off">
+      <div class="hint" id="hint">已經留下了</div>
+    </div>
+  </div>
+
+  <div class="kept">
+    <div class="kept-line" id="kept-line"></div>
+    <div class="dot-row" id="dot-row"></div>
+  </div>
+
+  <div class="small-footer">一念 · 每天，只留一句話</div>
+</div>
+
+<script>
+const dateLine = document.getElementById('date-line');
+const d = new Date('2026-11-14');
+const weekdays = ['日','一','二','三','四','五','六'];
+dateLine.textContent = `2026 年 11 月 14 日 · 星期${weekdays[d.getDay()]}`;
+
+const input = document.getElementById('intention');
+const hint = document.getElementById('hint');
+const keptLine = document.getElementById('kept-line');
+const dotRow = document.getElementById('dot-row');
+
+let streak = 4;
+for(let i=0;i<7;i++){
+  const dot = document.createElement('span');
+  dot.className = 'dot' + (i < streak ? ' lit' : '');
+  dotRow.appendChild(dot);
+}
+
+input.addEventListener('keydown', (e)=>{
+  if(e.key === 'Enter' && input.value.trim().length > 0){
+    const text = input.value.trim();
+    keptLine.textContent = `「${text}」`;
+    keptLine.classList.add('show');
+    hint.classList.add('show');
+    input.value = '';
+    input.blur();
+    streak = Math.min(7, streak + 1);
+    document.querySelectorAll('.dot').forEach((dot, i)=>{
+      dot.classList.toggle('lit', i < streak);
+    });
+    setTimeout(()=>{ hint.classList.remove('show'); }, 2600);
+  }
+});
+</script>
+
+</body>
+</html>

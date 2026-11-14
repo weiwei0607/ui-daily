@@ -1,0 +1,147 @@
+<!-- style #45 Vaporwave -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>夢境格 DREAMGRID｜復古電玩夜</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{ --pink:#ff71ce; --chrome:#c0c0c0; --cyan:#01cdfe; --purple:#2e1a47; }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; min-height:100vh; overflow-x:hidden;
+    background:linear-gradient(180deg, #1a0b2e 0%, #3a1b5e 45%, var(--pink) 100%);
+    font-family:'VT323', 'Noto Sans TC', monospace; color:#fff;
+  }
+  .pixel{ font-family:'Press Start 2P','Noto Sans TC',monospace; }
+  .scanlines{
+    position:fixed; inset:0; pointer-events:none; z-index:40; opacity:.15;
+    background:repeating-linear-gradient(0deg, transparent 0 2px, rgba(0,0,0,.6) 2px 4px);
+  }
+  .sun{
+    width:280px; height:280px; border-radius:50%; margin:0 auto;
+    background:linear-gradient(180deg, #fffb96, var(--pink) 60%, var(--purple) 100%);
+    box-shadow:0 0 90px 20px rgba(255,113,206,.6);
+    position:relative; overflow:hidden;
+  }
+  .sun::before{
+    content:''; position:absolute; left:0; right:0; bottom:0; height:60%;
+    background:repeating-linear-gradient(0deg, var(--purple) 0 6px, transparent 6px 14px);
+  }
+  .grid-floor{
+    height:220px; position:relative; overflow:hidden;
+    background:linear-gradient(180deg, transparent, rgba(46,26,71,.4));
+    perspective:260px;
+  }
+  .grid-lines{
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(90deg, var(--cyan) 1px, transparent 1px),
+      linear-gradient(0deg, var(--cyan) 1px, transparent 1px);
+    background-size:40px 40px;
+    transform:rotateX(70deg);
+    animation:gridMove 2.4s linear infinite;
+    opacity:.6;
+  }
+  @keyframes gridMove{ from{ background-position:0 0; } to{ background-position:0 40px; } }
+  .glow-text{ text-shadow:0 0 8px var(--cyan), 0 0 18px var(--pink); }
+  .ticket{
+    border:3px solid var(--cyan); border-radius:10px; transition:all .2s ease;
+    background:rgba(46,26,71,.6);
+  }
+  .ticket.selected{ background:var(--cyan); color:var(--purple); box-shadow:0 0 24px var(--cyan); }
+  .btn-main{
+    background:var(--pink); box-shadow:4px 4px 0 var(--cyan);
+    transition:transform .12s ease;
+  }
+  .btn-main:active{ transform:translate(2px,2px); box-shadow:2px 2px 0 var(--cyan); }
+</style>
+</head>
+<body>
+<div class="scanlines"></div>
+
+<header class="relative z-10 text-center pt-10 pb-6">
+  <p class="pixel text-xs text-[var(--chrome)] mb-6">// SATURDAY NIGHT SYSTEM BOOT //</p>
+  <div class="sun"></div>
+  <h1 class="pixel glow-text text-2xl sm:text-4xl mt-6 leading-relaxed">夢境格<br>DREAMGRID</h1>
+  <p class="text-xl mt-3 text-[var(--chrome)]">復古電玩 × 合成器音浪 夜場</p>
+</header>
+
+<div class="grid-floor"><div class="grid-lines"></div></div>
+
+<section class="relative z-10 max-w-2xl mx-auto px-6 -mt-10 text-center">
+  <div class="pixel text-cyan-200 text-xs mb-3">倒數開場</div>
+  <div id="countdown" class="pixel glow-text text-3xl sm:text-4xl mb-10">00 : 00 : 00</div>
+
+  <div class="text-left mb-10">
+    <p class="pixel text-sm mb-4 glow-text">選擇你的票種</p>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4" id="ticket-grid">
+      <button class="ticket p-4 text-left" data-id="early" data-price="580">
+        <p class="pixel text-xs mb-2">EARLY BIRD</p>
+        <p class="text-2xl">NT$580</p>
+        <p class="text-sm text-[var(--chrome)] mt-1">限量 50 張</p>
+      </button>
+      <button class="ticket p-4 text-left" data-id="standard" data-price="780">
+        <p class="pixel text-xs mb-2">STANDARD</p>
+        <p class="text-2xl">NT$780</p>
+        <p class="text-sm text-[var(--chrome)] mt-1">含一杯特調</p>
+      </button>
+      <button class="ticket p-4 text-left" data-id="vip" data-price="1280">
+        <p class="pixel text-xs mb-2">VIP POD</p>
+        <p class="text-2xl">NT$1280</p>
+        <p class="text-sm text-[var(--chrome)] mt-1">專屬卡座＋兩杯特調</p>
+      </button>
+    </div>
+  </div>
+
+  <button id="confirm-btn" class="btn-main pixel text-white text-sm px-8 py-4 rounded mb-4">尚未選擇票種</button>
+  <p id="result-line" class="text-lg text-[var(--chrome)] min-h-[2rem]"></p>
+</section>
+
+<footer class="relative z-10 text-center py-10 text-sm text-[var(--chrome)]">
+  夢境格 DREAMGRID © 2026 · 台北市 LOADING DISTRICT
+</footer>
+
+<script>
+const target = new Date('2026-11-21T20:00:00+08:00').getTime();
+function tick(){
+  const now = Date.now();
+  let diff = Math.max(0, target - now);
+  const h = String(Math.floor(diff/3600000)).padStart(2,'0');
+  const m = String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
+  const s = String(Math.floor((diff%60000)/1000)).padStart(2,'0');
+  document.getElementById('countdown').textContent = `${h} : ${m} : ${s}`;
+}
+tick();
+setInterval(tick, 1000);
+
+let selected = null;
+const tickets = {
+  early:{name:'EARLY BIRD', price:580},
+  standard:{name:'STANDARD', price:780},
+  vip:{name:'VIP POD', price:1280},
+};
+
+document.getElementById('ticket-grid').addEventListener('click', e=>{
+  const btn = e.target.closest('.ticket');
+  if(!btn) return;
+  selected = btn.dataset.id;
+  document.querySelectorAll('.ticket').forEach(t=>t.classList.remove('selected'));
+  btn.classList.add('selected');
+  document.getElementById('confirm-btn').textContent = `確認購買 ${tickets[selected].name}`;
+});
+
+document.getElementById('confirm-btn').addEventListener('click', ()=>{
+  if(!selected){
+    document.getElementById('result-line').textContent = '請先選擇一種票種';
+    return;
+  }
+  const t = tickets[selected];
+  document.getElementById('result-line').textContent = `已預訂 ${t.name}（NT$${t.price}），入場前出示此畫面即可`;
+});
+</script>
+
+</body>
+</html>

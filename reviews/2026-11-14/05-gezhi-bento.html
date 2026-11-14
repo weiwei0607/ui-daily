@@ -1,0 +1,98 @@
+<!-- style #53 Bento Grids -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>格策 GridNote｜文案設計師作品集</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Noto Sans TC','Outfit',sans-serif; background:#f0eee8; color:#1b1a17;}
+  .disp{font-family:'Outfit','Noto Sans TC',sans-serif;}
+  .cell{border-radius:1.4rem; transition:transform .25s ease, box-shadow .25s ease;}
+  .cell:hover{transform:translateY(-3px); box-shadow:0 12px 24px -8px rgba(0,0,0,.12);}
+  .copied-badge{transition:opacity .3s ease;}
+</style>
+</head>
+<body>
+
+<div class="max-w-5xl mx-auto px-5 py-10">
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 auto-rows-[110px] sm:auto-rows-[120px]">
+
+    <div class="cell bg-[#1b1a17] text-[#f0eee8] col-span-2 row-span-2 p-6 flex flex-col justify-between">
+      <div>
+        <p class="disp text-2xl font-bold">邱知寬</p>
+        <p class="text-sm text-[#f0eee8]/60 mt-1">產品文案 × UX 寫作</p>
+      </div>
+      <p class="text-sm text-[#f0eee8]/70 leading-relaxed">把複雜的功能，寫成使用者一看就懂的一句話。做過 SaaS、金融 App、電商三個領域。</p>
+    </div>
+
+    <div class="cell bg-[#ffd36b] col-span-1 row-span-1 p-4 flex flex-col justify-center items-center text-center">
+      <p class="disp text-2xl font-extrabold">37</p>
+      <p class="text-xs text-black/60 mt-1">合作專案數</p>
+    </div>
+
+    <div class="cell bg-white col-span-1 row-span-1 p-4 flex flex-col justify-center items-center text-center">
+      <p class="disp text-2xl font-extrabold">6年</p>
+      <p class="text-xs text-black/50 mt-1">文案經驗</p>
+    </div>
+
+    <div class="cell bg-[#b7c9a8] col-span-2 row-span-1 p-5 flex items-center justify-between">
+      <div>
+        <p class="disp font-bold">想合作？</p>
+        <p class="text-xs text-black/60 mt-0.5">點一下直接複製信箱</p>
+      </div>
+      <button id="copy-email" class="disp font-bold bg-black text-white text-sm px-4 py-2 rounded-full">複製信箱</button>
+    </div>
+
+    <div class="cell bg-white col-span-2 row-span-2 p-5 flex flex-col justify-between">
+      <div>
+        <p class="text-xs text-black/40 mb-1">案例 01</p>
+        <p class="disp font-bold text-lg">記帳 App 改版文案</p>
+      </div>
+      <p class="text-sm text-black/60">把所有錯誤訊息重寫成「下一步該做什麼」，客訴下降 34%。</p>
+    </div>
+
+    <div class="cell bg-[#e3a6a0] col-span-2 row-span-1 p-5 flex flex-col justify-center">
+      <p class="text-xs text-black/50 mb-1">案例 02</p>
+      <p class="disp font-bold">電商結帳流程重寫</p>
+    </div>
+
+    <div class="cell bg-[#1b1a17] text-[#f0eee8] col-span-2 row-span-1 p-5 flex flex-col justify-center">
+      <p class="text-xs text-[#f0eee8]/50 mb-1">案例 03</p>
+      <p class="disp font-bold">金融 App 新手引導文案</p>
+    </div>
+
+    <div class="cell bg-[#9cc5d8] col-span-1 row-span-1 p-4 flex flex-col justify-center items-center text-center">
+      <p class="disp font-bold text-sm">Threads</p>
+      <p class="text-xs text-black/50">@wentiu.writes</p>
+    </div>
+
+    <div class="cell bg-white col-span-1 row-span-1 p-4 flex flex-col justify-center items-center text-center">
+      <p class="disp font-bold text-sm">Medium</p>
+      <p class="text-xs text-black/50">文案筆記</p>
+    </div>
+
+  </div>
+
+  <div id="copied-badge" class="copied-badge fixed bottom-8 left-1/2 -translate-x-1/2 opacity-0 bg-black text-white disp font-bold text-sm px-5 py-3 rounded-full">信箱已複製：chihkuan.writes@gmail.com</div>
+
+  <footer class="text-center text-xs text-black/40 mt-10">格策 GridNote © 2026 · 文案設計師作品集</footer>
+</div>
+
+<script>
+document.getElementById('copy-email').addEventListener('click', async ()=>{
+  const email = 'chihkuan.writes@gmail.com';
+  try{
+    await navigator.clipboard.writeText(email);
+  }catch(e){}
+  const badge = document.getElementById('copied-badge');
+  badge.style.opacity = '1';
+  setTimeout(()=>{ badge.style.opacity = '0'; }, 2200);
+});
+</script>
+
+</body>
+</html>

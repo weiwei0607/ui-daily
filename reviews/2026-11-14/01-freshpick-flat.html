@@ -1,0 +1,199 @@
+<!-- style #12 Flat Design 2.0 -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>鮮取 FreshPick｜社區生鮮取貨</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#3498db; --red:#e74c3c; --green:#27ae60; --orange:#f39c12;
+    --ink:#1f2630; --paper:#fbfbf9;
+  }
+  body{font-family:'Noto Sans TC','Plus Jakarta Sans',sans-serif;background:var(--paper);color:var(--ink);}
+  .disp{font-family:'Plus Jakarta Sans','Noto Sans TC',sans-serif;}
+  .flat-card{box-shadow:0 2px 0 rgba(0,0,0,.06);}
+  .qty-btn{transition:transform .12s ease;}
+  .qty-btn:active{transform:scale(.88);}
+  .slot{transition:all .15s ease;}
+  .toast{transition:all .3s ease;}
+</style>
+</head>
+<body class="min-h-screen">
+
+<header class="sticky top-0 z-30 bg-[var(--paper)]/95 backdrop-blur border-b border-black/5">
+  <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <div class="w-9 h-9 rounded-xl bg-[var(--green)] flex items-center justify-center disp font-extrabold text-white">鮮</div>
+      <span class="disp font-extrabold text-lg">鮮取 FreshPick</span>
+    </div>
+    <div class="flex items-center gap-4 text-sm font-medium">
+      <span class="hidden sm:inline text-black/60">三民國小站 · 社區取貨點</span>
+      <button class="relative">
+        <span class="disp font-bold">購物車</span>
+        <span id="cart-badge" class="absolute -top-2 -right-4 bg-[var(--red)] text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="max-w-6xl mx-auto px-5 pt-10 pb-6">
+  <div class="grid md:grid-cols-2 gap-6">
+    <div class="rounded-2xl p-7 flex flex-col justify-center" style="background:var(--blue)">
+      <p class="disp text-white/80 font-bold text-sm mb-2">今日限定｜09:00 上架</p>
+      <h1 class="disp text-3xl sm:text-4xl font-extrabold text-white leading-tight mb-3">在社區取貨點領生鮮，<br>比超市便宜還更新鮮</h1>
+      <p class="text-white/85 text-sm">產地直送、每日限量，選好取貨時段，到點拿了就走，不用等外送。</p>
+    </div>
+    <div class="grid grid-cols-2 gap-4">
+      <div class="rounded-2xl p-5 flex flex-col justify-between" style="background:var(--orange)">
+        <p class="disp text-white font-bold">平均省</p>
+        <p class="disp text-white text-3xl font-extrabold">28%</p>
+        <p class="text-white/80 text-xs">對比連鎖超市同品項</p>
+      </div>
+      <div class="rounded-2xl p-5 flex flex-col justify-between" style="background:var(--green)">
+        <p class="disp text-white font-bold">取貨點</p>
+        <p class="disp text-white text-3xl font-extrabold">142</p>
+        <p class="text-white/80 text-xs">全台社區站持續增加</p>
+      </div>
+      <div class="col-span-2 rounded-2xl p-5 flex items-center justify-between" style="background:var(--red)">
+        <div>
+          <p class="disp text-white font-bold">本週回購率</p>
+          <p class="disp text-white text-2xl font-extrabold">91%</p>
+        </div>
+        <span class="text-white/80 text-xs text-right">因為真的新鮮，<br>大家都回來買第二次</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-5 py-6">
+  <h2 class="disp text-xl font-extrabold mb-4">1. 挑選商品</h2>
+  <div id="product-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+</section>
+
+<section class="max-w-6xl mx-auto px-5 py-6">
+  <h2 class="disp text-xl font-extrabold mb-4">2. 選取貨時段</h2>
+  <div id="slot-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-3"></div>
+  <p id="slot-hint" class="text-sm text-black/50 mt-3">請選擇一個取貨時段</p>
+</section>
+
+<section class="max-w-6xl mx-auto px-5 py-10">
+  <div class="rounded-2xl bg-white flat-card p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div>
+      <p class="disp font-bold text-black/60 text-sm">購物車小計</p>
+      <p class="disp text-3xl font-extrabold" id="cart-total">NT$ 0</p>
+    </div>
+    <button id="checkout-btn" class="disp font-extrabold text-white px-8 py-3 rounded-xl" style="background:var(--green)">確認取貨時段並下單</button>
+  </div>
+</section>
+
+<div id="toast" class="toast fixed bottom-6 left-1/2 -translate-x-1/2 translate-y-20 opacity-0 bg-[var(--ink)] text-white disp font-bold px-6 py-3 rounded-xl z-50"></div>
+
+<footer class="border-t border-black/5 py-8 text-center text-xs text-black/40">
+  鮮取 FreshPick · 社區生鮮取貨平台 © 2026
+</footer>
+
+<script>
+const products = [
+  {id:1, name:'玉荷包荔枝', unit:'500g / 盒', price:159, color:'var(--red)', tag:'產地直送'},
+  {id:2, name:'無毒小黃瓜', unit:'600g / 包', price:49, color:'var(--green)', tag:'當日採收'},
+  {id:3, name:'溫室牛番茄', unit:'1kg / 盒', price:89, color:'var(--orange)', tag:'限量'},
+  {id:4, name:'手作豆漿', unit:'1L / 瓶', price:65, color:'var(--blue)', tag:'每日新鮮製作'},
+  {id:5, name:'櫛瓜三色組', unit:'800g / 盒', price:99, color:'var(--green)', tag:'產地直送'},
+  {id:6, name:'紅肉火龍果', unit:'2顆 / 袋', price:119, color:'var(--red)', tag:'今日限量'},
+];
+const slots = ['17:00–18:00','18:00–19:00','19:00–20:00','20:00–21:00'];
+const cart = {};
+let chosenSlot = null;
+
+const grid = document.getElementById('product-grid');
+products.forEach(p=>{
+  const card = document.createElement('div');
+  card.className = 'rounded-2xl bg-white flat-card p-5';
+  card.innerHTML = `
+    <div class="h-24 rounded-xl mb-4 flex items-center justify-center disp font-extrabold text-white text-sm" style="background:${p.color}">${p.tag}</div>
+    <p class="disp font-bold text-base">${p.name}</p>
+    <p class="text-black/50 text-xs mb-3">${p.unit}</p>
+    <div class="flex items-center justify-between">
+      <p class="disp font-extrabold">NT$ ${p.price}</p>
+      <div class="flex items-center gap-3">
+        <button class="qty-btn w-8 h-8 rounded-lg bg-black/5 font-bold" data-id="${p.id}" data-op="-">−</button>
+        <span class="w-5 text-center font-bold" id="qty-${p.id}">0</span>
+        <button class="qty-btn w-8 h-8 rounded-lg bg-black/5 font-bold" data-id="${p.id}" data-op="+">＋</button>
+      </div>
+    </div>`;
+  grid.appendChild(card);
+});
+
+grid.addEventListener('click', e=>{
+  const btn = e.target.closest('button');
+  if(!btn) return;
+  const id = Number(btn.dataset.id);
+  const op = btn.dataset.op;
+  cart[id] = cart[id] || 0;
+  cart[id] = op === '+' ? cart[id]+1 : Math.max(0, cart[id]-1);
+  document.getElementById(`qty-${id}`).textContent = cart[id];
+  updateTotals();
+});
+
+function updateTotals(){
+  let count = 0, total = 0;
+  products.forEach(p=>{
+    const q = cart[p.id] || 0;
+    count += q;
+    total += q * p.price;
+  });
+  document.getElementById('cart-badge').textContent = count;
+  document.getElementById('cart-total').textContent = `NT$ ${total.toLocaleString()}`;
+}
+
+const slotGrid = document.getElementById('slot-grid');
+slots.forEach(s=>{
+  const b = document.createElement('button');
+  b.className = 'slot rounded-xl bg-white flat-card py-4 disp font-bold text-sm border-2 border-transparent';
+  b.textContent = s;
+  b.addEventListener('click', ()=>{
+    chosenSlot = s;
+    document.querySelectorAll('#slot-grid button').forEach(x=>{
+      x.style.borderColor = 'transparent';
+      x.style.background = 'white';
+      x.style.color = 'var(--ink)';
+    });
+    b.style.borderColor = 'var(--blue)';
+    b.style.background = 'var(--blue)';
+    b.style.color = 'white';
+    document.getElementById('slot-hint').textContent = `已選取：${s} 到站取貨`;
+  });
+  slotGrid.appendChild(b);
+});
+
+const toast = document.getElementById('toast');
+function showToast(msg){
+  toast.textContent = msg;
+  toast.style.opacity = '1';
+  toast.style.transform = 'translate(-50%, 0)';
+  setTimeout(()=>{
+    toast.style.opacity = '0';
+    toast.style.transform = 'translate(-50%, 5rem)';
+  }, 2200);
+}
+
+document.getElementById('checkout-btn').addEventListener('click', ()=>{
+  const count = Object.values(cart).reduce((a,b)=>a+b,0);
+  if(count === 0){
+    showToast('購物車還是空的，先選幾樣商品吧');
+    return;
+  }
+  if(!chosenSlot){
+    showToast('請先選擇一個取貨時段');
+    return;
+  }
+  showToast(`已預約 ${chosenSlot} 到三民國小站取貨！`);
+});
+</script>
+
+</body>
+</html>
