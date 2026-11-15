@@ -1,0 +1,121 @@
+<!-- style #06 Vibrant Block -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>色塊實驗室 ColorLab｜手作課程選課平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Space Grotesk','Noto Sans TC',sans-serif; background:#fdf6ec; }
+  .block-shadow{ box-shadow: 6px 6px 0 rgba(0,0,0,0.85); }
+  .block-btn:active{ transform: translate(4px,4px); box-shadow: 2px 2px 0 rgba(0,0,0,0.85); }
+  .tilt:hover{ transform: rotate(-1.5deg) scale(1.02); }
+  .chip{ transition: all .15s; }
+  .chip.active{ background:#1a1a1a; color:#fff; }
+</style>
+</head>
+<body class="text-neutral-900">
+
+  <nav class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+    <div class="text-2xl font-bold">色塊<span class="bg-[#39ff14] px-1">實驗室</span></div>
+    <div class="flex items-center gap-3">
+      <span class="hidden md:inline text-sm font-bold">購物車</span>
+      <span id="cartCount" class="block-shadow bg-[#ff1493] text-white font-bold rounded-full w-8 h-8 flex items-center justify-center text-sm">0</span>
+    </div>
+  </nav>
+
+  <header class="max-w-6xl mx-auto px-6 pt-6 pb-14">
+    <div class="block-shadow bg-[#00ffff] border-4 border-black rounded-2xl p-8 md:p-14">
+      <h1 class="text-4xl md:text-6xl font-bold leading-[1.1]">
+        把週末<br>塗成你喜歡的<span class="bg-black text-[#ffff00] px-2">顏色</span>
+      </h1>
+      <p class="mt-5 text-lg font-bold max-w-lg">台北、台中、高雄三地開課，手作課程一堂體驗，報名立刻佔位。</p>
+      <button class="block-btn mt-7 bg-black text-white font-bold px-7 py-4 rounded-xl block-shadow text-lg">看看本週開課 ↓</button>
+    </div>
+  </header>
+
+  <section class="max-w-6xl mx-auto px-6 pb-6">
+    <div class="flex gap-3 flex-wrap mb-8">
+      <button data-filter="all" class="chip active block-shadow border-4 border-black rounded-full px-5 py-2 font-bold">全部</button>
+      <button data-filter="陶藝" class="chip block-shadow border-4 border-black rounded-full px-5 py-2 font-bold bg-[#ff6b6b]">陶藝</button>
+      <button data-filter="植物" class="chip block-shadow border-4 border-black rounded-full px-5 py-2 font-bold bg-[#4ecdc4]">植物</button>
+      <button data-filter="染印" class="chip block-shadow border-4 border-black rounded-full px-5 py-2 font-bold bg-[#bf00ff] text-white">染印</button>
+      <button data-filter="木工" class="chip block-shadow border-4 border-black rounded-full px-5 py-2 font-bold bg-[#ffe66d]">木工</button>
+    </div>
+
+    <div id="courseGrid" class="grid md:grid-cols-4 gap-6"></div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-6 py-16">
+    <div class="block-shadow bg-black text-white rounded-2xl p-10 text-center">
+      <p class="text-sm font-bold text-[#39ff14] mb-2">本週已有 214 人報名</p>
+      <h2 class="text-2xl md:text-3xl font-bold">找不到喜歡的課？留下 Email，新課一上架馬上通知你</h2>
+      <div class="mt-6 max-w-md mx-auto flex gap-2">
+        <input id="emailInput" type="email" placeholder="你的 email" class="flex-1 px-4 py-3 rounded-lg text-black font-bold border-4 border-[#39ff14]">
+        <button id="subBtn" class="block-btn bg-[#39ff14] text-black font-bold px-5 py-3 rounded-lg block-shadow">訂閱</button>
+      </div>
+      <p id="subMsg" class="mt-3 text-sm font-bold text-[#39ff14] hidden">已收到！開新課第一個通知你 🎉</p>
+    </div>
+  </section>
+
+  <footer class="text-center py-8 font-bold text-sm">© 2026 色塊實驗室 ColorLab</footer>
+
+<script>
+  const courses = [
+    {cat:'陶藝', title:'手捏碗盤工作坊', place:'台北｜大安', price:1280, color:'bg-[#ff6b6b]'},
+    {cat:'植物', title:'多肉盆植組合課', place:'台中｜西區', price:980, color:'bg-[#4ecdc4]'},
+    {cat:'染印', title:'藍染方巾初體驗', place:'高雄｜鹽埕', price:1480, color:'bg-[#bf00ff] text-white'},
+    {cat:'木工', title:'小木凳手作課', place:'台北｜內湖', price:1980, color:'bg-[#ffe66d]'},
+    {cat:'陶藝', title:'手捏杯子體驗班', place:'台中｜北屯', price:1080, color:'bg-[#ff6b6b]'},
+    {cat:'植物', title:'苔球療癒手作', place:'台北｜公館', price:780, color:'bg-[#4ecdc4]'},
+    {cat:'染印', title:'紮染 T 恤體驗', place:'高雄｜左營', price:1180, color:'bg-[#bf00ff] text-white'},
+    {cat:'木工', title:'木質托盤雕刻課', place:'台中｜南屯', price:1680, color:'bg-[#ffe66d]'},
+  ];
+
+  const grid = document.getElementById('courseGrid');
+  let cart = 0;
+
+  function render(filter){
+    grid.innerHTML = '';
+    courses.filter(c => filter==='all' || c.cat===filter).forEach(c => {
+      const card = document.createElement('div');
+      card.className = 'tilt transition-transform block-shadow border-4 border-black rounded-2xl overflow-hidden bg-white';
+      card.innerHTML = `
+        <div class="${c.color} border-b-4 border-black h-24 flex items-center justify-center font-bold text-xl">${c.cat}</div>
+        <div class="p-4">
+          <h3 class="font-bold text-lg mb-1">${c.title}</h3>
+          <p class="text-sm font-bold text-neutral-500 mb-3">${c.place}</p>
+          <div class="flex items-center justify-between">
+            <span class="font-bold">NT$${c.price}</span>
+            <button class="addBtn block-btn text-sm font-bold bg-[#ffff00] border-2 border-black rounded-lg px-3 py-1">加入</button>
+          </div>
+        </div>`;
+      card.querySelector('.addBtn').addEventListener('click', ()=>{
+        cart++;
+        document.getElementById('cartCount').textContent = cart;
+      });
+      grid.appendChild(card);
+    });
+  }
+  render('all');
+
+  document.querySelectorAll('.chip').forEach(btn => {
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.chip').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      render(btn.dataset.filter);
+    });
+  });
+
+  document.getElementById('subBtn').addEventListener('click', ()=>{
+    const v = document.getElementById('emailInput').value.trim();
+    if(v.includes('@')){
+      document.getElementById('subMsg').classList.remove('hidden');
+    }
+  });
+</script>
+</body>
+</html>

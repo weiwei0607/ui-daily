@@ -1,0 +1,179 @@
+<!-- style #34 Predictive Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>補貨先知 StockSense｜需求預測後台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Manrope','Noto Sans TC',sans-serif; background:#0f1424; color:#e7eaf2; }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+  .card{ background:#161d33; border:1px solid #232c47; }
+  .predicted{ border:2px dashed #a855f7; }
+  .actual{ border:2px solid #3b82f6; }
+  .sku-btn.active{ background:#3b82f6; color:#fff; }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <div class="flex">
+    <aside class="w-56 h-screen sticky top-0 border-r border-[#232c47] p-5 hidden md:block">
+      <div class="font-extrabold text-lg mb-8">補貨先知</div>
+      <nav class="space-y-1 text-sm">
+        <div class="px-3 py-2 rounded-lg bg-[#1d2748] text-white font-bold">需求預測</div>
+        <div class="px-3 py-2 rounded-lg text-[#8b93ab]">庫存總覽</div>
+        <div class="px-3 py-2 rounded-lg text-[#8b93ab]">供應商</div>
+        <div class="px-3 py-2 rounded-lg text-[#8b93ab]">警示設定</div>
+      </nav>
+    </aside>
+
+    <main class="flex-1 p-6 md:p-8">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h1 class="text-2xl font-extrabold">需求預測看板</h1>
+          <p class="text-[#8b93ab] text-sm mt-1">資料更新：<span class="mono">2026-11-15 06:00</span></p>
+        </div>
+        <div class="flex gap-2" id="skuTabs">
+          <button data-sku="A" class="sku-btn active px-4 py-2 rounded-lg text-sm font-bold bg-[#1d2748]">SKU-A 氣泡水</button>
+          <button data-sku="B" class="sku-btn px-4 py-2 rounded-lg text-sm font-bold bg-[#1d2748]">SKU-B 洗衣精</button>
+          <button data-sku="C" class="sku-btn px-4 py-2 rounded-lg text-sm font-bold bg-[#1d2748]">SKU-C 保鮮膜</button>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-4 gap-4 mb-6">
+        <div class="card rounded-xl p-5">
+          <p class="text-[#8b93ab] text-sm mb-1">本週預測需求</p>
+          <p class="mono text-2xl font-bold" id="kpiDemand">4,820</p>
+          <p class="text-emerald-400 text-sm mt-1">↑ 12% vs 上週</p>
+        </div>
+        <div class="card rounded-xl p-5">
+          <p class="text-[#8b93ab] text-sm mb-1">目前庫存</p>
+          <p class="mono text-2xl font-bold" id="kpiStock">3,150</p>
+          <p class="text-amber-400 text-sm mt-1">覆蓋率 65%</p>
+        </div>
+        <div class="card rounded-xl p-5">
+          <p class="text-[#8b93ab] text-sm mb-1">預測信賴區間</p>
+          <p class="mono text-2xl font-bold" id="kpiRange">±8.4%</p>
+          <p class="text-[#8b93ab] text-sm mt-1">近 30 天模型誤差</p>
+        </div>
+        <div class="card rounded-xl p-5">
+          <p class="text-[#8b93ab] text-sm mb-1">建議補貨量</p>
+          <p class="mono text-2xl font-bold text-purple-400" id="kpiOrder">1,980</p>
+          <p class="text-[#8b93ab] text-sm mt-1">於 11/18 前下單</p>
+        </div>
+      </div>
+
+      <div class="card rounded-xl p-6 mb-6">
+        <div class="flex items-center justify-between mb-5">
+          <h2 class="font-bold">14 天需求曲線</h2>
+          <div class="flex gap-4 text-xs">
+            <span class="flex items-center gap-1"><span class="w-3 h-0.5 bg-blue-500 inline-block"></span> 實際</span>
+            <span class="flex items-center gap-1"><span class="w-3 h-0.5 border-t-2 border-dashed border-purple-400 inline-block"></span> 預測</span>
+          </div>
+        </div>
+        <svg id="chart" viewBox="0 0 700 220" class="w-full h-56"></svg>
+      </div>
+
+      <div class="card rounded-xl p-6">
+        <h2 class="font-bold mb-4">各門店補貨建議</h2>
+        <table class="w-full text-sm">
+          <thead class="text-[#8b93ab] text-left">
+            <tr><th class="py-2">門店</th><th>目前庫存</th><th>7日預測需求</th><th>建議補貨</th><th>狀態</th></tr>
+          </thead>
+          <tbody id="storeTable" class="mono"></tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+<script>
+  const data = {
+    A: {demand:4820, stock:3150, range:'±8.4%', order:1980,
+        actual:[32,40,38,52,48,60,58],
+        predicted:[58,62,66,70,74,79,85],
+        stores:[['台北信義店',420,520,160,'急補'],['台中西屯店',610,480,0,'充足'],['高雄三多店',280,390,170,'急補'],['新竹光復店',510,440,40,'正常']]},
+    B: {demand:2210, stock:1800, range:'±11.2%', order:640,
+        actual:[20,18,24,22,30,28,26],
+        predicted:[26,24,28,30,34,33,38],
+        stores:[['台北信義店',260,300,80,'正常'],['台中西屯店',190,260,100,'急補'],['高雄三多店',340,280,0,'充足'],['新竹光復店',220,250,60,'正常']]},
+    C: {demand:1390, stock:2200, range:'±6.1%', order:0,
+        actual:[14,15,13,16,15,14,17],
+        predicted:[16,16,17,18,17,19,20],
+        stores:[['台北信義店',340,180,0,'充足'],['台中西屯店',420,210,0,'充足'],['高雄三多店',380,200,0,'充足'],['新竹光復店',390,190,0,'充足']]}
+  };
+
+  function drawChart(key){
+    const d = data[key];
+    const svg = document.getElementById('chart');
+    svg.innerHTML = '';
+    const all = [...d.actual, ...d.predicted];
+    const max = Math.max(...all) * 1.2;
+    const stepX = 700 / 13;
+
+    function pathFor(arr, offset){
+      return arr.map((v,i)=>{
+        const x = (i+offset) * stepX;
+        const y = 220 - (v/max)*200 - 10;
+        return (i===0 && offset===0 ? 'M':'L') + x + ',' + y;
+      }).join(' ');
+    }
+
+    const actualPath = d.actual.map((v,i)=>{
+      const x = i*stepX, y = 220-(v/max)*200-10;
+      return (i===0?'M':'L')+x+','+y;
+    }).join(' ');
+    const a = document.createElementNS('http://www.w3.org/2000/svg','path');
+    a.setAttribute('d', actualPath);
+    a.setAttribute('stroke', '#3b82f6'); a.setAttribute('stroke-width','3'); a.setAttribute('fill','none');
+    svg.appendChild(a);
+
+    const predPath = d.predicted.map((v,i)=>{
+      const x = (i+6)*stepX, y = 220-(v/max)*200-10;
+      return (i===0?'M':'L')+x+','+y;
+    }).join(' ');
+    const p = document.createElementNS('http://www.w3.org/2000/svg','path');
+    p.setAttribute('d', predPath);
+    p.setAttribute('stroke', '#a855f7'); p.setAttribute('stroke-width','3'); p.setAttribute('fill','none');
+    p.setAttribute('stroke-dasharray','6,6');
+    svg.appendChild(p);
+  }
+
+  function renderTable(key){
+    const tbody = document.getElementById('storeTable');
+    tbody.innerHTML = '';
+    data[key].stores.forEach(([name, stock, demand, order, status])=>{
+      const color = status==='急補' ? 'text-rose-400' : status==='正常' ? 'text-amber-300' : 'text-emerald-400';
+      tbody.innerHTML += `<tr class="border-t border-[#232c47] font-sans">
+        <td class="py-3">${name}</td>
+        <td>${stock}</td>
+        <td>${demand}</td>
+        <td class="${order>0?'text-purple-400':''}">${order}</td>
+        <td class="${color} font-bold">${status}</td>
+      </tr>`;
+    });
+  }
+
+  function update(key){
+    document.getElementById('kpiDemand').textContent = data[key].demand.toLocaleString();
+    document.getElementById('kpiStock').textContent = data[key].stock.toLocaleString();
+    document.getElementById('kpiRange').textContent = data[key].range;
+    document.getElementById('kpiOrder').textContent = data[key].order.toLocaleString();
+    drawChart(key);
+    renderTable(key);
+  }
+
+  document.querySelectorAll('.sku-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.sku-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      update(btn.dataset.sku);
+    });
+  });
+
+  update('A');
+</script>
+</body>
+</html>

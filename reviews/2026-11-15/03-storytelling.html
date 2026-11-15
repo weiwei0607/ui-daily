@@ -1,0 +1,89 @@
+<!-- style #27 Storytelling -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>拾茗堂｜一片茶葉的六十年</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Newsreader:ital,wght@0,400;0,500;1,400&family=Noto+Serif+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Newsreader','Noto Serif TC',serif; background:#f7f3ec; color:#2b241c; }
+  .display{ font-family:'Playfair Display','Noto Serif TC',serif; }
+  .chapter{ opacity:0; transform: translateY(40px); transition: opacity 1s ease, transform 1s ease; }
+  .chapter.show{ opacity:1; transform: translateY(0); }
+  .divider{ width:48px; height:2px; background:#8a6d3b; }
+  #progress{ position:fixed; top:0; left:0; height:3px; background:#8a6d3b; z-index:50; transition: width .1s; }
+</style>
+</head>
+<body>
+  <div id="progress" style="width:0%"></div>
+
+  <nav class="max-w-3xl mx-auto px-6 py-6 flex items-center justify-between text-sm tracking-widest">
+    <span class="display font-bold text-lg">拾茗堂</span>
+    <span>創立於 1964</span>
+  </nav>
+
+  <header class="max-w-3xl mx-auto px-6 pt-10 pb-20 text-center">
+    <p class="tracking-[0.3em] text-sm text-[#8a6d3b] mb-4">THE STORY OF A TEA HOUSE</p>
+    <h1 class="display text-4xl md:text-6xl font-bold leading-tight mb-6">一片茶葉<br>走過的六十年</h1>
+    <div class="divider mx-auto mb-6"></div>
+    <p class="text-lg italic text-[#5a5042]">在南投的山霧裡，我們種下的不只是茶樹，是一個家族對時間的承諾。</p>
+  </header>
+
+  <main class="max-w-2xl mx-auto px-6">
+
+    <section class="chapter py-16 border-t border-[#d8cdb8]">
+      <p class="text-sm tracking-widest text-[#8a6d3b] mb-3">第一章 · 1964</p>
+      <h2 class="display text-2xl md:text-3xl font-bold mb-5">阿公的第一畦茶園</h2>
+      <p class="leading-relaxed text-[17px] mb-4">那年阿公陳水木從福建渡海而來的種苗裡，選了三十株青心烏龍，種在凍頂山腰一塊租來的坡地。沒有機器，沒有倉庫，只有一把鋤頭跟一句話：「茶不等人，人要等茶。」</p>
+      <p class="leading-relaxed text-[17px] text-[#5a5042]">第一年收成不到二十斤，全家分著炒、分著揉，連孩子都在灶邊幫忙翻動茶葉，怕火候一個不留神就毀了一整季的辛苦。</p>
+    </section>
+
+    <section class="chapter py-16 border-t border-[#d8cdb8]">
+      <p class="text-sm tracking-widest text-[8a6d3b] mb-3">第二章 · 1988</p>
+      <h2 class="display text-2xl md:text-3xl font-bold mb-5">父親接下的，不只是茶行</h2>
+      <p class="leading-relaxed text-[17px] mb-4">父親陳明德退伍後回到山上，把家裡的曬茶場擴成了一間小小的店面，掛上「拾茗堂」的木牌。他常說，接的不是生意，是阿公捧了一輩子的那雙手。</p>
+      <p class="leading-relaxed text-[17px] text-[#5a5042]">那十年，台灣茶葉外銷起落，許多茶園轉作檳榔與果樹，父親卻堅持留下老茶樹，哪怕收入少了一半。</p>
+    </section>
+
+    <section class="chapter py-16 border-t border-[#d8cdb8]">
+      <p class="text-sm tracking-widest text-[#8a6d3b] mb-3">第三章 · 2026</p>
+      <h2 class="display text-2xl md:text-3xl font-bold mb-5">我們，正在寫下一章</h2>
+      <p class="leading-relaxed text-[17px] mb-4">如今茶園由第三代接手，我們仍用阿公留下的手摘工法，只是多了一台小小的烘焙紀錄機，把每一批茶的溫度與時間都寫進數據裡——為的不是取代手感，而是讓好味道更穩定地被留住。</p>
+      <p class="leading-relaxed text-[17px] text-[#5a5042]">每一罐拾茗堂的茶，瓶身上都印著採收的那個月份與山頭。我們想讓你喝到的，不只是茶，是一整座山在那個季節裡的呼吸。</p>
+    </section>
+
+    <section class="chapter py-16 border-t border-[#d8cdb8] text-center">
+      <blockquote class="display italic text-2xl md:text-3xl leading-snug text-[#3d3324]">
+        「茶要慢慢等，<br>人心也是。」
+      </blockquote>
+      <p class="mt-4 text-sm text-[#8a6d3b]">— 陳水木，拾茗堂創辦人</p>
+    </section>
+
+    <section class="chapter py-16 border-t border-[#d8cdb8] text-center">
+      <h2 class="display text-2xl font-bold mb-4">喝一口，走進我們的山</h2>
+      <p class="text-[#5a5042] mb-7">凍頂烏龍手採限量組，僅於每年秋收時節開放預購。</p>
+      <button class="bg-[#2b241c] text-[#f7f3ec] px-8 py-3 rounded-sm tracking-widest text-sm hover:bg-[#3d3324] transition">加入預購名單</button>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-sm text-[#8a6d3b] py-10">© 2026 拾茗堂．南投凍頂山</footer>
+
+<script>
+  const chapters = document.querySelectorAll('.chapter');
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('show'); });
+  }, {threshold:0.2});
+  chapters.forEach(c => obs.observe(c));
+
+  window.addEventListener('scroll', ()=>{
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = (window.scrollY / h) * 100;
+    document.getElementById('progress').style.width = pct + '%';
+  });
+</script>
+</body>
+</html>

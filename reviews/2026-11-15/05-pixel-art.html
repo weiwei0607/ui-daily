@@ -1,0 +1,125 @@
+<!-- style #52 Pixel Art / Retro Gaming -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>像素電氣行｜復古街機聚會</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'VT323','Noto Sans TC',monospace; background:#0f380f; color:#8bac0f; image-rendering: pixelated; font-size:20px; }
+  .pixel-title{ font-family:'Press Start 2P','Noto Sans TC',monospace; font-size:1rem; line-height:1.8; }
+  .pixel-border{ border:4px solid #8bac0f; box-shadow: 0 0 0 4px #0f380f, 0 0 0 8px #8bac0f; }
+  .btn-pixel{ font-family:'Press Start 2P','Noto Sans TC',monospace; background:#306230; color:#9bbc0f; border:4px solid #8bac0f; }
+  .btn-pixel:hover{ background:#8bac0f; color:#0f380f; }
+  .btn-pixel:active{ transform: translate(2px,2px); }
+  .scanline::before{
+    content:''; position:fixed; inset:0; pointer-events:none;
+    background: repeating-linear-gradient(0deg, rgba(0,0,0,0.15) 0px, rgba(0,0,0,0.15) 1px, transparent 1px, transparent 3px);
+    z-index:40;
+  }
+  .blink{ animation: blink 1s steps(2) infinite; }
+  @keyframes blink{ 50%{ opacity:0; } }
+</style>
+</head>
+<body class="scanline min-h-screen px-4 py-8">
+
+  <div class="max-w-4xl mx-auto">
+    <header class="text-center mb-10">
+      <h1 class="pixel-title mb-4">像素電氣行</h1>
+      <p class="text-sm">PIXEL ARCADE · 台北市中山區復古街機聚會所</p>
+    </header>
+
+    <div class="pixel-border bg-[#0f380f] p-6 mb-8">
+      <p class="pixel-title text-[11px] mb-4">▸ 本週活動</p>
+      <div class="grid md:grid-cols-3 gap-4 text-sm">
+        <div class="border-2 border-[#8bac0f] p-3">
+          <p class="pixel-title text-[9px] mb-2">週五夜場</p>
+          <p>格鬥天王友誼賽</p>
+          <p class="text-xs mt-1 opacity-70">19:00 開放報名</p>
+        </div>
+        <div class="border-2 border-[#8bac0f] p-3">
+          <p class="pixel-title text-[9px] mb-2">週六午場</p>
+          <p>打磚塊速攻賽</p>
+          <p class="text-xs mt-1 opacity-70">14:00 開放報名</p>
+        </div>
+        <div class="border-2 border-[#8bac0f] p-3">
+          <p class="pixel-title text-[9px] mb-2">週日晚場</p>
+          <p>節奏音樂機台挑戰</p>
+          <p class="text-xs mt-1 opacity-70">18:00 開放報名</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pixel-border bg-[#0f380f] p-6 mb-8">
+      <p class="pixel-title text-[11px] mb-5">▸ 機台使用排隊</p>
+      <p class="text-sm mb-4">選一台機台，輸入你的玩家名稱，馬上加入排隊序列。</p>
+
+      <div class="flex gap-2 mb-5 flex-wrap" id="machineList"></div>
+
+      <div class="flex gap-2 mb-5">
+        <input id="nameInput" maxlength="8" placeholder="玩家名稱 (8字內)" class="flex-1 bg-[#0f380f] border-2 border-[#8bac0f] px-3 py-2 text-[#9bbc0f] outline-none">
+        <button id="joinBtn" class="btn-pixel px-4 py-2 text-[10px]">加入排隊</button>
+      </div>
+
+      <div id="queueBox" class="border-2 border-dashed border-[#8bac0f] p-3 text-sm min-h-[60px]">
+        <p class="opacity-60">尚未選擇機台</p>
+      </div>
+    </div>
+
+    <div class="pixel-border bg-[#0f380f] p-6 text-center">
+      <p class="pixel-title text-[11px] mb-4 blink">▸ PRESS START</p>
+      <p class="text-sm mb-5">單次入場 NT$150，含兩小時無限暢玩所有機台。</p>
+      <button id="ctaBtn" class="btn-pixel px-6 py-3 text-xs">立即預約入場 →</button>
+      <p id="ctaMsg" class="mt-4 text-sm hidden">► 已收到預約！入場代碼：<span id="codeNum" class="pixel-title"></span></p>
+    </div>
+
+    <footer class="text-center text-xs opacity-60 mt-10">© 2026 像素電氣行 PIXEL ARCADE</footer>
+  </div>
+
+<script>
+  const machines = ['格鬥天王','打磚塊','節奏音樂機','賽車對決','射擊遊俠'];
+  let selected = null;
+  const queues = {};
+  machines.forEach(m => queues[m] = []);
+
+  const mList = document.getElementById('machineList');
+  machines.forEach(m => {
+    const btn = document.createElement('button');
+    btn.textContent = m;
+    btn.className = 'border-2 border-[#8bac0f] px-3 py-2 text-sm hover:bg-[#8bac0f] hover:text-[#0f380f] transition';
+    btn.addEventListener('click', ()=>{
+      selected = m;
+      document.querySelectorAll('#machineList button').forEach(b=>b.classList.remove('bg-[#8bac0f]','text-[#0f380f]'));
+      btn.classList.add('bg-[#8bac0f]','text-[#0f380f]');
+      renderQueue();
+    });
+    mList.appendChild(btn);
+  });
+
+  function renderQueue(){
+    const box = document.getElementById('queueBox');
+    if(!selected){ box.innerHTML = '<p class="opacity-60">尚未選擇機台</p>'; return; }
+    const q = queues[selected];
+    box.innerHTML = `<p class="pixel-title text-[9px] mb-2">${selected} 排隊中</p>` +
+      (q.length ? q.map((n,i)=>`<p>${i+1}. ${n}</p>`).join('') : '<p class="opacity-60">目前無人排隊，當第一個！</p>');
+  }
+
+  document.getElementById('joinBtn').addEventListener('click', ()=>{
+    const name = document.getElementById('nameInput').value.trim();
+    if(!selected || !name) return;
+    queues[selected].push(name);
+    document.getElementById('nameInput').value = '';
+    renderQueue();
+  });
+
+  document.getElementById('ctaBtn').addEventListener('click', ()=>{
+    const code = 'PX-' + Math.floor(1000+Math.random()*9000);
+    document.getElementById('codeNum').textContent = code;
+    document.getElementById('ctaMsg').classList.remove('hidden');
+  });
+</script>
+</body>
+</html>

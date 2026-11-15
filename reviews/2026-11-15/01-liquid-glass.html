@@ -1,0 +1,214 @@
+<!-- style #14 Liquid Glass -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>靜流 FlowSound｜放鬆你的每一刻</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --glass-bg: rgba(255,255,255,0.22);
+    --glass-border: rgba(255,255,255,0.45);
+  }
+  body{
+    font-family:'Quicksand','Noto Sans TC',sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 45%, #f093fb 100%);
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  .blob{
+    position:absolute;
+    border-radius:50%;
+    filter: blur(50px);
+    opacity:.55;
+    animation: float 14s ease-in-out infinite;
+  }
+  @keyframes float{
+    0%,100%{ transform: translate(0,0) scale(1); }
+    50%{ transform: translate(30px,-40px) scale(1.1); }
+  }
+  .glass{
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    box-shadow: 0 8px 32px rgba(31,38,135,0.25);
+  }
+  .glass-strong{
+    background: rgba(255,255,255,0.35);
+    border: 1px solid rgba(255,255,255,0.6);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+  }
+  .ripple{
+    position:absolute; border-radius:50%;
+    background: rgba(255,255,255,0.5);
+    transform: scale(0);
+    animation: rippleAnim 1.2s ease-out forwards;
+    pointer-events:none;
+  }
+  @keyframes rippleAnim{
+    to{ transform: scale(4); opacity:0; }
+  }
+  .wave-bar{ transition: height .5s ease; }
+</style>
+</head>
+<body class="relative text-white">
+
+  <div class="blob w-[420px] h-[420px] bg-pink-300 -top-20 -left-20"></div>
+  <div class="blob w-[360px] h-[360px] bg-indigo-300 top-1/3 right-0"></div>
+  <div class="blob w-[300px] h-[300px] bg-purple-300 bottom-0 left-1/4"></div>
+
+  <nav class="relative z-10 max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+    <div class="text-xl font-bold tracking-wide">靜流 FlowSound</div>
+    <div class="glass rounded-full px-5 py-2 text-sm font-medium">免費試用 7 天</div>
+  </nav>
+
+  <header class="relative z-10 max-w-6xl mx-auto px-6 pt-10 pb-20 text-center">
+    <h1 class="text-4xl md:text-6xl font-bold leading-tight drop-shadow-sm">
+      讓思緒<br class="md:hidden"> 像水一樣<span class="block md:inline">流動</span>
+    </h1>
+    <p class="mt-6 text-lg md:text-xl text-white/85 max-w-xl mx-auto font-medium">
+      結合聲音療癒與呼吸引導，陪你在忙碌的台北生活裡，找回五分鐘的安靜。
+    </p>
+
+    <div class="mt-10 glass-strong rounded-[32px] max-w-md mx-auto p-8">
+      <p class="text-sm font-semibold text-white/80 mb-4">今日推薦：海潮入眠</p>
+      <div id="waveform" class="flex items-end justify-center gap-2 h-20 mb-6"></div>
+
+      <div class="flex items-center justify-center gap-6">
+        <button id="backBtn" class="glass rounded-full w-11 h-11 flex items-center justify-center text-lg">«</button>
+        <button id="playBtn" class="relative overflow-hidden glass-strong rounded-full w-16 h-16 flex items-center justify-center text-2xl shadow-lg">
+          <span id="playIcon">▶</span>
+        </button>
+        <button id="fwdBtn" class="glass rounded-full w-11 h-11 flex items-center justify-center text-lg">»</button>
+      </div>
+      <p id="timer" class="mt-5 text-sm text-white/70 font-semibold">00:00 / 05:00</p>
+    </div>
+  </header>
+
+  <section class="relative z-10 max-w-6xl mx-auto px-6 pb-10">
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="glass rounded-3xl p-6">
+        <div class="text-3xl mb-3">🌊</div>
+        <h3 class="font-bold text-lg mb-1">情境音景</h3>
+        <p class="text-white/80 text-sm">海潮、雨林、篝火，超過 120 種真實錄製音景，隨心切換。</p>
+      </div>
+      <div class="glass rounded-3xl p-6">
+        <div class="text-3xl mb-3">🫁</div>
+        <h3 class="font-bold text-lg mb-1">呼吸引導</h3>
+        <p class="text-white/80 text-sm">4-7-8 呼吸法動畫引導，跟著光暈的脹縮，慢慢放慢心跳。</p>
+      </div>
+      <div class="glass rounded-3xl p-6">
+        <div class="text-3xl mb-3">📈</div>
+        <h3 class="font-bold text-lg mb-1">安眠紀錄</h3>
+        <p class="text-white/80 text-sm">記錄每晚的入睡時間與心情，累積屬於你的放鬆地圖。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="relative z-10 max-w-3xl mx-auto px-6 pb-24 text-center">
+    <div class="glass-strong rounded-[32px] p-10">
+      <h2 class="text-2xl font-bold mb-3">選一個呼吸練習，現在就開始</h2>
+      <p class="text-white/80 mb-6 text-sm">點擊下方圓圈，跟著脹縮節奏吸氣與吐氣。</p>
+      <button id="breatheBtn" class="relative mx-auto w-40 h-40 rounded-full glass-strong flex items-center justify-center text-base font-bold transition-transform duration-[4000ms]">
+        <span id="breatheLabel">點我開始</span>
+      </button>
+    </div>
+  </section>
+
+  <footer class="relative z-10 text-center text-white/60 text-sm pb-10">
+    © 2026 靜流 FlowSound．用聲音照顧你的每一個夜晚
+  </footer>
+
+<script>
+  // waveform bars
+  const wf = document.getElementById('waveform');
+  const bars = [];
+  for(let i=0;i<28;i++){
+    const b = document.createElement('div');
+    b.className = 'wave-bar w-1.5 rounded-full bg-white/70';
+    b.style.height = (8 + Math.random()*40) + 'px';
+    wf.appendChild(b);
+    bars.push(b);
+  }
+
+  let playing = false, elapsed = 0, total = 300, timerInt = null;
+  const playBtn = document.getElementById('playBtn');
+  const playIcon = document.getElementById('playIcon');
+  const timerEl = document.getElementById('timer');
+
+  function fmt(s){
+    const m = String(Math.floor(s/60)).padStart(2,'0');
+    const ss = String(s%60).padStart(2,'0');
+    return m+':'+ss;
+  }
+
+  function animateBars(){
+    if(!playing) return;
+    bars.forEach(b => b.style.height = (8 + Math.random()*44) + 'px');
+  }
+
+  playBtn.addEventListener('click', (e)=>{
+    playing = !playing;
+    playIcon.textContent = playing ? '❚❚' : '▶';
+    const rect = playBtn.getBoundingClientRect();
+    const r = document.createElement('span');
+    r.className = 'ripple';
+    r.style.left = '0'; r.style.top = '0';
+    r.style.width = rect.width + 'px'; r.style.height = rect.height + 'px';
+    playBtn.appendChild(r);
+    setTimeout(()=> r.remove(), 1200);
+
+    if(playing){
+      timerInt = setInterval(()=>{
+        elapsed = Math.min(elapsed+1, total);
+        timerEl.textContent = fmt(elapsed)+' / '+fmt(total);
+        animateBars();
+        if(elapsed>=total){ playing=false; playIcon.textContent='▶'; clearInterval(timerInt); }
+      }, 1000);
+    } else {
+      clearInterval(timerInt);
+    }
+  });
+
+  document.getElementById('fwdBtn').addEventListener('click', ()=>{
+    elapsed = Math.min(elapsed+15, total);
+    timerEl.textContent = fmt(elapsed)+' / '+fmt(total);
+  });
+  document.getElementById('backBtn').addEventListener('click', ()=>{
+    elapsed = Math.max(elapsed-15, 0);
+    timerEl.textContent = fmt(elapsed)+' / '+fmt(total);
+  });
+
+  // breathing circle
+  const breatheBtn = document.getElementById('breatheBtn');
+  const breatheLabel = document.getElementById('breatheLabel');
+  let breathing = false, phase = 0;
+  const phases = ['吸氣 4 秒','停住 7 秒','吐氣 8 秒'];
+  let breatheInt = null;
+
+  breatheBtn.addEventListener('click', ()=>{
+    breathing = !breathing;
+    if(breathing){
+      phase = 0;
+      breatheLabel.textContent = phases[0];
+      breatheBtn.style.transform = 'scale(1.25)';
+      let step = () => {
+        phase = (phase+1)%3;
+        breatheLabel.textContent = phases[phase];
+        breatheBtn.style.transform = phase===0 ? 'scale(1.25)' : phase===1 ? 'scale(1.25)' : 'scale(0.9)';
+      };
+      breatheInt = setInterval(step, phase===1?7000:4000);
+    } else {
+      clearInterval(breatheInt);
+      breatheBtn.style.transform = 'scale(1)';
+      breatheLabel.textContent = '點我開始';
+    }
+  });
+</script>
+</body>
+</html>
