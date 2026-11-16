@@ -1,0 +1,214 @@
+<!-- style #13 Skeuomorphism -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>匠紋皮革社 · 手工皮革訂製工坊</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=Georgia&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --wood:#deb887; --wood-dark:#8b5a2b; --leather:#6b4226; --leather-light:#a9744f;
+    --brass:#c9a35b; --paper:#f5ecd9;
+  }
+  body{
+    font-family:'Georgia','Noto Serif TC',serif;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,.04), rgba(0,0,0,.08)),
+      repeating-linear-gradient(90deg, #d8b48a 0px, #d8b48a 2px, #cfa877 3px, #cfa877 60px);
+    background-blend-mode:multiply;
+    background-color:#cfa877;
+    color:#3a2415;
+  }
+  .wood-panel{
+    background:
+      repeating-linear-gradient(100deg, rgba(255,255,255,.03) 0 2px, transparent 2px 6px),
+      linear-gradient(120deg,#b98a53,#8b5a2b 40%,#a9744f 70%,#8b5a2b);
+    box-shadow: inset 0 2px 8px rgba(255,255,255,.15), inset 0 -4px 10px rgba(0,0,0,.4), 0 10px 25px rgba(0,0,0,.35);
+    border:1px solid #4a2e14;
+  }
+  .leather-card{
+    background: linear-gradient(160deg,#7a4d2c,#5c3620 60%,#4a2b18);
+    box-shadow: inset 0 1px 2px rgba(255,255,255,.1), inset 0 -2px 6px rgba(0,0,0,.5), 0 8px 18px rgba(0,0,0,.4);
+    border:1px solid #3a2110;
+    position:relative;
+  }
+  .stitch{
+    border:2px dashed rgba(230,200,150,.35);
+    border-radius:10px;
+  }
+  .brass-btn{
+    background: linear-gradient(180deg,#e8cf8e,#c9a35b 45%,#9c7a3a);
+    box-shadow: inset 0 1px 1px rgba(255,255,255,.6), inset 0 -2px 3px rgba(0,0,0,.35), 0 3px 6px rgba(0,0,0,.4);
+    color:#3a2410;
+    text-shadow:0 1px 0 rgba(255,255,255,.3);
+  }
+  .brass-btn:active{
+    box-shadow: inset 0 2px 4px rgba(0,0,0,.5);
+    transform: translateY(1px);
+  }
+  .paper-card{
+    background: linear-gradient(170deg,#f8f0dd,#eadfc0);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.05), 0 6px 14px rgba(60,35,15,.25);
+    color:#3a2415;
+  }
+  .rivet{
+    width:10px;height:10px;border-radius:50%;
+    background: radial-gradient(circle at 30% 30%, #f1dca0, #8a6a30 70%, #5b451e);
+    box-shadow: 0 1px 2px rgba(0,0,0,.6);
+  }
+  .fold-shadow{ box-shadow: inset 0 10px 15px -10px rgba(0,0,0,.5); }
+  .gold-text{ color:#e6c88a; text-shadow:0 1px 0 rgba(0,0,0,.6); }
+  select, input{
+    background: linear-gradient(180deg,#f3e8cc,#e3d2a8);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,.25);
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+<header class="wood-panel sticky top-0 z-30 px-6 py-4 flex items-center justify-between">
+  <div class="flex items-center gap-3">
+    <div class="rivet"></div>
+    <h1 class="gold-text text-2xl font-bold tracking-wide">匠紋皮革社</h1>
+    <div class="rivet"></div>
+  </div>
+  <nav class="hidden md:flex gap-6 gold-text text-sm font-medium">
+    <a href="#products" class="hover:text-amber-200">訂製商品</a>
+    <a href="#craft" class="hover:text-amber-200">製程故事</a>
+    <a href="#order" class="hover:text-amber-200">立即訂製</a>
+  </nav>
+  <button class="brass-btn px-4 py-2 rounded-md text-sm font-semibold">預約丈量</button>
+</header>
+
+<section class="px-6 py-16 text-center">
+  <p class="gold-text text-sm tracking-[0.3em] mb-3">TAIWAN · HANDMADE LEATHER</p>
+  <h2 class="text-4xl md:text-5xl font-bold gold-text mb-4">一針一線，縫進你的日常</h2>
+  <p class="max-w-xl mx-auto text-amber-100/90 leading-relaxed">
+    台中大里的老師傅工坊，用義大利植鞣革與台灣手工縫線，<br class="hidden md:block">
+    為每一位客人打造獨一無二、會隨歲月變色的皮件。
+  </p>
+  <div class="mt-8 flex justify-center gap-4">
+    <a href="#order" class="brass-btn px-8 py-3 rounded-md font-bold">開始訂製</a>
+    <a href="#craft" class="px-8 py-3 rounded-md font-bold border-2 border-amber-200/50 gold-text">看看製程</a>
+  </div>
+</section>
+
+<section id="products" class="px-6 py-10 max-w-5xl mx-auto">
+  <h3 class="gold-text text-2xl font-bold mb-6 text-center">本月訂製精選</h3>
+  <div class="grid md:grid-cols-3 gap-6" id="product-grid"></div>
+</section>
+
+<section id="craft" class="px-6 py-14 max-w-4xl mx-auto">
+  <div class="leather-card stitch rounded-xl p-8">
+    <h3 class="gold-text text-2xl font-bold mb-4">從一塊皮到一件作品，要走過七道工序</h3>
+    <div class="grid md:grid-cols-4 gap-4 text-amber-100/90 text-sm" id="steps"></div>
+  </div>
+</section>
+
+<section id="order" class="px-6 py-14 max-w-3xl mx-auto">
+  <div class="paper-card stitch rounded-xl p-8">
+    <h3 class="text-2xl font-bold mb-2">訂製丈量表</h3>
+    <p class="text-sm text-amber-900/70 mb-6">填好表單，師傅會在三個工作日內回覆您皮色與工時估算。</p>
+    <form id="order-form" class="space-y-4">
+      <div>
+        <label class="block text-sm font-semibold mb-1">想訂製的品項</label>
+        <select id="item-select" class="w-full rounded-md px-3 py-2 border border-amber-800/20">
+          <option value="長夾">手縫長夾 · NT$3,200</option>
+          <option value="托特包">植鞣革托特包 · NT$6,800</option>
+          <option value="筆記本套">手工筆記本套 · NT$1,900</option>
+          <option value="鑰匙包">刻字鑰匙包 · NT$980</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-semibold mb-1">皮色選擇</label>
+        <div class="flex gap-3" id="color-swatches"></div>
+      </div>
+      <div>
+        <label class="block text-sm font-semibold mb-1">刻字內容（選填，限 8 字）</label>
+        <input id="engrave" maxlength="8" placeholder="例如：給阿嬤的禮物" class="w-full rounded-md px-3 py-2 border border-amber-800/20">
+      </div>
+      <button type="submit" class="brass-btn w-full py-3 rounded-md font-bold text-lg">送出丈量需求</button>
+    </form>
+    <div id="order-result" class="mt-5 hidden paper-card fold-shadow rounded-lg p-4 text-sm"></div>
+  </div>
+</section>
+
+<footer class="wood-panel px-6 py-8 text-center gold-text text-sm">
+  匠紋皮革社 · 台中市大里區東榮路 88 號 · 週二至週日 11:00–19:00 公休週一
+</footer>
+
+<script>
+const products = [
+  {name:'經典馬鞍長夾', price:'NT$3,200', desc:'全手縫馬鞍針法，使用越用越亮的義大利植鞣革。', tag:'熱銷'},
+  {name:'職人托特包', price:'NT$6,800', desc:'可放 15 吋筆電，內襯帆布，肩帶可拆換。', tag:'新品'},
+  {name:'旅人護照夾', price:'NT$1,500', desc:'可收納護照、登機證與信用卡，含手工壓印姓名縮寫。', tag:'人氣'},
+];
+const grid = document.getElementById('product-grid');
+products.forEach(p=>{
+  const el = document.createElement('div');
+  el.className = 'leather-card stitch rounded-xl p-5';
+  el.innerHTML = `
+    <div class="flex justify-between items-start mb-2">
+      <span class="text-xs px-2 py-1 rounded bg-amber-900/40 gold-text">${p.tag}</span>
+      <div class="rivet"></div>
+    </div>
+    <h4 class="gold-text text-lg font-bold mb-1">${p.name}</h4>
+    <p class="text-amber-100/80 text-sm leading-relaxed mb-3">${p.desc}</p>
+    <p class="gold-text font-bold">${p.price}</p>
+  `;
+  grid.appendChild(el);
+});
+
+const steps = ['選皮驗色','裁型打版','邊緣削薄上油','手工打孔','蠟線縫製','壓印刻字','養護拋光'];
+const stepsEl = document.getElementById('steps');
+steps.forEach((s,i)=>{
+  const el = document.createElement('div');
+  el.className = 'text-center';
+  el.innerHTML = `<div class="w-10 h-10 mx-auto mb-2 rounded-full brass-btn flex items-center justify-center font-bold">${i+1}</div><p>${s}</p>`;
+  stepsEl.appendChild(el);
+});
+
+const colors = [
+  {name:'栗子棕', hex:'#6b4226'},
+  {name:'深邃墨黑', hex:'#2a2420'},
+  {name:'焦糖棗紅', hex:'#7a2e2e'},
+  {name:'軍綠橄欖', hex:'#53593a'},
+];
+let selectedColor = colors[0].name;
+const swatchWrap = document.getElementById('color-swatches');
+colors.forEach((c,i)=>{
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.title = c.name;
+  btn.className = 'w-9 h-9 rounded-full border-2 ' + (i===0 ? 'border-amber-700' : 'border-transparent');
+  btn.style.background = c.hex;
+  btn.style.boxShadow = 'inset 0 2px 3px rgba(255,255,255,.3), inset 0 -2px 3px rgba(0,0,0,.4)';
+  btn.addEventListener('click', ()=>{
+    selectedColor = c.name;
+    [...swatchWrap.children].forEach(b=>b.classList.remove('border-amber-700'));
+    [...swatchWrap.children].forEach(b=>b.classList.add('border-transparent'));
+    btn.classList.remove('border-transparent');
+    btn.classList.add('border-amber-700');
+  });
+  swatchWrap.appendChild(btn);
+});
+
+document.getElementById('order-form').addEventListener('submit', (e)=>{
+  e.preventDefault();
+  const item = document.getElementById('item-select').value;
+  const engrave = document.getElementById('engrave').value.trim();
+  const resultEl = document.getElementById('order-result');
+  resultEl.classList.remove('hidden');
+  resultEl.innerHTML = `
+    <p class="font-bold mb-1">丈量需求已送出 ✔</p>
+    <p>品項：${item}　皮色：${selectedColor}${engrave ? '　刻字：「'+engrave+'」' : ''}</p>
+    <p class="mt-1 text-amber-900/70">師傅預計工時約 7–12 個工作日，會以簡訊通知進度。</p>
+  `;
+  resultEl.scrollIntoView({behavior:'smooth', block:'center'});
+});
+</script>
+</body>
+</html>

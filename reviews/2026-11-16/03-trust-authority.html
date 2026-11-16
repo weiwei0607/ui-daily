@@ -1,0 +1,172 @@
+<!-- style #26 Trust & Authority -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>恒信家族辦公室 · 財富傳承顧問</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Newsreader:ital,wght@0,400;0,500;1,400&family=Noto+Serif+TC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Newsreader','Noto Serif TC',serif;
+    background:#faf7f0;
+    color:#1a1a1a;
+  }
+  .display{ font-family:'Playfair Display','Noto Serif TC',serif; }
+  .hairline{ border-top:1px solid #1a1a1a; }
+  .masthead{ border-bottom:3px double #1a1a1a; }
+  .drop-cap::first-letter{
+    font-family:'Playfair Display', serif;
+    font-size:3.2rem; font-weight:900; float:left; line-height:0.8; margin-right:0.4rem; margin-top:0.1rem;
+  }
+  .num-badge{
+    font-family:'Playfair Display', serif;
+    border:1px solid #1a1a1a; border-radius:50%;
+    width:2.5rem; height:2.5rem; display:flex; align-items:center; justify-content:center;
+  }
+  .accent-red{ color:#8b1a1a; }
+  .btn-primary{ background:#1a1a1a; color:#faf7f0; }
+  .btn-primary:hover{ background:#8b1a1a; }
+  .kicker{ letter-spacing:.15em; font-size:.75rem; text-transform:uppercase; }
+  .pull-quote{ border-left:3px solid #8b1a1a; font-style:italic; }
+</style>
+</head>
+<body>
+
+<header class="masthead px-6 py-5 max-w-6xl mx-auto">
+  <div class="flex items-center justify-between">
+    <p class="kicker">TAIPEI · EST. 1998</p>
+    <p class="kicker">家族辦公室年度評鑑：五星</p>
+  </div>
+  <div class="flex items-center justify-between mt-3">
+    <h1 class="display text-4xl font-black tracking-tight">恒信家族辦公室</h1>
+    <nav class="hidden md:flex gap-6 text-sm">
+      <a href="#philosophy" class="hover:accent-red">經營理念</a>
+      <a href="#services" class="hover:accent-red">服務項目</a>
+      <a href="#consult" class="hover:accent-red">預約諮詢</a>
+    </nav>
+  </div>
+</header>
+
+<section class="px-6 py-16 max-w-4xl mx-auto text-center">
+  <p class="kicker accent-red mb-4">財富傳承 · 家族治理 · 跨境資產規劃</p>
+  <h2 class="display text-5xl font-black leading-tight mb-6">三代之後，<br>財富依然是一家人的根</h2>
+  <p class="text-lg leading-relaxed text-gray-700 max-w-2xl mx-auto">
+    恒信服務台灣逾兩百個家族，橫跨二十七年。我們相信，真正的財富管理，
+    不只是數字的增長，更是價值觀與責任的世代傳遞。
+  </p>
+  <div class="mt-8 flex justify-center gap-4">
+    <a href="#consult" class="btn-primary px-8 py-3 font-semibold">預約第一次諮詢</a>
+    <a href="#philosophy" class="px-8 py-3 font-semibold border border-black">閱讀我們的理念</a>
+  </div>
+</section>
+
+<section class="px-6 py-6 max-w-5xl mx-auto">
+  <div class="hairline grid grid-cols-2 md:grid-cols-4 gap-6 pt-6 text-center" id="stats"></div>
+</section>
+
+<section id="philosophy" class="px-6 py-16 max-w-3xl mx-auto">
+  <p class="kicker accent-red mb-3">經營理念</p>
+  <p class="drop-cap text-lg leading-loose text-gray-800">
+    恒久以來，台灣的家族企業主最擔心的，往往不是賺得夠不夠多，而是財富能不能順利交到下一代手上，而不走樣、不內耗。我們的顧問團隊由信託律師、會計師與資深財富規劃師組成，陪伴每個家族走過股權移轉、信託設立、跨境資產配置與接班治理的每一步。
+  </p>
+  <div class="pull-quote pl-5 my-8 text-xl text-gray-700">
+    「財富傳承，傳的不是錢，是一個家族願意共同遵守的規則。」—— 恒信創辦人 陳永昌
+  </div>
+</section>
+
+<section id="services" class="px-6 py-16 max-w-5xl mx-auto">
+  <p class="kicker accent-red mb-3 text-center">服務項目</p>
+  <h3 class="display text-3xl font-bold text-center mb-10">我們如何協助您的家族</h3>
+  <div class="grid md:grid-cols-2 gap-8" id="services-grid"></div>
+</section>
+
+<section class="px-6 py-16 max-w-4xl mx-auto">
+  <p class="kicker accent-red mb-3 text-center">客戶怎麼說</p>
+  <div class="grid md:grid-cols-3 gap-6" id="testimonials"></div>
+</section>
+
+<section id="consult" class="px-6 py-16 max-w-2xl mx-auto">
+  <div class="hairline pt-10">
+    <h3 class="display text-3xl font-bold mb-2 text-center">預約保密諮詢</h3>
+    <p class="text-center text-gray-600 mb-8">填寫以下資訊，資深顧問將於兩個工作日內與您聯繫，所有討論皆受保密協議保障。</p>
+    <form id="consult-form" class="space-y-4">
+      <input id="c-name" placeholder="您的姓名" class="w-full border border-black px-4 py-3" required>
+      <input id="c-phone" placeholder="聯絡電話" class="w-full border border-black px-4 py-3" required>
+      <select id="c-topic" class="w-full border border-black px-4 py-3">
+        <option>股權與接班規劃</option>
+        <option>家族信託設立</option>
+        <option>跨境資產配置</option>
+        <option>家族治理章程</option>
+      </select>
+      <button type="submit" class="btn-primary w-full py-3 font-semibold text-lg">送出預約</button>
+    </form>
+    <div id="consult-result" class="mt-6 hidden text-center pull-quote pl-5"></div>
+  </div>
+</section>
+
+<footer class="masthead border-b-0 border-t-[3px] px-6 py-8 text-center text-sm text-gray-600 max-w-6xl mx-auto">
+  恒信家族辦公室 · 台北市信義區松仁路 100 號 32 樓 · 金管會核准信託業務字號 TR-0219
+</footer>
+
+<script>
+const stats = [
+  {num:'27', label:'年專業經驗'},
+  {num:'208', label:'服務家族數'},
+  {num:'NT$ 340 億+', label:'管理資產規模'},
+  {num:'5', label:'星顧客評鑑'},
+];
+const statsEl = document.getElementById('stats');
+stats.forEach(s=>{
+  const el = document.createElement('div');
+  el.innerHTML = `<p class="display text-3xl font-black accent-red">${s.num}</p><p class="text-sm text-gray-600 mt-1">${s.label}</p>`;
+  statsEl.appendChild(el);
+});
+
+const services = [
+  {n:'01', t:'股權與接班規劃', d:'協助企業主設計股權移轉時程，降低遺產稅與贈與稅負擔，並確保經營權順利交接。'},
+  {n:'02', t:'家族信託設立', d:'量身打造信託架構，依照家族意願分配受益權，避免身後財產爭議。'},
+  {n:'03', t:'跨境資產配置', d:'整合台灣與海外資產，協調各地稽核與稅務申報，降低跨境風險。'},
+  {n:'04', t:'家族治理章程', d:'與家族成員共同制定決策機制與價值觀憲章，讓下一代有規則可循。'},
+];
+const servicesGrid = document.getElementById('services-grid');
+services.forEach(s=>{
+  const el = document.createElement('div');
+  el.className = 'flex gap-4';
+  el.innerHTML = `
+    <div class="num-badge flex-shrink-0 accent-red font-bold">${s.n}</div>
+    <div>
+      <h4 class="display text-xl font-bold mb-1">${s.t}</h4>
+      <p class="text-gray-700 leading-relaxed">${s.d}</p>
+    </div>
+  `;
+  servicesGrid.appendChild(el);
+});
+
+const testimonials = [
+  {name:'林先生 · 製造業三代接班', quote:'恒信幫我們家把三十年沒說清楚的股權問題，一次談定。'},
+  {name:'黃女士 · 家族信託受益人', quote:'第一次感覺到財富傳承不是冷冰冰的法律文件，而是真的有人在乎我們家。'},
+  {name:'王先生 · 跨境資產客戶', quote:'顧問團隊很有耐心，把複雜的跨境稅務解釋得我媽媽都聽得懂。'},
+];
+const testiGrid = document.getElementById('testimonials');
+testimonials.forEach(t=>{
+  const el = document.createElement('div');
+  el.className = 'pull-quote pl-4';
+  el.innerHTML = `<p class="text-gray-700 mb-2">「${t.quote}」</p><p class="text-sm text-gray-500 not-italic">—— ${t.name}</p>`;
+  testiGrid.appendChild(el);
+});
+
+document.getElementById('consult-form').addEventListener('submit', (e)=>{
+  e.preventDefault();
+  const name = document.getElementById('c-name').value.trim();
+  const topic = document.getElementById('c-topic').value;
+  const resultEl = document.getElementById('consult-result');
+  resultEl.classList.remove('hidden');
+  resultEl.innerHTML = `<p>感謝 ${name} 女士／先生的預約，恒信顧問將針對「${topic}」主題與您聯繫，請留意來電。</p>`;
+  resultEl.scrollIntoView({behavior:'smooth', block:'center'});
+});
+</script>
+</body>
+</html>

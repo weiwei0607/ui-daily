@@ -1,0 +1,155 @@
+<!-- style #48 Kinetic Typography -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>動字 KineticType Studio · 字體排印工作室</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Noto Sans TC', sans-serif; background:#0a0a0a; color:#f5f5f5; overflow-x:hidden; }
+  .bebas{ font-family:'Bebas Neue', sans-serif; letter-spacing:.02em; }
+  .mono{ font-family:'Space Mono', monospace; }
+  .huge{ font-size:clamp(3rem, 12vw, 9rem); line-height:0.95; }
+  @keyframes marquee{ 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+  .marquee-track{ display:flex; width:200%; animation: marquee 18s linear infinite; }
+  @keyframes rise{ from{ opacity:0; transform:translateY(40px);} to{ opacity:1; transform:translateY(0);} }
+  .rise{ opacity:0; animation: rise 0.7s ease forwards; }
+  @keyframes pulseScale{ 0%,100%{ transform:scale(1);} 50%{ transform:scale(1.04);} }
+  .pulse{ animation: pulseScale 3s ease-in-out infinite; }
+  .char{ display:inline-block; transition: transform .25s, color .25s; }
+  .char:hover{ transform: translateY(-10px) rotate(-4deg); color:#ffe14d; }
+  .underline-grow{ position:relative; }
+  .underline-grow::after{
+    content:''; position:absolute; left:0; bottom:-6px; height:3px; width:0; background:#ffe14d;
+    transition: width .4s ease;
+  }
+  .underline-grow:hover::after{ width:100%; }
+  .outline-text{ color:transparent; -webkit-text-stroke:2px #f5f5f5; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<header class="px-6 py-6 flex items-center justify-between max-w-6xl mx-auto">
+  <h1 class="bebas text-2xl tracking-wider">動字 <span class="mono text-sm text-yellow-300">KINETIC TYPE STUDIO</span></h1>
+  <nav class="hidden md:flex gap-8 mono text-sm uppercase">
+    <a href="#work" class="underline-grow">作品集</a>
+    <a href="#courses" class="underline-grow">排版課程</a>
+    <a href="#contact" class="underline-grow">合作洽談</a>
+  </nav>
+</header>
+
+<section class="px-6 pt-6 pb-20 max-w-6xl mx-auto">
+  <h2 class="huge bebas" id="hero-title">
+    <span id="hero-chars"></span>
+  </h2>
+  <p class="mono text-yellow-300 mt-4 text-sm md:text-base rise" style="animation-delay:.3s">文字不該只是靜止的訊息 — 它可以動、可以跳、可以替你的品牌發聲。</p>
+</section>
+
+<div class="overflow-hidden border-y border-white/10 py-4 bg-white/5">
+  <div class="marquee-track bebas text-3xl md:text-5xl whitespace-nowrap text-yellow-300/90">
+    <span class="px-6">動態排版　·　品牌識別　·　MOTION TYPE　·　動態排版　·　品牌識別　·　MOTION TYPE　·</span>
+    <span class="px-6">動態排版　·　品牌識別　·　MOTION TYPE　·　動態排版　·　品牌識別　·　MOTION TYPE　·</span>
+  </div>
+</div>
+
+<section id="work" class="px-6 py-16 max-w-6xl mx-auto">
+  <p class="mono text-yellow-300 text-sm mb-2">SELECTED WORK</p>
+  <h3 class="bebas text-4xl mb-10">我們做過的動態排版案子</h3>
+  <div class="grid md:grid-cols-3 gap-6" id="work-grid"></div>
+</section>
+
+<section id="courses" class="px-6 py-16 max-w-5xl mx-auto border-t border-white/10">
+  <p class="mono text-yellow-300 text-sm mb-2">COURSES</p>
+  <h3 class="bebas text-4xl mb-10">排版課程，從靜到動</h3>
+  <div class="space-y-6" id="course-list"></div>
+</section>
+
+<section id="contact" class="px-6 py-20 max-w-3xl mx-auto text-center border-t border-white/10">
+  <h3 class="bebas outline-text text-5xl md:text-7xl mb-6 pulse">想讓文字替你動起來？</h3>
+  <form id="contact-form" class="mt-8 flex flex-col md:flex-row gap-3 justify-center">
+    <input id="contact-email" type="email" required placeholder="你的 Email" class="bg-transparent border border-white/30 px-4 py-3 mono text-sm flex-1 focus:outline-none focus:border-yellow-300">
+    <select id="contact-project" class="bg-transparent border border-white/30 px-4 py-3 mono text-sm">
+      <option value="品牌動態識別">品牌動態識別</option>
+      <option value="活動視覺">活動視覺</option>
+      <option value="網站動態排版">網站動態排版</option>
+    </select>
+    <button type="submit" class="bg-yellow-300 text-black px-6 py-3 mono text-sm font-bold">送出需求</button>
+  </form>
+  <p id="contact-result" class="mt-6 mono text-sm text-yellow-300 hidden"></p>
+</section>
+
+<footer class="px-6 py-8 text-center mono text-xs text-white/40">
+  動字 KINETIC TYPE STUDIO © 2026 · 台北市大安區復興南路一段 219 號 5F
+</footer>
+
+<script>
+const heroText = '會動的字，才被記得住';
+const heroEl = document.getElementById('hero-chars');
+[...heroText].forEach((ch, i)=>{
+  const span = document.createElement('span');
+  span.className = 'char rise';
+  span.style.animationDelay = (i * 0.05) + 's';
+  span.textContent = ch;
+  heroEl.appendChild(span);
+});
+
+const works = [
+  {title:'茶山品牌動態 LOGO', client:'拾茗堂', desc:'開場 Logo 以筆劃書寫動畫呈現，用於官網與社群影片片頭。'},
+  {title:'音樂節主視覺排版', client:'盛夏聲浪祭', desc:'標題文字隨音浪頻譜即時變形，應用於售票頁與戶外投影。'},
+  {title:'App 開場動態文字', client:'夢眠 DreamSoft', desc:'App 啟動畫面文字逐字淡入並微微漂浮，營造放鬆感。'},
+];
+const workGrid = document.getElementById('work-grid');
+works.forEach((w,i)=>{
+  const el = document.createElement('div');
+  el.className = 'border border-white/15 p-5 rise';
+  el.style.animationDelay = (i*0.1)+'s';
+  el.innerHTML = `
+    <p class="mono text-xs text-yellow-300 mb-2">${w.client}</p>
+    <h4 class="bebas text-2xl mb-2">${w.title}</h4>
+    <p class="text-white/70 text-sm leading-relaxed">${w.desc}</p>
+  `;
+  workGrid.appendChild(el);
+});
+
+const courses = [
+  {level:'入門', name:'動態排版基礎：讓文字會呼吸', hours:'6 小時'},
+  {level:'進階', name:'品牌動態識別設計實戰', hours:'12 小時'},
+  {level:'大師班', name:'滾動觸發敘事排版工作坊', hours:'8 小時'},
+];
+const courseList = document.getElementById('course-list');
+courses.forEach(c=>{
+  const el = document.createElement('div');
+  el.className = 'flex items-center justify-between border-b border-white/10 pb-4';
+  el.innerHTML = `
+    <div class="flex items-center gap-4">
+      <span class="mono text-xs text-yellow-300 border border-yellow-300/40 px-2 py-1">${c.level}</span>
+      <h4 class="text-lg font-medium">${c.name}</h4>
+    </div>
+    <span class="mono text-sm text-white/50">${c.hours}</span>
+  `;
+  courseList.appendChild(el);
+});
+
+document.getElementById('contact-form').addEventListener('submit', (e)=>{
+  e.preventDefault();
+  const email = document.getElementById('contact-email').value;
+  const project = document.getElementById('contact-project').value;
+  const resultEl = document.getElementById('contact-result');
+  resultEl.classList.remove('hidden');
+  resultEl.textContent = `已收到來自 ${email} 的「${project}」需求，我們會在 2 個工作日內回信討論提案方向。`;
+});
+
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.style.animationPlayState = 'running';
+    }
+  });
+}, {threshold:0.2});
+document.querySelectorAll('.rise').forEach(el=> io.observe(el));
+</script>
+</body>
+</html>

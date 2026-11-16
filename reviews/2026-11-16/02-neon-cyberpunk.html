@@ -1,0 +1,186 @@
+<!-- style #41 Cyberpunk -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>夜城 NEON CITY · 地下俱樂部訂位</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Noto Sans TC','Share Tech Mono',monospace;
+    background:#060014;
+    color:#e8e8ff;
+    background-image:
+      linear-gradient(rgba(255,0,230,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,255,.04) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  .orbitron{ font-family:'Orbitron', sans-serif; }
+  .mono{ font-family:'Share Tech Mono', monospace; }
+  .neon-magenta{ color:#ff2bd6; text-shadow:0 0 6px #ff2bd6, 0 0 20px #ff2bd699, 0 0 40px #ff2bd655; }
+  .neon-cyan{ color:#34f5ff; text-shadow:0 0 6px #34f5ff, 0 0 20px #34f5ff99, 0 0 40px #34f5ff55; }
+  .panel{
+    background: linear-gradient(160deg, rgba(20,0,40,.8), rgba(10,0,25,.9));
+    border:1px solid rgba(255,43,214,.35);
+    box-shadow: 0 0 25px rgba(255,43,214,.15), inset 0 0 25px rgba(52,245,255,.05);
+    backdrop-filter: blur(6px);
+  }
+  .btn-neon{
+    background: linear-gradient(90deg, #ff2bd6, #34f5ff);
+    color:#060014;
+    box-shadow: 0 0 15px rgba(255,43,214,.6), 0 0 30px rgba(52,245,255,.4);
+  }
+  .scanline::before{
+    content:'';
+    position:absolute; inset:0; pointer-events:none;
+    background: repeating-linear-gradient(to bottom, rgba(255,255,255,.03) 0px, transparent 2px, transparent 4px);
+    mix-blend-mode: overlay;
+  }
+  @keyframes flicker{ 0%,100%{opacity:1;} 45%{opacity:.85;} 50%{opacity:.4;} 55%{opacity:.9;} }
+  .flicker{ animation: flicker 4s infinite; }
+  .glitch-wrap{ position:relative; display:inline-block; }
+  @keyframes glitch1{ 0%,100%{clip-path:inset(0 0 0 0); transform:translate(0,0);} 20%{clip-path:inset(10% 0 60% 0); transform:translate(-2px,0);} 40%{clip-path:inset(60% 0 10% 0); transform:translate(2px,0);} 60%{clip-path:inset(30% 0 40% 0); transform:translate(-1px,0);} 80%{clip-path:inset(0 0 0 0); transform:translate(1px,0);} }
+  .glitch-layer{ position:absolute; inset:0; animation: glitch1 2.5s infinite linear; }
+  .divider-grid{
+    background: linear-gradient(90deg, transparent, rgba(255,43,214,.6), transparent);
+    height:1px;
+  }
+  .countdown-digit{ font-family:'Share Tech Mono', monospace; letter-spacing:2px; }
+</style>
+</head>
+<body class="min-h-screen relative overflow-x-hidden scanline">
+
+<header class="sticky top-0 z-30 px-6 py-4 flex items-center justify-between panel">
+  <div class="glitch-wrap">
+    <h1 class="orbitron neon-magenta text-2xl font-black tracking-widest">夜城 <span class="neon-cyan">NEON CITY</span></h1>
+  </div>
+  <nav class="hidden md:flex gap-6 mono text-sm neon-cyan">
+    <a href="#lineup">// DJ 陣容</a>
+    <a href="#pass">// 入場券</a>
+    <a href="#book">// 立即訂位</a>
+  </nav>
+  <button class="btn-neon px-4 py-2 rounded font-bold orbitron text-sm">BOOK NOW</button>
+</header>
+
+<section class="px-6 py-20 text-center relative">
+  <p class="mono neon-cyan text-sm mb-3 flicker">SYSTEM ONLINE · 台北 · 地下三樓</p>
+  <h2 class="orbitron text-4xl md:text-6xl font-black neon-magenta mb-4 leading-tight">午夜之後，<br>城市才真正醒來</h2>
+  <p class="max-w-xl mx-auto text-cyan-100/80 mono text-sm leading-relaxed">
+    夜城是台北最深的地下俱樂部。雷射、合成器與低頻震波，<br class="hidden md:block">每週六晚間十一點，直到天光為止。
+  </p>
+  <div id="countdown" class="mt-8 flex justify-center gap-4 countdown-digit text-3xl neon-cyan"></div>
+  <p class="mono text-xs text-cyan-300/60 mt-2">距離本週場次倒數</p>
+</section>
+
+<section id="lineup" class="px-6 py-14 max-w-5xl mx-auto">
+  <h3 class="orbitron neon-cyan text-2xl font-bold mb-6 text-center">本週 DJ 陣容</h3>
+  <div class="grid md:grid-cols-3 gap-6" id="lineup-grid"></div>
+</section>
+
+<section id="pass" class="px-6 py-14 max-w-4xl mx-auto">
+  <h3 class="orbitron neon-magenta text-2xl font-bold mb-6 text-center">入場券方案</h3>
+  <div class="grid md:grid-cols-3 gap-6" id="pass-grid"></div>
+</section>
+
+<section id="book" class="px-6 py-16 max-w-2xl mx-auto">
+  <div class="panel rounded-xl p-8">
+    <h3 class="orbitron neon-cyan text-2xl font-bold mb-4">產生你的入場代碼</h3>
+    <label class="block mono text-sm mb-1 text-cyan-200">暱稱</label>
+    <input id="nickname" placeholder="你在夜城的代號" class="w-full mb-4 px-3 py-2 rounded bg-black/40 border border-pink-500/40 text-cyan-100 focus:outline-none focus:border-cyan-400">
+    <label class="block mono text-sm mb-1 text-cyan-200">選擇票種</label>
+    <select id="pass-select" class="w-full mb-6 px-3 py-2 rounded bg-black/40 border border-pink-500/40 text-cyan-100">
+      <option value="標準票 NT$600">標準票 NT$600</option>
+      <option value="VIP 卡座 NT$3,200">VIP 卡座 NT$3,200</option>
+      <option value="站票早鳥 NT$400">站票早鳥 NT$400</option>
+    </select>
+    <button id="gen-code" class="btn-neon w-full py-3 rounded orbitron font-bold text-lg">產生代碼</button>
+    <div id="code-result" class="mt-5 hidden text-center"></div>
+  </div>
+</section>
+
+<footer class="px-6 py-8 text-center mono text-xs text-cyan-300/50 panel">
+  夜城 NEON CITY · 台北市中山區龍江路 199 號 B3 · 滿 18 歲方可入場
+</footer>
+
+<script>
+const lineup = [
+  {name:'DJ VAPORKILL', genre:'Synthwave / Techno', time:'23:00'},
+  {name:'ECHO_NULL', genre:'Dark Electro', time:'00:30'},
+  {name:'八號機 MACHINE 08', genre:'工業舞曲', time:'02:00'},
+];
+const lineupGrid = document.getElementById('lineup-grid');
+lineup.forEach(d=>{
+  const el = document.createElement('div');
+  el.className = 'panel rounded-xl p-5';
+  el.innerHTML = `
+    <p class="mono neon-cyan text-xs mb-1">${d.time} 上場</p>
+    <h4 class="orbitron neon-magenta text-lg font-bold mb-1">${d.name}</h4>
+    <p class="text-cyan-100/70 text-sm">${d.genre}</p>
+  `;
+  lineupGrid.appendChild(el);
+});
+
+const passes = [
+  {name:'站票早鳥', price:'NT$400', perk:'限量 50 張，含一杯歡迎飲品'},
+  {name:'標準票', price:'NT$600', perk:'含一杯特調與置物櫃'},
+  {name:'VIP 卡座', price:'NT$3,200', perk:'4 人卡座、一瓶基酒、優先入場'},
+];
+const passGrid = document.getElementById('pass-grid');
+passes.forEach(p=>{
+  const el = document.createElement('div');
+  el.className = 'panel rounded-xl p-5 text-center';
+  el.innerHTML = `
+    <h4 class="orbitron neon-cyan text-lg font-bold mb-2">${p.name}</h4>
+    <p class="neon-magenta text-2xl font-black mb-2">${p.price}</p>
+    <p class="text-cyan-100/70 text-sm">${p.perk}</p>
+  `;
+  passGrid.appendChild(el);
+});
+
+function pad(n){ return String(n).padStart(2,'0'); }
+function nextSaturday23(){
+  const now = new Date();
+  const d = new Date(now);
+  const day = d.getDay();
+  let diff = (6 - day + 7) % 7;
+  d.setDate(d.getDate() + diff);
+  d.setHours(23,0,0,0);
+  if (d <= now) d.setDate(d.getDate() + 7);
+  return d;
+}
+const target = nextSaturday23();
+const cdEl = document.getElementById('countdown');
+function renderCountdown(){
+  const diff = Math.max(0, target - new Date());
+  const days = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  const mins = Math.floor((diff % 3600000) / 60000);
+  const secs = Math.floor((diff % 60000) / 1000);
+  cdEl.innerHTML = `
+    <div><span>${pad(days)}</span><p class="text-xs text-cyan-300/50 mt-1">天</p></div>
+    <div><span>${pad(hours)}</span><p class="text-xs text-cyan-300/50 mt-1">時</p></div>
+    <div><span>${pad(mins)}</span><p class="text-xs text-cyan-300/50 mt-1">分</p></div>
+    <div><span>${pad(secs)}</span><p class="text-xs text-cyan-300/50 mt-1">秒</p></div>
+  `;
+}
+renderCountdown();
+setInterval(renderCountdown, 1000);
+
+document.getElementById('gen-code').addEventListener('click', ()=>{
+  const name = document.getElementById('nickname').value.trim() || '匿名訪客';
+  const pass = document.getElementById('pass-select').value;
+  const code = 'NC-' + Math.random().toString(36).slice(2,6).toUpperCase() + '-' + Math.floor(Math.random()*900+100);
+  const resultEl = document.getElementById('code-result');
+  resultEl.classList.remove('hidden');
+  resultEl.innerHTML = `
+    <p class="mono neon-cyan text-sm mb-1">${name} 的入場代碼</p>
+    <p class="orbitron neon-magenta text-3xl font-black mb-2 flicker">${code}</p>
+    <p class="text-cyan-100/70 text-xs">${pass} · 入場時向門口出示此代碼即可</p>
+  `;
+});
+</script>
+</body>
+</html>

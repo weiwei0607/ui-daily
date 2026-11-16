@@ -1,0 +1,229 @@
+<!-- style #19 Soft UI Evolution -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>夢眠 DreamSoft · 助眠冥想 App</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=M+PLUS+Rounded+1c:wght@400;500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Noto Sans TC','M PLUS Rounded 1c','Quicksand',sans-serif;
+    background: linear-gradient(160deg,#eaf4ff,#f3e8ff 55%,#ffe9f2);
+    color:#3a3a55;
+  }
+  .heading{ font-family:'M PLUS Rounded 1c','Quicksand',sans-serif; }
+  .soft-card{
+    background: linear-gradient(160deg,#ffffff,#f1f0fb);
+    border-radius:28px;
+    box-shadow: 10px 10px 24px rgba(170,170,210,.35), -10px -10px 24px rgba(255,255,255,.9);
+  }
+  .soft-card-sm{
+    background: linear-gradient(160deg,#ffffff,#f3f1fb);
+    border-radius:20px;
+    box-shadow: 6px 6px 14px rgba(170,170,210,.3), -6px -6px 14px rgba(255,255,255,.85);
+  }
+  .btn-soft{
+    background: linear-gradient(160deg,#c9b6ff,#a78bfa);
+    color:#fff;
+    border-radius:20px;
+    box-shadow: 6px 6px 14px rgba(167,139,250,.4), -4px -4px 10px rgba(255,255,255,.6);
+  }
+  .btn-soft:active{ box-shadow: inset 4px 4px 10px rgba(0,0,0,.15); }
+  .toggle-pill{
+    border-radius:999px;
+    background: linear-gradient(160deg,#f1f0fb,#ffffff);
+    box-shadow: inset 3px 3px 8px rgba(170,170,210,.35), inset -3px -3px 8px rgba(255,255,255,.9);
+  }
+  .toggle-pill.active{ background: linear-gradient(160deg,#c9b6ff,#a78bfa); box-shadow:none; }
+  .blob{
+    position:absolute; border-radius:50%; filter: blur(40px); opacity:.5; z-index:-1;
+  }
+  .play-btn{
+    width:4.5rem; height:4.5rem; border-radius:50%;
+    background: linear-gradient(160deg,#c9b6ff,#a78bfa);
+    box-shadow: 8px 8px 18px rgba(167,139,250,.45), -6px -6px 14px rgba(255,255,255,.7);
+  }
+  .bar{ width:4px; background:#a78bfa; border-radius:4px; }
+</style>
+</head>
+<body class="min-h-screen relative overflow-x-hidden">
+
+<div class="blob w-64 h-64 bg-pink-200 top-10 -left-10"></div>
+<div class="blob w-72 h-72 bg-indigo-200 top-96 right-0"></div>
+
+<header class="relative z-10 px-6 py-5 flex items-center justify-between max-w-5xl mx-auto">
+  <h1 class="heading text-2xl font-bold text-indigo-400">夢眠 <span class="text-purple-400">DreamSoft</span></h1>
+  <nav class="hidden md:flex gap-6 text-sm font-medium text-indigo-400/80">
+    <a href="#sounds">助眠音景</a>
+    <a href="#breathe">呼吸練習</a>
+    <a href="#plan">訂閱方案</a>
+  </nav>
+  <button class="btn-soft px-5 py-2.5 text-sm font-semibold">免費試用 7 天</button>
+</header>
+
+<section class="relative z-10 px-6 py-14 max-w-3xl mx-auto text-center">
+  <h2 class="heading text-4xl md:text-5xl font-bold text-indigo-500 mb-4 leading-snug">把今天的焦慮，<br>放進一片柔軟的夜裡</h2>
+  <p class="text-indigo-400/70 leading-relaxed max-w-xl mx-auto">
+    夢眠用真實錄製的自然音景與科學驗證的呼吸法，<br class="hidden md:block">
+    陪你從滿滿一天的思緒，慢慢降落到睡著的那一刻。
+  </p>
+</section>
+
+<section id="sounds" class="relative z-10 px-6 py-6 max-w-2xl mx-auto">
+  <div class="soft-card p-6">
+    <div class="flex items-center justify-between mb-5">
+      <div>
+        <p class="text-sm text-indigo-400/70">正在播放</p>
+        <h3 class="heading text-xl font-bold text-indigo-500" id="track-name">雨夜森林</h3>
+      </div>
+      <button id="play-btn" class="play-btn flex items-center justify-center text-white text-2xl">▶</button>
+    </div>
+    <div class="flex items-end gap-1 h-16 mb-5" id="visualizer"></div>
+    <div class="flex items-center justify-between text-sm text-indigo-400/70 mb-2">
+      <span id="time-elapsed">00:00</span>
+      <span id="time-total">45:00</span>
+    </div>
+    <div class="toggle-pill h-2 w-full relative overflow-hidden">
+      <div id="progress-fill" class="absolute top-0 left-0 h-full bg-purple-300 rounded-full" style="width:0%"></div>
+    </div>
+    <div class="flex justify-center gap-3 mt-6" id="track-select"></div>
+  </div>
+</section>
+
+<section id="breathe" class="relative z-10 px-6 py-14 max-w-2xl mx-auto text-center">
+  <h3 class="heading text-2xl font-bold text-indigo-500 mb-6">4-7-8 呼吸練習</h3>
+  <div class="soft-card p-8 flex flex-col items-center">
+    <div id="breath-circle" class="soft-card-sm rounded-full w-40 h-40 flex items-center justify-center mb-6 transition-all duration-[4000ms] ease-in-out">
+      <span id="breath-label" class="heading text-indigo-500 font-bold text-lg">準備好了嗎</span>
+    </div>
+    <button id="breath-start" class="btn-soft px-8 py-3 font-semibold">開始練習</button>
+    <p class="text-sm text-indigo-400/60 mt-4">吸氣 4 秒 → 閉氣 7 秒 → 吐氣 8 秒，重複三輪</p>
+  </div>
+</section>
+
+<section id="plan" class="relative z-10 px-6 py-14 max-w-4xl mx-auto">
+  <h3 class="heading text-2xl font-bold text-indigo-500 mb-6 text-center">選一個適合你的方案</h3>
+  <div class="grid md:grid-cols-2 gap-6 max-w-xl mx-auto" id="plan-toggle-wrap">
+    <div class="soft-card p-6 text-center">
+      <p class="text-sm text-indigo-400/70 mb-2">月繳方案</p>
+      <p class="heading text-3xl font-bold text-indigo-500 mb-4">NT$149<span class="text-sm text-indigo-400/60">／月</span></p>
+      <button class="btn-soft w-full py-2.5 font-semibold" data-plan="月繳方案">選擇方案</button>
+    </div>
+    <div class="soft-card p-6 text-center relative">
+      <span class="absolute -top-3 right-6 bg-pink-300 text-white text-xs px-3 py-1 rounded-full">省 32%</span>
+      <p class="text-sm text-indigo-400/70 mb-2">年繳方案</p>
+      <p class="heading text-3xl font-bold text-indigo-500 mb-4">NT$1,200<span class="text-sm text-indigo-400/60">／年</span></p>
+      <button class="btn-soft w-full py-2.5 font-semibold" data-plan="年繳方案">選擇方案</button>
+    </div>
+  </div>
+  <p id="plan-result" class="text-center mt-6 text-indigo-500 font-medium hidden"></p>
+</section>
+
+<footer class="relative z-10 px-6 py-8 text-center text-sm text-indigo-400/60">
+  夢眠 DreamSoft © 2026 · 睡前最後一件好事
+</footer>
+
+<script>
+const tracks = [
+  {name:'雨夜森林', len:2700},
+  {name:'海浪潮聲', len:3300},
+  {name:'壁爐柴火', len:1800},
+];
+let current = 0, playing = false, elapsed = 0, timer = null;
+
+function fmtTime(s){
+  const m = Math.floor(s/60), sec = Math.floor(s%60);
+  return `${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+}
+
+const vis = document.getElementById('visualizer');
+for(let i=0;i<24;i++){
+  const bar = document.createElement('div');
+  bar.className = 'bar';
+  bar.style.height = '6px';
+  vis.appendChild(bar);
+}
+function animateBars(){
+  if(!playing) { [...vis.children].forEach(b=>b.style.height='6px'); return; }
+  [...vis.children].forEach(b=>{
+    b.style.height = (6 + Math.random()*54) + 'px';
+  });
+}
+let visInterval = setInterval(animateBars, 300);
+
+function setTrack(i){
+  current = i;
+  elapsed = 0;
+  document.getElementById('track-name').textContent = tracks[i].name;
+  document.getElementById('time-total').textContent = fmtTime(tracks[i].len);
+  document.getElementById('time-elapsed').textContent = fmtTime(0);
+  document.getElementById('progress-fill').style.width = '0%';
+  renderTrackSelect();
+}
+function renderTrackSelect(){
+  const wrap = document.getElementById('track-select');
+  wrap.innerHTML = '';
+  tracks.forEach((t,i)=>{
+    const dot = document.createElement('button');
+    dot.className = 'toggle-pill px-4 py-1.5 text-xs font-medium text-indigo-500 ' + (i===current ? 'active text-white' : '');
+    dot.textContent = t.name;
+    dot.addEventListener('click', ()=> setTrack(i));
+    wrap.appendChild(dot);
+  });
+}
+renderTrackSelect();
+
+document.getElementById('play-btn').addEventListener('click', ()=>{
+  playing = !playing;
+  document.getElementById('play-btn').textContent = playing ? '❚❚' : '▶';
+  if(playing){
+    timer = setInterval(()=>{
+      elapsed += 1;
+      if(elapsed >= tracks[current].len){ elapsed = tracks[current].len; playing = false; clearInterval(timer); document.getElementById('play-btn').textContent='▶'; }
+      document.getElementById('time-elapsed').textContent = fmtTime(elapsed);
+      document.getElementById('progress-fill').style.width = (elapsed / tracks[current].len * 100) + '%';
+    }, 1000);
+  } else {
+    clearInterval(timer);
+  }
+});
+
+const breathCircle = document.getElementById('breath-circle');
+const breathLabel = document.getElementById('breath-label');
+let breathRunning = false;
+function breathCycle(round){
+  if(!breathRunning) return;
+  if(round > 3){ breathLabel.textContent = '做得很好，晚安'; breathCircle.style.transform='scale(1)'; return; }
+  breathLabel.textContent = '吸氣...';
+  breathCircle.style.transform = 'scale(1.3)';
+  setTimeout(()=>{
+    if(!breathRunning) return;
+    breathLabel.textContent = '閉氣...';
+    setTimeout(()=>{
+      if(!breathRunning) return;
+      breathLabel.textContent = '吐氣...';
+      breathCircle.style.transform = 'scale(0.85)';
+      setTimeout(()=> breathCycle(round+1), 8000);
+    }, 7000);
+  }, 4000);
+}
+document.getElementById('breath-start').addEventListener('click', (e)=>{
+  breathRunning = true;
+  e.target.textContent = '練習中...';
+  breathCycle(1);
+  setTimeout(()=>{ e.target.textContent = '開始練習'; breathRunning = false; }, 19100);
+});
+
+document.querySelectorAll('[data-plan]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const resultEl = document.getElementById('plan-result');
+    resultEl.classList.remove('hidden');
+    resultEl.textContent = `已選擇「${btn.dataset.plan}」，試用結束後將自動開始計費，隨時可在設定中取消。`;
+  });
+});
+</script>
+</body>
+</html>
