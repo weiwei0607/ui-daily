@@ -1,0 +1,153 @@
+<!-- style #04 Brutalism -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>原色唱片 RAWTONE</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --yellow:#ffff00; --blue:#0000ff; --red:#ff0000; }
+  body{ font-family:'Space Mono',monospace; background:#f2f2f0; }
+  .disp{ font-family:'Space Grotesk',sans-serif; }
+  .hard{ box-shadow: 8px 8px 0 #000; border:3px solid #000; }
+  .hard:active{ box-shadow: 2px 2px 0 #000; transform: translate(6px,6px); }
+  .marq{ white-space:nowrap; overflow:hidden; }
+  .marq span{ display:inline-block; padding-left:100%; animation: marq 14s linear infinite; }
+  @keyframes marq{ 0%{transform:translateX(0);} 100%{transform:translateX(-100%);} }
+  .tilt{ transform: rotate(-2deg); }
+  .tilt2{ transform: rotate(1.5deg); }
+  .btn-yellow{ background:var(--yellow); }
+  .btn-blue{ background:var(--blue); color:#fff; }
+  .btn-red{ background:var(--red); color:#fff; }
+</style>
+</head>
+<body class="text-black">
+
+<div class="marq bg-black text-white py-2 border-b-[3px] border-black">
+  <span class="disp font-bold tracking-wider">★ 限量黑膠現貨最後 30 組 ★ 12/14 現場收音會 開放報名 ★ 新單曲〈鏽鐵皮〉已上架 ★ 限量黑膠現貨最後 30 組 ★ 12/14 現場收音會 開放報名 ★</span>
+</div>
+
+<header class="max-w-6xl mx-auto px-6 pt-10 pb-6">
+  <div class="flex justify-between items-start flex-wrap gap-4">
+    <div class="disp font-bold text-3xl border-[3px] border-black px-3 py-1 bg-white hard tilt">原色唱片</div>
+    <nav class="flex gap-3 flex-wrap disp font-bold">
+      <a href="#releases" class="px-3 py-1 border-[3px] border-black bg-white hover:btn-yellow">發行</a>
+      <a href="#demo" class="px-3 py-1 border-[3px] border-black bg-white hover:btn-yellow">試聽機</a>
+      <a href="#join" class="px-3 py-1 border-[3px] border-black btn-red hard">加入名單</a>
+    </nav>
+  </div>
+</header>
+
+<section class="max-w-6xl mx-auto px-6 py-10">
+  <h1 class="disp font-bold text-[13vw] md:text-[7rem] leading-[0.9] uppercase">
+    聲音<br><span class="bg-black text-white px-2">不修飾</span>
+  </h1>
+  <p class="mt-6 max-w-xl text-lg border-l-[6px] border-black pl-4">我們錄一條軌、不修、不美化。獨立廠牌「原色唱片」只發一種東西：現場收音的真實噪點。沒有過度壓縮，沒有塑膠感的混音。</p>
+  <div class="mt-8 flex flex-wrap gap-4">
+    <a href="#releases" class="disp font-bold px-6 py-3 btn-yellow border-[3px] border-black hard inline-block">看最新發行 →</a>
+    <a href="#join" class="disp font-bold px-6 py-3 btn-blue border-[3px] border-black hard inline-block">訂閱鏽鐵皮電報</a>
+  </div>
+</section>
+
+<section id="releases" class="max-w-6xl mx-auto px-6 py-10">
+  <h2 class="disp font-bold text-4xl uppercase mb-6 inline-block bg-black text-white px-3 py-1 tilt2">本季發行</h2>
+  <div class="grid md:grid-cols-3 gap-6">
+    <article class="bg-white border-[3px] border-black hard p-5">
+      <div class="aspect-square btn-red border-[3px] border-black mb-4 flex items-center justify-center disp font-bold text-5xl">01</div>
+      <h3 class="disp font-bold text-xl">〈鏽鐵皮〉</h3>
+      <p class="text-sm mt-1">單曲 / 現場收音 / 2026</p>
+      <button class="play-btn mt-4 w-full disp font-bold py-2 btn-yellow border-[3px] border-black hard" data-track="鏽鐵皮">▶ 試聽 32 秒</button>
+    </article>
+    <article class="bg-white border-[3px] border-black hard p-5 md:mt-6">
+      <div class="aspect-square btn-blue border-[3px] border-black mb-4 flex items-center justify-center disp font-bold text-5xl">02</div>
+      <h3 class="disp font-bold text-xl">〈半夜巷口〉</h3>
+      <p class="text-sm mt-1">EP 三首 / 2026</p>
+      <button class="play-btn mt-4 w-full disp font-bold py-2 btn-yellow border-[3px] border-black hard" data-track="半夜巷口">▶ 試聽 32 秒</button>
+    </article>
+    <article class="bg-white border-[3px] border-black hard p-5">
+      <div class="aspect-square bg-black border-[3px] border-black mb-4 flex items-center justify-center disp font-bold text-5xl text-white">03</div>
+      <h3 class="disp font-bold text-xl">〈收工〉</h3>
+      <p class="text-sm mt-1">黑膠限量 300 張</p>
+      <button class="play-btn mt-4 w-full disp font-bold py-2 btn-yellow border-[3px] border-black hard" data-track="收工">▶ 試聽 32 秒</button>
+    </article>
+  </div>
+  <p id="playStatus" class="disp font-bold mt-4 text-center"></p>
+</section>
+
+<section id="demo" class="max-w-6xl mx-auto px-6 py-10">
+  <h2 class="disp font-bold text-4xl uppercase mb-6 inline-block bg-black text-white px-3 py-1">現場噪點試聽機</h2>
+  <div class="bg-white border-[3px] border-black hard p-6 grid md:grid-cols-[1fr_auto] gap-6 items-center">
+    <div>
+      <label class="disp font-bold block mb-2">噪點強度</label>
+      <input id="noise" type="range" min="0" max="100" value="35" class="w-full accent-black">
+      <div id="noiseBar" class="h-8 border-[3px] border-black mt-3 bg-[repeating-linear-gradient(90deg,#000_0_2px,transparent_2px_6px)]"></div>
+    </div>
+    <button id="genBtn" class="disp font-bold px-6 py-4 btn-red border-[3px] border-black hard">產生一條噪點軌</button>
+  </div>
+  <p id="genResult" class="mt-4 font-bold"></p>
+</section>
+
+<section id="join" class="max-w-6xl mx-auto px-6 py-12">
+  <div class="bg-black text-white border-[3px] border-black hard p-8 md:p-12">
+    <h2 class="disp font-bold text-3xl uppercase mb-4">訂閱「鏽鐵皮電報」</h2>
+    <p class="mb-6">新發行、收音會名額、黑膠開賣，第一手通知。沒有演算法，只有信箱。</p>
+    <form id="joinForm" class="flex flex-col md:flex-row gap-4">
+      <input required type="email" placeholder="你的信箱" class="flex-1 px-4 py-3 text-black border-[3px] border-white focus:outline-none">
+      <button class="disp font-bold px-6 py-3 btn-yellow text-black border-[3px] border-white">送出</button>
+    </form>
+    <p id="joinMsg" class="mt-4 disp font-bold"></p>
+  </div>
+</section>
+
+<footer class="max-w-6xl mx-auto px-6 py-10 border-t-[3px] border-black disp font-bold text-sm flex justify-between flex-wrap gap-2">
+  <span>原色唱片 © 2026</span>
+  <span>台北 · 錄音室地址不公開 · 只收信</span>
+</footer>
+
+<script>
+document.querySelectorAll('.play-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const track = btn.dataset.track;
+    const status = document.getElementById('playStatus');
+    btn.textContent = '■ 播放中…';
+    status.textContent = '正在試聽：「'+track+'」— 32 秒片段';
+    let t = 32;
+    const iv = setInterval(()=>{
+      t--;
+      status.textContent = '正在試聽：「'+track+'」— 剩 '+t+' 秒';
+      if(t<=0){
+        clearInterval(iv);
+        btn.textContent = '▶ 試聽 32 秒';
+        status.textContent = '「'+track+'」播放結束';
+      }
+    },1000);
+  });
+});
+
+const noise = document.getElementById('noise');
+const noiseBar = document.getElementById('noiseBar');
+function updateNoise(){
+  noiseBar.style.backgroundSize = (102 - noise.value) + 'px';
+  noiseBar.style.opacity = 0.3 + (noise.value/100)*0.7;
+}
+noise.addEventListener('input', updateNoise);
+updateNoise();
+
+document.getElementById('genBtn').addEventListener('click', ()=>{
+  const level = noise.value;
+  const words = ['破音磁帶','地下室回聲','麥克風爆音','鐵捲門共振','雨天屋頂滴水'];
+  const pick = words[Math.floor(Math.random()*words.length)];
+  document.getElementById('genResult').textContent = '生成完成 → 噪點強度 '+level+'% ・採樣來源：『'+pick+'』・檔名 rawtone_'+Date.now()+'.wav';
+});
+
+document.getElementById('joinForm').addEventListener('submit', (e)=>{
+  e.preventDefault();
+  document.getElementById('joinMsg').textContent = '已收到，你是電報第 '+(1000+Math.floor(Math.random()*500))+' 位訂閱者。';
+  e.target.reset();
+});
+</script>
+</body>
+</html>

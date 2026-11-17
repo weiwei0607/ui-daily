@@ -1,0 +1,168 @@
+<!-- style #37 Sales Intelligence Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>銷略 PipeSight — 業務情報後台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Noto Sans TC','IBM Plex Sans',sans-serif; background:#0f172a; color:#e2e8f0; }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+  .card{ background:#1e293b; border:1px solid #334155; border-radius:14px; }
+  .up{ color:#10b981; }
+  .down{ color:#ef4444; }
+  table td, table th{ padding:10px 14px; }
+  tr:hover td{ background:#273449; }
+  .bar{ transition: width .5s ease; }
+</style>
+</head>
+<body>
+
+<div class="flex">
+  <aside class="w-56 shrink-0 border-r border-slate-700 min-h-screen p-5 hidden md:block">
+    <div class="font-bold text-lg mb-8">📊 銷略 PipeSight</div>
+    <nav class="space-y-1 text-sm text-slate-300">
+      <a class="block px-3 py-2 rounded bg-slate-800 text-white">總覽</a>
+      <a class="block px-3 py-2 rounded hover:bg-slate-800">業務管線</a>
+      <a class="block px-3 py-2 rounded hover:bg-slate-800">排行榜</a>
+      <a class="block px-3 py-2 rounded hover:bg-slate-800">目標達成</a>
+    </nav>
+  </aside>
+
+  <main class="flex-1 p-6 md:p-8">
+    <div class="flex justify-between items-center mb-6 flex-wrap gap-4">
+      <div>
+        <h1 class="text-xl font-bold">業務情報總覽</h1>
+        <p class="text-sm text-slate-400 mono">最後更新 2026-11-17 09:14</p>
+      </div>
+      <div class="flex gap-2" id="rangeBtns">
+        <button class="range-btn px-3 py-1.5 rounded bg-slate-800 text-sm" data-r="7">近 7 天</button>
+        <button class="range-btn px-3 py-1.5 rounded bg-blue-600 text-sm" data-r="30">近 30 天</button>
+        <button class="range-btn px-3 py-1.5 rounded bg-slate-800 text-sm" data-r="90">近 90 天</button>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-4 gap-4 mb-6">
+      <div class="card p-5">
+        <p class="text-xs text-slate-400">本期成交金額</p>
+        <p class="mono text-2xl font-bold mt-1" id="kpiRevenue">NT$ 8,420,000</p>
+        <p class="text-xs mt-1 up mono" id="kpiRevenueDelta">▲ 12.4%</p>
+      </div>
+      <div class="card p-5">
+        <p class="text-xs text-slate-400">目標達成率</p>
+        <p class="mono text-2xl font-bold mt-1" id="kpiGoal">84%</p>
+        <div class="w-full h-2 bg-slate-700 rounded-full mt-2 overflow-hidden"><div class="bar h-full bg-blue-500" style="width:84%"></div></div>
+      </div>
+      <div class="card p-5">
+        <p class="text-xs text-slate-400">進行中商機</p>
+        <p class="mono text-2xl font-bold mt-1" id="kpiDeals">156</p>
+        <p class="text-xs mt-1 down mono" id="kpiDealsDelta">▼ 3.1%</p>
+      </div>
+      <div class="card p-5">
+        <p class="text-xs text-slate-400">平均成交週期</p>
+        <p class="mono text-2xl font-bold mt-1" id="kpiCycle">23 天</p>
+        <p class="text-xs mt-1 up mono" id="kpiCycleDelta">▲ 2 天縮短</p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-4 mb-6">
+      <div class="card p-5 md:col-span-2">
+        <p class="font-semibold mb-3">業務管線 — 依階段</p>
+        <div id="pipeline" class="space-y-3"></div>
+      </div>
+      <div class="card p-5">
+        <p class="font-semibold mb-3">本月排行榜</p>
+        <ol id="leaderboard" class="space-y-2 text-sm"></ol>
+      </div>
+    </div>
+
+    <div class="card p-5">
+      <div class="flex justify-between items-center mb-3 flex-wrap gap-2">
+        <p class="font-semibold">商機明細</p>
+        <input id="search" type="text" placeholder="搜尋客戶名稱…" class="bg-slate-800 border border-slate-600 rounded px-3 py-1.5 text-sm focus:outline-none">
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm mono">
+          <thead class="text-slate-400 text-left border-b border-slate-700">
+            <tr><th>客戶</th><th>金額</th><th>階段</th><th>負責人</th><th>預計成交</th></tr>
+          </thead>
+          <tbody id="dealsBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+const pipelineData = [
+  { stage:'初步接觸', count:48, amount:1200000, color:'#64748b' },
+  { stage:'需求確認', count:36, amount:2300000, color:'#3b82f6' },
+  { stage:'提案報價', count:28, amount:3100000, color:'#8b5cf6' },
+  { stage:'合約協商', count:14, amount:4600000, color:'#f59e0b' },
+  { stage:'已成交', count:30, amount:8420000, color:'#10b981' },
+];
+document.getElementById('pipeline').innerHTML = pipelineData.map(p=>{
+  const max = 8420000;
+  const w = Math.round(p.amount/max*100);
+  return `<div>
+    <div class="flex justify-between text-sm mb-1"><span>${p.stage} <span class="text-slate-400">(${p.count})</span></span><span class="mono">NT$ ${p.amount.toLocaleString()}</span></div>
+    <div class="w-full h-3 bg-slate-700 rounded-full overflow-hidden"><div class="bar h-full" style="width:${w}%;background:${p.color}"></div></div>
+  </div>`;
+}).join('');
+
+const reps = [
+  {name:'陳怡君', amount:1860000},
+  {name:'林昱辰', amount:1540000},
+  {name:'黃思涵', amount:1320000},
+  {name:'王柏翰', amount:980000},
+  {name:'李佳穎', amount:760000},
+];
+document.getElementById('leaderboard').innerHTML = reps.map((r,i)=>`
+  <li class="flex justify-between items-center">
+    <span>${i+1}. ${r.name}</span>
+    <span class="mono ${i===0?'up font-bold':''}">NT$ ${r.amount.toLocaleString()}</span>
+  </li>
+`).join('');
+
+const deals = [
+  {customer:'大千科技', amount:1200000, stage:'合約協商', owner:'陳怡君', close:'2026-11-22'},
+  {customer:'翔宇物流', amount:860000, stage:'提案報價', owner:'林昱辰', close:'2026-11-28'},
+  {customer:'晨風餐飲集團', amount:430000, stage:'需求確認', owner:'黃思涵', close:'2026-12-03'},
+  {customer:'恆基營造', amount:2100000, stage:'合約協商', owner:'陳怡君', close:'2026-11-19'},
+  {customer:'樂活健康食品', amount:310000, stage:'初步接觸', owner:'王柏翰', close:'2026-12-10'},
+  {customer:'佳佑貿易', amount:680000, stage:'提案報價', owner:'李佳穎', close:'2026-11-25'},
+];
+function renderDeals(list){
+  document.getElementById('dealsBody').innerHTML = list.map(d=>`
+    <tr class="border-b border-slate-800">
+      <td>${d.customer}</td>
+      <td>NT$ ${d.amount.toLocaleString()}</td>
+      <td>${d.stage}</td>
+      <td>${d.owner}</td>
+      <td>${d.close}</td>
+    </tr>
+  `).join('');
+}
+renderDeals(deals);
+
+document.getElementById('search').addEventListener('input', (e)=>{
+  const q = e.target.value.trim();
+  renderDeals(deals.filter(d=> d.customer.includes(q)));
+});
+
+document.getElementById('rangeBtns').addEventListener('click', (e)=>{
+  const btn = e.target.closest('.range-btn');
+  if(!btn) return;
+  document.querySelectorAll('.range-btn').forEach(b=> b.className='range-btn px-3 py-1.5 rounded bg-slate-800 text-sm');
+  btn.className='range-btn px-3 py-1.5 rounded bg-blue-600 text-sm';
+  const r = btn.dataset.r;
+  const mult = r==='7' ? 0.25 : (r==='90' ? 2.8 : 1);
+  document.getElementById('kpiRevenue').textContent = 'NT$ '+Math.round(8420000*mult).toLocaleString();
+  document.getElementById('kpiDeals').textContent = Math.round(156*mult);
+});
+</script>
+</body>
+</html>

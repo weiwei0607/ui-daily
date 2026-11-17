@@ -1,0 +1,154 @@
+<!-- style #10 Aurora UI -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>肌語 SkinWhisper</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Noto Sans TC','Baloo 2',sans-serif; background:#0f0b1f; color:#fff; overflow-x:hidden; }
+  .disp{ font-family:'Baloo 2',sans-serif; }
+  .aurora{ position:fixed; inset:0; z-index:-1; background:#0f0b1f; overflow:hidden; }
+  .blob{ position:absolute; border-radius:50%; filter: blur(60px); opacity:0.55; animation: float 16s ease-in-out infinite; }
+  .b1{ width:480px; height:480px; background:#0080ff; top:-10%; left:-10%; animation-delay:0s; }
+  .b2{ width:420px; height:420px; background:#8b00ff; top:10%; right:-10%; animation-delay:-5s; }
+  .b3{ width:460px; height:460px; background:#ff1493; bottom:-15%; left:20%; animation-delay:-10s; }
+  .b4{ width:380px; height:380px; background:#00ffff; bottom:10%; right:10%; animation-delay:-3s; }
+  @keyframes float{ 0%,100%{ transform: translate(0,0) scale(1);} 33%{ transform: translate(40px,-30px) scale(1.1);} 66%{ transform: translate(-30px,30px) scale(0.95);} }
+  .glass{ background: rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2); backdrop-filter: blur(20px); border-radius: 28px; }
+  .glow-btn{ box-shadow: 0 0 30px rgba(139,0,255,0.5); }
+</style>
+</head>
+<body>
+
+<div class="aurora">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+  <div class="blob b4"></div>
+</div>
+
+<header class="max-w-6xl mx-auto px-6 py-6 flex justify-between items-center">
+  <div class="disp font-bold text-xl">🌙 肌語 SkinWhisper</div>
+  <nav class="hidden md:flex gap-6 text-sm text-white/70">
+    <a href="#quiz" class="hover:text-white">肌膚測驗</a>
+    <a href="#routine" class="hover:text-white">你的保養流程</a>
+    <a href="#join" class="hover:text-white">預約肌膚顧問</a>
+  </nav>
+</header>
+
+<section class="max-w-3xl mx-auto px-6 pt-10 pb-16 text-center">
+  <h1 class="disp font-bold text-4xl md:text-6xl leading-tight">聽懂你肌膚<br>想說的話</h1>
+  <p class="mt-6 text-lg text-white/70">60 秒肌膚測驗，生成專屬保養流程。不推銷、不綁訂閱，只給你真的需要的三步驟。</p>
+</section>
+
+<section id="quiz" class="max-w-2xl mx-auto px-6 pb-16">
+  <div class="glass p-8">
+    <p class="disp font-semibold text-lg mb-5" id="quizQ">你的肌膚現在最常出現什麼狀況？</p>
+    <div id="quizOptions" class="grid grid-cols-2 gap-3">
+      <button class="quiz-opt glass py-3 px-4 hover:bg-white/15 transition" data-v="乾燥緊繃">乾燥緊繃</button>
+      <button class="quiz-opt glass py-3 px-4 hover:bg-white/15 transition" data-v="泛紅敏感">泛紅敏感</button>
+      <button class="quiz-opt glass py-3 px-4 hover:bg-white/15 transition" data-v="出油長痘">出油長痘</button>
+      <button class="quiz-opt glass py-3 px-4 hover:bg-white/15 transition" data-v="暗沉不均">暗沉不均</button>
+    </div>
+    <div class="w-full h-2 rounded-full bg-white/10 mt-6 overflow-hidden">
+      <div id="quizProgress" class="h-full bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 transition-all" style="width:0%"></div>
+    </div>
+  </div>
+</section>
+
+<section id="routine" class="max-w-4xl mx-auto px-6 pb-16 hidden" id="routineSection">
+  <h2 class="disp font-bold text-2xl mb-6 text-center">你的專屬流程</h2>
+  <div id="routineCards" class="grid md:grid-cols-3 gap-5"></div>
+</section>
+
+<section class="max-w-4xl mx-auto px-6 pb-16">
+  <h2 class="disp font-bold text-2xl text-center mb-6">呼吸一下，放鬆肌膚也放鬆自己</h2>
+  <div class="glass p-8 flex flex-col items-center">
+    <div id="breathCircle" class="w-32 h-32 rounded-full bg-gradient-to-br from-cyan-400 via-purple-400 to-pink-400 transition-all duration-[4000ms]"></div>
+    <p id="breathText" class="disp mt-5 text-lg">按下開始，跟著圓圈呼吸</p>
+    <button id="breathBtn" class="disp mt-4 px-6 py-3 rounded-full glass glow-btn hover:bg-white/15">開始呼吸練習</button>
+  </div>
+</section>
+
+<section id="join" class="max-w-xl mx-auto px-6 py-16 text-center">
+  <div class="glass p-8">
+    <h2 class="disp font-bold text-2xl mb-3">想要更深入的肌膚顧問？</h2>
+    <p class="text-white/70 mb-6">留下信箱，我們安排一次 15 分鐘的線上肌膚諮詢。</p>
+    <form id="joinForm" class="flex flex-col sm:flex-row gap-3">
+      <input required type="email" placeholder="你的信箱" class="flex-1 rounded-full bg-white/10 border border-white/20 px-5 py-3 focus:outline-none">
+      <button class="disp font-semibold px-6 py-3 rounded-full bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 text-black">預約諮詢</button>
+    </form>
+    <p id="joinMsg" class="mt-4 text-sm text-pink-200"></p>
+  </div>
+</section>
+
+<footer class="text-center text-white/40 text-xs pb-8">肌語 SkinWhisper © 2026</footer>
+
+<script>
+const routines = {
+  "乾燥緊繃": ["溫和潔面乳，避免過度去油","玻尿酸精華鎖水","夜間厚敷保濕霜"],
+  "泛紅敏感": ["無香精潔面","積雪草舒緩精華","物理性防曬，避免刺激"],
+  "出油長痘": ["胺基酸潔面控油","杏仁酸調理角質","清爽凝膠質地保濕"],
+  "暗沉不均": ["溫和去角質兩次/週","維他命C亮白精華","夜間煙醯胺修護"]
+};
+
+document.getElementById('quizOptions').addEventListener('click', (e)=>{
+  const btn = e.target.closest('.quiz-opt');
+  if(!btn) return;
+  document.getElementById('quizProgress').style.width = '100%';
+  const v = btn.dataset.v;
+  const section = document.getElementById('routineSection') || document.querySelector('#routine');
+  const routineSection = document.querySelector('[id="routineSection"]') || document.getElementById('routine');
+  const el = document.getElementById('routine');
+  el.classList.remove('hidden');
+  const cards = document.getElementById('routineCards');
+  cards.innerHTML = routines[v].map((step,i)=>`
+    <div class="glass p-5">
+      <div class="disp text-2xl font-bold mb-2">${i+1}</div>
+      <p class="text-sm text-white/80">${step}</p>
+    </div>
+  `).join('');
+  el.scrollIntoView({behavior:'smooth'});
+});
+
+let breathing = false;
+const breathBtn = document.getElementById('breathBtn');
+const breathCircle = document.getElementById('breathCircle');
+const breathText = document.getElementById('breathText');
+breathBtn.addEventListener('click', ()=>{
+  if(breathing) return;
+  breathing = true;
+  let round = 0;
+  const cycle = ()=>{
+    if(round>=3){
+      breathText.textContent = '完成三輪，感覺如何？';
+      breathCircle.style.transform = 'scale(1)';
+      breathing = false;
+      return;
+    }
+    breathText.textContent = '吸氣…（4 秒）';
+    breathCircle.style.transform = 'scale(1.6)';
+    setTimeout(()=>{
+      breathText.textContent = '閉氣…（7 秒）';
+      setTimeout(()=>{
+        breathText.textContent = '吐氣…（8 秒）';
+        breathCircle.style.transform = 'scale(1)';
+        setTimeout(()=>{ round++; cycle(); }, 8000);
+      }, 7000);
+    }, 4000);
+  };
+  cycle();
+});
+
+document.getElementById('joinForm').addEventListener('submit', (e)=>{
+  e.preventDefault();
+  document.getElementById('joinMsg').textContent = '已收到，顧問將在一個工作日內與你約時間。';
+  e.target.reset();
+});
+</script>
+</body>
+</html>

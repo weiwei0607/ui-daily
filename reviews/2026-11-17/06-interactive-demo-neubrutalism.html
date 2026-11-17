@@ -1,0 +1,158 @@
+<!-- style #25 Interactive Demo (skin: Neubrutalism) -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>調色盒 PaletteBox</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Noto Sans TC','Space Grotesk',sans-serif; background:#fdf6e3; color:#111; }
+  .disp{ font-family:'Archivo Black','Noto Sans TC',sans-serif; }
+  .sg{ font-family:'Space Grotesk','Noto Sans TC',sans-serif; }
+  .hard{ border:3px solid #111; box-shadow:6px 6px 0 #111; }
+  .hard-sm{ border:3px solid #111; box-shadow:4px 4px 0 #111; }
+  .hard:active, .hard-sm:active{ transform: translate(4px,4px); box-shadow:2px 2px 0 #111; }
+  .swatch{ transition: transform .15s; }
+  .swatch:hover{ transform: translateY(-4px) rotate(-1deg); }
+</style>
+</head>
+<body>
+
+<header class="max-w-5xl mx-auto px-6 py-6 flex justify-between items-center">
+  <div class="disp text-xl bg-[#ffe66d] hard-sm px-3 py-1 inline-block">調色盒</div>
+  <a href="#export" class="sg font-bold bg-[#ff6b6b] hard-sm px-4 py-2">匯出色票</a>
+</header>
+
+<section class="max-w-5xl mx-auto px-6 pt-6 pb-10 text-center">
+  <h1 class="disp text-3xl md:text-5xl leading-tight">動手玩，生出一組<br>你的網站配色</h1>
+  <p class="sg mt-4 text-lg max-w-xl mx-auto">不是看範例，是真的生成。選一種心情，拖拖滑桿，調色盒馬上給你 5 色配色＋對比度檢查。</p>
+</section>
+
+<section class="max-w-5xl mx-auto px-6 pb-10">
+  <div class="hard bg-white p-6">
+    <p class="sg font-bold mb-3">第一步：選一種氛圍</p>
+    <div class="flex gap-3 flex-wrap mb-6" id="moodBtns">
+      <button class="mood-btn sg font-bold px-4 py-2 hard-sm bg-[#4ecdc4]" data-mood="活力">活力</button>
+      <button class="mood-btn sg font-bold px-4 py-2 hard-sm bg-[#ffe66d]" data-mood="沉穩">沉穩</button>
+      <button class="mood-btn sg font-bold px-4 py-2 hard-sm bg-[#ff6b6b]" data-mood="夢幻">夢幻</button>
+      <button class="mood-btn sg font-bold px-4 py-2 hard-sm bg-[#a388ee]" data-mood="復古">復古</button>
+    </div>
+
+    <p class="sg font-bold mb-3">第二步：調整亮度與飽和</p>
+    <div class="grid md:grid-cols-2 gap-6 mb-6">
+      <div>
+        <label class="sg text-sm">亮度 <span id="lightVal">55</span>%</label>
+        <input id="lightness" type="range" min="20" max="85" value="55" class="w-full accent-black">
+      </div>
+      <div>
+        <label class="sg text-sm">飽和度 <span id="satVal">65</span>%</label>
+        <input id="saturation" type="range" min="20" max="95" value="65" class="w-full accent-black">
+      </div>
+    </div>
+
+    <button id="generateBtn" class="disp bg-black text-white px-6 py-3 hard-sm">生成配色 →</button>
+
+    <div id="paletteOut" class="grid grid-cols-5 gap-3 mt-8"></div>
+    <p id="contrastNote" class="sg text-sm mt-4"></p>
+  </div>
+</section>
+
+<section id="export" class="max-w-5xl mx-auto px-6 pb-10">
+  <div class="hard bg-[#4ecdc4] p-6">
+    <p class="disp text-xl mb-3">匯出成 CSS 變數</p>
+    <pre id="cssOut" class="sg text-sm bg-white hard-sm p-4 overflow-x-auto whitespace-pre-wrap">先生成一組配色，這裡會顯示對應的 CSS 變數</pre>
+    <button id="copyBtn" class="sg font-bold bg-white hard-sm px-4 py-2 mt-3">複製 CSS</button>
+    <span id="copyMsg" class="sg ml-3 font-bold"></span>
+  </div>
+</section>
+
+<section class="max-w-5xl mx-auto px-6 pb-16">
+  <div class="hard bg-white p-6">
+    <p class="disp text-lg mb-3">覺得這工具好用？</p>
+    <form id="subForm" class="flex flex-col sm:flex-row gap-3">
+      <input required type="email" placeholder="留信箱，上線新功能通知你" class="flex-1 hard-sm px-4 py-2 focus:outline-none">
+      <button class="sg font-bold bg-[#ffe66d] hard-sm px-6 py-2">訂閱</button>
+    </form>
+    <p id="subMsg" class="sg mt-3 font-bold"></p>
+  </div>
+</section>
+
+<footer class="max-w-5xl mx-auto px-6 pb-10 sg text-sm text-center">調色盒 PaletteBox © 2026</footer>
+
+<script>
+const moods = {
+  '活力': [10, 45, 180, 320, 90],
+  '沉穩': [210, 200, 190, 30, 220],
+  '夢幻': [280, 320, 190, 340, 260],
+  '復古': [25, 15, 350, 160, 40],
+};
+let currentMood = '活力';
+
+document.getElementById('moodBtns').addEventListener('click', (e)=>{
+  const btn = e.target.closest('.mood-btn');
+  if(!btn) return;
+  currentMood = btn.dataset.mood;
+  document.querySelectorAll('.mood-btn').forEach(b=> b.style.outline='none');
+  btn.style.outline = '3px solid black';
+  btn.style.outlineOffset = '2px';
+});
+
+const lightness = document.getElementById('lightness');
+const saturation = document.getElementById('saturation');
+lightness.addEventListener('input', ()=> document.getElementById('lightVal').textContent = lightness.value);
+saturation.addEventListener('input', ()=> document.getElementById('satVal').textContent = saturation.value);
+
+function hslToHex(h,s,l){
+  s/=100; l/=100;
+  const k = n => (n + h/30) % 12;
+  const a = s * Math.min(l, 1-l);
+  const f = n => l - a*Math.max(-1, Math.min(k(n)-3, Math.min(9-k(n),1)));
+  const toHex = x => Math.round(255*x).toString(16).padStart(2,'0');
+  return `#${toHex(f(0))}${toHex(f(8))}${toHex(f(4))}`;
+}
+
+function relLuminance(hex){
+  const rgb = [1,3,5].map(i=> parseInt(hex.substr(i,2),16)/255);
+  const lin = rgb.map(c=> c<=0.03928 ? c/12.92 : Math.pow((c+0.055)/1.055,2.4));
+  return 0.2126*lin[0]+0.7152*lin[1]+0.0722*lin[2];
+}
+
+document.getElementById('generateBtn').addEventListener('click', ()=>{
+  const hues = moods[currentMood];
+  const l = parseInt(lightness.value);
+  const s = parseInt(saturation.value);
+  const colors = hues.map(h=> hslToHex(h, s, l));
+  const out = document.getElementById('paletteOut');
+  out.innerHTML = colors.map(c=>`
+    <div class="swatch hard-sm p-3 text-center" style="background:${c}">
+      <p class="sg text-xs font-bold" style="color:${relLuminance(c)>0.5?'#111':'#fff'}">${c}</p>
+    </div>
+  `).join('');
+
+  const whiteOk = colors.filter(c=> (1.05)/(relLuminance(c)+0.05) >= 4.5).length;
+  document.getElementById('contrastNote').textContent = `白字可讀：${whiteOk} / 5 色達 WCAG AA 對比標準`;
+
+  document.getElementById('cssOut').textContent = colors.map((c,i)=>`--color-${i+1}: ${c};`).join('\n');
+});
+
+document.getElementById('copyBtn').addEventListener('click', async ()=>{
+  const text = document.getElementById('cssOut').textContent;
+  try{
+    await navigator.clipboard.writeText(text);
+    document.getElementById('copyMsg').textContent = '已複製！';
+  }catch(_){
+    document.getElementById('copyMsg').textContent = '複製失敗，請手動選取';
+  }
+});
+
+document.getElementById('subForm').addEventListener('submit', (e)=>{
+  e.preventDefault();
+  document.getElementById('subMsg').textContent = '訂閱成功，有新功能會寄信通知你。';
+  e.target.reset();
+});
+</script>
+</body>
+</html>

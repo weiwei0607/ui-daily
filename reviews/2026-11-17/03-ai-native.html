@@ -1,0 +1,140 @@
+<!-- style #43 AI-Native -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>言樞 LexCore — AI 合約審閱助理</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Noto Sans TC','Sora',sans-serif; background:#0b0a14; color:#e8e6f5; }
+  .disp{ font-family:'Sora',sans-serif; }
+  .grad-bg{ background: radial-gradient(circle at 20% 20%, #764ba2 0%, transparent 50%), radial-gradient(circle at 80% 0%, #667eea 0%, transparent 45%), radial-gradient(circle at 50% 100%, #f093fb 0%, transparent 40%), #0b0a14; }
+  .glow{ box-shadow: 0 0 40px rgba(118,75,162,0.4); }
+  .glass{ background: rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); backdrop-filter: blur(16px); }
+  .pulse-dot{ animation: pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{ opacity:.4; transform:scale(0.9);} 50%{ opacity:1; transform:scale(1.15);} }
+  .typing::after{ content:'▋'; animation: blink 1s step-end infinite; }
+  @keyframes blink{ 50%{ opacity:0; } }
+  .grad-text{ background: linear-gradient(90deg,#a78bfa,#f0abfc); -webkit-background-clip:text; background-clip:text; color:transparent; }
+</style>
+</head>
+<body class="grad-bg">
+
+<header class="max-w-6xl mx-auto px-6 py-6 flex justify-between items-center">
+  <div class="disp font-extrabold text-xl flex items-center gap-2">
+    <span class="w-3 h-3 rounded-full bg-purple-400 pulse-dot"></span>
+    言樞 LexCore
+  </div>
+  <nav class="hidden md:flex gap-8 text-sm text-white/70">
+    <a href="#demo" class="hover:text-white">即時演示</a>
+    <a href="#flow" class="hover:text-white">運作方式</a>
+    <a href="#waitlist" class="hover:text-white">加入候補</a>
+  </nav>
+  <a href="#waitlist" class="glass px-4 py-2 rounded-full text-sm font-medium">免費試用</a>
+</header>
+
+<section class="max-w-4xl mx-auto px-6 pt-10 pb-16 text-center">
+  <div class="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs mb-6 text-white/80">
+    <span class="w-1.5 h-1.5 rounded-full bg-green-400"></span> 已分析超過 42,000 份合約
+  </div>
+  <h1 class="disp font-extrabold text-4xl md:text-6xl leading-tight">
+    讓 AI 幫你 <span class="grad-text">讀完每一條合約</span>
+  </h1>
+  <p class="mt-6 text-lg text-white/70 max-w-2xl mx-auto">上傳合約，言樞在 20 秒內標出風險條款、對照慣例用語差異，用白話解釋每一句法律文字真正代表什麼。</p>
+  <div class="mt-8 flex justify-center gap-4 flex-wrap">
+    <a href="#demo" class="disp font-semibold px-6 py-3 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 glow">立即體驗分析 →</a>
+    <a href="#flow" class="disp font-semibold px-6 py-3 rounded-xl glass">看看怎麼運作</a>
+  </div>
+</section>
+
+<section id="demo" class="max-w-4xl mx-auto px-6 pb-20">
+  <div class="glass rounded-2xl p-6 md:p-8">
+    <p class="text-sm text-white/60 mb-3">貼上一段合約文字，體驗即時風險標註</p>
+    <textarea id="contractInput" rows="4" class="w-full rounded-xl bg-black/30 border border-white/10 p-4 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="例如：乙方同意於合約終止後兩年內不得於同業任職...">乙方同意於合約終止後兩年內不得於同業任職，且違約時應賠償甲方新台幣兩百萬元整。</textarea>
+    <button id="analyzeBtn" class="disp mt-4 font-semibold px-6 py-3 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500">分析這段合約</button>
+    <div id="analyzeResult" class="mt-6 hidden">
+      <div class="flex items-center gap-2 text-sm text-white/60 mb-3">
+        <span class="w-2 h-2 rounded-full bg-purple-400 pulse-dot"></span>
+        <span id="statusText">言樞正在分析…</span>
+      </div>
+      <div id="findings" class="space-y-3 text-sm"></div>
+    </div>
+  </div>
+</section>
+
+<section id="flow" class="max-w-5xl mx-auto px-6 py-16">
+  <h2 class="disp font-bold text-3xl text-center mb-10">三步驟，不用懂法律</h2>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="glass rounded-2xl p-6">
+      <div class="disp text-3xl font-extrabold grad-text mb-2">01</div>
+      <h3 class="disp font-semibold text-lg">上傳合約</h3>
+      <p class="text-white/60 text-sm mt-2">PDF、圖片掃描、或直接貼文字都可以。</p>
+    </div>
+    <div class="glass rounded-2xl p-6">
+      <div class="disp text-3xl font-extrabold grad-text mb-2">02</div>
+      <h3 class="disp font-semibold text-lg">AI 逐條解析</h3>
+      <p class="text-white/60 text-sm mt-2">比對十萬份慣例合約，標出異常條款。</p>
+    </div>
+    <div class="glass rounded-2xl p-6">
+      <div class="disp text-3xl font-extrabold grad-text mb-2">03</div>
+      <h3 class="disp font-semibold text-lg">白話風險報告</h3>
+      <p class="text-white/60 text-sm mt-2">每項風險都附上「這代表什麼」的說明。</p>
+    </div>
+  </div>
+</section>
+
+<section id="waitlist" class="max-w-xl mx-auto px-6 py-16 text-center">
+  <h2 class="disp font-bold text-3xl mb-4">加入候補名單</h2>
+  <p class="text-white/60 mb-6">正式版開放邀請制，留下信箱優先取得使用資格。</p>
+  <form id="waitForm" class="flex flex-col sm:flex-row gap-3">
+    <input required type="email" placeholder="你的工作信箱" class="flex-1 rounded-xl bg-black/30 border border-white/10 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500">
+    <button class="disp font-semibold px-6 py-3 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500">加入候補</button>
+  </form>
+  <p id="waitMsg" class="mt-4 text-sm text-purple-300"></p>
+</section>
+
+<footer class="max-w-6xl mx-auto px-6 py-8 text-center text-white/40 text-xs">
+  言樞 LexCore © 2026 · 本服務僅供參考，不構成正式法律意見
+</footer>
+
+<script>
+document.getElementById('analyzeBtn').addEventListener('click', ()=>{
+  const result = document.getElementById('analyzeResult');
+  const status = document.getElementById('statusText');
+  const findings = document.getElementById('findings');
+  result.classList.remove('hidden');
+  findings.innerHTML = '';
+  status.textContent = '言樞正在分析…（掃描條款結構）';
+
+  const steps = [
+    { delay: 700, text: '言樞正在分析…（比對慣例用語資料庫）' },
+    { delay: 1500, text: '言樞正在分析…（標註風險等級）' },
+  ];
+  steps.forEach(s=> setTimeout(()=>{ status.textContent = s.text; }, s.delay));
+
+  setTimeout(()=>{
+    status.textContent = '分析完成，共發現 2 項需留意條款';
+    findings.innerHTML = `
+      <div class="glass rounded-xl p-4 border-l-4 border-l-red-400">
+        <p class="font-semibold text-red-300">⚠ 高風險・競業禁止期間偏長</p>
+        <p class="text-white/70 mt-1">兩年的競業禁止在同類合約中屬偏長（業界常見為 6–12 個月），建議協商縮短或要求補償金。</p>
+      </div>
+      <div class="glass rounded-xl p-4 border-l-4 border-l-yellow-400">
+        <p class="font-semibold text-yellow-300">◐ 中風險・違約金金額未與實際損害掛鉤</p>
+        <p class="text-white/70 mt-1">固定兩百萬違約金未說明計算依據，日後若有爭議可能被法院酌減，建議約定依實際損失比例計算。</p>
+      </div>
+    `;
+  }, 2300);
+});
+
+document.getElementById('waitForm').addEventListener('submit', (e)=>{
+  e.preventDefault();
+  document.getElementById('waitMsg').textContent = '已加入候補名單，你目前排在第 '+(300+Math.floor(Math.random()*120))+' 位。';
+  e.target.reset();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!-- style #50 Swiss Modernism 2.0 -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>恒律事務所</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,500&family=Noto+Serif+TC:wght@400;600;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Noto Serif TC','Newsreader',serif; background:#fdfcf8; color:#111; }
+  .serif-en{ font-family:'Newsreader',serif; }
+  .rule{ border-top:1px solid #111; }
+  .rule2{ border-top:3px double #111; }
+  .cap::first-letter{ font-size: 4.2rem; line-height: 0.8; float:left; margin-right:0.15em; font-weight:900; }
+  a{ text-decoration: underline; text-decoration-color:#999; }
+</style>
+</head>
+<body class="max-w-5xl mx-auto px-6">
+
+<header class="rule2 pt-4 pb-3 mt-6 flex justify-between items-baseline">
+  <p class="text-xs tracking-widest serif-en">ESTABLISHED 1988 · TAIPEI</p>
+  <p class="text-xs tracking-widest serif-en" id="dateline">星期二 · 2026年11月17日</p>
+</header>
+
+<div class="text-center py-6 rule">
+  <h1 class="text-5xl md:text-7xl font-black tracking-tight">恒律事務所</h1>
+  <p class="serif-en italic text-lg mt-2 text-neutral-600">Heng & Lu Legal Chronicle</p>
+</div>
+
+<nav class="flex justify-center gap-8 py-3 text-sm tracking-wide rule">
+  <a href="#lead">頭條</a>
+  <a href="#practice">業務領域</a>
+  <a href="#cases">案例紀要</a>
+  <a href="#consult">預約諮詢</a>
+</nav>
+
+<main class="grid md:grid-cols-[2fr_1fr] gap-10 py-10">
+  <section id="lead">
+    <p class="text-xs tracking-widest text-neutral-500 mb-2">本期頭條 — 公司治理</p>
+    <h2 class="text-4xl font-bold leading-tight mb-4">當家族企業交棒：三個最常被忽略的治理缺口</h2>
+    <p class="cap text-lg leading-8 text-neutral-800">多數家族企業在股權規劃上投入大量心力，卻在「決策權如何真正轉移」這個問題上輕輕放過。恒律事務所自 1988 年執業以來，經手逾兩百件家族企業交棒案，發現最常見的三個缺口分別是：董事會決議程序形式化、關係人交易未書面化、以及接班人缺乏獨立決策的實戰場域。本文將逐一拆解，並提出可在六個月內落地的治理調整方案。</p>
+    <p class="mt-4 leading-8 text-neutral-800">治理不是一份文件，而是一套被反覆驗證過的決策習慣。我們建議企業主先從董事會會議紀錄的真實性做起——這往往是日後爭訟中最先被檢視、也最容易出問題的一環。</p>
+    <div class="mt-6 rule pt-3 text-sm text-neutral-500">撰文｜恒律事務所 公司治理組 · 閱讀時間 6 分鐘</div>
+  </section>
+
+  <aside class="rule pl-0 md:pl-8 md:border-l md:border-t-0">
+    <p class="text-xs tracking-widest text-neutral-500 mb-3 mt-4 md:mt-0">本期要覽</p>
+    <ul class="space-y-4 text-sm leading-6">
+      <li class="rule pt-3"><strong>股權信託</strong><br>家族股權信託的三種常見架構比較</li>
+      <li class="rule pt-3"><strong>跨境併購</strong><br>東南亞子公司併購的稅務陷阱清單</li>
+      <li class="rule pt-3"><strong>勞資爭議</strong><br>遠距工作條款修訂後的爭議熱點</li>
+    </ul>
+  </aside>
+</main>
+
+<section id="practice" class="rule pt-8 pb-10">
+  <h2 class="text-3xl font-bold mb-6 text-center">業務領域</h2>
+  <div class="grid md:grid-cols-4 gap-8 text-center">
+    <div class="rule pt-4"><p class="serif-en text-3xl font-bold">01</p><p class="mt-2 font-semibold">公司治理</p></div>
+    <div class="rule pt-4"><p class="serif-en text-3xl font-bold">02</p><p class="mt-2 font-semibold">股權信託</p></div>
+    <div class="rule pt-4"><p class="serif-en text-3xl font-bold">03</p><p class="mt-2 font-semibold">跨境併購</p></div>
+    <div class="rule pt-4"><p class="serif-en text-3xl font-bold">04</p><p class="mt-2 font-semibold">勞動法遵</p></div>
+  </div>
+</section>
+
+<section id="cases" class="rule pt-8 pb-10">
+  <h2 class="text-3xl font-bold mb-6">案例紀要 — 依產業篩選</h2>
+  <div class="flex gap-3 mb-6 text-sm flex-wrap" id="filterBar">
+    <button class="case-filter px-3 py-1 border border-black" data-f="all">全部</button>
+    <button class="case-filter px-3 py-1 border border-black" data-f="製造">製造業</button>
+    <button class="case-filter px-3 py-1 border border-black" data-f="零售">零售業</button>
+    <button class="case-filter px-3 py-1 border border-black" data-f="科技">科技業</button>
+  </div>
+  <div id="caseList" class="grid md:grid-cols-3 gap-6 text-sm">
+    <article class="case-item rule pt-3" data-cat="製造">
+      <p class="text-xs text-neutral-500">製造業 · 2026</p>
+      <h3 class="font-bold text-lg mt-1">五金廠三代交棒的董事會重組</h3>
+      <p class="mt-2 leading-6 text-neutral-700">協助建立獨立董事機制，化解三方股權僵局。</p>
+    </article>
+    <article class="case-item rule pt-3" data-cat="零售">
+      <p class="text-xs text-neutral-500">零售業 · 2025</p>
+      <h3 class="font-bold text-lg mt-1">連鎖超商加盟合約的爭議調解</h3>
+      <p class="mt-2 leading-6 text-neutral-700">代表加盟主完成十二店合約重新談判。</p>
+    </article>
+    <article class="case-item rule pt-3" data-cat="科技">
+      <p class="text-xs text-neutral-500">科技業 · 2026</p>
+      <h3 class="font-bold text-lg mt-1">新創公司跨境併購的稅務結構設計</h3>
+      <p class="mt-2 leading-6 text-neutral-700">協助新加坡母公司完成台灣子公司股權轉讓。</p>
+    </article>
+  </div>
+</section>
+
+<section id="consult" class="rule2 py-10">
+  <h2 class="text-3xl font-bold mb-4 text-center">預約初次諮詢</h2>
+  <p class="text-center text-neutral-600 mb-6 serif-en italic">By appointment only</p>
+  <form id="consultForm" class="max-w-md mx-auto space-y-4">
+    <select required class="w-full border-b border-black bg-transparent py-2">
+      <option value="">選擇諮詢主題</option>
+      <option>公司治理</option>
+      <option>股權信託</option>
+      <option>跨境併購</option>
+      <option>勞動法遵</option>
+    </select>
+    <input required type="text" placeholder="姓名" class="w-full border-b border-black bg-transparent py-2">
+    <input required type="tel" placeholder="聯絡電話" class="w-full border-b border-black bg-transparent py-2">
+    <button class="w-full border border-black py-3 font-semibold hover:bg-black hover:text-white transition">送出預約</button>
+  </form>
+  <p id="consultMsg" class="text-center mt-4 font-semibold"></p>
+</section>
+
+<footer class="rule2 py-6 text-center text-xs text-neutral-500 serif-en">
+  恒律事務所 Heng &amp; Lu Legal Chronicle · 台北市 · 版權所有
+</footer>
+
+<script>
+document.getElementById('filterBar').addEventListener('click', (e)=>{
+  const btn = e.target.closest('.case-filter');
+  if(!btn) return;
+  const f = btn.dataset.f;
+  document.querySelectorAll('.case-item').forEach(item=>{
+    item.style.display = (f==='all' || item.dataset.cat===f) ? '' : 'none';
+  });
+});
+
+document.getElementById('consultForm').addEventListener('submit', (e)=>{
+  e.preventDefault();
+  document.getElementById('consultMsg').textContent = '已收到您的預約申請，恒律事務所將於一個工作日內與您聯繫確認時段。';
+  e.target.reset();
+});
+</script>
+</body>
+</html>
