@@ -1,0 +1,181 @@
+<!-- style #08 Accessible / Ethical -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>好辦 EasyAid｜社會福利申請小幫手</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --fs-scale: 1;
+    --blue:#0048a8;
+    --red:#b2102f;
+    --ink:#0a0a0a;
+    --paper:#ffffff;
+  }
+  *{font-family:'Lexend','Noto Sans TC',sans-serif;}
+  html{font-size: calc(16px * var(--fs-scale));}
+  body{background:var(--paper); color:var(--ink);}
+  .high-contrast body, body.hc{ background:#000; color:#fff; }
+  :focus-visible{ outline: 4px solid var(--red); outline-offset: 3px; border-radius:4px; }
+  .btn-primary{
+    background:var(--blue); color:#fff; font-weight:700; border-radius:14px;
+    padding:1rem 1.75rem; font-size:1.125rem; min-height:56px;
+    border:3px solid var(--blue); transition: transform .1s ease;
+  }
+  .btn-primary:hover{ transform: translateY(-2px); background:#003580; }
+  .btn-outline{
+    background:#fff; color:var(--blue); font-weight:700; border-radius:14px;
+    padding:1rem 1.75rem; font-size:1.125rem; min-height:56px; border:3px solid var(--blue);
+  }
+  body.hc .btn-primary{ background:#ffd400; color:#000; border-color:#ffd400; }
+  body.hc .btn-outline{ background:#000; color:#ffd400; border-color:#ffd400; }
+  .card{ border:3px solid var(--ink); border-radius:16px; }
+  body.hc .card{ border-color:#fff; }
+  .chip{
+    border:3px solid var(--blue); border-radius:999px; padding:.75rem 1.25rem;
+    font-weight:600; font-size:1rem; min-height:48px; background:#fff; color:var(--blue);
+    cursor:pointer;
+  }
+  .chip.selected{ background:var(--blue); color:#fff; }
+  body.hc .chip{ border-color:#ffd400; color:#ffd400; background:#000; }
+  body.hc .chip.selected{ background:#ffd400; color:#000; }
+  .result-tag{ background:#eaf4ea; border:3px solid #1c7a30; border-radius:12px; }
+  body.hc .result-tag{ background:#001a00; border-color:#39ff6a; }
+  .skip-link{ position:absolute; left:-9999px; top:0; }
+  .skip-link:focus{ left:1rem; top:1rem; z-index:50; background:var(--red); color:#fff; padding:.75rem 1.5rem; border-radius:10px; }
+</style>
+</head>
+<body class="min-h-screen">
+<a href="#main" class="skip-link font-bold">跳到主要內容</a>
+
+<header class="border-b-4" style="border-color:var(--ink)">
+  <div class="max-w-5xl mx-auto px-5 py-5 flex items-center justify-between flex-wrap gap-4">
+    <h1 class="text-2xl font-extrabold">好辦 <span class="font-medium text-base align-middle opacity-70">EasyAid</span></h1>
+    <div class="flex items-center gap-3 flex-wrap">
+      <span class="text-base font-semibold">文字大小</span>
+      <button id="fsDown" aria-label="縮小文字" class="btn-outline" style="padding:.6rem 1rem; min-height:48px;">A−</button>
+      <button id="fsUp" aria-label="放大文字" class="btn-outline" style="padding:.6rem 1rem; min-height:48px;">A+</button>
+      <button id="hcToggle" class="btn-outline" style="padding:.6rem 1.2rem; min-height:48px;">高對比模式</button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="max-w-5xl mx-auto px-5 py-10">
+  <section class="mb-10">
+    <h2 class="text-3xl sm:text-4xl font-extrabold mb-4 leading-snug">三個問題，<br class="sm:hidden">幫你找出可以申請的社會福利</h2>
+    <p class="text-lg opacity-80 max-w-2xl">不用懂法規、不用跑公文，回答以下問題，我們直接告訴你可能符合哪些補助。</p>
+  </section>
+
+  <section class="card p-6 sm:p-8 mb-8">
+    <h3 class="text-xl font-bold mb-4">第一步：你現在的身份是？</h3>
+    <div class="flex flex-wrap gap-3" id="statusGroup" role="group" aria-label="選擇身份">
+      <button class="chip" data-val="獨居長者">獨居長者</button>
+      <button class="chip" data-val="育兒家庭">育兒家庭</button>
+      <button class="chip" data-val="身心障礙者">身心障礙者</button>
+      <button class="chip" data-val="失業中">失業中</button>
+    </div>
+  </section>
+
+  <section class="card p-6 sm:p-8 mb-8">
+    <h3 class="text-xl font-bold mb-4">第二步：家戶每月總收入大約是？</h3>
+    <div class="flex flex-wrap gap-3" id="incomeGroup" role="group" aria-label="選擇收入區間">
+      <button class="chip" data-val="低">2萬以下</button>
+      <button class="chip" data-val="中">2萬～5萬</button>
+      <button class="chip" data-val="高">5萬以上</button>
+    </div>
+  </section>
+
+  <section class="mb-10">
+    <button id="checkBtn" class="btn-primary w-full sm:w-auto">看看我可以申請什麼</button>
+  </section>
+
+  <section id="resultSection" class="hidden mb-12" aria-live="polite">
+    <h3 class="text-2xl font-extrabold mb-4">初步比對結果</h3>
+    <div id="resultList" class="grid sm:grid-cols-2 gap-4"></div>
+    <p class="text-sm opacity-70 mt-4">※ 以上為初步比對，正式資格仍需以公所或社福單位審核為準。</p>
+  </section>
+
+  <section class="card p-6 sm:p-8">
+    <h3 class="text-xl font-bold mb-3">需要真人幫忙？</h3>
+    <p class="text-lg mb-4">撥打 <span class="font-extrabold">1957</span> 福利諮詢專線，或直接到住家附近的區公所社會課。</p>
+    <a href="#" class="btn-outline inline-block">查看離我最近的服務窗口</a>
+  </section>
+</main>
+
+<footer class="border-t-4 mt-10" style="border-color:var(--ink)">
+  <div class="max-w-5xl mx-auto px-5 py-6 text-sm opacity-70">本頁遵循 WCAG AAA 對比與 56px 以上的可點擊區域設計，所有互動元件皆可用鍵盤 Tab 操作。</div>
+</footer>
+
+<script>
+  let scale = 1;
+  document.getElementById('fsUp').addEventListener('click', ()=>{
+    scale = Math.min(1.6, scale + 0.1);
+    document.documentElement.style.setProperty('--fs-scale', scale);
+  });
+  document.getElementById('fsDown').addEventListener('click', ()=>{
+    scale = Math.max(0.85, scale - 0.1);
+    document.documentElement.style.setProperty('--fs-scale', scale);
+  });
+  document.getElementById('hcToggle').addEventListener('click', ()=>{
+    document.body.classList.toggle('hc');
+  });
+
+  function setupGroup(id){
+    const group = document.getElementById(id);
+    let selected = null;
+    group.querySelectorAll('.chip').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        group.querySelectorAll('.chip').forEach(b=>b.classList.remove('selected'));
+        btn.classList.add('selected');
+        selected = btn.dataset.val;
+        group.dataset.selected = selected;
+      });
+    });
+  }
+  setupGroup('statusGroup');
+  setupGroup('incomeGroup');
+
+  const programs = {
+    "獨居長者": ["長者送餐服務", "居家無障礙修繕補助", "緊急救援連線設備補助"],
+    "育兒家庭": ["育兒津貼", "托育補助", "弱勢家庭兒童生活扶助"],
+    "身心障礙者": ["身心障礙者生活補助", "輔具購置補助", "復康巴士優先搭乘"],
+    "失業中": ["失業給付", "職業訓練生活津貼", "臨時工作津貼"],
+  };
+
+  document.getElementById('checkBtn').addEventListener('click', ()=>{
+    const status = document.getElementById('statusGroup').dataset.selected;
+    const income = document.getElementById('incomeGroup').dataset.selected;
+    const resultSection = document.getElementById('resultSection');
+    const resultList = document.getElementById('resultList');
+    resultList.innerHTML = '';
+
+    if(!status || !income){
+      resultSection.classList.remove('hidden');
+      resultList.innerHTML = '<p class="text-lg font-semibold">請先完成上面兩個問題，我們才能幫你比對喔。</p>';
+      resultSection.scrollIntoView({behavior:'smooth', block:'start'});
+      return;
+    }
+
+    let list = programs[status] || [];
+    if(income === '高'){ list = list.slice(0,1); }
+
+    resultSection.classList.remove('hidden');
+    if(list.length === 0){
+      resultList.innerHTML = '<p class="text-lg font-semibold">目前依收入區間初步比對，較難符合現有補助資格，建議仍可致電 1957 詢問個案狀況。</p>';
+    } else {
+      list.forEach(name=>{
+        const div = document.createElement('div');
+        div.className = 'result-tag p-4 font-bold text-lg';
+        div.textContent = '✓ ' + name;
+        resultList.appendChild(div);
+      });
+    }
+    resultSection.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+</script>
+</body>
+</html>

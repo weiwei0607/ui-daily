@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>韡寧的 UI 待審 · 2026-11-18</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *{font-family:'Noto Sans TC',sans-serif;}
+  body{ background:#f4f4f6; }
+  .frame-wrap{
+    position:relative; width:100%; padding-top:62.5%; overflow:hidden;
+    border-radius:14px; background:#fff; border:1px solid #e4e4e8;
+  }
+  .frame-wrap iframe{
+    position:absolute; top:0; left:0; width:200%; height:200%;
+    transform: scale(.5); transform-origin: top left; border:0;
+  }
+  .heart-btn{ transition: transform .15s ease; }
+  .heart-btn:active{ transform: scale(1.3); }
+  .heart-btn.liked{ color:#e0334a; }
+</style>
+</head>
+<body class="min-h-screen">
+<div class="max-w-5xl mx-auto px-5 py-10">
+  <header class="mb-8">
+    <h1 class="text-2xl sm:text-3xl font-black mb-1">韡寧的 UI 待審 · 2026-11-18</h1>
+    <p class="text-sm text-gray-500">今天 6 個不同風格方向，點開看完整互動，喜歡的按 ❤️</p>
+  </header>
+
+  <div class="grid sm:grid-cols-2 gap-6" id="cardGrid">
+    <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 card" data-id="2026-11-18_01">
+      <div class="frame-wrap"><iframe src="01-neumorphism.html" loading="lazy"></iframe></div>
+      <div class="flex items-center justify-between mt-4">
+        <div>
+          <p class="font-bold">#01 Neumorphism</p>
+          <p class="text-xs text-gray-500">存滿 SaveRound</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="01-neumorphism.html" target="_blank" class="text-sm font-semibold text-blue-600">開啟 ↗</a>
+          <button class="heart-btn text-2xl" aria-label="喜歡">♡</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 card" data-id="2026-11-18_02">
+      <div class="frame-wrap"><iframe src="02-accessible.html" loading="lazy"></iframe></div>
+      <div class="flex items-center justify-between mt-4">
+        <div>
+          <p class="font-bold">#02 Accessible / Ethical</p>
+          <p class="text-xs text-gray-500">好辦 EasyAid</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="02-accessible.html" target="_blank" class="text-sm font-semibold text-blue-600">開啟 ↗</a>
+          <button class="heart-btn text-2xl" aria-label="喜歡">♡</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 card" data-id="2026-11-18_03">
+      <div class="frame-wrap"><iframe src="03-darkshowcase.html" loading="lazy"></iframe></div>
+      <div class="flex items-center justify-between mt-4">
+        <div>
+          <p class="font-bold">#03 Feature-Rich Showcase + Dark Mode</p>
+          <p class="text-xs text-gray-500">夜核 NightCore</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="03-darkshowcase.html" target="_blank" class="text-sm font-semibold text-blue-600">開啟 ↗</a>
+          <button class="heart-btn text-2xl" aria-label="喜歡">♡</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 card" data-id="2026-11-18_04">
+      <div class="frame-wrap"><iframe src="04-drilldown.html" loading="lazy"></iframe></div>
+      <div class="flex items-center justify-between mt-4">
+        <div>
+          <p class="font-bold">#04 Drill-Down Dashboard</p>
+          <p class="text-xs text-gray-500">鑽探 DrillSight</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="04-drilldown.html" target="_blank" class="text-sm font-semibold text-blue-600">開啟 ↗</a>
+          <button class="heart-btn text-2xl" aria-label="喜歡">♡</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 card" data-id="2026-11-18_05">
+      <div class="frame-wrap"><iframe src="05-layering.html" loading="lazy"></iframe></div>
+      <div class="flex items-center justify-between mt-4">
+        <div>
+          <p class="font-bold">#05 Dimensional Layering</p>
+          <p class="text-xs text-gray-500">層間 LayerSpace</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="05-layering.html" target="_blank" class="text-sm font-semibold text-blue-600">開啟 ↗</a>
+          <button class="heart-btn text-2xl" aria-label="喜歡">♡</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 card" data-id="2026-11-18_06">
+      <div class="frame-wrap"><iframe src="06-eink.html" loading="lazy"></iframe></div>
+      <div class="flex items-center justify-between mt-4">
+        <div>
+          <p class="font-bold">#06 E-Ink / Paper</p>
+          <p class="text-xs text-gray-500">紙聲 PaperVoice</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="06-eink.html" target="_blank" class="text-sm font-semibold text-blue-600">開啟 ↗</a>
+          <button class="heart-btn text-2xl" aria-label="喜歡">♡</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="text-center text-xs text-gray-400 mt-10">韡寧的每日 UI/UX 生成助理 · 2026-11-18</footer>
+</div>
+
+<script>
+  const DB_BASE = "https://b-battle-580b5-default-rtdb.firebaseio.com/uigallery";
+
+  function setLiked(btn, liked){
+    btn.classList.toggle('liked', liked);
+    btn.textContent = liked ? '♥' : '♡';
+  }
+
+  document.querySelectorAll('.card').forEach(card=>{
+    const btn = card.querySelector('.heart-btn');
+    const id = card.dataset.id;
+    btn.addEventListener('click', ()=>{
+      const liked = !btn.classList.contains('liked');
+      setLiked(btn, liked);
+      fetch(DB_BASE + "/" + id + ".json", {
+        method: "PUT",
+        body: JSON.stringify(liked)
+      }).catch(()=>{});
+    });
+  });
+
+  fetch(DB_BASE + ".json")
+    .then(r=>r.json())
+    .then(data=>{
+      if(!data) return;
+      document.querySelectorAll('.card').forEach(card=>{
+        const id = card.dataset.id;
+        if(data[id] === true){
+          setLiked(card.querySelector('.heart-btn'), true);
+        }
+      });
+    })
+    .catch(()=>{});
+</script>
+</body>
+</html>

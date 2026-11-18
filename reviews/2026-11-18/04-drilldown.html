@@ -1,0 +1,213 @@
+<!-- style #32 Drill-Down Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>鑽探 DrillSight｜零售銷售下鑽後台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#f4f5f7; --card:#ffffff; --line:#e3e5ea; --ink:#1d2330; --up:#0ea559; --down:#e0334a; }
+  *{font-family:'IBM Plex Sans','Noto Sans TC',sans-serif;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  body{ background:var(--bg); color:var(--ink); }
+  .card{ background:var(--card); border:1px solid var(--line); border-radius:14px; }
+  .crumb{ cursor:pointer; color:#5a6072; }
+  .crumb.active{ color:var(--ink); font-weight:700; cursor:default; }
+  tr.drill-row{ cursor:pointer; }
+  tr.drill-row:hover{ background:#f0f3fb; }
+  .badge-up{ color:var(--up); background:#e7f8ee; border-radius:8px; padding:2px 8px; }
+  .badge-down{ color:var(--down); background:#fdeaee; border-radius:8px; padding:2px 8px; }
+</style>
+</head>
+<body class="min-h-screen">
+<div class="max-w-6xl mx-auto px-6 py-8">
+
+  <header class="flex items-center justify-between mb-6 flex-wrap gap-3">
+    <div>
+      <h1 class="text-2xl font-bold">鑽探 <span class="mono text-sm opacity-50">DrillSight</span></h1>
+      <p class="text-sm text-gray-500 mt-1">點擊任一列即可往下一層看明細</p>
+    </div>
+    <div class="flex items-center gap-2 text-sm">
+      <span class="text-gray-500">統計區間</span>
+      <select id="rangeSelect" class="border border-gray-300 rounded-lg px-3 py-1.5 bg-white">
+        <option value="7">近 7 天</option>
+        <option value="30" selected>近 30 天</option>
+        <option value="90">近 90 天</option>
+      </select>
+    </div>
+  </header>
+
+  <nav class="flex items-center gap-2 text-sm mb-5" id="breadcrumb">
+    <span class="crumb active" data-level="0">全部地區</span>
+  </nav>
+
+  <section class="grid sm:grid-cols-4 gap-4 mb-6">
+    <div class="card p-4">
+      <p class="text-xs text-gray-500 mb-1">總營收</p>
+      <p id="kpiRevenue" class="mono text-2xl font-bold">NT$ 8,420,000</p>
+    </div>
+    <div class="card p-4">
+      <p class="text-xs text-gray-500 mb-1">訂單數</p>
+      <p id="kpiOrders" class="mono text-2xl font-bold">15,230</p>
+    </div>
+    <div class="card p-4">
+      <p class="text-xs text-gray-500 mb-1">平均客單價</p>
+      <p id="kpiAov" class="mono text-2xl font-bold">NT$ 553</p>
+    </div>
+    <div class="card p-4">
+      <p class="text-xs text-gray-500 mb-1">與上期相比</p>
+      <p class="mono text-2xl font-bold badge-up" id="kpiChange">+6.8%</p>
+    </div>
+  </section>
+
+  <section class="card p-5">
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="text-left text-gray-500 border-b border-gray-200">
+          <th class="py-2" id="colLabel">地區</th>
+          <th class="py-2 text-right">營收</th>
+          <th class="py-2 text-right">訂單數</th>
+          <th class="py-2 text-right">較上期</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </section>
+
+  <p class="text-xs text-gray-400 mt-4 text-center">資料為示意數字，用於展示下鑽互動行為</p>
+</div>
+
+<script>
+  const DATA = {
+    regions: [
+      { name:"北部", revenue:3820000, orders:6600, change:8.2, stores:["台北信義店","台北松山店","桃園藝文店"] },
+      { name:"中部", revenue:2150000, orders:4100, change:-2.1, stores:["台中草悟店","彰化員林店"] },
+      { name:"南部", revenue:1980000, orders:3400, change:5.4, stores:["高雄夢時代店","台南中西店"] },
+      { name:"東部", revenue:470000, orders:1130, change:1.2, stores:["花蓮市區店"] },
+    ],
+    storeDetail: {
+      "台北信義店": { revenue:1620000, orders:2800, change:11.3, products:["手沖濾掛咖啡","可可脆片燕麥棒","限量聯名帆布袋"] },
+      "台北松山店": { revenue:1300000, orders:2200, change:6.0, products:["手沖濾掛咖啡","環保吸管組"] },
+      "桃園藝文店": { revenue:900000, orders:1600, change:4.4, products:["限量聯名帆布袋","可可脆片燕麥棒"] },
+      "台中草悟店": { revenue:1400000, orders:2600, change:-3.0, products:["手沖濾掛咖啡","環保吸管組","可可脆片燕麥棒"] },
+      "彰化員林店": { revenue:750000, orders:1500, change:-0.8, products:["限量聯名帆布袋"] },
+      "高雄夢時代店": { revenue:1200000, orders:2000, change:7.1, products:["手沖濾掛咖啡","限量聯名帆布袋"] },
+      "台南中西店": { revenue:780000, orders:1400, change:3.0, products:["可可脆片燕麥棒"] },
+      "花蓮市區店": { revenue:470000, orders:1130, change:1.2, products:["手沖濾掛咖啡"] },
+    },
+    productDetail: {
+      "手沖濾掛咖啡": { revenue:620000, orders:3100, change:9.8 },
+      "可可脆片燕麥棒": { revenue:380000, orders:2600, change:4.2 },
+      "限量聯名帆布袋": { revenue:510000, orders:900, change:14.6 },
+      "環保吸管組": { revenue:150000, orders:1800, change:-1.5 },
+    }
+  };
+
+  let level = 0; // 0: 地區, 1: 門店, 2: 商品
+  let path = [];
+
+  function fmtMoney(n){ return 'NT$ ' + n.toLocaleString(); }
+  function changeBadge(c){
+    const cls = c >= 0 ? 'badge-up' : 'badge-down';
+    const sign = c >= 0 ? '+' : '';
+    return `<span class="${cls}">${sign}${c.toFixed(1)}%</span>`;
+  }
+
+  function renderBreadcrumb(){
+    const crumb = document.getElementById('breadcrumb');
+    crumb.innerHTML = '';
+    const root = document.createElement('span');
+    root.className = 'crumb' + (level===0 ? ' active' : '');
+    root.textContent = '全部地區';
+    root.dataset.level = 0;
+    root.addEventListener('click', ()=>{ level=0; path=[]; render(); });
+    crumb.appendChild(root);
+
+    path.forEach((p, idx)=>{
+      const sep = document.createElement('span');
+      sep.textContent = '›';
+      sep.className = 'text-gray-400';
+      crumb.appendChild(sep);
+
+      const node = document.createElement('span');
+      node.className = 'crumb' + (idx === path.length-1 ? ' active' : '');
+      node.textContent = p;
+      node.addEventListener('click', ()=>{
+        level = idx + 1;
+        path = path.slice(0, idx+1);
+        render();
+      });
+      crumb.appendChild(node);
+    });
+  }
+
+  function renderKpis(rows){
+    const totalRevenue = rows.reduce((s,r)=>s+r.revenue, 0);
+    const totalOrders = rows.reduce((s,r)=>s+r.orders, 0);
+    const avgChange = rows.reduce((s,r)=>s+r.change, 0) / rows.length;
+    document.getElementById('kpiRevenue').textContent = fmtMoney(totalRevenue);
+    document.getElementById('kpiOrders').textContent = totalOrders.toLocaleString();
+    document.getElementById('kpiAov').textContent = fmtMoney(Math.round(totalRevenue/totalOrders));
+    const kpiChange = document.getElementById('kpiChange');
+    kpiChange.className = 'mono text-2xl font-bold ' + (avgChange>=0 ? 'badge-up' : 'badge-down');
+    kpiChange.textContent = (avgChange>=0?'+':'') + avgChange.toFixed(1) + '%';
+  }
+
+  function render(){
+    renderBreadcrumb();
+    const tbody = document.getElementById('tableBody');
+    tbody.innerHTML = '';
+    let rows = [];
+    let colLabel = '地區';
+
+    if(level === 0){
+      colLabel = '地區';
+      rows = DATA.regions.map(r=>({ key:r.name, name:r.name, revenue:r.revenue, orders:r.orders, change:r.change, drillable: true }));
+    } else if(level === 1){
+      colLabel = '門店（' + path[0] + '）';
+      const region = DATA.regions.find(r=>r.name===path[0]);
+      rows = region.stores.map(s=>{
+        const d = DATA.storeDetail[s];
+        return { key:s, name:s, revenue:d.revenue, orders:d.orders, change:d.change, drillable: true };
+      });
+    } else if(level === 2){
+      colLabel = '商品（' + path[1] + '）';
+      const store = DATA.storeDetail[path[1]];
+      rows = store.products.map(p=>{
+        const d = DATA.productDetail[p];
+        return { key:p, name:p, revenue:d.revenue, orders:d.orders, change:d.change, drillable:false };
+      });
+    }
+
+    document.getElementById('colLabel').textContent = colLabel;
+    renderKpis(rows);
+
+    rows.forEach(r=>{
+      const tr = document.createElement('tr');
+      tr.className = 'border-b border-gray-100' + (r.drillable ? ' drill-row' : '');
+      tr.innerHTML = `
+        <td class="py-3 font-medium">${r.name}${r.drillable ? ' <span class=\"text-gray-400 text-xs\">→ 查看明細</span>' : ''}</td>
+        <td class="py-3 text-right mono">${fmtMoney(r.revenue)}</td>
+        <td class="py-3 text-right mono">${r.orders.toLocaleString()}</td>
+        <td class="py-3 text-right mono">${changeBadge(r.change)}</td>
+      `;
+      if(r.drillable){
+        tr.addEventListener('click', ()=>{
+          path.push(r.key);
+          level += 1;
+          render();
+        });
+      }
+      tbody.appendChild(tr);
+    });
+  }
+
+  document.getElementById('rangeSelect').addEventListener('change', render);
+
+  render();
+</script>
+</body>
+</html>

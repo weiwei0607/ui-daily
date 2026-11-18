@@ -1,0 +1,164 @@
+<!-- style #22 Feature-Rich Showcase + Dark Mode (OLED) 皮膚 -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>夜核 NightCore｜開發者即時監控平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#0d0f10; --card:#161819; --line:#242728; --glow:#39ff8f; --glow-dim:#1f8a52; }
+  *{font-family:'Hanken Grotesk','Noto Sans TC',sans-serif;}
+  .mono{font-family:'Space Mono',monospace;}
+  body{ background:var(--bg); color:#e7e9e8; }
+  .glow-text{ color:var(--glow); text-shadow: 0 0 10px rgba(57,255,143,.5); }
+  .card{ background:var(--card); border:1px solid var(--line); border-radius:16px; }
+  .btn-glow{
+    background:var(--glow); color:#06140a; font-weight:700; border-radius:12px;
+    box-shadow: 0 0 24px rgba(57,255,143,.35);
+    transition: box-shadow .2s ease, transform .2s ease;
+  }
+  .btn-glow:hover{ box-shadow: 0 0 36px rgba(57,255,143,.6); transform: translateY(-1px); }
+  .tab-btn{ color:#9aa0a0; border-bottom:2px solid transparent; padding:.75rem 0; font-weight:600; }
+  .tab-btn.active{ color:var(--glow); border-color:var(--glow); }
+  .dot{ width:8px; height:8px; border-radius:50%; background:var(--glow); box-shadow:0 0 8px var(--glow); }
+  .copy-btn{ border:1px solid var(--line); border-radius:8px; }
+  .toggle-track{ width:52px; height:28px; border-radius:999px; background:var(--line); position:relative; cursor:pointer; }
+  .toggle-thumb{ position:absolute; top:3px; left:3px; width:22px; height:22px; border-radius:50%; background:#8a8f8f; transition:.2s; }
+  .toggle-track.on{ background: rgba(57,255,143,.25); }
+  .toggle-track.on .toggle-thumb{ left:27px; background:var(--glow); }
+  @keyframes pulse-bar{ 0%,100%{opacity:.5} 50%{opacity:1} }
+</style>
+</head>
+<body>
+<nav class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+  <div class="flex items-center gap-2">
+    <div class="dot"></div>
+    <span class="text-xl font-extrabold">夜核 <span class="mono text-sm opacity-60">NightCore</span></span>
+  </div>
+  <button class="btn-glow px-5 py-2 text-sm">免費開始監控</button>
+</nav>
+
+<header class="max-w-6xl mx-auto px-6 pt-10 pb-16 text-center">
+  <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight mb-5">
+    一個夜裡盯著系統的 <span class="glow-text">駭客級監控台</span>
+  </h1>
+  <p class="text-lg text-gray-400 max-w-2xl mx-auto mb-8">把 API 延遲、錯誤率、部署狀態全部收進一個暗色儀表板，讓你在凌晨三點也能一眼看懂發生了什麼事。</p>
+  <div class="flex justify-center gap-4">
+    <button class="btn-glow px-6 py-3">立即試用</button>
+    <button class="px-6 py-3 rounded-xl border border-gray-700 font-semibold">看 3 分鐘介紹</button>
+  </div>
+</header>
+
+<section class="max-w-6xl mx-auto px-6 mb-16">
+  <div class="flex gap-8 border-b border-gray-800 mb-8 overflow-x-auto" id="tabs">
+    <button class="tab-btn active" data-tab="monitor">即時監控</button>
+    <button class="tab-btn" data-tab="deploy">部署追蹤</button>
+    <button class="tab-btn" data-tab="alert">告警規則</button>
+  </div>
+
+  <div id="panel-monitor" class="tab-panel grid sm:grid-cols-3 gap-5">
+    <div class="card p-5">
+      <p class="text-sm text-gray-400 mb-2">API 平均延遲</p>
+      <p id="latencyVal" class="mono text-3xl font-bold glow-text">128<span class="text-base">ms</span></p>
+      <div class="mt-4 h-10 flex items-end gap-1" id="latencyBars"></div>
+    </div>
+    <div class="card p-5">
+      <p class="text-sm text-gray-400 mb-2">錯誤率</p>
+      <p id="errorVal" class="mono text-3xl font-bold" style="color:#ff6b6b">0.42<span class="text-base">%</span></p>
+      <p class="text-xs text-gray-500 mt-4">過去 15 分鐘，每 2 秒更新一次</p>
+    </div>
+    <div class="card p-5">
+      <p class="text-sm text-gray-400 mb-2">在線服務節點</p>
+      <p class="mono text-3xl font-bold glow-text">24<span class="text-base">/24</span></p>
+      <p class="text-xs text-gray-500 mt-4">全部節點健康回報正常</p>
+    </div>
+  </div>
+
+  <div id="panel-deploy" class="tab-panel hidden">
+    <div class="card p-6">
+      <p class="font-bold mb-4">今日部署紀錄</p>
+      <ul class="space-y-3 mono text-sm">
+        <li class="flex justify-between border-b border-gray-800 pb-2"><span>v2.14.3 — api-gateway</span><span class="glow-text">成功</span></li>
+        <li class="flex justify-between border-b border-gray-800 pb-2"><span>v2.14.2 — worker-queue</span><span class="glow-text">成功</span></li>
+        <li class="flex justify-between"><span>v2.14.1 — auth-service</span><span style="color:#ffb020">已回滾</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="panel-alert" class="tab-panel hidden">
+    <div class="card p-6 flex items-center justify-between">
+      <div>
+        <p class="font-bold mb-1">延遲超過 300ms 時通知我</p>
+        <p class="text-sm text-gray-500">透過 Slack #on-call 頻道發送</p>
+      </div>
+      <div class="toggle-track on" id="alertToggle"><div class="toggle-thumb"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-6 mb-20">
+  <div class="card p-6">
+    <div class="flex items-center justify-between mb-3">
+      <p class="font-bold">三行程式碼接上你的服務</p>
+      <button id="copyBtn" class="copy-btn px-3 py-1.5 text-xs mono text-gray-300">複製</button>
+    </div>
+    <pre class="mono text-sm text-gray-300 overflow-x-auto" id="codeSnippet">import { NightCore } from "nightcore-sdk"
+NightCore.init({ apiKey: "nc_live_xxx" })
+NightCore.watch("api-gateway")</pre>
+  </div>
+</section>
+
+<footer class="max-w-6xl mx-auto px-6 py-10 border-t border-gray-800 text-sm text-gray-500 text-center">
+  © 2026 夜核 NightCore — 給所有熬夜修 bug 的工程師
+</footer>
+
+<script>
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p=>p.classList.add('hidden'));
+      btn.classList.add('active');
+      document.getElementById('panel-' + btn.dataset.tab).classList.remove('hidden');
+    });
+  });
+
+  const barsWrap = document.getElementById('latencyBars');
+  let bars = [];
+  for(let i=0;i<20;i++){
+    const b = document.createElement('div');
+    b.style.width = '4px';
+    b.style.background = 'var(--glow)';
+    b.style.opacity = '0.7';
+    b.style.height = (10 + Math.random()*30) + 'px';
+    barsWrap.appendChild(b);
+    bars.push(b);
+  }
+
+  function tick(){
+    const latency = 90 + Math.floor(Math.random()*90);
+    document.getElementById('latencyVal').innerHTML = latency + '<span class="text-base">ms</span>';
+    const err = (0.2 + Math.random()*0.6).toFixed(2);
+    document.getElementById('errorVal').innerHTML = err + '<span class="text-base">%</span>';
+    const bar = bars[Math.floor(Math.random()*bars.length)];
+    bar.style.height = (10 + Math.random()*30) + 'px';
+  }
+  setInterval(tick, 1800);
+
+  document.getElementById('alertToggle').addEventListener('click', (e)=>{
+    e.currentTarget.classList.toggle('on');
+  });
+
+  document.getElementById('copyBtn').addEventListener('click', ()=>{
+    const text = document.getElementById('codeSnippet').textContent;
+    navigator.clipboard?.writeText(text);
+    const btn = document.getElementById('copyBtn');
+    const old = btn.textContent;
+    btn.textContent = '已複製 ✓';
+    setTimeout(()=>{ btn.textContent = old; }, 1500);
+  });
+</script>
+</body>
+</html>

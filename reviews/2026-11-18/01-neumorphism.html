@@ -1,0 +1,213 @@
+<!-- style #02 Neumorphism -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>存滿 SaveRound｜溫柔存錢目標追蹤</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --base:#e9e9ec;
+    --base-light:#ffffff;
+    --base-dark:#c9c9cf;
+    --text:#5b5b66;
+    --text-dark:#33333d;
+    --accent:#9bbf9b;
+  }
+  *{font-family:'Zen Maru Gothic','Noto Sans TC',sans-serif;}
+  .font-display{font-family:'Baloo 2','Zen Maru Gothic',sans-serif;}
+  body{background:var(--base); color:var(--text-dark);}
+  .neu-raised{
+    background:var(--base);
+    border-radius:28px;
+    box-shadow: 10px 10px 20px var(--base-dark), -10px -10px 20px var(--base-light);
+  }
+  .neu-raised-sm{
+    background:var(--base);
+    border-radius:18px;
+    box-shadow: 6px 6px 12px var(--base-dark), -6px -6px 12px var(--base-light);
+  }
+  .neu-pressed{
+    background:var(--base);
+    border-radius:18px;
+    box-shadow: inset 6px 6px 12px var(--base-dark), inset -6px -6px 12px var(--base-light);
+  }
+  .neu-btn{
+    background:var(--base);
+    border-radius:16px;
+    box-shadow: 6px 6px 12px var(--base-dark), -6px -6px 12px var(--base-light);
+    transition: box-shadow .15s ease, transform .15s ease;
+  }
+  .neu-btn:active{
+    box-shadow: inset 4px 4px 8px var(--base-dark), inset -4px -4px 8px var(--base-light);
+    transform: translateY(1px);
+  }
+  .neu-circle{
+    border-radius:50%;
+    background:var(--base);
+    box-shadow: 8px 8px 16px var(--base-dark), -8px -8px 16px var(--base-light);
+  }
+  .neu-switch-track{
+    width:56px;height:30px;border-radius:999px;
+    background:var(--base);
+    box-shadow: inset 4px 4px 8px var(--base-dark), inset -4px -4px 8px var(--base-light);
+    position:relative; cursor:pointer;
+  }
+  .neu-switch-thumb{
+    position:absolute; top:3px; left:3px; width:24px; height:24px; border-radius:50%;
+    background:var(--base);
+    box-shadow: 3px 3px 6px var(--base-dark), -3px -3px 6px var(--base-light);
+    transition: left .2s ease, background .2s ease;
+  }
+  .neu-switch-track.on .neu-switch-thumb{ left:29px; background:var(--accent); }
+  input[type="range"]{
+    -webkit-appearance:none; appearance:none; height:10px; border-radius:999px;
+    background:var(--base);
+    box-shadow: inset 4px 4px 8px var(--base-dark), inset -4px -4px 8px var(--base-light);
+  }
+  input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none; width:26px; height:26px; border-radius:50%;
+    background:var(--base);
+    box-shadow: 4px 4px 8px var(--base-dark), -4px -4px 8px var(--base-light);
+    cursor:pointer;
+  }
+  .progress-ring-bg{ stroke:var(--base-dark); }
+  .progress-ring-fg{ stroke:var(--accent); transition: stroke-dashoffset .6s ease; }
+</style>
+</head>
+<body class="min-h-screen px-4 py-10 sm:py-16">
+<div class="max-w-5xl mx-auto">
+
+  <header class="flex items-center justify-between mb-10">
+    <div>
+      <h1 class="font-display text-2xl sm:text-3xl font-bold tracking-wide" style="color:var(--text-dark)">存滿 <span class="font-normal text-base align-middle opacity-60">SaveRound</span></h1>
+      <p class="text-sm mt-1 opacity-70">把存錢這件事，做得柔軟一點</p>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="text-sm opacity-70">自動扣款</span>
+      <div id="autoSwitch" class="neu-switch-track on">
+        <div class="neu-switch-thumb"></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="neu-raised p-6 sm:p-8 mb-8 grid sm:grid-cols-3 gap-6 items-center">
+    <div class="flex flex-col items-center">
+      <svg width="140" height="140" viewBox="0 0 140 140">
+        <circle class="progress-ring-bg" cx="70" cy="70" r="58" fill="none" stroke-width="14"/>
+        <circle id="ringFg" class="progress-ring-fg" cx="70" cy="70" r="58" fill="none" stroke-width="14"
+          stroke-linecap="round" transform="rotate(-90 70 70)"
+          stroke-dasharray="364.4" stroke-dashoffset="364.4"/>
+        <text id="ringPct" x="70" y="76" text-anchor="middle" font-size="24" font-weight="700" fill="#33333d" font-family="Baloo 2">0%</text>
+      </svg>
+      <p class="text-sm mt-2 opacity-70">本月目標完成度</p>
+    </div>
+    <div class="sm:col-span-2">
+      <p class="text-sm opacity-70 mb-1">目前選取目標</p>
+      <h2 id="goalName" class="font-display text-xl font-bold mb-3">日本賞楓旅行基金</h2>
+      <p class="text-sm mb-2 opacity-80">每月存入金額：<span id="monthlyLabel" class="font-display font-bold">NT$ 3,000</span></p>
+      <input id="monthlySlider" type="range" min="500" max="8000" step="100" value="3000" class="w-full">
+      <p id="monthsLeft" class="text-sm mt-3 opacity-80">以目前金額，約 <span class="font-display font-bold">7</span> 個月可存到目標。</p>
+    </div>
+  </section>
+
+  <section class="grid sm:grid-cols-3 gap-6 mb-8">
+    <div class="goal-card neu-raised-sm p-5 cursor-pointer" data-name="日本賞楓旅行基金" data-target="21000" data-saved="9000">
+      <p class="font-display font-bold mb-1">日本賞楓旅行基金</p>
+      <p class="text-xs opacity-60 mb-3">已存 NT$9,000 / 目標 NT$21,000</p>
+      <div class="neu-pressed h-3 w-full overflow-hidden"><div class="h-full rounded-full" style="width:43%; background:var(--accent)"></div></div>
+    </div>
+    <div class="goal-card neu-raised-sm p-5 cursor-pointer" data-name="新相機鏡頭" data-target="35000" data-saved="12000">
+      <p class="font-display font-bold mb-1">新相機鏡頭</p>
+      <p class="text-xs opacity-60 mb-3">已存 NT$12,000 / 目標 NT$35,000</p>
+      <div class="neu-pressed h-3 w-full overflow-hidden"><div class="h-full rounded-full" style="width:34%; background:var(--accent)"></div></div>
+    </div>
+    <div class="goal-card neu-raised-sm p-5 cursor-pointer" data-name="緊急預備金" data-target="60000" data-saved="38000">
+      <p class="font-display font-bold mb-1">緊急預備金</p>
+      <p class="text-xs opacity-60 mb-3">已存 NT$38,000 / 目標 NT$60,000</p>
+      <div class="neu-pressed h-3 w-full overflow-hidden"><div class="h-full rounded-full" style="width:63%; background:var(--accent)"></div></div>
+    </div>
+  </section>
+
+  <section class="neu-raised p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+    <div>
+      <p class="font-display font-bold text-lg mb-1">今天手動存一筆？</p>
+      <p class="text-sm opacity-70">每按一次，幫你加入 NT$500 到目前目標裡</p>
+    </div>
+    <button id="addMoneyBtn" class="neu-btn neu-circle w-20 h-20 flex items-center justify-center font-display font-bold text-lg">+500</button>
+  </section>
+
+  <p id="toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 neu-raised-sm px-5 py-3 text-sm font-display font-bold opacity-0 transition-opacity duration-300 pointer-events-none">已存入！</p>
+
+</div>
+
+<script>
+  const goals = {
+    "日本賞楓旅行基金": {target:21000, saved:9000},
+    "新相機鏡頭": {target:35000, saved:12000},
+    "緊急預備金": {target:60000, saved:38000},
+  };
+  let currentGoal = "日本賞楓旅行基金";
+  const ring = document.getElementById('ringFg');
+  const ringPct = document.getElementById('ringPct');
+  const CIRC = 364.4;
+
+  function renderRing(){
+    const g = goals[currentGoal];
+    const pct = Math.min(100, Math.round(g.saved / g.target * 100));
+    ring.style.strokeDashoffset = CIRC - (CIRC * pct/100);
+    ringPct.textContent = pct + '%';
+  }
+
+  function renderMonths(){
+    const monthly = parseInt(document.getElementById('monthlySlider').value, 10);
+    const g = goals[currentGoal];
+    const remain = Math.max(0, g.target - g.saved);
+    const months = Math.max(1, Math.ceil(remain / monthly));
+    document.getElementById('monthsLeft').innerHTML =
+      `以目前金額，約 <span class="font-display font-bold">${months}</span> 個月可存到目標。`;
+  }
+
+  document.getElementById('monthlySlider').addEventListener('input', (e)=>{
+    document.getElementById('monthlyLabel').textContent = 'NT$ ' + parseInt(e.target.value,10).toLocaleString();
+    renderMonths();
+  });
+
+  document.querySelectorAll('.goal-card').forEach(card=>{
+    card.addEventListener('click', ()=>{
+      currentGoal = card.dataset.name;
+      document.getElementById('goalName').textContent = currentGoal;
+      renderRing();
+      renderMonths();
+    });
+  });
+
+  document.getElementById('addMoneyBtn').addEventListener('click', ()=>{
+    goals[currentGoal].saved = Math.min(goals[currentGoal].target, goals[currentGoal].saved + 500);
+    renderRing();
+    renderMonths();
+    const card = [...document.querySelectorAll('.goal-card')].find(c=>c.dataset.name===currentGoal);
+    if(card){
+      const g = goals[currentGoal];
+      const pct = Math.min(100, Math.round(g.saved/g.target*100));
+      card.querySelector('div.h-full').style.width = pct + '%';
+      card.querySelector('p.text-xs').textContent = `已存 NT$${g.saved.toLocaleString()} / 目標 NT$${g.target.toLocaleString()}`;
+    }
+    const toast = document.getElementById('toast');
+    toast.style.opacity = 1;
+    setTimeout(()=>{ toast.style.opacity = 0; }, 1200);
+  });
+
+  const autoSwitch = document.getElementById('autoSwitch');
+  autoSwitch.addEventListener('click', ()=>{
+    autoSwitch.classList.toggle('on');
+  });
+
+  renderRing();
+  renderMonths();
+</script>
+</body>
+</html>

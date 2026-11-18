@@ -1,0 +1,145 @@
+<!-- style #46 Dimensional Layering -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>層間 LayerSpace｜心理諮詢預約平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#eef0f3; --ink:#232733; }
+  *{font-family:'Manrope','Noto Sans TC',sans-serif;}
+  body{ background:var(--bg); color:var(--ink); }
+  .layer{
+    background:#fff; border-radius:20px;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .layer-1{ box-shadow: 0 2px 6px rgba(30,34,45,.06); transform: translateY(0); }
+  .layer-2{ box-shadow: 0 10px 24px rgba(30,34,45,.10); transform: translateY(0); }
+  .layer-3{ box-shadow: 0 24px 48px rgba(30,34,45,.16); transform: translateY(0); }
+  .layer:hover{ transform: translateY(-6px); box-shadow: 0 30px 60px rgba(30,34,45,.2); }
+  .depth-stage{ position:relative; }
+  .float-card{ position:absolute; }
+  .step-dot{ width:10px; height:10px; border-radius:50%; background:#d6d9e0; }
+  .step-dot.active{ background:var(--ink); }
+  .counselor-card.selected{ outline:3px solid #3a4a8f; }
+  .slot-btn.selected{ background:#232733; color:#fff; }
+</style>
+</head>
+<body>
+<header class="max-w-5xl mx-auto px-6 py-8 flex items-center justify-between">
+  <h1 class="text-xl font-extrabold">層間 <span class="text-sm font-medium opacity-50">LayerSpace</span></h1>
+  <p class="text-sm opacity-60">線上心理諮詢・一步步把煩惱放下</p>
+</header>
+
+<section class="max-w-5xl mx-auto px-6 depth-stage mb-20" style="height:280px;">
+  <div class="layer layer-1 float-card p-6 w-64" style="top:40px; left:0;">
+    <p class="text-xs opacity-50 mb-1">本週已完成</p>
+    <p class="text-2xl font-extrabold">312 <span class="text-sm font-normal opacity-60">場諮詢</span></p>
+  </div>
+  <div class="layer layer-2 float-card p-6 w-72" style="top:0; left:160px; z-index:2;">
+    <p class="text-xs opacity-50 mb-1">平均預約等候</p>
+    <p class="text-2xl font-extrabold">1.8 <span class="text-sm font-normal opacity-60">天</span></p>
+  </div>
+  <div class="layer layer-3 float-card p-7 w-80 text-white" style="top:60px; left:380px; z-index:3; background:#232733;">
+    <p class="text-xs opacity-60 mb-1">今天就能預約</p>
+    <p class="text-xl font-bold leading-snug">找一個你信任的諮商師，<br>從第一次對話開始</p>
+  </div>
+</section>
+
+<main class="max-w-5xl mx-auto px-6">
+  <div class="flex items-center gap-3 mb-8">
+    <div class="step-dot active" id="dot1"></div>
+    <div class="step-dot" id="dot2"></div>
+    <div class="step-dot" id="dot3"></div>
+    <span id="stepLabel" class="text-sm font-semibold ml-2">第 1 步：選擇諮商師</span>
+  </div>
+
+  <section id="step1" class="step-section">
+    <div class="grid sm:grid-cols-3 gap-5 mb-10">
+      <div class="layer layer-2 counselor-card p-5 cursor-pointer" data-name="林雨桐" data-tag="情緒調適／焦慮">
+        <p class="font-bold mb-1">林雨桐 諮商心理師</p>
+        <p class="text-sm opacity-60 mb-3">專長：情緒調適、焦慮</p>
+        <p class="text-xs opacity-50">執業 9 年</p>
+      </div>
+      <div class="layer layer-2 counselor-card p-5 cursor-pointer" data-name="陳柏安" data-tag="伴侶關係／溝通">
+        <p class="font-bold mb-1">陳柏安 諮商心理師</p>
+        <p class="text-sm opacity-60 mb-3">專長：伴侶關係、溝通</p>
+        <p class="text-xs opacity-50">執業 6 年</p>
+      </div>
+      <div class="layer layer-2 counselor-card p-5 cursor-pointer" data-name="許晴" data-tag="職場壓力／自我探索">
+        <p class="font-bold mb-1">許晴 諮商心理師</p>
+        <p class="text-sm opacity-60 mb-3">專長：職場壓力、自我探索</p>
+        <p class="text-xs opacity-50">執業 12 年</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="step2" class="step-section hidden">
+    <p class="mb-4 opacity-70">已選擇：<span id="chosenCounselor" class="font-bold"></span>，請選擇方便的時段</p>
+    <div class="grid sm:grid-cols-4 gap-3 mb-10">
+      <button class="layer layer-1 slot-btn p-4 text-sm" data-slot="週三 14:00">週三 14:00</button>
+      <button class="layer layer-1 slot-btn p-4 text-sm" data-slot="週三 19:30">週三 19:30</button>
+      <button class="layer layer-1 slot-btn p-4 text-sm" data-slot="週五 10:00">週五 10:00</button>
+      <button class="layer layer-1 slot-btn p-4 text-sm" data-slot="週六 16:00">週六 16:00</button>
+    </div>
+  </section>
+
+  <section id="step3" class="step-section hidden mb-16">
+    <div class="layer layer-3 p-8">
+      <p class="text-lg font-bold mb-4">預約確認</p>
+      <p class="mb-2">諮商師：<span id="confirmCounselor" class="font-semibold"></span></p>
+      <p class="mb-2">時段：<span id="confirmSlot" class="font-semibold"></span></p>
+      <p class="mb-6 opacity-60 text-sm">諮詢前一天會透過 Email 提醒您準備事項。</p>
+      <button id="submitBtn" class="px-6 py-3 rounded-xl font-bold" style="background:#232733; color:#fff;">確認送出預約</button>
+      <p id="doneMsg" class="hidden mt-5 text-sm font-semibold" style="color:#1c7a30;">✓ 已收到您的預約，我們會盡快與您聯繫確認。</p>
+    </div>
+  </section>
+</main>
+
+<footer class="max-w-5xl mx-auto px-6 py-10 text-xs opacity-50">層間 LayerSpace — 每一層卡片，都是你願意靠近自己多一點的距離。</footer>
+
+<script>
+  let chosen = { counselor:null, slot:null };
+
+  function goStep(n){
+    document.querySelectorAll('.step-section').forEach(s=>s.classList.add('hidden'));
+    document.getElementById('step'+n).classList.remove('hidden');
+    ['dot1','dot2','dot3'].forEach((id,idx)=>{
+      document.getElementById(id).classList.toggle('active', idx < n);
+    });
+    const labels = ['選擇諮商師','選擇時段','確認預約'];
+    document.getElementById('stepLabel').textContent = `第 ${n} 步：${labels[n-1]}`;
+  }
+
+  document.querySelectorAll('.counselor-card').forEach(card=>{
+    card.addEventListener('click', ()=>{
+      document.querySelectorAll('.counselor-card').forEach(c=>c.classList.remove('selected'));
+      card.classList.add('selected');
+      chosen.counselor = card.dataset.name;
+      document.getElementById('chosenCounselor').textContent = chosen.counselor;
+      setTimeout(()=>goStep(2), 250);
+    });
+  });
+
+  document.querySelectorAll('.slot-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.slot-btn').forEach(b=>b.classList.remove('selected'));
+      btn.classList.add('selected');
+      chosen.slot = btn.dataset.slot;
+      document.getElementById('confirmCounselor').textContent = chosen.counselor;
+      document.getElementById('confirmSlot').textContent = chosen.slot;
+      setTimeout(()=>goStep(3), 250);
+    });
+  });
+
+  document.getElementById('submitBtn').addEventListener('click', ()=>{
+    document.getElementById('doneMsg').classList.remove('hidden');
+  });
+
+  goStep(1);
+</script>
+</body>
+</html>

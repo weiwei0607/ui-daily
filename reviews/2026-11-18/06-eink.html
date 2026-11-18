@@ -1,0 +1,146 @@
+<!-- style #56 E-Ink / Paper -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>紙聲 PaperVoice｜獨立電子報閱讀頁</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,700;1,6..72,500&family=JetBrains+Mono:wght@400;500;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f5f1eb; --ink:#1a1a1a; --rule:#1a1a1a;
+  }
+  body.sepia{ --paper:#ece2cc; }
+  body.night{ --paper:#111111; --ink:#e8e2d4; --rule:#e8e2d4; }
+  *{font-family:'Newsreader','Noto Serif TC',serif;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  body{ background:var(--paper); color:var(--ink); }
+  .noise{
+    position:fixed; inset:0; pointer-events:none; opacity:.05; mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .rule-top{ border-top:3px solid var(--rule); }
+  .rule-bottom{ border-bottom:1px solid var(--rule); }
+  .double-rule{ border-top:3px double var(--rule); }
+  .drop-cap::first-letter{ font-size:3.4rem; font-weight:700; float:left; line-height:.8; padding-right:.25rem; }
+  .mode-btn{ border:1px solid var(--ink); border-radius:999px; padding:.35rem 1rem; font-size:.75rem; }
+  .mode-btn.active{ background:var(--ink); color:var(--paper); }
+  .bookmark-btn{ cursor:pointer; }
+  .bookmark-btn.saved::before{ content:"★ "; }
+  .bookmark-btn:not(.saved)::before{ content:"☆ "; }
+  .progress-rail{ position:fixed; top:0; left:0; height:3px; background:var(--ink); z-index:50; width:0%; transition:width .1s linear; }
+</style>
+</head>
+<body class="min-h-screen" style="font-size: var(--fs, 1rem);">
+<div class="noise"></div>
+<div class="progress-rail" id="progressRail"></div>
+
+<header class="max-w-3xl mx-auto px-6 pt-10 pb-6 text-center rule-top">
+  <p class="mono text-xs tracking-widest opacity-60 mb-2">第 214 期 · 2026 年 11 月 18 日</p>
+  <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-2">紙聲 PaperVoice</h1>
+  <p class="text-sm opacity-70 italic">一封只談慢下來這件事的電子報</p>
+</header>
+
+<div class="max-w-3xl mx-auto px-6 flex items-center justify-between double-rule py-3 mb-10 text-sm">
+  <div class="flex gap-2" id="modeGroup">
+    <button class="mode-btn active" data-mode="paper">紙本</button>
+    <button class="mode-btn" data-mode="sepia">泛黃</button>
+    <button class="mode-btn" data-mode="night">夜讀</button>
+  </div>
+  <div class="flex items-center gap-3">
+    <button id="fsDown" class="mono">A−</button>
+    <button id="fsUp" class="mono">A+</button>
+  </div>
+</div>
+
+<main class="max-w-3xl mx-auto px-6">
+  <article class="mb-14 rule-bottom pb-10">
+    <div class="flex items-start justify-between mb-3">
+      <h2 class="text-2xl font-bold leading-snug pr-4">把今天的待辦，留一件給明天</h2>
+      <span class="bookmark-btn text-lg shrink-0" data-id="a1"></span>
+    </div>
+    <p class="mono text-xs opacity-50 mb-4">閱讀時間 約 4 分鐘</p>
+    <p class="drop-cap leading-relaxed text-lg mb-4">
+      我們總以為效率是把今天的事情全部做完，但這幾年我越來越相信，真正讓人持續走下去的，是刻意留一件事給明天的自己。那不是偷懶，而是替疲憊留一條後路——讓今天的結束，不必是耗盡的結束。
+    </p>
+    <p class="leading-relaxed text-lg opacity-90">
+      這封信想談的，是「未完成」如何成為一種溫柔的提醒：提醒你明天還有事可做，提醒你今天已經足夠。
+    </p>
+  </article>
+
+  <article class="mb-14 rule-bottom pb-10">
+    <div class="flex items-start justify-between mb-3">
+      <h2 class="text-2xl font-bold leading-snug pr-4">一張書桌，兩種人生</h2>
+      <span class="bookmark-btn text-lg shrink-0" data-id="a2"></span>
+    </div>
+    <p class="mono text-xs opacity-50 mb-4">閱讀時間 約 6 分鐘</p>
+    <p class="drop-cap leading-relaxed text-lg mb-4">
+      同一張書桌，白天是會議與報表的戰場，晚上十點後，它又悄悄變回寫信、讀詩、發呆的角落。我開始好奇，物品本身從不改變，改變的是我們允許自己在這張桌子前，成為哪一種人。
+    </p>
+  </article>
+
+  <article class="mb-14">
+    <div class="flex items-start justify-between mb-3">
+      <h2 class="text-2xl font-bold leading-snug pr-4">慢讀推薦：三本適合放在床頭的書</h2>
+      <span class="bookmark-btn text-lg shrink-0" data-id="a3"></span>
+    </div>
+    <p class="mono text-xs opacity-50 mb-4">閱讀時間 約 3 分鐘</p>
+    <p class="drop-cap leading-relaxed text-lg">
+      不是暢銷榜上的書，而是那種翻開第一頁就想放慢呼吸的書。這期挑了三本，陪你度過即將變冷的這幾週夜晚。
+    </p>
+  </article>
+
+  <section class="double-rule pt-8 pb-16 text-center">
+    <p class="mb-4 text-sm opacity-70">喜歡這期的信，訂閱下一期直接送到信箱</p>
+    <form id="subForm" class="flex items-center justify-center gap-2 max-w-sm mx-auto">
+      <input type="email" required placeholder="your@email.com" class="flex-1 bg-transparent border-b border-current px-2 py-2 text-sm outline-none">
+      <button type="submit" class="mono text-xs border px-4 py-2 rounded-full" style="border-color:var(--ink)">訂閱</button>
+    </form>
+    <p id="subMsg" class="hidden mt-3 text-sm">已收到，下一期發刊時會寄到你的信箱。</p>
+  </section>
+</main>
+
+<footer class="max-w-3xl mx-auto px-6 py-8 text-center text-xs opacity-50 rule-top">紙聲 PaperVoice — 每週三，寄一封不急著被讀完的信。</footer>
+
+<script>
+  document.querySelectorAll('#modeGroup .mode-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('#modeGroup .mode-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      document.body.classList.remove('paper','sepia','night');
+      document.body.classList.add(btn.dataset.mode);
+    });
+  });
+
+  let fs = 1;
+  document.getElementById('fsUp').addEventListener('click', ()=>{
+    fs = Math.min(1.35, fs + 0.1);
+    document.documentElement.style.setProperty('--fs', fs + 'rem');
+  });
+  document.getElementById('fsDown').addEventListener('click', ()=>{
+    fs = Math.max(0.85, fs - 0.1);
+    document.documentElement.style.setProperty('--fs', fs + 'rem');
+  });
+
+  document.querySelectorAll('.bookmark-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      btn.classList.toggle('saved');
+    });
+  });
+
+  document.getElementById('subForm').addEventListener('submit', (e)=>{
+    e.preventDefault();
+    document.getElementById('subMsg').classList.remove('hidden');
+    e.target.reset();
+  });
+
+  window.addEventListener('scroll', ()=>{
+    const h = document.documentElement;
+    const pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    document.getElementById('progressRail').style.width = pct + '%';
+  });
+</script>
+</body>
+</html>
