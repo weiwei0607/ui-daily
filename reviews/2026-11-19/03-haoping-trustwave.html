@@ -1,0 +1,515 @@
+<!-- style #24 Social Proof-Focused -->
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>好評 TrustWave ─ 被頂尖團隊信任的協作平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F7F4EF;
+    --bg-soft:#F0EBE2;
+    --ink:#1C2B2A;
+    --ink-soft:#4B5D5B;
+    --teal:#0E5E57;
+    --teal-dark:#0A4440;
+    --teal-tint:#E4F0ED;
+    --orange:#DE7A3C;
+    --orange-dark:#C3652A;
+    --line:#E3DCCF;
+    --card:#FFFFFF;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Noto Sans TC','Plus Jakarta Sans',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .font-display{
+    font-family:'Plus Jakarta Sans','Noto Sans TC',sans-serif;
+  }
+  .text-balance{text-wrap:balance;}
+  .section-pad{padding-left:1.25rem;padding-right:1.25rem;}
+  @media(min-width:768px){.section-pad{padding-left:3rem;padding-right:3rem;}}
+
+  .btn-primary{
+    background:var(--teal);
+    color:#fff;
+    font-weight:700;
+    border-radius:999px;
+    padding:0.85rem 1.75rem;
+    transition:transform .15s ease, background .2s ease, box-shadow .2s ease;
+    box-shadow:0 10px 24px -10px rgba(14,94,87,.55);
+  }
+  .btn-primary:hover{background:var(--teal-dark); transform:translateY(-1px);}
+  .btn-ghost{
+    border:1.5px solid var(--line);
+    color:var(--ink);
+    font-weight:600;
+    border-radius:999px;
+    padding:0.8rem 1.6rem;
+    background:#fff;
+    transition:border-color .2s ease, background .2s ease;
+  }
+  .btn-ghost:hover{border-color:var(--teal); background:var(--teal-tint);}
+
+  .logo-pill{
+    border:1px solid var(--line);
+    background:#fff;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:.5rem;
+    padding:1rem .75rem;
+    color:var(--ink-soft);
+    font-weight:700;
+    font-size:.95rem;
+    letter-spacing:.01em;
+    transition:box-shadow .2s ease, border-color .2s ease, color .2s ease;
+  }
+  .logo-pill:hover{box-shadow:0 8px 22px -14px rgba(14,43,42,.35); border-color:var(--teal); color:var(--teal-dark);}
+
+  .stat-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:1.75rem 1.5rem;
+  }
+  .stat-number{
+    font-family:'Plus Jakarta Sans',sans-serif;
+    font-weight:800;
+    letter-spacing:-0.02em;
+  }
+
+  .case-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:22px;
+    padding:1.75rem;
+    transition:opacity .25s ease, transform .25s ease;
+  }
+  .case-card.is-hidden{display:none;}
+
+  .tag-btn{
+    border:1.5px solid var(--line);
+    background:#fff;
+    color:var(--ink-soft);
+    font-weight:600;
+    font-size:.875rem;
+    border-radius:999px;
+    padding:.55rem 1.1rem;
+    cursor:pointer;
+    transition:all .18s ease;
+    white-space:nowrap;
+  }
+  .tag-btn:hover{border-color:var(--teal);}
+  .tag-btn.active{
+    background:var(--teal);
+    border-color:var(--teal);
+    color:#fff;
+  }
+
+  .industry-chip{
+    display:inline-flex;
+    align-items:center;
+    font-size:.75rem;
+    font-weight:700;
+    padding:.25rem .65rem;
+    border-radius:999px;
+    background:var(--teal-tint);
+    color:var(--teal-dark);
+  }
+
+  .quote-mark{
+    font-family:'Plus Jakarta Sans',serif;
+    color:var(--orange);
+    opacity:.5;
+  }
+
+  .carousel-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:28px;
+    padding:2.25rem;
+  }
+  @media(min-width:768px){.carousel-card{padding:3rem;}}
+
+  .nav-arrow{
+    width:3rem;height:3rem;
+    border-radius:999px;
+    border:1.5px solid var(--line);
+    background:#fff;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;
+    transition:all .18s ease;
+    flex-shrink:0;
+  }
+  .nav-arrow:hover{border-color:var(--teal); background:var(--teal-tint);}
+
+  .dot{
+    width:.5rem;height:.5rem;border-radius:999px;
+    background:var(--line);
+    cursor:pointer;
+    transition:all .2s ease;
+  }
+  .dot.active{background:var(--teal); width:1.5rem;}
+
+  .feature-icon{
+    width:2.75rem;height:2.75rem;
+    border-radius:12px;
+    background:var(--teal-tint);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--teal-dark);
+  }
+
+  .section-eyebrow{
+    font-weight:800;
+    letter-spacing:.08em;
+    color:var(--orange-dark);
+    font-size:.8rem;
+  }
+
+  .divider-fade{
+    height:1px;
+    background:linear-gradient(to right, transparent, var(--line), transparent);
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== Nav ===== -->
+<header class="sticky top-0 z-50 bg-[var(--bg)]/90 backdrop-blur border-b" style="border-color:var(--line);">
+  <div class="section-pad max-w-7xl mx-auto flex items-center justify-between py-4">
+    <div class="flex items-center gap-2 font-display font-extrabold text-lg" style="color:var(--teal-dark);">
+      <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg" style="background:var(--teal);color:#fff;">好</span>
+      好評 TrustWave
+    </div>
+    <nav class="hidden md:flex items-center gap-8 text-sm font-semibold" style="color:var(--ink-soft);">
+      <a href="#proof" class="hover:text-[var(--teal-dark)]">客戶實績</a>
+      <a href="#cases" class="hover:text-[var(--teal-dark)]">成功案例</a>
+      <a href="#testimonials" class="hover:text-[var(--teal-dark)]">客戶怎麼說</a>
+      <a href="#features" class="hover:text-[var(--teal-dark)]">產品功能</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <a href="#" class="hidden sm:inline-block btn-ghost text-sm">登入</a>
+      <a href="#" class="btn-primary text-sm">預約產品導覽</a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== Hero ===== -->
+<section class="section-pad max-w-7xl mx-auto pt-16 md:pt-24 pb-14 md:pb-20">
+  <div class="max-w-3xl">
+    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-6" style="background:var(--teal-tint); color:var(--teal-dark);">
+      <span class="font-display font-extrabold text-xs tracking-wide">★ 連續三年獲選「最值得信任協作平台」</span>
+    </div>
+    <h1 class="font-display font-extrabold text-balance leading-[1.1] text-4xl md:text-6xl" style="color:var(--ink);">
+      被 <span style="color:var(--teal);">1,240 家</span> 頂尖團隊<br class="hidden md:block" />
+      每天信任的協作平台
+    </h1>
+    <p class="mt-6 text-lg md:text-xl leading-relaxed" style="color:var(--ink-soft);">
+      從科技新創到上市金融機構，好評 TrustWave 幫助跨部門團隊把專案管理、審批流程與溝通紀錄收斂在一個地方——有數據證明，不只是口號。
+    </p>
+    <div class="mt-9 flex flex-wrap items-center gap-4">
+      <a href="#" class="btn-primary">免費試用 14 天</a>
+      <a href="#cases" class="btn-ghost">看真實客戶成果 →</a>
+    </div>
+    <p class="mt-5 text-sm" style="color:var(--ink-soft);">無需信用卡・5 分鐘完成導入設定・隨時可取消</p>
+  </div>
+</section>
+
+<!-- ===== Logo wall ===== -->
+<section id="proof" class="section-pad max-w-7xl mx-auto pb-16 md:pb-20">
+  <p class="text-center text-sm font-semibold mb-7" style="color:var(--ink-soft);">超過 1,240 家企業團隊每日使用好評 TrustWave，包括：</p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 gap-3 md:gap-4">
+    <div class="logo-pill">晨曦科技</div>
+    <div class="logo-pill">恆豐物流</div>
+    <div class="logo-pill">立德金融</div>
+    <div class="logo-pill">翊程生技</div>
+    <div class="logo-pill">松果設計</div>
+    <div class="logo-pill">遠見教育</div>
+    <div class="logo-pill">承業製造</div>
+    <div class="logo-pill">禾康醫療</div>
+  </div>
+</section>
+
+<!-- ===== Trust stats ===== -->
+<section class="section-pad max-w-7xl mx-auto pb-16 md:pb-24">
+  <div class="rounded-3xl p-6 md:p-10" style="background:var(--teal-dark);">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6 text-center">
+      <div>
+        <div class="stat-number text-3xl md:text-4xl text-white">1,240<span class="text-2xl">+</span></div>
+        <div class="mt-2 text-sm font-semibold" style="color:#BFE3DC;">企業客戶數</div>
+      </div>
+      <div>
+        <div class="stat-number text-3xl md:text-4xl text-white">96%</div>
+        <div class="mt-2 text-sm font-semibold" style="color:#BFE3DC;">90 天續約留存率</div>
+      </div>
+      <div>
+        <div class="stat-number text-3xl md:text-4xl text-white">68</div>
+        <div class="mt-2 text-sm font-semibold" style="color:#BFE3DC;">淨推薦分數（NPS）</div>
+      </div>
+      <div>
+        <div class="stat-number text-3xl md:text-4xl text-white">4.8<span class="text-2xl">/5</span></div>
+        <div class="mt-2 text-sm font-semibold" style="color:#BFE3DC;">G2 與 Capterra 綜合評分</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Case studies (with industry filter) ===== -->
+<section id="cases" class="section-pad max-w-7xl mx-auto pb-20 md:pb-28">
+  <div class="max-w-2xl mx-auto text-center mb-10">
+    <p class="section-eyebrow">成功案例先看數字</p>
+    <h2 class="font-display font-extrabold text-3xl md:text-4xl mt-2" style="color:var(--ink);">各產業團隊，都用數據說話</h2>
+    <p class="mt-4" style="color:var(--ink-soft);">點選下方產業標籤，篩選該產業的真實導入成果。</p>
+  </div>
+
+  <div id="industry-filters" class="flex flex-wrap justify-center gap-2.5 mb-10">
+    <button class="tag-btn active" data-industry="全部">全部案例</button>
+    <button class="tag-btn" data-industry="科技業">科技業</button>
+    <button class="tag-btn" data-industry="物流業">物流業</button>
+    <button class="tag-btn" data-industry="金融業">金融業</button>
+    <button class="tag-btn" data-industry="生技業">生技業</button>
+    <button class="tag-btn" data-industry="設計業">設計業</button>
+    <button class="tag-btn" data-industry="教育業">教育業</button>
+  </div>
+
+  <div id="case-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+    <div class="case-card" data-industry="科技業">
+      <span class="industry-chip">科技業</span>
+      <h3 class="font-display font-bold text-lg mt-4" style="color:var(--ink);">晨曦科技</h3>
+      <p class="mt-2 text-sm leading-relaxed" style="color:var(--ink-soft);">導入 8 週後，跨團隊溝通成本下降 <strong style="color:var(--teal-dark);">37%</strong>，PM 平均每週省下 6 小時回報時間。</p>
+      <div class="divider-fade my-4"></div>
+      <p class="text-xs" style="color:var(--ink-soft);">— 林雅婷・產品副總</p>
+    </div>
+    <div class="case-card" data-industry="物流業">
+      <span class="industry-chip">物流業</span>
+      <h3 class="font-display font-bold text-lg mt-4" style="color:var(--ink);">恆豐物流</h3>
+      <p class="mt-2 text-sm leading-relaxed" style="color:var(--ink-soft);">跨倉協作效率提升 <strong style="color:var(--teal-dark);">42%</strong>，交付延誤率下降 <strong style="color:var(--teal-dark);">68%</strong>。</p>
+      <div class="divider-fade my-4"></div>
+      <p class="text-xs" style="color:var(--ink-soft);">— 陳建宏・營運總監</p>
+    </div>
+    <div class="case-card" data-industry="金融業">
+      <span class="industry-chip">金融業</span>
+      <h3 class="font-display font-bold text-lg mt-4" style="color:var(--ink);">立德金融</h3>
+      <p class="mt-2 text-sm leading-relaxed" style="color:var(--ink-soft);">合規審核流程縮短 <strong style="color:var(--teal-dark);">55%</strong>，稽核軌跡可一鍵追溯，稽核委員會滿意度大幅提升。</p>
+      <div class="divider-fade my-4"></div>
+      <p class="text-xs" style="color:var(--ink-soft);">— 莫宇珊・財務長</p>
+    </div>
+    <div class="case-card" data-industry="生技業">
+      <span class="industry-chip">生技業</span>
+      <h3 class="font-display font-bold text-lg mt-4" style="color:var(--ink);">翊程生技</h3>
+      <p class="mt-2 text-sm leading-relaxed" style="color:var(--ink-soft);">跨部門研發專案準時交付比率，從 61% 提升至 <strong style="color:var(--teal-dark);">93%</strong>。</p>
+      <div class="divider-fade my-4"></div>
+      <p class="text-xs" style="color:var(--ink-soft);">— 蔡明哲・研發主管</p>
+    </div>
+    <div class="case-card" data-industry="設計業">
+      <span class="industry-chip">設計業</span>
+      <h3 class="font-display font-bold text-lg mt-4" style="color:var(--ink);">松果設計</h3>
+      <p class="mt-2 text-sm leading-relaxed" style="color:var(--ink-soft);">客戶提案往返次數減少一半，平均接案週期縮短 <strong style="color:var(--teal-dark);">9 天</strong>。</p>
+      <div class="divider-fade my-4"></div>
+      <p class="text-xs" style="color:var(--ink-soft);">— 吳柏毅・創辦人</p>
+    </div>
+    <div class="case-card" data-industry="教育業">
+      <span class="industry-chip">教育業</span>
+      <h3 class="font-display font-bold text-lg mt-4" style="color:var(--ink);">遠見教育</h3>
+      <p class="mt-2 text-sm leading-relaxed" style="color:var(--ink-soft);">全台 32 個分校排課與回報流程統一，行政工時每月減少 <strong style="color:var(--teal-dark);">120 小時</strong>。</p>
+      <div class="divider-fade my-4"></div>
+      <p class="text-xs" style="color:var(--ink-soft);">— 周苡萱・營運長</p>
+    </div>
+  </div>
+  <p id="no-result" class="hidden text-center py-10" style="color:var(--ink-soft);">目前沒有符合篩選條件的案例。</p>
+</section>
+
+<!-- ===== Testimonial carousel ===== -->
+<section id="testimonials" class="section-pad max-w-4xl mx-auto pb-20 md:pb-28">
+  <div class="max-w-2xl mx-auto text-center mb-10">
+    <p class="section-eyebrow">客戶親口評價</p>
+    <h2 class="font-display font-extrabold text-3xl md:text-4xl mt-2" style="color:var(--ink);">不是我們說好，是客戶這樣說</h2>
+  </div>
+
+  <div class="flex items-center gap-3 md:gap-6">
+    <button id="prev-btn" class="nav-arrow" aria-label="上一則評價">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </button>
+
+    <div class="carousel-card flex-1 min-h-[280px] md:min-h-[260px] flex flex-col justify-between">
+      <div>
+        <span class="quote-mark text-5xl leading-none font-display">"</span>
+        <p id="quote-text" class="mt-2 text-lg md:text-xl leading-relaxed font-medium" style="color:var(--ink);">
+          我們評估過三套協作工具，最後選好評 TrustWave 的關鍵是導入速度——團隊兩週內全面上線，而且客服回應真的很快，不是制式罐頭訊息。
+        </p>
+      </div>
+      <div class="mt-6 flex items-center justify-between flex-wrap gap-3">
+        <div>
+          <p id="quote-name" class="font-display font-bold" style="color:var(--ink);">林雅婷</p>
+          <p id="quote-role" class="text-sm" style="color:var(--ink-soft);">產品副總・晨曦科技</p>
+        </div>
+        <span id="quote-industry" class="industry-chip">科技業</span>
+      </div>
+    </div>
+
+    <button id="next-btn" class="nav-arrow" aria-label="下一則評價">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
+  </div>
+
+  <div id="dots" class="flex items-center justify-center gap-2 mt-6"></div>
+</section>
+
+<!-- ===== Features (after case studies, kept brief) ===== -->
+<section id="features" class="section-pad max-w-7xl mx-auto pb-20 md:pb-28">
+  <div class="max-w-2xl mx-auto text-center mb-12">
+    <p class="section-eyebrow">他們靠這些功能做到的</p>
+    <h2 class="font-display font-extrabold text-3xl md:text-4xl mt-2" style="color:var(--ink);">支撐上述成果的三個核心能力</h2>
+  </div>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="rounded-2xl p-6 border" style="border-color:var(--line); background:#fff;">
+      <div class="feature-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg>
+      </div>
+      <h3 class="font-display font-bold text-lg mt-4" style="color:var(--ink);">跨部門看板同步</h3>
+      <p class="mt-2 text-sm leading-relaxed" style="color:var(--ink-soft);">專案狀態即時同步，不再用訊息軟體追進度，主管一眼掌握全局。</p>
+    </div>
+    <div class="rounded-2xl p-6 border" style="border-color:var(--line); background:#fff;">
+      <div class="feature-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"></path><circle cx="12" cy="12" r="9"></circle></svg>
+      </div>
+      <h3 class="font-display font-bold text-lg mt-4" style="color:var(--ink);">審批流程與稽核軌跡</h3>
+      <p class="mt-2 text-sm leading-relaxed" style="color:var(--ink-soft);">每一筆核准、退回、修改都留有完整紀錄，符合金融與醫療產業合規需求。</p>
+    </div>
+    <div class="rounded-2xl p-6 border" style="border-color:var(--line); background:#fff;">
+      <div class="feature-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l3 8 4-16 3 8h4"></path></svg>
+      </div>
+      <h3 class="font-display font-bold text-lg mt-4" style="color:var(--ink);">即時數據報表</h3>
+      <p class="mt-2 text-sm leading-relaxed" style="color:var(--ink-soft);">自動生成團隊效率報表，決策者不必等月報，隔天就能看到趨勢變化。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Final CTA ===== -->
+<section class="section-pad max-w-7xl mx-auto pb-20 md:pb-24">
+  <div class="rounded-3xl p-8 md:p-14 text-center" style="background:linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);">
+    <h2 class="font-display font-extrabold text-3xl md:text-4xl text-white text-balance">加入 1,240 家團隊，一起用數據建立信任</h2>
+    <p class="mt-4 max-w-xl mx-auto" style="color:#CFE9E3;">立即申請試用，專屬顧問將在 1 個工作日內與您聯繫，協助規劃導入計畫。</p>
+    <div class="mt-8 flex flex-wrap justify-center gap-4">
+      <a href="#" class="font-display font-bold rounded-full px-7 py-3.5" style="background:var(--orange); color:#fff;">免費試用 14 天</a>
+      <a href="#" class="font-display font-bold rounded-full px-7 py-3.5 border border-white/40 text-white">預約顧問諮詢</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="section-pad max-w-7xl mx-auto py-10 border-t" style="border-color:var(--line);">
+  <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-sm" style="color:var(--ink-soft);">
+    <div class="font-display font-extrabold" style="color:var(--teal-dark);">好評 TrustWave</div>
+    <p>© 2026 好評 TrustWave 股份有限公司。保留一切權利。</p>
+  </div>
+</footer>
+
+<script>
+  // ---- 評價輪播（左右切換）----
+  const testimonials = [
+    {
+      quote: "我們評估過三套協作工具，最後選好評 TrustWave 的關鍵是導入速度——團隊兩週內全面上線，而且客服回應真的很快，不是制式罐頭訊息。",
+      name: "林雅婷",
+      role: "產品副總・晨曦科技",
+      industry: "科技業"
+    },
+    {
+      quote: "物流業最怕的就是跨倉資訊落差，現在每個倉管主管都用同一套看板回報，延誤率明顯下降，老闆在月會上直接問我們是不是換了系統。",
+      name: "陳建宏",
+      role: "營運總監・恆豐物流",
+      industry: "物流業"
+    },
+    {
+      quote: "金融業最在意的是稽核軌跡，好評 TrustWave 的審批紀錄可以一鍵匯出，去年內部稽核第一次沒有被要求補件，省下非常多來回時間。",
+      name: "莫宇珊",
+      role: "財務長・立德金融",
+      industry: "金融業"
+    },
+    {
+      quote: "研發專案常常卡在跨部門等待，導入之後責任歸屬很清楚，誰該交什麼、什麼時候交，系統自動提醒，準時交付比率明顯提升。",
+      name: "蔡明哲",
+      role: "研發主管・翊程生技",
+      industry: "生技業"
+    },
+    {
+      quote: "身為接案型工作室，客戶提案的往返紀錄全部留在一個地方，不用再從信箱和訊息軟體裡面翻舊對話，交接新同事也快很多。",
+      name: "吳柏毅",
+      role: "創辦人・松果設計",
+      industry: "設計業"
+    }
+  ];
+
+  let currentIndex = 0;
+  const quoteText = document.getElementById('quote-text');
+  const quoteName = document.getElementById('quote-name');
+  const quoteRole = document.getElementById('quote-role');
+  const quoteIndustry = document.getElementById('quote-industry');
+  const dotsContainer = document.getElementById('dots');
+
+  function renderDots(){
+    dotsContainer.innerHTML = '';
+    testimonials.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'dot' + (i === currentIndex ? ' active' : '');
+      dot.setAttribute('aria-label', '前往第 ' + (i + 1) + ' 則評價');
+      dot.addEventListener('click', () => { currentIndex = i; renderTestimonial(); });
+      dotsContainer.appendChild(dot);
+    });
+  }
+
+  function renderTestimonial(){
+    const t = testimonials[currentIndex];
+    quoteText.textContent = t.quote;
+    quoteName.textContent = t.name;
+    quoteRole.textContent = t.role;
+    quoteIndustry.textContent = t.industry;
+    renderDots();
+  }
+
+  document.getElementById('prev-btn').addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + testimonials.length) % testimonials.length;
+    renderTestimonial();
+  });
+  document.getElementById('next-btn').addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % testimonials.length;
+    renderTestimonial();
+  });
+
+  renderTestimonial();
+
+  // ---- 產業標籤篩選案例卡 ----
+  const filterButtons = document.querySelectorAll('#industry-filters .tag-btn');
+  const caseCards = document.querySelectorAll('#case-grid .case-card');
+  const noResult = document.getElementById('no-result');
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const industry = btn.getAttribute('data-industry');
+      let visibleCount = 0;
+      caseCards.forEach(card => {
+        const match = industry === '全部' || card.getAttribute('data-industry') === industry;
+        card.classList.toggle('is-hidden', !match);
+        if (match) visibleCount++;
+      });
+      noResult.classList.toggle('hidden', visibleCount !== 0);
+    });
+  });
+</script>
+
+</body>
+</html>

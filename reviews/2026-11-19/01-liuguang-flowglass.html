@@ -1,0 +1,447 @@
+<!-- style #14 Liquid Glass -->
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>流光 FlowGlass｜每日正念放鬆</title>
+<meta name="description" content="流光 FlowGlass：呼吸練習、情緒紀錄與睡前引導音檔,陪你找回內心的平靜。" />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --g1:#667eea;
+    --g2:#764ba2;
+    --g3:#f093fb;
+    --glass-bg: rgba(255,255,255,0.18);
+    --glass-border: rgba(255,255,255,0.35);
+    --ink: #2e2a4a;
+    --ink-soft: #4b4570;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin:0;
+    padding:0;
+    width:100%;
+    overflow-x:hidden;
+    font-family: 'Zen Maru Gothic', 'Noto Sans TC', 'Quicksand', sans-serif;
+    color: var(--ink);
+  }
+
+  body{
+    min-height:100vh;
+    background: linear-gradient(120deg, var(--g1), var(--g2), var(--g3), var(--g1));
+    background-size: 300% 300%;
+    animation: flowBg 18s ease-in-out infinite;
+    transition: background 1.2s ease;
+    position: relative;
+  }
+
+  @keyframes flowBg{
+    0%{ background-position: 0% 50%; }
+    50%{ background-position: 100% 50%; }
+    100%{ background-position: 0% 50%; }
+  }
+
+  /* 漂浮光暈 */
+  .orb{
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.55;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .orb1{ width: 420px; height: 420px; background: #ffffff; top: -120px; left: -100px; animation: floatA 14s ease-in-out infinite; }
+  .orb2{ width: 360px; height: 360px; background: #f093fb; bottom: -100px; right: -80px; animation: floatB 16s ease-in-out infinite; }
+  .orb3{ width: 280px; height: 280px; background: #667eea; top: 40%; right: 10%; animation: floatC 20s ease-in-out infinite; }
+
+  @keyframes floatA{
+    0%,100%{ transform: translate(0,0) scale(1); }
+    50%{ transform: translate(60px, 80px) scale(1.15); }
+  }
+  @keyframes floatB{
+    0%,100%{ transform: translate(0,0) scale(1); }
+    50%{ transform: translate(-50px,-60px) scale(1.2); }
+  }
+  @keyframes floatC{
+    0%,100%{ transform: translate(0,0) scale(1); }
+    50%{ transform: translate(-40px, 50px) scale(0.9); }
+  }
+
+  .heading-font{
+    font-family: 'Baloo 2', 'Zen Maru Gothic', sans-serif;
+  }
+  .accent-font{
+    font-family: 'Quicksand', 'Zen Maru Gothic', sans-serif;
+  }
+
+  /* 玻璃卡片 */
+  .glass{
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    backdrop-filter: blur(22px) saturate(160%);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.25), inset 0 1px 0 rgba(255,255,255,0.4);
+    border-radius: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .glass::before{
+    content:"";
+    position:absolute;
+    top:0; left:0; right:0;
+    height: 55%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.35), rgba(255,255,255,0));
+    pointer-events:none;
+  }
+
+  .glass-strong{
+    background: rgba(255,255,255,0.28);
+    border: 1px solid rgba(255,255,255,0.45);
+    -webkit-backdrop-filter: blur(28px) saturate(170%);
+    backdrop-filter: blur(28px) saturate(170%);
+  }
+
+  .btn-glass{
+    background: rgba(255,255,255,0.3);
+    border: 1px solid rgba(255,255,255,0.5);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+  }
+  .btn-glass:hover{
+    transform: translateY(-2px);
+    background: rgba(255,255,255,0.45);
+    box-shadow: 0 10px 24px rgba(118,75,162,0.35);
+  }
+  .btn-glass:active{
+    transform: translateY(0px) scale(0.98);
+  }
+
+  /* 呼吸圓圈 */
+  .breath-wrap{
+    width: 220px;
+    height: 220px;
+    position: relative;
+  }
+  .breath-ring{
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+    background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.85), rgba(240,147,251,0.55) 45%, rgba(102,126,234,0.5) 100%);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 0 60px rgba(240,147,251,0.55), inset 0 0 30px rgba(255,255,255,0.6);
+    transition: transform 4s ease-in-out, box-shadow 4s ease-in-out;
+    transform: scale(0.72);
+  }
+  .breath-ring.inhale{
+    transform: scale(1.08);
+    box-shadow: 0 0 90px rgba(240,147,251,0.75), inset 0 0 40px rgba(255,255,255,0.75);
+  }
+  .breath-ring.exhale{
+    transform: scale(0.72);
+    box-shadow: 0 0 50px rgba(102,126,234,0.5), inset 0 0 25px rgba(255,255,255,0.55);
+  }
+  .breath-core{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+  }
+
+  .mood-chip{
+    transition: transform .2s ease, box-shadow .2s ease, background .3s ease;
+  }
+  .mood-chip.active{
+    background: rgba(255,255,255,0.55);
+    box-shadow: 0 6px 18px rgba(118,75,162,0.4);
+    transform: translateY(-2px);
+  }
+
+  .scroll-hide::-webkit-scrollbar{ display:none; }
+
+  .fade-up{
+    opacity:0;
+    transform: translateY(16px);
+    animation: fadeUp .8s ease forwards;
+  }
+  @keyframes fadeUp{
+    to{ opacity:1; transform: translateY(0); }
+  }
+
+  @media (max-width: 640px){
+    .breath-wrap{ width: 180px; height: 180px; }
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+
+  <!-- 導覽列 -->
+  <header class="relative z-10 max-w-6xl mx-auto px-5 sm:px-8 pt-6 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <div class="w-9 h-9 rounded-full glass-strong flex items-center justify-center">
+        <span class="text-white text-lg">◎</span>
+      </div>
+      <span class="heading-font text-white text-lg sm:text-xl font-700 tracking-wide">流光 FlowGlass</span>
+    </div>
+    <button class="btn-glass text-white accent-font text-sm sm:text-base px-4 sm:px-5 py-2 rounded-full">
+      免費下載
+    </button>
+  </header>
+
+  <!-- Hero -->
+  <main class="relative z-10 max-w-6xl mx-auto px-5 sm:px-8">
+    <section class="pt-10 sm:pt-16 pb-10 text-center sm:text-left">
+      <div class="sm:flex sm:items-center sm:justify-between sm:gap-10">
+        <div class="max-w-xl mx-auto sm:mx-0 fade-up">
+          <span class="accent-font inline-block text-white/90 text-xs sm:text-sm bg-white/20 border border-white/35 rounded-full px-4 py-1.5 mb-5">
+            每天 10 分鐘，把心安放下來
+          </span>
+          <h1 class="heading-font text-white text-3xl sm:text-5xl font-700 leading-snug mb-5">
+            讓思緒慢下來<br class="hidden sm:block">像流光一樣，輕輕呼吸
+          </h1>
+          <p class="text-white/90 text-base sm:text-lg leading-relaxed mb-8">
+            流光 FlowGlass 是一款正念冥想與情緒放鬆 App，陪你用呼吸練習、每日情緒紀錄與睡前引導音檔，在忙碌的日子裡找回片刻的安定。
+          </p>
+          <div class="flex items-center gap-4 justify-center sm:justify-start">
+            <button class="btn-glass text-white heading-font text-base px-7 py-3 rounded-full shadow-lg">
+              開始今天的練習
+            </button>
+            <button class="text-white/85 accent-font text-sm underline underline-offset-4">
+              觀看功能介紹
+            </button>
+          </div>
+        </div>
+
+        <!-- 呼吸互動卡 -->
+        <div class="mt-12 sm:mt-0 mx-auto sm:mx-0 glass p-6 sm:p-8 w-full max-w-sm fade-up" style="animation-delay:.15s">
+          <p class="accent-font text-white/80 text-sm mb-1 text-center">呼吸練習</p>
+          <h3 class="heading-font text-white text-xl mb-5 text-center">4-7-8 放鬆呼吸法</h3>
+
+          <div class="flex items-center justify-center mb-6">
+            <div class="breath-wrap">
+              <div id="breathRing" class="breath-ring exhale"></div>
+              <div class="breath-core">
+                <div>
+                  <div id="breathWord" class="heading-font text-white text-2xl drop-shadow">吐氣</div>
+                  <div id="breathCount" class="accent-font text-white/85 text-sm mt-1">點擊下方開始</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button id="breathBtn" class="btn-glass w-full text-white heading-font text-base py-3 rounded-full">
+            開始呼吸引導
+          </button>
+          <p class="text-white/70 text-xs text-center mt-3 accent-font">吸氣 4 秒 ・ 停留 7 秒 ・ 吐氣 8 秒</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 情緒紀錄互動 -->
+    <section class="py-10">
+      <div class="glass glass-strong p-6 sm:p-10 fade-up" style="animation-delay:.1s">
+        <div class="sm:flex sm:items-start sm:justify-between gap-8">
+          <div class="mb-6 sm:mb-0 sm:max-w-xs">
+            <h2 class="heading-font text-white text-2xl sm:text-3xl mb-3">今天，你感覺怎麼樣？</h2>
+            <p class="text-white/85 text-sm sm:text-base leading-relaxed">
+              點選最貼近此刻心情的標籤，流光會依照你的情緒輕輕調整背景的光影色調，並為你留下一筆每日情緒紀錄，長期累積成專屬的「心情地圖」。
+            </p>
+          </div>
+
+          <div class="flex-1">
+            <div id="moodChips" class="flex flex-wrap gap-3 mb-6">
+              <button data-mood="calm" class="mood-chip active glass text-white text-sm sm:text-base px-5 py-2.5 rounded-full accent-font">🌊 平靜</button>
+              <button data-mood="joy" class="mood-chip glass text-white text-sm sm:text-base px-5 py-2.5 rounded-full accent-font">🌸 愉悅</button>
+              <button data-mood="tired" class="mood-chip glass text-white text-sm sm:text-base px-5 py-2.5 rounded-full accent-font">🌙 疲憊</button>
+              <button data-mood="anxious" class="mood-chip glass text-white text-sm sm:text-base px-5 py-2.5 rounded-full accent-font">🌀 焦慮</button>
+              <button data-mood="grateful" class="mood-chip glass text-white text-sm sm:text-base px-5 py-2.5 rounded-full accent-font">✨ 感恩</button>
+            </div>
+
+            <div class="glass p-5 rounded-2xl">
+              <p id="moodMsg" class="text-white accent-font text-sm sm:text-base leading-relaxed">
+                此刻的你很平靜，像湖面一樣安穩。繼續保持這份節奏，為自己留一段不被打擾的時間吧。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 功能卡片（毛玻璃疊層） -->
+    <section class="py-10">
+      <h2 class="heading-font text-white text-2xl sm:text-3xl text-center mb-10 fade-up">陪你放鬆的四個練習</h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <div class="glass p-6 relative fade-up" style="animation-delay:.05s">
+          <div class="absolute -top-4 -right-4 w-16 h-16 rounded-2xl glass-strong rotate-6"></div>
+          <div class="text-3xl mb-4">🫧</div>
+          <h3 class="heading-font text-white text-lg mb-2">呼吸練習</h3>
+          <p class="text-white/85 text-sm leading-relaxed">
+            透過 4-7-8、腹式呼吸等多種引導節奏，搭配動態光圈視覺，幫助你在三分鐘內放慢心跳、緩解緊繃。
+          </p>
+        </div>
+
+        <div class="glass p-6 relative fade-up" style="animation-delay:.1s">
+          <div class="absolute -top-4 -right-4 w-16 h-16 rounded-2xl glass-strong rotate-6"></div>
+          <div class="text-3xl mb-4">📝</div>
+          <h3 class="heading-font text-white text-lg mb-2">每日情緒紀錄</h3>
+          <p class="text-white/85 text-sm leading-relaxed">
+            每天用一句話與一個情緒標籤,記下此刻的心情。累積三十天後,App 會為你畫出專屬的情緒曲線圖。
+          </p>
+        </div>
+
+        <div class="glass p-6 relative fade-up" style="animation-delay:.15s">
+          <div class="absolute -top-4 -right-4 w-16 h-16 rounded-2xl glass-strong rotate-6"></div>
+          <div class="text-3xl mb-4">🌙</div>
+          <h3 class="heading-font text-white text-lg mb-2">睡前引導音檔</h3>
+          <p class="text-white/85 text-sm leading-relaxed">
+            超過一百則中文語音引導,包含放鬆肌肉掃描、海浪白噪音與助眠故事,陪你更快入睡,一夜安穩到天亮。
+          </p>
+        </div>
+
+        <div class="glass p-6 relative fade-up" style="animation-delay:.2s">
+          <div class="absolute -top-4 -right-4 w-16 h-16 rounded-2xl glass-strong rotate-6"></div>
+          <div class="text-3xl mb-4">🔔</div>
+          <h3 class="heading-font text-white text-lg mb-2">正念提醒</h3>
+          <p class="text-white/85 text-sm leading-relaxed">
+            依照你的作息智慧安排提醒時刻,在會議之間、通勤路上,輕輕推送一句話,帶你回到當下的呼吸。
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 使用者心聲 -->
+    <section class="py-10">
+      <div class="glass p-6 sm:p-10 text-center max-w-3xl mx-auto fade-up">
+        <p class="heading-font text-white text-xl sm:text-2xl leading-relaxed mb-4">
+          「每天睡前聽十分鐘的引導音檔，<br class="hidden sm:block">終於不再翻來覆去到半夜。」
+        </p>
+        <p class="accent-font text-white/80 text-sm">— 使用流光 FlowGlass 第 42 天的使用者</p>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-16 text-center">
+      <div class="glass glass-strong p-10 sm:p-14 max-w-2xl mx-auto fade-up">
+        <h2 class="heading-font text-white text-2xl sm:text-3xl mb-4">把今天，留一點時間給自己</h2>
+        <p class="text-white/85 text-sm sm:text-base mb-8 leading-relaxed">
+          免費下載流光 FlowGlass，從一次呼吸開始，陪你練習放鬆，練習與情緒好好相處。
+        </p>
+        <button class="btn-glass text-white heading-font text-lg px-9 py-3.5 rounded-full shadow-lg">
+          立即免費下載
+        </button>
+      </div>
+    </section>
+
+    <footer class="text-center text-white/65 text-xs pb-10 accent-font">
+      © 2026 流光 FlowGlass・陪你,慢慢呼吸
+    </footer>
+  </main>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- 呼吸練習互動 ---------- */
+  var ring = document.getElementById('breathRing');
+  var word = document.getElementById('breathWord');
+  var count = document.getElementById('breathCount');
+  var btn = document.getElementById('breathBtn');
+
+  var running = false;
+  var timers = [];
+  var phase = 0; // 0 吸氣 1 停留 2 吐氣
+
+  function clearTimers(){
+    timers.forEach(function(t){ clearTimeout(t); });
+    timers = [];
+  }
+
+  function setPhase(label, sub, cls){
+    word.textContent = label;
+    count.textContent = sub;
+    ring.classList.remove('inhale','exhale');
+    if(cls){ ring.classList.add(cls); }
+  }
+
+  function cycle(){
+    if(!running) return;
+
+    setPhase('吸氣', '緩緩吸入，數到 4', 'inhale');
+    var t1 = setTimeout(function(){
+      if(!running) return;
+      setPhase('停留', '輕輕停住，數到 7', 'inhale');
+      var t2 = setTimeout(function(){
+        if(!running) return;
+        setPhase('吐氣', '緩緩吐出，數到 8', 'exhale');
+        var t3 = setTimeout(function(){
+          if(running) cycle();
+        }, 8000);
+        timers.push(t3);
+      }, 7000);
+      timers.push(t2);
+    }, 4000);
+    timers.push(t1);
+  }
+
+  btn.addEventListener('click', function(){
+    running = !running;
+    if(running){
+      btn.textContent = '停止練習';
+      cycle();
+    } else {
+      clearTimers();
+      setPhase('吐氣', '點擊下方開始', 'exhale');
+      btn.textContent = '開始呼吸引導';
+    }
+  });
+
+  /* ---------- 情緒標籤互動 ---------- */
+  var moodChips = document.querySelectorAll('.mood-chip');
+  var moodMsg = document.getElementById('moodMsg');
+  var body = document.body;
+
+  var moodData = {
+    calm:     { grad: 'linear-gradient(120deg, #667eea, #764ba2, #a1c4fd, #667eea)', text: '此刻的你很平靜,像湖面一樣安穩。繼續保持這份節奏,為自己留一段不被打擾的時間吧。' },
+    joy:      { grad: 'linear-gradient(120deg, #f6d365, #fda085, #f093fb, #f6d365)', text: '感受到你的愉悅了！不妨把這份好心情寫進今天的情緒紀錄裡,讓未來的自己也能重新感受一次。' },
+    tired:    { grad: 'linear-gradient(120deg, #4b5fa3, #2e2a4a, #764ba2, #4b5fa3)', text: '辛苦了,今天的你有點疲憊。要不要先做一次三分鐘的呼吸練習,讓肩頸與呼吸都慢慢鬆開？' },
+    anxious:  { grad: 'linear-gradient(120deg, #f093fb, #a18cd1, #667eea, #f093fb)', text: '焦慮的感覺被接住了。試著跟著呼吸圈吸氣四秒、吐氣八秒,讓紛亂的思緒先放慢速度。' },
+    grateful: { grad: 'linear-gradient(120deg, #84fab0, #8fd3f4, #f093fb, #84fab0)', text: '帶著感恩的心情真美好。把今天讓你感謝的一件小事記下來,它會在未來某天悄悄療癒你。' }
+  };
+
+  moodChips.forEach(function(chip){
+    chip.addEventListener('click', function(){
+      moodChips.forEach(function(c){ c.classList.remove('active'); });
+      chip.classList.add('active');
+
+      var mood = chip.getAttribute('data-mood');
+      var data = moodData[mood];
+      if(data){
+        body.style.background = data.grad;
+        body.style.backgroundSize = '300% 300%';
+        moodMsg.textContent = data.text;
+      }
+    });
+  });
+
+})();
+</script>
+
+</body>
+</html>

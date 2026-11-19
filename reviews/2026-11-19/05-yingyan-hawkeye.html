@@ -1,0 +1,670 @@
+<!-- style #51 HUD/Sci-Fi -->
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>鷹眼 HawkEye ｜ 無人機機隊即時監控系統</title>
+<meta name="description" content="HUD 科幻風格無人機機隊監控介面設計示範">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Share+Tech+Mono&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --bg: #0a0e14;
+    --bg-deep: #050709;
+    --cyan: #00ffff;
+    --cyan-dim: #0bd6d6;
+    --cyan-soft: rgba(0,255,255,0.12);
+    --amber: #ffb000;
+    --red: #ff3b3b;
+    --line: rgba(0,255,255,0.22);
+    --panel-bg: rgba(6,16,20,0.72);
+  }
+
+  *{ box-sizing: border-box; }
+
+  html,body{
+    margin:0;
+    padding:0;
+    background: var(--bg);
+    color: var(--cyan);
+    font-family: 'Share Tech Mono', 'Noto Sans TC', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .font-head{ font-family: 'Orbitron', 'Noto Sans TC', sans-serif; }
+  .font-mono{ font-family: 'Share Tech Mono', 'Noto Sans TC', monospace; }
+  .font-cn{ font-family: 'Noto Sans TC', 'Share Tech Mono', sans-serif; }
+
+  /* ---------- 背景：網格線 + 掃描動畫 ---------- */
+  .hud-bg{
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(ellipse at 50% -10%, rgba(0,255,255,0.09), transparent 60%),
+      linear-gradient(rgba(0,255,255,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,255,0.07) 1px, transparent 1px);
+    background-size: auto, 42px 42px, 42px 42px;
+    pointer-events: none;
+  }
+
+  .hud-scanline{
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(0,255,255,0.05) 0px,
+      rgba(0,255,255,0.05) 1px,
+      transparent 2px,
+      transparent 4px
+    );
+    mix-blend-mode: screen;
+    opacity: 0.5;
+  }
+
+  .hud-sweep{
+    position: fixed;
+    left: 0; right: 0;
+    height: 140px;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(to bottom, transparent, rgba(0,255,255,0.09), transparent);
+    animation: sweep 6s linear infinite;
+  }
+  @keyframes sweep{
+    0%{ top: -140px; }
+    100%{ top: 100vh; }
+  }
+
+  .vignette{
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    box-shadow: inset 0 0 140px 40px rgba(0,0,0,0.75);
+  }
+
+  .noise-flicker{
+    animation: flicker 7s infinite;
+  }
+  @keyframes flicker{
+    0%,97%,100%{ opacity: 1; }
+    98%{ opacity: 0.86; }
+    99%{ opacity: 0.96; }
+  }
+
+  /* ---------- 面板：邊角刻度裝飾 ---------- */
+  .hud-panel{
+    position: relative;
+    background: var(--panel-bg);
+    border: 1px solid var(--line);
+    box-shadow:
+      0 0 18px rgba(0,255,255,0.08),
+      inset 0 0 30px rgba(0,255,255,0.03);
+    backdrop-filter: blur(2px);
+  }
+  .hud-panel::before,
+  .hud-panel::after,
+  .hud-panel .corner-tl,
+  .hud-panel .corner-tr,
+  .hud-panel .corner-bl,
+  .hud-panel .corner-br{
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+  }
+  .hud-panel::before{
+    top: -1px; left: -1px;
+    border-top: 2px solid var(--cyan);
+    border-left: 2px solid var(--cyan);
+  }
+  .hud-panel::after{
+    top: -1px; right: -1px;
+    border-top: 2px solid var(--cyan);
+    border-right: 2px solid var(--cyan);
+  }
+  .hud-panel .corner-bl{
+    bottom: -1px; left: -1px;
+    border-bottom: 2px solid var(--cyan);
+    border-left: 2px solid var(--cyan);
+  }
+  .hud-panel .corner-br{
+    bottom: -1px; right: -1px;
+    border-bottom: 2px solid var(--cyan);
+    border-right: 2px solid var(--cyan);
+  }
+
+  .tick-row{
+    display:flex;
+    gap: 3px;
+    align-items:flex-end;
+    height: 8px;
+  }
+  .tick-row span{
+    width: 2px;
+    height: 100%;
+    background: var(--line);
+  }
+  .tick-row span:nth-child(3n){ height: 140%; background: var(--cyan-dim); }
+
+  /* ---------- 文字發光 ---------- */
+  .glow-text{ text-shadow: 0 0 6px rgba(0,255,255,0.65), 0 0 16px rgba(0,255,255,0.3); }
+  .glow-amber{ text-shadow: 0 0 6px rgba(255,176,0,0.7), 0 0 16px rgba(255,176,0,0.35); color: var(--amber); }
+  .glow-red{ text-shadow: 0 0 8px rgba(255,59,59,0.85), 0 0 18px rgba(255,59,59,0.4); color: var(--red); }
+
+  .glow-border{
+    box-shadow: 0 0 10px rgba(0,255,255,0.5), 0 0 24px rgba(0,255,255,0.2), inset 0 0 10px rgba(0,255,255,0.1);
+  }
+
+  /* ---------- 無人機選擇按鈕 ---------- */
+  .drone-btn{
+    font-family: 'Share Tech Mono', 'Noto Sans TC', monospace;
+    background: rgba(0,255,255,0.04);
+    border: 1px solid var(--line);
+    color: var(--cyan-dim);
+    transition: all 0.2s ease;
+    position: relative;
+  }
+  .drone-btn:hover{
+    background: rgba(0,255,255,0.1);
+    color: var(--cyan);
+  }
+  .drone-btn.active{
+    background: rgba(0,255,255,0.16);
+    color: var(--cyan);
+    box-shadow: 0 0 14px rgba(0,255,255,0.45), inset 0 0 10px rgba(0,255,255,0.15);
+    border-color: var(--cyan);
+  }
+  .drone-btn.status-warn.active{
+    border-color: var(--red);
+    color: var(--red);
+    box-shadow: 0 0 14px rgba(255,59,59,0.5), inset 0 0 10px rgba(255,59,59,0.15);
+  }
+  .drone-btn .dot{
+    width: 7px; height: 7px; border-radius: 50%;
+    display:inline-block;
+    margin-right: 6px;
+    box-shadow: 0 0 6px currentColor;
+  }
+
+  /* ---------- 圓形數據環 ---------- */
+  .ring-wrap{ position: relative; width: 220px; height: 220px; margin: 0 auto; }
+  .ring-wrap svg{ transform: rotate(-90deg); }
+  .ring-bg{ fill: none; stroke: rgba(0,255,255,0.1); stroke-width: 10; }
+  .ring-fg{
+    fill: none;
+    stroke: var(--cyan);
+    stroke-width: 10;
+    stroke-linecap: round;
+    filter: drop-shadow(0 0 6px rgba(0,255,255,0.9));
+    transition: stroke-dashoffset 0.8s cubic-bezier(.4,0,.2,1), stroke 0.5s ease;
+  }
+  .ring-center{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+  }
+
+  /* ---------- 資料列 ---------- */
+  .data-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    border-bottom: 1px dashed rgba(0,255,255,0.18);
+    padding: 9px 2px;
+    gap: 10px;
+  }
+  .data-row:last-child{ border-bottom: none; }
+  .data-label{
+    font-family: 'Share Tech Mono', 'Noto Sans TC', monospace;
+    color: var(--cyan-dim);
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  .data-value{
+    font-family: 'Orbitron', 'Noto Sans TC', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: right;
+  }
+
+  /* ---------- 滑桿（任務訊號模擬）---------- */
+  input[type="range"].hud-slider{
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    background: rgba(0,255,255,0.15);
+    border: 1px solid var(--line);
+    outline: none;
+  }
+  input[type="range"].hud-slider::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    width: 16px; height: 16px;
+    background: var(--cyan);
+    box-shadow: 0 0 10px rgba(0,255,255,0.9);
+    cursor: pointer;
+    border-radius: 2px;
+  }
+  input[type="range"].hud-slider::-moz-range-thumb{
+    width: 16px; height: 16px;
+    background: var(--cyan);
+    box-shadow: 0 0 10px rgba(0,255,255,0.9);
+    cursor: pointer;
+    border: none;
+    border-radius: 2px;
+  }
+
+  .pulse-dot{
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--cyan);
+    box-shadow: 0 0 8px var(--cyan);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ opacity: 1; transform: scale(1); }
+    50%{ opacity: 0.35; transform: scale(0.75); }
+  }
+
+  .scroll-thin::-webkit-scrollbar{ height: 6px; width: 6px; }
+  .scroll-thin::-webkit-scrollbar-thumb{ background: rgba(0,255,255,0.3); }
+  .scroll-thin::-webkit-scrollbar-track{ background: transparent; }
+
+  @media (max-width: 640px){
+    .ring-wrap{ width: 170px; height: 170px; }
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <div class="hud-bg"></div>
+  <div class="hud-scanline"></div>
+  <div class="hud-sweep"></div>
+  <div class="vignette"></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-6 noise-flicker">
+
+    <!-- 頂部標頭 -->
+    <header class="hud-panel px-5 py-4 mb-5">
+      <span class="corner-bl"></span><span class="corner-br"></span>
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-4">
+          <div class="font-head text-2xl sm:text-3xl font-800 tracking-widest glow-text">HAWKEYE</div>
+          <div class="hidden sm:block">
+            <div class="font-cn text-sm text-cyan-200/80 tracking-wide">鷹眼無人機機隊即時監控系統</div>
+            <div class="font-mono text-[11px] text-cyan-400/60">UAV FLEET REAL-TIME COMMAND &amp; CONTROL</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 font-mono text-xs">
+          <div class="flex items-center gap-2">
+            <span class="pulse-dot"></span>
+            <span class="text-cyan-300">鏈路連線正常</span>
+          </div>
+          <div class="hidden md:flex items-center gap-2 text-cyan-400/70">
+            <span>系統時間</span>
+            <span id="clock" class="font-head text-cyan-200 glow-text">--:--:--</span>
+          </div>
+        </div>
+      </div>
+      <div class="tick-row mt-3">
+        <script>document.write('<span></span>'.repeat(60));</script>
+      </div>
+    </header>
+
+    <!-- 無人機選擇列 -->
+    <div class="hud-panel px-4 py-3 mb-5">
+      <span class="corner-bl"></span><span class="corner-br"></span>
+      <div class="font-mono text-[11px] text-cyan-400/70 mb-2 tracking-widest">選取機號 // SELECT UNIT</div>
+      <div id="droneSelector" class="flex flex-wrap gap-2"></div>
+    </div>
+
+    <!-- 主面板區 -->
+    <main class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+
+      <!-- 左：電量環 -->
+      <section class="hud-panel px-5 py-6 flex flex-col items-center">
+        <span class="corner-bl"></span><span class="corner-br"></span>
+        <div class="font-mono text-[11px] text-cyan-400/70 mb-4 tracking-widest self-start">動力系統 // POWER CORE</div>
+        <div class="ring-wrap">
+          <svg viewBox="0 0 220 220" width="100%" height="100%">
+            <circle class="ring-bg" cx="110" cy="110" r="95"></circle>
+            <circle id="batteryRing" class="ring-fg" cx="110" cy="110" r="95"
+              stroke-dasharray="596.9" stroke-dashoffset="596.9"></circle>
+          </svg>
+          <div class="ring-center">
+            <div id="batteryPct" class="font-head text-4xl font-800 glow-text">0%</div>
+            <div class="font-mono text-[11px] text-cyan-400/70 mt-1 tracking-widest">電池電量 BATT</div>
+          </div>
+        </div>
+
+        <div class="w-full mt-6 font-mono text-xs">
+          <div class="flex justify-between text-cyan-400/70 mb-1">
+            <span>模擬電量校正 // SIM OVERRIDE</span>
+            <span id="simPctLabel" class="text-cyan-200">—</span>
+          </div>
+          <input id="batterySlider" type="range" min="0" max="100" value="0" class="hud-slider">
+          <div class="text-[10px] text-cyan-400/50 mt-1">拖曳滑桿即時校正所選機號的電量讀數與數據環顯示</div>
+        </div>
+      </section>
+
+      <!-- 中：即時遙測資料 -->
+      <section class="hud-panel px-5 py-6 lg:col-span-2">
+        <span class="corner-bl"></span><span class="corner-br"></span>
+        <div class="flex items-center justify-between mb-3">
+          <div class="font-mono text-[11px] text-cyan-400/70 tracking-widest">即時遙測資料 // TELEMETRY FEED</div>
+          <div id="statusBadge" class="font-mono text-[11px] px-2 py-1 border border-cyan-400/40">STANDBY</div>
+        </div>
+
+        <div class="mb-4">
+          <div class="font-cn text-base sm:text-lg text-cyan-100 glow-text" id="droneId">HAWKEYE-01</div>
+          <div class="font-cn text-xs text-cyan-400/70" id="missionName">任務：待命中</div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
+          <div>
+            <div class="data-row">
+              <span class="data-label">任務狀態 MISSION STATUS</span>
+              <span class="data-value" id="valStatus">—</span>
+            </div>
+            <div class="data-row">
+              <span class="data-label">飛行高度 ALTITUDE</span>
+              <span class="data-value" id="valAlt">— 公尺</span>
+            </div>
+            <div class="data-row">
+              <span class="data-label">飛行速度 AIRSPEED</span>
+              <span class="data-value" id="valSpeed">— km/h</span>
+            </div>
+            <div class="data-row">
+              <span class="data-label">續航時間 REMAIN TIME</span>
+              <span class="data-value" id="valFlightTime">— 分鐘</span>
+            </div>
+          </div>
+          <div>
+            <div class="data-row">
+              <span class="data-label">GPS 座標 COORDINATES</span>
+              <span class="data-value font-mono text-sm" id="valGps">—</span>
+            </div>
+            <div class="data-row">
+              <span class="data-label">訊號強度 SIGNAL</span>
+              <span class="data-value" id="valSignal">—</span>
+            </div>
+            <div class="data-row">
+              <span class="data-label">機體溫度 CORE TEMP</span>
+              <span class="data-value" id="valTemp">— °C</span>
+            </div>
+            <div class="data-row">
+              <span class="data-label">最後回傳 LAST SYNC</span>
+              <span class="data-value font-mono text-sm" id="valSync">— 秒前</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 訊號強度橫向刻度 -->
+        <div class="mt-5">
+          <div class="flex justify-between font-mono text-[11px] text-cyan-400/70 mb-1">
+            <span>訊號強度圖譜 // SIGNAL MAP</span>
+            <span id="signalDbm">— dBm</span>
+          </div>
+          <div class="flex gap-1 h-5" id="signalBars"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- 底部：機隊總覽條 -->
+    <footer class="hud-panel px-5 py-4 mt-5">
+      <span class="corner-bl"></span><span class="corner-br"></span>
+      <div class="font-mono text-[11px] text-cyan-400/70 mb-3 tracking-widest">機隊總覽 // FLEET OVERVIEW</div>
+      <div id="fleetOverview" class="grid grid-cols-2 sm:grid-cols-4 gap-3"></div>
+      <div class="font-mono text-[10px] text-cyan-400/40 mt-4 tracking-widest">
+        HAWKEYE C2 INTERFACE ・ 介面設計示範，非真實飛行數據 ・ VER 2.6.1
+      </div>
+    </footer>
+
+  </div>
+
+<script>
+(function(){
+  "use strict";
+
+  // 無人機機隊資料（繁體中文，示範用合理數值）
+  var drones = [
+    {
+      id: "HAWKEYE-01",
+      mission: "任務：中正紀念堂周邊空中巡邏",
+      status: "執行任務中",
+      statusCode: "active",
+      battery: 87,
+      altitude: 120,
+      speed: 38,
+      gps: "25.0330° N, 121.5654° E",
+      signal: -58,
+      temp: 41,
+      flightTime: 22,
+      lastSync: 2
+    },
+    {
+      id: "HAWKEYE-02",
+      mission: "任務：桃園物流園區包裹空投測試",
+      status: "返航中",
+      statusCode: "returning",
+      battery: 34,
+      altitude: 65,
+      speed: 52,
+      gps: "24.9936° N, 121.3010° E",
+      signal: -71,
+      temp: 46,
+      flightTime: 6,
+      lastSync: 4
+    },
+    {
+      id: "HAWKEYE-03",
+      mission: "任務：台中工業區熱顯像巡檢（待派遣）",
+      status: "待命中",
+      statusCode: "standby",
+      battery: 100,
+      altitude: 0,
+      speed: 0,
+      gps: "24.1477° N, 120.6736° E",
+      signal: -45,
+      temp: 29,
+      flightTime: 45,
+      lastSync: 1
+    },
+    {
+      id: "HAWKEYE-04",
+      mission: "任務：高雄港區海事監控",
+      status: "訊號微弱・緊急返航",
+      statusCode: "critical",
+      battery: 12,
+      altitude: 210,
+      speed: 61,
+      gps: "22.6163° N, 120.3014° E",
+      signal: -88,
+      temp: 53,
+      flightTime: 2,
+      lastSync: 9
+    }
+  ];
+
+  var statusStyle = {
+    active:    { cls: "glow-text",  label: "ACTIVE" },
+    returning: { cls: "glow-amber", label: "RTB" },
+    standby:   { cls: "",           label: "STANDBY" },
+    critical:  { cls: "glow-red",   label: "CRITICAL" }
+  };
+
+  var currentIndex = 0;
+  var manualBattery = null; // 使用者透過滑桿覆寫的電量模擬值
+  var RING_CIRC = 2 * Math.PI * 95;
+
+  var el = {
+    selector: document.getElementById("droneSelector"),
+    droneId: document.getElementById("droneId"),
+    mission: document.getElementById("missionName"),
+    statusBadge: document.getElementById("statusBadge"),
+    valStatus: document.getElementById("valStatus"),
+    valAlt: document.getElementById("valAlt"),
+    valSpeed: document.getElementById("valSpeed"),
+    valFlightTime: document.getElementById("valFlightTime"),
+    valGps: document.getElementById("valGps"),
+    valSignal: document.getElementById("valSignal"),
+    valTemp: document.getElementById("valTemp"),
+    valSync: document.getElementById("valSync"),
+    signalDbm: document.getElementById("signalDbm"),
+    signalBars: document.getElementById("signalBars"),
+    batteryRing: document.getElementById("batteryRing"),
+    batteryPct: document.getElementById("batteryPct"),
+    batterySlider: document.getElementById("batterySlider"),
+    simPctLabel: document.getElementById("simPctLabel"),
+    fleetOverview: document.getElementById("fleetOverview"),
+    clock: document.getElementById("clock")
+  };
+
+  function signalQualityLabel(dbm){
+    if(dbm >= -55) return "極佳";
+    if(dbm >= -65) return "良好";
+    if(dbm >= -78) return "普通";
+    return "微弱";
+  }
+
+  function renderSignalBars(dbm){
+    var bars = 10;
+    var ratio = Math.min(1, Math.max(0, (dbm + 95) / 45)); // -95~-50 映射到 0~1
+    var active = Math.round(ratio * bars);
+    el.signalBars.innerHTML = "";
+    for(var i = 0; i < bars; i++){
+      var bar = document.createElement("div");
+      bar.style.flex = "1";
+      bar.style.border = "1px solid rgba(0,255,255,0.3)";
+      if(i < active){
+        bar.style.background = dbm < -80 ? "var(--red)" : (dbm < -68 ? "var(--amber)" : "var(--cyan)");
+        bar.style.boxShadow = "0 0 6px currentColor";
+      } else {
+        bar.style.background = "transparent";
+      }
+      el.signalBars.appendChild(bar);
+    }
+  }
+
+  function setRing(pct){
+    pct = Math.max(0, Math.min(100, pct));
+    var offset = RING_CIRC - (pct / 100) * RING_CIRC;
+    el.batteryRing.setAttribute("stroke-dasharray", RING_CIRC.toFixed(1));
+    el.batteryRing.setAttribute("stroke-dashoffset", offset.toFixed(1));
+    el.batteryPct.textContent = Math.round(pct) + "%";
+
+    var ring = el.batteryRing;
+    var pctEl = el.batteryPct;
+    if(pct <= 15){
+      ring.style.stroke = "var(--red)";
+      pctEl.className = "font-head text-4xl font-800 glow-red";
+    } else if(pct <= 40){
+      ring.style.stroke = "var(--amber)";
+      pctEl.className = "font-head text-4xl font-800 glow-amber";
+    } else {
+      ring.style.stroke = "var(--cyan)";
+      pctEl.className = "font-head text-4xl font-800 glow-text";
+    }
+  }
+
+  function renderFleetOverview(){
+    el.fleetOverview.innerHTML = "";
+    drones.forEach(function(d, i){
+      var s = statusStyle[d.statusCode];
+      var card = document.createElement("div");
+      card.className = "border border-cyan-400/20 px-3 py-2 cursor-pointer transition hover:bg-cyan-400/5";
+      card.style.borderColor = i === currentIndex ? "var(--cyan)" : "rgba(0,255,255,0.2)";
+      card.innerHTML =
+        '<div class="font-mono text-[11px] text-cyan-400/60">' + d.id + '</div>' +
+        '<div class="font-head text-lg ' + s.cls + '">' + d.battery + '%</div>' +
+        '<div class="font-cn text-[11px] text-cyan-300/80">' + d.status + '</div>';
+      card.addEventListener("click", function(){ selectDrone(i); });
+      el.fleetOverview.appendChild(card);
+    });
+  }
+
+  function renderSelector(){
+    el.selector.innerHTML = "";
+    drones.forEach(function(d, i){
+      var btn = document.createElement("button");
+      var isWarn = d.statusCode === "critical";
+      btn.type = "button";
+      btn.className = "drone-btn px-3 py-2 text-xs sm:text-sm" + (isWarn ? " status-warn" : "") + (i === currentIndex ? " active" : "");
+      var dotColor = d.statusCode === "critical" ? "var(--red)" : (d.statusCode === "returning" ? "var(--amber)" : "var(--cyan)");
+      btn.innerHTML = '<span class="dot" style="background:' + dotColor + '; color:' + dotColor + '"></span>' + d.id;
+      btn.addEventListener("click", function(){ selectDrone(i); });
+      el.selector.appendChild(btn);
+    });
+  }
+
+  function render(){
+    var d = drones[currentIndex];
+    var effectiveBattery = manualBattery !== null ? manualBattery : d.battery;
+    var s = statusStyle[d.statusCode];
+
+    el.droneId.textContent = d.id;
+    el.mission.textContent = d.mission;
+
+    el.statusBadge.textContent = s.label;
+    el.statusBadge.className = "font-mono text-[11px] px-2 py-1 border " + (
+      d.statusCode === "critical" ? "border-red-400 glow-red" :
+      d.statusCode === "returning" ? "border-amber-400 glow-amber" :
+      "border-cyan-400/40 glow-text"
+    );
+
+    el.valStatus.textContent = d.status;
+    el.valStatus.className = "data-value " + s.cls;
+    el.valAlt.textContent = d.altitude + " 公尺";
+    el.valSpeed.textContent = d.speed + " km/h";
+    el.valFlightTime.textContent = d.flightTime + " 分鐘";
+    el.valGps.textContent = d.gps;
+    el.valSignal.textContent = d.signal + " dBm（" + signalQualityLabel(d.signal) + "）";
+    el.valTemp.textContent = d.temp + " °C";
+    el.valSync.textContent = d.lastSync + " 秒前";
+
+    el.signalDbm.textContent = d.signal + " dBm";
+    renderSignalBars(d.signal);
+
+    setRing(effectiveBattery);
+
+    el.batterySlider.value = effectiveBattery;
+    el.simPctLabel.textContent = manualBattery !== null ? (manualBattery + "% （模擬覆寫中）") : "跟隨遙測資料";
+
+    renderSelector();
+    renderFleetOverview();
+  }
+
+  function selectDrone(i){
+    currentIndex = i;
+    manualBattery = null; // 切換機號時重置模擬覆寫
+    render();
+  }
+
+  el.batterySlider.addEventListener("input", function(){
+    manualBattery = parseInt(this.value, 10);
+    setRing(manualBattery);
+    el.simPctLabel.textContent = manualBattery + "% （模擬覆寫中）";
+  });
+
+  function tickClock(){
+    var now = new Date();
+    function pad(n){ return (n < 10 ? "0" : "") + n; }
+    el.clock.textContent = pad(now.getHours()) + ":" + pad(now.getMinutes()) + ":" + pad(now.getSeconds());
+  }
+  tickClock();
+  setInterval(tickClock, 1000);
+
+  render();
+})();
+</script>
+
+</body>
+</html>
