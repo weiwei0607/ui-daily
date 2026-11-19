@@ -1,0 +1,627 @@
+<!-- style #35 User Behavior Dashboard -->
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>漏斗洞察 FunnelLens｜轉換漏斗與留存分析</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ["IBM Plex Sans", "Noto Sans TC", "sans-serif"],
+          mono: ["JetBrains Mono", "monospace"],
+        },
+        colors: {
+          brand: {
+            50: "#f2f0ff",
+            100: "#e4e0ff",
+            400: "#8b7bf0",
+            500: "#6f5bf5",
+            600: "#5b3fe0",
+            700: "#4a2fc0",
+          },
+          ink: {
+            50: "#f7f8fa",
+            100: "#eef0f3",
+            200: "#dde1e6",
+            300: "#c3c9d1",
+            400: "#9aa3af",
+            500: "#707a87",
+            600: "#4f5764",
+            700: "#363d47",
+            800: "#232832",
+            900: "#171a21",
+          },
+          up: "#1a9c5b",
+          down: "#d9412f",
+          warn: "#c6871a",
+        },
+      },
+    },
+  };
+</script>
+<style>
+  :root {
+    --bg-page: #f5f6f8;
+    --bg-panel: #ffffff;
+    --border-soft: #e4e7eb;
+  }
+  * { -webkit-font-smoothing: antialiased; }
+  html, body {
+    background: var(--bg-page);
+    font-family: "IBM Plex Sans", "Noto Sans TC", sans-serif;
+    color: #232832;
+  }
+  .font-num {
+    font-family: "JetBrains Mono", monospace;
+    font-feature-settings: "tnum" 1;
+    letter-spacing: -0.01em;
+  }
+  .panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+  }
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+  .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+
+  .range-btn {
+    font-family: "JetBrains Mono", monospace;
+    transition: background-color .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .range-btn[data-active="true"] {
+    background: #232832;
+    color: #fff;
+    border-color: #232832;
+  }
+
+  .funnel-row {
+    cursor: pointer;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .funnel-row:hover { transform: translateY(-1px); }
+  .funnel-row[data-active="true"] .funnel-bar {
+    box-shadow: 0 0 0 2px #6f5bf5 inset, 0 4px 14px rgba(111,91,245,.25);
+  }
+  .funnel-bar {
+    transition: width .4s cubic-bezier(.2,.8,.2,1), box-shadow .15s ease;
+  }
+
+  .tab-btn {
+    transition: color .15s ease, border-color .15s ease, background-color .15s ease;
+  }
+  .tab-btn[data-active="true"] {
+    color: #232832;
+    background: #eceaff;
+  }
+  .nav-item[data-active="true"] {
+    background: #2f3542;
+    color: #fff;
+  }
+  .nav-item[data-active="true"] .nav-dot {
+    background: #a78bfa;
+  }
+
+  .kpi-delta-up { color: #1a9c5b; }
+  .kpi-delta-down { color: #d9412f; }
+
+  @media (max-width: 767px) {
+    .sidebar-desktop { display: none !important; }
+    .topbar-mobile-nav { display: flex !important; }
+  }
+  @media (min-width: 768px) {
+    .topbar-mobile-nav { display: none !important; }
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="flex min-h-screen">
+
+  <!-- 側邊導覽（桌機） -->
+  <aside class="sidebar-desktop w-[232px] shrink-0 bg-[#1b1e26] text-ink-200 flex flex-col">
+    <div class="px-5 pt-6 pb-5 border-b border-white/10">
+      <div class="flex items-center gap-2">
+        <span class="w-8 h-8 rounded-lg bg-brand-500 flex items-center justify-center shrink-0">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 4H21L14 13V20L10 18V13L3 4Z" stroke="white" stroke-width="2" stroke-linejoin="round"/></svg>
+        </span>
+        <div>
+          <p class="text-white font-semibold text-[15px] leading-none">FunnelLens</p>
+          <p class="text-ink-400 text-[11px] mt-0.5">漏斗洞察</p>
+        </div>
+      </div>
+    </div>
+
+    <nav class="flex-1 px-3 py-4 space-y-1">
+      <p class="px-3 text-[11px] text-ink-500 font-medium tracking-wide mb-2">分析模組</p>
+      <button class="nav-item" data-tab="overview" data-active="true" onclick="switchTab('overview')">
+        <span class="nav-dot"></span>
+        <span>總覽儀表板</span>
+      </button>
+      <button class="nav-item" data-tab="path" data-active="false" onclick="switchTab('path')">
+        <span class="nav-dot"></span>
+        <span>使用者路徑分析</span>
+      </button>
+      <button class="nav-item" data-tab="export" data-active="false" onclick="switchTab('export')">
+        <span class="nav-dot"></span>
+        <span>報表匯出中心</span>
+      </button>
+    </nav>
+
+    <div class="px-5 py-4 border-t border-white/10 text-[11px] text-ink-500">
+      <p>資料來源：產品事件追蹤</p>
+      <p class="mt-1">最後更新 <span class="font-num text-ink-300">2026/11/19 09:00</span></p>
+    </div>
+  </aside>
+
+  <!-- 主要內容 -->
+  <div class="flex-1 min-w-0 flex flex-col">
+
+    <!-- 頂部列 -->
+    <header class="panel rounded-none border-x-0 border-t-0 sticky top-0 z-10">
+      <div class="px-4 md:px-7 pt-4">
+        <div class="flex items-center justify-between gap-3 flex-wrap">
+          <div>
+            <p class="text-[12px] text-ink-500">產品分析後台</p>
+            <h1 id="page-title" class="text-[19px] md:text-[21px] font-semibold text-ink-900 mt-0.5">轉換漏斗與留存分析</h1>
+          </div>
+
+          <div class="flex items-center gap-1.5 bg-ink-100 rounded-lg p-1" role="group" aria-label="時間區間切換">
+            <button class="range-btn text-[12px] px-3 py-1.5 rounded-md border border-transparent" data-range="7" data-active="false" onclick="setRange('7')">近 7 天</button>
+            <button class="range-btn text-[12px] px-3 py-1.5 rounded-md border border-transparent" data-range="30" data-active="true" onclick="setRange('30')">近 30 天</button>
+            <button class="range-btn text-[12px] px-3 py-1.5 rounded-md border border-transparent" data-range="90" data-active="false" onclick="setRange('90')">近 90 天</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 手機版頁籤 -->
+      <div class="topbar-mobile-nav overflow-x-auto scrollbar-none mt-3 px-4 gap-2 pb-3" style="display:none;">
+        <button class="tab-btn shrink-0 text-[13px] px-3.5 py-1.5 rounded-full border border-ink-200" data-tab-m="overview" data-active="true" onclick="switchTab('overview')">總覽儀表板</button>
+        <button class="tab-btn shrink-0 text-[13px] px-3.5 py-1.5 rounded-full border border-ink-200" data-tab-m="path" data-active="false" onclick="switchTab('path')">使用者路徑分析</button>
+        <button class="tab-btn shrink-0 text-[13px] px-3.5 py-1.5 rounded-full border border-ink-200" data-tab-m="export" data-active="false" onclick="switchTab('export')">報表匯出中心</button>
+      </div>
+    </header>
+
+    <main class="flex-1 px-4 md:px-7 py-6 space-y-6">
+
+      <!-- ============ 總覽儀表板 ============ -->
+      <section id="panel-overview">
+
+        <!-- KPI 摘要卡 -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+          <div class="panel p-4">
+            <p class="text-[12px] text-ink-500">總訪客數</p>
+            <p id="kpi-visitors" class="font-num text-[24px] md:text-[26px] font-semibold text-ink-900 mt-1">—</p>
+            <p id="kpi-visitors-delta" class="text-[12px] font-num mt-1"></p>
+          </div>
+          <div class="panel p-4">
+            <p class="text-[12px] text-ink-500">整體轉換率（訪客→付費）</p>
+            <p id="kpi-convrate" class="font-num text-[24px] md:text-[26px] font-semibold text-brand-600 mt-1">—</p>
+            <p id="kpi-convrate-delta" class="text-[12px] font-num mt-1"></p>
+          </div>
+          <div class="panel p-4">
+            <p class="text-[12px] text-ink-500">平均啟用天數</p>
+            <p id="kpi-activation" class="font-num text-[24px] md:text-[26px] font-semibold text-ink-900 mt-1">—</p>
+            <p id="kpi-activation-delta" class="text-[12px] font-num mt-1"></p>
+          </div>
+          <div class="panel p-4">
+            <p class="text-[12px] text-ink-500">付費會員數</p>
+            <p id="kpi-paid" class="font-num text-[24px] md:text-[26px] font-semibold text-ink-900 mt-1">—</p>
+            <p id="kpi-paid-delta" class="text-[12px] font-num mt-1"></p>
+          </div>
+        </div>
+
+        <!-- 漏斗 + 流失細節 -->
+        <div class="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-4 mt-5">
+
+          <div class="panel p-5">
+            <div class="flex items-center justify-between mb-1">
+              <h2 class="text-[15px] font-semibold text-ink-900">轉換漏斗：訪客 → 註冊 → 啟用 → 付費</h2>
+              <span class="text-[11px] text-ink-400">點擊任一階段查看詳情</span>
+            </div>
+            <p class="text-[12px] text-ink-500 mb-5">目前區間：<span id="funnel-range-label" class="font-num"></span>　．　條狀寬度對應各階段相對訪客基數的佔比</p>
+
+            <div id="funnel-rows" class="space-y-3"></div>
+          </div>
+
+          <div class="panel p-5">
+            <h2 id="detail-title" class="text-[15px] font-semibold text-ink-900 mb-1">階段詳情</h2>
+            <p id="detail-sub" class="text-[12px] text-ink-500 mb-4">點擊左側漏斗的任一階段，查看該階段的流失原因與數據。</p>
+            <div id="detail-body" class="space-y-3"></div>
+          </div>
+        </div>
+
+        <!-- 留存曲線 -->
+        <div class="panel p-5 mt-5">
+          <div class="flex items-center justify-between flex-wrap gap-2 mb-1">
+            <h2 class="text-[15px] font-semibold text-ink-900">留存曲線（註冊同期群組）</h2>
+            <div class="flex items-center gap-4 text-[12px] text-ink-500">
+              <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-brand-500"></span>留存率</span>
+            </div>
+          </div>
+          <p class="text-[12px] text-ink-500 mb-4">觀察 Day 1 / Day 7 / Day 14 / Day 30 的使用者留存比例，數值越低代表用戶流失越快。</p>
+
+          <div class="w-full overflow-x-auto">
+            <svg id="retention-svg" viewBox="0 0 640 230" class="w-full min-w-[480px]" style="max-height:260px;">
+              <line x1="48" y1="20" x2="48" y2="190" stroke="#e4e7eb" stroke-width="1"/>
+              <line x1="48" y1="190" x2="620" y2="190" stroke="#e4e7eb" stroke-width="1"/>
+              <g id="retention-gridlines"></g>
+              <g id="retention-yaxis"></g>
+              <polyline id="retention-line" points="" fill="none" stroke="#6f5bf5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <g id="retention-points"></g>
+              <g id="retention-xaxis"></g>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 使用者路徑分析（佔位內容） ============ -->
+      <section id="panel-path" class="hidden">
+        <div class="panel p-6 md:p-8 max-w-2xl">
+          <h2 class="text-[16px] font-semibold text-ink-900 mb-2">使用者路徑分析</h2>
+          <p class="text-[13px] text-ink-600 leading-6">
+            本模組正在整合前端事件紀錄與頁面熱區點擊資料，將於下一版本開放「跨頁面路徑圖」與「分支流向」視覺化，
+            協助釐清使用者從登陸頁到付費頁之間實際走過的路徑，而非僅看漏斗的單一方向轉換。
+          </p>
+          <p class="text-[13px] text-ink-600 leading-6 mt-3">
+            目前可先於「總覽儀表板」查看各轉換階段的流失細節與原因清單；路徑圖預計於下個版本與留存分析整合後開放。
+          </p>
+          <span class="inline-flex items-center gap-1.5 mt-4 text-[12px] text-brand-700 bg-brand-50 px-3 py-1.5 rounded-full">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 8V13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="16" r="1" fill="currentColor"/></svg>
+            即將推出
+          </span>
+        </div>
+      </section>
+
+      <!-- ============ 報表匯出中心（佔位內容） ============ -->
+      <section id="panel-export" class="hidden">
+        <div class="panel p-6 md:p-8 max-w-2xl">
+          <h2 class="text-[16px] font-semibold text-ink-900 mb-2">報表匯出中心</h2>
+          <p class="text-[13px] text-ink-600 leading-6">
+            可將目前時間區間的轉換漏斗、留存曲線與 KPI 摘要匯出為 CSV 或 PDF，方便用於每週成長會議簡報，
+            或提供給產品、行銷團隊做跨部門比對。
+          </p>
+          <div class="flex items-center gap-3 mt-5 flex-wrap">
+            <button disabled title="示範版尚未開放匯出功能" class="text-[13px] px-4 py-2 rounded-lg border border-ink-200 text-ink-400 cursor-not-allowed bg-ink-50">匯出 CSV</button>
+            <button disabled title="示範版尚未開放匯出功能" class="text-[13px] px-4 py-2 rounded-lg border border-ink-200 text-ink-400 cursor-not-allowed bg-ink-50">匯出 PDF 報表</button>
+            <span class="text-[12px] text-ink-400">示範版本，匯出功能即將推出</span>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<style>
+  .nav-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+    padding: 9px 12px;
+    border-radius: 9px;
+    font-size: 13px;
+    color: #c3c9d1;
+  }
+  .nav-item:hover { background: rgba(255,255,255,.06); }
+  .nav-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #4f5764; flex-shrink: 0;
+  }
+</style>
+
+<script>
+  // ---------------------------------------------------------------
+  // 資料：不同時間區間下的轉換漏斗、KPI 與留存曲線
+  // ---------------------------------------------------------------
+  const DATA = {
+    "7": {
+      label: "近 7 天",
+      kpi: {
+        visitors: 18420, visitorsDelta: "+4.2%", visitorsUp: true,
+        convRate: 9.4, convRateDelta: "-0.3pp", convRateUp: false,
+        activationDays: 2.1, activationDelta: "-0.1 天", activationUp: true,
+        paid: 1734, paidDelta: "+6.8%", paidUp: true,
+      },
+      funnel: [
+        { key: "visitor", name: "訪客",   count: 18420, pctOfBase: 100.0 },
+        { key: "signup",  name: "註冊",   count: 8473,  pctOfBase: 46.0 },
+        { key: "activate",name: "啟用",   count: 5253,  pctOfBase: 28.5 },
+        { key: "paid",    name: "付費",   count: 1734,  pctOfBase: 9.4 },
+      ],
+      retention: { d1: 68, d7: 31, d14: 22, d30: 15 },
+    },
+    "30": {
+      label: "近 30 天",
+      kpi: {
+        visitors: 76540, visitorsDelta: "+8.1%", visitorsUp: true,
+        convRate: 8.2, convRateDelta: "-0.6pp", convRateUp: false,
+        activationDays: 2.4, activationDelta: "+0.2 天", activationUp: false,
+        paid: 6264, paidDelta: "+3.4%", paidUp: true,
+      },
+      funnel: [
+        { key: "visitor", name: "訪客",   count: 76540, pctOfBase: 100.0 },
+        { key: "signup",  name: "註冊",   count: 33678, pctOfBase: 44.0 },
+        { key: "activate",name: "啟用",   count: 20207, pctOfBase: 26.4 },
+        { key: "paid",    name: "付費",   count: 6264,  pctOfBase: 8.2 },
+      ],
+      retention: { d1: 64, d7: 29, d14: 20, d30: 14 },
+    },
+    "90": {
+      label: "近 90 天",
+      kpi: {
+        visitors: 214300, visitorsDelta: "+15.3%", visitorsUp: true,
+        convRate: 7.1, convRateDelta: "-1.1pp", convRateUp: false,
+        activationDays: 2.8, activationDelta: "+0.4 天", activationUp: false,
+        paid: 15139, paidDelta: "+9.7%", paidUp: true,
+      },
+      funnel: [
+        { key: "visitor", name: "訪客",   count: 214300, pctOfBase: 100.0 },
+        { key: "signup",  name: "註冊",   count: 90006,  pctOfBase: 42.0 },
+        { key: "activate",name: "啟用",   count: 52203,  pctOfBase: 24.4 },
+        { key: "paid",    name: "付費",   count: 15139,  pctOfBase: 7.1 },
+      ],
+      retention: { d1: 61, d7: 26, d14: 18, d30: 12 },
+    },
+  };
+
+  // 各階段流失原因（與時間區間無關，反映長期性產品問題）
+  const DROPOFF_REASONS = {
+    visitor: {
+      next: "註冊",
+      reasons: [
+        "首頁未呈現明確的註冊誘因，多數訪客僅瀏覽即離開",
+        "註冊表單欄位過多（需填寫 8 項資料），中途放棄比例偏高",
+        "行動裝置上的註冊按鈕被導覽列遮擋，點擊率明顯偏低",
+        "社群廣告導流進站的訪客多為比價族群，平均停留時間低於 10 秒",
+      ],
+    },
+    signup: {
+      next: "啟用",
+      reasons: [
+        "新手引導流程超過 5 個步驟，中途退出比例偏高",
+        "Email 驗證信常被歸類為垃圾信件，使用者未完成帳號驗證",
+        "核心功能入口不明顯，使用者註冊後找不到可「啟用」的動作",
+        "缺乏操作提示（tooltip），初次使用容易卡在設定頁面",
+      ],
+    },
+    activate: {
+      next: "付費",
+      reasons: [
+        "付費方案說明頁資訊過於擁擠，方案比較表不易閱讀",
+        "目前僅支援信用卡付款，未開放行動支付造成部分流失",
+        "免費方案的功能已滿足多數輕量使用者的需求，缺乏升級動機",
+        "升級流程需跳轉三個頁面才能完成付款，操作步驟過長",
+      ],
+    },
+    paid: null, // 最終階段，無下一步流失
+  };
+
+  let currentRange = "30";
+  let activeStageKey = null;
+
+  function fmtInt(n) {
+    return n.toLocaleString("en-US");
+  }
+
+  function setRange(range) {
+    currentRange = range;
+    document.querySelectorAll(".range-btn").forEach(btn => {
+      btn.setAttribute("data-active", btn.dataset.range === range ? "true" : "false");
+    });
+    renderDashboard();
+  }
+
+  function switchTab(tab) {
+    ["overview", "path", "export"].forEach(t => {
+      document.getElementById("panel-" + t).classList.toggle("hidden", t !== tab);
+    });
+    document.querySelectorAll(".nav-item").forEach(el => {
+      el.setAttribute("data-active", el.dataset.tab === tab ? "true" : "false");
+    });
+    document.querySelectorAll("[data-tab-m]").forEach(el => {
+      el.setAttribute("data-active", el.dataset.tabM === tab ? "true" : "false");
+    });
+    const titles = { overview: "轉換漏斗與留存分析", path: "使用者路徑分析", export: "報表匯出中心" };
+    document.getElementById("page-title").textContent = titles[tab];
+  }
+
+  function deltaHtml(deltaText, isUp) {
+    const cls = isUp ? "kpi-delta-up" : "kpi-delta-down";
+    const arrow = isUp ? "▲" : "▼";
+    return `<span class="${cls}">${arrow} ${deltaText}　較前一期</span>`;
+  }
+
+  function renderKpi(d) {
+    document.getElementById("kpi-visitors").textContent = fmtInt(d.kpi.visitors);
+    document.getElementById("kpi-visitors-delta").innerHTML = deltaHtml(d.kpi.visitorsDelta, d.kpi.visitorsUp);
+
+    document.getElementById("kpi-convrate").textContent = d.kpi.convRate.toFixed(1) + "%";
+    document.getElementById("kpi-convrate-delta").innerHTML = deltaHtml(d.kpi.convRateDelta, d.kpi.convRateUp);
+
+    document.getElementById("kpi-activation").textContent = d.kpi.activationDays.toFixed(1) + " 天";
+    document.getElementById("kpi-activation-delta").innerHTML = deltaHtml(d.kpi.activationDelta, d.kpi.activationUp);
+
+    document.getElementById("kpi-paid").textContent = fmtInt(d.kpi.paid);
+    document.getElementById("kpi-paid-delta").innerHTML = deltaHtml(d.kpi.paidDelta, d.kpi.paidUp);
+  }
+
+  function renderFunnel(d) {
+    document.getElementById("funnel-range-label").textContent = d.label;
+    const container = document.getElementById("funnel-rows");
+    container.innerHTML = "";
+
+    d.funnel.forEach((stage, i) => {
+      const row = document.createElement("div");
+      row.className = "funnel-row";
+      row.dataset.active = (stage.key === activeStageKey) ? "true" : "false";
+      row.onclick = () => showDetail(stage.key);
+
+      const widthPct = Math.max(stage.pctOfBase, 4); // 最小寬度避免最後一段過細看不到
+      const barColor = ["#6f5bf5", "#8b7bf0", "#a594f3", "#c6871a"][i] || "#6f5bf5";
+
+      row.innerHTML = `
+        <div class="flex items-center justify-between mb-1.5">
+          <div class="flex items-baseline gap-2">
+            <span class="text-[13px] font-medium text-ink-800">${stage.name}</span>
+            <span class="text-[11px] text-ink-400 font-num">佔訪客基數 ${stage.pctOfBase.toFixed(1)}%</span>
+          </div>
+          <span class="font-num text-[15px] font-semibold text-ink-900">${fmtInt(stage.count)}</span>
+        </div>
+        <div class="w-full h-9 bg-ink-100 rounded-md overflow-hidden">
+          <div class="funnel-bar h-full rounded-md flex items-center justify-end pr-3"
+               style="width:${widthPct}%; background:${barColor};">
+          </div>
+        </div>
+      `;
+      container.appendChild(row);
+
+      if (i < d.funnel.length - 1) {
+        const next = d.funnel[i + 1];
+        const dropPct = ((stage.count - next.count) / stage.count * 100).toFixed(1);
+        const connector = document.createElement("div");
+        connector.className = "flex items-center gap-2 pl-1 py-0.5";
+        connector.innerHTML = `
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" class="text-ink-400 shrink-0"><path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="text-[11px] font-num text-down">流失 ${dropPct}%</span>
+          <span class="text-[11px] text-ink-400">（${stage.name} → ${next.name}）</span>
+        `;
+        container.appendChild(connector);
+      }
+    });
+
+    if (activeStageKey) {
+      showDetail(activeStageKey, true);
+    }
+  }
+
+  function showDetail(stageKey, skipRerender) {
+    activeStageKey = stageKey;
+    if (!skipRerender) {
+      document.querySelectorAll(".funnel-row").forEach(row => {
+        // 重新套用 active 狀態（避免重繪整個漏斗）
+      });
+      renderFunnel(DATA[currentRange]);
+    }
+
+    const d = DATA[currentRange];
+    const stage = d.funnel.find(s => s.key === stageKey);
+    const info = DROPOFF_REASONS[stageKey];
+    const titleEl = document.getElementById("detail-title");
+    const subEl = document.getElementById("detail-sub");
+    const bodyEl = document.getElementById("detail-body");
+
+    if (!info) {
+      // 最終階段：付費
+      titleEl.textContent = "付費階段：轉換完成";
+      subEl.textContent = `目前區間內共有 ${fmtInt(stage.count)} 位使用者完成付費，為整個漏斗的最終轉換。`;
+      bodyEl.innerHTML = `
+        <div class="rounded-lg bg-up/10 border border-up/20 p-3">
+          <p class="text-[12px] font-medium text-up mb-1">促成付費的主要驅動因素</p>
+          <ul class="text-[12.5px] text-ink-700 space-y-1.5 list-disc pl-4">
+            <li>完成核心功能啟用後 3 天內收到的方案比較信，點擊率較高</li>
+            <li>提供 14 天方案試用，降低升級決策的猶豫時間</li>
+            <li>客服主動聯繫啟用但未付費超過 7 天的帳號，轉換率明顯提升</li>
+          </ul>
+        </div>
+        <div class="rounded-lg bg-ink-50 border border-ink-200 p-3">
+          <p class="text-[12px] text-ink-600">建議：持續觀察付費後 30 天留存率，避免「衝單式」轉換導致後續流失。</p>
+        </div>
+      `;
+      return;
+    }
+
+    titleEl.textContent = `「${stage.name}」階段流失原因`;
+    subEl.innerHTML = `本階段流向下一步「${info.next}」時的主要流失原因，資料區間：<span class="font-num">${d.label}</span>`;
+
+    const nextStage = d.funnel[d.funnel.findIndex(s => s.key === stageKey) + 1];
+    const dropCount = stage.count - nextStage.count;
+    const dropPct = (dropCount / stage.count * 100).toFixed(1);
+
+    bodyEl.innerHTML = `
+      <div class="flex items-center gap-4 rounded-lg bg-down/10 border border-down/20 p-3">
+        <div>
+          <p class="text-[11px] text-ink-500">流失人數</p>
+          <p class="font-num text-[17px] font-semibold text-down">${fmtInt(dropCount)}</p>
+        </div>
+        <div class="w-px h-8 bg-down/20"></div>
+        <div>
+          <p class="text-[11px] text-ink-500">流失率</p>
+          <p class="font-num text-[17px] font-semibold text-down">${dropPct}%</p>
+        </div>
+      </div>
+      <ul class="text-[12.5px] text-ink-700 space-y-2 list-disc pl-4">
+        ${info.reasons.map(r => `<li>${r}</li>`).join("")}
+      </ul>
+    `;
+  }
+
+  // ---------------------------------------------------------------
+  // 留存曲線（SVG）
+  // ---------------------------------------------------------------
+  function renderRetention(d) {
+    const r = d.retention;
+    const points = [
+      { label: "Day 1", value: r.d1 },
+      { label: "Day 7", value: r.d7 },
+      { label: "Day 14", value: r.d14 },
+      { label: "Day 30", value: r.d30 },
+    ];
+
+    const plotLeft = 48, plotRight = 620, plotTop = 20, plotBottom = 190;
+    const plotWidth = plotRight - plotLeft;
+    const plotHeight = plotBottom - plotTop;
+
+    const gridlines = document.getElementById("retention-gridlines");
+    const yaxis = document.getElementById("retention-yaxis");
+    gridlines.innerHTML = "";
+    yaxis.innerHTML = "";
+    [0, 25, 50, 75, 100].forEach(v => {
+      const y = plotTop + (100 - v) / 100 * plotHeight;
+      gridlines.innerHTML += `<line x1="${plotLeft}" y1="${y}" x2="${plotRight}" y2="${y}" stroke="#eef0f3" stroke-width="1"/>`;
+      yaxis.innerHTML += `<text x="${plotLeft - 10}" y="${y + 4}" text-anchor="end" font-size="11" font-family="JetBrains Mono, monospace" fill="#9aa3af">${v}%</text>`;
+    });
+
+    const xStep = plotWidth / (points.length - 1);
+    const coords = points.map((p, i) => {
+      const x = plotLeft + xStep * i;
+      const y = plotTop + (100 - p.value) / 100 * plotHeight;
+      return { x, y, ...p };
+    });
+
+    document.getElementById("retention-line").setAttribute(
+      "points", coords.map(c => `${c.x},${c.y}`).join(" ")
+    );
+
+    const pointsG = document.getElementById("retention-points");
+    pointsG.innerHTML = coords.map(c => `
+      <circle cx="${c.x}" cy="${c.y}" r="4" fill="#ffffff" stroke="#6f5bf5" stroke-width="2.5"/>
+      <text x="${c.x}" y="${c.y - 12}" text-anchor="middle" font-size="12" font-family="JetBrains Mono, monospace" font-weight="600" fill="#232832">${c.value}%</text>
+    `).join("");
+
+    const xaxis = document.getElementById("retention-xaxis");
+    xaxis.innerHTML = coords.map(c => `
+      <text x="${c.x}" y="${plotBottom + 20}" text-anchor="middle" font-size="11.5" font-family="IBM Plex Sans, 'Noto Sans TC', sans-serif" fill="#707a87">${c.label}</text>
+    `).join("");
+  }
+
+  function renderDashboard() {
+    const d = DATA[currentRange];
+    renderKpi(d);
+    renderFunnel(d);
+    renderRetention(d);
+  }
+
+  renderDashboard();
+</script>
+
+</body>
+</html>
