@@ -1,0 +1,657 @@
+<!-- style #01 Minimalism/Swiss -->
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>典律 Canon ｜ 私人資產顧問</title>
+<meta name="description" content="典律 Canon — 為高淨值個人與家族提供資產配置策略、風險評估報告與專屬顧問一對一服務。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,900;1,500&family=Noto+Serif+TC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --paper: #f5f1e8;
+    --paper-deep: #ece6d6;
+    --ink: #17161300;
+    --ink-solid: #19180f;
+    --gray: #6b6a5f;
+    --gray-soft: #9b9888;
+    --gray-tint: #c7c2b1;
+    --rule: rgba(25,24,15,0.78);
+    --rule-faint: rgba(25,24,15,0.16);
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ background: var(--paper); }
+
+  body{
+    background: var(--paper);
+    color: var(--ink-solid);
+    font-family: 'Noto Serif TC', 'Newsreader', 'Playfair Display', serif;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "liga" 1;
+    overflow-x: hidden;
+  }
+
+  .font-display{
+    font-family: 'Playfair Display', 'Noto Serif TC', serif;
+  }
+  .font-num{
+    font-family: 'Newsreader', 'Noto Serif TC', serif;
+    font-style: italic;
+    font-variant-numeric: lining-nums;
+  }
+  .font-cjk{
+    font-family: 'Noto Serif TC', serif;
+  }
+
+  .label-sm{
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-size: 0.68rem;
+    font-weight: 600;
+  }
+
+  .rule-top{ border-top: 1px solid var(--rule); }
+  .rule-bottom{ border-bottom: 1px solid var(--rule); }
+  .rule-faint{ border-color: var(--rule-faint); }
+
+  .container-grid{
+    max-width: 1280px;
+    margin: 0 auto;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+  @media (min-width: 768px){
+    .container-grid{ padding-left: 2.5rem; padding-right: 2.5rem; }
+  }
+  @media (min-width: 1280px){
+    .container-grid{ padding-left: 3.5rem; padding-right: 3.5rem; }
+  }
+
+  .grid-12{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.25rem;
+  }
+  @media (min-width: 768px){
+    .grid-12{ gap: 1.75rem; }
+  }
+
+  /* decorative swiss grid backdrop */
+  .swiss-bg{
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(
+      to right,
+      rgba(25,24,15,0.06) 0,
+      rgba(25,24,15,0.06) 1px,
+      transparent 1px,
+      transparent calc(100% / 12)
+    );
+  }
+
+  .hairline{ height: 1px; background: var(--rule); width: 100%; }
+
+  .btn-ink{
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    border: 1px solid var(--ink-solid);
+    color: var(--paper);
+    background: var(--ink-solid);
+    padding: 0.85rem 1.6rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+  .btn-ink:hover{ background: transparent; color: var(--ink-solid); }
+
+  .btn-outline{
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    border: 1px solid var(--ink-solid);
+    color: var(--ink-solid);
+    background: transparent;
+    padding: 0.85rem 1.6rem;
+    font-size: 0.95rem;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+  .btn-outline:hover{ background: var(--ink-solid); color: var(--paper); }
+
+  .num-huge{
+    font-family: 'Newsreader', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(2.6rem, 6vw, 4.6rem);
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+
+  .headline{
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+  }
+
+  /* tabs */
+  .strategy-tab{
+    border: 1px solid var(--rule);
+    background: transparent;
+    padding: 0.9rem 0.5rem;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .strategy-tab[aria-selected="true"]{
+    background: var(--ink-solid);
+    color: var(--paper);
+  }
+  .strategy-tab[aria-selected="true"] .tab-sub{ color: var(--paper); opacity: 0.72; }
+
+  /* donut */
+  .donut-wrap{
+    position: relative;
+    width: 100%;
+    max-width: 280px;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+    border-radius: 50%;
+  }
+  .donut-ring{
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    transition: background 0.5s ease;
+  }
+  .donut-hole{
+    position: absolute;
+    inset: 17%;
+    background: var(--paper);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 1px solid var(--rule-faint);
+  }
+
+  .legend-swatch{
+    display: inline-block;
+    width: 0.85rem;
+    height: 0.85rem;
+    border: 1px solid var(--ink-solid);
+    flex-shrink: 0;
+  }
+
+  /* accordion */
+  .acc-item + .acc-item{ border-top: 1px solid var(--rule-faint); }
+  .acc-trigger{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 1.4rem 0;
+    text-align: left;
+    background: transparent;
+    cursor: pointer;
+  }
+  .acc-plus{
+    position: relative;
+    width: 1.1rem;
+    height: 1.1rem;
+    flex-shrink: 0;
+    margin-top: 0.3rem;
+  }
+  .acc-plus::before, .acc-plus::after{
+    content: "";
+    position: absolute;
+    background: var(--ink-solid);
+    transition: transform 0.25s ease;
+  }
+  .acc-plus::before{ left: 0; top: 50%; width: 100%; height: 1px; transform: translateY(-50%); }
+  .acc-plus::after{ top: 0; left: 50%; height: 100%; width: 1px; transform: translateX(-50%); }
+  .acc-item[data-open="true"] .acc-plus::after{ transform: translateX(-50%) scaleY(0); }
+
+  .acc-panel{
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+  .acc-panel-inner{ padding-bottom: 1.6rem; }
+
+  .nav-link{ position: relative; }
+  .nav-link::after{
+    content: "";
+    position: absolute;
+    left: 0; right: 100%; bottom: -4px;
+    height: 1px;
+    background: var(--ink-solid);
+    transition: right 0.25s ease;
+  }
+  .nav-link:hover::after{ right: 0; }
+
+  ::selection{ background: var(--ink-solid); color: var(--paper); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="rule-bottom sticky top-0 z-50" style="background: var(--paper);">
+  <div class="container-grid flex items-center justify-between py-5">
+    <a href="#top" class="font-display font-bold tracking-wide text-lg md:text-xl">典律 <span class="italic font-normal">CANON</span></a>
+    <nav class="hidden md:flex items-center gap-9 label-sm">
+      <a href="#services" class="nav-link">服務範疇</a>
+      <a href="#allocation" class="nav-link">資產策略</a>
+      <a href="#trust" class="nav-link">信任背書</a>
+      <a href="#faq" class="nav-link">常見問題</a>
+    </nav>
+    <a href="#contact" class="label-sm btn-outline !px-4 !py-2">預約諮詢</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="top" class="relative rule-bottom overflow-hidden">
+  <div class="swiss-bg"></div>
+  <div class="container-grid relative py-16 md:py-24">
+    <div class="grid-12">
+      <div class="col-span-12 md:col-span-8">
+        <p class="label-sm mb-6 text-[var(--gray)]">私人資產顧問 ／ 設立於 2003 年</p>
+        <h1 class="headline text-[clamp(2.4rem,7vw,5.2rem)]">
+          資產之道，<br>貴在秩序。
+        </h1>
+      </div>
+      <div class="col-span-12 md:col-span-4 flex md:items-end">
+        <p class="font-cjk text-base md:text-lg leading-relaxed text-[var(--gray)] mt-6 md:mt-0">
+          典律為高淨值個人與家族，提供長期資產配置策略、風險評估報告與一對一專屬顧問服務——以嚴謹方法取代市場雜訊，為跨世代財富訂立可依循之準則。
+        </p>
+      </div>
+    </div>
+
+    <div class="grid-12 mt-14 md:mt-20">
+      <div class="col-span-12 md:col-span-6 flex flex-wrap gap-4">
+        <a href="#contact" class="btn-ink">預約專屬顧問諮詢</a>
+        <a href="#services" class="btn-outline">瞭解服務範疇</a>
+      </div>
+      <div class="col-span-12 md:col-span-6 md:text-right mt-6 md:mt-0">
+        <p class="label-sm text-[var(--gray)]">管理資產規模</p>
+        <p class="num-huge mt-1">NT$ 1,860<span class="text-2xl align-top ml-1">億元</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST / STATS -->
+<section id="trust" class="rule-bottom">
+  <div class="container-grid">
+    <div class="grid-12">
+      <div class="col-span-12 md:col-span-3 py-10 md:py-14 md:border-r rule-faint md:pr-8">
+        <p class="num-huge">23</p>
+        <p class="label-sm mt-3 text-[var(--gray)]">年服務年期</p>
+      </div>
+      <div class="col-span-12 md:col-span-3 py-10 md:py-14 md:border-r rule-faint md:px-8 rule-top md:border-t-0">
+        <p class="num-huge">150<span class="text-2xl">＋</span></p>
+        <p class="label-sm mt-3 text-[var(--gray)]">位專屬顧問</p>
+      </div>
+      <div class="col-span-12 md:col-span-3 py-10 md:py-14 md:border-r rule-faint md:px-8 rule-top md:border-t-0">
+        <p class="num-huge">98.6<span class="text-2xl">％</span></p>
+        <p class="label-sm mt-3 text-[var(--gray)]">客戶續約率</p>
+      </div>
+      <div class="col-span-12 md:col-span-3 py-10 md:py-14 md:pl-8 rule-top md:border-t-0">
+        <p class="num-huge">412</p>
+        <p class="label-sm mt-3 text-[var(--gray)]">組家族與個人客戶</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="rule-bottom">
+  <div class="container-grid py-16 md:py-24">
+    <div class="grid-12 mb-12">
+      <div class="col-span-12 md:col-span-4">
+        <p class="label-sm text-[var(--gray)] mb-4">01 ／ 服務範疇</p>
+        <h2 class="headline text-3xl md:text-4xl">三項核心服務，<br>一套配置準則。</h2>
+      </div>
+    </div>
+    <div class="grid-12">
+      <div class="col-span-12 md:col-span-4 rule-top pt-8">
+        <p class="font-num text-3xl mb-4">01</p>
+        <h3 class="font-cjk font-bold text-xl mb-3">資產配置策略</h3>
+        <p class="font-cjk text-[var(--gray)] leading-relaxed">
+          依客戶財務目標、資金期限與風險屬性，量身規劃跨資產類別之配置比例，並以量化模型持續追蹤與調整，避免配置決策受市場情緒左右。
+        </p>
+      </div>
+      <div class="col-span-12 md:col-span-4 rule-top pt-8 md:border-l rule-faint md:pl-8">
+        <p class="font-num text-3xl mb-4">02</p>
+        <h3 class="font-cjk font-bold text-xl mb-3">風險評估報告</h3>
+        <p class="font-cjk text-[var(--gray)] leading-relaxed">
+          每季提供完整之風險承受度測評、情境模擬與壓力測試，並揭露稅務與傳承面之潛在風險，使每項配置建議皆建立於數據而非猜測之上。
+        </p>
+      </div>
+      <div class="col-span-12 md:col-span-4 rule-top pt-8 md:border-l rule-faint md:pl-8">
+        <p class="font-num text-3xl mb-4">03</p>
+        <h3 class="font-cjk font-bold text-xl mb-3">專屬顧問一對一服務</h3>
+        <p class="font-cjk text-[var(--gray)] leading-relaxed">
+          每位客戶配置一位專屬顧問，提供長期且連續之財務規劃陪伴，定期面談檢視目標變化，而非僅止於一次性之銷售建議。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ASSET ALLOCATION INTERACTIVE -->
+<section id="allocation" class="rule-bottom">
+  <div class="container-grid py-16 md:py-24">
+    <div class="grid-12 mb-12">
+      <div class="col-span-12 md:col-span-6">
+        <p class="label-sm text-[var(--gray)] mb-4">02 ／ 資產配置模擬</p>
+        <h2 class="headline text-3xl md:text-4xl">依風險屬性，<br>檢視配置模型。</h2>
+      </div>
+      <div class="col-span-12 md:col-span-6 flex md:items-end">
+        <p class="font-cjk text-[var(--gray)] leading-relaxed mt-4 md:mt-0">
+          點選下方任一風險屬性，即時檢視對應之資產配置比例、預期年化報酬區間與策略說明——此為典律標準配置模型之簡化呈現，實際配置仍需依個案財務狀況調整。
+        </p>
+      </div>
+    </div>
+
+    <div class="grid-12">
+      <!-- tabs -->
+      <div class="col-span-12 md:col-span-3 flex flex-col" id="strategy-tabs" role="tablist" aria-label="風險屬性選擇">
+        <button class="strategy-tab" role="tab" aria-selected="true" data-strategy="conservative">
+          <span class="font-cjk font-bold text-lg">穩健型</span>
+          <span class="tab-sub block label-sm mt-1 text-[var(--gray)]">資本保全優先</span>
+        </button>
+        <button class="strategy-tab" role="tab" aria-selected="false" data-strategy="balanced">
+          <span class="font-cjk font-bold text-lg">平衡型</span>
+          <span class="tab-sub block label-sm mt-1 text-[var(--gray)]">成長與保全並重</span>
+        </button>
+        <button class="strategy-tab" role="tab" aria-selected="false" data-strategy="growth">
+          <span class="font-cjk font-bold text-lg">成長型</span>
+          <span class="tab-sub block label-sm mt-1 text-[var(--gray)]">長期資本增值</span>
+        </button>
+        <button class="strategy-tab" role="tab" aria-selected="false" data-strategy="aggressive">
+          <span class="font-cjk font-bold text-lg">積極型</span>
+          <span class="tab-sub block label-sm mt-1 text-[var(--gray)]">追求最大報酬</span>
+        </button>
+      </div>
+
+      <!-- chart -->
+      <div class="col-span-12 md:col-span-4 flex items-center justify-center py-10 md:py-0">
+        <div class="donut-wrap">
+          <div class="donut-ring" id="donut-ring"></div>
+          <div class="donut-hole">
+            <p class="label-sm text-[var(--gray)]" id="donut-name">穩健型</p>
+            <p class="num-huge text-3xl mt-1" id="donut-return">3–5％</p>
+            <p class="label-sm text-[var(--gray)] mt-1">預期年化報酬</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- legend + description -->
+      <div class="col-span-12 md:col-span-5 md:border-l rule-faint md:pl-8">
+        <ul class="space-y-3 mb-8" id="legend-list">
+          <!-- filled by JS -->
+        </ul>
+        <div class="hairline mb-6"></div>
+        <p class="label-sm text-[var(--gray)] mb-2">策略說明</p>
+        <p class="font-cjk leading-relaxed" id="strategy-desc">
+          以資本保全為核心，大幅配置於固定收益資產以降低波動，適合追求穩定現金流、資金使用期限較短之客戶。
+        </p>
+        <p class="label-sm text-[var(--gray)] mt-6 mb-1">參考年化波動度</p>
+        <p class="font-num text-2xl" id="strategy-vol">約 5–6％</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="rule-bottom">
+  <div class="container-grid py-16 md:py-24">
+    <div class="grid-12 mb-10">
+      <div class="col-span-12 md:col-span-4">
+        <p class="label-sm text-[var(--gray)] mb-4">03 ／ 常見問題</p>
+        <h2 class="headline text-3xl md:text-4xl">合作之前，<br>先說清楚規則。</h2>
+      </div>
+    </div>
+    <div class="grid-12">
+      <div class="col-span-12 md:col-span-9 md:col-start-1" id="faq-list">
+
+        <div class="acc-item rule-top" data-open="false">
+          <button class="acc-trigger">
+            <span class="font-cjk font-bold text-lg md:text-xl">典律的服務門檻為何？</span>
+            <span class="acc-plus"></span>
+          </button>
+          <div class="acc-panel">
+            <div class="acc-panel-inner font-cjk text-[var(--gray)] leading-relaxed max-w-3xl">
+              典律主要服務可投資資產達新台幣三千萬元以上之個人與家族客戶；企業及家族辦公室如有資產配置與傳承規劃需求，亦可洽詢專屬顧問團隊，依個案資產規模與複雜度評估合作方案。
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-open="false">
+          <button class="acc-trigger">
+            <span class="font-cjk font-bold text-lg md:text-xl">資產配置策略多久調整一次？</span>
+            <span class="acc-plus"></span>
+          </button>
+          <div class="acc-panel">
+            <div class="acc-panel-inner font-cjk text-[var(--gray)] leading-relaxed max-w-3xl">
+              顧問團隊每季進行一次完整之資產配置檢視，並於市場出現顯著波動或客戶財務目標改變時，提供即時調整建議；每年亦安排至少一次面對面之策略回顧會議。
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-open="false">
+          <button class="acc-trigger">
+            <span class="font-cjk font-bold text-lg md:text-xl">風險評估報告包含哪些內容？</span>
+            <span class="acc-plus"></span>
+          </button>
+          <div class="acc-panel">
+            <div class="acc-panel-inner font-cjk text-[var(--gray)] leading-relaxed max-w-3xl">
+              風險評估報告涵蓋客戶風險承受度測評、現有資產結構分析、情境模擬（含市場下行壓力測試）、稅務與傳承風險提示，並附具體配置建議與執行時程。
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-open="false">
+          <button class="acc-trigger">
+            <span class="font-cjk font-bold text-lg md:text-xl">資金與資產的保管如何確保安全？</span>
+            <span class="acc-plus"></span>
+          </button>
+          <div class="acc-panel">
+            <div class="acc-panel-inner font-cjk text-[var(--gray)] leading-relaxed max-w-3xl">
+              典律本身並不代為保管客戶資產，所有資金均存放於客戶指定之受監管託管機構帳戶下；顧問僅提供配置建議與執行協助，並定期提交第三方對帳報告，確保資產權益獨立於顧問機構之外。
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-open="false">
+          <button class="acc-trigger">
+            <span class="font-cjk font-bold text-lg md:text-xl">如何開始與典律合作？</span>
+            <span class="acc-plus"></span>
+          </button>
+          <div class="acc-panel">
+            <div class="acc-panel-inner font-cjk text-[var(--gray)] leading-relaxed max-w-3xl">
+              可透過官網預約初次諮詢，專屬顧問將於一週內安排面談，了解財務現況與目標後提供初步配置方向；正式合作前，雙方將完整審閱服務條款與費用結構，確保條件透明。
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / CTA -->
+<section id="contact" class="rule-bottom">
+  <div class="container-grid py-16 md:py-24">
+    <div class="grid-12 items-end">
+      <div class="col-span-12 md:col-span-8">
+        <p class="label-sm text-[var(--gray)] mb-4">04 ／ 開始合作</p>
+        <h2 class="headline text-3xl md:text-5xl">為您的資產，<br>預約一次嚴謹的對話。</h2>
+      </div>
+      <div class="col-span-12 md:col-span-4 mt-8 md:mt-0 md:text-right">
+        <a href="mailto:advisory@dianlu-canon.example" class="btn-ink">預約專屬顧問諮詢</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container-grid py-10">
+    <div class="grid-12 items-start">
+      <div class="col-span-12 md:col-span-4">
+        <p class="font-display font-bold text-lg">典律 <span class="italic font-normal">CANON</span></p>
+        <p class="label-sm text-[var(--gray)] mt-2">私人資產顧問 ／ 台北市信義區</p>
+      </div>
+      <div class="col-span-12 md:col-span-8 mt-6 md:mt-0 md:text-right">
+        <p class="font-cjk text-sm text-[var(--gray)] leading-relaxed">
+          本網站內容僅供參考，不構成任何投資建議或邀約；投資涉及風險，過往績效不代表未來表現，實際配置請以專屬顧問之書面建議為準。
+        </p>
+        <p class="label-sm text-[var(--gray)] mt-4">© 2026 典律 Canon．保留一切權利</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  var STRATEGIES = {
+    conservative: {
+      name: "穩健型",
+      ret: "3–5％",
+      vol: "約 5–6％",
+      desc: "以資本保全為核心，大幅配置於固定收益資產以降低波動，適合追求穩定現金流、資金使用期限較短之客戶。",
+      alloc: [
+        { label: "股票", pct: 20, color: "#1a1a1a" },
+        { label: "債券", pct: 55, color: "#6b6a5f" },
+        { label: "另類投資", pct: 10, color: "#a8a498" },
+        { label: "現金", pct: 15, color: "#ded7c2" }
+      ]
+    },
+    balanced: {
+      name: "平衡型",
+      ret: "5–7％",
+      vol: "約 8–10％",
+      desc: "股票與固定收益比重相近，兼顧資本增值與波動控制，適合資金使用期限五年以上、能承受中等波動之客戶。",
+      alloc: [
+        { label: "股票", pct: 40, color: "#1a1a1a" },
+        { label: "債券", pct: 40, color: "#6b6a5f" },
+        { label: "另類投資", pct: 15, color: "#a8a498" },
+        { label: "現金", pct: 5, color: "#ded7c2" }
+      ]
+    },
+    growth: {
+      name: "成長型",
+      ret: "7–10％",
+      vol: "約 12–15％",
+      desc: "提高股票與另類投資比重，以追求長期資本增值為主要目標，適合資金期限十年以上、能承受較高波動之客戶。",
+      alloc: [
+        { label: "股票", pct: 60, color: "#1a1a1a" },
+        { label: "債券", pct: 25, color: "#6b6a5f" },
+        { label: "另類投資", pct: 10, color: "#a8a498" },
+        { label: "現金", pct: 5, color: "#ded7c2" }
+      ]
+    },
+    aggressive: {
+      name: "積極型",
+      ret: "10％以上",
+      vol: "約 18％以上",
+      desc: "大幅配置於股票與另類投資，追求最大化之長期報酬，須能承受顯著之資產淨值波動，適合風險承受度最高之客戶。",
+      alloc: [
+        { label: "股票", pct: 75, color: "#1a1a1a" },
+        { label: "債券", pct: 10, color: "#6b6a5f" },
+        { label: "另類投資", pct: 12, color: "#a8a498" },
+        { label: "現金", pct: 3, color: "#ded7c2" }
+      ]
+    }
+  };
+
+  var tabs = document.querySelectorAll(".strategy-tab");
+  var ring = document.getElementById("donut-ring");
+  var nameEl = document.getElementById("donut-name");
+  var retEl = document.getElementById("donut-return");
+  var legendList = document.getElementById("legend-list");
+  var descEl = document.getElementById("strategy-desc");
+  var volEl = document.getElementById("strategy-vol");
+
+  function render(key){
+    var s = STRATEGIES[key];
+    if(!s) return;
+
+    var stops = [];
+    var acc = 0;
+    s.alloc.forEach(function(a){
+      var start = acc;
+      var end = acc + a.pct;
+      stops.push(a.color + " " + start + "% " + end + "%");
+      acc = end;
+    });
+    ring.style.background = "conic-gradient(" + stops.join(", ") + ")";
+
+    nameEl.textContent = s.name;
+    retEl.textContent = s.ret;
+    descEl.textContent = s.desc;
+    volEl.textContent = s.vol;
+
+    legendList.innerHTML = "";
+    s.alloc.forEach(function(a){
+      var li = document.createElement("li");
+      li.className = "flex items-center justify-between gap-3 font-cjk";
+      li.innerHTML =
+        '<span class="flex items-center gap-3">' +
+          '<span class="legend-swatch" style="background:' + a.color + '"></span>' +
+          '<span>' + a.label + '</span>' +
+        '</span>' +
+        '<span class="font-num text-lg">' + a.pct + '％</span>';
+      legendList.appendChild(li);
+    });
+
+    tabs.forEach(function(t){
+      t.setAttribute("aria-selected", t.getAttribute("data-strategy") === key ? "true" : "false");
+    });
+  }
+
+  tabs.forEach(function(t){
+    t.addEventListener("click", function(){
+      render(t.getAttribute("data-strategy"));
+    });
+  });
+
+  render("conservative");
+
+  // accordion
+  var accItems = document.querySelectorAll(".acc-item");
+  accItems.forEach(function(item){
+    var trigger = item.querySelector(".acc-trigger");
+    var panel = item.querySelector(".acc-panel");
+    trigger.addEventListener("click", function(){
+      var isOpen = item.getAttribute("data-open") === "true";
+      if(isOpen){
+        panel.style.maxHeight = "0px";
+        item.setAttribute("data-open", "false");
+      } else {
+        panel.style.maxHeight = panel.scrollHeight + "px";
+        item.setAttribute("data-open", "true");
+      }
+    });
+  });
+
+})();
+</script>
+
+</body>
+</html>

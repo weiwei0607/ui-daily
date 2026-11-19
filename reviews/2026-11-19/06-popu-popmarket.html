@@ -1,0 +1,551 @@
+<!-- style #44 Memphis Revival -->
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>普普市集 POPMARKET｜街頭創意市集</title>
+<meta name="description" content="普普市集 PopMarket：孟菲斯風格街頭創意市集宣傳頁，手作飾品、插畫明信片、黑膠唱片、街頭小吃集結華山。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --pink:#ff6b9d;
+    --yellow:#ffe156;
+    --cyan:#4ecdc4;
+    --purple:#a388ee;
+    --ink:#1b1536;
+    --cream:#fff6e9;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Poppins',sans-serif;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3, .display{
+    font-family:'Archivo Black','Noto Sans TC',sans-serif;
+    letter-spacing:0.01em;
+  }
+
+  .zh-display{
+    font-family:'Noto Sans TC','Archivo Black',sans-serif;
+    font-weight:900;
+  }
+
+  /* ---------- dotted / outline utility ---------- */
+  .dots-bg{
+    background-image: radial-gradient(var(--ink) 3px, transparent 3.5px);
+    background-size: 26px 26px;
+    opacity:0.14;
+  }
+
+  .outline-ink{
+    -webkit-text-stroke: 2px var(--ink);
+  }
+
+  .border-ink{ border-color: var(--ink) !important; }
+
+  .shadow-pop{
+    box-shadow: 8px 8px 0 var(--ink);
+  }
+  .shadow-pop-sm{
+    box-shadow: 5px 5px 0 var(--ink);
+  }
+
+  /* ---------- geometric floating shapes ---------- */
+  .shape{ position:absolute; pointer-events:none; }
+
+  .shape-tri{
+    width:0; height:0;
+    border-left: 60px solid transparent;
+    border-right: 60px solid transparent;
+    border-bottom: 100px solid var(--yellow);
+    filter: drop-shadow(6px 6px 0 var(--ink));
+  }
+
+  .shape-blob{
+    clip-path: polygon(20% 0%, 80% 5%, 100% 35%, 95% 75%, 65% 100%, 20% 95%, 0% 60%);
+  }
+
+  .shape-zig{
+    clip-path: polygon(0% 20%, 20% 0%, 40% 20%, 60% 0%, 80% 20%, 100% 0%, 100% 100%, 0% 100%);
+  }
+
+  .shape-diamond{
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  }
+
+  .shape-arch{
+    clip-path: path('M0,100 L0,40 C0,15 20,0 50,0 C80,0 100,15 100,40 L100,100 Z');
+  }
+
+  .spin-slow{ animation: spin 14s linear infinite; }
+  .spin-rev{ animation: spin-rev 11s linear infinite; }
+  .float-y{ animation: float-y 4.2s ease-in-out infinite; }
+  .float-y-delay{ animation: float-y 5.4s ease-in-out infinite; animation-delay: 0.8s; }
+
+  @keyframes spin{ from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+  @keyframes spin-rev{ from{transform:rotate(0deg);} to{transform:rotate(-360deg);} }
+  @keyframes float-y{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-16px);} }
+
+  /* ---------- diagonal stripe marquee ---------- */
+  .stripe-band{
+    background: repeating-linear-gradient(135deg, var(--ink) 0 14px, var(--purple) 14px 28px);
+    overflow:hidden;
+    white-space:nowrap;
+  }
+  .marquee-track{
+    display:inline-flex;
+    gap:2.5rem;
+    animation: marquee 22s linear infinite;
+  }
+  @keyframes marquee{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(-50%); }
+  }
+
+  /* ---------- tabs ---------- */
+  .tab-btn{
+    font-family:'Poppins',sans-serif;
+    font-weight:700;
+    border:3px solid var(--ink);
+    background:#fff;
+    transition: transform .15s ease, background .15s ease, color .15s ease;
+  }
+  .tab-btn:hover{ transform: translate(-2px,-2px); box-shadow:4px 4px 0 var(--ink); }
+  .tab-btn.active{
+    background:var(--ink);
+    color:var(--yellow);
+    box-shadow:4px 4px 0 var(--pink);
+    transform: translate(-2px,-2px);
+  }
+
+  /* ---------- booth cards ---------- */
+  .booth-card{
+    border:3px solid var(--ink);
+    background:#fff;
+    position:relative;
+    transition: transform .25s ease, box-shadow .25s ease;
+    cursor:pointer;
+  }
+  .booth-card:hover{
+    transform: rotate(-1.5deg) translateY(-4px);
+    box-shadow: 8px 8px 0 var(--ink);
+  }
+  .booth-card.hidden-card{ display:none; }
+
+  @keyframes pop-spin{
+    0%{ transform: scale(1) rotate(0deg); }
+    35%{ transform: scale(1.08) rotate(8deg); }
+    65%{ transform: scale(1.08) rotate(-8deg); }
+    100%{ transform: scale(1) rotate(0deg); }
+  }
+  .pop-spin{ animation: pop-spin .5s ease; }
+
+  .tag-chip{
+    font-weight:700;
+    border:2px solid var(--ink);
+  }
+
+  /* ---------- schedule ---------- */
+  .sched-row{
+    border-left:4px solid var(--ink);
+  }
+  .sched-dot{
+    width:18px;height:18px;border-radius:50%;
+    border:3px solid var(--ink);
+    background:var(--yellow);
+    margin-left:-11px;
+  }
+
+  /* ---------- ticket card ---------- */
+  .ticket-card{
+    border:3px solid var(--ink);
+    position:relative;
+  }
+  .ticket-card::before, .ticket-card::after{
+    content:"";
+    position:absolute;
+    width:26px;height:26px;
+    background:var(--cream);
+    border:3px solid var(--ink);
+    border-radius:50%;
+    top:50%;
+    transform: translateY(-50%);
+  }
+  .ticket-card::before{ left:-15px; }
+  .ticket-card::after{ right:-15px; }
+
+  /* scrollbar accent */
+  ::selection{ background:var(--pink); color:#fff; }
+
+  @media (max-width:640px){
+    .shape-tri{ border-left-width:36px; border-right-width:36px; border-bottom-width:60px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== NAV ========== -->
+<header class="sticky top-0 z-50 bg-[var(--cream)] border-b-4 border-ink">
+  <div class="max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 py-3">
+    <div class="flex items-center gap-2">
+      <span class="w-8 h-8 shape-diamond" style="background:var(--pink);"></span>
+      <span class="display text-lg sm:text-xl">POPMARKET</span>
+    </div>
+    <a href="#tickets" class="tab-btn px-4 py-2 text-sm sm:text-base" style="background:var(--yellow);">
+      立即購票
+    </a>
+  </div>
+</header>
+
+<!-- ========== HERO ========== -->
+<section class="relative border-b-4 border-ink overflow-hidden" style="background:var(--purple);">
+  <div class="absolute inset-0 dots-bg"></div>
+
+  <span class="shape shape-tri spin-slow" style="top:8%; left:4%;"></span>
+  <span class="shape w-24 h-24 shape-blob float-y" style="background:var(--cyan); top:12%; right:8%;"></span>
+  <span class="shape w-16 h-16 rounded-full border-4 border-ink float-y-delay" style="background:var(--pink); bottom:14%; left:10%;"></span>
+  <span class="shape w-20 h-20 shape-zig spin-rev" style="background:var(--yellow); bottom:6%; right:14%;"></span>
+  <span class="shape w-14 h-14 shape-diamond" style="background:var(--ink); top:38%; left:46%; opacity:.12;"></span>
+
+  <div class="relative max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-28 text-center">
+    <p class="tag-chip inline-block px-3 py-1 mb-5 text-xs sm:text-sm bg-[var(--yellow)] rotate-[-2deg]">
+      2026 街頭創意市集・第三屆
+    </p>
+    <h1 class="zh-display text-4xl sm:text-6xl md:text-7xl text-[var(--ink)] mb-3 leading-tight">
+      普普市集<br class="sm:hidden">
+      <span class="outline-ink" style="color:var(--yellow);">POPMARKET</span>
+    </h1>
+    <p class="text-base sm:text-xl font-semibold mb-8 text-[var(--ink)]">
+      把糖果色塗滿整座華山，讓街頭變成你的畫布
+    </p>
+
+    <div class="flex flex-wrap justify-center gap-3 mb-8">
+      <span class="tag-chip px-4 py-2 bg-white text-sm sm:text-base">
+        📅 2026.12.05（六）－12.06（日）11:00–19:00
+      </span>
+      <span class="tag-chip px-4 py-2 bg-white text-sm sm:text-base">
+        📍 華山1914文化創意產業園區・中4B倉庫前廣場
+      </span>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-4">
+      <a href="#tickets" class="tab-btn px-6 py-3 text-base sm:text-lg" style="background:var(--pink); color:#fff;">
+        線上預購票 →
+      </a>
+      <a href="#vendor" class="tab-btn px-6 py-3 text-base sm:text-lg bg-white">
+        攤位報名去
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== MARQUEE STRIPE ========== -->
+<div class="stripe-band border-b-4 border-ink py-3">
+  <div class="marquee-track">
+    <span class="zh-display text-white text-lg sm:text-xl px-4">★ 手作飾品 ★ 插畫明信片 ★ 黑膠唱片 ★ 街頭小吃 ★ 復古服飾 ★ 獨立出版 ★</span>
+    <span class="zh-display text-white text-lg sm:text-xl px-4">★ 手作飾品 ★ 插畫明信片 ★ 黑膠唱片 ★ 街頭小吃 ★ 復古服飾 ★ 獨立出版 ★</span>
+  </div>
+</div>
+
+<!-- ========== ABOUT ========== -->
+<section class="max-w-6xl mx-auto px-4 sm:px-6 py-16">
+  <div class="grid md:grid-cols-3 gap-8 items-start">
+    <div class="md:col-span-2">
+      <h2 class="zh-display text-2xl sm:text-3xl mb-4">這不是一般的市集</h2>
+      <p class="text-base sm:text-lg leading-relaxed mb-4">
+        普普市集 PopMarket 集結全台 <strong>60 組</strong>獨立創作者與街頭藝術家，從手作飾品、插畫明信片、黑膠唱片到街頭小吃，通通用最過飽和的顏色、最大膽的幾何圖形包裝給你。這裡沒有制式櫥窗，只有塗鴉、波點與撞色招牌。
+      </p>
+      <p class="text-base sm:text-lg leading-relaxed">
+        兩天的活動除了逛攤位，還有街頭藝人快閃表演、黑膠 DJ 選物時間、插畫家現場速寫與手作工作坊，每個角落都值得拍照打卡。
+      </p>
+    </div>
+    <div class="shadow-pop border-ink border-3 bg-white p-5 rotate-[1deg]">
+      <h3 class="display text-base mb-3" style="color:var(--pink);">活動一覽</h3>
+      <ul class="space-y-2 text-sm sm:text-base font-medium">
+        <li>🎪 60+ 組攤位參展</li>
+        <li>🎤 街頭藝人快閃表演</li>
+        <li>🎨 插畫家現場速寫</li>
+        <li>🎧 黑膠 DJ 選物時間</li>
+        <li>🧩 集章抽獎活動</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ========== BOOTHS ========== -->
+<section id="booths" class="relative border-y-4 border-ink py-16" style="background:var(--yellow);">
+  <div class="absolute inset-0 dots-bg"></div>
+  <div class="relative max-w-6xl mx-auto px-4 sm:px-6">
+    <h2 class="zh-display text-2xl sm:text-4xl mb-2 text-center">攤位分類逛逛</h2>
+    <p class="text-center font-medium mb-8">點選標籤篩選想看的攤位，點卡片還會跳一下喔</p>
+
+    <!-- filter tabs -->
+    <div id="filter-tabs" class="flex flex-wrap justify-center gap-3 mb-10">
+      <button class="tab-btn active px-4 py-2 rounded-full text-sm sm:text-base" data-filter="all">全部攤位</button>
+      <button class="tab-btn px-4 py-2 rounded-full text-sm sm:text-base" data-filter="jewelry">手作飾品</button>
+      <button class="tab-btn px-4 py-2 rounded-full text-sm sm:text-base" data-filter="illustration">插畫明信片</button>
+      <button class="tab-btn px-4 py-2 rounded-full text-sm sm:text-base" data-filter="vinyl">黑膠唱片</button>
+      <button class="tab-btn px-4 py-2 rounded-full text-sm sm:text-base" data-filter="food">街頭小吃</button>
+      <button class="tab-btn px-4 py-2 rounded-full text-sm sm:text-base" data-filter="vintage">復古服飾</button>
+    </div>
+
+    <!-- booth grid -->
+    <div id="booth-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <div class="booth-card p-5" data-category="jewelry">
+        <span class="tag-chip inline-block px-2 py-0.5 text-xs mb-3" style="background:var(--pink); color:#fff;">手作飾品</span>
+        <h3 class="display text-base mb-2">拾光工作室</h3>
+        <p class="text-sm leading-relaxed">黃銅手工耳環與項鍊，每件皆為獨立編號限量款，主打幾何切面與不對稱耳骨夾。</p>
+      </div>
+
+      <div class="booth-card p-5" data-category="jewelry">
+        <span class="tag-chip inline-block px-2 py-0.5 text-xs mb-3" style="background:var(--pink); color:#fff;">手作飾品</span>
+        <h3 class="display text-base mb-2">貓調 Catune</h3>
+        <p class="text-sm leading-relaxed">療癒系貓咪造型戒指與胸針，手工陶土燒製上釉，現場可客製刻字。</p>
+      </div>
+
+      <div class="booth-card p-5" data-category="jewelry">
+        <span class="tag-chip inline-block px-2 py-0.5 text-xs mb-3" style="background:var(--pink); color:#fff;">手作飾品</span>
+        <h3 class="display text-base mb-2">鏽鏽鐵工</h3>
+        <p class="text-sm leading-relaxed">不鏽鋼與皮革混搭手環，男女皆宜的粗獷工業風，可現場調整尺寸。</p>
+      </div>
+
+      <div class="booth-card p-5" data-category="illustration">
+        <span class="tag-chip inline-block px-2 py-0.5 text-xs mb-3" style="background:var(--cyan);">插畫明信片</span>
+        <h3 class="display text-base mb-2">阿橘畫室</h3>
+        <p class="text-sm leading-relaxed">台灣老街景水彩明信片與手繪貼紙組，現場加購可指定街景手繪。</p>
+      </div>
+
+      <div class="booth-card p-5" data-category="illustration">
+        <span class="tag-chip inline-block px-2 py-0.5 text-xs mb-3" style="background:var(--cyan);">插畫明信片</span>
+        <h3 class="display text-base mb-2">怪獸筆記 Monster Notes</h3>
+        <p class="text-sm leading-relaxed">超現實風格插畫印刷海報與明信片，限量絹印版本只在市集現場販售。</p>
+      </div>
+
+      <div class="booth-card p-5" data-category="illustration">
+        <span class="tag-chip inline-block px-2 py-0.5 text-xs mb-3" style="background:var(--cyan);">插畫明信片</span>
+        <h3 class="display text-base mb-2">日日野貓</h3>
+        <p class="text-sm leading-relaxed">以街頭浪貓為主題的插畫商品，部分收益將捐贈動物保護團體。</p>
+      </div>
+
+      <div class="booth-card p-5" data-category="vinyl">
+        <span class="tag-chip inline-block px-2 py-0.5 text-xs mb-3" style="background:var(--purple); color:#fff;">黑膠唱片</span>
+        <h3 class="display text-base mb-2">聲音倉庫 Sound Depot</h3>
+        <p class="text-sm leading-relaxed">二手與全新黑膠唱片，台語老歌與城市民謠專區，現場提供試聽耳機。</p>
+      </div>
+
+      <div class="booth-card p-5" data-category="vinyl">
+        <span class="tag-chip inline-block px-2 py-0.5 text-xs mb-3" style="background:var(--purple); color:#fff;">黑膠唱片</span>
+        <h3 class="display text-base mb-2">轟鳴唱片行</h3>
+        <p class="text-sm leading-relaxed">獨立樂團限定壓片、卡帶與周邊，部分品項為市集限定首賣。</p>
+      </div>
+
+      <div class="booth-card p-5" data-category="vinyl">
+        <span class="tag-chip inline-block px-2 py-0.5 text-xs mb-3" style="background:var(--purple); color:#fff;">黑膠唱片</span>
+        <h3 class="display text-base mb-2">老派電台</h3>
+        <p class="text-sm leading-relaxed">黑膠選物與耳機試聽體驗攤位，每日下午有 DJ 現場選片示範。</p>
+      </div>
+
+      <div class="booth-card p-5" data-category="food">
+        <span class="tag-chip inline-block px-2 py-0.5 text-xs mb-3" style="background:var(--yellow);">街頭小吃</span>
+        <h3 class="display text-base mb-2">鹹酥雞實驗室</h3>
+        <p class="text-sm leading-relaxed">創意口味鹹酥雞，起司九層塔限定款與麻辣椒鹽任你選。</p>
+      </div>
+
+      <div class="booth-card p-5" data-category="food">
+        <span class="tag-chip inline-block px-2 py-0.5 text-xs mb-3" style="background:var(--yellow);">街頭小吃</span>
+        <h3 class="display text-base mb-2">豆花研究所</h3>
+        <p class="text-sm leading-relaxed">手工杏仁豆花與季節水果配料，天然不加防腐劑，當天現煮現賣。</p>
+      </div>
+
+      <div class="booth-card p-5" data-category="food">
+        <span class="tag-chip inline-block px-2 py-0.5 text-xs mb-3" style="background:var(--yellow);">街頭小吃</span>
+        <h3 class="display text-base mb-2">夜市炒泡麵</h3>
+        <p class="text-sm leading-relaxed">古早味炒泡麵與沙茶醬香腸，夜市限定重口味組合。</p>
+      </div>
+
+      <div class="booth-card p-5" data-category="vintage">
+        <span class="tag-chip inline-block px-2 py-0.5 text-xs mb-3" style="background:var(--ink); color:#fff;">復古服飾</span>
+        <h3 class="display text-base mb-2">二手衣櫥 Thrift Closet</h3>
+        <p class="text-sm leading-relaxed">日韓古著與美式工裝精選，每週更換進貨款式，件件獨一無二。</p>
+      </div>
+
+      <div class="booth-card p-5" data-category="vintage">
+        <span class="tag-chip inline-block px-2 py-0.5 text-xs mb-3" style="background:var(--ink); color:#fff;">復古服飾</span>
+        <h3 class="display text-base mb-2">老物倉</h3>
+        <p class="text-sm leading-relaxed">復古太陽眼鏡、腰包與配件，主打八十年代孟菲斯風格色彩搭配。</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========== SCHEDULE ========== -->
+<section id="schedule" class="max-w-6xl mx-auto px-4 sm:px-6 py-16">
+  <h2 class="zh-display text-2xl sm:text-4xl mb-10 text-center">兩天活動時程表</h2>
+
+  <div class="grid md:grid-cols-2 gap-10">
+    <div>
+      <h3 class="display text-lg mb-5 inline-block px-3 py-1" style="background:var(--pink); color:#fff;">DAY 1・12/5（六）</h3>
+      <div class="space-y-6 pl-4">
+        <div class="sched-row pl-6 relative">
+          <span class="sched-dot absolute -left-[9px]" style="background:var(--yellow);"></span>
+          <p class="font-bold">11:00</p><p class="text-sm">開放入場・市集正式開張</p>
+        </div>
+        <div class="sched-row pl-6 relative">
+          <span class="sched-dot absolute -left-[9px]" style="background:var(--cyan);"></span>
+          <p class="font-bold">13:00</p><p class="text-sm">街頭藝人快閃表演</p>
+        </div>
+        <div class="sched-row pl-6 relative">
+          <span class="sched-dot absolute -left-[9px]" style="background:var(--pink);"></span>
+          <p class="font-bold">15:00</p><p class="text-sm">插畫家現場人像速寫（限量 30 組）</p>
+        </div>
+        <div class="sched-row pl-6 relative">
+          <span class="sched-dot absolute -left-[9px]" style="background:var(--purple);"></span>
+          <p class="font-bold">17:00</p><p class="text-sm">老派電台 DJ 黑膠選物時間</p>
+        </div>
+        <div class="sched-row pl-6 relative">
+          <span class="sched-dot absolute -left-[9px]" style="background:var(--ink);"></span>
+          <p class="font-bold">19:00</p><p class="text-sm">第一日打烊</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="display text-lg mb-5 inline-block px-3 py-1" style="background:var(--cyan); color:#fff;">DAY 2・12/6（日）</h3>
+      <div class="space-y-6 pl-4">
+        <div class="sched-row pl-6 relative">
+          <span class="sched-dot absolute -left-[9px]" style="background:var(--yellow);"></span>
+          <p class="font-bold">11:00</p><p class="text-sm">開放入場・市集正式開張</p>
+        </div>
+        <div class="sched-row pl-6 relative">
+          <span class="sched-dot absolute -left-[9px]" style="background:var(--cyan);"></span>
+          <p class="font-bold">12:30</p><p class="text-sm">手作體驗工作坊：陶土胸針 DIY</p>
+        </div>
+        <div class="sched-row pl-6 relative">
+          <span class="sched-dot absolute -left-[9px]" style="background:var(--pink);"></span>
+          <p class="font-bold">14:30</p><p class="text-sm">獨立樂團不插電小型演出</p>
+        </div>
+        <div class="sched-row pl-6 relative">
+          <span class="sched-dot absolute -left-[9px]" style="background:var(--purple);"></span>
+          <p class="font-bold">16:30</p><p class="text-sm">集章抽獎：集滿五格換限量好禮</p>
+        </div>
+        <div class="sched-row pl-6 relative">
+          <span class="sched-dot absolute -left-[9px]" style="background:var(--ink);"></span>
+          <p class="font-bold">19:00</p><p class="text-sm">市集圓滿落幕</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TICKETS ========== -->
+<section id="tickets" class="relative border-y-4 border-ink py-16" style="background:var(--cyan);">
+  <span class="shape shape-tri spin-rev" style="top:6%; right:6%; transform:scale(.7);"></span>
+  <span class="shape w-16 h-16 rounded-full border-4 border-ink float-y" style="background:var(--yellow); bottom:8%; left:6%;"></span>
+
+  <div class="relative max-w-5xl mx-auto px-4 sm:px-6">
+    <h2 class="zh-display text-2xl sm:text-4xl mb-10 text-center text-white outline-ink">票價與入場資訊</h2>
+
+    <div class="grid sm:grid-cols-3 gap-8 mb-10">
+      <div class="ticket-card bg-white p-6 text-center shadow-pop-sm">
+        <p class="display text-sm mb-2" style="color:var(--pink);">線上預售</p>
+        <p class="zh-display text-3xl mb-2">NT$80</p>
+        <p class="text-sm">11/20 起於 KKTIX「普普市集 PopMarket」活動頁開賣，數量有限售完為止。</p>
+      </div>
+      <div class="ticket-card bg-white p-6 text-center shadow-pop-sm">
+        <p class="display text-sm mb-2" style="color:var(--purple);">現場購票</p>
+        <p class="zh-display text-3xl mb-2">NT$100</p>
+        <p class="text-sm">現場售票口購票，票根可折抵攤位消費 NT$50。</p>
+      </div>
+      <div class="ticket-card bg-white p-6 text-center shadow-pop-sm">
+        <p class="display text-sm mb-2" style="color:var(--cyan);">兒童優惠</p>
+        <p class="zh-display text-3xl mb-2">免費</p>
+        <p class="text-sm">12 歲以下兒童由家長陪同入場，完全免費。</p>
+      </div>
+    </div>
+
+    <div id="vendor" class="bg-white border-ink border-3 shadow-pop p-6 sm:p-8 rotate-[-1deg]">
+      <h3 class="zh-display text-xl sm:text-2xl mb-3">攤位報名方式</h3>
+      <p class="text-sm sm:text-base leading-relaxed mb-3">
+        每梯次開放 <strong>50 個攤位</strong>名額，採線上表單審核制，報名時間為活動開始前一個月。審核結果將於 7 個工作日內以電子郵件通知，獲選攤主需於 3 日內完成繳費以保留攤位。
+      </p>
+      <p class="text-sm sm:text-base leading-relaxed">
+        欲報名請私訊粉絲專頁「普普市集 PopMarket」，或寄信至
+        <span class="font-bold">popmarket.taipei@example.com</span>
+        索取報名表單，附上作品照片與簡介即可送件。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="relative overflow-hidden" style="background:var(--ink);">
+  <div class="absolute inset-0 dots-bg" style="filter:invert(1); opacity:.08;"></div>
+  <div class="relative max-w-6xl mx-auto px-4 sm:px-6 py-10 text-[var(--cream)]">
+    <div class="flex flex-wrap justify-between items-start gap-6 mb-6">
+      <div>
+        <p class="display text-xl mb-2" style="color:var(--yellow);">POPMARKET</p>
+        <p class="text-sm">普普市集・街頭創意市集</p>
+      </div>
+      <div class="text-sm space-y-1 text-right sm:text-left">
+        <p>📍 台北市中正區八德路一段 1 號・華山1914文化創意產業園區 中4B倉庫前廣場</p>
+        <p>✉️ popmarket.taipei@example.com</p>
+        <p>📷 Instagram / Facebook：@popmarket.taipei</p>
+      </div>
+    </div>
+    <div class="border-t border-white/20 pt-4 text-xs text-white/60">
+      © 2026 普普市集 PopMarket．本頁為設計樣稿展示，非正式售票頁面。
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  var tabs = document.querySelectorAll('#filter-tabs .tab-btn');
+  var cards = document.querySelectorAll('#booth-grid .booth-card');
+
+  tabs.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      tabs.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+
+      var filter = btn.getAttribute('data-filter');
+      cards.forEach(function(card){
+        var match = (filter === 'all') || (card.getAttribute('data-category') === filter);
+        if(match){
+          card.classList.remove('hidden-card');
+          card.classList.remove('pop-spin');
+          void card.offsetWidth; /* restart animation */
+          card.classList.add('pop-spin');
+        } else {
+          card.classList.add('hidden-card');
+        }
+      });
+    });
+  });
+
+  cards.forEach(function(card){
+    card.addEventListener('click', function(){
+      card.classList.remove('pop-spin');
+      void card.offsetWidth;
+      card.classList.add('pop-spin');
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
