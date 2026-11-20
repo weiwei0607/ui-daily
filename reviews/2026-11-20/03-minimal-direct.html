@@ -1,0 +1,277 @@
+<!-- style #23 Minimal & Direct -->
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一頁 OnePage</title>
+<meta name="description" content="獨立製作人接案落地頁，一頁看懂服務內容與聯絡方式。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.14"></script>
+<style>
+  :root{
+    --ink:#1a1a18;
+    --paper:#f4f2ee;
+    --paper-soft:#eae7e0;
+    --line:rgba(26,26,24,0.14);
+    --muted:rgba(26,26,24,0.56);
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{
+    margin:0;
+    padding:0;
+    background:var(--paper);
+    color:var(--ink);
+  }
+
+  body{
+    font-family:'Outfit','Noto Sans TC',sans-serif;
+    font-weight:400;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  .zh{ font-family:'Noto Sans TC','Outfit',sans-serif; }
+
+  /* noise texture layer, generated as an inline SVG filter, low opacity */
+  .noise{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:50;
+    opacity:0.05;
+    mix-blend-mode:multiply;
+  }
+
+  .screen{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    position:relative;
+  }
+
+  .corner-label{
+    font-size:0.72rem;
+    letter-spacing:0.18em;
+    color:var(--muted);
+    font-weight:500;
+  }
+
+  .headline{
+    font-weight:600;
+    letter-spacing:-0.02em;
+    line-height:1.08;
+  }
+
+  .hr-thin{
+    border:none;
+    border-top:1px solid var(--line);
+  }
+
+  .service-row{
+    border-top:1px solid var(--line);
+  }
+  .service-row:last-child{
+    border-bottom:1px solid var(--line);
+  }
+
+  .num{
+    font-size:0.78rem;
+    letter-spacing:0.08em;
+    color:var(--muted);
+    font-weight:500;
+  }
+
+  input[type="email"]{
+    background:transparent;
+    border:none;
+    border-bottom:1px solid var(--ink);
+    outline:none;
+    font-family:'Outfit','Noto Sans TC',sans-serif;
+    font-size:1rem;
+    color:var(--ink);
+    padding:0.5rem 0.1rem;
+    width:100%;
+  }
+  input[type="email"]::placeholder{
+    color:var(--muted);
+  }
+
+  .btn-send{
+    background:var(--ink);
+    color:var(--paper);
+    border:1px solid var(--ink);
+    font-family:'Outfit','Noto Sans TC',sans-serif;
+    font-weight:500;
+    letter-spacing:0.02em;
+    transition:opacity 0.15s ease, transform 0.1s ease;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .btn-send:hover{ opacity:0.82; }
+  .btn-send:active{ transform:scale(0.98); }
+
+  .confirm-msg{
+    display:none;
+    align-items:center;
+    gap:0.6rem;
+    font-size:0.95rem;
+    color:var(--ink);
+  }
+  .confirm-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#3f6b4e;
+    flex-shrink:0;
+  }
+
+  .fade-in{
+    animation:fadeIn 0.35s ease forwards;
+  }
+  @keyframes fadeIn{
+    from{ opacity:0; transform:translateY(4px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  @media (max-width: 640px){
+    .headline{ font-size:2.6rem !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- noise texture via SVG filter, single thin overlay for subtle paper-grain quality -->
+<svg class="noise" xmlns="http://www.w3.org/2000/svg">
+  <filter id="grain">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" result="noise"/>
+    <feColorMatrix in="noise" type="matrix"
+      values="0 0 0 0 0
+              0 0 0 0 0
+              0 0 0 0 0
+              0 0 0 0.9 0"/>
+  </filter>
+  <rect width="100%" height="100%" filter="url(#grain)"/>
+</svg>
+
+<main class="screen max-w-3xl mx-auto px-6 md:px-8 py-6">
+
+  <!-- top row: brand mark + minimal contact corner -->
+  <header class="flex items-center justify-between pt-2">
+    <div class="corner-label zh">一頁 ONEPAGE</div>
+    <div class="corner-label zh text-right">
+      hello@onepage.studio<br>台北・接案中
+    </div>
+  </header>
+
+  <!-- core: headline, sub, services, form — everything in one view -->
+  <section class="flex-1 flex flex-col justify-center gap-10 md:gap-12 py-10">
+
+    <div>
+      <h1 class="headline zh text-[2.9rem] md:text-[4.2rem]">
+        一頁，<br class="md:hidden">就看懂我能幫你做什麼。
+      </h1>
+      <p class="zh mt-5 text-base md:text-lg" style="color:var(--muted); max-width:34rem;">
+        獨立製作人接案，設計與開發一人完成。不囉嗦、不繞路，
+        一次把事情做對，這頁就是全部的說明。
+      </p>
+    </div>
+
+    <!-- three services, minimal typographic list, no cards / no decoration -->
+    <div>
+      <div class="service-row grid grid-cols-[2.4rem_1fr] md:grid-cols-[3rem_10rem_1fr] gap-x-4 md:gap-x-8 items-baseline py-4">
+        <span class="num">01</span>
+        <span class="zh font-medium text-lg md:col-start-2">網站設計製作</span>
+        <span class="zh text-sm md:text-base md:col-start-3" style="color:var(--muted);">品牌官網、作品集、活動頁，設計到上線一手完成</span>
+      </div>
+      <div class="service-row grid grid-cols-[2.4rem_1fr] md:grid-cols-[3rem_10rem_1fr] gap-x-4 md:gap-x-8 items-baseline py-4">
+        <span class="num">02</span>
+        <span class="zh font-medium text-lg md:col-start-2">產品介面設計</span>
+        <span class="zh text-sm md:text-base md:col-start-3" style="color:var(--muted);">App 與系統介面規劃，介面乾淨、好用、不多餘</span>
+      </div>
+      <div class="service-row grid grid-cols-[2.4rem_1fr] md:grid-cols-[3rem_10rem_1fr] gap-x-4 md:gap-x-8 items-baseline py-4">
+        <span class="num">03</span>
+        <span class="zh font-medium text-lg md:col-start-2">品牌視覺整理</span>
+        <span class="zh text-sm md:text-base md:col-start-3" style="color:var(--muted);">標準字、色彩、版型規範，讓品牌看起來一致又專業</span>
+      </div>
+    </div>
+
+    <!-- real, working inline consultation form -->
+    <div class="max-w-md">
+      <form id="consult-form" class="flex items-end gap-4">
+        <div class="flex-1">
+          <label for="email" class="zh block text-xs mb-2" style="color:var(--muted); letter-spacing:0.05em;">
+            留下 Email，我會直接回你
+          </label>
+          <input id="email" type="email" required placeholder="you@email.com">
+        </div>
+        <button type="submit" class="btn-send zh px-5 py-3 text-sm">
+          送出諮詢
+        </button>
+      </form>
+
+      <div id="confirm" class="confirm-msg zh mt-4">
+        <span class="confirm-dot"></span>
+        <span>已收到，24 小時內回覆。</span>
+      </div>
+      <p id="form-error" class="zh text-xs mt-2" style="display:none; color:#8a3b2d;">
+        請留下正確的 Email 格式。
+      </p>
+    </div>
+
+  </section>
+
+  <!-- bottom corner: minimal footer, still part of the single screen -->
+  <footer class="flex items-center justify-between pb-2 corner-label zh">
+    <span>@2026 一頁 OnePage</span>
+    <span>一人接案・遠端協作</span>
+  </footer>
+
+</main>
+
+<script>
+  (function(){
+    var form = document.getElementById('consult-form');
+    var confirmBox = document.getElementById('confirm');
+    var errorBox = document.getElementById('form-error');
+    var emailInput = document.getElementById('email');
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+
+      var value = emailInput.value.trim();
+      var valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
+      if(!valid){
+        errorBox.style.display = 'block';
+        confirmBox.style.display = 'none';
+        emailInput.focus();
+        return;
+      }
+
+      errorBox.style.display = 'none';
+
+      // 真的攔截送出事件，不送到任何後端，純前端顯示確認訊息
+      form.querySelector('button').textContent = '已送出';
+      form.querySelector('button').disabled = true;
+      emailInput.disabled = true;
+
+      confirmBox.style.display = 'flex';
+      confirmBox.classList.add('fade-in');
+    });
+
+    emailInput.addEventListener('input', function(){
+      errorBox.style.display = 'none';
+    });
+  })();
+</script>
+
+</body>
+</html>

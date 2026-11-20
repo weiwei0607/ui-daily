@@ -1,0 +1,388 @@
+<!-- style #40 Y2K Revival -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>燒錄電台 BurnRadio｜千禧年復古隨身音樂選物店</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --magenta:#ff00ff;
+    --cyan:#00ffff;
+    --yellow:#ffff00;
+    --bg-deep:#05040f;
+    --chrome-1:#eaf6ff;
+    --chrome-2:#9fb9c9;
+    --chrome-3:#4c5c68;
+  }
+
+  *{ box-sizing:border-box; }
+
+  body{
+    background: var(--bg-deep);
+    font-family:'Noto Sans TC','Orbitron',sans-serif;
+    color:#f1f3f6;
+    overflow-x:hidden;
+    margin:0;
+  }
+
+  .font-title{
+    font-family:'Orbitron','Noto Sans TC',sans-serif;
+  }
+
+  /* ---------- 鉻合金漸層文字 ---------- */
+  .chrome-text{
+    font-family:'Orbitron','Noto Sans TC',sans-serif;
+    background-image: linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #cfe9f7 12%,
+      #6f8a9a 28%,
+      #0e1a22 42%,
+      #ffffff 50%,
+      #9fb9c9 58%,
+      #e8f7ff 68%,
+      #4c5c68 82%,
+      #ffffff 100%
+    );
+    background-size: 100% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    filter: drop-shadow(0 0 18px rgba(255,0,255,0.45)) drop-shadow(0 0 28px rgba(0,255,255,0.35));
+    animation: chromeShift 6s linear infinite;
+  }
+
+  @keyframes chromeShift{
+    0%{ background-position: 0% 0%; }
+    100%{ background-position: 0% 100%; }
+  }
+
+  /* ---------- 霓虹發光文字 ---------- */
+  .neon-magenta{
+    color:#fff;
+    text-shadow:
+      0 0 4px #fff,
+      0 0 10px var(--magenta),
+      0 0 20px var(--magenta),
+      0 0 40px var(--magenta),
+      0 0 80px var(--magenta);
+  }
+  .neon-cyan{
+    color:#fff;
+    text-shadow:
+      0 0 4px #fff,
+      0 0 10px var(--cyan),
+      0 0 20px var(--cyan),
+      0 0 40px var(--cyan),
+      0 0 80px var(--cyan);
+  }
+  .neon-yellow{
+    color:#111;
+    text-shadow:
+      0 0 4px #fff,
+      0 0 8px var(--yellow),
+      0 0 16px var(--yellow);
+  }
+
+  /* ---------- 星空閃爍背景 ---------- */
+  .starfield{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+    z-index:0;
+    pointer-events:none;
+  }
+  .star{
+    position:absolute;
+    border-radius:50%;
+    background:#fff;
+    animation-name: twinkle;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+  }
+  @keyframes twinkle{
+    0%, 100%{ opacity:0.15; transform:scale(0.6); }
+    50%{ opacity:1; transform:scale(1.4); }
+  }
+
+  /* ---------- 跑馬燈 ---------- */
+  .marquee-track{
+    display:inline-flex;
+    white-space:nowrap;
+    animation: marqueeMove 18s linear infinite;
+  }
+  @keyframes marqueeMove{
+    0%{ transform: translateX(0); }
+    100%{ transform: translateX(-50%); }
+  }
+
+  /* ---------- 商品卡 hover ---------- */
+  .y2k-card{
+    position:relative;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    transform-style: preserve-3d;
+    border:2px solid rgba(255,255,255,0.15);
+  }
+  .y2k-card:hover{
+    transform: rotate(-1.5deg) translateY(-10px) scale(1.03);
+    box-shadow:
+      0 0 25px rgba(255,0,255,0.55),
+      0 0 50px rgba(0,255,255,0.4),
+      0 10px 40px rgba(0,0,0,0.6);
+    border-color: rgba(255,255,255,0.4);
+  }
+  .y2k-card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:inherit;
+    background: linear-gradient(135deg, rgba(255,0,255,0.0), rgba(0,255,255,0.0));
+    opacity:0;
+    transition: opacity 0.35s ease;
+    pointer-events:none;
+  }
+  .y2k-card:hover::before{
+    opacity:1;
+    background: linear-gradient(135deg, rgba(255,0,255,0.18), rgba(0,255,255,0.18));
+  }
+
+  .chrome-panel{
+    background: linear-gradient(180deg,#1b2129 0%, #0a0d12 60%, #1b2129 100%);
+    border:1px solid rgba(159,185,201,0.35);
+  }
+
+  .price-tag{
+    font-family:'Orbitron',sans-serif;
+    color:#0a0a0a;
+    background: linear-gradient(180deg, var(--yellow), #ffd500);
+    box-shadow: 0 0 12px rgba(255,255,0,0.6);
+  }
+
+  .btn-cart{
+    font-family:'Orbitron',sans-serif;
+    background: linear-gradient(90deg, var(--magenta), var(--cyan));
+    transition: filter 0.2s ease, transform 0.15s ease;
+  }
+  .btn-cart:hover{ filter: brightness(1.2); }
+  .btn-cart:active{ transform: scale(0.95); }
+
+  .cart-bump{
+    animation: bump 0.35s ease;
+  }
+  @keyframes bump{
+    0%{ transform: scale(1); }
+    40%{ transform: scale(1.4); }
+    100%{ transform: scale(1); }
+  }
+
+  .divider-chrome{
+    height:3px;
+    background: linear-gradient(90deg, transparent, var(--chrome-1), var(--chrome-2), var(--chrome-1), transparent);
+  }
+
+  .scanline-border{
+    border:1px solid rgba(0,255,255,0.4);
+  }
+</style>
+</head>
+<body>
+
+  <!-- ===================== Header ===================== -->
+  <header class="relative z-20 flex items-center justify-between px-6 md:px-12 py-5 chrome-panel">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background:conic-gradient(from 90deg, var(--magenta), var(--cyan), var(--yellow), var(--magenta));">
+        <div class="w-6 h-6 rounded-full bg-black"></div>
+      </div>
+      <span class="font-title text-xl md:text-2xl chrome-text">BurnRadio</span>
+    </div>
+    <nav class="hidden md:flex items-center gap-8 font-title text-sm tracking-widest">
+      <a href="#products" class="neon-cyan hover:opacity-80">商品選物</a>
+      <a href="#burn" class="neon-magenta hover:opacity-80">燒錄服務</a>
+      <a href="#about" class="text-white/70 hover:text-white">關於電台</a>
+    </nav>
+    <div class="flex items-center gap-2 font-title text-sm">
+      <span>🛒</span>
+      <span id="cartCount" class="inline-block min-w-[1.5rem] text-center rounded-full px-2 py-0.5" style="background:var(--yellow); color:#000;">0</span>
+    </div>
+  </header>
+
+  <!-- ===================== 跑馬燈公告 ===================== -->
+  <div class="relative z-20 overflow-hidden border-y-2" style="background:#000; border-color:var(--magenta);">
+    <div class="marquee-track py-2 font-title text-sm md:text-base neon-yellow">
+      <span class="px-6">★ 千禧年限定復刻　隨身聽全面到貨 ★</span>
+      <span class="px-6">★ 燒錄一片 CD 只要銅板價，懷舊金曲免等待 ★</span>
+      <span class="px-6">★ 會員加入即送螢光貼紙包，數量有限送完為止 ★</span>
+      <span class="px-6">★ BurnRadio 電台　把千禧年的聲音燒回你手上 ★</span>
+      <span class="px-6">★ 千禧年限定復刻　隨身聽全面到貨 ★</span>
+      <span class="px-6">★ 燒錄一片 CD 只要銅板價，懷舊金曲免等待 ★</span>
+      <span class="px-6">★ 會員加入即送螢光貼紙包，數量有限送完為止 ★</span>
+      <span class="px-6">★ BurnRadio 電台　把千禧年的聲音燒回你手上 ★</span>
+    </div>
+  </div>
+
+  <!-- ===================== Hero ===================== -->
+  <section class="relative z-10 min-h-[86vh] flex flex-col items-center justify-center text-center px-6 overflow-hidden" style="background: radial-gradient(ellipse at 50% 20%, rgba(255,0,255,0.12), transparent 60%), radial-gradient(ellipse at 20% 80%, rgba(0,255,255,0.12), transparent 55%), var(--bg-deep);">
+    <div class="starfield" id="starfield"></div>
+
+    <p class="relative z-10 font-title text-xs md:text-sm tracking-[0.4em] neon-cyan mb-4">MILLENNIUM SOUND REVIVAL · 2000</p>
+
+    <h1 class="relative z-10 font-title text-[13vw] md:text-[7rem] leading-[0.95] chrome-text font-900 select-none">
+      燒錄電台<br/>BurnRadio
+    </h1>
+
+    <p class="relative z-10 mt-6 max-w-xl text-base md:text-lg text-white/80 font-medium">
+      把你的千禧年記憶重新燒錄回來。復刻隨身聽、螢光耳機、貼紙包，
+      <br class="hidden md:block">
+      一次把時光機裝進口袋裡。
+    </p>
+
+    <div class="relative z-10 mt-10 flex flex-wrap items-center justify-center gap-4">
+      <a href="#products" class="font-title px-8 py-3 rounded-full text-sm tracking-widest neon-magenta scanline-border" style="background:rgba(255,0,255,0.08);">
+        逛逛商品 →
+      </a>
+      <a href="#burn" class="font-title px-8 py-3 rounded-full text-sm tracking-widest neon-cyan scanline-border" style="background:rgba(0,255,255,0.08);">
+        預約燒錄服務
+      </a>
+    </div>
+  </section>
+
+  <div class="divider-chrome"></div>
+
+  <!-- ===================== 商品網格 ===================== -->
+  <section id="products" class="relative z-10 px-6 md:px-12 py-20" style="background:var(--bg-deep);">
+    <div class="text-center mb-14">
+      <h2 class="font-title text-3xl md:text-5xl chrome-text font-900">千禧選物清單</h2>
+      <p class="mt-4 text-white/60">每一件都是從記憶深處挖出來重新打磨的寶貝</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+
+      <!-- 商品卡 1 -->
+      <div class="y2k-card rounded-2xl p-5 chrome-panel">
+        <div class="h-40 rounded-xl mb-4 flex items-center justify-center text-5xl" style="background:linear-gradient(135deg, rgba(255,0,255,0.25), rgba(0,255,255,0.25));">💿</div>
+        <h3 class="font-title text-lg neon-cyan mb-1">鉻殼復刻 CD 隨身聽</h3>
+        <p class="text-sm text-white/60 mb-3">金屬鉻殼機身，防震讀取，重現千禧年通勤必備神器。</p>
+        <div class="flex items-center justify-between">
+          <span class="price-tag font-title text-sm px-3 py-1 rounded-full">NT$ 2,480</span>
+          <button class="add-to-cart btn-cart text-white font-title text-xs px-4 py-2 rounded-full" data-name="鉻殼復刻 CD 隨身聽">加入購物車</button>
+        </div>
+      </div>
+
+      <!-- 商品卡 2 -->
+      <div class="y2k-card rounded-2xl p-5 chrome-panel">
+        <div class="h-40 rounded-xl mb-4 flex items-center justify-center text-5xl" style="background:linear-gradient(135deg, rgba(255,255,0,0.25), rgba(255,0,255,0.25));">🎧</div>
+        <h3 class="font-title text-lg neon-magenta mb-1">螢光果凍耳機</h3>
+        <p class="text-sm text-white/60 mb-3">半透明果凍外殼，黑燈下會發出詭異螢光，音量大到爆耳。</p>
+        <div class="flex items-center justify-between">
+          <span class="price-tag font-title text-sm px-3 py-1 rounded-full">NT$ 890</span>
+          <button class="add-to-cart btn-cart text-white font-title text-xs px-4 py-2 rounded-full" data-name="螢光果凍耳機">加入購物車</button>
+        </div>
+      </div>
+
+      <!-- 商品卡 3 -->
+      <div class="y2k-card rounded-2xl p-5 chrome-panel">
+        <div class="h-40 rounded-xl mb-4 flex items-center justify-center text-5xl" style="background:linear-gradient(135deg, rgba(0,255,255,0.25), rgba(255,255,0,0.25));">✨</div>
+        <h3 class="font-title text-lg neon-yellow mb-1">千禧貼紙包（30 入）</h3>
+        <p class="text-sm text-white/60 mb-3">星芒、愛心、火焰字體通通有，手機殼、筆電外殼隨便貼。</p>
+        <div class="flex items-center justify-between">
+          <span class="price-tag font-title text-sm px-3 py-1 rounded-full">NT$ 150</span>
+          <button class="add-to-cart btn-cart text-white font-title text-xs px-4 py-2 rounded-full" data-name="千禧貼紙包">加入購物車</button>
+        </div>
+      </div>
+
+      <!-- 商品卡 4 -->
+      <div class="y2k-card rounded-2xl p-5 chrome-panel">
+        <div class="h-40 rounded-xl mb-4 flex items-center justify-center text-5xl" style="background:linear-gradient(135deg, rgba(255,0,255,0.25), rgba(255,255,0,0.25));">📀</div>
+        <h3 class="font-title text-lg neon-cyan mb-1">空白燒錄片套組（10 片）</h3>
+        <p class="text-sm text-white/60 mb-3">搭配電台燒錄服務使用，附手寫標籤貼紙與夾鏈收藏袋。</p>
+        <div class="flex items-center justify-between">
+          <span class="price-tag font-title text-sm px-3 py-1 rounded-full">NT$ 320</span>
+          <button class="add-to-cart btn-cart text-white font-title text-xs px-4 py-2 rounded-full" data-name="空白燒錄片套組">加入購物車</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider-chrome"></div>
+
+  <!-- ===================== 燒錄服務 ===================== -->
+  <section id="burn" class="relative z-10 px-6 md:px-12 py-20 text-center" style="background: radial-gradient(ellipse at 50% 50%, rgba(0,255,255,0.08), transparent 60%), var(--bg-deep);">
+    <h2 class="font-title text-3xl md:text-5xl chrome-text font-900 mb-6">懷舊數位燒錄服務</h2>
+    <p class="max-w-2xl mx-auto text-white/70 mb-10">
+      把你雲端裡的歌單，重新燒錄成一片實體 CD。附上千禧年風格手寫封面設計，
+      讓數位音樂重新擁有重量與質感。
+    </p>
+    <div class="flex flex-wrap items-center justify-center gap-6 font-title text-sm">
+      <div class="scanline-border rounded-xl px-6 py-4 neon-magenta">單片燒錄　NT$ 199</div>
+      <div class="scanline-border rounded-xl px-6 py-4 neon-cyan">五片優惠組　NT$ 850</div>
+      <div class="scanline-border rounded-xl px-6 py-4 neon-yellow">客製封面設計　加購 NT$ 100</div>
+    </div>
+  </section>
+
+  <div class="divider-chrome"></div>
+
+  <!-- ===================== Footer ===================== -->
+  <footer id="about" class="relative z-10 px-6 md:px-12 py-14 text-center chrome-panel">
+    <p class="font-title text-2xl chrome-text mb-3">BurnRadio</p>
+    <p class="text-white/50 text-sm max-w-xl mx-auto">
+      燒錄電台成立於數位與類比交界的年代，專注復刻千禧年隨身音樂文化，
+      讓每一段旋律都能被重新燒錄、重新收藏。
+    </p>
+    <p class="text-white/30 text-xs mt-8">© 2026 BurnRadio 燒錄電台．版權所有</p>
+  </footer>
+
+  <script>
+    (function(){
+      // ---------- 星空閃爍：動態產生星星並隨機指定動畫參數 ----------
+      var field = document.getElementById('starfield');
+      var starCount = 90;
+      for (var i = 0; i < starCount; i++) {
+        var star = document.createElement('div');
+        star.className = 'star';
+        var size = (Math.random() * 2.4 + 1).toFixed(2);
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.left = (Math.random() * 100).toFixed(2) + '%';
+        star.style.top = (Math.random() * 100).toFixed(2) + '%';
+        star.style.animationDuration = (Math.random() * 2.5 + 1.5).toFixed(2) + 's';
+        star.style.animationDelay = (Math.random() * 3).toFixed(2) + 's';
+        var colors = ['#ffffff', '#ff00ff', '#00ffff', '#ffff00'];
+        star.style.boxShadow = '0 0 6px ' + colors[Math.floor(Math.random() * colors.length)];
+        field.appendChild(star);
+      }
+
+      // ---------- 購物車計數器：真的會 +1 ----------
+      var cartCount = 0;
+      var cartEl = document.getElementById('cartCount');
+      var buttons = document.querySelectorAll('.add-to-cart');
+
+      buttons.forEach(function(btn){
+        btn.addEventListener('click', function(){
+          cartCount += 1;
+          cartEl.textContent = cartCount;
+          cartEl.classList.remove('cart-bump');
+          // 重新觸發動畫
+          void cartEl.offsetWidth;
+          cartEl.classList.add('cart-bump');
+
+          var original = btn.textContent;
+          btn.textContent = '已加入 ✓';
+          btn.disabled = true;
+          setTimeout(function(){
+            btn.textContent = original;
+            btn.disabled = false;
+          }, 900);
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>

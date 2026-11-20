@@ -1,0 +1,523 @@
+<!-- style #17 Inclusive Design -->
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>暖手 WarmHand - 長輩照護預約平台</title>
+<meta name="description" content="暖手 WarmHand，陪您預約長照服務，字體清楚、操作簡單，為長輩與家屬設計。">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --color-navy: #003366;
+    --color-navy-dark: #00223f;
+    --color-orange: #FF6A00;
+    --color-orange-dark: #cc5500;
+    --color-bg: #ffffff;
+    --color-ink: #1a1a1a;
+    --color-line: #d8e1ea;
+    --base-font-size: 18px;
+    --scale: 1;
+  }
+
+  html, body{
+    margin:0;
+    padding:0;
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font-family: 'Atkinson Hyperlegible', 'Noto Sans TC', sans-serif;
+    font-size: calc(var(--base-font-size) * var(--scale));
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body.large-text{
+    --scale: 1.4;
+  }
+
+  * {
+    font-family: 'Atkinson Hyperlegible', 'Noto Sans TC', sans-serif !important;
+  }
+
+  /* 清楚明顯的 focus 外框，取代瀏覽器預設細外框 */
+  a:focus,
+  button:focus,
+  [tabindex]:focus {
+    outline: none;
+  }
+  a:focus-visible,
+  button:focus-visible,
+  [tabindex]:focus-visible,
+  .option-card:focus-visible,
+  .time-btn:focus-visible {
+    outline: 4px solid var(--color-orange);
+    outline-offset: 3px;
+    border-radius: 10px;
+    box-shadow: 0 0 0 8px rgba(255, 106, 0, 0.18);
+  }
+
+  .skip-link:focus-visible{
+    outline: 4px solid var(--color-orange);
+    outline-offset: 2px;
+  }
+
+  .big-btn{
+    min-height: 56px;
+    font-size: calc(1.125rem * var(--scale, 1));
+    font-weight: 700;
+    border-radius: 14px;
+    padding: 14px 28px;
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .big-btn:active{
+    transform: translateY(1px) scale(0.99);
+  }
+
+  .brand-navy{ background-color: var(--color-navy); }
+  .text-brand-navy{ color: var(--color-navy); }
+  .brand-orange{ background-color: var(--color-orange); }
+  .text-brand-orange{ color: var(--color-orange); }
+  .border-brand-navy{ border-color: var(--color-navy); }
+
+  .option-card{
+    border: 3px solid var(--color-line);
+    border-radius: 18px;
+    padding: 24px;
+    background: #ffffff;
+    cursor: pointer;
+    min-height: 56px;
+    transition: border-color .12s ease, background-color .12s ease, box-shadow .12s ease;
+    text-align: left;
+    width: 100%;
+  }
+  .option-card:hover{
+    border-color: var(--color-navy);
+  }
+  .option-card.selected{
+    border-color: var(--color-orange);
+    border-width: 4px;
+    background-color: #FFF4EC;
+    box-shadow: 0 0 0 3px rgba(255,106,0,0.15) inset;
+  }
+  .option-card .check-badge{
+    display:none;
+  }
+  .option-card.selected .check-badge{
+    display:inline-flex;
+  }
+
+  .time-btn{
+    border: 3px solid var(--color-line);
+    border-radius: 14px;
+    min-height: 56px;
+    font-size: calc(1.125rem * var(--scale, 1));
+    font-weight: 700;
+    background: #ffffff;
+    color: var(--color-navy);
+    transition: all .12s ease;
+  }
+  .time-btn:hover{
+    border-color: var(--color-navy);
+  }
+  .time-btn.selected{
+    border-color: var(--color-orange);
+    border-width: 4px;
+    background-color: var(--color-orange);
+    color: #ffffff;
+  }
+  .time-btn:disabled{
+    opacity: 0.45;
+    cursor: not-allowed;
+    text-decoration: line-through;
+  }
+
+  .step-dot{
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:900;
+    font-size: 1.1rem;
+    border: 3px solid var(--color-line);
+    background:#fff;
+    color:#8a98a6;
+  }
+  .step-dot.active{
+    border-color: var(--color-orange);
+    background: var(--color-orange);
+    color:#fff;
+  }
+  .step-dot.done{
+    border-color: var(--color-navy);
+    background: var(--color-navy);
+    color:#fff;
+  }
+  .step-label{
+    color:#6b7a89;
+    font-weight: 700;
+  }
+  .step-label.active{
+    color: var(--color-navy);
+  }
+
+  .step-panel{
+    display:none;
+  }
+  .step-panel.active{
+    display:block;
+  }
+
+  .success-box{
+    display:none;
+  }
+  .success-box.show{
+    display:block;
+    animation: fadein .3s ease;
+  }
+  @keyframes fadein{
+    from{ opacity:0; transform: translateY(6px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+
+  .font-toggle-btn{
+    border: 3px solid #ffffff;
+    min-height: 56px;
+  }
+  .font-toggle-btn[aria-pressed="true"]{
+    background:#ffffff;
+    color: var(--color-navy);
+  }
+
+  .summary-line{
+    border-bottom: 2px dashed var(--color-line);
+    padding: 14px 0;
+  }
+  .summary-line:last-child{
+    border-bottom: none;
+  }
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-white focus:text-brand-navy focus:px-4 focus:py-2 focus:rounded-lg focus:font-bold">
+  跳到主要內容
+</a>
+
+<!-- 頂部工具列：品牌 + 字級切換 -->
+<header class="brand-navy text-white">
+  <div class="max-w-5xl mx-auto px-6 py-5 flex flex-wrap items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 rounded-2xl brand-orange flex items-center justify-center text-2xl font-black" aria-hidden="true">暖</div>
+      <div>
+        <p class="text-2xl font-black leading-tight">暖手 WarmHand</p>
+        <p class="text-sm opacity-90">長輩與家屬的長照預約平台</p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-3" role="group" aria-label="文字大小設定">
+      <span class="text-sm opacity-90 hidden sm:inline">文字大小：</span>
+      <button
+        id="btn-font-normal"
+        type="button"
+        class="font-toggle-btn big-btn bg-transparent text-white px-5"
+        aria-pressed="true"
+        onclick="setFontSize(false)">
+        標準字級
+      </button>
+      <button
+        id="btn-font-large"
+        type="button"
+        class="font-toggle-btn big-btn bg-transparent text-white px-5"
+        aria-pressed="false"
+        onclick="setFontSize(true)">
+        放大字級 A+
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main-content" class="max-w-5xl mx-auto px-6 py-10">
+
+  <!-- 歡迎區 -->
+  <section class="mb-10">
+    <h1 class="text-4xl font-black text-brand-navy mb-4">您好，歡迎使用暖手預約服務</h1>
+    <p class="text-lg leading-relaxed max-w-3xl">
+      不用擔心操作複雜，暖手把每一步都設計得又大又清楚。只要跟著下面三個步驟，
+      一步一步點選，就能幫爸爸、媽媽，或是自己，預約到合適的長照服務。
+      如果中途想重新選擇，隨時都可以回頭點選上一步，不會弄丟您已經填好的資料。
+    </p>
+  </section>
+
+  <!-- 步驟指示條 -->
+  <nav aria-label="預約進度" class="mb-10">
+    <ol class="flex flex-wrap items-center gap-4 sm:gap-6">
+      <li class="flex items-center gap-3">
+        <span id="dot-1" class="step-dot active" aria-hidden="true">1</span>
+        <span id="label-1" class="step-label active">選擇服務</span>
+      </li>
+      <li aria-hidden="true" class="text-brand-navy font-black">→</li>
+      <li class="flex items-center gap-3">
+        <span id="dot-2" class="step-dot" aria-hidden="true">2</span>
+        <span id="label-2" class="step-label">選擇時段</span>
+      </li>
+      <li aria-hidden="true" class="text-brand-navy font-black">→</li>
+      <li class="flex items-center gap-3">
+        <span id="dot-3" class="step-dot" aria-hidden="true">3</span>
+        <span id="label-3" class="step-label">確認預約</span>
+      </li>
+    </ol>
+  </nav>
+
+  <!-- 步驟一：選擇服務類型 -->
+  <section id="panel-1" class="step-panel active" aria-labelledby="step1-heading">
+    <h2 id="step1-heading" class="text-2xl font-black text-brand-navy mb-2">第一步：請選擇您需要的服務</h2>
+    <p class="mb-6 text-gray-700">請用手指或滑鼠點一下您需要的服務卡片，選中後會有清楚的橘色邊框。</p>
+
+    <div class="grid sm:grid-cols-3 gap-5" role="group" aria-label="服務類型選項">
+      <button type="button" class="option-card" data-service="居家照顧服務" onclick="selectService(this, '居家照顧服務')">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-3xl" aria-hidden="true">🏠</span>
+          <span class="check-badge text-brand-orange text-2xl font-black" aria-hidden="true">✓</span>
+        </div>
+        <p class="text-xl font-black text-brand-navy mb-1">居家照顧服務</p>
+        <p class="text-base text-gray-600">照服員到家裡協助洗澡、備餐、陪伴聊天，讓長輩在熟悉的家中安心生活。</p>
+      </button>
+
+      <button type="button" class="option-card" data-service="復能運動課程" onclick="selectService(this, '復能運動課程')">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-3xl" aria-hidden="true">🤸</span>
+          <span class="check-badge text-brand-orange text-2xl font-black" aria-hidden="true">✓</span>
+        </div>
+        <p class="text-xl font-black text-brand-navy mb-1">復能運動課程</p>
+        <p class="text-base text-gray-600">物理治療師帶領的輕量運動課，幫助長輩維持走動能力、預防跌倒。</p>
+      </button>
+
+      <button type="button" class="option-card" data-service="就醫接送陪同" onclick="selectService(this, '就醫接送陪同')">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-3xl" aria-hidden="true">🚐</span>
+          <span class="check-badge text-brand-orange text-2xl font-black" aria-hidden="true">✓</span>
+        </div>
+        <p class="text-xl font-black text-brand-navy mb-1">就醫接送陪同</p>
+        <p class="text-base text-gray-600">專人開車接送往返醫院，並陪同掛號、候診，家屬不用特別請假。</p>
+      </button>
+    </div>
+
+    <div class="mt-8">
+      <button type="button" id="btn-to-step2" class="big-btn brand-orange text-white opacity-50 cursor-not-allowed" disabled onclick="goToStep(2)">
+        下一步：選擇時段 →
+      </button>
+    </div>
+  </section>
+
+  <!-- 步驟二：選擇時段 -->
+  <section id="panel-2" class="step-panel" aria-labelledby="step2-heading">
+    <h2 id="step2-heading" class="text-2xl font-black text-brand-navy mb-2">第二步：請選擇方便的時段</h2>
+    <p class="mb-2 text-gray-700">
+      您選擇的服務是：<span id="chosen-service-echo" class="font-black text-brand-orange">尚未選擇</span>
+    </p>
+    <p class="mb-6 text-gray-700">灰色、有刪除線的時段表示目前已經被預約滿了，請選擇其他時段。</p>
+
+    <div class="grid sm:grid-cols-2 gap-4" role="group" aria-label="時段選項">
+      <button type="button" class="time-btn" data-time="週三上午 9:00 - 11:00" onclick="selectTime(this)">週三上午 9:00 - 11:00</button>
+      <button type="button" class="time-btn" data-time="週三下午 2:00 - 4:00" onclick="selectTime(this)">週三下午 2:00 - 4:00</button>
+      <button type="button" class="time-btn" data-time="週五上午 10:00 - 12:00" disabled>週五上午 10:00 - 12:00（已滿）</button>
+      <button type="button" class="time-btn" data-time="週五下午 3:00 - 5:00" onclick="selectTime(this)">週五下午 3:00 - 5:00</button>
+      <button type="button" class="time-btn" data-time="週六上午 9:30 - 11:30" onclick="selectTime(this)">週六上午 9:30 - 11:30</button>
+      <button type="button" class="time-btn" data-time="週日下午 1:00 - 3:00" disabled>週日下午 1:00 - 3:00（已滿）</button>
+    </div>
+
+    <div class="mt-8 flex flex-wrap gap-4">
+      <button type="button" class="big-btn bg-white border-4 border-brand-navy text-brand-navy" onclick="goToStep(1)">
+        ← 回上一步
+      </button>
+      <button type="button" id="btn-to-step3" class="big-btn brand-orange text-white opacity-50 cursor-not-allowed" disabled onclick="goToStep(3)">
+        下一步：確認預約 →
+      </button>
+    </div>
+  </section>
+
+  <!-- 步驟三：確認預約 -->
+  <section id="panel-3" class="step-panel" aria-labelledby="step3-heading">
+    <h2 id="step3-heading" class="text-2xl font-black text-brand-navy mb-2">第三步：請確認您的預約內容</h2>
+    <p class="mb-6 text-gray-700">請再次確認以下資訊，沒有問題的話，就可以放心點選「確認預約」。</p>
+
+    <div class="border-4 border-brand-navy rounded-2xl p-6 bg-[#F4F8FC]" id="summary-box">
+      <div class="summary-line flex justify-between flex-wrap gap-2">
+        <span class="font-bold text-gray-700">服務項目</span>
+        <span id="summary-service" class="font-black text-brand-navy text-xl">尚未選擇</span>
+      </div>
+      <div class="summary-line flex justify-between flex-wrap gap-2">
+        <span class="font-bold text-gray-700">預約時段</span>
+        <span id="summary-time" class="font-black text-brand-navy text-xl">尚未選擇</span>
+      </div>
+      <div class="summary-line flex justify-between flex-wrap gap-2">
+        <span class="font-bold text-gray-700">服務對象</span>
+        <span class="font-black text-brand-navy text-xl">本人／家中長輩</span>
+      </div>
+    </div>
+
+    <div class="mt-8 flex flex-wrap gap-4">
+      <button type="button" class="big-btn bg-white border-4 border-brand-navy text-brand-navy" onclick="goToStep(2)">
+        ← 回上一步
+      </button>
+      <button type="button" id="btn-confirm" class="big-btn brand-orange text-white px-10" onclick="confirmBooking()">
+        確認預約
+      </button>
+    </div>
+
+    <!-- 成功訊息 -->
+    <div id="success-box" class="success-box mt-8 border-4 border-brand-navy rounded-2xl p-6 bg-white" role="status" aria-live="polite">
+      <div class="flex items-start gap-4">
+        <span class="text-4xl" aria-hidden="true">🎉</span>
+        <div>
+          <p class="text-2xl font-black text-brand-navy mb-2">預約成功！</p>
+          <p class="text-lg text-gray-700">
+            我們已經收到您的預約，服務人員會在一天內用電話與您確認細節，請留意來電。
+            感謝您使用暖手，我們會一直陪在您身邊。
+          </p>
+          <p id="success-detail" class="mt-3 text-base font-bold text-brand-orange"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="brand-navy text-white mt-16">
+  <div class="max-w-5xl mx-auto px-6 py-8 text-center">
+    <p class="font-bold text-lg mb-1">暖手 WarmHand 客服專線：0800-123-456</p>
+    <p class="opacity-90">服務時間：每日上午 8 點到晚上 8 點，真人接聽，不用按任何按鍵。</p>
+  </div>
+</footer>
+
+<script>
+  // ---------- 字級切換：真實改變整頁字級 ----------
+  function setFontSize(isLarge){
+    var body = document.body;
+    var btnNormal = document.getElementById('btn-font-normal');
+    var btnLarge = document.getElementById('btn-font-large');
+
+    if(isLarge){
+      body.classList.add('large-text');
+      btnNormal.setAttribute('aria-pressed', 'false');
+      btnLarge.setAttribute('aria-pressed', 'true');
+    } else {
+      body.classList.remove('large-text');
+      btnNormal.setAttribute('aria-pressed', 'true');
+      btnLarge.setAttribute('aria-pressed', 'false');
+    }
+
+    try {
+      localStorage.setItem('warmhand-font-size', isLarge ? 'large' : 'normal');
+    } catch (e) {
+      /* 私密瀏覽模式可能無法使用 localStorage，不影響主要功能 */
+    }
+  }
+
+  (function restoreFontSize(){
+    try {
+      var saved = localStorage.getItem('warmhand-font-size');
+      if (saved === 'large') {
+        setFontSize(true);
+      }
+    } catch (e) {
+      /* 忽略讀取錯誤 */
+    }
+  })();
+
+  // ---------- 預約流程狀態 ----------
+  var booking = {
+    service: null,
+    time: null
+  };
+
+  function goToStep(step){
+    for (var i = 1; i <= 3; i++) {
+      var panel = document.getElementById('panel-' + i);
+      var dot = document.getElementById('dot-' + i);
+      var label = document.getElementById('label-' + i);
+
+      panel.classList.toggle('active', i === step);
+
+      dot.classList.remove('active', 'done');
+      label.classList.remove('active');
+
+      if (i < step) {
+        dot.classList.add('done');
+      } else if (i === step) {
+        dot.classList.add('active');
+        label.classList.add('active');
+      }
+    }
+
+    var heading = document.getElementById(
+      step === 1 ? 'step1-heading' : step === 2 ? 'step2-heading' : 'step3-heading'
+    );
+    if (heading) {
+      heading.setAttribute('tabindex', '-1');
+      heading.focus();
+    }
+
+    window.scrollTo({ top: document.getElementById('panel-' + step).offsetTop - 20, behavior: 'smooth' });
+  }
+
+  // ---------- 步驟一：選擇服務 ----------
+  function selectService(el, serviceName){
+    var cards = document.querySelectorAll('.option-card');
+    cards.forEach(function(c){ c.classList.remove('selected'); c.setAttribute('aria-pressed', 'false'); });
+
+    el.classList.add('selected');
+    el.setAttribute('aria-pressed', 'true');
+
+    booking.service = serviceName;
+
+    document.getElementById('chosen-service-echo').textContent = serviceName;
+    document.getElementById('summary-service').textContent = serviceName;
+
+    var nextBtn = document.getElementById('btn-to-step2');
+    nextBtn.disabled = false;
+    nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+  }
+
+  // ---------- 步驟二：選擇時段 ----------
+  function selectTime(el){
+    var buttons = document.querySelectorAll('.time-btn');
+    buttons.forEach(function(b){ b.classList.remove('selected'); b.setAttribute('aria-pressed', 'false'); });
+
+    el.classList.add('selected');
+    el.setAttribute('aria-pressed', 'true');
+
+    booking.time = el.getAttribute('data-time');
+    document.getElementById('summary-time').textContent = booking.time;
+
+    var nextBtn = document.getElementById('btn-to-step3');
+    nextBtn.disabled = false;
+    nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+  }
+
+  // ---------- 步驟三：確認預約 ----------
+  function confirmBooking(){
+    var box = document.getElementById('success-box');
+    var detail = document.getElementById('success-detail');
+
+    detail.textContent = '預約項目：' + (booking.service || '未指定') + '　｜　預約時段：' + (booking.time || '未指定');
+
+    box.classList.add('show');
+
+    var confirmBtn = document.getElementById('btn-confirm');
+    confirmBtn.textContent = '已送出預約';
+    confirmBtn.disabled = true;
+    confirmBtn.classList.add('opacity-60', 'cursor-not-allowed');
+
+    box.setAttribute('tabindex', '-1');
+    box.focus();
+  }
+</script>
+
+</body>
+</html>
