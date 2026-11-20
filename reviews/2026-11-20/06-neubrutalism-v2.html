@@ -1,0 +1,520 @@
+<!-- style #54 Neubrutalism v2 -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>骰戰 DICEWAR｜桌遊咖啡廳預約與社群</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --yellow:#ffe156;
+    --pink:#ff6b6b;
+    --cyan:#4ecdc4;
+    --purple:#a388ee;
+    --cream:#faf4e8;
+    --ink:#161616;
+  }
+
+  *{ box-sizing:border-box; }
+
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Space Grotesk','Noto Sans TC',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .font-display{
+    font-family:'Archivo Black','Noto Sans TC',sans-serif;
+    letter-spacing:0.01em;
+  }
+
+  /* ---------- 硬邊框 + 硬陰影基礎元件 ---------- */
+  .brutal-box{
+    border:4px solid var(--ink);
+    border-radius:20px;
+    background:#fff;
+    box-shadow:8px 8px 0 var(--ink);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+
+  .brutal-box:hover{
+    transform:translate(4px,4px);
+    box-shadow:4px 4px 0 var(--ink);
+  }
+
+  .brutal-box:active{
+    transform:translate(8px,8px);
+    box-shadow:0 0 0 var(--ink);
+  }
+
+  /* 卡片用糖果色陰影，依分類輪替顏色 */
+  .game-card{
+    border:4px solid var(--ink);
+    border-radius:22px;
+    background:#fff;
+    transition:transform .15s ease, box-shadow .15s ease;
+    cursor:default;
+  }
+  .game-card.shadow-yellow{ box-shadow:9px 9px 0 var(--yellow); }
+  .game-card.shadow-pink{ box-shadow:9px 9px 0 var(--pink); }
+  .game-card.shadow-cyan{ box-shadow:9px 9px 0 var(--cyan); }
+  .game-card.shadow-purple{ box-shadow:9px 9px 0 var(--purple); }
+
+  .game-card.shadow-yellow:hover{ transform:translate(5px,5px); box-shadow:4px 4px 0 var(--yellow); }
+  .game-card.shadow-pink:hover{ transform:translate(5px,5px); box-shadow:4px 4px 0 var(--pink); }
+  .game-card.shadow-cyan:hover{ transform:translate(5px,5px); box-shadow:4px 4px 0 var(--cyan); }
+  .game-card.shadow-purple:hover{ transform:translate(5px,5px); box-shadow:4px 4px 0 var(--purple); }
+
+  .game-card.shadow-yellow:active{ transform:translate(9px,9px); box-shadow:0 0 0 var(--yellow); }
+  .game-card.shadow-pink:active{ transform:translate(9px,9px); box-shadow:0 0 0 var(--pink); }
+  .game-card.shadow-cyan:active{ transform:translate(9px,9px); box-shadow:0 0 0 var(--cyan); }
+  .game-card.shadow-purple:active{ transform:translate(9px,9px); box-shadow:0 0 0 var(--purple); }
+
+  /* CTA / 按鈕 */
+  .btn-brutal{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:.5rem;
+    border:4px solid var(--ink);
+    border-radius:16px;
+    font-family:'Archivo Black','Noto Sans TC',sans-serif;
+    padding:1rem 1.8rem;
+    background:var(--yellow);
+    box-shadow:7px 7px 0 var(--ink);
+    transition:transform .12s ease, box-shadow .12s ease;
+    cursor:pointer;
+    user-select:none;
+  }
+  .btn-brutal:hover{ transform:translate(3px,3px); box-shadow:4px 4px 0 var(--ink); }
+  .btn-brutal:active{ transform:translate(7px,7px); box-shadow:0 0 0 var(--ink); }
+
+  .btn-brutal.btn-pink{ background:var(--pink); color:#fff; }
+  .btn-brutal.btn-cyan{ background:var(--cyan); }
+  .btn-brutal.btn-ghost{ background:#fff; }
+
+  /* 分類篩選標籤 */
+  .filter-tag{
+    font-family:'Archivo Black','Noto Sans TC',sans-serif;
+    font-size:.95rem;
+    padding:.7rem 1.3rem;
+    border:3px solid var(--ink);
+    border-radius:999px;
+    background:#fff;
+    box-shadow:5px 5px 0 var(--ink);
+    transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
+    cursor:pointer;
+    user-select:none;
+  }
+  .filter-tag:hover{ transform:translate(2px,2px); box-shadow:3px 3px 0 var(--ink); }
+  .filter-tag.active{
+    background:var(--purple);
+    color:#fff;
+    transform:translate(5px,5px);
+    box-shadow:0 0 0 var(--ink);
+  }
+
+  /* 時段按鈕 */
+  .slot-btn{
+    font-family:'Space Grotesk','Noto Sans TC',sans-serif;
+    font-weight:700;
+    border:3px solid var(--ink);
+    border-radius:14px;
+    padding:.8rem 1rem;
+    background:#fff;
+    box-shadow:5px 5px 0 var(--ink);
+    transition:transform .12s ease, box-shadow .12s ease, background .12s ease, color .12s ease;
+    cursor:pointer;
+    text-align:center;
+    user-select:none;
+  }
+  .slot-btn:hover{ transform:translate(2px,2px); box-shadow:3px 3px 0 var(--ink); }
+  .slot-btn.selected{
+    background:var(--cyan);
+    color:var(--ink);
+    transform:translate(5px,5px);
+    box-shadow:0 0 0 var(--ink);
+  }
+
+  .people-btn{
+    border:3px solid var(--ink);
+    border-radius:12px;
+    width:2.8rem;
+    height:2.8rem;
+    font-family:'Archivo Black','Noto Sans TC',sans-serif;
+    background:#fff;
+    box-shadow:4px 4px 0 var(--ink);
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .people-btn:hover{ transform:translate(2px,2px); box-shadow:2px 2px 0 var(--ink); }
+  .people-btn:active{ transform:translate(4px,4px); box-shadow:0 0 0 var(--ink); }
+
+  .tag-pill{
+    font-size:.78rem;
+    font-weight:700;
+    padding:.2rem .6rem;
+    border:2px solid var(--ink);
+    border-radius:999px;
+    background:var(--cream);
+  }
+
+  .hero-blob{
+    border:4px solid var(--ink);
+    border-radius:28px;
+  }
+
+  input[type="date"]{
+    font-family:'Space Grotesk','Noto Sans TC',sans-serif;
+  }
+
+  .input-brutal{
+    border:3px solid var(--ink);
+    border-radius:14px;
+    padding:.8rem 1rem;
+    background:#fff;
+    box-shadow:4px 4px 0 var(--ink);
+    width:100%;
+    font-family:'Space Grotesk','Noto Sans TC',sans-serif;
+  }
+  .input-brutal:focus{ outline:none; transform:translate(2px,2px); box-shadow:2px 2px 0 var(--ink); }
+
+  .section-title{
+    display:inline-block;
+    font-family:'Archivo Black','Noto Sans TC',sans-serif;
+    background:var(--yellow);
+    border:3px solid var(--ink);
+    border-radius:12px;
+    padding:.3rem 1rem;
+    box-shadow:5px 5px 0 var(--ink);
+  }
+
+  #emptyState{ display:none; }
+  #bookingResult{ display:none; }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <!-- 導覽列 -->
+  <header class="max-w-6xl mx-auto px-5 pt-6 flex items-center justify-between">
+    <div class="font-display text-2xl md:text-3xl flex items-center gap-2">
+      <span class="inline-block w-9 h-9 rounded-xl border-4 border-black bg-[var(--pink)]" style="box-shadow:3px 3px 0 #000;"></span>
+      骰戰 DICEWAR
+    </div>
+    <nav class="hidden md:flex items-center gap-3 font-display text-sm">
+      <a href="#games" class="btn-brutal btn-ghost !px-4 !py-2 !shadow-[5px_5px_0_#000]">桌遊庫</a>
+      <a href="#booking" class="btn-brutal btn-pink !px-4 !py-2">預約桌位</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="max-w-6xl mx-auto px-5 pt-10 pb-16">
+    <div class="hero-blob bg-[var(--purple)] px-6 md:px-12 py-12 md:py-16 relative overflow-hidden" style="box-shadow:10px 10px 0 #000;">
+      <span class="tag-pill bg-white inline-block mb-4">台北 · 公館｜每日 13:00–23:00 營業</span>
+      <h1 class="font-display text-white text-4xl md:text-6xl lg:text-7xl leading-[1.05] mb-6">
+        今晚不想回家，<br class="hidden md:block">就來骰戰開一局。
+      </h1>
+      <p class="max-w-xl text-white/90 text-base md:text-lg mb-8">
+        骰戰 DICEWAR 是一間專注桌遊體驗的咖啡廳。超過 300 款桌遊、專業遊戲帶領人、現場能吃能喝，
+        不管你是第一次碰骰子，還是戰術腦全開的重度玩家，這裡都有屬於你的那張桌子。
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a href="#booking" class="btn-brutal text-lg">立即預約桌位 🎲</a>
+        <a href="#games" class="btn-brutal btn-cyan text-lg">瀏覽桌遊庫</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 分類篩選 + 桌遊列表 -->
+  <section id="games" class="max-w-6xl mx-auto px-5 py-10">
+    <h2 class="section-title text-2xl md:text-3xl mb-8">桌遊分類</h2>
+
+    <div class="flex flex-wrap gap-3 mb-10">
+      <button class="filter-tag active" data-category="all">全部遊戲</button>
+      <button class="filter-tag" data-category="party">派對遊戲</button>
+      <button class="filter-tag" data-category="strategy">策略遊戲</button>
+      <button class="filter-tag" data-category="coop">合作遊戲</button>
+      <button class="filter-tag" data-category="social">陣營遊戲</button>
+    </div>
+
+    <div id="gameGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+
+      <article class="game-card shadow-yellow p-5" data-category="strategy">
+        <div class="h-32 rounded-2xl border-4 border-black mb-4 flex items-center justify-center text-5xl" style="background:var(--yellow);">🏝️</div>
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="font-display text-xl">卡坦島</h3>
+          <span class="tag-pill">策略遊戲</span>
+        </div>
+        <p class="text-sm text-black/70 mb-3">經典資源交易與拓殖遊戲，擲骰決定產出，談判換資源，誰先蓋到十點誰就贏。新手帶一場就能上手。</p>
+        <div class="flex gap-2 text-xs font-bold">
+          <span class="tag-pill">3-4 人</span>
+          <span class="tag-pill">約 90 分鐘</span>
+        </div>
+      </article>
+
+      <article class="game-card shadow-pink p-5" data-category="strategy">
+        <div class="h-32 rounded-2xl border-4 border-black mb-4 flex items-center justify-center text-5xl" style="background:var(--pink);">💎</div>
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="font-display text-xl">璀璨寶石</h3>
+          <span class="tag-pill">策略遊戲</span>
+        </div>
+        <p class="text-sm text-black/70 mb-3">收集寶石代幣、換取發展卡，規劃路線搶在對手之前拿下貴族加成。規則輕、燒腦程度高，適合當開場或收尾局。</p>
+        <div class="flex gap-2 text-xs font-bold">
+          <span class="tag-pill">2-4 人</span>
+          <span class="tag-pill">約 30 分鐘</span>
+        </div>
+      </article>
+
+      <article class="game-card shadow-purple p-5" data-category="social">
+        <div class="h-32 rounded-2xl border-4 border-black mb-4 flex items-center justify-center text-5xl" style="background:var(--purple);">⚔️</div>
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="font-display text-xl">阿瓦隆</h3>
+          <span class="tag-pill">陣營遊戲</span>
+        </div>
+        <p class="text-sm text-black/70 mb-3">亞瑟王傳說改編的身分隱藏遊戲，忠臣與反賊互相猜忌，靠邏輯推理與演技找出潛伏的梅林殺手。</p>
+        <div class="flex gap-2 text-xs font-bold">
+          <span class="tag-pill">5-10 人</span>
+          <span class="tag-pill">約 40 分鐘</span>
+        </div>
+      </article>
+
+      <article class="game-card shadow-cyan p-5" data-category="social">
+        <div class="h-32 rounded-2xl border-4 border-black mb-4 flex items-center justify-center text-5xl" style="background:var(--cyan);">🌕</div>
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="font-display text-xl">狼人殺：月夜版</h3>
+          <span class="tag-pill">陣營遊戲</span>
+        </div>
+        <p class="text-sm text-black/70 mb-3">狼人與村民的經典對決，白天發言投票、夜晚暗中行動，誰先摸清場上身分，誰就掌握勝局。店內有主持人帶場。</p>
+        <div class="flex gap-2 text-xs font-bold">
+          <span class="tag-pill">6-12 人</span>
+          <span class="tag-pill">約 45 分鐘</span>
+        </div>
+      </article>
+
+      <article class="game-card shadow-yellow p-5" data-category="coop">
+        <div class="h-32 rounded-2xl border-4 border-black mb-4 flex items-center justify-center text-5xl" style="background:var(--yellow);">🦠</div>
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="font-display text-xl">瘟疫危機</h3>
+          <span class="tag-pill">合作遊戲</span>
+        </div>
+        <p class="text-sm text-black/70 mb-3">玩家組隊扮演防疫專家，分頭奔赴各大城市阻止疫情爆發，資源有限、時間緊迫，全員共同贏或共同輸。</p>
+        <div class="flex gap-2 text-xs font-bold">
+          <span class="tag-pill">2-4 人</span>
+          <span class="tag-pill">約 60 分鐘</span>
+        </div>
+      </article>
+
+      <article class="game-card shadow-pink p-5" data-category="coop">
+        <div class="h-32 rounded-2xl border-4 border-black mb-4 flex items-center justify-center text-5xl" style="background:var(--pink);">🎆</div>
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="font-display text-xl">花火</h3>
+          <span class="tag-pill">合作遊戲</span>
+        </div>
+        <p class="text-sm text-black/70 mb-3">每人只看得到別人的手牌，靠有限的提示合力排出完美的煙火秀，考驗默契與溝通分寸的燒腦合作神作。</p>
+        <div class="flex gap-2 text-xs font-bold">
+          <span class="tag-pill">2-5 人</span>
+          <span class="tag-pill">約 25 分鐘</span>
+        </div>
+      </article>
+
+      <article class="game-card shadow-purple p-5" data-category="party">
+        <div class="h-32 rounded-2xl border-4 border-black mb-4 flex items-center justify-center text-5xl" style="background:var(--purple);">🎨</div>
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="font-display text-xl">妙語說書人</h3>
+          <span class="tag-pill">派對遊戲</span>
+        </div>
+        <p class="text-sm text-black/70 mb-3">用一句話或一個聲音形容手中的夢幻插圖卡，讓隊友猜中卻別讓所有人都猜中，考驗的是曖昧與默契的拿捏。</p>
+        <div class="flex gap-2 text-xs font-bold">
+          <span class="tag-pill">3-6 人</span>
+          <span class="tag-pill">約 30 分鐘</span>
+        </div>
+      </article>
+
+      <article class="game-card shadow-cyan p-5" data-category="party">
+        <div class="h-32 rounded-2xl border-4 border-black mb-4 flex items-center justify-center text-5xl" style="background:var(--cyan);">🕵️</div>
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="font-display text-xl">誰是臥底：桌遊版</h3>
+          <span class="tag-pill">派對遊戲</span>
+        </div>
+        <p class="text-sm text-black/70 mb-3">每人拿到一個詞彙，臥底的詞彙悄悄不同，靠一句形容互相試探，笑點全場，是聚會破冰的常勝軍。</p>
+        <div class="flex gap-2 text-xs font-bold">
+          <span class="tag-pill">4-10 人</span>
+          <span class="tag-pill">約 20 分鐘</span>
+        </div>
+      </article>
+
+    </div>
+
+    <p id="emptyState" class="font-display text-lg mt-10 text-center bg-white inline-block px-6 py-4 border-4 border-black rounded-2xl" style="box-shadow:6px 6px 0 #000;">
+      這個分類目前還沒有上架的桌遊，換個分類逛逛吧！
+    </p>
+  </section>
+
+  <!-- 預約桌位 -->
+  <section id="booking" class="max-w-6xl mx-auto px-5 py-14">
+    <h2 class="section-title text-2xl md:text-3xl mb-8">預約桌位</h2>
+
+    <div class="grid md:grid-cols-5 gap-8">
+      <form id="bookingForm" class="brutal-box md:col-span-3 p-6 md:p-8 space-y-6">
+
+        <div>
+          <label class="font-display text-sm block mb-2">選擇日期</label>
+          <input type="date" id="bookDate" class="input-brutal" required>
+        </div>
+
+        <div>
+          <label class="font-display text-sm block mb-2">選擇時段</label>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <button type="button" class="slot-btn" data-slot="14:00–16:00">14:00–16:00</button>
+            <button type="button" class="slot-btn" data-slot="16:00–18:00">16:00–18:00</button>
+            <button type="button" class="slot-btn" data-slot="19:00–21:00">19:00–21:00</button>
+            <button type="button" class="slot-btn" data-slot="21:00–23:00">21:00–23:00</button>
+          </div>
+        </div>
+
+        <div>
+          <label class="font-display text-sm block mb-2">人數</label>
+          <div class="flex items-center gap-4">
+            <button type="button" id="peopleMinus" class="people-btn">−</button>
+            <span id="peopleCount" class="font-display text-2xl w-10 text-center">2</span>
+            <button type="button" id="peoplePlus" class="people-btn">＋</button>
+            <span class="text-sm text-black/60">人</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="font-display text-sm block mb-2">聯絡暱稱（選填）</label>
+          <input type="text" id="bookName" class="input-brutal" placeholder="方便店員叫你的名字">
+        </div>
+
+        <button type="submit" class="btn-brutal btn-pink w-full text-lg">送出預約 🎯</button>
+        <p id="formError" class="text-sm font-bold" style="color:#c92a2a; display:none;">請先選好日期與時段再送出喔！</p>
+      </form>
+
+      <div class="md:col-span-2">
+        <div class="brutal-box p-6 h-full" style="background:var(--yellow);">
+          <h3 class="font-display text-lg mb-3">來店小提醒</h3>
+          <ul class="text-sm space-y-2 list-disc pl-5">
+            <li>單桌最低消費為每人一杯飲品。</li>
+            <li>超過 6 人建議提早 1 天預約，店內會安排專屬帶領人。</li>
+            <li>遲到超過 15 分鐘，桌位可能會被釋出給候位的客人。</li>
+            <li>想玩的遊戲太冷門沒上架？到店跟店員說，我們很樂意加購。</li>
+          </ul>
+        </div>
+
+        <div id="bookingResult" class="brutal-box p-6 mt-6" style="background:var(--cyan);">
+          <h3 class="font-display text-lg mb-2">預約成功！🎉</h3>
+          <p id="bookingSummary" class="text-sm font-medium leading-relaxed"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="max-w-6xl mx-auto px-5 py-10 text-center text-sm text-black/60">
+    <p class="font-display text-base mb-2">骰戰 DICEWAR</p>
+    <p>台北市大安區某某路 54 號 2 樓｜每天 13:00–23:00（週二公休）</p>
+  </footer>
+
+<script>
+  // ---------- 桌遊分類篩選：真的依分類顯示 / 隱藏卡片 ----------
+  (function(){
+    var tags = document.querySelectorAll('.filter-tag');
+    var cards = document.querySelectorAll('.game-card');
+    var emptyState = document.getElementById('emptyState');
+
+    function applyFilter(category){
+      var visibleCount = 0;
+      cards.forEach(function(card){
+        var match = (category === 'all') || (card.getAttribute('data-category') === category);
+        card.style.display = match ? '' : 'none';
+        if(match) visibleCount++;
+      });
+      emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+
+    tags.forEach(function(tag){
+      tag.addEventListener('click', function(){
+        tags.forEach(function(t){ t.classList.remove('active'); });
+        tag.classList.add('active');
+        applyFilter(tag.getAttribute('data-category'));
+      });
+    });
+
+    applyFilter('all');
+  })();
+
+  // ---------- 時段選擇 ----------
+  (function(){
+    var slotButtons = document.querySelectorAll('.slot-btn');
+    var selectedSlot = null;
+
+    slotButtons.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        slotButtons.forEach(function(b){ b.classList.remove('selected'); });
+        btn.classList.add('selected');
+        selectedSlot = btn.getAttribute('data-slot');
+      });
+    });
+
+    window.__getSelectedSlot = function(){ return selectedSlot; };
+  })();
+
+  // ---------- 人數加減 ----------
+  (function(){
+    var countEl = document.getElementById('peopleCount');
+    var count = 2;
+    document.getElementById('peopleMinus').addEventListener('click', function(){
+      count = Math.max(1, count - 1);
+      countEl.textContent = count;
+    });
+    document.getElementById('peoplePlus').addEventListener('click', function(){
+      count = Math.min(20, count + 1);
+      countEl.textContent = count;
+    });
+    window.__getPeopleCount = function(){ return count; };
+  })();
+
+  // ---------- 預約表單送出（前端模擬） ----------
+  (function(){
+    var form = document.getElementById('bookingForm');
+    var errorEl = document.getElementById('formError');
+    var resultBox = document.getElementById('bookingResult');
+    var summaryEl = document.getElementById('bookingSummary');
+
+    var weekdayNames = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+
+      var dateValue = document.getElementById('bookDate').value;
+      var slot = window.__getSelectedSlot();
+      var people = window.__getPeopleCount();
+      var name = document.getElementById('bookName').value.trim();
+
+      if(!dateValue || !slot){
+        errorEl.style.display = 'block';
+        resultBox.style.display = 'none';
+        return;
+      }
+      errorEl.style.display = 'none';
+
+      var dateObj = new Date(dateValue + 'T00:00:00');
+      var weekdayText = isNaN(dateObj.getTime()) ? '' : weekdayNames[dateObj.getDay()];
+      var displayName = name ? name : '這位玩家';
+
+      summaryEl.textContent =
+        displayName + '，你已成功預約 ' + dateValue + '（' + weekdayText + '）' +
+        slot + ' 的桌位，共 ' + people + ' 人。到店出示此預約摘要，店員會幫你安排合適的桌遊與桌面！';
+
+      resultBox.style.display = 'block';
+      resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  })();
+</script>
+
+</body>
+</html>

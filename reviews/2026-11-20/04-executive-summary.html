@@ -1,0 +1,399 @@
+<!-- style #30 Executive Summary Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SubSight 訂閱戰情室</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --page:#f4f4f2;
+    --surface:#ffffff;
+    --surface-2:#fafaf8;
+    --border:rgba(11,11,11,0.09);
+    --text-primary:#13120f;
+    --text-secondary:#56544f;
+    --muted:#9a978e;
+    --grid:#e7e5de;
+    --baseline:#c9c7bd;
+    --accent:#2a78d6;
+    --accent-dark:#184f95;
+    --good:#006300;
+    --good-bg:#eaf6ea;
+    --critical:#c62f2f;
+    --critical-bg:#fcecec;
+    --warning:#b4780a;
+    --warning-bg:#fcf1de;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    background:var(--page);
+    color:var(--text-primary);
+    font-family:"Plus Jakarta Sans","Noto Sans TC",sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .font-zh{ font-family:"Noto Sans TC","Plus Jakarta Sans",sans-serif; }
+  .num{
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-variant-numeric:tabular-nums;
+    letter-spacing:-0.01em;
+  }
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:14px;
+  }
+  .period-btn{
+    font-family:"Plus Jakarta Sans","Noto Sans TC",sans-serif;
+    font-weight:600;
+    font-size:13px;
+    padding:7px 16px;
+    border-radius:9px;
+    color:var(--text-secondary);
+    transition:background .15s ease,color .15s ease;
+    border:1px solid transparent;
+  }
+  .period-btn.active{
+    background:var(--text-primary);
+    color:#fff;
+  }
+  .period-btn:not(.active):hover{
+    background:var(--surface-2);
+    color:var(--text-primary);
+  }
+  .kpi-delta{
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-variant-numeric:tabular-nums;
+    font-weight:600;
+    font-size:12.5px;
+  }
+  .delta-up{ color:var(--good); background:var(--good-bg); }
+  .delta-down{ color:var(--critical); background:var(--critical-bg); }
+  .chip{
+    display:inline-flex;align-items:center;gap:4px;
+    padding:3px 8px;border-radius:999px;
+  }
+  .dept-track{
+    background:var(--grid);
+    border-radius:6px;
+    height:10px;
+    position:relative;
+    overflow:visible;
+  }
+  .dept-fill{
+    height:10px;border-radius:6px;
+    transition:width .5s cubic-bezier(.2,.7,.2,1);
+  }
+  .target-line{
+    position:absolute;top:-4px;bottom:-4px;width:2px;
+    background:var(--text-primary);opacity:.35;
+  }
+  .grid-line{ stroke:var(--grid); stroke-width:1; }
+  .baseline{ stroke:var(--baseline); stroke-width:1; }
+  .axis-label{
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-size:11px;
+    fill:var(--muted);
+  }
+  .axis-label-zh{
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:11px;
+    fill:var(--text-secondary);
+  }
+  .bar-value-label{
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-size:11px;
+    font-weight:600;
+    fill:var(--text-primary);
+  }
+  .status-dot{ width:7px;height:7px;border-radius:999px;display:inline-block; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="max-w-6xl mx-auto px-5 py-8">
+
+  <!-- Header -->
+  <header class="flex flex-wrap items-start justify-between gap-4 mb-7">
+    <div>
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:var(--text-primary);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 17L9 11L13 15L21 7" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 7H21V13" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h1 class="text-[19px] font-extrabold tracking-tight font-zh">訂閱戰情室 <span class="num font-bold" style="color:var(--text-secondary);font-size:13px;">SubSight</span></h1>
+      </div>
+      <p class="text-[13px] mt-1.5 font-zh" style="color:var(--text-secondary);">經營戰情室 · 核心經營指標總覽 · 最後更新 <span class="num">2026-11-20 09:00</span></p>
+    </div>
+
+    <!-- Period switcher -->
+    <div class="flex items-center gap-1 p-1 rounded-xl card" id="period-switch">
+      <button class="period-btn font-zh" data-period="week">本週</button>
+      <button class="period-btn font-zh" data-period="month">本月</button>
+      <button class="period-btn font-zh" data-period="quarter">本季</button>
+    </div>
+  </header>
+
+  <!-- KPI Cards -->
+  <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6" id="kpi-grid"></section>
+
+  <!-- Charts -->
+  <section class="grid grid-cols-1 lg:grid-cols-5 gap-4">
+    <div class="card p-5 lg:col-span-3">
+      <div class="flex items-center justify-between mb-1">
+        <h2 class="text-[14px] font-bold font-zh">營收趨勢</h2>
+        <span class="text-[11.5px] font-zh" style="color:var(--muted);" id="trend-caption">依週間每日統計</span>
+      </div>
+      <p class="text-[11.5px] mb-3 font-zh" style="color:var(--muted);">單位：新台幣（NT$）</p>
+      <svg id="trend-chart" viewBox="0 0 640 260" class="w-full" style="overflow:visible;"></svg>
+    </div>
+
+    <div class="card p-5 lg:col-span-2">
+      <div class="flex items-center justify-between mb-1">
+        <h2 class="text-[14px] font-bold font-zh">部門達成率</h2>
+        <span class="num text-[11px]" style="color:var(--muted);">target 100%</span>
+      </div>
+      <p class="text-[11.5px] mb-4 font-zh" style="color:var(--muted);">各部門對應期目標之達成百分比</p>
+      <div class="space-y-4" id="dept-list"></div>
+      <div class="flex items-center gap-4 mt-5 pt-4" style="border-top:1px solid var(--border);">
+        <span class="flex items-center gap-1.5 text-[11px] font-zh" style="color:var(--text-secondary);"><i class="status-dot" style="background:var(--good);"></i>達標 ≥100%</span>
+        <span class="flex items-center gap-1.5 text-[11px] font-zh" style="color:var(--text-secondary);"><i class="status-dot" style="background:var(--warning);"></i>80–99%</span>
+        <span class="flex items-center gap-1.5 text-[11px] font-zh" style="color:var(--text-secondary);"><i class="status-dot" style="background:var(--critical);"></i>低於 80%</span>
+      </div>
+    </div>
+  </section>
+
+  <footer class="mt-7 text-[11.5px] font-zh" style="color:var(--muted);">
+    資料僅供內部經營決策參考，數值每日 09:00 自動更新一次。
+  </footer>
+</div>
+
+<script>
+/* ---------------------------------------------------------------
+   三組假資料：本週 / 本月 / 本季
+   good_dir: 'up' 代表數值上升為好表現（顯示綠色），'down' 代表數值下降為好表現
+----------------------------------------------------------------*/
+const DATA = {
+  week: {
+    label: "本週",
+    kpi: {
+      revenue:  { title: "本週營收",   value: 1842000, unit: "currency", change: 4.2,  good_dir: "up" },
+      newSubs:  { title: "新增訂閱數", value: 326,     unit: "count",    change: 6.8,  good_dir: "up" },
+      churn:    { title: "流失率",     value: 2.1,     unit: "percent",  change: -0.4, good_dir: "down" },
+      arpu:     { title: "客單價 ARPU", value: 1680,    unit: "currency", change: 1.1,  good_dir: "up" }
+    },
+    trendCaption: "依週間每日統計",
+    trend: {
+      labels: ["週一","週二","週三","週四","週五","週六","週日"],
+      values: [238000, 251000, 244000, 276000, 291000, 268000, 274000]
+    },
+    dept: [
+      { name: "業務部",     pct: 92  },
+      { name: "行銷部",     pct: 78  },
+      { name: "客戶成功部", pct: 105 },
+      { name: "產品部",     pct: 64  }
+    ]
+  },
+  month: {
+    label: "本月",
+    kpi: {
+      revenue:  { title: "本月營收",   value: 7964000, unit: "currency", change: 8.5,  good_dir: "up" },
+      newSubs:  { title: "新增訂閱數", value: 1284,    unit: "count",    change: 12.3, good_dir: "up" },
+      churn:    { title: "流失率",     value: 2.4,     unit: "percent",  change: 0.3,  good_dir: "down" },
+      arpu:     { title: "客單價 ARPU", value: 1720,    unit: "currency", change: 2.4,  good_dir: "up" }
+    },
+    trendCaption: "依月內週次統計",
+    trend: {
+      labels: ["第1週","第2週","第3週","第4週"],
+      values: [1842000, 1968000, 2074000, 2080000]
+    },
+    dept: [
+      { name: "業務部",     pct: 88  },
+      { name: "行銷部",     pct: 95  },
+      { name: "客戶成功部", pct: 101 },
+      { name: "產品部",     pct: 72  }
+    ]
+  },
+  quarter: {
+    label: "本季",
+    kpi: {
+      revenue:  { title: "本季營收",   value: 23850000, unit: "currency", change: 15.2, good_dir: "up" },
+      newSubs:  { title: "新增訂閱數", value: 3742,     unit: "count",    change: 18.9, good_dir: "up" },
+      churn:    { title: "流失率",     value: 2.6,      unit: "percent",  change: 0.5,  good_dir: "down" },
+      arpu:     { title: "客單價 ARPU", value: 1790,     unit: "currency", change: 3.8,  good_dir: "up" }
+    },
+    trendCaption: "依季內月份統計",
+    trend: {
+      labels: ["10月","11月","12月"],
+      values: [7520000, 7964000, 8366000]
+    },
+    dept: [
+      { name: "業務部",     pct: 97  },
+      { name: "行銷部",     pct: 90  },
+      { name: "客戶成功部", pct: 108 },
+      { name: "產品部",     pct: 81  }
+    ]
+  }
+};
+
+const KPI_ICONS = {
+  revenue:  '<path d="M3 17L9 11L13 15L21 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 7H21V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+  newSubs:  '<circle cx="9" cy="8" r="3.2" stroke="currentColor" stroke-width="2"/><path d="M3.5 19C4.2 15.6 6.4 13.6 9 13.6C11.6 13.6 13.8 15.6 14.5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M16.5 5.5V11.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M13.5 8.5H19.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+  churn:    '<path d="M12 3C12 3 6 9.5 6 14C6 17.3 8.7 20 12 20C15.3 20 18 17.3 18 14C18 9.5 12 3 12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>',
+  arpu:     '<rect x="3.5" y="6" width="17" height="12" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3.5 10H20.5" stroke="currentColor" stroke-width="2"/><path d="M7 14.2H10.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>'
+};
+
+const fmtCurrency = (n) => "NT$" + Math.round(n).toLocaleString("en-US");
+const fmtCount    = (n) => n.toLocaleString("en-US");
+const fmtPercent  = (n) => n.toFixed(1) + "%";
+
+function formatValue(kpi){
+  if (kpi.unit === "currency") return fmtCurrency(kpi.value);
+  if (kpi.unit === "count")    return fmtCount(kpi.value);
+  if (kpi.unit === "percent")  return fmtPercent(kpi.value);
+  return String(kpi.value);
+}
+
+function isGood(kpi){
+  // change > 0 視為「數值上升」；good_dir 決定上升是好是壞
+  if (kpi.change === 0) return null;
+  const rose = kpi.change > 0;
+  return kpi.good_dir === "up" ? rose : !rose;
+}
+
+function renderKPIs(period){
+  const d = DATA[period];
+  const order = ["revenue","newSubs","churn","arpu"];
+  const grid = document.getElementById("kpi-grid");
+  grid.innerHTML = "";
+  order.forEach((key) => {
+    const kpi = d.kpi[key];
+    const good = isGood(kpi);
+    const deltaClass = good ? "delta-up" : "delta-down";
+    const arrow = kpi.change >= 0 ? "▲" : "▼";
+    const changeAbs = Math.abs(kpi.change).toFixed(1);
+    const unitSuffix = kpi.unit === "percent" ? "pt" : "%";
+
+    const card = document.createElement("div");
+    card.className = "card p-5";
+    card.innerHTML = `
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-[12.5px] font-semibold font-zh" style="color:var(--text-secondary);">${kpi.title}</span>
+        <span style="color:var(--muted);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">${KPI_ICONS[key]}</svg>
+        </span>
+      </div>
+      <div class="num text-[26px] font-bold leading-none mb-2.5" style="color:var(--text-primary);">${formatValue(kpi)}</div>
+      <span class="kpi-delta chip ${deltaClass}">${arrow} ${changeAbs}${unitSuffix}<span class="font-zh" style="font-weight:500;margin-left:2px;">較上期</span></span>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+/* ---------------- 營收趨勢圖（SVG 長條圖） ---------------- */
+function renderTrendChart(period){
+  const d = DATA[period];
+  document.getElementById("trend-caption").textContent = d.trendCaption;
+
+  const svg = document.getElementById("trend-chart");
+  const W = 640, H = 260;
+  const padL = 56, padR = 12, padT = 16, padB = 30;
+  const plotW = W - padL - padR;
+  const plotH = H - padT - padB;
+
+  const values = d.trend.values;
+  const labels = d.trend.labels;
+  const maxVal = Math.max(...values) * 1.18;
+  const n = values.length;
+  const gap = n > 5 ? 14 : 28;
+  const barW = (plotW - gap * (n - 1)) / n;
+
+  const yTicks = 4;
+  let gridSvg = "";
+  let axisSvg = "";
+  for (let i = 0; i <= yTicks; i++) {
+    const v = (maxVal / yTicks) * i;
+    const y = padT + plotH - (v / maxVal) * plotH;
+    gridSvg += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" class="grid-line"/>`;
+    axisSvg += `<text x="${padL - 10}" y="${y + 3}" text-anchor="end" class="axis-label">${(v/1000).toFixed(0)}k</text>`;
+  }
+
+  let bars = "";
+  let xLabels = "";
+  values.forEach((v, i) => {
+    const barH = (v / maxVal) * plotH;
+    const x = padL + i * (barW + gap);
+    const y = padT + plotH - barH;
+    bars += `
+      <rect x="${x}" y="${y}" width="${barW}" height="${barH}" rx="4" ry="4" fill="var(--accent)" opacity="0.92">
+        <title>${labels[i]}：${fmtCurrency(v)}</title>
+      </rect>
+      <text x="${x + barW/2}" y="${y - 7}" text-anchor="middle" class="bar-value-label">${(v/10000).toFixed(0)}萬</text>
+    `;
+    xLabels += `<text x="${x + barW/2}" y="${H - padB + 18}" text-anchor="middle" class="axis-label-zh">${labels[i]}</text>`;
+  });
+
+  svg.innerHTML = `
+    ${gridSvg}
+    <line x1="${padL}" y1="${padT + plotH}" x2="${W - padR}" y2="${padT + plotH}" class="baseline"/>
+    ${bars}
+    ${axisSvg}
+    ${xLabels}
+  `;
+}
+
+/* ---------------- 部門達成率（橫向長條） ---------------- */
+function statusColor(pct){
+  if (pct >= 100) return { color: "var(--good)", bg: "var(--good-bg)" };
+  if (pct >= 80)  return { color: "var(--warning)", bg: "var(--warning-bg)" };
+  return { color: "var(--critical)", bg: "var(--critical-bg)" };
+}
+
+function renderDeptChart(period){
+  const d = DATA[period];
+  const list = document.getElementById("dept-list");
+  list.innerHTML = "";
+  const maxScale = 120; // 軸上限（%），100% 為目標線
+
+  d.dept.forEach((dept) => {
+    const s = statusColor(dept.pct);
+    const widthPct = Math.min(dept.pct, maxScale) / maxScale * 100;
+    const targetPosPct = 100 / maxScale * 100;
+
+    const row = document.createElement("div");
+    row.innerHTML = `
+      <div class="flex items-center justify-between mb-1.5">
+        <span class="text-[12.5px] font-semibold font-zh" style="color:var(--text-primary);">${dept.name}</span>
+        <span class="num text-[13px] font-bold" style="color:${s.color};">${dept.pct}%</span>
+      </div>
+      <div class="dept-track">
+        <div class="dept-fill" style="width:${widthPct}%;background:${s.color};"></div>
+        <div class="target-line" style="left:${targetPosPct}%;"></div>
+      </div>
+    `;
+    list.appendChild(row);
+  });
+}
+
+/* ---------------- 切換與初始化 ---------------- */
+function renderAll(period){
+  renderKPIs(period);
+  renderTrendChart(period);
+  renderDeptChart(period);
+
+  document.querySelectorAll(".period-btn").forEach((btn) => {
+    btn.classList.toggle("active", btn.dataset.period === period);
+  });
+}
+
+document.querySelectorAll(".period-btn").forEach((btn) => {
+  btn.addEventListener("click", () => renderAll(btn.dataset.period));
+});
+
+renderAll("week");
+</script>
+</body>
+</html>
