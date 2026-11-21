@@ -1,0 +1,129 @@
+<!-- style #42 Organic Biophilic -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>霧林居 Mistwood · 山林療癒民宿</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Nunito:wght@400;500;700&family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --forest:#3e4a32; --sage:#8fbc8f; --paper:#f5f1e8; --clay:#b98b5e; }
+  body{ font-family:'Nunito','Noto Sans TC',sans-serif; background:var(--paper); color:#2e3324; }
+  .serif{ font-family:'Cormorant Garamond','Noto Serif TC',serif; }
+  .organic{ border-radius:40% 60% 55% 45% / 50% 45% 55% 50%; }
+  .leaf-shape{ border-radius:0% 50% 50% 50%; }
+  .petal{ position:absolute; border-radius:50% 0 50% 50%; opacity:.5; }
+  .grain{ position:relative; }
+  .grain::after{
+    content:""; position:absolute; inset:0; pointer-events:none; opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .btn-organic{ border-radius:40px 10px 40px 10px; transition:border-radius .3s ease, transform .3s ease; }
+  .btn-organic:hover{ border-radius:10px 40px 10px 40px; transform:translateY(-2px); }
+</style>
+</head>
+<body class="grain">
+
+<header class="flex justify-between items-center px-8 py-6 max-w-6xl mx-auto">
+  <span class="serif text-2xl italic" style="color:var(--forest);">霧林居 <span class="text-sm not-italic opacity-60">Mistwood</span></span>
+  <nav class="hidden md:flex gap-8 text-sm" style="color:var(--forest);">
+    <a href="#rooms">房型</a><a href="#nature">山林體驗</a><a href="#book">訂房</a>
+  </nav>
+</header>
+
+<section class="relative max-w-6xl mx-auto px-8 py-14 grid md:grid-cols-2 gap-10 items-center overflow-hidden">
+  <div class="petal" style="width:220px;height:220px;background:var(--sage);top:-40px;left:-60px;"></div>
+  <div class="relative z-10">
+    <p class="text-sm tracking-widest mb-4" style="color:var(--clay);">海拔 1,350 公尺 · 雲霧帶民宿</p>
+    <h1 class="serif text-5xl md:text-6xl italic mb-6 leading-tight" style="color:var(--forest);">
+      住進一片<br>還會呼吸的森林
+    </h1>
+    <p class="leading-relaxed mb-8 text-[#55604a]">推開窗就是雲海，枕邊是蟲鳴與風聲。<br>霧林居只有六間房，每一間都留給願意慢下來的人。</p>
+    <button onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'})" class="btn-organic px-8 py-3 text-white" style="background:var(--forest);">查看房況與訂房</button>
+  </div>
+  <div class="organic h-80 relative z-10" style="background:linear-gradient(160deg,#8fbc8f,#3e4a32);"></div>
+</section>
+
+<section id="nature" class="max-w-6xl mx-auto px-8 py-14">
+  <h2 class="serif text-4xl italic text-center mb-10" style="color:var(--forest);">森林裡能做的事</h2>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="p-6 leaf-shape" style="background:#fff;">
+      <div class="w-14 h-14 organic mb-4 flex items-center justify-center text-2xl" style="background:var(--sage);">🌿</div>
+      <h3 class="serif text-xl mb-2" style="color:var(--forest);">晨霧步道導覽</h3>
+      <p class="text-sm text-[#667059]">在地嚮導帶路，認識霧林帶的苔蘚與蕨類。</p>
+    </div>
+    <div class="p-6 leaf-shape" style="background:#fff;">
+      <div class="w-14 h-14 organic mb-4 flex items-center justify-center text-2xl" style="background:var(--clay);">🍵</div>
+      <h3 class="serif text-xl mb-2" style="color:var(--forest);">柴燒茶席</h3>
+      <p class="text-sm text-[#667059]">用在地山泉與柴火煮一壺茶，聽老闆講山的故事。</p>
+    </div>
+    <div class="p-6 leaf-shape" style="background:#fff;">
+      <div class="w-14 h-14 organic mb-4 flex items-center justify-center text-2xl" style="background:#d9c08f;">🌙</div>
+      <h3 class="serif text-xl mb-2" style="color:var(--forest);">觀星平台</h3>
+      <p class="text-sm text-[#667059]">無光害的屋頂平台，晴夜能看見整條銀河。</p>
+    </div>
+  </div>
+</section>
+
+<section id="rooms" class="max-w-6xl mx-auto px-8 py-14">
+  <h2 class="serif text-4xl italic text-center mb-10" style="color:var(--forest);">六間房，六種風</h2>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="rounded-3xl overflow-hidden" style="background:#fff;">
+      <div class="h-40" style="background:linear-gradient(160deg,#9fb08c,#3e4a32);"></div>
+      <div class="p-5">
+        <h3 class="serif text-xl mb-1" style="color:var(--forest);">霧舍</h3>
+        <p class="text-sm text-[#667059] mb-3">正對雲海的角間，附私人陽台</p>
+        <p class="serif text-2xl" style="color:var(--clay);">NT$4,200 <span class="text-sm">/ 晚</span></p>
+      </div>
+    </div>
+    <div class="rounded-3xl overflow-hidden" style="background:#fff;">
+      <div class="h-40" style="background:linear-gradient(160deg,#c9a876,#8f6a3e);"></div>
+      <div class="p-5">
+        <h3 class="serif text-xl mb-1" style="color:var(--forest);">木心房</h3>
+        <p class="text-sm text-[#667059] mb-3">全室檜木，附柴燒浴桶</p>
+        <p class="serif text-2xl" style="color:var(--clay);">NT$5,600 <span class="text-sm">/ 晚</span></p>
+      </div>
+    </div>
+    <div class="rounded-3xl overflow-hidden" style="background:#fff;">
+      <div class="h-40" style="background:linear-gradient(160deg,#8fbc8f,#5a7a52);"></div>
+      <div class="p-5">
+        <h3 class="serif text-xl mb-1" style="color:var(--forest);">苔庭苑</h3>
+        <p class="text-sm text-[#667059] mb-3">庭院房型，推門即見苔蘚牆</p>
+        <p class="serif text-2xl" style="color:var(--clay);">NT$3,800 <span class="text-sm">/ 晚</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="book" class="max-w-xl mx-auto px-8 py-14">
+  <h2 class="serif text-3xl italic text-center mb-6" style="color:var(--forest);">留一段日期給自己</h2>
+  <form class="space-y-4 p-6 rounded-3xl" style="background:#fff;" onsubmit="return submitBooking(event)">
+    <div>
+      <label class="text-sm" style="color:var(--forest);">入住日期</label>
+      <input required type="date" class="w-full mt-1 px-4 py-2 rounded-xl border" style="border-color:#d8d2c0;">
+    </div>
+    <div>
+      <label class="text-sm" style="color:var(--forest);">人數</label>
+      <select class="w-full mt-1 px-4 py-2 rounded-xl border" style="border-color:#d8d2c0;">
+        <option>2 人</option><option>3-4 人</option><option>5 人以上</option>
+      </select>
+    </div>
+    <button class="btn-organic w-full py-3 text-white" style="background:var(--forest);">送出詢房</button>
+    <p id="bookMsg" class="text-center text-sm" style="color:var(--clay);"></p>
+  </form>
+</section>
+
+<footer class="text-center py-8 text-sm" style="color:#8a8a72;">© 2026 霧林居 Mistwood・南投仁愛山區</footer>
+
+<script>
+function submitBooking(e){
+  e.preventDefault();
+  document.getElementById('bookMsg').textContent = '已收到詢房，霧林居的管家會在今天內與您聯繫。';
+  return false;
+}
+</script>
+
+</body>
+</html>

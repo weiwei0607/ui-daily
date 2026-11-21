@@ -1,0 +1,135 @@
+<!-- style #55 Spatial UI -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>立境 SpatialCraft · 空間設計規劃平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *{font-family:'Sora','Noto Sans TC',sans-serif;}
+  body{
+    background:radial-gradient(circle at 20% 10%, #2b2f55, #0b0d1c 55%);
+    color:#eef0fb; min-height:100vh; overflow-x:hidden;
+  }
+  .scene{ perspective:1400px; }
+  .pane{
+    background:rgba(255,255,255,0.07);
+    backdrop-filter:blur(22px);
+    border:1px solid rgba(255,255,255,0.14);
+    border-radius:24px;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.55);
+    transform-style:preserve-3d;
+    transition:transform .4s ease, box-shadow .4s ease;
+  }
+  .pane:hover{ transform:translateZ(20px) rotateX(2deg) rotateY(-2deg); box-shadow:0 40px 80px -20px rgba(0,0,0,0.65); }
+  .float-1{ animation:float 7s ease-in-out infinite; }
+  .float-2{ animation:float 9s ease-in-out infinite 1s; }
+  .float-3{ animation:float 8s ease-in-out infinite .5s; }
+  @keyframes float{ 0%,100%{transform:translateY(0px);} 50%{transform:translateY(-14px);} }
+  .glow{ filter:blur(60px); opacity:.55; }
+  .depth-1{ transform:translateZ(0px); }
+  .depth-2{ transform:translateZ(40px); }
+</style>
+</head>
+<body>
+
+<div class="fixed -z-10 w-96 h-96 rounded-full glow" style="background:#6d6ff0; top:-100px; left:-100px;"></div>
+<div class="fixed -z-10 w-96 h-96 rounded-full glow" style="background:#f06dd9; bottom:-100px; right:-80px;"></div>
+
+<header class="relative z-10 flex justify-between items-center px-8 py-6 max-w-6xl mx-auto">
+  <span class="text-xl font-700">立境 <span class="text-sm opacity-60">SpatialCraft</span></span>
+  <nav class="hidden md:flex gap-8 text-sm opacity-80">
+    <a href="#rooms">空間規劃</a><a href="#plans">方案</a>
+  </nav>
+  <button onclick="document.getElementById('plans').scrollIntoView({behavior:'smooth'})" class="pane px-5 py-2 text-sm font-600">開始規劃</button>
+</header>
+
+<main class="relative z-10 max-w-6xl mx-auto px-8 scene">
+
+  <section class="py-14 text-center">
+    <p class="text-sm mb-4 opacity-70">用你的手機掃描空間，就能在裡面擺家具</p>
+    <h1 class="text-4xl md:text-6xl font-700 leading-tight mb-6">
+      在真實的房間裡，<br>先把家佈置好
+    </h1>
+    <p class="max-w-lg mx-auto opacity-70 mb-10">立境結合 AR 空間掃描與設計師樣板，讓你下單前就先看到沙發放在客廳的樣子。</p>
+  </section>
+
+  <section id="rooms" class="grid md:grid-cols-3 gap-6 pb-16">
+    <div class="pane float-1 p-6 depth-2">
+      <div class="w-full h-32 rounded-2xl mb-4" style="background:linear-gradient(145deg,#6d6ff0,#2b2f55);"></div>
+      <h3 class="font-700 mb-1">客廳規劃</h3>
+      <p class="text-sm opacity-60">沙發、茶几與動線的黃金比例</p>
+    </div>
+    <div class="pane float-2 p-6 depth-2">
+      <div class="w-full h-32 rounded-2xl mb-4" style="background:linear-gradient(145deg,#f06dd9,#4a2b55);"></div>
+      <h3 class="font-700 mb-1">臥室規劃</h3>
+      <p class="text-sm opacity-60">床位朝向與收納牆模擬</p>
+    </div>
+    <div class="pane float-3 p-6 depth-2">
+      <div class="w-full h-32 rounded-2xl mb-4" style="background:linear-gradient(145deg,#4fd1c5,#1b4a47);"></div>
+      <h3 class="font-700 mb-1">工作室規劃</h3>
+      <p class="text-sm opacity-60">採光與桌面動線試算</p>
+    </div>
+  </section>
+
+  <section class="pane p-8 mb-16 grid md:grid-cols-2 gap-8 items-center depth-1">
+    <div>
+      <h2 class="text-2xl font-700 mb-4">拖拉就能換位置</h2>
+      <p class="opacity-70 mb-6">點一下下方家具，試著把它放進空間裡。</p>
+      <div class="flex gap-3">
+        <button onclick="place('沙發')" class="pane px-4 py-2 text-sm">🛋️ 沙發</button>
+        <button onclick="place('茶几')" class="pane px-4 py-2 text-sm">🪑 茶几</button>
+        <button onclick="place('層架')" class="pane px-4 py-2 text-sm">📚 層架</button>
+      </div>
+      <p id="placeMsg" class="mt-4 text-sm opacity-80 min-h-[1.5rem]"></p>
+    </div>
+    <div class="relative h-56 rounded-2xl" style="background:rgba(255,255,255,0.04); border:1px dashed rgba(255,255,255,0.25);" id="dropZone">
+      <span class="absolute inset-0 flex items-center justify-center text-sm opacity-40">空間預覽區</span>
+    </div>
+  </section>
+
+  <section id="plans" class="pb-20">
+    <h2 class="text-3xl font-700 text-center mb-10">選一個方案開始</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="pane p-7">
+        <p class="font-700 mb-2">免費掃描</p>
+        <p class="text-3xl font-700 mb-4">NT$0</p>
+        <p class="text-sm opacity-60 mb-6">單一房間 AR 掃描與基礎擺放</p>
+        <button onclick="choose('免費掃描')" class="pane w-full py-2.5">選擇</button>
+      </div>
+      <div class="pane p-7 depth-2" style="border-color:rgba(255,255,255,0.3);">
+        <p class="font-700 mb-2">設計師方案 ✨</p>
+        <p class="text-3xl font-700 mb-4">NT$1,800</p>
+        <p class="text-sm opacity-60 mb-6">全屋掃描＋設計師一對一調整建議</p>
+        <button onclick="choose('設計師方案')" class="pane w-full py-2.5 font-700">選擇</button>
+      </div>
+      <div class="pane p-7">
+        <p class="font-700 mb-2">企業空間</p>
+        <p class="text-3xl font-700 mb-4">洽詢</p>
+        <p class="text-sm opacity-60 mb-6">辦公室 / 店面多樓層規劃</p>
+        <button onclick="choose('企業空間')" class="pane w-full py-2.5">聯繫我們</button>
+      </div>
+    </div>
+    <p id="planMsg" class="text-center mt-6 text-sm opacity-80"></p>
+  </section>
+
+</main>
+
+<footer class="relative z-10 text-center py-8 text-xs opacity-50">© 2026 立境 SpatialCraft</footer>
+
+<script>
+function place(item){
+  const zone = document.getElementById('dropZone');
+  zone.innerHTML = '<span class="absolute inset-0 flex items-center justify-center text-sm">已放入「'+item+'」，拖拉可微調位置（示範版）</span>';
+  document.getElementById('placeMsg').textContent = '已將「'+item+'」加入空間預覽';
+}
+function choose(plan){
+  document.getElementById('planMsg').textContent = '已選擇「'+plan+'」，馬上帶你進入掃描流程。';
+}
+</script>
+
+</body>
+</html>

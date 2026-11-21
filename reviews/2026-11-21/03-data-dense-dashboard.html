@@ -1,0 +1,183 @@
+<!-- style #28 Data-Dense Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>貨艙調度台 CargoPilot · 物流戰情儀表板</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=JetBrains+Mono:wght@500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#0f1420; --panel:#161d2e; --line:#273047; --up:#34d399; --down:#f87171; }
+  *{font-family:'Manrope','Noto Sans TC',sans-serif;}
+  .mono{font-family:'JetBrains Mono','Noto Sans TC',monospace;}
+  body{ background:var(--bg); color:#dbe2f0; }
+  .panel{ background:var(--panel); border:1px solid var(--line); border-radius:12px; }
+  .pulse-dot{ box-shadow:0 0 0 0 rgba(52,211,153,.6); animation:pulse 2s infinite; }
+  @keyframes pulse{ 0%{box-shadow:0 0 0 0 rgba(52,211,153,.5);} 70%{box-shadow:0 0 0 8px rgba(52,211,153,0);} 100%{box-shadow:0 0 0 0 rgba(52,211,153,0);} }
+  table th{ font-weight:700; color:#8995b3; font-size:.75rem; letter-spacing:.05em; }
+  table td, table th{ padding:.6rem .9rem; border-bottom:1px solid var(--line); }
+  tr:hover td{ background:#1b2436; }
+  .bar{ height:8px; border-radius:4px; background:#273047; overflow:hidden; }
+  .bar > div{ height:100%; }
+  .scrollbar::-webkit-scrollbar{height:6px;}
+  .scrollbar::-webkit-scrollbar-thumb{background:#2d3850; border-radius:4px;}
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="flex">
+  <aside class="w-56 shrink-0 h-screen sticky top-0 border-r px-4 py-5" style="border-color:var(--line);">
+    <div class="flex items-center gap-2 mb-8 px-2">
+      <div class="w-3 h-3 rounded-full bg-emerald-400 pulse-dot"></div>
+      <span class="font-800 text-lg">貨艙調度台</span>
+    </div>
+    <nav class="space-y-1 text-sm">
+      <a class="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#1b2436] text-white font-700">📦 即時總覽</a>
+      <a class="flex items-center gap-2 px-3 py-2 rounded-lg text-[#8995b3] hover:bg-[#1b2436]">🚚 車隊調度</a>
+      <a class="flex items-center gap-2 px-3 py-2 rounded-lg text-[#8995b3] hover:bg-[#1b2436]">🏭 倉儲節點</a>
+      <a class="flex items-center gap-2 px-3 py-2 rounded-lg text-[#8995b3] hover:bg-[#1b2436]">⚠️ 異常事件</a>
+      <a class="flex items-center gap-2 px-3 py-2 rounded-lg text-[#8995b3] hover:bg-[#1b2436]">📈 報表中心</a>
+    </nav>
+  </aside>
+
+  <main class="flex-1 p-6">
+    <header class="flex items-center justify-between mb-6">
+      <div>
+        <h1 class="text-xl font-800">今日全台調度總覽</h1>
+        <p class="text-xs text-[#8995b3] mono mt-1" id="clock">載入時間同步中...</p>
+      </div>
+      <div class="flex gap-2 text-sm">
+        <button onclick="setRange('today')" id="btn-today" class="px-3 py-1.5 rounded-lg bg-[#1b2436] font-700">今日</button>
+        <button onclick="setRange('week')" id="btn-week" class="px-3 py-1.5 rounded-lg text-[#8995b3] hover:bg-[#1b2436]">本週</button>
+        <button onclick="setRange('month')" id="btn-month" class="px-3 py-1.5 rounded-lg text-[#8995b3] hover:bg-[#1b2436]">本月</button>
+      </div>
+    </header>
+
+    <section class="grid grid-cols-4 gap-4 mb-6">
+      <div class="panel p-4">
+        <p class="text-xs text-[#8995b3] mb-2">在途貨件</p>
+        <p class="text-2xl font-800 mono" id="kpi-transit">4,812</p>
+        <p class="text-xs mt-1" style="color:var(--up);">▲ 3.2% 較昨日</p>
+      </div>
+      <div class="panel p-4">
+        <p class="text-xs text-[#8995b3] mb-2">準時到貨率</p>
+        <p class="text-2xl font-800 mono" id="kpi-ontime">96.4%</p>
+        <p class="text-xs mt-1" style="color:var(--up);">▲ 0.8%</p>
+      </div>
+      <div class="panel p-4">
+        <p class="text-xs text-[#8995b3] mb-2">異常件數</p>
+        <p class="text-2xl font-800 mono" id="kpi-issue">27</p>
+        <p class="text-xs mt-1" style="color:var(--down);">▼ 5 件 較昨日</p>
+      </div>
+      <div class="panel p-4">
+        <p class="text-xs text-[#8995b3] mb-2">可用運能</p>
+        <p class="text-2xl font-800 mono" id="kpi-capacity">78%</p>
+        <div class="bar mt-2"><div style="width:78%; background:#60a5fa;"></div></div>
+      </div>
+    </section>
+
+    <section class="grid grid-cols-3 gap-4 mb-6">
+      <div class="panel p-4 col-span-2">
+        <div class="flex justify-between mb-3">
+          <p class="font-700 text-sm">各轉運節點吞吐量</p>
+          <span class="text-xs text-[#8995b3] mono">件 / 小時</span>
+        </div>
+        <div class="flex items-end gap-2 h-40" id="chart">
+        </div>
+        <div class="flex gap-2 justify-between text-xs text-[#8995b3] mt-2 mono">
+          <span>00</span><span>04</span><span>08</span><span>12</span><span>16</span><span>20</span><span>24</span>
+        </div>
+      </div>
+      <div class="panel p-4">
+        <p class="font-700 text-sm mb-3">區域達成率</p>
+        <div class="space-y-3">
+          <div>
+            <div class="flex justify-between text-xs mb-1"><span>北區</span><span class="mono">98.1%</span></div>
+            <div class="bar"><div style="width:98%; background:#34d399;"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1"><span>中區</span><span class="mono">94.6%</span></div>
+            <div class="bar"><div style="width:94.6%; background:#34d399;"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1"><span>南區</span><span class="mono">89.2%</span></div>
+            <div class="bar"><div style="width:89.2%; background:#fbbf24;"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1"><span>東區</span><span class="mono">81.4%</span></div>
+            <div class="bar"><div style="width:81.4%; background:#f87171;"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="flex justify-between items-center p-4">
+        <p class="font-700 text-sm">即時異常事件</p>
+        <span class="text-xs text-[#8995b3]">自動每 5 秒更新</span>
+      </div>
+      <div class="overflow-x-auto scrollbar">
+      <table class="w-full text-sm">
+        <thead><tr><th class="text-left">單號</th><th class="text-left">路線</th><th class="text-left">狀態</th><th class="text-right">延誤</th><th class="text-left">負責調度</th></tr></thead>
+        <tbody id="eventsBody" class="mono text-xs"></tbody>
+      </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+function setRange(r){
+  ['today','week','month'].forEach(k=>{
+    const el = document.getElementById('btn-'+k);
+    el.className = k===r ? 'px-3 py-1.5 rounded-lg bg-[#1b2436] font-700' : 'px-3 py-1.5 rounded-lg text-[#8995b3] hover:bg-[#1b2436]';
+  });
+  const base = {today:4812, week:29100, month:118400};
+  document.getElementById('kpi-transit').textContent = base[r].toLocaleString();
+}
+
+function tickClock(){
+  document.getElementById('clock').textContent = '最後同步 ' + new Date().toLocaleTimeString('zh-TW', {hour12:false});
+}
+tickClock();
+setInterval(tickClock, 1000);
+
+const chart = document.getElementById('chart');
+const bars = [];
+for(let i=0;i<24;i++){
+  const h = 20 + Math.random()*80;
+  const div = document.createElement('div');
+  div.style.height = h+'%';
+  div.style.width = '100%';
+  div.style.borderRadius = '3px 3px 0 0';
+  div.style.background = i>15 && i<20 ? '#60a5fa' : '#2d3850';
+  chart.appendChild(div);
+  bars.push(div);
+}
+
+const routes = ['TPE-KHH-0391','TXG-TPE-1082','TNN-TPE-2210','HSZ-KHH-0587','TYN-TNN-3391'];
+const staff = ['林調度','陳調度','王調度','黃調度'];
+function renderEvents(){
+  const body = document.getElementById('eventsBody');
+  body.innerHTML = '';
+  for(let i=0;i<6;i++){
+    const delay = Math.floor(Math.random()*40);
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>#${8800+i}</td><td>${routes[i%routes.length]}</td>
+      <td><span style="color:${delay>20?'#f87171':'#fbbf24'}">${delay>20?'嚴重延誤':'輕微延誤'}</span></td>
+      <td class="text-right">${delay} 分</td><td>${staff[i%staff.length]}</td>`;
+    body.appendChild(tr);
+  }
+}
+renderEvents();
+setInterval(()=>{
+  bars.forEach(b=> b.style.height = (20+Math.random()*80)+'%');
+  renderEvents();
+  document.getElementById('kpi-issue').textContent = 20 + Math.floor(Math.random()*15);
+}, 5000);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!-- style #09 Claymorphism -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>毛孩所 FurHome · 寵物遠距健康照護</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fdf6ee;
+    --pink:#fdbcb4;
+    --blue:#add8e6;
+    --green:#b7e4c7;
+    --yellow:#ffe8a3;
+    --ink:#5b4636;
+  }
+  *{font-family:'Zen Maru Gothic','Quicksand',sans-serif;}
+  body{background:var(--bg); color:var(--ink);}
+  .num{font-family:'Quicksand','Zen Maru Gothic',sans-serif;}
+  .clay{
+    border-radius:32px;
+    background:#fdf6ee;
+    box-shadow:
+      12px 12px 24px rgba(180,150,120,0.25),
+      -10px -10px 20px rgba(255,255,255,0.9);
+    border:1px solid rgba(255,255,255,0.6);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .clay:hover{ transform:translateY(-6px); }
+  .clay-btn{
+    border-radius:999px;
+    box-shadow:
+      8px 8px 16px rgba(180,150,120,0.28),
+      -6px -6px 14px rgba(255,255,255,0.9);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .clay-btn:active{
+    transform:translateY(2px);
+    box-shadow:
+      4px 4px 8px rgba(180,150,120,0.3) inset,
+      -4px -4px 8px rgba(255,255,255,0.6) inset;
+  }
+  .clay-inset{
+    border-radius:24px;
+    box-shadow:
+      inset 6px 6px 14px rgba(180,150,120,0.25),
+      inset -6px -6px 14px rgba(255,255,255,0.8);
+  }
+  .blob{
+    position:absolute; border-radius:50%; filter:blur(2px); opacity:.55; z-index:0;
+  }
+  .paw{ display:inline-block; transition:transform .2s; }
+  .paw:hover{ transform:scale(1.25) rotate(-8deg); }
+</style>
+</head>
+<body class="min-h-screen overflow-x-hidden">
+
+<div class="blob" style="width:260px;height:260px;background:var(--pink);top:-60px;left:-80px;"></div>
+<div class="blob" style="width:200px;height:200px;background:var(--blue);top:300px;right:-60px;"></div>
+<div class="blob" style="width:180px;height:180px;background:var(--green);bottom:40px;left:10%;"></div>
+
+<header class="relative z-10 max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+  <div class="flex items-center gap-2 text-2xl font-900" style="color:#c97b63;">
+    <span class="paw">🐾</span> 毛孩所 <span class="text-sm font-600 text-stone-400 num">FurHome</span>
+  </div>
+  <nav class="hidden md:flex gap-8 text-stone-600 font-600">
+    <a href="#features" class="hover:text-[#c97b63]">服務內容</a>
+    <a href="#vets" class="hover:text-[#c97b63]">獸醫團隊</a>
+    <a href="#pricing" class="hover:text-[#c97b63]">方案費用</a>
+  </nav>
+  <button class="clay-btn px-5 py-2.5 font-700" style="background:var(--pink); color:#7a3b2e;">立即預約</button>
+</header>
+
+<main class="relative z-10 max-w-6xl mx-auto px-6">
+
+  <section class="grid md:grid-cols-2 gap-10 items-center py-14">
+    <div>
+      <span class="inline-block clay px-4 py-1.5 text-sm font-600 mb-5" style="background:var(--yellow);">24 小時都有獸醫在線上 🩺</span>
+      <h1 class="text-4xl md:text-5xl font-900 leading-tight mb-5" style="color:#7a3b2e;">
+        毛孩不舒服，<br>先問問所裡的獸醫
+      </h1>
+      <p class="text-lg text-stone-500 font-500 mb-8 leading-relaxed">
+        視訊問診、健康紀錄、用藥提醒通通裝進一個軟綿綿的 App。<br>
+        讓每一次「牠好像怪怪的」都有人立刻回應你。
+      </p>
+      <div class="flex gap-4">
+        <button class="clay-btn px-7 py-3.5 font-700 text-lg" style="background:#c97b63; color:#fff;" onclick="startDemo()">免費體驗問診</button>
+        <button class="clay-btn px-7 py-3.5 font-700 text-lg" style="background:#fff; color:#7a3b2e;">看看怎麼用</button>
+      </div>
+      <div class="flex gap-6 mt-8 text-sm text-stone-500 font-600">
+        <div><span class="num text-xl font-900" style="color:#c97b63;">8,420</span> 位毛孩主人在用</div>
+        <div><span class="num text-xl font-900" style="color:#c97b63;">4.9</span> 顆星評分</div>
+      </div>
+    </div>
+
+    <div class="clay p-6">
+      <div class="clay-inset p-5 mb-4 flex items-center gap-4" style="background:#fff8f0;">
+        <div class="w-14 h-14 rounded-full flex items-center justify-center text-2xl" style="background:var(--green);">🐶</div>
+        <div class="flex-1">
+          <p class="font-700 text-stone-700">豆豆・柴犬・3 歲</p>
+          <p class="text-sm text-stone-400">上次健檢：10 天前</p>
+        </div>
+        <span class="clay px-3 py-1 text-xs font-700" style="background:var(--green); color:#2d5a3d;">健康良好</span>
+      </div>
+      <div class="grid grid-cols-3 gap-3 mb-4">
+        <div class="clay-inset p-3 text-center" style="background:#fff8f0;">
+          <p class="text-2xl num font-900" style="color:#c97b63;">36.8°</p>
+          <p class="text-xs text-stone-400 mt-1">體溫</p>
+        </div>
+        <div class="clay-inset p-3 text-center" style="background:#fff8f0;">
+          <p class="text-2xl num font-900" style="color:#5b8fb0;">92</p>
+          <p class="text-xs text-stone-400 mt-1">心跳</p>
+        </div>
+        <div class="clay-inset p-3 text-center" style="background:#fff8f0;">
+          <p class="text-2xl num font-900" style="color:#4c9a6a;">正常</p>
+          <p class="text-xs text-stone-400 mt-1">食慾</p>
+        </div>
+      </div>
+      <button class="clay-btn w-full py-3 font-700" style="background:var(--blue); color:#2c5466;" onclick="bookVisit()">預約視訊問診 →</button>
+    </div>
+  </section>
+
+  <section id="features" class="py-14">
+    <h2 class="text-3xl font-900 text-center mb-10" style="color:#7a3b2e;">所裡提供的照護服務</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="clay p-7" style="background:#fff;">
+        <div class="w-16 h-16 clay-inset flex items-center justify-center text-3xl mb-4" style="background:var(--pink);">📹</div>
+        <h3 class="font-800 text-xl mb-2 text-stone-700">視訊問診</h3>
+        <p class="text-stone-500 font-500 leading-relaxed">平均 4 分鐘內接通獸醫，不用抱著毛孩擠診所。</p>
+      </div>
+      <div class="clay p-7" style="background:#fff;">
+        <div class="w-16 h-16 clay-inset flex items-center justify-center text-3xl mb-4" style="background:var(--blue);">📋</div>
+        <h3 class="font-800 text-xl mb-2 text-stone-700">健康紀錄本</h3>
+        <p class="text-stone-500 font-500 leading-relaxed">疫苗、驅蟲、健檢數據自動整理成時間軸，換獸醫也能一秒交接。</p>
+      </div>
+      <div class="clay p-7" style="background:#fff;">
+        <div class="w-16 h-16 clay-inset flex items-center justify-center text-3xl mb-4" style="background:var(--yellow);">⏰</div>
+        <h3 class="font-800 text-xl mb-2 text-stone-700">用藥提醒</h3>
+        <p class="text-stone-500 font-500 leading-relaxed">每天固定時間輕輕震動提醒你，藥不漏吃一次。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="py-14">
+    <h2 class="text-3xl font-900 text-center mb-10" style="color:#7a3b2e;">選一個適合你家的方案</h2>
+    <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+      <div class="clay p-7 text-center" style="background:#fff;">
+        <p class="font-800 text-lg text-stone-600 mb-2">單次問診</p>
+        <p class="text-3xl font-900 num mb-1" style="color:#7a3b2e;">NT$390</p>
+        <p class="text-xs text-stone-400 mb-5">/ 次</p>
+        <button class="clay-btn w-full py-2.5 font-700 text-stone-600" style="background:#f3ece2;" onclick="selectPlan('單次問診')">選擇方案</button>
+      </div>
+      <div class="clay p-7 text-center scale-105" style="background:var(--pink);">
+        <p class="font-800 text-lg mb-2" style="color:#7a3b2e;">所裡月卡 🌟</p>
+        <p class="text-3xl font-900 num mb-1" style="color:#7a3b2e;">NT$590</p>
+        <p class="text-xs mb-5" style="color:#7a3b2e;">/ 月・含 3 次問診</p>
+        <button class="clay-btn w-full py-2.5 font-700" style="background:#7a3b2e; color:#fff;" onclick="selectPlan('所裡月卡')">選擇方案</button>
+      </div>
+      <div class="clay p-7 text-center" style="background:#fff;">
+        <p class="font-800 text-lg text-stone-600 mb-2">多寵物家庭</p>
+        <p class="text-3xl font-900 num mb-1" style="color:#7a3b2e;">NT$990</p>
+        <p class="text-xs text-stone-400 mb-5">/ 月・最多 4 隻</p>
+        <button class="clay-btn w-full py-2.5 font-700 text-stone-600" style="background:#f3ece2;" onclick="selectPlan('多寵物家庭')">選擇方案</button>
+      </div>
+    </div>
+    <p id="planMsg" class="text-center mt-6 font-700" style="color:#4c9a6a;"></p>
+  </section>
+
+</main>
+
+<footer class="relative z-10 text-center py-8 text-stone-400 font-500 text-sm">
+  © 2026 毛孩所 FurHome・陪牠健康長大
+</footer>
+
+<script>
+function selectPlan(name){
+  document.getElementById('planMsg').textContent = '已選擇「' + name + '」方案，馬上帶你去填寵物資料 🐾';
+}
+function startDemo(){
+  alert('體驗問診室準備中，獸醫馬上就來～');
+}
+function bookVisit(){
+  document.getElementById('pricing').scrollIntoView({behavior:'smooth'});
+}
+</script>
+
+</body>
+</html>

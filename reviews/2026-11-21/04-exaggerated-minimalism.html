@@ -1,0 +1,130 @@
+<!-- style #47 Exaggerated Minimalism -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>巨構影像所 MONOLITH · 建築攝影作品集</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *{font-family:'Space Grotesk','Noto Sans TC',sans-serif;}
+  body{ background:#fff; color:#0a0a0a; }
+  .huge{ font-size:clamp(4.5rem, 14vw, 13rem); line-height:0.92; font-weight:700; letter-spacing:-0.02em; }
+  .hairline{ border-top:1.5px solid #0a0a0a; }
+  .num{ font-weight:400; }
+  .item{ border-bottom:1.5px solid #0a0a0a; }
+  .item:hover .arrow{ transform:translateX(12px); }
+  .item:hover .thumb{ opacity:1; transform:scale(1); }
+  .arrow{ transition:transform .3s ease; }
+  .thumb{ opacity:0; transform:scale(0.9); transition:opacity .3s ease, transform .3s ease; }
+  .cursor-dot{ position:fixed; width:10px; height:10px; background:#0a0a0a; border-radius:50%; pointer-events:none; z-index:50; transform:translate(-50%,-50%); transition:width .2s,height .2s; }
+</style>
+</head>
+<body>
+
+<div class="cursor-dot" id="dot"></div>
+
+<header class="flex justify-between items-center px-8 py-6">
+  <span class="text-xl font-700">MONOLITH</span>
+  <nav class="hidden md:flex gap-10 text-sm">
+    <a href="#work">作品</a><a href="#about">關於</a><a href="#contact">聯繫</a>
+  </nav>
+  <span class="text-sm num" id="time">00:00:00</span>
+</header>
+
+<section class="px-8 pt-6 pb-16">
+  <p class="text-sm mb-2 num">建築攝影／空間敘事 — 自 2014</p>
+  <h1 class="huge">巨<br>構</h1>
+</section>
+
+<div class="hairline"></div>
+
+<section id="work" class="px-8 py-2">
+  <div class="item flex items-center justify-between py-8 group" onmouseenter="hover(this)" onmouseleave="unhover(this)">
+    <div class="flex items-baseline gap-6">
+      <span class="text-sm num text-neutral-400">01</span>
+      <h2 class="text-3xl md:text-5xl font-500">清水模的光</h2>
+    </div>
+    <div class="flex items-center gap-6">
+      <div class="thumb w-28 h-20 bg-neutral-800 hidden md:block"></div>
+      <span class="text-sm num text-neutral-400">台中・2026</span>
+      <span class="arrow text-2xl">→</span>
+    </div>
+  </div>
+  <div class="hairline"></div>
+
+  <div class="item flex items-center justify-between py-8 group" onmouseenter="hover(this)" onmouseleave="unhover(this)">
+    <div class="flex items-baseline gap-6">
+      <span class="text-sm num text-neutral-400">02</span>
+      <h2 class="text-3xl md:text-5xl font-500">鋼骨的重量</h2>
+    </div>
+    <div class="flex items-center gap-6">
+      <div class="thumb w-28 h-20 bg-neutral-700 hidden md:block"></div>
+      <span class="text-sm num text-neutral-400">高雄・2025</span>
+      <span class="arrow text-2xl">→</span>
+    </div>
+  </div>
+  <div class="hairline"></div>
+
+  <div class="item flex items-center justify-between py-8 group" onmouseenter="hover(this)" onmouseleave="unhover(this)">
+    <div class="flex items-baseline gap-6">
+      <span class="text-sm num text-neutral-400">03</span>
+      <h2 class="text-3xl md:text-5xl font-500">廢墟重生計畫</h2>
+    </div>
+    <div class="flex items-center gap-6">
+      <div class="thumb w-28 h-20 bg-neutral-500 hidden md:block"></div>
+      <span class="text-sm num text-neutral-400">台南・2025</span>
+      <span class="arrow text-2xl">→</span>
+    </div>
+  </div>
+  <div class="hairline"></div>
+
+  <div class="item flex items-center justify-between py-8 group" onmouseenter="hover(this)" onmouseleave="unhover(this)">
+    <div class="flex items-baseline gap-6">
+      <span class="text-sm num text-neutral-400">04</span>
+      <h2 class="text-3xl md:text-5xl font-500">夜間工地紀實</h2>
+    </div>
+    <div class="flex items-center gap-6">
+      <div class="thumb w-28 h-20 bg-neutral-900 hidden md:block"></div>
+      <span class="text-sm num text-neutral-400">新北・2024</span>
+      <span class="arrow text-2xl">→</span>
+    </div>
+  </div>
+  <div class="hairline"></div>
+</section>
+
+<section id="about" class="px-8 py-24">
+  <p class="huge" style="font-size:clamp(2.5rem,7vw,6rem);">用一棟樓<br>說一個故事</p>
+  <p class="max-w-md mt-8 text-neutral-500 num">巨構影像所成立於 2014 年，專注建築與空間的紀實攝影，作品曾刊於《建築師雜誌》與多個建案出版物。</p>
+</section>
+
+<footer id="contact" class="px-8 py-10 flex justify-between items-end hairline">
+  <div>
+    <p class="text-sm num text-neutral-400 mb-2">接案洽詢</p>
+    <a href="#" class="text-2xl underline" onclick="sendMail(event)">hello@monolith.studio</a>
+    <p id="mailMsg" class="text-sm mt-2 text-neutral-500"></p>
+  </div>
+  <p class="text-sm num text-neutral-400">© 2026 MONOLITH</p>
+</footer>
+
+<script>
+function hover(el){ el.querySelector('.thumb')?.classList.remove('hidden'); document.getElementById('dot').style.width='40px'; document.getElementById('dot').style.height='40px'; }
+function unhover(el){ document.getElementById('dot').style.width='10px'; document.getElementById('dot').style.height='10px'; }
+document.addEventListener('mousemove', e=>{
+  const dot = document.getElementById('dot');
+  dot.style.left = e.clientX+'px';
+  dot.style.top = e.clientY+'px';
+});
+function tick(){ document.getElementById('time').textContent = new Date().toLocaleTimeString('zh-TW',{hour12:false}); }
+tick(); setInterval(tick,1000);
+function sendMail(e){
+  e.preventDefault();
+  document.getElementById('mailMsg').textContent = '已複製信箱地址，等你來聊拍攝案。';
+  navigator.clipboard?.writeText('hello@monolith.studio');
+}
+</script>
+
+</body>
+</html>

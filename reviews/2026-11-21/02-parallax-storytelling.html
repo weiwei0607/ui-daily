@@ -1,0 +1,124 @@
+<!-- style #49 Parallax Storytelling -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>山嵐茶語 MistLeaf · 一座茶園的四季</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Newsreader:ital,wght@0,400;0,500;1,400&family=Noto+Serif+TC:wght@400;600;900&display=swap" rel="stylesheet">
+<style>
+  :root{ --ink:#2a2b22; --tea:#4b6043; --mist:#cbd5c0; }
+  body{
+    font-family:'Newsreader','Noto Serif TC',serif;
+    background:#f5f1e8; color:var(--ink);
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{ font-family:'Playfair Display','Noto Serif TC',serif; }
+  .chapter{
+    position:relative; min-height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .layer-back, .layer-mid, .layer-front{
+    position:absolute; inset:0; will-change:transform;
+  }
+  .layer-back{ z-index:1; }
+  .layer-mid{ z-index:2; }
+  .layer-front{ z-index:3; }
+  .fade-in{ opacity:0; transform:translateY(40px); transition:opacity 1s ease, transform 1s ease; }
+  .fade-in.show{ opacity:1; transform:translateY(0); }
+  .chapter-no{ font-family:'Playfair Display'; letter-spacing:.3em; font-size:.75rem; }
+  .divider{ width:1px; height:60px; background:var(--tea); opacity:.4; margin:0 auto; }
+</style>
+</head>
+<body>
+
+<nav class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-8 py-5 mix-blend-difference text-white">
+  <span class="display text-xl tracking-wide">山嵐茶語 <span class="text-xs tracking-widest opacity-70">MISTLEAF</span></span>
+  <span class="text-xs tracking-widest hidden md:block">一座茶園的四季 · 向下捲動閱讀</span>
+</nav>
+
+<!-- Chapter 1 -->
+<section class="chapter" style="background:linear-gradient(180deg,#9fb08c,#4b6043 70%);">
+  <div class="layer-back" data-speed="0.2" style="background:radial-gradient(circle at 30% 20%, rgba(255,255,255,0.25), transparent 60%);"></div>
+  <div class="layer-mid" data-speed="0.45" style="display:flex;align-items:flex-end;justify-content:center;opacity:.5;">
+    <div style="width:140%; height:38vh; background:linear-gradient(180deg,transparent,#2f3a27); border-radius:50% 50% 0 0;"></div>
+  </div>
+  <div class="layer-front text-center text-white px-6 fade-in">
+    <p class="chapter-no opacity-80 mb-4">CHAPTER 01 · 晨霧</p>
+    <h1 class="text-5xl md:text-7xl mb-6 italic">霧，先於茶葉醒來</h1>
+    <p class="max-w-md mx-auto opacity-90 leading-relaxed">海拔 1200 公尺，凌晨五點的山嵐漫過茶欉，<br>這是「山嵐茶語」每一片葉子的起點。</p>
+  </div>
+</section>
+
+<!-- Chapter 2 -->
+<section class="chapter" style="background:#f5f1e8;">
+  <div class="layer-back" data-speed="0.3" style="background:radial-gradient(circle at 70% 60%, rgba(75,96,67,0.12), transparent 60%);"></div>
+  <div class="max-w-3xl mx-auto px-8 fade-in grid md:grid-cols-2 gap-10 items-center layer-front">
+    <div>
+      <p class="chapter-no mb-4" style="color:var(--tea);">CHAPTER 02 · 手採</p>
+      <h2 class="text-4xl mb-5">一心二葉，<br>只留給手</h2>
+      <p class="leading-relaxed text-stone-600">機器採收快，但會連著老葉一起捲進去。<br>我們的採茶班堅持手摘「一心二葉」，<br>一天一人只能採三到四公斤。</p>
+    </div>
+    <div class="aspect-[4/5] rounded-2xl" style="background:linear-gradient(160deg,#9fb08c,#4b6043); box-shadow:0 30px 60px -20px rgba(43,54,34,0.35);"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Chapter 3 -->
+<section class="chapter" style="background:#2f3a27;">
+  <div class="layer-back" data-speed="0.25" style="background:repeating-linear-gradient(100deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 40px);"></div>
+  <div class="max-w-3xl mx-auto px-8 fade-in text-center text-[#e8e3d3] layer-front">
+    <p class="chapter-no opacity-70 mb-4">CHAPTER 03 · 焙火</p>
+    <h2 class="text-4xl md:text-5xl mb-6 italic">三道火，<br>等出一種香</h2>
+    <div class="grid grid-cols-3 gap-6 max-w-lg mx-auto mt-10 text-sm">
+      <div><p class="text-3xl mb-2">90°</p><p class="opacity-70">殺青</p></div>
+      <div><p class="text-3xl mb-2">65°</p><p class="opacity-70">初焙</p></div>
+      <div><p class="text-3xl mb-2">45°</p><p class="opacity-70">足火</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Chapter 4 : CTA -->
+<section class="chapter" style="background:linear-gradient(180deg,#f5f1e8,#e4ddc8);">
+  <div class="layer-front text-center px-6 fade-in">
+    <p class="chapter-no mb-4" style="color:var(--tea);">CHAPTER 04 · 入手</p>
+    <h2 class="text-4xl md:text-5xl mb-6">把這座山的早晨<br>留在你的茶櫃裡</h2>
+    <p class="text-stone-600 mb-8">本季手採烏龍，限量 300 罐</p>
+    <div class="flex gap-4 justify-center flex-wrap">
+      <button onclick="order()" class="px-8 py-3.5 text-white display tracking-wide" style="background:var(--tea); border-radius:2px;">預訂本季茶罐</button>
+      <button onclick="document.getElementById('story-top').scrollIntoView({behavior:'smooth'})" class="px-8 py-3.5 border display tracking-wide" style="border-color:var(--tea); color:var(--tea); border-radius:2px;">重新閱讀這座山</button>
+    </div>
+    <p id="orderMsg" class="mt-6 font-semibold" style="color:var(--tea);"></p>
+  </div>
+</section>
+
+<footer class="py-10 text-center text-xs text-stone-500" style="background:#e4ddc8;">© 2026 山嵐茶語 MistLeaf・南投山區</footer>
+
+<div id="story-top" style="position:absolute; top:0;"></div>
+
+<script>
+function order(){
+  document.getElementById('orderMsg').textContent = '已為你保留一罐，稍後將由茶師親自聯繫確認地址。';
+}
+const reveals = document.querySelectorAll('.fade-in');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('show'); });
+},{threshold:0.3});
+reveals.forEach(el=>io.observe(el));
+
+const layers = document.querySelectorAll('[data-speed]');
+window.addEventListener('scroll', ()=>{
+  const y = window.scrollY;
+  layers.forEach(l=>{
+    const speed = parseFloat(l.dataset.speed);
+    l.style.transform = 'translateY(' + (y*speed*0.15) + 'px)';
+  });
+}, {passive:true});
+</script>
+
+</body>
+</html>
