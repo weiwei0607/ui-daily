@@ -1,0 +1,1025 @@
+<!-- style #46 Dimensional Layering -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>層光建築 LayerLight Architecture</title>
+<meta name="description" content="層光建築事務所作品集首頁——以陰影與錯位堆疊營造景深的建築設計工作室網站">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #ece8e2;
+    --bg-deep: #e2ddd4;
+    --surface: #f8f6f2;
+    --surface-2: #eeeae3;
+    --ink: #2c2a27;
+    --ink-soft: #5d5950;
+    --ink-faint: #8a8578;
+    --line: rgba(44,42,39,0.12);
+    --accent-clay: #b08768;
+    --accent-sage: #7c8a74;
+    --accent-slate: #6b7a85;
+    --accent-charcoal: #3a372f;
+    --shadow-1: 0 1px 2px rgba(40,36,28,0.06);
+    --shadow-2: 0 10px 20px -8px rgba(40,36,28,0.18), 0 2px 6px rgba(40,36,28,0.10);
+    --shadow-3: 0 30px 50px -20px rgba(40,36,28,0.30), 0 10px 20px -8px rgba(40,36,28,0.18), 0 2px 6px rgba(40,36,28,0.12);
+    --shadow-4: 0 50px 80px -30px rgba(30,27,20,0.40), 0 20px 40px -15px rgba(30,27,20,0.30), 0 6px 14px rgba(30,27,20,0.18);
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg: #1c1a17;
+      --bg-deep: #141210;
+      --surface: #262320;
+      --surface-2: #2c2924;
+      --ink: #efece6;
+      --ink-soft: #c5bfb3;
+      --ink-faint: #8d8778;
+      --line: rgba(239,236,230,0.10);
+      --accent-clay: #c99f7c;
+      --accent-sage: #91a087;
+      --accent-slate: #8696a1;
+      --accent-charcoal: #0f0d0b;
+      --shadow-1: 0 1px 2px rgba(0,0,0,0.35);
+      --shadow-2: 0 10px 22px -8px rgba(0,0,0,0.55), 0 2px 6px rgba(0,0,0,0.35);
+      --shadow-3: 0 30px 55px -20px rgba(0,0,0,0.65), 0 10px 22px -8px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3);
+      --shadow-4: 0 55px 90px -30px rgba(0,0,0,0.75), 0 22px 44px -15px rgba(0,0,0,0.6), 0 8px 16px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg: #1c1a17;
+    --bg-deep: #141210;
+    --surface: #262320;
+    --surface-2: #2c2924;
+    --ink: #efece6;
+    --ink-soft: #c5bfb3;
+    --ink-faint: #8d8778;
+    --line: rgba(239,236,230,0.10);
+    --accent-clay: #c99f7c;
+    --accent-sage: #91a087;
+    --accent-slate: #8696a1;
+    --accent-charcoal: #0f0d0b;
+    --shadow-1: 0 1px 2px rgba(0,0,0,0.35);
+    --shadow-2: 0 10px 22px -8px rgba(0,0,0,0.55), 0 2px 6px rgba(0,0,0,0.35);
+    --shadow-3: 0 30px 55px -20px rgba(0,0,0,0.65), 0 10px 22px -8px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3);
+    --shadow-4: 0 55px 90px -30px rgba(0,0,0,0.75), 0 22px 44px -15px rgba(0,0,0,0.6), 0 8px 16px rgba(0,0,0,0.35);
+  }
+
+  *{ box-sizing: border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Outfit", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+  .zh{ font-family: "Noto Sans TC", "Outfit", sans-serif; }
+
+  a{ color: inherit; text-decoration: none; }
+
+  .wrap{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ===== Nav ===== */
+  header.nav{
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    padding: 18px 24px;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap: 12px;
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.02em;
+  }
+  .brand-mark{
+    position: relative;
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+  }
+  .brand-mark span{
+    position:absolute;
+    inset:0;
+    border-radius: 7px;
+  }
+  .brand-mark span:nth-child(1){ background: var(--accent-charcoal); transform: translate(0,4px); opacity:.9;}
+  .brand-mark span:nth-child(2){ background: var(--accent-clay); transform: translate(5px,1px) rotate(4deg); box-shadow: var(--shadow-1);}
+  .brand-mark span:nth-child(3){ background: var(--surface); transform: translate(2px,-3px) rotate(-6deg); box-shadow: var(--shadow-2); border:1px solid var(--line);}
+  .brand small{ display:block; font-size:.62rem; font-weight:400; letter-spacing:.14em; color: var(--ink-faint); text-transform: uppercase; margin-top:2px;}
+
+  nav.links{ display:flex; gap: 32px; font-size: .92rem; color: var(--ink-soft); }
+  nav.links a{ position: relative; padding: 4px 0; transition: color .25s ease; }
+  nav.links a:hover{ color: var(--ink); }
+  nav.links a::after{
+    content:"";
+    position:absolute; left:0; right:100%; bottom:-2px; height:1.5px;
+    background: var(--accent-clay);
+    transition: right .3s ease;
+  }
+  nav.links a:hover::after{ right:0; }
+
+  .nav-cta{
+    font-size:.85rem;
+    padding: 9px 18px;
+    border-radius: 999px;
+    background: var(--accent-charcoal);
+    color: var(--surface);
+    box-shadow: var(--shadow-2);
+    transition: transform .25s ease, box-shadow .25s ease;
+    white-space: nowrap;
+  }
+  .nav-cta:hover{ transform: translateY(-2px); box-shadow: var(--shadow-3); }
+
+  @media (max-width: 780px){
+    nav.links{ display:none; }
+  }
+
+  /* ===== Hero ===== */
+  .hero{
+    position: relative;
+    padding: 90px 24px 140px;
+    overflow: visible;
+  }
+  .hero-inner{
+    max-width: 1180px;
+    margin: 0 auto;
+    display:grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:.78rem;
+    letter-spacing:.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 22px;
+  }
+  .eyebrow::before{ content:""; width:22px; height:1px; background: var(--accent-clay); }
+
+  h1.hero-title{
+    font-family:"Outfit","Noto Sans TC",sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.2rem, 4.4vw, 3.4rem);
+    line-height: 1.22;
+    margin: 0 0 22px;
+    letter-spacing: -0.01em;
+  }
+  h1.hero-title .accent{ color: var(--accent-clay); }
+
+  .hero-desc{
+    font-size: 1.02rem;
+    color: var(--ink-soft);
+    max-width: 480px;
+    margin-bottom: 34px;
+  }
+  .hero-actions{ display:flex; gap:14px; flex-wrap: wrap; }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:.92rem;
+    font-weight:500;
+    padding: 13px 24px;
+    border-radius: 10px;
+    cursor:pointer;
+    border: 1px solid transparent;
+    transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+  }
+  .btn-primary{
+    background: var(--accent-charcoal);
+    color: var(--surface);
+    box-shadow: var(--shadow-2);
+  }
+  .btn-primary:hover{ transform: translateY(-3px); box-shadow: var(--shadow-3); }
+  .btn-ghost{
+    background: var(--surface);
+    color: var(--ink);
+    border-color: var(--line);
+    box-shadow: var(--shadow-1);
+  }
+  .btn-ghost:hover{ transform: translateY(-3px); box-shadow: var(--shadow-2); }
+
+  .hero-stack{
+    position: relative;
+    height: 360px;
+  }
+  .hero-stack .card-plate{
+    position:absolute;
+    border-radius: 18px;
+    transition: transform .6s ease, box-shadow .6s ease;
+  }
+  .plate-a{
+    width: 78%; height: 62%;
+    left: 2%; top: 6%;
+    background: linear-gradient(145deg, var(--surface-2), var(--surface));
+    box-shadow: var(--shadow-2);
+    border: 1px solid var(--line);
+    transform: rotate(-4deg) translate(0,0);
+  }
+  .plate-b{
+    width: 64%; height: 54%;
+    left: 30%; top: 24%;
+    background: linear-gradient(145deg, var(--accent-slate), color-mix(in srgb, var(--accent-slate) 70%, var(--ink-faint)));
+    box-shadow: var(--shadow-3);
+    transform: rotate(5deg);
+    opacity: .9;
+  }
+  .plate-c{
+    width: 46%; height: 40%;
+    left: 8%; top: 46%;
+    background: linear-gradient(160deg, var(--accent-clay), color-mix(in srgb, var(--accent-clay) 65%, var(--ink)));
+    box-shadow: var(--shadow-4);
+    transform: rotate(-8deg);
+  }
+  .plate-d{
+    width: 30%; height: 26%;
+    left: 56%; top: 8%;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-2);
+    transform: rotate(10deg);
+    display:flex; align-items:center; justify-content:center;
+    font-size: .74rem; letter-spacing:.08em; color: var(--ink-faint);
+  }
+  .hero-stack:hover .plate-a{ transform: rotate(-6deg) translate(-6px,-4px); box-shadow: var(--shadow-3);}
+  .hero-stack:hover .plate-b{ transform: rotate(3deg) translate(8px,6px); box-shadow: var(--shadow-4);}
+  .hero-stack:hover .plate-c{ transform: rotate(-11deg) translate(-4px,10px); }
+  .hero-stack:hover .plate-d{ transform: rotate(13deg) translate(6px,-6px); }
+
+  @media (max-width: 860px){
+    .hero-inner{ grid-template-columns: 1fr; }
+    .hero-stack{ height: 300px; margin-top: 20px; }
+  }
+
+  /* ===== Section shell ===== */
+  section{ padding: 96px 24px; position: relative; }
+  .section-head{
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 54px;
+  }
+  .section-tag{
+    font-size:.78rem;
+    letter-spacing:.18em;
+    text-transform: uppercase;
+    color: var(--accent-clay);
+    font-weight: 600;
+    margin-bottom: 10px;
+    display:block;
+  }
+  h2.section-title{
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  .section-sub{
+    max-width: 420px;
+    color: var(--ink-soft);
+    font-size: .96rem;
+  }
+
+  /* ===== About ===== */
+  .about{ background: var(--bg-deep); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .about-grid{
+    display:grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .about-visual{
+    position: relative;
+    height: 320px;
+  }
+  .about-visual .layer{
+    position:absolute;
+    border-radius: 14px;
+    box-shadow: var(--shadow-2);
+    border: 1px solid var(--line);
+  }
+  .about-visual .l1{ width:70%; height:70%; left:0; top:10%; background: var(--surface); transform: rotate(-3deg); }
+  .about-visual .l2{ width:58%; height:50%; left:34%; top:0; background: linear-gradient(135deg, var(--accent-sage), color-mix(in srgb, var(--accent-sage) 60%, var(--ink))); transform: rotate(6deg); box-shadow: var(--shadow-3);}
+  .about-visual .l3{ width:44%; height:38%; left:14%; top:52%; background: var(--surface-2); transform: rotate(4deg); box-shadow: var(--shadow-3); display:flex; align-items:flex-end; padding:14px; font-size:.72rem; color: var(--ink-faint); letter-spacing:.06em;}
+  .about-text p{ color: var(--ink-soft); margin: 0 0 16px; font-size: .98rem; }
+  .about-figures{
+    display:grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 14px;
+    margin-top: 28px;
+  }
+  .fig{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px 14px;
+    box-shadow: var(--shadow-1);
+    transition: transform .3s ease, box-shadow .3s ease;
+  }
+  .fig:hover{ transform: translateY(-4px); box-shadow: var(--shadow-2); }
+  .fig b{ display:block; font-size: 1.3rem; margin-bottom: 4px; }
+  .fig span{ font-size: .74rem; color: var(--ink-faint); }
+
+  @media (max-width: 860px){
+    .about-grid{ grid-template-columns: 1fr; }
+    .about-visual{ height: 260px; margin-bottom: 10px; }
+  }
+
+  /* ===== Projects ===== */
+  .project-grid{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    perspective: 1800px;
+  }
+  @media (max-width: 860px){
+    .project-grid{ grid-template-columns: 1fr; gap: 56px; }
+  }
+
+  .project-card{
+    position: relative;
+    background: var(--surface);
+    border-radius: 20px;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-2);
+    overflow: hidden;
+    transform: translate3d(0,0,0) rotate(var(--tilt, 0deg));
+    transition: transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .45s ease;
+    cursor: pointer;
+    will-change: transform;
+  }
+  .project-card:nth-child(1){ --tilt: -1.2deg; }
+  .project-card:nth-child(2){ --tilt: 1deg; }
+  .project-card:nth-child(3){ --tilt: 0.8deg; }
+  .project-card:nth-child(4){ --tilt: -0.9deg; }
+
+  .project-card.is-hover{
+    box-shadow: var(--shadow-4);
+    z-index: 5;
+  }
+  .project-card.is-dimmed{
+    filter: saturate(.85);
+  }
+
+  .card-visual{
+    position: relative;
+    height: 190px;
+    background: var(--surface-2);
+    overflow: hidden;
+  }
+  .card-visual .geo{
+    position:absolute;
+    box-shadow: 0 10px 18px -8px rgba(0,0,0,0.25);
+  }
+  /* 案例一：光廊之家 */
+  .v1 .geo-1{ left:12%; bottom:0; width:26%; height:60%; background: linear-gradient(160deg, var(--accent-clay), color-mix(in srgb,var(--accent-clay) 60%, var(--ink))); }
+  .v1 .geo-2{ left:38%; bottom:0; width:34%; height:85%; background: var(--surface); border:1px solid var(--line); }
+  .v1 .geo-3{ left:70%; bottom:0; width:18%; height:45%; background: var(--accent-charcoal); }
+  .v1 .geo-4{ left:38%; top:14%; width:34%; height:14px; background: var(--accent-sage); opacity:.8; }
+  /* 案例二：疊境商辦 */
+  .v2 .geo-1{ left:10%; bottom:0; width:20%; height:40%; background: var(--accent-slate); }
+  .v2 .geo-2{ left:28%; bottom:0; width:22%; height:70%; background: color-mix(in srgb, var(--accent-slate) 70%, var(--ink)); }
+  .v2 .geo-3{ left:48%; bottom:0; width:22%; height:92%; background: var(--surface); border:1px solid var(--line); }
+  .v2 .geo-4{ left:72%; bottom:0; width:16%; height:58%; background: var(--accent-charcoal); }
+  /* 案例三：迴留美術館 */
+  .v3 .geo-1{ left:8%; bottom:14%; width:50%; height:50%; border-radius: 50%; background: var(--surface); border:1px solid var(--line); }
+  .v3 .geo-2{ left:30%; bottom:0; width:46%; height:30%; background: var(--accent-clay); }
+  .v3 .geo-3{ left:62%; bottom:10%; width:26%; height:62%; background: color-mix(in srgb, var(--accent-sage) 75%, var(--ink)); }
+  /* 案例四：浮野書屋 */
+  .v4 .geo-1{ left:14%; bottom:0; width:60%; height:18%; background: var(--accent-charcoal); }
+  .v4 .geo-2{ left:20%; bottom:16%; width:50%; height:48%; background: var(--surface); border:1px solid var(--line); }
+  .v4 .geo-3{ left:36%; bottom:40%; width:20%; height:36%; background: var(--accent-sage); }
+  .v4 .geo-4{ left:66%; bottom:0; width:20%; height:40%; background: color-mix(in srgb, var(--accent-clay) 80%, var(--ink)); }
+
+  .card-visual .tag-type{
+    position:absolute;
+    top: 14px; right: 14px;
+    font-size: .68rem;
+    letter-spacing: .08em;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--bg) 70%, transparent);
+    color: var(--ink-soft);
+    backdrop-filter: blur(4px);
+  }
+
+  .card-body{ padding: 24px 26px 26px; }
+  .card-meta{
+    display:flex; gap:10px; align-items:center;
+    font-size:.76rem; color: var(--ink-faint); margin-bottom: 10px; letter-spacing:.03em;
+  }
+  .card-meta .dot{ width:3px; height:3px; border-radius:50%; background: var(--ink-faint); }
+  .card-body h3{ margin: 0 0 10px; font-size: 1.22rem; font-weight: 700; }
+  .card-body p.short{ margin:0; color: var(--ink-soft); font-size: .92rem; }
+
+  .card-detail{
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .45s ease;
+  }
+  .project-card.open .card-detail{ max-height: 260px; }
+  .card-detail-inner{ padding-top: 16px; border-top: 1px solid var(--line); margin-top: 16px; }
+  .card-detail-inner p{ margin: 0 0 12px; font-size: .9rem; color: var(--ink-soft); }
+  .card-detail-inner ul{ margin: 0; padding-left: 18px; font-size: .86rem; color: var(--ink-faint); }
+  .card-detail-inner li{ margin-bottom: 4px; }
+
+  .card-toggle{
+    margin-top: 16px;
+    display:inline-flex;
+    align-items:center;
+    gap: 6px;
+    font-size: .82rem;
+    color: var(--accent-clay);
+    font-weight: 600;
+  }
+  .card-toggle .arrow{
+    display:inline-block;
+    transition: transform .35s ease;
+  }
+  .project-card.open .card-toggle .arrow{ transform: rotate(180deg); }
+
+  /* ===== Philosophy ===== */
+  .philosophy{ background: var(--bg-deep); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .phi-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+  @media (max-width: 860px){ .phi-grid{ grid-template-columns: 1fr; } }
+
+  .phi-card{
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 34px 26px 30px;
+    box-shadow: var(--shadow-2);
+    transition: transform .35s ease, box-shadow .35s ease;
+  }
+  .phi-card:nth-child(1){ transform: translateY(0) rotate(-0.6deg); }
+  .phi-card:nth-child(2){ transform: translateY(-14px) rotate(0.4deg); z-index:2; }
+  .phi-card:nth-child(3){ transform: translateY(4px) rotate(-0.3deg); }
+  .phi-card:hover{ transform: translateY(-10px) rotate(0deg); box-shadow: var(--shadow-3); }
+
+  .phi-num{
+    font-size: .8rem;
+    color: var(--ink-faint);
+    letter-spacing:.1em;
+    margin-bottom: 18px;
+    display:block;
+  }
+  .phi-icon{
+    width: 46px; height: 46px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .phi-icon span{ position:absolute; border-radius:6px; box-shadow: var(--shadow-1); }
+  .phi-card:nth-child(1) .phi-icon span:nth-child(1){ width:28px; height:28px; background: var(--accent-clay); left:0; top:10px;}
+  .phi-card:nth-child(1) .phi-icon span:nth-child(2){ width:28px; height:28px; background: var(--surface-2); border:1px solid var(--line); left:14px; top:0; }
+  .phi-card:nth-child(2) .phi-icon span:nth-child(1){ width:46px; height:18px; background: var(--accent-sage); top:0; left:0; }
+  .phi-card:nth-child(2) .phi-icon span:nth-child(2){ width:30px; height:18px; background: var(--accent-charcoal); top:22px; left:0; }
+  .phi-card:nth-child(3) .phi-icon span:nth-child(1){ width:46px; height:46px; border-radius:50%; background: var(--surface-2); border:1px solid var(--line); }
+  .phi-card:nth-child(3) .phi-icon span:nth-child(2){ width:18px; height:18px; border-radius:50%; background: var(--accent-slate); left:14px; top:14px; }
+
+  .phi-card h3{ margin: 0 0 12px; font-size: 1.1rem; font-weight:700; }
+  .phi-card p{ margin:0; font-size: .9rem; color: var(--ink-soft); }
+
+  /* ===== Team ===== */
+  .team-row{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 50px;
+  }
+  @media (max-width: 860px){ .team-row{ grid-template-columns: repeat(2,1fr); } }
+  .team-card{
+    background: var(--surface);
+    border:1px solid var(--line);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: var(--shadow-1);
+    transition: transform .3s ease, box-shadow .3s ease;
+  }
+  .team-card:hover{ transform: translateY(-6px); box-shadow: var(--shadow-2); }
+  .team-avatar{
+    width: 100%;
+    height: 110px;
+    border-radius: 10px;
+    margin-bottom: 14px;
+    position: relative;
+    overflow: hidden;
+    background: var(--surface-2);
+  }
+  .team-avatar span{ position:absolute; }
+  .ta1 .s1{ width:60%; height:60%; left:10%; top:20%; background: var(--accent-clay); border-radius: 50%;}
+  .ta2 .s1{ width:70%; height:40%; left:15%; bottom:0; background: var(--accent-slate); }
+  .ta2 .s2{ width:30%; height:30%; left:35%; top:10%; background: var(--surface); border:1px solid var(--line); border-radius: 50%;}
+  .ta3 .s1{ width:50%; height:80%; left:10%; bottom:0; background: var(--accent-sage); }
+  .ta3 .s2{ width:35%; height:50%; left:55%; bottom:0; background: color-mix(in srgb, var(--accent-sage) 60%, var(--ink)); }
+  .ta4 .s1{ width:80%; height:20%; left:10%; top:40%; background: var(--accent-charcoal); }
+  .ta4 .s2{ width:30%; height:60%; left:35%; top:10%; background: var(--surface); border:1px solid var(--line); }
+
+  .team-card h4{ margin:0 0 2px; font-size: .98rem; }
+  .team-card span.role{ font-size:.78rem; color: var(--ink-faint); }
+
+  /* ===== Contact ===== */
+  .contact{ position: relative; }
+  .contact-panel{
+    position: relative;
+    border-radius: 26px;
+    background: var(--accent-charcoal);
+    color: #f1ede4;
+    padding: 64px 50px;
+    overflow: hidden;
+    box-shadow: var(--shadow-4);
+  }
+  .contact-panel::before{
+    content:"";
+    position:absolute;
+    width: 320px; height: 320px;
+    right: -80px; top: -100px;
+    background: radial-gradient(circle, color-mix(in srgb, var(--accent-clay) 60%, transparent), transparent 70%);
+    opacity:.5;
+  }
+  .contact-grid{
+    position: relative;
+    display:grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 50px;
+  }
+  @media (max-width: 860px){ .contact-grid{ grid-template-columns: 1fr; } .contact-panel{ padding: 44px 26px; } }
+
+  .contact-panel h2{ font-size: clamp(1.6rem,3vw,2.1rem); margin: 0 0 18px; font-weight:700; }
+  .contact-panel p.lead{ color: #d9d2c3; font-size: .98rem; max-width: 420px; margin: 0 0 30px; }
+
+  .contact-form{
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 16px;
+    padding: 26px;
+    box-shadow: var(--shadow-3);
+  }
+  .contact-form .row{ display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .contact-form input, .contact-form textarea{
+    width:100%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: #f1ede4;
+    font-family: inherit;
+    font-size: .88rem;
+    outline: none;
+    transition: border-color .2s ease, background .2s ease;
+  }
+  .contact-form input::placeholder, .contact-form textarea::placeholder{ color: rgba(241,237,228,0.45); }
+  .contact-form input:focus, .contact-form textarea:focus{ border-color: var(--accent-clay); background: rgba(255,255,255,0.12); }
+  .contact-form textarea{ margin-bottom: 14px; resize: vertical; min-height: 78px; }
+
+  .contact-info{ list-style:none; margin: 0; padding:0; display:flex; flex-direction:column; gap: 16px; }
+  .contact-info li{ display:flex; gap:14px; align-items:flex-start; }
+  .contact-info .ic{
+    width: 34px; height: 34px; border-radius: 9px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.14);
+    flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    font-size: .8rem;
+  }
+  .contact-info b{ display:block; font-size: .9rem; margin-bottom: 2px; }
+  .contact-info span{ font-size: .82rem; color: #cfc7b6; }
+
+  .submit-btn{
+    width:100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background: var(--accent-clay);
+    color: #231f19;
+    font-weight: 600;
+    font-size: .92rem;
+    cursor: pointer;
+    transition: transform .25s ease, box-shadow .25s ease, opacity .2s ease;
+  }
+  .submit-btn:hover{ transform: translateY(-2px); box-shadow: 0 14px 28px -10px rgba(0,0,0,0.4); }
+  .form-note{ margin-top: 10px; font-size: .78rem; color: #cfc7b6; min-height: 16px; }
+
+  /* ===== Footer ===== */
+  footer{
+    border-top: 1px solid var(--line);
+    padding: 40px 24px;
+  }
+  .footer-inner{
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: .8rem;
+    color: var(--ink-faint);
+  }
+  .footer-inner a{ color: var(--ink-soft); }
+  .footer-inner a:hover{ color: var(--ink); }
+
+  @media (max-width: 600px){
+    section{ padding: 64px 18px; }
+    .hero{ padding: 64px 18px 90px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <div class="brand-mark"><span></span><span></span><span></span></div>
+      <div>
+        層光建築
+        <small>LAYERLIGHT ARCHITECTURE</small>
+      </div>
+    </div>
+    <nav class="links">
+      <a href="#about">工作室</a>
+      <a href="#projects">作品案例</a>
+      <a href="#philosophy">設計理念</a>
+      <a href="#team">團隊</a>
+      <a href="#contact">聯絡我們</a>
+    </nav>
+    <a href="#contact" class="nav-cta">邀約合作</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <span class="eyebrow">建築設計 / 空間規劃 / 光影研究</span>
+      <h1 class="hero-title">把<span class="accent">光</span>一層一層<br>疊進建築的縫隙裡</h1>
+      <p class="hero-desc">層光建築是一間專注於住宅、文化設施與公共空間的設計工作室。我們相信建築不是一次成形的量體，而是由結構、材料與光線層層堆疊出的時間痕跡——每一道陰影,都是一層被留下來的秩序。</p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">瀏覽作品案例</a>
+        <a href="#contact" class="btn btn-ghost">預約面談</a>
+      </div>
+    </div>
+    <div class="hero-stack">
+      <div class="card-plate plate-a"></div>
+      <div class="card-plate plate-b"></div>
+      <div class="card-plate plate-c"></div>
+      <div class="card-plate plate-d">EST. 2012</div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <div class="about-visual">
+      <div class="layer l1"></div>
+      <div class="layer l2"></div>
+      <div class="layer l3">台北・大安工作室</div>
+    </div>
+    <div class="about-text">
+      <span class="section-tag">關於工作室</span>
+      <h2 class="section-title" style="margin-bottom:18px;">十二年來,我們只做一件事</h2>
+      <p>層光建築成立於二零一二年,由三位結構與空間背景出身的建築師共同創辦。我們不追求單一的招牌風格,而是把每一次設計都當作一場關於「光怎麼落下」的實驗——從基地的日照角度出發,反推牆體的厚薄、開窗的位置與樓板的錯動。</p>
+      <p>我們的作品橫跨住宅、商辦、文化設施與公共空間,共通點是對材料本質的誠實,以及對陰影層次的高度敏感。每個案子從現勘到交屋,團隊成員全程參與,拒絕把設計與監造拆成兩段不相干的工作。</p>
+      <div class="about-figures">
+        <div class="fig"><b>128</b><span>完成案件數</span></div>
+        <div class="fig"><b>14</b><span>專職建築師</span></div>
+        <div class="fig"><b>9</b><span>國內外獎項</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="section-tag">作品案例</span>
+        <h2 class="section-title">四個案子,四種疊法</h2>
+      </div>
+      <p class="section-sub">點擊卡片展開案例細節;將滑鼠移到卡片群組上,感受彼此錯位的景深回應。</p>
+    </div>
+
+    <div class="project-grid" id="projectGrid">
+
+      <article class="project-card" data-id="1">
+        <div class="card-visual v1">
+          <span class="tag-type">住宅</span>
+          <div class="geo geo-1"></div>
+          <div class="geo geo-2"></div>
+          <div class="geo geo-3"></div>
+          <div class="geo geo-4"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta"><span>台北・大安</span><span class="dot"></span><span>2023</span><span class="dot"></span><span>獨棟住宅</span></div>
+          <h3>光廊之家</h3>
+          <p class="short">以一道貫穿三層樓板的光廊作為住宅的脊椎,讓晨光沿牆面緩緩滑落到地下書房。</p>
+          <div class="card-detail">
+            <div class="card-detail-inner">
+              <p>業主是一對退休建築教師,要求的不是氣派,而是「每天都能準確知道現在幾點」的光線節奏。我們將梯廳退縮成一道垂直光廊,讓屋頂的天窗光在不同時段投射到不同樓層的牆面上,形成一座會走動的日曆。</p>
+              <ul>
+                <li>基地面積:186 平方公尺</li>
+                <li>樓層規劃:地下一層,地上三層</li>
+                <li>主要材料:清水模、鐵件、南方松</li>
+              </ul>
+            </div>
+          </div>
+          <span class="card-toggle">查看案例細節 <span class="arrow">▾</span></span>
+        </div>
+      </article>
+
+      <article class="project-card" data-id="2">
+        <div class="card-visual v2">
+          <span class="tag-type">商辦</span>
+          <div class="geo geo-1"></div>
+          <div class="geo geo-2"></div>
+          <div class="geo geo-3"></div>
+          <div class="geo geo-4"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta"><span>台中・西屯</span><span class="dot"></span><span>2022</span><span class="dot"></span><span>企業總部</span></div>
+          <h3>疊境商辦</h3>
+          <p class="short">四棟量體以不同退縮角度堆疊,替每一層樓換取獨立的對外視野與陰影節奏。</p>
+          <div class="card-detail">
+            <div class="card-detail-inner">
+              <p>這是一間資訊軟體公司的新總部,團隊希望打破標準層層相疊的辦公大樓印象。我們讓樓層逐層旋轉退縮,外牆因此產生深淺不一的遮陽帶,同時替每一層都留出一處室外露台。</p>
+              <ul>
+                <li>總樓地板面積:約 9,400 平方公尺</li>
+                <li>樓層規劃:地上十二層,地下二層</li>
+                <li>綠建築等級:鑽石級候補</li>
+              </ul>
+            </div>
+          </div>
+          <span class="card-toggle">查看案例細節 <span class="arrow">▾</span></span>
+        </div>
+      </article>
+
+      <article class="project-card" data-id="3">
+        <div class="card-visual v3">
+          <span class="tag-type">文化設施</span>
+          <div class="geo geo-1"></div>
+          <div class="geo geo-2"></div>
+          <div class="geo geo-3"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta"><span>台南・中西</span><span class="dot"></span><span>2024</span><span class="dot"></span><span>私人美術館</span></div>
+          <h3>迴留美術館</h3>
+          <p class="short">以一座環形展廳包裹舊倉庫的磚牆遺構,新舊兩層結構彼此錯開,留出一條可穿行的縫隙。</p>
+          <div class="card-detail">
+            <div class="card-detail-inner">
+              <p>這座美術館改建自一座荒廢近三十年的製糖倉庫。我們選擇不拆除原有磚牆,而是在其外側浮貼一層弧形展廊,兩層結構之間留出一公尺多寬的夾縫作為過渡動線,讓訪客在新舊材質的交界處慢下腳步。</p>
+              <ul>
+                <li>基地面積:2,100 平方公尺</li>
+                <li>保留結構:日治時期磚造倉庫主體</li>
+                <li>策展方向:在地工藝與當代裝置交替展出</li>
+              </ul>
+            </div>
+          </div>
+          <span class="card-toggle">查看案例細節 <span class="arrow">▾</span></span>
+        </div>
+      </article>
+
+      <article class="project-card" data-id="4">
+        <div class="card-visual v4">
+          <span class="tag-type">公共空間</span>
+          <div class="geo geo-1"></div>
+          <div class="geo geo-2"></div>
+          <div class="geo geo-3"></div>
+          <div class="geo geo-4"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta"><span>宜蘭・礁溪</span><span class="dot"></span><span>2021</span><span class="dot"></span><span>社區圖書空間</span></div>
+          <h3>浮野書屋</h3>
+          <p class="short">架高於水田之上的木構書屋,屋頂以層層錯落的板片引風入室,也引出稻浪般的陰影。</p>
+          <div class="card-detail">
+            <div class="card-detail-inner">
+              <p>地方創生團隊希望在既有水田中蓋一座不佔用農地的閱讀空間。我們以細柱將書屋架離地面七十公分,屋頂由多片錯位的木板構成,隨風角度不同,地面會出現如稻浪般持續變化的光影。</p>
+              <ul>
+                <li>建築面積:168 平方公尺</li>
+                <li>結構形式:集成木柱樑,鋼構基礎</li>
+                <li>營運方式:社區協會委託維運</li>
+              </ul>
+            </div>
+          </div>
+          <span class="card-toggle">查看案例細節 <span class="arrow">▾</span></span>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="philosophy" id="philosophy">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="section-tag">設計理念</span>
+        <h2 class="section-title">我們怎麼看待一棟建築</h2>
+      </div>
+      <p class="section-sub">三件事,是每個案子開始之前,團隊都會重新確認一次的前提。</p>
+    </div>
+    <div class="phi-grid">
+      <div class="phi-card">
+        <span class="phi-num">01</span>
+        <div class="phi-icon"><span></span><span></span></div>
+        <h3>層次即秩序</h3>
+        <p>我們不把分層當作裝飾手法,而是用它交代空間裡的先後關係——哪一層先存在,哪一層後加入,都該被看得出來。</p>
+      </div>
+      <div class="phi-card">
+        <span class="phi-num">02</span>
+        <div class="phi-icon"><span></span><span></span></div>
+        <h3>光是結構的延伸</h3>
+        <p>開窗、簍空與退縮不是立面上的點綴,而是結構邏輯自然推演出來的結果。先決定光怎麼進來,再決定牆怎麼站著。</p>
+      </div>
+      <div class="phi-card">
+        <span class="phi-num">03</span>
+        <div class="phi-icon"><span></span><span></span></div>
+        <h3>留白是最後一道工序</h3>
+        <p>每個案子收尾前,我們都會刻意拿掉一些原本設計好的細節——留白不是沒想完,而是替使用者的生活預留位置。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="team">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="section-tag">核心團隊</span>
+        <h2 class="section-title">十四人,分四組協作</h2>
+      </div>
+      <p class="section-sub">每個案子由一位主持建築師搭配結構、材料與現場監造三位夥伴共同推進。</p>
+    </div>
+    <div class="team-row">
+      <div class="team-card">
+        <div class="team-avatar ta1"><span class="s1"></span></div>
+        <h4>林哲宇</h4>
+        <span class="role">創辦人・主持建築師</span>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar ta2"><span class="s1"></span><span class="s2"></span></div>
+        <h4>陳映如</h4>
+        <span class="role">結構設計總監</span>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar ta3"><span class="s1"></span><span class="s2"></span></div>
+        <h4>許家瑋</h4>
+        <span class="role">材料與工法研究</span>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar ta4"><span class="s1"></span><span class="s2"></span></div>
+        <h4>蔡佳蓉</h4>
+        <span class="role">現場監造負責人</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="contact-panel">
+      <div class="contact-grid">
+        <div>
+          <span class="section-tag" style="color:var(--accent-clay)">邀約合作</span>
+          <h2>有一塊基地,想聽聽光怎麼落在上面</h2>
+          <p class="lead">無論是住宅改建、商業空間或是公共設施的競圖合作,都歡迎先聊聊。我們會在收到訊息後的兩個工作日內回覆,並安排一次現場或視訊的初步討論。</p>
+          <ul class="contact-info">
+            <li>
+              <div class="ic">📍</div>
+              <div><b>工作室地址</b><span>台北市大安區光復南路 112 巷 6 號 3 樓</span></div>
+            </li>
+            <li>
+              <div class="ic">✉️</div>
+              <div><b>合作信箱</b><span>hello@layerlight-studio.tw</span></div>
+            </li>
+            <li>
+              <div class="ic">☎️</div>
+              <div><b>工作室電話</b><span>(02) 2771-0938・週一至週五 10:00–18:00</span></div>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <form class="contact-form" id="contactForm">
+            <div class="row">
+              <input type="text" placeholder="姓名" required>
+              <input type="text" placeholder="聯絡電話">
+            </div>
+            <input type="email" placeholder="電子郵件" required style="margin-bottom:12px;">
+            <textarea placeholder="請簡述案件類型、基地位置與希望的合作時程……" required></textarea>
+            <button type="submit" class="submit-btn">送出合作邀約</button>
+            <div class="form-note" id="formNote"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span>© 2026 層光建築 LayerLight Architecture Studio. 保留一切權利。</span>
+    <div style="display:flex; gap:18px;">
+      <a href="#about">工作室</a>
+      <a href="#projects">作品案例</a>
+      <a href="#contact">聯絡我們</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---- 案例卡片:點擊展開 / 收合細節 ----
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.project-card'));
+  cards.forEach(function(card){
+    card.addEventListener('click', function(e){
+      var isOpen = card.classList.contains('open');
+      cards.forEach(function(c){ c.classList.remove('open'); });
+      if(!isOpen){ card.classList.add('open'); }
+    });
+  });
+
+  // ---- 案例卡片群組:滑鼠移動時的景深視差回應 ----
+  var grid = document.getElementById('projectGrid');
+  if(grid){
+    grid.addEventListener('mousemove', function(e){
+      var rect = grid.getBoundingClientRect();
+      var mx = (e.clientX - rect.left) / rect.width;   // 0 ~ 1
+      var my = (e.clientY - rect.top) / rect.height;   // 0 ~ 1
+
+      cards.forEach(function(card){
+        var cRect = card.getBoundingClientRect();
+        var cx = (cRect.left + cRect.width / 2 - rect.left) / rect.width;
+        var cy = (cRect.top + cRect.height / 2 - rect.top) / rect.height;
+        var dx = mx - cx;
+        var dy = my - cy;
+        var dist = Math.sqrt(dx*dx + dy*dy);
+        var isHover = card.matches(':hover');
+
+        if(isHover){
+          card.classList.add('is-hover');
+          card.classList.remove('is-dimmed');
+          card.style.transform = 'translate3d(0,-14px,0) rotate(0deg) scale(1.025)';
+        } else {
+          card.classList.remove('is-hover');
+          // 離滑鼠越近的卡片,被輕輕推開,製造層次錯位
+          var push = Math.max(0, 1 - dist * 1.6);
+          var tx = -dx * push * 26;
+          var ty = -dy * push * 18;
+          card.classList.toggle('is-dimmed', push > 0.35);
+          card.style.transform = 'translate3d(' + tx.toFixed(1) + 'px,' + ty.toFixed(1) + 'px,0) rotate(var(--tilt,0deg))';
+        }
+      });
+    });
+
+    grid.addEventListener('mouseleave', function(){
+      cards.forEach(function(card){
+        card.classList.remove('is-hover','is-dimmed');
+        card.style.transform = '';
+      });
+    });
+  }
+
+  // ---- 聯絡表單:簡單的前端送出回饋(不連外部伺服器) ----
+  var form = document.getElementById('contactForm');
+  var note = document.getElementById('formNote');
+  if(form){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      note.textContent = '已收到您的邀約,團隊將於兩個工作日內以電子郵件回覆,謝謝。';
+      note.style.color = '#e7c9a3';
+      form.reset();
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
