@@ -1,0 +1,423 @@
+<!-- style #39 Bento Box -->
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CreatorBox｜知悠的創作者主頁</title>
+<meta name="description" content="創作者工具箱 CreatorBox：個人簡介、作品集、社群連結、最新影片與文章、聯絡方式與合作邀約，一頁整理給你。">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Lexend', 'Noto Sans TC', 'sans-serif'],
+        },
+        colors: {
+          paper: '#F7F4EE',
+          ink: '#211F1C',
+          accent: {
+            DEFAULT: '#FF5A3C',
+            dark: '#D8431F',
+            soft: '#FFE3D6',
+          },
+        },
+      },
+    },
+  };
+</script>
+
+<style>
+  :root {
+    --accent: #FF5A3C;
+    --accent-dark: #D8431F;
+    --accent-soft: #FFE3D6;
+    --paper: #F7F4EE;
+    --ink: #211F1C;
+  }
+
+  * { -webkit-tap-highlight-color: transparent; }
+
+  html, body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: 'Lexend', 'Noto Sans TC', sans-serif;
+  }
+
+  body {
+    background-image:
+      radial-gradient(circle at 8% 10%, rgba(255, 90, 60, 0.08), transparent 40%),
+      radial-gradient(circle at 92% 85%, rgba(255, 90, 60, 0.07), transparent 42%);
+  }
+
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 148px;
+    gap: 16px;
+  }
+
+  @media (min-width: 720px) {
+    .bento-grid {
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 156px;
+      gap: 20px;
+      grid-auto-flow: dense;
+    }
+  }
+
+  .bento-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(33, 31, 28, 0.07);
+    transition: transform 0.28s cubic-bezier(.2,.8,.2,1), box-shadow 0.28s cubic-bezier(.2,.8,.2,1), border-color .28s ease;
+    will-change: transform;
+  }
+
+  .bento-card:hover,
+  .bento-card:focus-within {
+    transform: translateY(-6px) scale(1.012);
+    box-shadow: 0 18px 38px -14px rgba(33, 31, 28, 0.28);
+    border-color: rgba(255, 90, 60, 0.35);
+  }
+
+  .bento-card:active {
+    transform: translateY(-2px) scale(0.995);
+  }
+
+  .noise-dot {
+    background-image: radial-gradient(circle, rgba(33,31,28,0.5) 1px, transparent 1.4px);
+    background-size: 14px 14px;
+  }
+
+  .tag-pill {
+    font-size: 11px;
+    letter-spacing: 0.02em;
+  }
+
+  .portfolio-item {
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .portfolio-item:hover { transform: translateY(-3px); }
+  .portfolio-item.is-active {
+    border-color: var(--accent);
+    box-shadow: 0 10px 22px -12px rgba(255,90,60,0.55);
+  }
+
+  #copy-tip {
+    transition: opacity .25s ease, transform .25s ease;
+  }
+
+  .scroll-fade::-webkit-scrollbar { width: 5px; }
+  .scroll-fade::-webkit-scrollbar-thumb { background: rgba(33,31,28,0.18); border-radius: 10px; }
+
+  .btn-press:active { transform: scale(0.97); }
+
+  .wordmark-dot { background: var(--accent); }
+</style>
+</head>
+
+<body class="min-h-screen antialiased">
+
+  <!-- 頂部標頭 -->
+  <header class="max-w-6xl mx-auto px-5 sm:px-8 pt-10 sm:pt-14 pb-6">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <span class="w-2.5 h-2.5 rounded-full wordmark-dot"></span>
+        <span class="font-semibold text-sm tracking-wide text-ink/70">CreatorBox</span>
+      </div>
+      <a href="#collab-card" class="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium bg-ink text-paper px-4 py-2 rounded-full hover:bg-accent transition-colors btn-press">
+        合作邀約
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+
+    <div class="mt-10 sm:mt-14">
+      <h1 class="text-3xl sm:text-5xl font-bold leading-tight tracking-tight">
+        嗨，我是知悠。<br class="hidden sm:block">
+        歡迎逛逛我的創作者主頁。
+      </h1>
+      <p class="mt-4 text-sm sm:text-base text-ink/60 max-w-xl">
+        作品、社群連結、最新內容和合作方式，都整理在下面這些格子裡——點一點、滑一滑，看看完整版本。
+      </p>
+    </div>
+  </header>
+
+  <!-- Bento 主格狀區 -->
+  <main class="max-w-6xl mx-auto px-5 sm:px-8 pb-16">
+    <div class="bento-grid">
+
+      <!-- 1. 個人簡介 -->
+      <section class="bento-card col-span-2 row-span-2 rounded-[32px] bg-white p-6 sm:p-7 flex flex-col justify-between">
+        <div class="flex items-start justify-between gap-4">
+          <div class="flex items-center gap-4">
+            <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-[22px] bg-gradient-to-br from-accent to-accent-dark flex items-center justify-center text-white text-2xl sm:text-3xl font-bold shrink-0">
+              知
+            </div>
+            <div>
+              <p class="font-semibold text-lg sm:text-xl">林知悠　Zoe Lin</p>
+              <p class="text-sm text-ink/55 mt-0.5">影像創作 × 慢活提案</p>
+            </div>
+          </div>
+          <span class="tag-pill shrink-0 bg-accent-soft text-accent-dark px-3 py-1.5 rounded-full font-medium">接案中</span>
+        </div>
+        <p class="mt-5 text-sm sm:text-[15px] leading-relaxed text-ink/75">
+          我是一個用鏡頭記錄生活的自由創作者，目前專注拍攝城市旅行與手沖咖啡的日常。希望透過影片與文字，把慢下來的生活方式分享給更多人；也接拍品牌故事與質感短影片，歡迎一起合作。
+        </p>
+        <div class="mt-5 flex flex-wrap gap-2">
+          <span class="tag-pill bg-ink/5 px-3 py-1.5 rounded-full text-ink/60">台北</span>
+          <span class="tag-pill bg-ink/5 px-3 py-1.5 rounded-full text-ink/60">影片剪輯</span>
+          <span class="tag-pill bg-ink/5 px-3 py-1.5 rounded-full text-ink/60">品牌合作</span>
+          <span class="tag-pill bg-ink/5 px-3 py-1.5 rounded-full text-ink/60">手沖咖啡</span>
+        </div>
+      </section>
+
+      <!-- 2. Instagram -->
+      <section class="bento-card col-span-1 row-span-1 rounded-[26px] bg-accent text-white p-5 flex flex-col justify-between">
+        <div class="flex items-center justify-between">
+          <span class="font-semibold text-sm">Instagram</span>
+          <span class="text-xs opacity-80">@zoeyulin.studio</span>
+        </div>
+        <div>
+          <p class="text-2xl font-bold">12.4萬</p>
+          <p class="text-xs opacity-80 mt-0.5">位追蹤者</p>
+        </div>
+      </section>
+
+      <!-- 3. 數據總覽 -->
+      <section class="bento-card col-span-1 row-span-1 rounded-[26px] bg-white p-5 flex flex-col justify-between">
+        <p class="text-xs font-medium text-ink/45">累積數據總覽</p>
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-ink/55">YouTube 訂閱</span>
+            <span class="font-semibold">3.8萬</span>
+          </div>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-ink/55">累積觀看</span>
+            <span class="font-semibold">210萬</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. 最新影片 -->
+      <section class="bento-card col-span-2 row-span-1 rounded-[30px] bg-white p-5 sm:p-6 flex items-center gap-5">
+        <div class="w-24 h-20 sm:w-28 sm:h-24 rounded-2xl bg-gradient-to-br from-ink to-ink/70 shrink-0 relative overflow-hidden noise-dot flex items-center justify-center">
+          <div class="w-9 h-9 rounded-full bg-white/90 flex items-center justify-center">
+            <span class="text-ink text-sm" aria-hidden="true">▶</span>
+          </div>
+        </div>
+        <div class="min-w-0">
+          <p class="tag-pill text-accent-dark font-semibold mb-1">最新影片・YouTube</p>
+          <p class="font-semibold text-sm sm:text-base leading-snug truncate">台北巷弄咖啡店地圖｜一個人的小旅行</p>
+          <p class="text-xs text-ink/50 mt-1">觀看次數 8.2萬次　・　12:46</p>
+        </div>
+      </section>
+
+      <!-- 5. 作品集（可點擊展開） -->
+      <section id="portfolio-card" class="bento-card col-span-2 row-span-2 rounded-[32px] bg-white p-6 flex flex-col">
+        <div class="flex items-center justify-between mb-3">
+          <p class="font-semibold">作品集精選</p>
+          <span class="tag-pill text-ink/40">點一下看幕後故事</span>
+        </div>
+        <div class="grid grid-cols-2 gap-2.5">
+          <button type="button" class="portfolio-item is-active text-left rounded-2xl border border-ink/10 bg-paper p-3"
+            data-title="旅行紀錄片" data-desc="跟著三組旅人拍了一年的環島紀錄片，用鏡頭留下台灣小鎮的日常聲音。">
+            <p class="text-sm font-medium">旅行紀錄片</p>
+            <p class="text-[11px] text-ink/45 mt-0.5">2026・系列作品</p>
+          </button>
+          <button type="button" class="portfolio-item text-left rounded-2xl border border-ink/10 bg-paper p-3"
+            data-title="品牌合作短片" data-desc="與三個在地咖啡品牌合作的開箱短片，負責腳本、拍攝與剪輯全流程。">
+            <p class="text-sm font-medium">品牌合作短片</p>
+            <p class="text-[11px] text-ink/45 mt-0.5">2025・委託案</p>
+          </button>
+          <button type="button" class="portfolio-item text-left rounded-2xl border border-ink/10 bg-paper p-3"
+            data-title="手沖教學系列" data-desc="給新手的手沖教學影片系列，累積觀看超過 40 萬次，是我最受歡迎的單元。">
+            <p class="text-sm font-medium">手沖教學系列</p>
+            <p class="text-[11px] text-ink/45 mt-0.5">2025・教學內容</p>
+          </button>
+          <button type="button" class="portfolio-item text-left rounded-2xl border border-ink/10 bg-paper p-3"
+            data-title="城市攝影集" data-desc="每週固定一次的街拍練習，整理成線上攝影集，也曾在獨立書店小型展出。">
+            <p class="text-sm font-medium">城市攝影集</p>
+            <p class="text-[11px] text-ink/45 mt-0.5">持續更新中</p>
+          </button>
+        </div>
+        <div class="mt-3 flex-1 rounded-2xl bg-accent-soft/60 p-4 flex flex-col justify-center">
+          <p id="portfolio-detail-title" class="text-sm font-semibold text-accent-dark">旅行紀錄片</p>
+          <p id="portfolio-detail-desc" class="text-[13px] text-ink/65 mt-1 leading-relaxed">
+            跟著三組旅人拍了一年的環島紀錄片，用鏡頭留下台灣小鎮的日常聲音。
+          </p>
+        </div>
+      </section>
+
+      <!-- 6. 最新文章 -->
+      <section class="bento-card col-span-1 row-span-2 rounded-[30px] bg-white p-5 flex flex-col justify-between">
+        <div>
+          <p class="tag-pill text-accent-dark font-semibold mb-2">最新文章</p>
+          <p class="font-semibold text-sm leading-snug">我是怎麼開始自由接案的？給想轉職創作者的三個建議</p>
+          <p class="text-xs text-ink/50 mt-2">刊登於個人部落格・閱讀時間約 6 分鐘</p>
+        </div>
+        <a href="#" class="mt-4 inline-flex items-center justify-center gap-1.5 text-sm font-medium border border-ink/15 rounded-full py-2.5 hover:bg-ink hover:text-paper transition-colors btn-press">
+          閱讀全文
+          <span aria-hidden="true">→</span>
+        </a>
+      </section>
+
+      <!-- 7. 聯絡方式（複製信箱） -->
+      <section id="contact-card" class="bento-card col-span-1 row-span-1 rounded-[26px] bg-white p-5 flex flex-col justify-between">
+        <p class="text-xs font-medium text-ink/45">聯絡方式</p>
+        <div>
+          <p class="text-sm font-medium truncate">hello@zoeyulin.studio</p>
+          <button
+            type="button"
+            id="copy-email-btn"
+            onclick="copyEmail()"
+            class="btn-press mt-2 w-full inline-flex items-center justify-center gap-1.5 text-xs font-semibold bg-ink text-paper rounded-full py-2 hover:bg-accent transition-colors"
+          >
+            複製信箱
+          </button>
+        </div>
+      </section>
+
+      <!-- 8. Threads -->
+      <section class="bento-card col-span-1 row-span-1 rounded-[26px] bg-white p-5 flex flex-col justify-between">
+        <div class="flex items-center justify-between">
+          <span class="font-semibold text-sm">Threads</span>
+          <span class="text-xs text-ink/40">@zoeyulin</span>
+        </div>
+        <p class="text-xs text-ink/55 leading-relaxed">
+          日常碎念、拍攝幕後花絮與接案心得，更新比較隨性。
+        </p>
+      </section>
+
+      <!-- 9. 合作邀約 -->
+      <section id="collab-card" class="bento-card col-span-1 row-span-1 rounded-[26px] bg-ink text-paper p-5 flex flex-col justify-between">
+        <p class="text-xs font-medium text-paper/55">有合作想法？</p>
+        <button
+          type="button"
+          onclick="openCollabMail()"
+          class="btn-press w-full inline-flex items-center justify-center gap-1.5 text-sm font-semibold bg-accent text-white rounded-full py-2.5 hover:bg-accent-dark transition-colors"
+        >
+          邀約合作
+          <span aria-hidden="true">↗</span>
+        </button>
+      </section>
+
+      <!-- 10. 電子報訂閱 -->
+      <section class="bento-card col-span-2 row-span-1 rounded-[30px] bg-white p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center gap-4">
+        <div class="shrink-0">
+          <p class="font-semibold text-sm">訂閱電子報</p>
+          <p class="text-xs text-ink/50 mt-1">每月一次，分享創作幕後與私藏清單。</p>
+        </div>
+        <form id="newsletter-form" class="flex-1 flex items-center gap-2" onsubmit="handleNewsletter(event)">
+          <input
+            type="email"
+            required
+            placeholder="輸入你的電子郵件"
+            class="flex-1 min-w-0 text-sm bg-paper border border-ink/10 rounded-full px-4 py-2.5 outline-none focus:border-accent transition-colors"
+          >
+          <button type="submit" class="btn-press shrink-0 text-sm font-semibold bg-ink text-paper rounded-full px-4 py-2.5 hover:bg-accent transition-colors">
+            訂閱
+          </button>
+        </form>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="max-w-6xl mx-auto px-5 sm:px-8 pb-10 text-xs text-ink/40 flex items-center justify-between">
+    <span>© 2026 林知悠　CreatorBox</span>
+    <span>資料更新於 2026 年 11 月</span>
+  </footer>
+
+  <!-- 複製成功提示 -->
+  <div
+    id="copy-tip"
+    class="fixed bottom-6 left-1/2 -translate-x-1/2 translate-y-2 opacity-0 bg-ink text-paper text-sm font-medium px-5 py-3 rounded-full shadow-xl pointer-events-none z-50"
+  >
+    已複製到剪貼簿！
+  </div>
+
+<script>
+  // 複製信箱並顯示提示
+  function showTip(text) {
+    var tip = document.getElementById('copy-tip');
+    tip.textContent = text;
+    tip.classList.remove('opacity-0');
+    tip.classList.add('opacity-100');
+    clearTimeout(window.__tipTimer);
+    window.__tipTimer = setTimeout(function () {
+      tip.classList.remove('opacity-100');
+      tip.classList.add('opacity-0');
+    }, 1800);
+  }
+
+  function fallbackCopy(email) {
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = email;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      var ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      showTip(ok ? '已複製到剪貼簿！' : '複製失敗，請手動複製');
+    } catch (err) {
+      showTip('複製失敗，請手動複製');
+    }
+  }
+
+  function copyEmail() {
+    var email = 'hello@zoeyulin.studio';
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(email).then(function () {
+        showTip('已複製到剪貼簿！');
+      }).catch(function () {
+        fallbackCopy(email);
+      });
+    } else {
+      fallbackCopy(email);
+    }
+  }
+
+  // 合作邀約：帶主旨開啟信件視窗
+  function openCollabMail() {
+    var subject = encodeURIComponent('合作邀約洽詢');
+    var body = encodeURIComponent('嗨知悠，我們想和你討論一個合作案……');
+    window.location.href = 'mailto:hello@zoeyulin.studio?subject=' + subject + '&body=' + body;
+  }
+
+  // 電子報送出（純前端示範，無後端串接）
+  function handleNewsletter(event) {
+    event.preventDefault();
+    var form = event.target;
+    showTip('已送出！感謝訂閱');
+    form.reset();
+  }
+
+  // 作品集：點擊展開對應描述
+  document.addEventListener('DOMContentLoaded', function () {
+    var items = document.querySelectorAll('.portfolio-item');
+    var titleEl = document.getElementById('portfolio-detail-title');
+    var descEl = document.getElementById('portfolio-detail-desc');
+
+    items.forEach(function (item) {
+      item.addEventListener('click', function () {
+        items.forEach(function (el) { el.classList.remove('is-active'); });
+        item.classList.add('is-active');
+        titleEl.textContent = item.getAttribute('data-title');
+        descEl.textContent = item.getAttribute('data-desc');
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

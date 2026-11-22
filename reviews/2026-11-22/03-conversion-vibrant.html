@@ -1,0 +1,665 @@
+<!-- style #21 Conversion-Optimized + Vibrant Block -->
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>好課力 CourseBoost｜28天全端工程師養成實戰課</title>
+<meta name="description" content="好課力 CourseBoost 全端工程師實戰課，手把手帶你做出三個上線作品，限時早鳥優惠倒數中。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --cyan:#00ffff;
+    --purple:#bf00ff;
+    --green:#39ff14;
+    --pink:#ff1493;
+    --ink:#0a0a0f;
+  }
+  *{box-sizing:border-box;}
+  html,body{background:var(--ink);}
+  body{
+    font-family:'Noto Sans TC','Space Grotesk',sans-serif;
+    color:#0a0a0f;
+    background:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4,.font-display{
+    font-family:'Space Grotesk','Noto Sans TC',sans-serif;
+  }
+  .block-border{
+    border:4px solid #000;
+  }
+  .block-shadow{
+    box-shadow:8px 8px 0 #000;
+  }
+  .block-shadow-lg{
+    box-shadow:12px 12px 0 #000;
+  }
+  .btn-pop{
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .btn-pop:hover{
+    transform:translate(-3px,-3px);
+    box-shadow:11px 11px 0 #000;
+  }
+  .btn-pop:active{
+    transform:translate(0,0);
+    box-shadow:4px 4px 0 #000;
+  }
+  .card-pop{
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .card-pop:hover{
+    transform:translate(-4px,-4px);
+    box-shadow:14px 14px 0 #000;
+  }
+  .marquee-track{
+    display:flex;
+    width:max-content;
+    animation:marquee 22s linear infinite;
+  }
+  @keyframes marquee{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+  .accordion-content{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .35s ease;
+  }
+  .accordion-content.open{
+    max-height:800px;
+  }
+  .chev{
+    transition:transform .25s ease;
+  }
+  .chev.open{
+    transform:rotate(180deg);
+  }
+  .toggle-dot{
+    transition:transform .2s ease;
+  }
+  .noise-dots{
+    background-image: radial-gradient(#000 1px, transparent 1px);
+    background-size: 14px 14px;
+  }
+  ::selection{
+    background:var(--pink);
+    color:#000;
+  }
+  .sticky-cta{
+    animation:slideup .4s ease both;
+  }
+  @keyframes slideup{
+    from{transform:translateY(100%);}
+    to{transform:translateY(0);}
+  }
+</style>
+</head>
+<body class="antialiased">
+
+<!-- NAV -->
+<nav class="sticky top-0 z-50 bg-black block-border border-t-0 border-x-0">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <div class="w-10 h-10 bg-[color:var(--cyan)] block-border flex items-center justify-center font-display font-700 text-black text-sm">好</div>
+      <span class="font-display font-700 text-lg sm:text-xl text-white tracking-tight">好課力 <span class="text-[color:var(--green)]">CourseBoost</span></span>
+    </div>
+    <a href="#pricing" class="hidden sm:inline-block bg-[color:var(--pink)] text-black font-display font-700 px-4 py-2 block-border block-shadow btn-pop text-sm">立即搶名額</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="relative noise-dots bg-black overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-14 pb-16 grid lg:grid-cols-2 gap-10 items-center">
+    <div>
+      <span class="inline-block bg-[color:var(--green)] text-black font-display font-700 text-xs sm:text-sm px-3 py-1.5 block-border">限量開放報名中・本梯次剩 14 席</span>
+      <h1 class="font-display font-700 text-white text-4xl sm:text-5xl lg:text-6xl leading-tight mt-5">
+        28 天，<br>
+        <span class="bg-[color:var(--purple)] text-white px-2">從上班族</span><br>
+        變身全端工程師
+      </h1>
+      <p class="text-gray-300 text-base sm:text-lg mt-6 leading-relaxed">
+        好課力 CourseBoost 用「實戰專題」取代死背理論，業師全程陪跑，結業即可帶著 <span class="text-[color:var(--cyan)] font-700">3 個真實上線作品</span> 投遞履歷，面試即戰力全開。
+      </p>
+      <div class="flex flex-wrap gap-4 mt-8">
+        <a href="#pricing" class="bg-[color:var(--cyan)] text-black font-display font-700 px-6 py-3.5 block-border block-shadow btn-pop text-base sm:text-lg">查看優惠方案 →</a>
+        <a href="#curriculum" class="bg-white text-black font-display font-700 px-6 py-3.5 block-border block-shadow btn-pop text-base sm:text-lg">免費索取課程大綱</a>
+      </div>
+      <div class="flex flex-wrap gap-6 mt-8 text-gray-400 text-sm">
+        <span>✅ 不滿意 7 天全額退費</span>
+        <span>✅ 終身回看教材</span>
+        <span>✅ 專屬職涯顧問</span>
+      </div>
+    </div>
+
+    <!-- Countdown block -->
+    <div class="bg-[color:var(--purple)] block-border block-shadow-lg p-6 sm:p-8">
+      <p class="font-display font-700 text-white text-lg sm:text-xl mb-1">早鳥優惠倒數中</p>
+      <p class="text-white/80 text-sm mb-5">倒數結束後，課程方案全面恢復原價，立即報名享最大折扣</p>
+      <div class="grid grid-cols-4 gap-2 sm:gap-3" id="countdown">
+        <div class="bg-black block-border text-center py-3 sm:py-4">
+          <div class="font-display font-700 text-[color:var(--cyan)] text-2xl sm:text-4xl" id="cd-days">00</div>
+          <div class="text-white text-xs mt-1">天</div>
+        </div>
+        <div class="bg-black block-border text-center py-3 sm:py-4">
+          <div class="font-display font-700 text-[color:var(--cyan)] text-2xl sm:text-4xl" id="cd-hours">00</div>
+          <div class="text-white text-xs mt-1">時</div>
+        </div>
+        <div class="bg-black block-border text-center py-3 sm:py-4">
+          <div class="font-display font-700 text-[color:var(--cyan)] text-2xl sm:text-4xl" id="cd-mins">00</div>
+          <div class="text-white text-xs mt-1">分</div>
+        </div>
+        <div class="bg-black block-border text-center py-3 sm:py-4">
+          <div class="font-display font-700 text-[color:var(--cyan)] text-2xl sm:text-4xl" id="cd-secs">00</div>
+          <div class="text-white text-xs mt-1">秒</div>
+        </div>
+      </div>
+      <a href="#pricing" class="block text-center mt-6 bg-[color:var(--green)] text-black font-display font-700 px-6 py-3.5 block-border block-shadow btn-pop">鎖定早鳥價 →</a>
+    </div>
+  </div>
+
+  <!-- marquee trust strip -->
+  <div class="bg-[color:var(--pink)] border-t-4 border-black py-3 overflow-hidden">
+    <div class="marquee-track font-display font-700 text-black text-sm sm:text-base">
+      <span class="px-6 whitespace-nowrap">★ 12,847+ 位學員信賴</span>
+      <span class="px-6 whitespace-nowrap">★ 課程滿意度 4.9 / 5</span>
+      <span class="px-6 whitespace-nowrap">★ 結業接案成功率 87%</span>
+      <span class="px-6 whitespace-nowrap">★ 平均薪資成長 42%</span>
+      <span class="px-6 whitespace-nowrap">★ 12,847+ 位學員信賴</span>
+      <span class="px-6 whitespace-nowrap">★ 課程滿意度 4.9 / 5</span>
+      <span class="px-6 whitespace-nowrap">★ 結業接案成功率 87%</span>
+      <span class="px-6 whitespace-nowrap">★ 平均薪資成長 42%</span>
+    </div>
+  </div>
+</header>
+
+<!-- SOCIAL PROOF NUMBERS -->
+<section class="bg-[color:var(--green)] block-border border-x-0">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-10 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 text-center">
+    <div class="bg-black block-border p-4 sm:p-6">
+      <div class="font-display font-700 text-[color:var(--cyan)] text-3xl sm:text-4xl">12,847+</div>
+      <div class="text-white text-xs sm:text-sm mt-2">位學員已加入</div>
+    </div>
+    <div class="bg-black block-border p-4 sm:p-6">
+      <div class="font-display font-700 text-[color:var(--pink)] text-3xl sm:text-4xl">4.9 / 5</div>
+      <div class="text-white text-xs sm:text-sm mt-2">課程滿意度評分</div>
+    </div>
+    <div class="bg-black block-border p-4 sm:p-6">
+      <div class="font-display font-700 text-[color:var(--purple)] text-3xl sm:text-4xl">87%</div>
+      <div class="text-white text-xs sm:text-sm mt-2">結業後成功接案 / 轉職</div>
+    </div>
+    <div class="bg-black block-border p-4 sm:p-6">
+      <div class="font-display font-700 text-[color:var(--green)] text-3xl sm:text-4xl">42%</div>
+      <div class="text-white text-xs sm:text-sm mt-2">平均薪資成長幅度</div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUE PROPS -->
+<section class="bg-white py-16 sm:py-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="text-center mb-12">
+      <span class="inline-block bg-black text-[color:var(--green)] font-display font-700 px-4 py-1.5 text-sm">為什麼選好課力</span>
+      <h2 class="font-display font-700 text-3xl sm:text-4xl mt-4">別再瞎自學，我們帶你走最短路徑</h2>
+      <p class="text-gray-600 mt-3 max-w-2xl mx-auto">市面上課程很多，但能真正讓你做出作品、拿到面試機會的很少。這是我們和一般線上課程不一樣的四件事。</p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+      <div class="bg-[color:var(--cyan)] block-border block-shadow card-pop p-6">
+        <div class="text-3xl mb-3">🧑‍💻</div>
+        <h3 class="font-display font-700 text-lg mb-2">十年業師親自帶班</h3>
+        <p class="text-sm text-black/80">非錄播填鴨，每週直播實戰拆題，隨時發問、隨時修正你的程式碼。</p>
+      </div>
+      <div class="bg-[color:var(--purple)] block-border block-shadow card-pop p-6 text-white">
+        <div class="text-3xl mb-3">🚀</div>
+        <h3 class="font-display font-700 text-lg mb-2">3 個可上線真實作品</h3>
+        <p class="text-sm text-white/85">用真實專題取代練習題，結業即可放進作品集，面試官看得懂也看得上。</p>
+      </div>
+      <div class="bg-[color:var(--green)] block-border block-shadow card-pop p-6">
+        <div class="text-3xl mb-3">♾️</div>
+        <h3 class="font-display font-700 text-lg mb-2">終身回看＋社群支援</h3>
+        <p class="text-sm text-black/80">教材持續更新終身可看，畢業後仍有互助社群與每月職涯直播。</p>
+      </div>
+      <div class="bg-[color:var(--pink)] block-border block-shadow card-pop p-6">
+        <div class="text-3xl mb-3">🛡️</div>
+        <h3 class="font-display font-700 text-lg mb-2">保證班學習制度</h3>
+        <p class="text-sm text-black/80">進度落後主動約談關心，未達到結業標準免費延展，直到你真正學會。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CURRICULUM -->
+<section id="curriculum" class="bg-black py-16 sm:py-20 noise-dots">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6">
+    <div class="text-center mb-10">
+      <span class="inline-block bg-[color:var(--cyan)] text-black font-display font-700 px-4 py-1.5 text-sm">課程大綱</span>
+      <h2 class="font-display font-700 text-3xl sm:text-4xl text-white mt-4">5 大模組，28 天打造完整實戰能力</h2>
+      <p class="text-gray-400 mt-3">點擊展開每個模組，看看你會學到什麼</p>
+    </div>
+
+    <div class="space-y-4" id="accordion">
+      <!-- module 1 -->
+      <div class="bg-white block-border block-shadow">
+        <button class="acc-trigger w-full flex items-center justify-between p-5 text-left">
+          <span class="font-display font-700 text-base sm:text-lg"><span class="text-[color:var(--purple)]">模組一・</span>程式設計基礎與開發環境建置</span>
+          <span class="chev text-2xl font-display">⌄</span>
+        </button>
+        <div class="acc-content accordion-content px-5">
+          <ul class="pb-5 space-y-2 text-sm text-gray-700 list-disc list-inside">
+            <li>命令列與 Git 版本控制實作</li>
+            <li>JavaScript 核心語法與邏輯訓練</li>
+            <li>開發工具鏈設定（VS Code、Node.js、npm）</li>
+            <li>第一個小專案：互動式計算機</li>
+          </ul>
+        </div>
+      </div>
+      <!-- module 2 -->
+      <div class="bg-white block-border block-shadow">
+        <button class="acc-trigger w-full flex items-center justify-between p-5 text-left">
+          <span class="font-display font-700 text-base sm:text-lg"><span class="text-[color:var(--purple)]">模組二・</span>前端介面實作（HTML / CSS / React）</span>
+          <span class="chev text-2xl font-display">⌄</span>
+        </button>
+        <div class="acc-content accordion-content px-5">
+          <ul class="pb-5 space-y-2 text-sm text-gray-700 list-disc list-inside">
+            <li>響應式版面設計與 Flexbox / Grid</li>
+            <li>React 元件化思維與狀態管理</li>
+            <li>串接公開 API 製作動態頁面</li>
+            <li>專題一：電商前台頁面實作</li>
+          </ul>
+        </div>
+      </div>
+      <!-- module 3 -->
+      <div class="bg-white block-border block-shadow">
+        <button class="acc-trigger w-full flex items-center justify-between p-5 text-left">
+          <span class="font-display font-700 text-base sm:text-lg"><span class="text-[color:var(--purple)]">模組三・</span>後端伺服器與資料庫</span>
+          <span class="chev text-2xl font-display">⌄</span>
+        </button>
+        <div class="acc-content accordion-content px-5">
+          <ul class="pb-5 space-y-2 text-sm text-gray-700 list-disc list-inside">
+            <li>Node.js / Express 建立 API 伺服器</li>
+            <li>PostgreSQL 資料庫設計與查詢語法</li>
+            <li>使用者驗證與權限控管</li>
+            <li>專題二：會員系統後台開發</li>
+          </ul>
+        </div>
+      </div>
+      <!-- module 4 -->
+      <div class="bg-white block-border block-shadow">
+        <button class="acc-trigger w-full flex items-center justify-between p-5 text-left">
+          <span class="font-display font-700 text-base sm:text-lg"><span class="text-[color:var(--purple)]">模組四・</span>全端專題整合與雲端部署</span>
+          <span class="chev text-2xl font-display">⌄</span>
+        </button>
+        <div class="acc-content accordion-content px-5">
+          <ul class="pb-5 space-y-2 text-sm text-gray-700 list-disc list-inside">
+            <li>前後端整合串接與測試</li>
+            <li>雲端部署實務（Vercel / Render）</li>
+            <li>效能優化與錯誤排查技巧</li>
+            <li>專題三：個人品牌全端作品</li>
+          </ul>
+        </div>
+      </div>
+      <!-- module 5 -->
+      <div class="bg-white block-border block-shadow">
+        <button class="acc-trigger w-full flex items-center justify-between p-5 text-left">
+          <span class="font-display font-700 text-base sm:text-lg"><span class="text-[color:var(--purple)]">模組五・</span>職涯檢定與作品集診斷</span>
+          <span class="chev text-2xl font-display">⌄</span>
+        </button>
+        <div class="acc-content accordion-content px-5">
+          <ul class="pb-5 space-y-2 text-sm text-gray-700 list-disc list-inside">
+            <li>一對一履歷健檢與作品集優化</li>
+            <li>模擬面試與技術考題演練</li>
+            <li>職缺投遞策略與薪資談判技巧</li>
+            <li>結業專題發表與業師評分</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTRUCTOR -->
+<section class="bg-[color:var(--purple)] py-16 sm:py-20 block-border border-x-0">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 grid sm:grid-cols-3 gap-8 items-center">
+    <div class="bg-black block-border block-shadow aspect-square flex items-center justify-center">
+      <span class="font-display font-700 text-6xl text-[color:var(--green)]">陳</span>
+    </div>
+    <div class="sm:col-span-2 text-white">
+      <span class="inline-block bg-[color:var(--pink)] text-black font-display font-700 px-3 py-1 text-xs mb-3">主理業師</span>
+      <h3 class="font-display font-700 text-2xl sm:text-3xl mb-2">陳文翰・前電商平台技術主管</h3>
+      <p class="text-white/85 leading-relaxed">十年全端開發經驗，曾帶領 20 人工程團隊打造日活百萬用戶產品，累計培訓超過 3,000 名轉職學員。擅長把艱澀的技術觀念拆解成好懂的步驟，陪你從寫出第一行程式到拿到第一份工程師職缺。</p>
+      <div class="flex flex-wrap gap-3 mt-5">
+        <span class="bg-black text-[color:var(--cyan)] font-display font-700 text-xs px-3 py-1.5 block-border">10 年業界經驗</span>
+        <span class="bg-black text-[color:var(--green)] font-display font-700 text-xs px-3 py-1.5 block-border">3,000+ 培訓學員</span>
+        <span class="bg-black text-[color:var(--pink)] font-display font-700 text-xs px-3 py-1.5 block-border">企業顧問經歷</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="bg-white py-16 sm:py-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="text-center mb-12">
+      <span class="inline-block bg-black text-[color:var(--pink)] font-display font-700 px-4 py-1.5 text-sm">學員怎麼說</span>
+      <h2 class="font-display font-700 text-3xl sm:text-4xl mt-4">他們都靠這堂課轉職成功</h2>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+      <div class="bg-[color:var(--cyan)] block-border block-shadow card-pop p-5">
+        <div class="text-[color:var(--pink)] mb-2">★★★★★</div>
+        <p class="text-sm text-black/85 mb-4">「原本是行銷企劃，完全沒寫過程式。28 天後我做出自己的作品集網站，兩週內就拿到工程師職缺的面試通知。」</p>
+        <div class="font-display font-700 text-sm">王曉涵</div>
+        <div class="text-xs text-black/70">行銷企劃 → 前端工程師</div>
+      </div>
+      <div class="bg-[color:var(--green)] block-border block-shadow card-pop p-5">
+        <div class="text-[color:var(--purple)] mb-2">★★★★★</div>
+        <p class="text-sm text-black/85 mb-4">「餐飲業做了八年，一直想轉職卻不知道怎麼開始。業師很有耐心，每次卡關都能很快得到回覆，現在已經在接案了。」</p>
+        <div class="font-display font-700 text-sm">陳柏宇</div>
+        <div class="text-xs text-black/70">餐飲業主 → 自由接案工程師</div>
+      </div>
+      <div class="bg-[color:var(--pink)] block-border block-shadow card-pop p-5">
+        <div class="text-[color:var(--cyan)] mb-2">★★★★★</div>
+        <p class="text-sm text-black/85 mb-4">「學校教的理論太多，實作太少。這堂課讓我在畢業前就有三個真實作品，面試時主管直接說『你比很多應屆生準備更完整』。」</p>
+        <div class="font-display font-700 text-sm">林宜潔</div>
+        <div class="text-xs text-black/70">應屆畢業生 → 新創後端工程師</div>
+      </div>
+      <div class="bg-[color:var(--purple)] block-border block-shadow card-pop p-5 text-white">
+        <div class="text-[color:var(--green)] mb-2">★★★★★</div>
+        <p class="text-sm text-white/90 mb-4">「本來只是想學個技能接案賺外快，沒想到三個月後薪資成長超過四成，直接轉為正職全端工程師。」</p>
+        <div class="font-display font-700 text-sm">李承恩</div>
+        <div class="text-xs text-white/75">自由接案者 → 全端工程師</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="bg-black py-16 sm:py-20 noise-dots">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="text-center mb-10">
+      <span class="inline-block bg-[color:var(--green)] text-black font-display font-700 px-4 py-1.5 text-sm">選擇你的方案</span>
+      <h2 class="font-display font-700 text-3xl sm:text-4xl text-white mt-4">名額有限，額滿即停止報名</h2>
+      <p class="text-gray-400 mt-3">早鳥優惠倒數中，立即鎖定最低價格</p>
+
+      <!-- toggle -->
+      <div class="inline-flex items-center gap-3 mt-8 bg-white block-border p-1.5">
+        <button id="btn-monthly" class="pricing-toggle-btn font-display font-700 text-sm px-5 py-2.5 bg-black text-[color:var(--cyan)]" data-mode="monthly">月繳方案</button>
+        <button id="btn-once" class="pricing-toggle-btn font-display font-700 text-sm px-5 py-2.5 text-black" data-mode="once">一次付清（省更多）</button>
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-3 gap-6">
+      <!-- plan 1 -->
+      <div class="bg-white block-border block-shadow card-pop p-6 flex flex-col">
+        <h3 class="font-display font-700 text-xl mb-1">基礎方案</h3>
+        <p class="text-sm text-gray-600 mb-5">適合想先入門、打好基礎的你</p>
+        <div class="mb-5">
+          <div class="flex items-end gap-2">
+            <span class="font-display font-700 text-4xl" data-price-once="16800" data-price-monthly="1499">NT$ 16,800</span>
+            <span class="text-sm text-gray-500 price-unit">一次付清</span>
+          </div>
+          <div class="text-xs text-gray-400 mt-1 price-sub"></div>
+        </div>
+        <ul class="text-sm text-gray-700 space-y-2 mb-6 flex-1">
+          <li>✓ 模組一～三完整課程</li>
+          <li>✓ 1 個實戰專題作品</li>
+          <li>✓ 社群問答支援</li>
+          <li>✓ 教材 12 個月回看</li>
+        </ul>
+        <a href="#" class="text-center bg-black text-white font-display font-700 py-3 block-border btn-pop">選擇基礎方案</a>
+      </div>
+
+      <!-- plan 2 recommended -->
+      <div class="bg-[color:var(--pink)] block-border block-shadow-lg card-pop p-6 flex flex-col relative lg:scale-105">
+        <span class="absolute -top-4 left-1/2 -translate-x-1/2 bg-[color:var(--green)] text-black font-display font-700 text-xs px-4 py-1.5 block-border whitespace-nowrap">🔥 最多人選擇</span>
+        <h3 class="font-display font-700 text-xl mb-1 mt-3">進階方案</h3>
+        <p class="text-sm text-black/75 mb-5">最多人選擇，完整轉職所需技能</p>
+        <div class="mb-5">
+          <div class="flex items-end gap-2">
+            <span class="font-display font-700 text-4xl" data-price-once="29800" data-price-monthly="2650">NT$ 29,800</span>
+            <span class="text-sm text-black/70 price-unit">一次付清</span>
+          </div>
+          <div class="text-xs text-black/60 mt-1 price-sub"></div>
+        </div>
+        <ul class="text-sm text-black/85 space-y-2 mb-6 flex-1">
+          <li>✓ 模組一～五完整課程</li>
+          <li>✓ 3 個實戰專題作品</li>
+          <li>✓ 業師一對一每月諮詢</li>
+          <li>✓ 履歷 / 作品集健檢</li>
+          <li>✓ 教材終身回看</li>
+        </ul>
+        <a href="#" class="text-center bg-black text-white font-display font-700 py-3 block-border btn-pop">選擇進階方案</a>
+      </div>
+
+      <!-- plan 3 -->
+      <div class="bg-[color:var(--cyan)] block-border block-shadow card-pop p-6 flex flex-col">
+        <h3 class="font-display font-700 text-xl mb-1">全能方案</h3>
+        <p class="text-sm text-black/75 mb-5">含就業保證與無限次面試輔導</p>
+        <div class="mb-5">
+          <div class="flex items-end gap-2">
+            <span class="font-display font-700 text-4xl" data-price-once="49800" data-price-monthly="4400">NT$ 49,800</span>
+            <span class="text-sm text-black/70 price-unit">一次付清</span>
+          </div>
+          <div class="text-xs text-black/60 mt-1 price-sub"></div>
+        </div>
+        <ul class="text-sm text-black/85 space-y-2 mb-6 flex-1">
+          <li>✓ 進階方案所有內容</li>
+          <li>✓ 無限次模擬面試輔導</li>
+          <li>✓ 企業內推媒合機會</li>
+          <li>✓ 90 天未就業延長陪跑</li>
+          <li>✓ 專屬職涯顧問一對一</li>
+        </ul>
+        <a href="#" class="text-center bg-black text-white font-display font-700 py-3 block-border btn-pop">選擇全能方案</a>
+      </div>
+    </div>
+
+    <p class="text-center text-gray-400 text-sm mt-8">✅ 七天不滿意全額退費・✅ 月繳方案為 12 期分期・✅ 可開立公司發票報帳</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="bg-white py-16 sm:py-20">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6">
+    <div class="text-center mb-10">
+      <span class="inline-block bg-black text-[color:var(--cyan)] font-display font-700 px-4 py-1.5 text-sm">常見問題</span>
+      <h2 class="font-display font-700 text-3xl sm:text-4xl mt-4">報名前，你可能想先知道</h2>
+    </div>
+    <div class="space-y-4" id="faq-accordion">
+      <div class="block-border bg-[color:var(--green)]/20">
+        <button class="faq-trigger w-full flex items-center justify-between p-5 text-left">
+          <span class="font-display font-700">完全沒有程式基礎，也能學會嗎？</span>
+          <span class="chev text-xl font-display">⌄</span>
+        </button>
+        <div class="faq-content accordion-content px-5">
+          <p class="pb-5 text-sm text-gray-700">可以。課程模組一會從最基礎的邏輯與語法開始教學，超過七成學員在報名前都是零基礎，業師會依照你的進度調整教學節奏。</p>
+        </div>
+      </div>
+      <div class="block-border bg-[color:var(--purple)]/15">
+        <button class="faq-trigger w-full flex items-center justify-between p-5 text-left">
+          <span class="font-display font-700">每天需要花多少時間學習？</span>
+          <span class="chev text-xl font-display">⌄</span>
+        </button>
+        <div class="faq-content accordion-content px-5">
+          <p class="pb-5 text-sm text-gray-700">建議每天投入 1.5 至 2 小時，全職學習者可以更快完成；課程採非同步學習，進度可依個人時間彈性調整，並保留教材供延後觀看。</p>
+        </div>
+      </div>
+      <div class="block-border bg-[color:var(--pink)]/15">
+        <button class="faq-trigger w-full flex items-center justify-between p-5 text-left">
+          <span class="font-display font-700">月繳方案和一次付清差別是什麼？</span>
+          <span class="chev text-xl font-display">⌄</span>
+        </button>
+        <div class="faq-content accordion-content px-5">
+          <p class="pb-5 text-sm text-gray-700">一次付清可享早鳥最大折扣，月繳方案則分 12 期支付、負擔較輕，兩種方案享有的課程內容完全相同，只是付款方式不同。</p>
+        </div>
+      </div>
+      <div class="block-border bg-[color:var(--cyan)]/15">
+        <button class="faq-trigger w-full flex items-center justify-between p-5 text-left">
+          <span class="font-display font-700">結業後真的找得到工作嗎？</span>
+          <span class="chev text-xl font-display">⌄</span>
+        </button>
+        <div class="faq-content accordion-content px-5">
+          <p class="pb-5 text-sm text-gray-700">我們無法保證每位學員的結果，但全能方案提供履歷健檢、模擬面試與企業內推媒合，過往學員結業後三個月內成功接案或轉職的比例達 87%。</p>
+        </div>
+      </div>
+      <div class="block-border bg-[color:var(--green)]/20">
+        <button class="faq-trigger w-full flex items-center justify-between p-5 text-left">
+          <span class="font-display font-700">可以申請退費嗎？</span>
+          <span class="chev text-xl font-display">⌄</span>
+        </button>
+        <div class="faq-content accordion-content px-5">
+          <p class="pb-5 text-sm text-gray-700">開課後七天內，若上課進度未超過模組一的 30%，皆可申請全額退費，詳細規則於報名頁面與購買合約中清楚列明。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="bg-[color:var(--purple)] py-16 sm:py-20 block-border border-x-0">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+    <h2 class="font-display font-700 text-3xl sm:text-4xl lg:text-5xl text-white leading-tight">
+      別讓這次機會<br class="sm:hidden">又變成「以後再說」
+    </h2>
+    <p class="text-white/85 mt-5 text-base sm:text-lg max-w-xl mx-auto">本梯次名額有限，額滿即停止報名。現在加入，用 28 天換一個不一樣的職涯起點。</p>
+    <a href="#pricing" class="inline-block mt-8 bg-[color:var(--green)] text-black font-display font-700 px-8 py-4 text-lg block-border block-shadow btn-pop">立即鎖定早鳥優惠 →</a>
+    <div class="flex flex-wrap justify-center gap-6 mt-8 text-white/70 text-sm">
+      <span>🔒 安全付款</span>
+      <span>↩️ 七天退費保障</span>
+      <span>🎓 結業證書</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-black py-10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 border-b border-white/10">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-[color:var(--cyan)] block-border flex items-center justify-center font-display font-700 text-black text-xs">好</div>
+        <span class="font-display font-700 text-white">好課力 CourseBoost</span>
+      </div>
+      <div class="flex gap-5 text-gray-400 text-sm">
+        <a href="#curriculum" class="hover:text-white">課程大綱</a>
+        <a href="#pricing" class="hover:text-white">方案價格</a>
+        <a href="#" class="hover:text-white">關於我們</a>
+        <a href="#" class="hover:text-white">聯絡客服</a>
+      </div>
+    </div>
+    <p class="text-gray-500 text-xs mt-6 leading-relaxed">
+      好課力 CourseBoost 為線上技能課程服務品牌。頁面所列學員人數、滿意度與薪資成長數據，為截至本梯次開課前之歷史學員統計資料，實際學習成果因個人投入程度與背景條件而異，不構成就業或收入保證。
+    </p>
+    <p class="text-gray-600 text-xs mt-4">© 2026 好課力 CourseBoost．版權所有，轉載請註明出處。</p>
+  </div>
+</footer>
+
+<!-- sticky bottom CTA (mobile) -->
+<div class="sticky-cta fixed bottom-0 left-0 right-0 sm:hidden bg-[color:var(--green)] block-border border-b-0 p-3 flex items-center justify-between gap-3 z-50">
+  <span class="font-display font-700 text-black text-sm">早鳥優惠倒數中</span>
+  <a href="#pricing" class="bg-black text-white font-display font-700 text-sm px-4 py-2 block-border">立即搶名額</a>
+</div>
+
+<script>
+(function(){
+  // ---------- Countdown ----------
+  var target = new Date('2026-11-26T23:59:59+08:00').getTime();
+  function tick(){
+    var now = Date.now();
+    var diff = target - now;
+    if(diff < 0) diff = 0;
+    var d = Math.floor(diff / (1000*60*60*24));
+    var h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+    var m = Math.floor((diff % (1000*60*60)) / (1000*60));
+    var s = Math.floor((diff % (1000*60)) / 1000);
+    function pad(n){ return (n < 10 ? '0' : '') + n; }
+    var elD = document.getElementById('cd-days');
+    var elH = document.getElementById('cd-hours');
+    var elM = document.getElementById('cd-mins');
+    var elS = document.getElementById('cd-secs');
+    if(elD) elD.textContent = pad(d);
+    if(elH) elH.textContent = pad(h);
+    if(elM) elM.textContent = pad(m);
+    if(elS) elS.textContent = pad(s);
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  // ---------- Curriculum accordion ----------
+  document.querySelectorAll('.acc-trigger').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var content = btn.nextElementSibling;
+      var chevIcon = btn.querySelector('.chev');
+      var isOpen = content.classList.contains('open');
+      content.classList.toggle('open', !isOpen);
+      if(chevIcon) chevIcon.classList.toggle('open', !isOpen);
+    });
+  });
+
+  // ---------- FAQ accordion ----------
+  document.querySelectorAll('.faq-trigger').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var content = btn.nextElementSibling;
+      var chevIcon = btn.querySelector('.chev');
+      var isOpen = content.classList.contains('open');
+      content.classList.toggle('open', !isOpen);
+      if(chevIcon) chevIcon.classList.toggle('open', !isOpen);
+    });
+  });
+
+  // ---------- Pricing toggle (monthly / one-time) ----------
+  var btnMonthly = document.getElementById('btn-monthly');
+  var btnOnce = document.getElementById('btn-once');
+  var priceEls = document.querySelectorAll('[data-price-once]');
+
+  function fmt(n){
+    return 'NT$ ' + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  function renderPrices(mode){
+    priceEls.forEach(function(el){
+      if(mode === 'monthly'){
+        var monthly = parseInt(el.getAttribute('data-price-monthly'), 10);
+        el.textContent = fmt(monthly);
+        var unit = el.parentElement.querySelector('.price-unit');
+        var sub = el.parentElement.parentElement.querySelector('.price-sub');
+        if(unit) unit.textContent = '／月（共 12 期）';
+        if(sub) sub.textContent = '總計約 ' + fmt(monthly * 12);
+      } else {
+        var once = parseInt(el.getAttribute('data-price-once'), 10);
+        el.textContent = fmt(once);
+        var unit2 = el.parentElement.querySelector('.price-unit');
+        var sub2 = el.parentElement.parentElement.querySelector('.price-sub');
+        if(unit2) unit2.textContent = '一次付清';
+        if(sub2) sub2.textContent = '省下分期手續成本，最划算';
+      }
+    });
+  }
+
+  function setActive(mode){
+    if(mode === 'monthly'){
+      btnMonthly.classList.add('bg-black','text-[color:var(--cyan)]');
+      btnMonthly.classList.remove('text-black');
+      btnOnce.classList.remove('bg-black','text-[color:var(--cyan)]');
+      btnOnce.classList.add('text-black');
+    } else {
+      btnOnce.classList.add('bg-black','text-[color:var(--cyan)]');
+      btnOnce.classList.remove('text-black');
+      btnMonthly.classList.remove('bg-black','text-[color:var(--cyan)]');
+      btnMonthly.classList.add('text-black');
+    }
+    renderPrices(mode);
+  }
+
+  btnMonthly.addEventListener('click', function(){ setActive('monthly'); });
+  btnOnce.addEventListener('click', function(){ setActive('once'); });
+
+  // default: one-time pricing shown first
+  setActive('once');
+})();
+</script>
+
+</body>
+</html>
