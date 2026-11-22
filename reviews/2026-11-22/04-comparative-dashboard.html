@@ -1,0 +1,671 @@
+<!-- style #33 Comparative Dashboard -->
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>雲本比對台 CloudCostLens</title>
+<meta name="description" content="雲端伺服器方案成本與效能比較後台，支援排序切換與比較基準換算。" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+  :root {
+    --bg: #0a0e14;
+    --panel: #121822;
+    --panel-alt: #161e2a;
+    --panel-raised: #1c2534;
+    --border: #243244;
+    --border-soft: #1c2938;
+    --text-primary: #eaf0f7;
+    --text-secondary: #91a3b8;
+    --text-faint: #5c7085;
+    --brand: #5b8cff;
+    --brand-soft: rgba(91, 140, 255, 0.14);
+    --good: #2fd480;
+    --good-soft: rgba(47, 212, 128, 0.14);
+    --bad: #ff5468;
+    --bad-soft: rgba(255, 84, 104, 0.14);
+    --gold: #e6b84d;
+    --gold-soft: rgba(230, 184, 77, 0.14);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Noto Sans TC', 'Manrope', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background-image:
+      radial-gradient(circle at 12% 0%, rgba(91,140,255,0.08), transparent 40%),
+      radial-gradient(circle at 90% 8%, rgba(47,212,128,0.06), transparent 35%);
+  }
+
+  .font-ui { font-family: 'Manrope', 'Noto Sans TC', sans-serif; }
+  .font-mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+  }
+  .panel-raised {
+    background: var(--panel-raised);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar { height: 8px; width: 8px; }
+  .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+  .scrollbar-thin::-webkit-scrollbar-thumb { background: #2a3850; border-radius: 8px; }
+
+  .nav-pill {
+    font-family: 'Manrope', sans-serif;
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 999px;
+    color: var(--text-secondary);
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+  .nav-pill.active {
+    background: var(--brand-soft);
+    color: #cfe0ff;
+    border-color: rgba(91,140,255,0.35);
+  }
+
+  .sort-btn {
+    font-family: 'Manrope', sans-serif;
+    font-size: 12.5px;
+    font-weight: 700;
+    padding: 8px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--panel-alt);
+    color: var(--text-secondary);
+    transition: all .15s ease;
+    cursor: pointer;
+  }
+  .sort-btn:hover { border-color: #37506f; color: var(--text-primary); }
+  .sort-btn.active {
+    background: linear-gradient(180deg, rgba(91,140,255,0.22), rgba(91,140,255,0.08));
+    border-color: rgba(91,140,255,0.55);
+    color: #dbe6ff;
+  }
+
+  .plan-col {
+    background: var(--panel-alt);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+  }
+  .plan-col.is-best {
+    border-color: rgba(230,184,77,0.55);
+    box-shadow: 0 0 0 1px rgba(230,184,77,0.18), 0 10px 30px -14px rgba(230,184,77,0.35);
+  }
+  .plan-col.is-baseline {
+    border-color: rgba(91,140,255,0.6);
+    box-shadow: 0 0 0 1px rgba(91,140,255,0.22);
+  }
+
+  .metric-row:nth-child(odd) { background: rgba(255,255,255,0.012); }
+
+  .diff-up::before { content: '▲'; font-size: 9px; margin-right: 3px; position: relative; top: -1px; }
+  .diff-down::before { content: '▼'; font-size: 9px; margin-right: 3px; position: relative; top: -1px; }
+
+  .baseline-btn {
+    font-family: 'Manrope', sans-serif;
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 4px 9px;
+    border-radius: 7px;
+    border: 1px solid var(--border);
+    background: #10151f;
+    color: var(--text-secondary);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all .15s ease;
+  }
+  .baseline-btn:hover { color: var(--text-primary); border-color: #3a4f6c; }
+  .baseline-btn.is-active {
+    background: var(--brand-soft);
+    border-color: rgba(91,140,255,0.55);
+    color: #cfe0ff;
+  }
+
+  .crown-badge {
+    font-family: 'Manrope', sans-serif;
+    font-size: 10.5px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 7px;
+    background: var(--gold-soft);
+    color: var(--gold);
+    border: 1px solid rgba(230,184,77,0.4);
+    white-space: nowrap;
+  }
+
+  .kpi-card { position: relative; overflow: hidden; }
+  .kpi-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.03), transparent 55%);
+    pointer-events: none;
+  }
+
+  @media (max-width: 760px) {
+    .topbar-nav { display: none; }
+  }
+</style>
+</head>
+<body class="min-h-screen pb-16">
+
+  <!-- 頂部列：產品名稱、導覽分頁、使用者資訊 -->
+  <header class="border-b border-[var(--border-soft)] bg-[var(--panel)]/80 backdrop-blur sticky top-0 z-30">
+    <div class="max-w-[1320px] mx-auto px-5 md:px-8 py-3 flex items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-[var(--brand)] to-[#2a56c7] flex items-center justify-center font-ui font-extrabold text-[13px] text-white">CL</div>
+        <div class="font-ui font-extrabold text-[15px] tracking-tight">CloudCostLens</div>
+      </div>
+      <nav class="topbar-nav flex items-center gap-1 overflow-x-auto scrollbar-thin">
+        <span class="nav-pill">總覽儀表板</span>
+        <span class="nav-pill active">方案比較</span>
+        <span class="nav-pill">用量分析</span>
+        <span class="nav-pill">帳單中心</span>
+        <span class="nav-pill">告警設定</span>
+      </nav>
+      <div class="flex items-center gap-3 shrink-0">
+        <div class="hidden sm:block text-right">
+          <div class="text-[11px] text-[var(--text-faint)] font-ui">目前登入身分</div>
+          <div class="text-[12.5px] font-ui font-semibold">雲端採購分析師</div>
+        </div>
+        <div class="w-8 h-8 rounded-full bg-[var(--panel-raised)] border border-[var(--border)] flex items-center justify-center font-ui text-[12px] font-bold text-[var(--text-secondary)]">分</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-[1320px] mx-auto px-5 md:px-8 pt-7">
+
+    <!-- 頁首說明 -->
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-6">
+      <div>
+        <div class="text-[12px] font-ui font-semibold text-[var(--text-faint)] mb-1 tracking-wide">方案比較 / 雲端伺服器</div>
+        <h1 class="font-ui font-extrabold text-[26px] md:text-[28px] leading-tight tracking-tight">雲本比對台　<span class="text-[var(--brand)]">CloudCostLens</span></h1>
+        <p class="text-[13.5px] text-[var(--text-secondary)] mt-1.5">同規格雲端伺服器方案並排比較：成本、效能與延遲一次看清，協助採購決策。</p>
+      </div>
+      <div class="panel px-4 py-2.5 text-right shrink-0">
+        <div class="text-[10.5px] font-ui text-[var(--text-faint)]">資料更新時間</div>
+        <div class="font-mono text-[13px] text-[var(--text-primary)]">2026-11-22　09:15</div>
+      </div>
+    </div>
+
+    <!-- KPI 摘要卡 -->
+    <section class="grid grid-cols-2 md:grid-cols-4 gap-3.5 mb-7">
+      <div class="kpi-card panel-raised p-4">
+        <div class="text-[11.5px] font-ui font-semibold text-[var(--text-secondary)] mb-2">目前最省錢方案</div>
+        <div class="font-ui font-bold text-[14.5px] mb-0.5" id="kpi-cheapest-name">—</div>
+        <div class="font-mono text-[20px] font-semibold" style="color:var(--good)" id="kpi-cheapest-price">—</div>
+        <div class="text-[11px] text-[var(--text-faint)] mt-1 font-ui">／月　較其他方案平均低 <span id="kpi-cheapest-vs-avg" class="font-mono">—</span></div>
+      </div>
+
+      <div class="kpi-card panel-raised p-4">
+        <div class="text-[11.5px] font-ui font-semibold text-[var(--text-secondary)] mb-2">最高效能方案</div>
+        <div class="font-ui font-bold text-[14.5px] mb-0.5" id="kpi-perf-name">—</div>
+        <div class="flex items-baseline gap-1.5">
+          <div class="font-mono text-[20px] font-semibold" style="color:var(--gold)" id="kpi-perf-score">—</div>
+          <div class="text-[11px] text-[var(--text-faint)] font-ui">／ 100 分</div>
+        </div>
+        <div class="text-[11px] text-[var(--text-faint)] mt-1 font-ui">綜合 CPU・記憶體・網路頻寬評分</div>
+      </div>
+
+      <div class="kpi-card panel-raised p-4">
+        <div class="text-[11.5px] font-ui font-semibold text-[var(--text-secondary)] mb-2">四方案平均月費</div>
+        <div class="font-mono text-[20px] font-semibold text-[var(--text-primary)]" id="kpi-avg-price">—</div>
+        <div class="text-[11px] text-[var(--text-faint)] mt-2 font-ui">依目前上架 <span class="font-mono" id="kpi-plan-count">—</span> 個方案計算</div>
+      </div>
+
+      <div class="kpi-card panel-raised p-4">
+        <div class="text-[11.5px] font-ui font-semibold text-[var(--text-secondary)] mb-2">最高與最低價差</div>
+        <div class="font-mono text-[20px] font-semibold" style="color:var(--bad)" id="kpi-max-gap">—</div>
+        <div class="text-[11px] text-[var(--text-faint)] mt-2 font-ui" id="kpi-max-gap-desc">—</div>
+      </div>
+    </section>
+
+    <!-- 控制列：排序切換 + 基準說明 -->
+    <section class="panel p-4 mb-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div class="flex items-center gap-3 flex-wrap">
+        <span class="text-[11.5px] font-ui font-bold text-[var(--text-secondary)] tracking-wide">比較維度</span>
+        <div class="flex items-center gap-2" id="sort-buttons">
+          <button class="sort-btn active" data-sort="price">依價格排序（低→高）</button>
+          <button class="sort-btn" data-sort="perf">依效能排序（高→低）</button>
+          <button class="sort-btn" data-sort="latency">依延遲排序（低→高）</button>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <p class="text-[11.5px] text-[var(--text-faint)] font-ui leading-relaxed max-w-[360px]" id="baseline-hint">點擊任一方案欄位上的「設為比較基準」，即時換算其他方案與它的差異百分比。</p>
+        <button id="reset-baseline" class="sort-btn hidden shrink-0">清除比較基準</button>
+      </div>
+    </section>
+
+    <!-- 比較主體 -->
+    <section class="panel p-4 md:p-5 overflow-x-auto scrollbar-thin">
+      <div id="grid-root" class="min-w-[920px]"></div>
+    </section>
+
+    <!-- 圖例與備註 -->
+    <section class="mt-5 flex flex-col md:flex-row md:items-center justify-between gap-3 text-[11.5px] text-[var(--text-faint)] font-ui">
+      <div class="flex items-center gap-5 flex-wrap">
+        <span class="flex items-center gap-1.5"><i class="inline-block w-2.5 h-2.5 rounded-full" style="background:var(--good)"></i>較具優勢（較便宜／較快／效能較高）</span>
+        <span class="flex items-center gap-1.5"><i class="inline-block w-2.5 h-2.5 rounded-full" style="background:var(--bad)"></i>較不具優勢</span>
+        <span class="flex items-center gap-1.5"><i class="inline-block w-2.5 h-2.5 rounded-full" style="background:var(--gold)"></i>目前排序下的最佳方案</span>
+        <span class="flex items-center gap-1.5"><i class="inline-block w-2.5 h-2.5 rounded-full" style="background:var(--brand)"></i>比較基準方案</span>
+      </div>
+      <p>※ 本頁數字為示範情境資料，非正式報價，實際價格與規格請以各雲端服務商公告為準。</p>
+    </section>
+
+  </main>
+
+<script>
+(function () {
+  "use strict";
+
+  // ---------- 資料來源（示範情境，非正式報價） ----------
+  var plans = [
+    {
+      id: "aws",
+      vendor: "AWS",
+      planName: "EC2 m6i.xlarge",
+      region: "東京　ap-northeast-1",
+      accent: "#ff9f45",
+      cpu: 4,
+      ram: 16,
+      storage: 100,
+      storageType: "gp3 SSD",
+      price: 5280,
+      sla: 99.99,
+      latency: 35,
+      perf: 92,
+      bandwidth: "5 TB／月（超額依 GB 計費）",
+      support: "標準支援內建；企業級需加購 Business Support"
+    },
+    {
+      id: "gcp",
+      vendor: "Google Cloud",
+      planName: "Compute Engine　n2-standard-4",
+      region: "台灣　asia-east1",
+      accent: "#6aa6ff",
+      cpu: 4,
+      ram: 16,
+      storage: 100,
+      storageType: "SSD 永久磁碟",
+      price: 4950,
+      sla: 99.99,
+      latency: 8,
+      perf: 90,
+      bandwidth: "首 1 TB 免費，其後依流量計費",
+      support: "標準支援內建；進階支援需另行加購"
+    },
+    {
+      id: "azure",
+      vendor: "Microsoft Azure",
+      planName: "Virtual Machine　D4s v5",
+      region: "日本東部　Japan East",
+      accent: "#4fc3f7",
+      cpu: 4,
+      ram: 16,
+      storage: 128,
+      storageType: "Premium SSD",
+      price: 5760,
+      sla: 99.95,
+      latency: 38,
+      perf: 88,
+      bandwidth: "5 TB／月（超額依 GB 計費）",
+      support: "需加購 Developer 或 Standard 支援方案"
+    },
+    {
+      id: "hicloud",
+      vendor: "中華電信",
+      planName: "hicloud CaaS　標準型",
+      region: "台灣本地機房",
+      accent: "#3ddc8c",
+      cpu: 4,
+      ram: 16,
+      storage: 100,
+      storageType: "企業級 SSD",
+      price: 4200,
+      sla: 99.9,
+      latency: 3,
+      perf: 78,
+      bandwidth: "2 TB／月（超額依用量計費）",
+      support: "中文客服 24 小時內建支援"
+    }
+  ];
+
+  // ---------- 可比較指標列（可計算差異者） ----------
+  var metrics = [
+    { key: "cpu", label: "虛擬核心數", unitNote: "vCPU", direction: "higher", fmt: function (v) { return v.toFixed(0); } },
+    { key: "ram", label: "記憶體容量", unitNote: "GB", direction: "higher", fmt: function (v) { return v.toFixed(0) + " GB"; } },
+    { key: "storage", label: "儲存空間", unitNote: "GB SSD", direction: "higher", fmt: function (v) { return v.toFixed(0) + " GB"; }, sub: "storageType" },
+    { key: "price", label: "月費估算（含稅）", unitNote: "TWD", direction: "lower", fmt: function (v) { return "NT$ " + Math.round(v).toLocaleString("zh-TW"); } },
+    { key: "sla", label: "SLA 可用性保證", unitNote: "%", direction: "higher", fmt: function (v) { return v.toFixed(2) + "%"; } },
+    { key: "latency", label: "台灣用戶平均延遲", unitNote: "ms", direction: "lower", fmt: function (v) { return v.toFixed(0) + " ms"; } },
+    { key: "perf", label: "綜合效能分數", unitNote: "滿分 100", direction: "higher", fmt: function (v) { return v.toFixed(0) + " 分"; } }
+  ];
+
+  // ---------- 純文字說明列（不計算差異） ----------
+  var infoRows = [
+    { key: "region", label: "主要機房位置" },
+    { key: "bandwidth", label: "月流量額度" },
+    { key: "support", label: "技術支援內容" }
+  ];
+
+  var sortDefs = {
+    price: { metricKey: "price", direction: "lower" },
+    perf: { metricKey: "perf", direction: "higher" },
+    latency: { metricKey: "latency", direction: "lower" }
+  };
+
+  var state = {
+    sortMode: "price",
+    baselineId: null
+  };
+
+  function fmtTWD(v) { return "NT$ " + Math.round(v).toLocaleString("zh-TW"); }
+
+  function sortedPlans() {
+    var def = sortDefs[state.sortMode];
+    var copy = plans.slice();
+    copy.sort(function (a, b) {
+      var av = a[def.metricKey], bv = b[def.metricKey];
+      return def.direction === "lower" ? av - bv : bv - av;
+    });
+    return copy;
+  }
+
+  function bestPlanId(metricKey, direction) {
+    var best = plans[0];
+    plans.forEach(function (p) {
+      if (direction === "lower" ? p[metricKey] < best[metricKey] : p[metricKey] > best[metricKey]) best = p;
+    });
+    return best.id;
+  }
+
+  function worstPlanId(metricKey, direction) {
+    var worst = plans[0];
+    plans.forEach(function (p) {
+      if (direction === "lower" ? p[metricKey] > worst[metricKey] : p[metricKey] < worst[metricKey]) worst = p;
+    });
+    return worst.id;
+  }
+
+  // ---------- KPI 摘要卡渲染 ----------
+  function renderKPI() {
+    var cheapest = plans.slice().sort(function (a, b) { return a.price - b.price; })[0];
+    var bestPerf = plans.slice().sort(function (a, b) { return b.perf - a.perf; })[0];
+    var avgPrice = plans.reduce(function (s, p) { return s + p.price; }, 0) / plans.length;
+    var maxPricePlan = plans.slice().sort(function (a, b) { return b.price - a.price; })[0];
+    var minPricePlan = cheapest;
+    var gapPct = ((maxPricePlan.price - minPricePlan.price) / minPricePlan.price) * 100;
+    var vsAvgPct = ((avgPrice - cheapest.price) / avgPrice) * 100;
+
+    document.getElementById("kpi-cheapest-name").textContent = cheapest.vendor + "　" + cheapest.planName;
+    document.getElementById("kpi-cheapest-price").textContent = fmtTWD(cheapest.price);
+    document.getElementById("kpi-cheapest-vs-avg").textContent = vsAvgPct.toFixed(1) + "%";
+
+    document.getElementById("kpi-perf-name").textContent = bestPerf.vendor + "　" + bestPerf.planName;
+    document.getElementById("kpi-perf-score").textContent = bestPerf.perf;
+
+    document.getElementById("kpi-avg-price").textContent = fmtTWD(avgPrice);
+    document.getElementById("kpi-plan-count").textContent = plans.length;
+
+    document.getElementById("kpi-max-gap").textContent = gapPct.toFixed(1) + "%";
+    document.getElementById("kpi-max-gap-desc").textContent =
+      maxPricePlan.vendor + "（最貴）對比　" + minPricePlan.vendor + "（最便宜）";
+  }
+
+  // ---------- 單一數值儲存格 ----------
+  function buildValueCell(metric, plan, isBest, isWorst, isBaseline, baselinePlan) {
+    var wrap = document.createElement("div");
+    wrap.className = "px-1";
+
+    var valueLine = document.createElement("div");
+    valueLine.className = "font-mono text-[15px] font-semibold";
+    valueLine.textContent = metric.fmt(plan[metric.key]);
+
+    if (isBaseline) {
+      valueLine.style.color = "var(--text-primary)";
+    } else if (isBest) {
+      valueLine.style.color = "var(--good)";
+    } else if (isWorst) {
+      valueLine.style.color = "var(--bad)";
+    } else {
+      valueLine.style.color = "var(--text-secondary)";
+    }
+
+    wrap.appendChild(valueLine);
+
+    if (metric.sub) {
+      var subLine = document.createElement("div");
+      subLine.className = "text-[10.5px] text-[var(--text-faint)] font-ui mt-0.5";
+      subLine.textContent = plan[metric.sub];
+      wrap.appendChild(subLine);
+    }
+
+    var badge = document.createElement("div");
+    badge.className = "text-[10.5px] font-mono mt-1 font-semibold";
+
+    if (isBaseline) {
+      badge.textContent = "基準方案";
+      badge.style.color = "var(--brand)";
+      badge.className += " font-ui";
+    } else if (baselinePlan) {
+      var base = baselinePlan[metric.key];
+      var diffPct = ((plan[metric.key] - base) / base) * 100;
+      var better = metric.direction === "lower" ? diffPct < 0 : diffPct > 0;
+      var arrowCls = diffPct === 0 ? "" : (diffPct > 0 ? "diff-up" : "diff-down");
+      badge.className += " " + arrowCls;
+      badge.style.color = diffPct === 0 ? "var(--text-faint)" : (better ? "var(--good)" : "var(--bad)");
+      var label = metric.direction === "lower"
+        ? (diffPct > 0 ? "較貴" : diffPct < 0 ? "較便宜" : "持平")
+        : (diffPct > 0 ? "較高" : diffPct < 0 ? "較低" : "持平");
+      if (metric.key === "latency") {
+        label = diffPct > 0 ? "較慢" : diffPct < 0 ? "較快" : "持平";
+      }
+      badge.textContent = (diffPct === 0 ? "" : Math.abs(diffPct).toFixed(1) + "% ") + label + "（較基準）";
+    } else {
+      if (isBest) {
+        badge.textContent = "目前最佳";
+        badge.style.color = "var(--good)";
+      } else if (isWorst) {
+        badge.textContent = "目前較弱";
+        badge.style.color = "var(--bad)";
+      } else {
+        badge.textContent = "—";
+        badge.style.color = "var(--text-faint)";
+      }
+    }
+
+    wrap.appendChild(badge);
+    return wrap;
+  }
+
+  // ---------- 整體比較格渲染 ----------
+  function render() {
+    var root = document.getElementById("grid-root");
+    root.innerHTML = "";
+
+    var order = sortedPlans();
+    var def = sortDefs[state.sortMode];
+    var topId = order[0].id;
+    var baselinePlan = state.baselineId ? plans.filter(function (p) { return p.id === state.baselineId; })[0] : null;
+
+    var grid = document.createElement("div");
+    grid.style.display = "grid";
+    grid.style.gridTemplateColumns = "200px repeat(" + order.length + ", 1fr)";
+    grid.style.columnGap = "10px";
+    grid.style.rowGap = "0px";
+
+    // -- 表頭列：標籤欄 + 各方案欄 --
+    var headLabel = document.createElement("div");
+    headLabel.className = "font-ui text-[11px] font-bold text-[var(--text-faint)] flex items-end pb-3 tracking-wide";
+    headLabel.textContent = "比較項目";
+    grid.appendChild(headLabel);
+
+    order.forEach(function (plan) {
+      var isBest = plan.id === topId;
+      var isBaseline = plan.id === state.baselineId;
+
+      var head = document.createElement("div");
+      head.className = "plan-col px-3.5 pt-3.5 pb-3 mb-2" + (isBest ? " is-best" : "") + (isBaseline ? " is-baseline" : "");
+
+      var topRow = document.createElement("div");
+      topRow.className = "flex items-center justify-between mb-2";
+
+      var dot = document.createElement("span");
+      dot.className = "inline-block w-2 h-2 rounded-full";
+      dot.style.background = plan.accent;
+
+      var vendorWrap = document.createElement("div");
+      vendorWrap.className = "flex items-center gap-1.5";
+      vendorWrap.appendChild(dot);
+      var vendorText = document.createElement("span");
+      vendorText.className = "font-ui text-[11.5px] font-bold text-[var(--text-secondary)]";
+      vendorText.textContent = plan.vendor;
+      vendorWrap.appendChild(vendorText);
+
+      topRow.appendChild(vendorWrap);
+
+      if (isBest) {
+        var crown = document.createElement("span");
+        crown.className = "crown-badge";
+        crown.textContent = "★ 最佳";
+        topRow.appendChild(crown);
+      }
+
+      head.appendChild(topRow);
+
+      var nameLine = document.createElement("div");
+      nameLine.className = "font-ui font-extrabold text-[14px] leading-snug mb-0.5";
+      nameLine.textContent = plan.planName;
+      head.appendChild(nameLine);
+
+      var regionLine = document.createElement("div");
+      regionLine.className = "text-[11px] text-[var(--text-faint)] font-ui mb-2.5";
+      regionLine.textContent = plan.region;
+      head.appendChild(regionLine);
+
+      var btn = document.createElement("button");
+      btn.className = "baseline-btn" + (isBaseline ? " is-active" : "");
+      btn.textContent = isBaseline ? "✓ 目前基準方案" : "設為比較基準";
+      btn.addEventListener("click", function () {
+        state.baselineId = isBaseline ? null : plan.id;
+        render();
+      });
+      head.appendChild(btn);
+
+      grid.appendChild(head);
+    });
+
+    // -- 可計算差異的數值列 --
+    metrics.forEach(function (metric) {
+      var bId = bestPlanId(metric.key, metric.direction);
+      var wId = worstPlanId(metric.key, metric.direction);
+
+      var labelCell = document.createElement("div");
+      labelCell.className = "metric-row flex flex-col justify-center py-3 px-1";
+      var labelText = document.createElement("div");
+      labelText.className = "font-ui text-[12.5px] font-semibold text-[var(--text-primary)]";
+      labelText.textContent = metric.label;
+      var unitText = document.createElement("div");
+      unitText.className = "font-mono text-[10px] text-[var(--text-faint)] mt-0.5";
+      unitText.textContent = metric.unitNote;
+      labelCell.appendChild(labelText);
+      labelCell.appendChild(unitText);
+      grid.appendChild(labelCell);
+
+      order.forEach(function (plan) {
+        var cell = document.createElement("div");
+        cell.className = "metric-row flex items-center py-3 px-2.5 rounded-lg";
+        var isBaseline = plan.id === state.baselineId;
+        cell.appendChild(
+          buildValueCell(metric, plan, plan.id === bId, plan.id === wId, isBaseline, baselinePlan)
+        );
+        grid.appendChild(cell);
+      });
+    });
+
+    // -- 分隔線 --
+    var divider = document.createElement("div");
+    divider.style.gridColumn = "1 / -1";
+    divider.className = "h-px bg-[var(--border-soft)] my-2";
+    grid.appendChild(divider);
+
+    // -- 純文字資訊列 --
+    infoRows.forEach(function (row) {
+      var labelCell = document.createElement("div");
+      labelCell.className = "flex items-center py-3 px-1";
+      var labelText = document.createElement("div");
+      labelText.className = "font-ui text-[12.5px] font-semibold text-[var(--text-secondary)]";
+      labelText.textContent = row.label;
+      labelCell.appendChild(labelText);
+      grid.appendChild(labelCell);
+
+      order.forEach(function (plan) {
+        var cell = document.createElement("div");
+        cell.className = "flex items-center py-3 px-2.5";
+        var text = document.createElement("div");
+        text.className = "text-[12px] font-ui text-[var(--text-secondary)] leading-snug";
+        text.textContent = plan[row.key];
+        cell.appendChild(text);
+        grid.appendChild(cell);
+      });
+    });
+
+    root.appendChild(grid);
+
+    // -- 基準提示文字與清除按鈕 --
+    var resetBtn = document.getElementById("reset-baseline");
+    var hint = document.getElementById("baseline-hint");
+    if (state.baselineId) {
+      resetBtn.classList.remove("hidden");
+      hint.innerHTML = "目前比較基準：<span class=\"text-[var(--brand)] font-bold\">" +
+        baselinePlan.vendor + " " + baselinePlan.planName +
+        "</span>　其餘方案的差異百分比已即時換算。";
+    } else {
+      resetBtn.classList.add("hidden");
+      hint.textContent = "點擊任一方案欄位上的「設為比較基準」，即時換算其他方案與它的差異百分比。";
+    }
+  }
+
+  // ---------- 事件綁定 ----------
+  document.getElementById("sort-buttons").addEventListener("click", function (e) {
+    var btn = e.target.closest(".sort-btn");
+    if (!btn) return;
+    document.querySelectorAll("#sort-buttons .sort-btn").forEach(function (b) { b.classList.remove("active"); });
+    btn.classList.add("active");
+    state.sortMode = btn.getAttribute("data-sort");
+    render();
+  });
+
+  document.getElementById("reset-baseline").addEventListener("click", function () {
+    state.baselineId = null;
+    render();
+  });
+
+  renderKPI();
+  render();
+})();
+</script>
+
+</body>
+</html>
