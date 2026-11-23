@@ -1,0 +1,139 @@
+<!-- style #56 E-Ink / Paper -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>紙語 PaperVoice｜慢讀雙週刊</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Noto Serif TC','Newsreader',serif;
+    background:#f3efe6;
+    color:#1a1a1a;
+  }
+  .font-display{ font-family:'Newsreader','Noto Serif TC',serif; }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+  .paper-noise{
+    background-image:
+      repeating-linear-gradient(0deg, rgba(0,0,0,.015) 0px, rgba(0,0,0,.015) 1px, transparent 1px, transparent 2px);
+  }
+  .ink-rule{ border-top:1.5px solid #1a1a1a; }
+  .ink-rule-thin{ border-top:1px solid rgba(26,26,26,.25); }
+  .no-shadow-card{ background:transparent; }
+  .drop-cap::first-letter{
+    font-family:'Newsreader',serif;
+    font-size:3.6rem;
+    font-weight:600;
+    float:left;
+    line-height:0.8;
+    margin-right:.5rem;
+    margin-top:.5rem;
+  }
+  .underline-link{
+    text-decoration:underline;
+    text-decoration-color:rgba(26,26,26,.35);
+    text-underline-offset:3px;
+  }
+  .underline-link:hover{ text-decoration-color:#1a1a1a; }
+  .btn-paper{
+    border:1.5px solid #1a1a1a;
+    background:transparent;
+    transition:background .15s ease, color .15s ease;
+  }
+  .btn-paper:hover{ background:#1a1a1a; color:#f3efe6; }
+  .issue-num{ font-family:'JetBrains Mono',monospace; letter-spacing:.05em; }
+</style>
+</head>
+<body class="paper-noise">
+
+  <header class="max-w-3xl mx-auto px-6 pt-12 pb-6">
+    <div class="flex items-center justify-between ink-rule pb-4">
+      <span class="issue-num text-xs text-black/50">NO. 184 · 2026 年 11 月號</span>
+      <span class="issue-num text-xs text-black/50">每雙週四發行</span>
+    </div>
+    <h1 class="font-display text-5xl md:text-6xl font-semibold text-center py-10 tracking-tight">紙語</h1>
+    <p class="text-center text-sm text-black/50 tracking-[0.3em] -mt-6 mb-6">PAPER VOICE</p>
+    <nav class="flex justify-center gap-8 text-sm ink-rule-thin pt-4">
+      <a href="#issue" class="underline-link">本期內容</a>
+      <a href="#archive" class="underline-link">歷期回顧</a>
+      <a href="#subscribe" class="underline-link">訂閱方式</a>
+    </nav>
+  </header>
+
+  <!-- Feature -->
+  <section id="issue" class="max-w-3xl mx-auto px-6 py-12 ink-rule">
+    <p class="issue-num text-xs text-black/40 mb-3">本期封面故事</p>
+    <h2 class="font-display text-3xl md:text-4xl font-semibold mb-6 leading-tight">
+      在速食閱讀的時代，<br>重新練習「慢」這件事
+    </h2>
+    <p class="drop-cap text-lg leading-[1.9] text-black/85 mb-6">
+      我們這一代人習慣在三秒內決定要不要往下滑。本期紙語走訪了三位拒絕演算法推播的創作者——
+      一位只手寫信件的詩人、一位堅持用底片拍攝的攝影師，以及一位十年只出過三本書的小說家，
+      談論他們如何在這個時代，守住自己的節奏。
+    </p>
+    <p class="text-sm text-black/50 mb-8">文／林敬亭　攝影／陳予安　閱讀時間約 14 分鐘</p>
+    <button class="btn-paper px-6 py-2.5 text-sm font-display" onclick="document.getElementById('full-article').classList.toggle('hidden')">
+      閱讀全文
+    </button>
+    <div id="full-article" class="hidden mt-8 ink-rule-thin pt-8 space-y-5 text-black/80 leading-[1.9]">
+      <p>詩人江念慈每天只寄出一封手寫信。「演算法不會讀信，」她說，「所以信裡的話，才是真正說給一個人聽的。」她的信件計畫已經持續了四年，收件人從未重複。</p>
+      <p>攝影師周振揚則堅持底片沖洗，一卷 36 張，拍完才能看見結果。「不能馬上看，才會逼自己想清楚再按下快門。」他說這種「延遲」本身就是一種訓練。</p>
+      <p>小說家謝明樺十年只出版三本書，「我寫得慢，是因為我想把話說對，而不是說快。」她的最新作品《霧季》耗費六年完成，正是本期紙語的選書推薦。</p>
+    </div>
+  </section>
+
+  <!-- Archive -->
+  <section id="archive" class="max-w-3xl mx-auto px-6 py-12 ink-rule">
+    <p class="issue-num text-xs text-black/40 mb-6">歷期回顧</p>
+    <div class="space-y-6">
+      <div class="flex justify-between items-baseline ink-rule-thin pb-5">
+        <div>
+          <p class="font-display text-lg font-medium">第 183 期・紙本沒有死，只是變安靜了</p>
+          <p class="text-sm text-black/50 mt-1">獨立書店的十年觀察</p>
+        </div>
+        <span class="issue-num text-xs text-black/40 whitespace-nowrap ml-6">2026.11.05</span>
+      </div>
+      <div class="flex justify-between items-baseline ink-rule-thin pb-5">
+        <div>
+          <p class="font-display text-lg font-medium">第 182 期・一天只回覆三封訊息的人</p>
+          <p class="text-sm text-black/50 mt-1">數位斷聯實驗紀錄</p>
+        </div>
+        <span class="issue-num text-xs text-black/40 whitespace-nowrap ml-6">2026.10.22</span>
+      </div>
+      <div class="flex justify-between items-baseline pb-1">
+        <div>
+          <p class="font-display text-lg font-medium">第 181 期・手工釀造的時間感</p>
+          <p class="text-sm text-black/50 mt-1">三位釀酒師的等待哲學</p>
+        </div>
+        <span class="issue-num text-xs text-black/40 whitespace-nowrap ml-6">2026.10.08</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Subscribe -->
+  <section id="subscribe" class="max-w-3xl mx-auto px-6 py-14 text-center">
+    <h2 class="font-display text-2xl font-semibold mb-4">訂閱紙語</h2>
+    <p class="text-black/60 mb-8 leading-relaxed">雙週四送達・紙本印刷採用米色環保再生紙・無廣告、無演算法推播</p>
+    <div class="grid md:grid-cols-2 gap-5 max-w-xl mx-auto">
+      <div class="ink-rule-thin border-b-0 border p-7">
+        <p class="font-display text-lg mb-2">數位版</p>
+        <p class="font-display text-2xl font-semibold mb-4">NT$ 150<span class="text-sm font-normal text-black/50">／月</span></p>
+        <button class="btn-paper w-full py-2.5 text-sm font-display">訂閱數位版</button>
+      </div>
+      <div class="ink-rule-thin border-b-0 border p-7">
+        <p class="font-display text-lg mb-2">紙本＋數位版</p>
+        <p class="font-display text-2xl font-semibold mb-4">NT$ 380<span class="text-sm font-normal text-black/50">／月</span></p>
+        <button class="btn-paper w-full py-2.5 text-sm font-display">訂閱紙本版</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="max-w-3xl mx-auto px-6 py-8 ink-rule text-center">
+    <p class="issue-num text-xs text-black/40">© 2026 紙語 PAPER VOICE · 台北市大安區溫州街 21 巷 3 號</p>
+  </footer>
+
+</body>
+</html>

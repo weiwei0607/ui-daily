@@ -1,0 +1,262 @@
+<!-- style #05 3D / Hyperrealism -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>耀金 AurumGleam｜高級珠寶鑑賞</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold-1:#f6e6b4; --gold-2:#d4af37; --gold-3:#9c7a1f;
+    --bg:#0e0d0b; --panel:#17140f;
+  }
+  body{
+    font-family:'Noto Sans TC','Sora',sans-serif;
+    background:var(--bg);
+    color:#f3eee1;
+  }
+  .font-display{font-family:'Sora','Noto Sans TC',sans-serif;}
+  .metal-text{
+    background:linear-gradient(120deg,#fff6d8 0%, #d4af37 25%, #fff6d8 50%, #9c7a1f 75%, #fff6d8 100%);
+    background-size:300% 100%;
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    animation:shimmer 6s linear infinite;
+  }
+  @keyframes shimmer{
+    0%{background-position:0% 50%;}
+    100%{background-position:300% 50%;}
+  }
+  .gem-card{
+    background:radial-gradient(circle at 30% 20%, #2a2520, #121008 70%);
+    border:1px solid rgba(212,175,55,.25);
+    box-shadow:
+      0 30px 60px -20px rgba(0,0,0,.7),
+      inset 0 1px 0 rgba(255,255,255,.08),
+      inset 0 -20px 40px -20px rgba(212,175,55,.08);
+    transition:transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .5s;
+  }
+  .gem-card:hover{
+    transform:translateY(-10px) rotateX(2deg) scale(1.02);
+    box-shadow:
+      0 40px 80px -20px rgba(0,0,0,.8),
+      inset 0 1px 0 rgba(255,255,255,.15),
+      0 0 60px -10px rgba(212,175,55,.35);
+  }
+  .gem-sphere{
+    width:88px;height:88px;border-radius:50%;
+    background:
+      radial-gradient(circle at 32% 28%, #fffbe8 0%, #f6e6b4 10%, #d4af37 42%, #8a6a1a 68%, #3c2d0b 100%);
+    box-shadow:
+      inset -6px -10px 18px rgba(0,0,0,.55),
+      inset 6px 8px 14px rgba(255,255,255,.35),
+      0 10px 24px rgba(0,0,0,.5);
+  }
+  .ring-highlight{
+    position:relative; overflow:hidden;
+  }
+  .ring-highlight::after{
+    content:'';
+    position:absolute; top:-50%; left:-60%;
+    width:40%; height:220%;
+    background:linear-gradient(120deg, transparent, rgba(255,255,255,.22), transparent);
+    transform:rotate(20deg);
+    transition:left .8s ease;
+  }
+  .ring-highlight:hover::after{ left:120%; }
+  .btn-metal{
+    background:linear-gradient(180deg,#f6e6b4,#d4af37 45%,#9c7a1f);
+    color:#2a2008;
+    box-shadow:0 10px 24px -8px rgba(212,175,55,.5), inset 0 1px 0 rgba(255,255,255,.6);
+  }
+  .btn-metal:hover{ filter:brightness(1.08); }
+  .divider-gold{
+    height:1px;
+    background:linear-gradient(90deg, transparent, rgba(212,175,55,.6), transparent);
+  }
+  .stat-num{ font-family:'Sora',sans-serif; font-weight:700; }
+  .noise{
+    background-image:radial-gradient(rgba(255,255,255,.03) 1px, transparent 1px);
+    background-size:3px 3px;
+  }
+</style>
+</head>
+<body class="noise">
+
+  <!-- Nav -->
+  <header class="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-black/40 border-b border-white/5">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="font-display text-xl tracking-widest metal-text">AURUM <span class="font-normal">GLEAM</span></div>
+      <nav class="hidden md:flex gap-8 text-sm text-white/70">
+        <a href="#collection" class="hover:text-[var(--gold-1)] transition">典藏系列</a>
+        <a href="#craft" class="hover:text-[var(--gold-1)] transition">工藝鑑定</a>
+        <a href="#concierge" class="hover:text-[var(--gold-1)] transition">專屬顧問</a>
+      </nav>
+      <button class="btn-metal font-display font-semibold text-sm px-5 py-2 rounded-full">預約鑑賞</button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative pt-40 pb-28 px-6 overflow-hidden">
+    <div class="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl" style="background:radial-gradient(circle, #d4af37, transparent 70%);"></div>
+    <div class="max-w-6xl mx-auto relative">
+      <p class="font-display text-sm tracking-[0.3em] text-[var(--gold-1)] mb-6">1998 年創立・台灣高級珠寶工坊</p>
+      <h1 class="font-display text-5xl md:text-7xl font-bold leading-[1.1] mb-8 metal-text">
+        每一道光，<br>都是工藝的證詞
+      </h1>
+      <p class="text-white/60 text-lg max-w-xl mb-10 leading-relaxed">
+        耀金採用瑞士鑽石分級標準，每件作品皆由三位資深鑲嵌師親手完成，
+        金屬澆鑄誤差控制在 0.02 毫米以內。
+      </p>
+      <div class="flex gap-4">
+        <button class="btn-metal font-display font-semibold px-8 py-3.5 rounded-full">探索典藏系列</button>
+        <button class="border border-white/20 text-white/80 px-8 py-3.5 rounded-full hover:border-[var(--gold-2)] hover:text-[var(--gold-1)] transition">觀看工藝影片</button>
+      </div>
+
+      <div class="grid grid-cols-3 gap-8 mt-20 max-w-lg">
+        <div><div class="stat-num text-3xl metal-text">27</div><div class="text-white/50 text-xs mt-1">年珠寶工藝經驗</div></div>
+        <div><div class="stat-num text-3xl metal-text">0.02<span class="text-base">mm</span></div><div class="text-white/50 text-xs mt-1">鑄造誤差控制</div></div>
+        <div><div class="stat-num text-3xl metal-text">GIA</div><div class="text-white/50 text-xs mt-1">國際鑽石認證</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider-gold max-w-6xl mx-auto"></div>
+
+  <!-- Collection -->
+  <section id="collection" class="py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex items-end justify-between mb-12">
+        <h2 class="font-display text-3xl md:text-4xl font-semibold">典藏系列</h2>
+        <p class="text-white/40 text-sm">點擊每件作品查看詳細鑑定資料</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-7" id="collection-grid">
+        <!-- card 1 -->
+        <div class="gem-card ring-highlight rounded-2xl p-7 cursor-pointer" onclick="openGem(this)" data-name="晨曦項鍊" data-detail="18K 白金主石 1.2 克拉，副石共 0.68 克拉，VVS1 淨度，手工微釦鑲嵌 86 顆碎鑽。" data-price="NT$ 428,000">
+          <div class="gem-sphere mx-auto mb-6"></div>
+          <h3 class="font-display text-lg font-semibold text-center mb-1">晨曦項鍊</h3>
+          <p class="text-center text-white/40 text-xs mb-4">Morning Dew Necklace</p>
+          <div class="divider-gold mb-4"></div>
+          <div class="flex justify-between text-sm">
+            <span class="text-white/50">起訂價</span>
+            <span class="stat-num text-[var(--gold-1)]">NT$ 428,000</span>
+          </div>
+        </div>
+        <!-- card 2 -->
+        <div class="gem-card ring-highlight rounded-2xl p-7 cursor-pointer" onclick="openGem(this)" data-name="星軌戒指" data-detail="玫瑰金主石 0.9 克拉，環繞式鑲嵌設計，獲 2025 年台北珠寶設計獎最佳工藝獎。" data-price="NT$ 356,000">
+          <div class="gem-sphere mx-auto mb-6" style="background:radial-gradient(circle at 32% 28%, #fff, #f5d0d0 10%, #c97b7b 42%, #6b2f2f 68%, #2a1212 100%);"></div>
+          <h3 class="font-display text-lg font-semibold text-center mb-1">星軌戒指</h3>
+          <p class="text-center text-white/40 text-xs mb-4">Starlit Orbit Ring</p>
+          <div class="divider-gold mb-4"></div>
+          <div class="flex justify-between text-sm">
+            <span class="text-white/50">起訂價</span>
+            <span class="stat-num text-[var(--gold-1)]">NT$ 356,000</span>
+          </div>
+        </div>
+        <!-- card 3 -->
+        <div class="gem-card ring-highlight rounded-2xl p-7 cursor-pointer" onclick="openGem(this)" data-name="深海耳環" data-detail="鉑金底座搭配藍寶石共 2.1 克拉，防氧化鍍層處理，適合日常長時間佩戴。" data-price="NT$ 512,000">
+          <div class="gem-sphere mx-auto mb-6" style="background:radial-gradient(circle at 32% 28%, #e6f6ff, #a8d8f0 10%, #3d7ea6 42%, #16415c 68%, #081b26 100%);"></div>
+          <h3 class="font-display text-lg font-semibold text-center mb-1">深海耳環</h3>
+          <p class="text-center text-white/40 text-xs mb-4">Abyssal Drop Earrings</p>
+          <div class="divider-gold mb-4"></div>
+          <div class="flex justify-between text-sm">
+            <span class="text-white/50">起訂價</span>
+            <span class="stat-num text-[var(--gold-1)]">NT$ 512,000</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Detail modal -->
+  <div id="gem-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[60] hidden items-center justify-center px-6">
+    <div class="gem-card rounded-2xl max-w-md w-full p-8 relative">
+      <button onclick="closeGem()" class="absolute top-4 right-4 text-white/40 hover:text-white text-xl">×</button>
+      <div id="modal-sphere" class="gem-sphere mx-auto mb-6"></div>
+      <h3 id="modal-name" class="font-display text-xl font-semibold text-center mb-2"></h3>
+      <p id="modal-detail" class="text-white/60 text-sm text-center leading-relaxed mb-6"></p>
+      <div class="divider-gold mb-5"></div>
+      <div class="flex items-center justify-between">
+        <span id="modal-price" class="stat-num text-lg metal-text"></span>
+        <button class="btn-metal font-display text-sm font-semibold px-6 py-2.5 rounded-full">加入預約清單</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Craft -->
+  <section id="craft" class="py-24 px-6 bg-[var(--panel)]">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+      <div>
+        <p class="font-display text-sm tracking-[0.3em] text-[var(--gold-1)] mb-4">工藝鑑定</p>
+        <h2 class="font-display text-3xl font-semibold mb-6">四道工序，<br>缺一不可</h2>
+        <p class="text-white/60 leading-relaxed mb-8">
+          從原石篩選到最終拋光，每件耀金作品須通過內部四位鑑定師獨立簽核，
+          任一環節未達標即退回重製，不對外出貨。
+        </p>
+      </div>
+      <div class="space-y-5">
+        <div class="flex gap-5 items-start">
+          <div class="stat-num text-2xl metal-text w-10">01</div>
+          <div><h4 class="font-semibold mb-1">原石篩選</h4><p class="text-white/50 text-sm">僅採用 GIA 認證 VS 等級以上原石，淘汰率約 62%。</p></div>
+        </div>
+        <div class="divider-gold"></div>
+        <div class="flex gap-5 items-start">
+          <div class="stat-num text-2xl metal-text w-10">02</div>
+          <div><h4 class="font-semibold mb-1">手工鑲嵌</h4><p class="text-white/50 text-sm">平均每件作品耗時 46 小時，由資深鑲嵌師獨立完成。</p></div>
+        </div>
+        <div class="divider-gold"></div>
+        <div class="flex gap-5 items-start">
+          <div class="stat-num text-2xl metal-text w-10">03</div>
+          <div><h4 class="font-semibold mb-1">金屬澆鑄</h4><p class="text-white/50 text-sm">誤差控制於 0.02mm，確保長期佩戴不變形。</p></div>
+        </div>
+        <div class="divider-gold"></div>
+        <div class="flex gap-5 items-start">
+          <div class="stat-num text-2xl metal-text w-10">04</div>
+          <div><h4 class="font-semibold mb-1">終審拋光</h4><p class="text-white/50 text-sm">四位鑑定師獨立簽核後，方可出貨配送。</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Concierge CTA -->
+  <section id="concierge" class="py-28 px-6 text-center">
+    <div class="max-w-2xl mx-auto">
+      <h2 class="font-display text-3xl md:text-4xl font-semibold mb-6 metal-text">預約一對一鑑賞顧問</h2>
+      <p class="text-white/60 mb-10">台北信義店、台中七期店均提供私人鑑賞室，全程禁止拍攝以保障作品隱私。</p>
+      <form class="flex flex-col sm:flex-row gap-3 justify-center" onsubmit="event.preventDefault(); document.getElementById('book-ok').classList.remove('hidden');">
+        <input required type="text" placeholder="姓名" class="bg-black/40 border border-white/15 rounded-full px-6 py-3 text-sm focus:outline-none focus:border-[var(--gold-2)] w-full sm:w-56">
+        <input required type="tel" placeholder="聯絡電話" class="bg-black/40 border border-white/15 rounded-full px-6 py-3 text-sm focus:outline-none focus:border-[var(--gold-2)] w-full sm:w-56">
+        <button type="submit" class="btn-metal font-display font-semibold px-8 py-3 rounded-full whitespace-nowrap">送出預約</button>
+      </form>
+      <p id="book-ok" class="hidden mt-4 text-[var(--gold-1)] text-sm">已收到您的預約申請，顧問將於 1 個工作日內回電確認。</p>
+    </div>
+  </section>
+
+  <footer class="border-t border-white/5 py-10 px-6 text-center text-white/30 text-xs">
+    © 2026 耀金 AurumGleam 高級珠寶工坊・台北市信義區松仁路 100 號
+  </footer>
+
+<script>
+function openGem(el){
+  document.getElementById('modal-name').textContent = el.dataset.name;
+  document.getElementById('modal-detail').textContent = el.dataset.detail;
+  document.getElementById('modal-price').textContent = el.dataset.price;
+  const srcSphere = el.querySelector('.gem-sphere');
+  document.getElementById('modal-sphere').style.background = srcSphere.style.background || '';
+  const modal = document.getElementById('gem-modal');
+  modal.classList.remove('hidden');
+  modal.classList.add('flex');
+}
+function closeGem(){
+  const modal = document.getElementById('gem-modal');
+  modal.classList.add('hidden');
+  modal.classList.remove('flex');
+}
+</script>
+</body>
+</html>

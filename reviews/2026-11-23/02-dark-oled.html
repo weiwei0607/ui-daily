@@ -1,0 +1,242 @@
+<!-- style #07 Dark Mode (OLED) -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星空獵人 StarHunter｜即時觀星條件</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{
+    background:#000000;
+    color:#e8ffe8;
+    font-family:'Noto Sans TC','Space Grotesk',sans-serif;
+  }
+  .font-display{ font-family:'Space Grotesk','Noto Sans TC',sans-serif; }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+  .glow-green{ color:#39ff6a; text-shadow:0 0 12px rgba(57,255,106,.5); }
+  .glow-border{
+    border:1px solid rgba(57,255,106,.18);
+    box-shadow:0 0 0 1px rgba(57,255,106,.04) inset;
+  }
+  .panel{
+    background:#070a07;
+    border:1px solid rgba(57,255,106,.12);
+  }
+  .panel:hover{ border-color:rgba(57,255,106,.35); }
+  .pulse-dot{
+    width:8px;height:8px;border-radius:50%;
+    background:#39ff6a;
+    box-shadow:0 0 8px #39ff6a;
+    animation:pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ opacity:1; transform:scale(1); }
+    50%{ opacity:.35; transform:scale(.7); }
+  }
+  .star{
+    position:absolute; background:#fff; border-radius:50%;
+    animation:twinkle linear infinite;
+  }
+  @keyframes twinkle{
+    0%,100%{ opacity:.15; } 50%{ opacity:1; }
+  }
+  .slider-track{
+    -webkit-appearance:none; appearance:none;
+    height:3px; background:rgba(57,255,106,.2);
+    border-radius:3px;
+  }
+  .slider-track::-webkit-slider-thumb{
+    -webkit-appearance:none;
+    width:16px;height:16px;border-radius:50%;
+    background:#39ff6a;
+    box-shadow:0 0 10px rgba(57,255,106,.7);
+    cursor:pointer;
+  }
+  .btn-glow{
+    background:rgba(57,255,106,.08);
+    border:1px solid rgba(57,255,106,.5);
+    color:#39ff6a;
+  }
+  .btn-glow:hover{ background:rgba(57,255,106,.18); box-shadow:0 0 20px rgba(57,255,106,.25); }
+  .scan-line{
+    background:linear-gradient(90deg, transparent, rgba(57,255,106,.4), transparent);
+    animation:scan 3s linear infinite;
+  }
+  @keyframes scan{ 0%{ transform:translateX(-100%); } 100%{ transform:translateX(100%); } }
+</style>
+</head>
+<body class="min-h-screen relative overflow-x-hidden">
+
+  <div id="starfield" class="fixed inset-0 pointer-events-none z-0"></div>
+
+  <header class="relative z-10 border-b border-[rgba(57,255,106,.12)] px-6 py-5">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="pulse-dot"></div>
+        <span class="font-display text-lg tracking-wide">星空獵人 <span class="glow-green mono text-sm">STARHUNTER</span></span>
+      </div>
+      <nav class="hidden md:flex gap-8 text-sm text-[#8affa0]/70">
+        <a href="#conditions" class="hover:text-[#39ff6a] transition">即時條件</a>
+        <a href="#spots" class="hover:text-[#39ff6a] transition">觀星地點</a>
+        <a href="#settings" class="hover:text-[#39ff6a] transition">顯示設定</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="relative z-10 max-w-6xl mx-auto px-6 pt-16 pb-10">
+    <p class="mono text-xs text-[#39ff6a]/60 mb-3">// 系統狀態：正常運作中</p>
+    <h1 class="font-display text-4xl md:text-6xl font-bold mb-4">
+      今晚<span class="glow-green">適合觀星</span>嗎？
+    </h1>
+    <p class="text-[#8affa0]/60 max-w-xl leading-relaxed">
+      結合即時光害指數、雲量與月相資料，幫你判斷今晚是否值得帶著望遠鏡出門。
+    </p>
+  </section>
+
+  <!-- Live conditions -->
+  <section id="conditions" class="relative z-10 max-w-6xl mx-auto px-6 py-10">
+    <div class="grid md:grid-cols-4 gap-4">
+      <div class="panel glow-border rounded-xl p-5">
+        <p class="text-xs text-[#8affa0]/50 mb-2">光害指數（Bortle）</p>
+        <p class="font-display text-3xl glow-green" id="bortle-val">3.2</p>
+        <p class="mono text-[10px] text-[#8affa0]/40 mt-1">郊外級・可見銀河</p>
+      </div>
+      <div class="panel glow-border rounded-xl p-5">
+        <p class="text-xs text-[#8affa0]/50 mb-2">雲量覆蓋率</p>
+        <p class="font-display text-3xl glow-green" id="cloud-val">18%</p>
+        <p class="mono text-[10px] text-[#8affa0]/40 mt-1">晴朗・適合觀測</p>
+      </div>
+      <div class="panel glow-border rounded-xl p-5">
+        <p class="text-xs text-[#8affa0]/50 mb-2">月相亮度</p>
+        <p class="font-display text-3xl glow-green">26%</p>
+        <p class="mono text-[10px] text-[#8affa0]/40 mt-1">眉月・干擾極低</p>
+      </div>
+      <div class="panel glow-border rounded-xl p-5">
+        <p class="text-xs text-[#8affa0]/50 mb-2">線上觀星人數</p>
+        <p class="font-display text-3xl glow-green" id="online-count">214</p>
+        <p class="mono text-[10px] text-[#8affa0]/40 mt-1">正在回報天況</p>
+      </div>
+    </div>
+    <div class="scan-line h-px mt-6 w-full"></div>
+  </section>
+
+  <!-- Spots -->
+  <section id="spots" class="relative z-10 max-w-6xl mx-auto px-6 py-10">
+    <h2 class="font-display text-2xl mb-6">推薦觀星地點 <span class="mono text-xs text-[#8affa0]/40">（依即時光害排序）</span></h2>
+    <div class="space-y-3">
+      <div class="panel glow-border rounded-xl p-5 flex items-center justify-between">
+        <div>
+          <p class="font-medium">合歡山武嶺</p>
+          <p class="text-xs text-[#8affa0]/40 mt-1">南投縣仁愛鄉・海拔 3,275 公尺</p>
+        </div>
+        <div class="text-right">
+          <p class="glow-green mono text-sm">Bortle 1</p>
+          <p class="text-xs text-[#8affa0]/40">極暗級</p>
+        </div>
+      </div>
+      <div class="panel glow-border rounded-xl p-5 flex items-center justify-between">
+        <div>
+          <p class="font-medium">阿里山祝山</p>
+          <p class="text-xs text-[#8affa0]/40 mt-1">嘉義縣阿里山鄉・海拔 2,451 公尺</p>
+        </div>
+        <div class="text-right">
+          <p class="glow-green mono text-sm">Bortle 2</p>
+          <p class="text-xs text-[#8affa0]/40">真暗級</p>
+        </div>
+      </div>
+      <div class="panel glow-border rounded-xl p-5 flex items-center justify-between">
+        <div>
+          <p class="font-medium">墾丁國家公園</p>
+          <p class="text-xs text-[#8affa0]/40 mt-1">屏東縣恆春鎮・海拔 20 公尺</p>
+        </div>
+        <div class="text-right">
+          <p class="glow-green mono text-sm">Bortle 3</p>
+          <p class="text-xs text-[#8affa0]/40">郊外級</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Settings -->
+  <section id="settings" class="relative z-10 max-w-6xl mx-auto px-6 py-10">
+    <div class="panel glow-border rounded-xl p-7 grid md:grid-cols-2 gap-8">
+      <div>
+        <label class="text-sm text-[#8affa0]/60 flex justify-between mb-3">
+          <span>螢幕亮度（護眼夜視模式）</span>
+          <span class="mono glow-green" id="brightness-out">12%</span>
+        </label>
+        <input type="range" min="0" max="100" value="12" class="slider-track w-full" oninput="document.getElementById('brightness-out').textContent=this.value+'%'">
+      </div>
+      <div>
+        <label class="text-sm text-[#8affa0]/60 flex justify-between mb-3">
+          <span>色溫（降低藍光干擾）</span>
+          <span class="mono glow-green" id="temp-out">2200K</span>
+        </label>
+        <input type="range" min="1800" max="4000" step="100" value="2200" class="slider-track w-full" oninput="document.getElementById('temp-out').textContent=this.value+'K'">
+      </div>
+    </div>
+
+    <div class="panel glow-border rounded-xl p-7 mt-6">
+      <p class="text-sm text-[#8affa0]/60 mb-3">出發前倒數提醒</p>
+      <div class="flex items-center gap-6">
+        <span class="mono text-4xl glow-green" id="countdown">00:15:00</span>
+        <button class="btn-glow rounded-full px-5 py-2 text-sm font-display" onclick="toggleTimer()" id="timer-btn">開始倒數</button>
+        <button class="text-[#8affa0]/40 text-xs hover:text-[#39ff6a]" onclick="resetTimer()">重設</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="relative z-10 border-t border-[rgba(57,255,106,.12)] px-6 py-8 text-center">
+    <p class="mono text-xs text-[#8affa0]/30">© 2026 星空獵人 STARHUNTER・資料來源：中央氣象署公開觀測站</p>
+  </footer>
+
+<script>
+  const field = document.getElementById('starfield');
+  for(let i=0;i<80;i++){
+    const s = document.createElement('div');
+    s.className='star';
+    const size = Math.random()*2+1;
+    s.style.width=size+'px'; s.style.height=size+'px';
+    s.style.left=Math.random()*100+'%';
+    s.style.top=Math.random()*100+'%';
+    s.style.animationDuration=(Math.random()*3+2)+'s';
+    field.appendChild(s);
+  }
+
+  setInterval(()=>{
+    document.getElementById('online-count').textContent = 200 + Math.floor(Math.random()*40);
+    document.getElementById('cloud-val').textContent = (14 + Math.floor(Math.random()*8)) + '%';
+    document.getElementById('bortle-val').textContent = (3.0 + Math.random()*0.5).toFixed(1);
+  }, 3000);
+
+  let seconds = 15*60, timerId = null;
+  function fmt(s){
+    const h=String(Math.floor(s/3600)).padStart(2,'0');
+    const m=String(Math.floor((s%3600)/60)).padStart(2,'0');
+    const sec=String(s%60).padStart(2,'0');
+    return `${h}:${m}:${sec}`;
+  }
+  function toggleTimer(){
+    const btn = document.getElementById('timer-btn');
+    if(timerId){
+      clearInterval(timerId); timerId=null; btn.textContent='開始倒數';
+    } else {
+      btn.textContent='暫停倒數';
+      timerId = setInterval(()=>{
+        if(seconds<=0){ clearInterval(timerId); timerId=null; btn.textContent='時間到！'; return; }
+        seconds--;
+        document.getElementById('countdown').textContent = fmt(seconds);
+      },1000);
+    }
+  }
+  function resetTimer(){
+    clearInterval(timerId); timerId=null; seconds=15*60;
+    document.getElementById('countdown').textContent = fmt(seconds);
+    document.getElementById('timer-btn').textContent='開始倒數';
+  }
+</script>
+</body>
+</html>

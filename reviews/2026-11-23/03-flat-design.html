@@ -1,0 +1,188 @@
+<!-- style #12 Flat Design 2.0 -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>好食箱 GoodBox｜食材箱訂閱服務</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Noto Sans TC','Open Sans',sans-serif; background:#fdf8ee; color:#2d2a26; }
+  .font-display{ font-family:'Open Sans','Noto Sans TC',sans-serif; }
+  .flat-card{ border-radius:20px; transition:transform .2s ease; }
+  .flat-card:hover{ transform:translateY(-4px); }
+  .btn-flat{ border-radius:14px; transition:filter .15s ease, transform .15s ease; }
+  .btn-flat:active{ transform:scale(.97); }
+  .tab-active{ background:#2d2a26; color:#fff; }
+  .chip{ border-radius:999px; }
+</style>
+</head>
+<body>
+
+  <header class="sticky top-0 z-50 bg-[#fdf8ee] border-b border-black/5">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="font-display font-extrabold text-xl flex items-center gap-2">
+        <span class="w-8 h-8 rounded-full bg-[#ff6b4a] flex items-center justify-center text-white">🥬</span>
+        好食箱
+      </div>
+      <nav class="hidden md:flex gap-8 font-display font-semibold text-sm text-[#2d2a26]/70">
+        <a href="#menu" class="hover:text-[#ff6b4a]">本週菜單</a>
+        <a href="#plans" class="hover:text-[#ff6b4a]">訂閱方案</a>
+        <a href="#how" class="hover:text-[#ff6b4a]">怎麼運作</a>
+      </nav>
+      <button class="btn-flat bg-[#ff6b4a] text-white font-display font-bold px-6 py-2.5 text-sm">立即訂閱</button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="max-w-6xl mx-auto px-6 pt-16 pb-20 grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <span class="chip bg-[#ffe29a] font-display font-bold text-xs px-4 py-1.5 inline-block mb-5">本週新菜單上線</span>
+      <h1 class="font-display font-extrabold text-4xl md:text-5xl leading-tight mb-5">
+        食材配好，<br>你只負責<span class="text-[#ff6b4a]">煮</span>
+      </h1>
+      <p class="text-[#2d2a26]/60 text-lg mb-8 leading-relaxed">
+        每週配送新鮮分裝食材與圖文食譜，20 分鐘內完成一道主廚設計的家常菜。
+      </p>
+      <div class="flex gap-3">
+        <button class="btn-flat bg-[#2d2a26] text-white font-display font-bold px-7 py-3.5">查看本週菜單</button>
+        <button class="btn-flat bg-[#eee6d6] text-[#2d2a26] font-display font-bold px-7 py-3.5">了解配送範圍</button>
+      </div>
+      <div class="flex gap-6 mt-10 font-display">
+        <div><p class="font-extrabold text-2xl text-[#2d9d6f]">4.8 / 5</p><p class="text-xs text-[#2d2a26]/50">顧客滿意度</p></div>
+        <div><p class="font-extrabold text-2xl text-[#2d9d6f]">12,600+</p><p class="text-xs text-[#2d2a26]/50">配送箱數 / 月</p></div>
+        <div><p class="font-extrabold text-2xl text-[#2d9d6f]">20 分</p><p class="text-xs text-[#2d2a26]/50">平均烹煮時間</p></div>
+      </div>
+    </div>
+    <div class="relative">
+      <div class="absolute -top-6 -left-6 w-40 h-40 rounded-full bg-[#ffd36e] -z-10"></div>
+      <div class="absolute -bottom-10 -right-6 w-28 h-28 rounded-full bg-[#9fe0c4] -z-10"></div>
+      <div class="flat-card bg-white p-6 shadow-sm">
+        <div class="h-56 rounded-2xl bg-[#ff6b4a] flex items-center justify-center text-6xl">🍜</div>
+        <p class="font-display font-bold text-lg mt-4">台式紅燒牛肉麵</p>
+        <p class="text-[#2d2a26]/50 text-sm">含湯頭包、牛腱肉、手工麵條・25 分鐘</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu tabs -->
+  <section id="menu" class="max-w-6xl mx-auto px-6 pb-20">
+    <h2 class="font-display font-extrabold text-3xl mb-6">本週菜單</h2>
+    <div class="flex gap-3 mb-8" id="menu-tabs">
+      <button class="menu-tab tab-active font-display font-semibold text-sm px-5 py-2.5 rounded-full" data-tab="all">全部</button>
+      <button class="menu-tab bg-white font-display font-semibold text-sm px-5 py-2.5 rounded-full" data-tab="meat">肉類主食</button>
+      <button class="menu-tab bg-white font-display font-semibold text-sm px-5 py-2.5 rounded-full" data-tab="veg">蔬食系列</button>
+      <button class="menu-tab bg-white font-display font-semibold text-sm px-5 py-2.5 rounded-full" data-tab="soup">湯品鍋物</button>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6" id="menu-grid">
+      <div class="menu-item flat-card bg-white p-5" data-cat="meat">
+        <div class="h-36 rounded-xl bg-[#ffd36e] flex items-center justify-center text-5xl mb-4">🍗</div>
+        <p class="font-display font-bold">蜂蜜檜木烤雞腿</p>
+        <p class="text-[#2d2a26]/50 text-xs mt-1">含去骨雞腿、時蔬・22 分鐘</p>
+      </div>
+      <div class="menu-item flat-card bg-white p-5" data-cat="veg">
+        <div class="h-36 rounded-xl bg-[#9fe0c4] flex items-center justify-center text-5xl mb-4">🥗</div>
+        <p class="font-display font-bold">鷹嘴豆酪梨沙拉</p>
+        <p class="text-[#2d2a26]/50 text-xs mt-1">純素・免烹煮・10 分鐘</p>
+      </div>
+      <div class="menu-item flat-card bg-white p-5" data-cat="soup">
+        <div class="h-36 rounded-xl bg-[#ff9d8a] flex items-center justify-center text-5xl mb-4">🍲</div>
+        <p class="font-display font-bold">酸菜白肉鍋</p>
+        <p class="text-[#2d2a26]/50 text-xs mt-1">含湯頭包、五花肉片・18 分鐘</p>
+      </div>
+      <div class="menu-item flat-card bg-white p-5" data-cat="meat">
+        <div class="h-36 rounded-xl bg-[#ffb199] flex items-center justify-center text-5xl mb-4">🥩</div>
+        <p class="font-display font-bold">黑胡椒嫩煎牛小排</p>
+        <p class="text-[#2d2a26]/50 text-xs mt-1">含黑胡椒醬、馬鈴薯泥・20 分鐘</p>
+      </div>
+      <div class="menu-item flat-card bg-white p-5" data-cat="veg">
+        <div class="h-36 rounded-xl bg-[#c9e8a0] flex items-center justify-center text-5xl mb-4">🍝</div>
+        <p class="font-display font-bold">番茄羅勒蔬食義大利麵</p>
+        <p class="text-[#2d2a26]/50 text-xs mt-1">純素・15 分鐘</p>
+      </div>
+      <div class="menu-item flat-card bg-white p-5" data-cat="soup">
+        <div class="h-36 rounded-xl bg-[#f6c96b] flex items-center justify-center text-5xl mb-4">🍛</div>
+        <p class="font-display font-bold">南洋椰香咖哩雞</p>
+        <p class="text-[#2d2a26]/50 text-xs mt-1">含椰漿包、雞胸肉・22 分鐘</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Plans -->
+  <section id="plans" class="max-w-6xl mx-auto px-6 pb-20">
+    <h2 class="font-display font-extrabold text-3xl mb-10 text-center">選擇你的訂閱方案</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="flat-card bg-white p-8 border-2 border-transparent">
+        <p class="font-display font-bold text-lg">輕食方案</p>
+        <p class="font-display font-extrabold text-3xl mt-3 mb-1">NT$ 890<span class="text-sm font-normal text-[#2d2a26]/50">／週</span></p>
+        <p class="text-[#2d2a26]/50 text-sm mb-6">每週 2 餐・適合 1-2 人</p>
+        <button class="btn-flat bg-[#eee6d6] font-display font-bold w-full py-3">選擇方案</button>
+      </div>
+      <div class="flat-card bg-[#2d2a26] text-white p-8 border-2 border-[#ff6b4a] relative">
+        <span class="chip bg-[#ff6b4a] text-xs font-display font-bold px-3 py-1 absolute -top-3 left-6">最多人選擇</span>
+        <p class="font-display font-bold text-lg">家庭方案</p>
+        <p class="font-display font-extrabold text-3xl mt-3 mb-1">NT$ 1,680<span class="text-sm font-normal text-white/50">／週</span></p>
+        <p class="text-white/50 text-sm mb-6">每週 4 餐・適合 3-4 人</p>
+        <button class="btn-flat bg-[#ff6b4a] text-white font-display font-bold w-full py-3">選擇方案</button>
+      </div>
+      <div class="flat-card bg-white p-8 border-2 border-transparent">
+        <p class="font-display font-bold text-lg">單身方案</p>
+        <p class="font-display font-extrabold text-3xl mt-3 mb-1">NT$ 490<span class="text-sm font-normal text-[#2d2a26]/50">／週</span></p>
+        <p class="text-[#2d2a26]/50 text-sm mb-6">每週 1 餐・適合 1 人</p>
+        <button class="btn-flat bg-[#eee6d6] font-display font-bold w-full py-3">選擇方案</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="how" class="max-w-6xl mx-auto px-6 pb-24">
+    <h2 class="font-display font-extrabold text-3xl mb-10 text-center">怎麼運作</h2>
+    <div class="grid md:grid-cols-4 gap-6 text-center">
+      <div>
+        <div class="w-16 h-16 rounded-full bg-[#ffd36e] flex items-center justify-center text-2xl mx-auto mb-4 font-display font-extrabold">1</div>
+        <p class="font-display font-bold mb-1">選擇方案</p>
+        <p class="text-[#2d2a26]/50 text-sm">依人數與食量挑選每週餐數</p>
+      </div>
+      <div>
+        <div class="w-16 h-16 rounded-full bg-[#9fe0c4] flex items-center justify-center text-2xl mx-auto mb-4 font-display font-extrabold">2</div>
+        <p class="font-display font-bold mb-1">挑選菜單</p>
+        <p class="text-[#2d2a26]/50 text-sm">每週五前可自由更換想吃的菜色</p>
+      </div>
+      <div>
+        <div class="w-16 h-16 rounded-full bg-[#ff9d8a] flex items-center justify-center text-2xl mx-auto mb-4 font-display font-extrabold">3</div>
+        <p class="font-display font-bold mb-1">冷藏配送</p>
+        <p class="text-[#2d2a26]/50 text-sm">週一、週四到府，保冷配送不斷鏈</p>
+      </div>
+      <div>
+        <div class="w-16 h-16 rounded-full bg-[#ffb199] flex items-center justify-center text-2xl mx-auto mb-4 font-display font-extrabold">4</div>
+        <p class="font-display font-bold mb-1">動手開煮</p>
+        <p class="text-[#2d2a26]/50 text-sm">跟著圖文食譜，20 分鐘上桌</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-[#2d2a26] text-white/60 text-center py-8 text-sm">
+    © 2026 好食箱 GoodBox・台北市內湖區瑞光路 268 號
+  </footer>
+
+<script>
+  const tabs = document.querySelectorAll('.menu-tab');
+  const items = document.querySelectorAll('.menu-item');
+  tabs.forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      tabs.forEach(t=>t.classList.remove('tab-active','bg-white'));
+      tabs.forEach(t=>t.classList.add('bg-white'));
+      tab.classList.remove('bg-white');
+      tab.classList.add('tab-active');
+      const cat = tab.dataset.tab;
+      items.forEach(item=>{
+        item.style.display = (cat==='all' || item.dataset.cat===cat) ? '' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>

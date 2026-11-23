@@ -1,0 +1,183 @@
+<!-- style #32 Drill-Down Dashboard -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>鑽透台 DrillView｜零售營運後台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Noto Sans TC','Manrope',sans-serif; background:#f4f5f7; color:#1a1d23; }
+  .font-display{ font-family:'Manrope','Noto Sans TC',sans-serif; }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+  .card{ background:#fff; border:1px solid #e5e7eb; border-radius:14px; }
+  .row-hover:hover{ background:#f8f9fb; cursor:pointer; }
+  .crumb{ color:#6b7280; }
+  .crumb.active{ color:#1a1d23; font-weight:700; }
+  .bar-fill{ transition:width .5s ease; }
+  .kpi-up{ color:#15803d; }
+  .kpi-down{ color:#b91c1c; }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <div class="flex">
+    <!-- Sidebar -->
+    <aside class="w-56 bg-[#14161a] text-white/70 min-h-screen hidden md:flex flex-col py-6 px-4">
+      <div class="font-display font-extrabold text-white text-lg px-2 mb-8">鑽透台 <span class="mono text-xs text-white/40">DRILLVIEW</span></div>
+      <nav class="space-y-1 text-sm font-display font-medium">
+        <a class="flex items-center gap-2 px-3 py-2.5 rounded-lg bg-white/10 text-white">📊 銷售總覽</a>
+        <a class="flex items-center gap-2 px-3 py-2.5 rounded-lg hover:bg-white/5">📦 庫存管理</a>
+        <a class="flex items-center gap-2 px-3 py-2.5 rounded-lg hover:bg-white/5">👥 顧客分析</a>
+        <a class="flex items-center gap-2 px-3 py-2.5 rounded-lg hover:bg-white/5">⚙️ 系統設定</a>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="flex-1 p-6 md:p-8">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h1 class="font-display font-extrabold text-2xl">銷售總覽</h1>
+          <p class="text-sm text-gray-400 mt-1">點擊任一區域、門市或品類即可逐層下鑽</p>
+        </div>
+        <div class="mono text-xs text-gray-400">資料更新：2026-11-23 09:00</div>
+      </div>
+
+      <!-- Breadcrumb -->
+      <div class="flex items-center gap-2 text-sm font-display font-medium mb-6" id="breadcrumb">
+        <span class="crumb active cursor-pointer" data-level="0" onclick="drillTo(0)">全台總覽</span>
+      </div>
+
+      <!-- KPI row -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="card p-5">
+          <p class="text-xs text-gray-400 mb-2">本月營收</p>
+          <p class="font-display font-extrabold text-2xl mono" id="kpi-revenue">NT$ 48.6M</p>
+          <p class="kpi-up text-xs font-medium mt-1">▲ 12.4% 較上月</p>
+        </div>
+        <div class="card p-5">
+          <p class="text-xs text-gray-400 mb-2">訂單數</p>
+          <p class="font-display font-extrabold text-2xl mono" id="kpi-orders">38,204</p>
+          <p class="kpi-up text-xs font-medium mt-1">▲ 6.1% 較上月</p>
+        </div>
+        <div class="card p-5">
+          <p class="text-xs text-gray-400 mb-2">平均客單價</p>
+          <p class="font-display font-extrabold text-2xl mono" id="kpi-aov">NT$ 1,273</p>
+          <p class="kpi-down text-xs font-medium mt-1">▼ 2.3% 較上月</p>
+        </div>
+        <div class="card p-5">
+          <p class="text-xs text-gray-400 mb-2">退貨率</p>
+          <p class="font-display font-extrabold text-2xl mono" id="kpi-return">2.8%</p>
+          <p class="kpi-up text-xs font-medium mt-1">▼ 0.4% 較上月（下降為佳）</p>
+        </div>
+      </div>
+
+      <!-- Drill table -->
+      <div class="card p-6">
+        <h2 class="font-display font-bold text-lg mb-4" id="table-title">依區域檢視營收</h2>
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="text-left text-gray-400 border-b border-gray-100">
+              <th class="py-2 font-display font-medium">名稱</th>
+              <th class="py-2 font-display font-medium">營收</th>
+              <th class="py-2 font-display font-medium">占比</th>
+              <th class="py-2 font-display font-medium w-40">趨勢</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+<script>
+const data = {
+  regions: [
+    { name:'北部區域', revenue:21300000, share:44, children:'stores_north' },
+    { name:'中部區域', revenue:12100000, share:25, children:'stores_mid' },
+    { name:'南部區域', revenue:9800000, share:20, children:'stores_south' },
+    { name:'東部區域', revenue:5400000, share:11, children:'stores_east' },
+  ],
+  stores_north: [
+    { name:'台北信義門市', revenue:8200000, share:38, children:'categories' },
+    { name:'台北士林門市', revenue:6100000, share:29, children:'categories' },
+    { name:'新北板橋門市', revenue:4700000, share:22, children:'categories' },
+    { name:'新北三重門市', revenue:2300000, share:11, children:'categories' },
+  ],
+  stores_mid: [
+    { name:'台中西屯門市', revenue:7200000, share:59, children:'categories' },
+    { name:'台中北屯門市', revenue:3100000, share:26, children:'categories' },
+    { name:'彰化市門市', revenue:1800000, share:15, children:'categories' },
+  ],
+  stores_south: [
+    { name:'高雄左營門市', revenue:5600000, share:57, children:'categories' },
+    { name:'台南東區門市', revenue:3100000, share:32, children:'categories' },
+    { name:'屏東市門市', revenue:1100000, share:11, children:'categories' },
+  ],
+  stores_east: [
+    { name:'花蓮市門市', revenue:3300000, share:61, children:'categories' },
+    { name:'宜蘭羅東門市', revenue:2100000, share:39, children:'categories' },
+  ],
+  categories: [
+    { name:'女裝服飾', revenue:3100000, share:38, children:null },
+    { name:'男裝服飾', revenue:2400000, share:29, children:null },
+    { name:'鞋類配件', revenue:1600000, share:20, children:null },
+    { name:'家居用品', revenue:1100000, share:13, children:null },
+  ]
+};
+
+let path = [{ label:'全台總覽', key:'regions', title:'依區域檢視營收' }];
+
+function render(){
+  const current = path[path.length-1];
+  const rows = data[current.key];
+  const body = document.getElementById('table-body');
+  document.getElementById('table-title').textContent = current.title;
+  body.innerHTML = '';
+  rows.forEach((row, i)=>{
+    const tr = document.createElement('tr');
+    tr.className = 'row-hover border-b border-gray-50';
+    const barColor = ['#2563eb','#16a34a','#d97706','#dc2626'][i%4];
+    tr.innerHTML = `
+      <td class="py-3 font-display font-medium">${row.name}${row.children ? ' <span class=\"text-gray-300\">›</span>' : ''}</td>
+      <td class="py-3 mono">NT$ ${(row.revenue/1000000).toFixed(1)}M</td>
+      <td class="py-3 mono text-gray-500">${row.share}%</td>
+      <td class="py-3">
+        <div class="h-2 bg-gray-100 rounded-full overflow-hidden">
+          <div class="bar-fill h-full rounded-full" style="width:${row.share}%; background:${barColor};"></div>
+        </div>
+      </td>
+    `;
+    if(row.children){
+      tr.addEventListener('click', ()=>{
+        path.push({ label: row.name, key: row.children, title: `依品類檢視營收 — ${row.name}` });
+        renderBreadcrumb();
+        render();
+      });
+    }
+    body.appendChild(tr);
+  });
+}
+
+function renderBreadcrumb(){
+  const bc = document.getElementById('breadcrumb');
+  bc.innerHTML = path.map((p, i)=>{
+    const isLast = i === path.length-1;
+    return `<span class="crumb ${isLast?'active':''} cursor-pointer" data-level="${i}" onclick="drillTo(${i})">${p.label}</span>` +
+           (isLast ? '' : '<span class="text-gray-300">/</span>');
+  }).join('');
+}
+
+function drillTo(level){
+  path = path.slice(0, level+1);
+  renderBreadcrumb();
+  render();
+}
+
+renderBreadcrumb();
+render();
+</script>
+</body>
+</html>

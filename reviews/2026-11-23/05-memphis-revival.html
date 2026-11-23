@@ -1,0 +1,168 @@
+<!-- style #44 Memphis Revival -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>玩色工作室 PlayColor Studio｜兒童創意課程</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Noto Sans TC','Poppins',sans-serif; background:#fdf6ec; color:#241f1a; overflow-x:hidden;}
+  .font-display{ font-family:'Archivo Black','Noto Sans TC',sans-serif; }
+  .dots-bg{
+    background-image:radial-gradient(#241f1a 2px, transparent 2px);
+    background-size:16px 16px;
+    opacity:.08;
+  }
+  .zigzag{
+    clip-path: polygon(0% 10%, 10% 0%, 20% 10%, 30% 0%, 40% 10%, 50% 0%, 60% 10%, 70% 0%, 80% 10%, 90% 0%, 100% 10%, 100% 100%, 0% 100%);
+  }
+  .tilt-card{ transform:rotate(-2deg); transition:transform .25s ease; }
+  .tilt-card:nth-child(even){ transform:rotate(2deg); }
+  .tilt-card:hover{ transform:rotate(0deg) scale(1.03); }
+  .hard-shadow{
+    border:4px solid #241f1a;
+    box-shadow:8px 8px 0 #241f1a;
+  }
+  .hard-shadow-sm{ border:3px solid #241f1a; box-shadow:5px 5px 0 #241f1a; }
+  .btn-memphis{
+    border:4px solid #241f1a;
+    box-shadow:6px 6px 0 #241f1a;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-memphis:active{ transform:translate(3px,3px); box-shadow:2px 2px 0 #241f1a; }
+  .squiggle{ position:absolute; }
+  .marquee-wrap{ overflow:hidden; white-space:nowrap; }
+  .marquee-track{ display:inline-block; animation:marquee 18s linear infinite; }
+  @keyframes marquee{ 0%{ transform:translateX(0); } 100%{ transform:translateX(-50%); } }
+</style>
+</head>
+<body class="relative">
+
+  <div class="dots-bg fixed inset-0 z-0"></div>
+
+  <!-- Marquee -->
+  <div class="bg-[#241f1a] text-[#ffe156] font-display text-sm py-2 marquee-wrap relative z-10">
+    <div class="marquee-track">
+      ★ 寒假創意營 開放報名中 ★ 每班限額 12 人 ★ 老師都是正式美術系畢業 ★ 寒假創意營 開放報名中 ★ 每班限額 12 人 ★ 老師都是正式美術系畢業 ★
+    </div>
+  </div>
+
+  <header class="relative z-10 max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+    <div class="font-display text-xl flex items-center gap-2">
+      <span class="w-10 h-10 rounded-full bg-[#ff6b6b] border-4 border-[#241f1a] flex items-center justify-center">🎨</span>
+      玩色工作室
+    </div>
+    <nav class="hidden md:flex gap-8 font-semibold text-sm">
+      <a href="#courses" class="hover:text-[#ff6b6b]">課程介紹</a>
+      <a href="#teachers" class="hover:text-[#ff6b6b]">師資陣容</a>
+      <a href="#book" class="hover:text-[#ff6b6b]">立即預約</a>
+    </nav>
+    <button class="btn-memphis bg-[#4ecdc4] font-display text-sm px-5 py-2.5">預約試上課</button>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative z-10 max-w-6xl mx-auto px-6 pt-10 pb-24">
+    <div class="grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <h1 class="font-display text-4xl md:text-6xl leading-[1.15] mb-6">
+          讓小孩的<br><span class="text-[#ff6b6b]">想像力</span>，<br>不只是塗鴉
+        </h1>
+        <p class="text-lg mb-8 leading-relaxed font-medium">
+          3 到 12 歲創意美術課程，從色彩認知到立體創作，
+          每堂課都有帶回家的作品。
+        </p>
+        <div class="flex gap-4">
+          <button class="btn-memphis bg-[#ffe156] font-display text-sm px-7 py-3.5">查看課程表</button>
+          <button class="btn-memphis bg-white font-display text-sm px-7 py-3.5">預約免費試上</button>
+        </div>
+      </div>
+      <div class="relative h-80">
+        <div class="hard-shadow bg-[#a388ee] absolute top-0 left-6 w-44 h-44 rounded-full flex items-center justify-center text-5xl rotate-6">🖍️</div>
+        <div class="hard-shadow bg-[#ffe156] absolute top-16 right-0 w-36 h-36 zigzag flex items-center justify-center text-4xl -rotate-3">✂️</div>
+        <div class="hard-shadow-sm bg-[#4ecdc4] absolute bottom-0 left-16 w-32 h-32 rounded-2xl flex items-center justify-center text-4xl rotate-3">🧵</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Courses -->
+  <section id="courses" class="relative z-10 max-w-6xl mx-auto px-6 pb-24">
+    <h2 class="font-display text-3xl mb-10 text-center">課程介紹</h2>
+    <div class="grid md:grid-cols-3 gap-8 pt-4">
+      <div class="tilt-card hard-shadow bg-white p-6">
+        <div class="w-16 h-16 rounded-full bg-[#ff6b6b] border-4 border-[#241f1a] flex items-center justify-center text-3xl mb-4">🖌️</div>
+        <h3 class="font-display text-lg mb-2">色彩探索班</h3>
+        <p class="text-sm font-medium mb-4">適合 3-5 歲・每堂 60 分鐘</p>
+        <p class="text-sm leading-relaxed">用水彩、黏土認識色彩混合原理，培養手眼協調能力。</p>
+        <p class="font-display text-xl mt-4 text-[#ff6b6b]">NT$ 650<span class="text-xs font-normal font-sans">／堂</span></p>
+      </div>
+      <div class="tilt-card hard-shadow bg-white p-6">
+        <div class="w-16 h-16 rounded-full bg-[#4ecdc4] border-4 border-[#241f1a] flex items-center justify-center text-3xl mb-4">✂️</div>
+        <h3 class="font-display text-lg mb-2">立體紙雕班</h3>
+        <p class="text-sm font-medium mb-4">適合 6-9 歲・每堂 75 分鐘</p>
+        <p class="text-sm leading-relaxed">從平面到立體，學習紙張摺疊、拼貼與結構搭建技巧。</p>
+        <p class="font-display text-xl mt-4 text-[#4ecdc4]">NT$ 780<span class="text-xs font-normal font-sans">／堂</span></p>
+      </div>
+      <div class="tilt-card hard-shadow bg-white p-6">
+        <div class="w-16 h-16 rounded-full bg-[#ffe156] border-4 border-[#241f1a] flex items-center justify-center text-3xl mb-4">🎭</div>
+        <h3 class="font-display text-lg mb-2">複合媒材創作班</h3>
+        <p class="text-sm font-medium mb-4">適合 10-12 歲・每堂 90 分鐘</p>
+        <p class="text-sm leading-relaxed">結合壓克力顏料、拼貼與回收材料，完成個人風格作品。</p>
+        <p class="font-display text-xl mt-4 text-[#d97706]">NT$ 920<span class="text-xs font-normal font-sans">／堂</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Teachers -->
+  <section id="teachers" class="relative z-10 max-w-6xl mx-auto px-6 pb-24">
+    <h2 class="font-display text-3xl mb-10 text-center">師資陣容</h2>
+    <div class="grid md:grid-cols-4 gap-6">
+      <div class="hard-shadow-sm bg-[#a388ee] p-5 text-center">
+        <div class="w-20 h-20 rounded-full bg-white border-4 border-[#241f1a] mx-auto mb-3 flex items-center justify-center text-3xl">👩‍🎨</div>
+        <p class="font-display text-sm">阿杰老師</p>
+        <p class="text-xs font-medium mt-1">台藝大美術系・6 年教學</p>
+      </div>
+      <div class="hard-shadow-sm bg-[#ffe156] p-5 text-center">
+        <div class="w-20 h-20 rounded-full bg-white border-4 border-[#241f1a] mx-auto mb-3 flex items-center justify-center text-3xl">👨‍🎨</div>
+        <p class="font-display text-sm">小鹿老師</p>
+        <p class="text-xs font-medium mt-1">師大美術系・4 年教學</p>
+      </div>
+      <div class="hard-shadow-sm bg-[#4ecdc4] p-5 text-center">
+        <div class="w-20 h-20 rounded-full bg-white border-4 border-[#241f1a] mx-auto mb-3 flex items-center justify-center text-3xl">👩‍🎨</div>
+        <p class="font-display text-sm">奇奇老師</p>
+        <p class="text-xs font-medium mt-1">北藝大美術系・5 年教學</p>
+      </div>
+      <div class="hard-shadow-sm bg-[#ff6b6b] p-5 text-center">
+        <div class="w-20 h-20 rounded-full bg-white border-4 border-[#241f1a] mx-auto mb-3 flex items-center justify-center text-3xl">👨‍🎨</div>
+        <p class="font-display text-sm">皮皮老師</p>
+        <p class="text-xs font-medium mt-1">雲科大視傳系・3 年教學</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking -->
+  <section id="book" class="relative z-10 max-w-3xl mx-auto px-6 pb-24">
+    <div class="hard-shadow bg-[#ffe156] p-8 md:p-10">
+      <h2 class="font-display text-2xl mb-6 text-center">預約免費試上課</h2>
+      <form class="grid gap-4" onsubmit="event.preventDefault(); document.getElementById('book-success').classList.remove('hidden'); this.reset();">
+        <input required type="text" placeholder="家長姓名" class="border-4 border-[#241f1a] rounded-xl px-4 py-3 bg-white focus:outline-none">
+        <input required type="tel" placeholder="聯絡電話" class="border-4 border-[#241f1a] rounded-xl px-4 py-3 bg-white focus:outline-none">
+        <select class="border-4 border-[#241f1a] rounded-xl px-4 py-3 bg-white focus:outline-none">
+          <option>色彩探索班（3-5 歲）</option>
+          <option>立體紙雕班（6-9 歲）</option>
+          <option>複合媒材創作班（10-12 歲）</option>
+        </select>
+        <button type="submit" class="btn-memphis bg-[#ff6b6b] font-display py-3.5">送出試上預約</button>
+      </form>
+      <p id="book-success" class="hidden mt-4 text-center font-display text-sm text-[#241f1a]">🎉 已收到預約！我們將於 1 個工作日內致電確認時段。</p>
+    </div>
+  </section>
+
+  <footer class="relative z-10 bg-[#241f1a] text-[#fdf6ec] text-center py-8 font-medium text-sm">
+    © 2026 玩色工作室 PlayColor Studio・台中市西區五權西路 88 號
+  </footer>
+
+</body>
+</html>
