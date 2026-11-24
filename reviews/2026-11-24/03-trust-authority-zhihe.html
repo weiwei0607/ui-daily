@@ -1,0 +1,188 @@
+<!-- style #24 Social Proof-Focused x #26 Trust & Authority -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智合顧問 ZhiHe Advisory · 企業稅務與法遵</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..600&family=Noto+Serif+TC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Noto Serif TC','Newsreader',serif; background:#f7f4ee; color:#1c2333; }
+  .en{ font-family:'Newsreader','Noto Serif TC',serif; }
+  .rule{ border-top:1px solid #1c2333; }
+  .counter{ font-feature-settings:"tnum"; }
+  .fade-in{ opacity:0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+  .fade-in.show{ opacity:1; transform:none; }
+  .quote-slide{ display:none; }
+  .quote-slide.active{ display:block; }
+</style>
+</head>
+<body>
+
+<!-- Masthead -->
+<header class="max-w-5xl mx-auto px-6 pt-10 pb-5">
+  <div class="flex items-center justify-between rule pb-4">
+    <div>
+      <p class="text-[11px] tracking-[0.3em] uppercase opacity-60">專業顧問 · 自 1998</p>
+      <h1 class="en text-3xl font-700 mt-1">智合顧問 <span class="italic">ZhiHe Advisory</span></h1>
+    </div>
+    <nav class="hidden md:flex gap-6 text-sm">
+      <a href="#" class="hover:underline">服務項目</a>
+      <a href="#" class="hover:underline">客戶見證</a>
+      <a href="#cases" class="hover:underline">實績案例</a>
+      <a href="#contact" class="border border-[#1c2333] px-4 py-1.5 hover:bg-[#1c2333] hover:text-[#f7f4ee] transition">預約諮詢</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="max-w-5xl mx-auto px-6 py-10 grid md:grid-cols-[1.3fr_1fr] gap-10 items-end">
+  <div>
+    <p class="text-sm uppercase tracking-widest opacity-60 mb-3">企業稅務 · 法令遵循 · 跨境架構</p>
+    <h2 class="en text-4xl md:text-5xl font-600 leading-[1.15]">把複雜的法規，<br>變成可以信任的決策。</h2>
+    <p class="mt-5 text-[17px] leading-8 opacity-80 max-w-md">
+      我們陪伴 240 家以上的中大型企業，走過稽核、併購與跨境布局。顧問團隊平均執業 14 年，
+      只做一件事：讓董事會在做決定前，先看清風險全貌。
+    </p>
+    <div class="mt-6 flex gap-4">
+      <button class="bg-[#1c2333] text-[#f7f4ee] px-6 py-3 text-sm tracking-wide hover:opacity-90">預約初次諮詢</button>
+      <a href="#cases" class="px-6 py-3 text-sm tracking-wide underline self-center">看實績案例 →</a>
+    </div>
+  </div>
+  <div class="rule pt-4">
+    <p class="text-xs uppercase tracking-widest opacity-60 mb-3">受這些企業信任</p>
+    <div class="grid grid-cols-3 gap-y-5 text-center text-sm opacity-70">
+      <span class="en font-600">恆泰集團</span>
+      <span class="en font-600">昱新科技</span>
+      <span class="en font-600">翔遠物流</span>
+      <span class="en font-600">合眾金融</span>
+      <span class="en font-600">福源食品</span>
+      <span class="en font-600">景碩生技</span>
+    </div>
+  </div>
+</section>
+
+<!-- 數據社會證明 -->
+<section class="bg-[#1c2333] text-[#f7f4ee] py-10 mt-6">
+  <div class="max-w-5xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+    <div class="fade-in">
+      <p class="en counter text-4xl font-700" data-target="240">0</p>
+      <p class="text-xs opacity-70 mt-2 tracking-wide">服務企業數</p>
+    </div>
+    <div class="fade-in">
+      <p class="en counter text-4xl font-700" data-target="97">0</p>
+      <p class="text-xs opacity-70 mt-2 tracking-wide">稽核通過率 %</p>
+    </div>
+    <div class="fade-in">
+      <p class="en counter text-4xl font-700" data-target="14">0</p>
+      <p class="text-xs opacity-70 mt-2 tracking-wide">平均執業年資</p>
+    </div>
+    <div class="fade-in">
+      <p class="en counter text-4xl font-700" data-target="18">0</p>
+      <p class="text-xs opacity-70 mt-2 tracking-wide">跨境司法管轄區</p>
+    </div>
+  </div>
+</section>
+
+<!-- 客戶見證 -->
+<section class="max-w-3xl mx-auto px-6 py-14 text-center">
+  <p class="text-xs uppercase tracking-widest opacity-60 mb-4">客戶怎麼說</p>
+  <div id="quotes" class="min-h-[160px]">
+    <div class="quote-slide active">
+      <p class="en text-2xl italic leading-relaxed">「併購案最緊張的三個月，智合的團隊比我們法務部更早發現稽核缺口。」</p>
+      <p class="mt-4 text-sm opacity-60">— 恆泰集團 財務長 林維翔</p>
+    </div>
+    <div class="quote-slide">
+      <p class="en text-2xl italic leading-relaxed">「跨境架構重整後，我們省下的不只是稅務成本，是董事會對風險的焦慮。」</p>
+      <p class="mt-4 text-sm opacity-60">— 昱新科技 總經理 許佳玟</p>
+    </div>
+    <div class="quote-slide">
+      <p class="en text-2xl italic leading-relaxed">「他們會把法規白話成一頁紙，讓非財務背景的董事也看得懂決策後果。」</p>
+      <p class="mt-4 text-sm opacity-60">— 合眾金融 獨立董事 吳建宏</p>
+    </div>
+  </div>
+  <div class="flex justify-center gap-2 mt-6">
+    <button class="dot w-2 h-2 rounded-full bg-[#1c2333]" data-i="0" onclick="goQuote(0)"></button>
+    <button class="dot w-2 h-2 rounded-full bg-[#1c2333]/30" data-i="1" onclick="goQuote(1)"></button>
+    <button class="dot w-2 h-2 rounded-full bg-[#1c2333]/30" data-i="2" onclick="goQuote(2)"></button>
+  </div>
+</section>
+
+<!-- 實績案例 -->
+<section id="cases" class="max-w-5xl mx-auto px-6 py-14 rule">
+  <p class="text-xs uppercase tracking-widest opacity-60 mb-6 mt-8">精選實績</p>
+  <div class="grid md:grid-cols-3 gap-8">
+    <div class="fade-in">
+      <p class="text-xs opacity-50 mb-2">製造業 · 併購稽核</p>
+      <h3 class="en text-xl font-600 mb-2">三個月內完成跨國併購稽核</h3>
+      <p class="text-sm opacity-75 leading-6">協助恆泰集團在收購東南亞子公司時，提前揪出 3 項潛藏稽核風險，避免交易後追溯補稅。</p>
+    </div>
+    <div class="fade-in">
+      <p class="text-xs opacity-50 mb-2">科技業 · 跨境架構</p>
+      <h3 class="en text-xl font-600 mb-2">重整 6 國子公司稅務架構</h3>
+      <p class="text-sm opacity-75 leading-6">為昱新科技設計符合 OECD 規範的移轉訂價政策，年化稅務成本下降 22%。</p>
+    </div>
+    <div class="fade-in">
+      <p class="text-xs opacity-50 mb-2">金融業 · 法遵健檢</p>
+      <h3 class="en text-xl font-600 mb-2">建立董事會風險儀表板</h3>
+      <p class="text-sm opacity-75 leading-6">為合眾金融設計一頁式法遵風險摘要，讓非財務背景董事能快速掌握決策影響。</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact" class="bg-[#1c2333] text-[#f7f4ee] py-14 mt-6">
+  <div class="max-w-3xl mx-auto px-6 text-center">
+    <h3 class="en text-3xl font-600">下一次重大決策前，先找我們談談。</h3>
+    <p class="mt-3 opacity-75 text-sm">初次諮詢 60 分鐘，由主持顧問親自接案，不經由業務轉介。</p>
+    <form class="mt-6 flex flex-col sm:flex-row gap-3 justify-center" onsubmit="event.preventDefault(); document.getElementById('formMsg').classList.remove('hidden');">
+      <input required type="text" placeholder="公司名稱" class="px-4 py-3 text-sm text-[#1c2333] w-full sm:w-56">
+      <input required type="email" placeholder="聯絡信箱" class="px-4 py-3 text-sm text-[#1c2333] w-full sm:w-56">
+      <button class="bg-[#f7f4ee] text-[#1c2333] px-6 py-3 text-sm font-600 hover:opacity-90">送出預約</button>
+    </form>
+    <p id="formMsg" class="hidden mt-4 text-sm text-[#d7cba8]">已收到您的預約，顧問將於一個工作日內與您聯繫。</p>
+  </div>
+</section>
+
+<footer class="text-center text-xs opacity-50 py-6">© 2026 智合顧問 ZhiHe Advisory. 台北市信義區松仁路 100 號 32 樓</footer>
+
+<script>
+  // 數字動畫
+  const counters = document.querySelectorAll('.counter');
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.closest('.fade-in')?.classList.add('show');
+        const el = entry.target.classList.contains('counter') ? entry.target : null;
+        if(el && !el.dataset.done){
+          el.dataset.done = '1';
+          const target = Number(el.dataset.target);
+          let cur = 0;
+          const step = Math.max(1, Math.round(target/40));
+          const t = setInterval(()=>{
+            cur += step;
+            if(cur>=target){ cur = target; clearInterval(t); }
+            el.textContent = cur;
+          }, 30);
+        }
+      }
+    });
+  }, {threshold:0.4});
+  document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+  counters.forEach(c=>observer.observe(c));
+
+  // 見證輪播
+  let qi = 0;
+  function goQuote(i){
+    document.querySelectorAll('.quote-slide').forEach((s,idx)=>s.classList.toggle('active', idx===i));
+    document.querySelectorAll('.dot').forEach((d,idx)=>d.classList.toggle('bg-[#1c2333]/30', idx!==i) );
+    document.querySelectorAll('.dot').forEach((d,idx)=>d.classList.toggle('bg-[#1c2333]', idx===i) );
+    qi = i;
+  }
+  setInterval(()=>{ goQuote((qi+1)%3); }, 6000);
+</script>
+
+</body>
+</html>

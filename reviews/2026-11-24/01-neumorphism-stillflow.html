@@ -1,0 +1,217 @@
+<!-- style #02 Neumorphism -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>靜序 Stillflow · 每日冥想與習慣</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --base:#e6e7eb;
+    --base-light:#ffffff;
+    --base-dark:#c3c6cf;
+    --ink:#4b5165;
+    --accent:#8e97fd;
+    --accent-soft:#eceeff;
+  }
+  body{
+    background:var(--base);
+    font-family:'Quicksand','Zen Maru Gothic',sans-serif;
+    color:var(--ink);
+  }
+  .zh{font-family:'Zen Maru Gothic','Quicksand',sans-serif;}
+  .display{font-family:'Baloo 2','Zen Maru Gothic',sans-serif;}
+  .neu-out{
+    background:var(--base);
+    box-shadow: 8px 8px 16px var(--base-dark), -8px -8px 16px var(--base-light);
+    border-radius: 28px;
+  }
+  .neu-in{
+    background:var(--base);
+    box-shadow: inset 6px 6px 12px var(--base-dark), inset -6px -6px 12px var(--base-light);
+    border-radius: 24px;
+  }
+  .neu-btn{
+    background:var(--base);
+    box-shadow: 6px 6px 12px var(--base-dark), -6px -6px 12px var(--base-light);
+    border-radius: 20px;
+    transition: box-shadow .15s ease, transform .15s ease;
+  }
+  .neu-btn:active, .neu-btn.pressed{
+    box-shadow: inset 4px 4px 8px var(--base-dark), inset -4px -4px 8px var(--base-light);
+    transform: scale(0.98);
+  }
+  .neu-circle{
+    background:var(--base);
+    box-shadow: 5px 5px 10px var(--base-dark), -5px -5px 10px var(--base-light);
+  }
+  .neu-circle.pressed{
+    box-shadow: inset 3px 3px 6px var(--base-dark), inset -3px -3px 6px var(--base-light);
+  }
+  .ring-track{stroke:var(--base-dark); opacity:.5;}
+  .ring-progress{stroke:var(--accent); stroke-linecap:round; transition: stroke-dashoffset 1s ease;}
+</style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-6">
+
+<div class="neu-out w-full max-w-md p-7">
+
+  <div class="flex items-center justify-between mb-6">
+    <div>
+      <p class="zh text-sm text-[var(--ink)] opacity-60">早安，雅婷</p>
+      <h1 class="display text-2xl font-700" style="color:var(--accent)">Stillflow <span class="zh text-[var(--ink)] text-lg">靜序</span></h1>
+    </div>
+    <div class="neu-circle rounded-full w-12 h-12 flex items-center justify-center">
+      <span class="text-xl">🌙</span>
+    </div>
+  </div>
+
+  <!-- 冥想計時圈 -->
+  <div class="neu-in p-6 flex flex-col items-center mb-6">
+    <div class="relative w-40 h-40 flex items-center justify-center">
+      <svg width="160" height="160" class="-rotate-90">
+        <circle cx="80" cy="80" r="68" fill="none" stroke-width="12" class="ring-track"></circle>
+        <circle id="ring" cx="80" cy="80" r="68" fill="none" stroke-width="12" stroke-dasharray="427" stroke-dashoffset="427" class="ring-progress"></circle>
+      </svg>
+      <div class="absolute flex flex-col items-center">
+        <span id="timerText" class="display text-3xl font-700">10:00</span>
+        <span class="zh text-xs opacity-60 mt-1">晨間呼吸冥想</span>
+      </div>
+    </div>
+    <div class="flex gap-3 mt-5">
+      <button id="playBtn" onclick="toggleTimer()" class="neu-btn display font-600 px-6 py-2.5 text-sm" style="color:var(--accent)">▶ 開始</button>
+      <button onclick="resetTimer()" class="neu-btn display font-600 px-6 py-2.5 text-sm opacity-70">重設</button>
+    </div>
+  </div>
+
+  <!-- 連續天數 -->
+  <div class="grid grid-cols-3 gap-3 mb-6">
+    <div class="neu-in py-3 text-center">
+      <p class="display text-xl font-700" style="color:var(--accent)">21</p>
+      <p class="zh text-[11px] opacity-60 mt-0.5">連續天數</p>
+    </div>
+    <div class="neu-in py-3 text-center">
+      <p class="display text-xl font-700" style="color:var(--accent)">186</p>
+      <p class="zh text-[11px] opacity-60 mt-0.5">累積分鐘</p>
+    </div>
+    <div class="neu-in py-3 text-center">
+      <p class="display text-xl font-700" style="color:var(--accent)">4.6</p>
+      <p class="zh text-[11px] opacity-60 mt-0.5">平均心情</p>
+    </div>
+  </div>
+
+  <!-- 今日習慣清單 -->
+  <p class="zh text-sm font-600 mb-3 opacity-70">今日習慣</p>
+  <div id="habitList" class="space-y-3 mb-6">
+    <div class="habit flex items-center justify-between neu-btn px-4 py-3" data-done="false">
+      <div class="flex items-center gap-3">
+        <span class="habit-dot neu-circle w-7 h-7 rounded-full flex items-center justify-center text-sm"></span>
+        <span class="zh text-sm">早起拉伸 10 分鐘</span>
+      </div>
+      <span class="zh text-xs opacity-50">07:30</span>
+    </div>
+    <div class="habit flex items-center justify-between neu-btn px-4 py-3" data-done="false">
+      <div class="flex items-center gap-3">
+        <span class="habit-dot neu-circle w-7 h-7 rounded-full flex items-center justify-center text-sm"></span>
+        <span class="zh text-sm">喝滿 2000ml 的水</span>
+      </div>
+      <span class="zh text-xs opacity-50">全天</span>
+    </div>
+    <div class="habit flex items-center justify-between neu-btn px-4 py-3" data-done="true">
+      <div class="flex items-center gap-3">
+        <span class="habit-dot neu-circle w-7 h-7 rounded-full flex items-center justify-center text-sm"></span>
+        <span class="zh text-sm">睡前不看手機</span>
+      </div>
+      <span class="zh text-xs opacity-50">22:30</span>
+    </div>
+  </div>
+
+  <!-- 今日心情 -->
+  <p class="zh text-sm font-600 mb-3 opacity-70">現在的心情是？</p>
+  <div class="flex justify-between">
+    <button onclick="pickMood(this,'😣')" class="mood-btn neu-circle w-12 h-12 rounded-full text-xl">😣</button>
+    <button onclick="pickMood(this,'😕')" class="mood-btn neu-circle w-12 h-12 rounded-full text-xl">😕</button>
+    <button onclick="pickMood(this,'😌')" class="mood-btn neu-circle w-12 h-12 rounded-full text-xl">😌</button>
+    <button onclick="pickMood(this,'😄')" class="mood-btn neu-circle w-12 h-12 rounded-full text-xl">😄</button>
+    <button onclick="pickMood(this,'🤩')" class="mood-btn neu-circle w-12 h-12 rounded-full text-xl">🤩</button>
+  </div>
+  <p id="moodMsg" class="zh text-center text-xs mt-3 opacity-60">點一個最貼近此刻的表情吧</p>
+
+</div>
+
+<script>
+  // 習慣勾選
+  function syncHabitDot(el){
+    const done = el.dataset.done === 'true';
+    const dot = el.querySelector('.habit-dot');
+    dot.classList.toggle('pressed', done);
+    dot.textContent = done ? '✓' : '';
+    el.style.opacity = done ? '0.55' : '1';
+  }
+  document.querySelectorAll('.habit').forEach(h=>{
+    syncHabitDot(h);
+    h.addEventListener('click', ()=>{
+      h.dataset.done = h.dataset.done === 'true' ? 'false' : 'true';
+      syncHabitDot(h);
+    });
+  });
+
+  // 心情選擇
+  function pickMood(btn, emoji){
+    document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('pressed'));
+    btn.classList.add('pressed');
+    const msgs = {
+      '😣':'辛苦了，今天先放過自己一點',
+      '😕':'有點悶吗？深呼吸三次再繼續',
+      '😌':'穩穩的一天，很好',
+      '😄':'心情不錯，記得分享給朋友',
+      '🤩':'太棒了！把這股能量留住'
+    };
+    document.getElementById('moodMsg').textContent = msgs[emoji];
+  }
+
+  // 冥想倒數計時器
+  let totalSeconds = 600;
+  let remaining = totalSeconds;
+  let timerInterval = null;
+  const ring = document.getElementById('ring');
+  const circumference = 427;
+
+  function render(){
+    const m = Math.floor(remaining/60).toString().padStart(2,'0');
+    const s = (remaining%60).toString().padStart(2,'0');
+    document.getElementById('timerText').textContent = `${m}:${s}`;
+    const offset = circumference * (remaining/totalSeconds);
+    ring.setAttribute('stroke-dashoffset', offset);
+  }
+
+  function toggleTimer(){
+    const btn = document.getElementById('playBtn');
+    if(timerInterval){
+      clearInterval(timerInterval);
+      timerInterval = null;
+      btn.textContent = '▶ 開始';
+    } else {
+      btn.textContent = '❚❚ 暫停';
+      timerInterval = setInterval(()=>{
+        if(remaining<=0){ clearInterval(timerInterval); timerInterval=null; btn.textContent='▶ 開始'; return; }
+        remaining--;
+        render();
+      },1000);
+    }
+  }
+  function resetTimer(){
+    clearInterval(timerInterval);
+    timerInterval = null;
+    remaining = totalSeconds;
+    document.getElementById('playBtn').textContent = '▶ 開始';
+    render();
+  }
+  render();
+</script>
+
+</body>
+</html>

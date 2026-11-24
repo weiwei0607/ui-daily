@@ -1,0 +1,201 @@
+<!-- style #13 Skeuomorphism -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>黑膠房 VinylDen · 復古唱片播放器</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Noto Serif TC','Fraunces',serif;
+    background: radial-gradient(ellipse at top, #3a2e26, #1b140f 70%);
+    color:#e8dcc8;
+  }
+  .en{font-family:'Fraunces','Noto Serif TC',serif;}
+  .wood-panel{
+    background:
+      repeating-linear-gradient(90deg, rgba(0,0,0,0.08) 0px, rgba(0,0,0,0.08) 2px, transparent 2px, transparent 6px),
+      linear-gradient(170deg, #7a4a2a 0%, #5c3419 45%, #46260f 100%);
+    box-shadow: inset 0 2px 4px rgba(255,255,255,0.15), inset 0 -8px 20px rgba(0,0,0,0.5), 0 20px 50px rgba(0,0,0,0.6);
+    border: 6px solid #2c1a0d;
+    border-radius: 18px;
+  }
+  .leather{
+    background: linear-gradient(160deg,#4a2f24,#30201a);
+    box-shadow: inset 0 2px 6px rgba(0,0,0,.6), inset 0 0 0 2px rgba(0,0,0,.4);
+    border-radius: 14px;
+  }
+  .leather::before{
+    content:'';
+    position:absolute; inset:0;
+    background-image: radial-gradient(rgba(255,255,255,.04) 1px, transparent 1px);
+    background-size: 6px 6px;
+    border-radius: 14px;
+  }
+  .brass-knob{
+    background: radial-gradient(circle at 35% 30%, #f3e0a8, #c99a3f 55%, #7a5a1e 100%);
+    box-shadow: 0 3px 6px rgba(0,0,0,.6), inset 0 1px 2px rgba(255,255,255,.6);
+    border-radius: 50%;
+  }
+  .brass-knob .notch{
+    position:absolute; top:3px; left:50%; width:2px; height:9px; background:#3a2a10; transform: translateX(-50%);
+  }
+  .vinyl{
+    background:
+      repeating-radial-gradient(circle, #111 0, #111 2px, #222 3px, #111 4px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.7), inset 0 0 0 3px #000;
+  }
+  .vinyl-label{
+    background: radial-gradient(circle, #c8392b, #8f1d12 85%);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,.4);
+  }
+  .tonearm{
+    transform-origin: 90% 10%;
+    transition: transform 1.2s cubic-bezier(.4,0,.2,1);
+  }
+  .spinning{ animation: spin 2.8s linear infinite; }
+  @keyframes spin{ from{transform:rotate(0)} to{transform:rotate(360deg)} }
+  .vu-bar{ transition: height .15s ease; }
+  input[type=range]{ -webkit-appearance:none; height:4px; background:#2c1a0d; border-radius:4px; }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none; width:16px; height:16px; border-radius:50%;
+    background: radial-gradient(circle at 35% 30%, #f3e0a8, #c99a3f 55%, #7a5a1e 100%);
+    box-shadow:0 2px 4px rgba(0,0,0,.6);
+  }
+</style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-6">
+
+<div class="wood-panel w-full max-w-3xl p-6 md:p-8">
+
+  <div class="flex items-center justify-between mb-6">
+    <div>
+      <h1 class="en text-2xl font-700 text-[#f3e0a8]">VinylDen <span class="font-serif text-lg">黑膠房</span></h1>
+      <p class="text-xs opacity-70 mt-1">每晚八點，為你放一張真正的黑膠</p>
+    </div>
+    <div class="flex gap-2">
+      <div class="brass-knob w-9 h-9 relative" title="音量"><span class="notch"></span></div>
+      <div class="brass-knob w-9 h-9 relative" title="低音"><span class="notch"></span></div>
+      <div class="brass-knob w-9 h-9 relative" title="高音"><span class="notch"></span></div>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-[260px_1fr] gap-6">
+
+    <!-- 轉盤 -->
+    <div class="leather relative p-6 flex flex-col items-center justify-center">
+      <div class="relative w-44 h-44">
+        <div id="vinyl" class="vinyl w-44 h-44 rounded-full absolute">
+          <div class="vinyl-label w-16 h-16 rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center text-center">
+            <span class="en text-[9px] text-[#f3e0a8] leading-tight">湖畔<br>夜未眠</span>
+          </div>
+        </div>
+      </div>
+      <div id="tonearm" class="tonearm absolute top-3 right-3 w-20 h-2 rounded-full" style="background:linear-gradient(90deg,#c99a3f,#7a5a1e); transform: rotate(-25deg);"></div>
+      <p class="relative mt-5 text-xs opacity-70 z-10">A 面・第 2 軌</p>
+    </div>
+
+    <!-- 控制與曲目 -->
+    <div class="flex flex-col">
+      <div class="leather p-5 mb-4 relative">
+        <p class="en text-lg font-600 text-[#f3e0a8]">湖畔夜未眠</p>
+        <p class="text-sm opacity-70 mb-3">陳曉彤・《慢行年代》專輯</p>
+
+        <div class="flex items-center gap-3 mb-2">
+          <span id="curTime" class="en text-xs w-10 opacity-70">00:00</span>
+          <input id="seek" type="range" min="0" max="221" value="0" class="flex-1" oninput="seek(this.value)">
+          <span class="en text-xs w-10 opacity-70 text-right">03:41</span>
+        </div>
+
+        <div class="flex items-center justify-center gap-5 mt-4">
+          <button onclick="prevTrack()" class="brass-knob w-10 h-10 flex items-center justify-center text-[#2c1a0d] text-sm">⏮</button>
+          <button id="playBtn" onclick="togglePlay()" class="brass-knob w-14 h-14 flex items-center justify-center text-[#2c1a0d] text-xl">▶</button>
+          <button onclick="nextTrack()" class="brass-knob w-10 h-10 flex items-center justify-center text-[#2c1a0d] text-sm">⏭</button>
+        </div>
+
+        <!-- VU 錶 -->
+        <div class="flex items-end gap-1 h-10 mt-5 justify-center">
+          <div class="vu-bar w-2 bg-[#f3e0a8]" style="height:20%"></div>
+          <div class="vu-bar w-2 bg-[#f3e0a8]" style="height:60%"></div>
+          <div class="vu-bar w-2 bg-[#f3e0a8]" style="height:35%"></div>
+          <div class="vu-bar w-2 bg-[#f3e0a8]" style="height:80%"></div>
+          <div class="vu-bar w-2 bg-[#f3e0a8]" style="height:45%"></div>
+          <div class="vu-bar w-2 bg-[#f3e0a8]" style="height:65%"></div>
+          <div class="vu-bar w-2 bg-[#f3e0a8]" style="height:25%"></div>
+        </div>
+      </div>
+
+      <!-- 曲目清單 -->
+      <div class="leather p-4 flex-1">
+        <p class="text-xs opacity-60 mb-2">A 面曲目</p>
+        <ul id="tracklist" class="space-y-1.5 text-sm">
+          <li class="track flex justify-between px-2 py-1.5 rounded cursor-pointer" data-idx="0"><span>1. 老巷口的燈</span><span class="en opacity-60">03:12</span></li>
+          <li class="track flex justify-between px-2 py-1.5 rounded cursor-pointer bg-black/20" data-idx="1"><span>2. 湖畔夜未眠</span><span class="en opacity-60">03:41</span></li>
+          <li class="track flex justify-between px-2 py-1.5 rounded cursor-pointer" data-idx="2"><span>3. 給遠方的信</span><span class="en opacity-60">04:05</span></li>
+          <li class="track flex justify-between px-2 py-1.5 rounded cursor-pointer" data-idx="3"><span>4. 慢行年代</span><span class="en opacity-60">03:28</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let playing = false;
+  let seconds = 0;
+  const duration = 221;
+  let interval = null;
+  const vinyl = document.getElementById('vinyl');
+  const tonearm = document.getElementById('tonearm');
+  const playBtn = document.getElementById('playBtn');
+  const seekEl = document.getElementById('seek');
+  const curTime = document.getElementById('curTime');
+
+  function fmt(s){
+    const m = Math.floor(s/60).toString().padStart(2,'0');
+    const r = Math.floor(s%60).toString().padStart(2,'0');
+    return `${m}:${r}`;
+  }
+
+  function togglePlay(){
+    playing = !playing;
+    if(playing){
+      playBtn.textContent = '❚❚';
+      vinyl.classList.add('spinning');
+      tonearm.style.transform = 'rotate(-8deg)';
+      interval = setInterval(()=>{
+        seconds++;
+        if(seconds>=duration){ seconds=duration; togglePlay(); }
+        seekEl.value = seconds;
+        curTime.textContent = fmt(seconds);
+      },1000);
+    } else {
+      playBtn.textContent = '▶';
+      vinyl.classList.remove('spinning');
+      tonearm.style.transform = 'rotate(-25deg)';
+      clearInterval(interval);
+    }
+  }
+  function seek(v){
+    seconds = Number(v);
+    curTime.textContent = fmt(seconds);
+  }
+  function prevTrack(){ highlightTrack(Math.max(0, activeIdx()-1)); }
+  function nextTrack(){ highlightTrack(Math.min(3, activeIdx()+1)); }
+  function activeIdx(){
+    return Number(document.querySelector('.track.bg-black\\/20')?.dataset.idx ?? 1);
+  }
+  function highlightTrack(idx){
+    document.querySelectorAll('.track').forEach(t=>t.classList.remove('bg-black/20'));
+    document.querySelector(`.track[data-idx="${idx}"]`).classList.add('bg-black/20');
+    seconds = 0; seekEl.value = 0; curTime.textContent = '00:00';
+  }
+  document.querySelectorAll('.track').forEach(t=>{
+    t.addEventListener('click', ()=> highlightTrack(Number(t.dataset.idx)));
+  });
+</script>
+
+</body>
+</html>

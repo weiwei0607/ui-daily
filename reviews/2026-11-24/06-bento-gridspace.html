@@ -1,0 +1,199 @@
+<!-- style #53 Bento Grids -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>格窗 GridSpace · 團隊協作工作台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Noto Sans TC','Sora',sans-serif; background:#f6f5f2; color:#1f2430; }
+  .en{ font-family:'Sora','Noto Sans TC',sans-serif; }
+  .cell{ background:#fff; border-radius:24px; border:1px solid #eceae4; transition: box-shadow .25s ease, transform .25s ease; }
+  .cell:hover{ box-shadow: 0 16px 36px rgba(31,36,48,.08); transform: translateY(-2px); }
+  .accent{ background:#ff7a3d; }
+  .dot-grid{
+    background-image: radial-gradient(#d8d4cc 1px, transparent 1px);
+    background-size: 14px 14px;
+  }
+  .toggle-pill{ transition: background .2s; }
+  .faq-a{ max-height:0; overflow:hidden; transition: max-height .3s ease; }
+  .faq-a.open{ max-height:200px; }
+</style>
+</head>
+<body class="px-4 md:px-8 py-10">
+
+<div class="max-w-6xl mx-auto">
+
+  <!-- Nav -->
+  <div class="flex items-center justify-between mb-10">
+    <h1 class="en text-xl font-800">格窗 <span class="opacity-50 font-500">GridSpace</span></h1>
+    <div class="flex items-center gap-5 text-sm">
+      <a href="#features" class="hidden sm:inline opacity-70 hover:opacity-100">功能</a>
+      <a href="#pricing" class="hidden sm:inline opacity-70 hover:opacity-100">定價</a>
+      <button class="accent text-white px-5 py-2.5 rounded-full text-sm font-600">免費開始</button>
+    </div>
+  </div>
+
+  <!-- Hero bento row -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+    <div class="cell md:col-span-2 p-8 flex flex-col justify-center">
+      <p class="text-xs font-600 text-[#ff7a3d] mb-3">一個工作台，裝下整個團隊</p>
+      <h2 class="en text-3xl md:text-4xl font-700 leading-tight">把散落各處的文件、<br>任務與對話，<br>收進同一個格窗。</h2>
+      <p class="mt-4 text-sm opacity-70 max-w-md">格窗把筆記、看板、日曆跟團隊聊天整合成一格一格的工作空間，不用再在五個分頁之間切換。</p>
+      <button class="mt-5 self-start accent text-white px-6 py-3 rounded-full text-sm font-600">建立我的第一個工作空間</button>
+    </div>
+    <div class="cell dot-grid p-6 flex flex-col justify-between">
+      <p class="text-xs opacity-60">今日團隊動態</p>
+      <div>
+        <p class="en text-4xl font-800 text-[#ff7a3d]">32</p>
+        <p class="text-sm opacity-70 -mt-1">則任務已完成</p>
+      </div>
+      <div class="flex -space-x-2">
+        <span class="w-8 h-8 rounded-full bg-[#ffd9bd] border-2 border-white flex items-center justify-center text-xs">婷</span>
+        <span class="w-8 h-8 rounded-full bg-[#bddcff] border-2 border-white flex items-center justify-center text-xs">宇</span>
+        <span class="w-8 h-8 rounded-full bg-[#c8f5d6] border-2 border-white flex items-center justify-center text-xs">安</span>
+        <span class="w-8 h-8 rounded-full bg-[#1f2430] text-white border-2 border-white flex items-center justify-center text-xs">+6</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feature bento grid -->
+  <div id="features" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+    <div class="cell col-span-2 p-6">
+      <p class="text-2xl mb-2">🗂️</p>
+      <h3 class="font-700 mb-1">文件即任務</h3>
+      <p class="text-sm opacity-70">在任何文件裡 @標記同事，自動生成一張待辦卡片，不用再手動複製貼上。</p>
+    </div>
+    <div class="cell p-6">
+      <p class="text-2xl mb-2">📅</p>
+      <h3 class="font-700 mb-1">視覺化日曆</h3>
+      <p class="text-sm opacity-70 text-[13px]">排程與任務截止日同步顯示。</p>
+    </div>
+    <div class="cell p-6">
+      <p class="text-2xl mb-2">💬</p>
+      <h3 class="font-700 mb-1">情境聊天室</h3>
+      <p class="text-sm opacity-70 text-[13px]">每個專案自帶討論串。</p>
+    </div>
+    <div class="cell p-6">
+      <p class="text-2xl mb-2">⚡</p>
+      <h3 class="font-700 mb-1">自動化流程</h3>
+      <p class="text-sm opacity-70 text-[13px]">狀態變更時自動通知相關人員。</p>
+    </div>
+    <div class="cell p-6">
+      <p class="text-2xl mb-2">🔎</p>
+      <h3 class="font-700 mb-1">全域搜尋</h3>
+      <p class="text-sm opacity-70 text-[13px]">一次搜遍任務、文件與對話。</p>
+    </div>
+  </div>
+
+  <!-- Testimonial + stat -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-14">
+    <div class="cell md:col-span-2 p-7 flex items-center">
+      <p class="text-lg leading-relaxed">「以前開會前要先在四個工具裡找資料，現在一個格窗就夠。團隊的交接時間少了快一半。」<br><span class="text-sm opacity-60 mt-2 block">— 好日子設計工作室 創辦人 林思涵</span></p>
+    </div>
+    <div class="cell p-7 flex flex-col items-center justify-center text-center">
+      <p class="en text-4xl font-800 text-[#ff7a3d]">4,200+</p>
+      <p class="text-sm opacity-70 mt-1">團隊正在使用格窗</p>
+    </div>
+  </div>
+
+  <!-- Pricing -->
+  <div id="pricing" class="text-center mb-8">
+    <h2 class="en text-2xl font-700 mb-4">簡單透明的定價</h2>
+    <div class="inline-flex items-center gap-3 bg-white rounded-full p-1.5 border border-[#eceae4]">
+      <button id="btnMonthly" onclick="setBilling('monthly')" class="toggle-pill px-4 py-1.5 rounded-full text-sm font-600 bg-[#1f2430] text-white">按月</button>
+      <button id="btnYearly" onclick="setBilling('yearly')" class="toggle-pill px-4 py-1.5 rounded-full text-sm font-600">按年（省 20%）</button>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-14">
+    <div class="cell p-7">
+      <h3 class="font-700 mb-1">個人版</h3>
+      <p class="en text-3xl font-800 mb-1"><span id="priceFree">NT$0</span></p>
+      <p class="text-sm opacity-60 mb-5">適合自由工作者</p>
+      <ul class="text-sm opacity-80 space-y-2 mb-6">
+        <li>✓ 3 個工作空間</li>
+        <li>✓ 基礎自動化</li>
+        <li>✓ 7 天歷史紀錄</li>
+      </ul>
+      <button class="w-full py-2.5 rounded-full border border-[#1f2430] text-sm font-600">選擇方案</button>
+    </div>
+    <div class="cell p-7 border-2 border-[#ff7a3d]">
+      <p class="text-xs font-600 text-[#ff7a3d] mb-1">最多人選</p>
+      <h3 class="font-700 mb-1">團隊版</h3>
+      <p class="en text-3xl font-800 mb-1"><span id="priceTeam">NT$390</span><span class="text-sm opacity-50">／人／月</span></p>
+      <p class="text-sm opacity-60 mb-5">適合 5–50 人團隊</p>
+      <ul class="text-sm opacity-80 space-y-2 mb-6">
+        <li>✓ 無限工作空間</li>
+        <li>✓ 進階自動化流程</li>
+        <li>✓ 無限歷史紀錄</li>
+      </ul>
+      <button class="accent w-full py-2.5 rounded-full text-sm font-600 text-white">免費試用 14 天</button>
+    </div>
+    <div class="cell p-7">
+      <h3 class="font-700 mb-1">企業版</h3>
+      <p class="en text-3xl font-800 mb-1"><span id="priceEnt">NT$890</span><span class="text-sm opacity-50">／人／月</span></p>
+      <p class="text-sm opacity-60 mb-5">專屬客戶成功經理</p>
+      <ul class="text-sm opacity-80 space-y-2 mb-6">
+        <li>✓ SSO 單一登入</li>
+        <li>✓ 權限分層管理</li>
+        <li>✓ 專屬客服窗口</li>
+      </ul>
+      <button class="w-full py-2.5 rounded-full border border-[#1f2430] text-sm font-600">聯絡銷售</button>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="max-w-2xl mx-auto mb-10">
+    <h2 class="en text-xl font-700 mb-4 text-center">常見問題</h2>
+    <div class="space-y-3" id="faqList"></div>
+  </div>
+
+  <footer class="text-center text-xs opacity-50 pb-6">© 2026 GridSpace 格窗科技有限公司</footer>
+</div>
+
+<script>
+  function setBilling(type){
+    document.getElementById('btnMonthly').classList.toggle('bg-[#1f2430]', type==='monthly');
+    document.getElementById('btnMonthly').classList.toggle('text-white', type==='monthly');
+    document.getElementById('btnYearly').classList.toggle('bg-[#1f2430]', type==='yearly');
+    document.getElementById('btnYearly').classList.toggle('text-white', type==='yearly');
+    if(type==='yearly'){
+      document.getElementById('priceTeam').textContent = 'NT$312';
+      document.getElementById('priceEnt').textContent = 'NT$712';
+    } else {
+      document.getElementById('priceTeam').textContent = 'NT$390';
+      document.getElementById('priceEnt').textContent = 'NT$890';
+    }
+  }
+
+  const faqs = [
+    {q:'格窗可以跟 Google 日曆同步嗎？', a:'可以，連結帳號後，任務截止日會雙向同步到 Google 日曆，反之亦然。'},
+    {q:'免費版有使用期限嗎？', a:'個人版永久免費，僅限制 3 個工作空間與 7 天歷史紀錄，沒有試用到期日。'},
+    {q:'可以隨時取消訂閱嗎？', a:'可以，取消後方案會持續到當期結束，不會立即扣款也不會強制續約。'},
+  ];
+  document.getElementById('faqList').innerHTML = faqs.map((f,i)=>`
+    <div class="cell overflow-hidden">
+      <button class="w-full text-left p-4 flex justify-between items-center font-600 text-sm" onclick="toggleFaq(${i})">
+        ${f.q} <span id="faqIcon${i}" class="text-[#ff7a3d]">＋</span>
+      </button>
+      <div id="faqA${i}" class="faq-a px-4 text-sm opacity-70">
+        <p class="pb-4">${f.a}</p>
+      </div>
+    </div>
+  `).join('');
+  function toggleFaq(i){
+    const el = document.getElementById('faqA'+i);
+    const icon = document.getElementById('faqIcon'+i);
+    const open = el.classList.contains('open');
+    document.querySelectorAll('.faq-a').forEach(e=>e.classList.remove('open'));
+    document.querySelectorAll('[id^="faqIcon"]').forEach(e=>e.textContent='＋');
+    if(!open){ el.classList.add('open'); icon.textContent='－'; }
+  }
+</script>
+
+</body>
+</html>
