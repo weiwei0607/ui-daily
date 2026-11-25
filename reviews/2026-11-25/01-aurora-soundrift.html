@@ -1,0 +1,184 @@
+<!-- style #10 Aurora UI -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>音旅 SoundDrift · AI 作曲工作室</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --aurora-1:#0080ff;
+    --aurora-2:#8b00ff;
+    --aurora-3:#ff1493;
+    --aurora-4:#00ffff;
+    --ink:#1a1333;
+  }
+  body{
+    font-family:'Quicksand','Zen Maru Gothic',sans-serif;
+    color:var(--ink);
+    background:#0b0a1e;
+    overflow-x:hidden;
+  }
+  .zh{font-family:'Zen Maru Gothic','Quicksand',sans-serif;}
+  .display{font-family:'Baloo 2','Zen Maru Gothic',sans-serif;}
+
+  .aurora-bg{
+    position:fixed; inset:0; z-index:0;
+    background:
+      radial-gradient(circle at 20% 20%, var(--aurora-1) 0%, transparent 45%),
+      radial-gradient(circle at 80% 15%, var(--aurora-2) 0%, transparent 50%),
+      radial-gradient(circle at 70% 70%, var(--aurora-3) 0%, transparent 50%),
+      radial-gradient(circle at 15% 80%, var(--aurora-4) 0%, transparent 45%),
+      #0b0a1e;
+    filter: blur(60px) saturate(140%);
+    opacity:.75;
+    animation: drift 18s ease-in-out infinite alternate;
+  }
+  @keyframes drift{
+    0%{ background-position: 0 0, 0 0, 0 0, 0 0; transform: scale(1) rotate(0deg); }
+    50%{ transform: scale(1.15) rotate(8deg); }
+    100%{ background-position: 10% 5%, -10% -5%, 5% -8%, -5% 8%; transform: scale(1) rotate(-6deg); }
+  }
+  .glass{
+    background: rgba(255,255,255,.08);
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    border: 1px solid rgba(255,255,255,.18);
+    box-shadow: 0 8px 32px rgba(0,0,0,.35);
+  }
+  .glass-strong{
+    background: rgba(255,255,255,.14);
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    border: 1px solid rgba(255,255,255,.25);
+  }
+  .glow-text{ text-shadow: 0 0 24px rgba(139,0,255,.6), 0 0 48px rgba(0,255,255,.3); }
+  .btn-aurora{
+    background: linear-gradient(120deg, var(--aurora-1), var(--aurora-2), var(--aurora-3));
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .btn-aurora:hover{ transform: translateY(-2px) scale(1.02); box-shadow: 0 12px 30px rgba(139,0,255,.5); }
+  .pill{
+    background: rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.2);
+  }
+  .wave-bar{
+    width:4px; border-radius:4px;
+    background: linear-gradient(180deg, var(--aurora-4), var(--aurora-2));
+    animation: bounce 1.2s ease-in-out infinite;
+  }
+  @keyframes bounce{
+    0%,100%{ transform: scaleY(.3); }
+    50%{ transform: scaleY(1); }
+  }
+  .float-card{ transition: transform .3s ease; }
+  .float-card:hover{ transform: translateY(-6px); }
+</style>
+</head>
+<body class="min-h-screen text-white">
+<div class="aurora-bg"></div>
+
+<nav class="relative z-10 max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+  <div class="flex items-center gap-2">
+    <div class="w-9 h-9 rounded-2xl btn-aurora flex items-center justify-center font-bold display">音</div>
+    <span class="display text-xl font-bold zh">音旅 SoundDrift</span>
+  </div>
+  <div class="hidden md:flex items-center gap-8 text-sm text-white/80 zh">
+    <a href="#features" class="hover:text-white">功能</a>
+    <a href="#flow" class="hover:text-white">創作流程</a>
+    <a href="#pricing" class="hover:text-white">方案</a>
+  </div>
+  <button class="btn-aurora px-5 py-2 rounded-full text-sm font-semibold zh">免費試用</button>
+</nav>
+
+<header class="relative z-10 max-w-5xl mx-auto px-6 pt-16 pb-24 text-center">
+  <div class="pill inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs text-white/80 mb-6 zh">
+    <span class="w-2 h-2 rounded-full bg-cyan-300 animate-pulse"></span>
+    AI 音樂生成已進化到第三代引擎
+  </div>
+  <h1 class="display text-4xl sm:text-6xl font-extrabold leading-tight glow-text zh">
+    把一段心情，<br class="sm:hidden"/>變成一首完整的歌
+  </h1>
+  <p class="zh mt-6 text-lg text-white/75 max-w-2xl mx-auto">
+    輸入文字、上傳一段哼唱，或選一張照片，音旅會為你生成人聲、編曲與混音，三分鐘內拿到可以直接發布的完整音軌。
+  </p>
+  <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+    <button class="btn-aurora px-8 py-3.5 rounded-full font-bold zh shadow-lg">開始創作第一首歌</button>
+    <button class="glass px-8 py-3.5 rounded-full font-semibold zh">看看作品範例 ↓</button>
+  </div>
+
+  <div class="mt-16 glass-strong rounded-3xl p-6 sm:p-10 max-w-3xl mx-auto text-left">
+    <div class="flex items-center justify-between mb-5">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-full btn-aurora flex items-center justify-center">▶</div>
+        <div>
+          <p class="font-semibold zh">深夜的淡水河</p>
+          <p class="text-xs text-white/60 zh">由「一段關於離開家鄉的回憶」生成 · Lo-fi / 民謠</p>
+        </div>
+      </div>
+      <span class="text-xs text-white/60">2:48</span>
+    </div>
+    <div class="flex items-end gap-1 h-12" id="wave"></div>
+    <script>
+      const wave = document.getElementById('wave');
+      for(let i=0;i<48;i++){
+        const bar = document.createElement('div');
+        bar.className = 'wave-bar';
+        bar.style.height = (20 + Math.random()*28)+'px';
+        bar.style.animationDelay = (Math.random()*1.2)+'s';
+        wave.appendChild(bar);
+      }
+    </script>
+  </div>
+</header>
+
+<section id="features" class="relative z-10 max-w-6xl mx-auto px-6 pb-24">
+  <h2 class="display text-3xl font-bold text-center mb-3 zh">創作者最常用的三個功能</h2>
+  <p class="zh text-center text-white/60 mb-12">不需要懂樂理，也能做出有層次的作品</p>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="glass float-card rounded-3xl p-7">
+      <div class="w-12 h-12 rounded-2xl btn-aurora flex items-center justify-center mb-4 text-xl">🎤</div>
+      <h3 class="font-bold text-lg mb-2 zh">文字即刻成曲</h3>
+      <p class="zh text-sm text-white/70">貼上一段歌詞或心情小語，選擇情緒曲風，AI 會寫旋律、編和聲，連副歌記憶點都幫你想好。</p>
+    </div>
+    <div class="glass float-card rounded-3xl p-7">
+      <div class="w-12 h-12 rounded-2xl btn-aurora flex items-center justify-center mb-4 text-xl">🎛️</div>
+      <h3 class="font-bold text-lg mb-2 zh">哼唱轉編曲</h3>
+      <p class="zh text-sm text-white/70">錄下你隨口哼的旋律，音旅會自動抓音準、配上鼓組貝斯與弦樂，變成完整的編制。</p>
+    </div>
+    <div class="glass float-card rounded-3xl p-7">
+      <div class="w-12 h-12 rounded-2xl btn-aurora flex items-center justify-center mb-4 text-xl">🌈</div>
+      <h3 class="font-bold text-lg mb-2 zh">氛圍風格庫</h3>
+      <p class="zh text-sm text-white/70">從深夜 Lo-fi、公路搖滾到節慶電子，超過 60 種風格模板，一鍵套用立即聽見差別。</p>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" class="relative z-10 max-w-4xl mx-auto px-6 pb-28">
+  <div class="glass-strong rounded-3xl p-8 sm:p-12 text-center">
+    <h2 class="display text-2xl sm:text-3xl font-bold mb-2 zh">免費聽，付費下載</h2>
+    <p class="zh text-white/70 mb-8">創作無限次，只有真正要發布時才需要升級</p>
+    <div class="grid sm:grid-cols-2 gap-6 text-left">
+      <div class="glass rounded-2xl p-6">
+        <p class="zh font-bold mb-1">漫遊方案</p>
+        <p class="display text-3xl font-extrabold mb-3">NT$0</p>
+        <p class="zh text-sm text-white/70">無限次生成試聽、加水印匯出、5 組風格模板</p>
+      </div>
+      <div class="rounded-2xl p-6 btn-aurora">
+        <p class="zh font-bold mb-1">創作者方案</p>
+        <p class="display text-3xl font-extrabold mb-3">NT$390<span class="text-sm font-normal zh">／月</span></p>
+        <p class="zh text-sm text-white/90">無水印高音質匯出、全部風格模板、商業授權</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="relative z-10 max-w-6xl mx-auto px-6 py-10 text-center text-white/50 text-sm zh">
+  © 2026 音旅 SoundDrift · 讓每個人都能完成屬於自己的一首歌
+</footer>
+
+</body>
+</html>

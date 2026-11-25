@@ -1,0 +1,145 @@
+<!-- style #41 Cyberpunk -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>幽域電競館 VoidZone · 座位預約</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&family=Share+Tech+Mono&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{ --cyan:#00ffff; --magenta:#ff006e; --bg:#08060f; --panel:#120a1f; }
+  body{
+    font-family:'Noto Sans TC','Share Tech Mono',sans-serif;
+    background:var(--bg); color:#e8e6ff;
+    background-image:
+      linear-gradient(rgba(255,0,110,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,255,.04) 1px, transparent 1px);
+    background-size: 36px 36px;
+  }
+  .orb{ font-family:'Orbitron','Noto Sans TC',sans-serif; }
+  .mono{ font-family:'Share Tech Mono',monospace; }
+  .neon-cyan{ color:var(--cyan); text-shadow: 0 0 8px rgba(0,255,255,.8), 0 0 22px rgba(0,255,255,.4); }
+  .neon-magenta{ color:var(--magenta); text-shadow: 0 0 8px rgba(255,0,110,.8), 0 0 22px rgba(255,0,110,.4); }
+  .panel{
+    background: linear-gradient(160deg, rgba(0,255,255,.05), rgba(255,0,110,.04)), var(--panel);
+    border: 1px solid rgba(0,255,255,.35);
+    box-shadow: 0 0 24px rgba(0,255,255,.08) inset;
+  }
+  .btn-neon{
+    background: transparent;
+    border: 2px solid var(--cyan);
+    color: var(--cyan);
+    text-shadow: 0 0 6px rgba(0,255,255,.6);
+    box-shadow: 0 0 12px rgba(0,255,255,.3);
+    transition: all .2s ease;
+  }
+  .btn-neon:hover{ background: rgba(0,255,255,.12); box-shadow: 0 0 24px rgba(0,255,255,.6); }
+  .scanline{
+    position:fixed; inset:0; pointer-events:none; z-index:40;
+    background: repeating-linear-gradient(0deg, rgba(255,255,255,.02) 0px, transparent 2px, transparent 4px);
+    animation: scan 6s linear infinite;
+  }
+  @keyframes scan{ 0%{ background-position-y:0; } 100%{ background-position-y:600px; } }
+  .glitch{ position:relative; display:inline-block; }
+  .glitch::before, .glitch::after{
+    content: attr(data-text);
+    position:absolute; left:0; top:0; width:100%;
+    overflow:hidden; opacity:.75;
+  }
+  .glitch::before{ color:var(--magenta); clip-path: inset(0 0 60% 0); animation: glitch1 3.2s infinite linear alternate-reverse; }
+  .glitch::after{ color:var(--cyan); clip-path: inset(60% 0 0 0); animation: glitch2 2.4s infinite linear alternate-reverse; }
+  @keyframes glitch1{ 0%{ transform: translate(0,0); } 20%{ transform: translate(-3px,1px); } 40%{ transform: translate(2px,-1px); } 60%{ transform: translate(-2px,0); } 100%{ transform: translate(0,0); } }
+  @keyframes glitch2{ 0%{ transform: translate(0,0); } 25%{ transform: translate(3px,-1px); } 50%{ transform: translate(-2px,1px); } 75%{ transform: translate(2px,0); } 100%{ transform: translate(0,0); } }
+  .seat{ width:30px; height:30px; border-radius:4px; border:1.5px solid rgba(0,255,255,.4); display:flex; align-items:center; justify-content:center; font-size:.65rem; cursor:pointer; }
+  .seat.taken{ background: rgba(255,0,110,.25); border-color: var(--magenta); color: var(--magenta); cursor:not-allowed; }
+  .seat.selected{ background: var(--cyan); color:#000; box-shadow:0 0 14px rgba(0,255,255,.8); }
+  .seat.free{ color: rgba(232,230,255,.5); }
+</style>
+</head>
+<body class="relative">
+<div class="scanline"></div>
+
+<nav class="relative z-10 max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+  <div class="orb font-black text-xl neon-cyan">VOIDZONE//幽域</div>
+  <div class="hidden md:flex gap-8 mono text-sm">
+    <a class="neon-cyan">設備規格</a>
+    <a class="hover:text-white">包廳方案</a>
+    <a class="hover:text-white">會員點數</a>
+  </div>
+  <button class="btn-neon mono px-5 py-2 rounded">立即登入</button>
+</nav>
+
+<header class="relative z-10 max-w-5xl mx-auto px-6 pt-12 pb-20 text-center">
+  <p class="mono neon-magenta text-sm mb-4">SYSTEM STATUS: 空位即時同步中</p>
+  <h1 class="glitch orb text-4xl sm:text-6xl font-black neon-cyan" data-text="預約你的作戰座位">預約你的作戰座位</h1>
+  <p class="mono text-white/60 mt-6 max-w-xl mx-auto">RTX 5090 × 240Hz 電競艙，一鍵選位、即時計價，到場直接刷臉入座。</p>
+</header>
+
+<section class="relative z-10 max-w-5xl mx-auto px-6 pb-10">
+  <div class="panel rounded-2xl p-6 sm:p-8">
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+      <h2 class="orb font-bold neon-cyan">B 區 · 競技艙（今晚 20:00–22:00）</h2>
+      <div class="flex gap-4 mono text-xs">
+        <span class="flex items-center gap-1"><span class="seat free w-4 h-4"></span>可選</span>
+        <span class="flex items-center gap-1"><span class="seat taken w-4 h-4"></span>已滿</span>
+        <span class="flex items-center gap-1"><span class="seat selected w-4 h-4"></span>已選</span>
+      </div>
+    </div>
+    <div class="grid grid-cols-8 sm:grid-cols-10 gap-2 mb-6 mono" id="seats"></div>
+    <script>
+      const seats = document.getElementById('seats');
+      const takenIdx = [2,3,9,14,15,22,27,33,34,40,41,42,47];
+      let total = 0;
+      const priceEl = () => document.getElementById('price');
+      for(let i=0;i<50;i++){
+        const s = document.createElement('div');
+        s.textContent = i+1;
+        if(takenIdx.includes(i)){ s.className='seat taken'; }
+        else {
+          s.className='seat free';
+          s.onclick = () => {
+            s.classList.toggle('selected');
+            s.classList.toggle('free');
+            total += s.classList.contains('selected') ? 1 : -1;
+            priceEl().textContent = (total*180).toLocaleString();
+            document.getElementById('seatcount').textContent = total;
+          };
+        }
+        seats.appendChild(s);
+      }
+    </script>
+    <div class="flex flex-wrap items-center justify-between gap-4 border-t pt-5" style="border-color:rgba(0,255,255,.2)">
+      <p class="mono text-sm text-white/70">已選 <span id="seatcount" class="neon-cyan font-bold">0</span> 席 · 每席每小時 NT$180</p>
+      <div class="flex items-center gap-4">
+        <p class="orb text-2xl font-black neon-magenta">NT$<span id="price">0</span></p>
+        <button class="btn-neon mono px-6 py-2.5 rounded font-bold">確認佔位</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="relative z-10 max-w-5xl mx-auto px-6 pb-20">
+  <div class="grid sm:grid-cols-3 gap-5 mono text-sm">
+    <div class="panel rounded-xl p-5">
+      <p class="neon-cyan font-bold mb-2">// 設備</p>
+      <p class="text-white/70">RTX 5090 · 240Hz 電競螢幕 · 人體工學賽車椅</p>
+    </div>
+    <div class="panel rounded-xl p-5">
+      <p class="neon-cyan font-bold mb-2">// 包廳</p>
+      <p class="text-white/70">4–8 人獨立艙房，附隔音牆與專屬直播燈牆</p>
+    </div>
+    <div class="panel rounded-xl p-5">
+      <p class="neon-cyan font-bold mb-2">// 會員</p>
+      <p class="text-white/70">每消費 NT$100 累積 1 點，點數可兌換包廳時數</p>
+    </div>
+  </div>
+</section>
+
+<footer class="relative z-10 text-center py-8 mono text-xs text-white/40">
+  © 2026 VOIDZONE 幽域電競館 · 台北市中正區
+</footer>
+
+</body>
+</html>

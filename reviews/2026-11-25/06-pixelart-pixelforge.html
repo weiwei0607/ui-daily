@@ -1,0 +1,138 @@
+<!-- style #52 Pixel Art / Retro Gaming -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>像素工房 PixelForge Studio · 獨立遊戲作品集</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{ --gb1:#8bac0f; --gb2:#0f380f; --gb3:#306230; --gb4:#9bbc0f; }
+  *{ image-rendering: pixelated; }
+  body{
+    font-family:'Noto Sans TC', sans-serif;
+    background: var(--gb4);
+    color: var(--gb2);
+  }
+  .pixel{ font-family:'Press Start 2P', 'Noto Sans TC', monospace; letter-spacing: 1px; }
+  .pixel-border{
+    border: 4px solid var(--gb2);
+    box-shadow: 6px 6px 0 var(--gb2);
+  }
+  .pixel-border-sm{
+    border: 3px solid var(--gb2);
+    box-shadow: 4px 4px 0 var(--gb2);
+  }
+  .screen{
+    background: var(--gb4);
+    border: 6px solid var(--gb2);
+    border-radius: 4px;
+  }
+  .btn-pixel{
+    background: var(--gb1);
+    border: 3px solid var(--gb2);
+    box-shadow: 4px 4px 0 var(--gb2);
+    transition: transform .08s steps(2), box-shadow .08s steps(2);
+  }
+  .btn-pixel:active{ transform: translate(4px,4px); box-shadow: 0 0 0 var(--gb2); }
+  .dot-pattern{
+    background-image: radial-gradient(var(--gb3) 2px, transparent 2px);
+    background-size: 14px 14px;
+  }
+  .hp-bar{ background: var(--gb2); }
+  .hp-fill{ background: var(--gb1); }
+  @keyframes blink{ 50%{ opacity:0; } }
+  .blink{ animation: blink 1s steps(1) infinite; }
+  .tag{
+    background: var(--gb2); color: var(--gb4);
+    font-family:'Press Start 2P', monospace;
+    font-size: .6rem;
+    padding: .3rem .5rem;
+  }
+</style>
+</head>
+<body class="dot-pattern min-h-screen">
+
+<nav class="max-w-5xl mx-auto px-6 py-6 flex items-center justify-between">
+  <div class="pixel text-sm">PIXELFORGE</div>
+  <div class="hidden md:flex gap-6 pixel text-xs">
+    <a href="#games">作品</a>
+    <a href="#team">團隊</a>
+    <a href="#contact">聯絡</a>
+  </div>
+  <button class="btn-pixel pixel text-xs px-4 py-2">訂閱開發日誌</button>
+</nav>
+
+<header class="max-w-4xl mx-auto px-6 py-10 text-center">
+  <div class="screen max-w-2xl mx-auto p-8 sm:p-10">
+    <p class="pixel text-[10px] mb-4">LEVEL 1 · 新竹 · 三人小隊</p>
+    <h1 class="pixel text-xl sm:text-2xl leading-loose mb-5">像素工房<br/>PIXELFORGE</h1>
+    <p class="text-sm leading-relaxed mb-6">三個原本的美術、工程師與配樂師，辭職窩在新竹一間老公寓，做會讓你想起兒時周末的 8-bit 遊戲。</p>
+    <button class="btn-pixel pixel text-xs px-6 py-3 blink">▶ 查看最新作品</button>
+  </div>
+</header>
+
+<section id="games" class="max-w-5xl mx-auto px-6 py-10">
+  <h2 class="pixel text-center text-base mb-10">— 已發行作品 —</h2>
+  <div class="grid md:grid-cols-2 gap-8">
+    <div class="pixel-border bg-white p-5">
+      <div class="h-40 mb-4 flex items-center justify-center" style="background: var(--gb1)">
+        <span class="pixel text-xs" style="color:var(--gb2)">豆腐店的下午</span>
+      </div>
+      <div class="flex items-center justify-between mb-2">
+        <h3 class="pixel text-xs">豆腐店的下午</h3>
+        <span class="tag">已上架</span>
+      </div>
+      <p class="text-sm mb-3">經營模擬 × 鄉土故事，玩家接手外婆留下的豆腐店，在台南老街裡做生意、交朋友、解開家族秘密。</p>
+      <div class="hp-bar h-3 w-full mb-1"><div class="hp-fill h-3" style="width:88%"></div></div>
+      <p class="pixel text-[9px]">好評率 88%・Steam／Switch</p>
+    </div>
+
+    <div class="pixel-border bg-white p-5">
+      <div class="h-40 mb-4 flex items-center justify-center" style="background: var(--gb3)">
+        <span class="pixel text-xs text-white">夜巡列車</span>
+      </div>
+      <div class="flex items-center justify-between mb-2">
+        <h3 class="pixel text-xs">夜巡列車</h3>
+        <span class="tag">搶先體驗</span>
+      </div>
+      <p class="text-sm mb-3">roguelike 戰鬥，玩家駕駛一輛蒸氣火車穿越廢棄鬼鎮，每節車廂都是一場隨機遭遇戰。</p>
+      <div class="hp-bar h-3 w-full mb-1"><div class="hp-fill h-3" style="width:62%"></div></div>
+      <p class="pixel text-[9px]">開發進度 62%・預計 2027 上市</p>
+    </div>
+  </div>
+</section>
+
+<section id="team" class="max-w-5xl mx-auto px-6 py-10">
+  <h2 class="pixel text-center text-base mb-10">— 玩家留言 —</h2>
+  <div class="grid sm:grid-cols-3 gap-6">
+    <div class="pixel-border-sm bg-white p-4">
+      <p class="text-sm mb-3">「豆腐店真的讓我哭了，那個外婆的回憶片段做得太細。」</p>
+      <p class="pixel text-[9px]">— 阿崴，Steam 評論</p>
+    </div>
+    <div class="pixel-border-sm bg-white p-4">
+      <p class="text-sm mb-3">「音樂做得比畫面還厲害，配樂師是不是偷偷學過北管。」</p>
+      <p class="pixel text-[9px]">— 小魚，Switch 評論</p>
+    </div>
+    <div class="pixel-border-sm bg-white p-4">
+      <p class="text-sm mb-3">「像素畫風看起來簡單，但場景細節藏超多彩蛋。」</p>
+      <p class="pixel text-[9px]">— RonChen，Discord</p>
+    </div>
+  </div>
+</section>
+
+<footer id="contact" class="max-w-3xl mx-auto px-6 py-14 text-center">
+  <div class="pixel-border bg-white p-8">
+    <p class="pixel text-sm mb-4">想第一手收到新作消息？</p>
+    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+      <input type="email" placeholder="輸入你的 Email" class="pixel-border-sm px-4 py-2 text-sm flex-1"/>
+      <button class="btn-pixel pixel text-xs px-6 py-2.5">訂閱</button>
+    </div>
+    <p class="text-xs mt-6 text-stone-500">© 2026 像素工房 PixelForge Studio</p>
+  </div>
+</footer>
+
+</body>
+</html>
