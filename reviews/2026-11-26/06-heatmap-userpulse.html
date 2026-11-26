@@ -1,0 +1,154 @@
+<!-- style #29 Heatmap & Density -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UserPulse · 用戶行為熱力分析</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Manrope', sans-serif; background:#0f172a; color:#e2e8f0; }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+  .panel{ background:#1e293b; border:1px solid #334155; border-radius:16px; }
+  .heat-0{ background:#1e293b; }
+  .heat-1{ background:#1e3a5f; }
+  .heat-2{ background:#1e5a8a; }
+  .heat-3{ background:#1b7fb8; }
+  .heat-4{ background:#38bdf8; }
+  .heat-5{ background:#a5e6ff; }
+  .cell{ aspect-ratio:1; border-radius:4px; }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <div class="max-w-7xl mx-auto p-6">
+    <header class="flex items-center justify-between mb-6">
+      <div>
+        <h1 class="text-xl font-extrabold">UserPulse</h1>
+        <p class="text-sm text-slate-400">用戶行為熱力分析 · App 版面點擊密度</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <select class="panel px-3 py-2 text-sm">
+          <option>近 7 天</option>
+          <option>近 30 天</option>
+        </select>
+        <button class="bg-sky-500 text-slate-900 font-bold px-4 py-2 rounded-lg text-sm">匯出報表</button>
+      </div>
+    </header>
+
+    <div class="grid md:grid-cols-4 gap-4 mb-6">
+      <div class="panel p-5">
+        <p class="text-xs text-slate-400 mb-2">本週活躍用戶</p>
+        <p class="mono text-2xl font-bold">84,201</p>
+        <p class="text-xs text-emerald-400 mt-1">▲ 12.4%</p>
+      </div>
+      <div class="panel p-5">
+        <p class="text-xs text-slate-400 mb-2">平均停留時間</p>
+        <p class="mono text-2xl font-bold">4m 52s</p>
+        <p class="text-xs text-emerald-400 mt-1">▲ 6.1%</p>
+      </div>
+      <div class="panel p-5">
+        <p class="text-xs text-slate-400 mb-2">熱區點擊總數</p>
+        <p class="mono text-2xl font-bold">612,480</p>
+        <p class="text-xs text-rose-400 mt-1">▼ 2.3%</p>
+      </div>
+      <div class="panel p-5">
+        <p class="text-xs text-slate-400 mb-2">跳出率</p>
+        <p class="mono text-2xl font-bold">31.8%</p>
+        <p class="text-xs text-emerald-400 mt-1">▼ 1.5%</p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-5">
+      <div class="panel p-6 md:col-span-2">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="font-bold">首頁點擊熱力圖</h2>
+          <div class="flex items-center gap-1 text-xs text-slate-400">
+            <span>低</span>
+            <span class="heat-0 w-4 h-3 inline-block rounded-sm"></span>
+            <span class="heat-2 w-4 h-3 inline-block rounded-sm"></span>
+            <span class="heat-4 w-4 h-3 inline-block rounded-sm"></span>
+            <span class="heat-5 w-4 h-3 inline-block rounded-sm"></span>
+            <span>高</span>
+          </div>
+        </div>
+        <div class="grid grid-cols-12 gap-1.5" id="heatgrid"></div>
+        <script>
+          (function(){
+            var levels=[0,0,1,1,2,0,0,1,2,3,2,1,
+                        1,2,3,4,5,4,3,2,1,1,0,0,
+                        0,1,2,5,5,4,4,3,2,1,0,0,
+                        1,2,3,4,4,3,3,2,2,1,1,0,
+                        0,0,1,2,3,3,2,1,1,0,0,0];
+            var grid=document.getElementById('heatgrid');
+            levels.forEach(function(l){
+              var d=document.createElement('div');
+              d.className='cell heat-'+l;
+              grid.appendChild(d);
+            });
+          })();
+        </script>
+        <p class="text-xs text-slate-400 mt-4">圖例依區塊對應頁面網格座標，顏色愈亮代表停留與點擊密度愈高</p>
+      </div>
+
+      <div class="panel p-6">
+        <h2 class="font-bold mb-4">熱區排行榜</h2>
+        <div class="space-y-3 text-sm">
+          <div class="flex justify-between items-center">
+            <span>搜尋欄</span>
+            <span class="mono text-sky-300">98,204</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span>首頁 Banner</span>
+            <span class="mono text-sky-300">74,512</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span>推薦商品卡</span>
+            <span class="mono text-sky-300">61,880</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span>底部導覽列</span>
+            <span class="mono text-sky-300">52,003</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span>會員中心入口</span>
+            <span class="mono text-sky-300">21,447</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel p-6 mt-5">
+      <h2 class="font-bold mb-4">各時段活躍密度</h2>
+      <div class="grid grid-cols-7 gap-1.5">
+        <template id="row"></template>
+        <div class="grid grid-rows-6 gap-1.5 col-span-7" id="timegrid"></div>
+      </div>
+      <script>
+        (function(){
+          var days=['一','二','三','四','五','六','日'];
+          var tg=document.getElementById('timegrid');
+          for(var h=0;h<6;h++){
+            var row=document.createElement('div');
+            row.className='grid grid-cols-7 gap-1.5';
+            for(var d=0;d<7;d++){
+              var lvl=Math.floor(Math.random()*5);
+              if(h>=2&&h<=4) lvl=Math.min(5,lvl+1);
+              var cell=document.createElement('div');
+              cell.className='cell heat-'+lvl;
+              row.appendChild(cell);
+            }
+            tg.appendChild(row);
+          }
+        })();
+      </script>
+      <div class="flex justify-between text-xs text-slate-400 mt-2">
+        <span>週一</span><span>週二</span><span>週三</span><span>週四</span><span>週五</span><span>週六</span><span>週日</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
