@@ -1,0 +1,131 @@
+<!-- style #35 User Behavior -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>行為足跡 PathLens · 使用者行為後台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Manrope','Noto Sans TC',sans-serif; background:#f4f6f8; color:#1e2733; }
+  .num{ font-family:'JetBrains Mono',monospace; }
+  .card{ background:#fff; border:1px solid #e3e8ed; border-radius:14px; }
+  .up{ color:#16a34a; } .down{ color:#dc2626; }
+</style>
+</head>
+<body class="min-h-screen">
+
+  <div class="flex">
+    <aside class="hidden md:flex w-56 flex-col border-r border-[#e3e8ed] bg-white min-h-screen px-5 py-6">
+      <div class="flex items-center gap-2 mb-10">
+        <div class="w-7 h-7 rounded bg-[#1e293b] flex items-center justify-center text-white text-xs font-bold">PL</div>
+        <span class="font-bold">PathLens</span>
+      </div>
+      <nav class="space-y-1 text-sm">
+        <a class="block px-3 py-2 rounded-lg bg-[#eef2ff] text-[#3730a3] font-semibold">使用者行為</a>
+        <a class="block px-3 py-2 rounded-lg text-[#5b6472] hover:bg-[#f4f6f8]">轉換漏斗</a>
+        <a class="block px-3 py-2 rounded-lg text-[#5b6472] hover:bg-[#f4f6f8]">留存分析</a>
+        <a class="block px-3 py-2 rounded-lg text-[#5b6472] hover:bg-[#f4f6f8]">路徑探索</a>
+        <a class="block px-3 py-2 rounded-lg text-[#5b6472] hover:bg-[#f4f6f8]">事件設定</a>
+      </nav>
+    </aside>
+
+    <main class="flex-1 px-5 md:px-8 py-6">
+
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h1 class="text-xl font-bold">使用者行為總覽</h1>
+          <p class="text-sm text-[#5b6472]">資料區間：2026-11-20 至 2026-11-26</p>
+        </div>
+        <select class="num text-sm border border-[#e3e8ed] rounded-lg px-3 py-2 bg-white">
+          <option>近 7 天</option>
+          <option>近 30 天</option>
+        </select>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="card p-4">
+          <p class="text-xs text-[#5b6472] mb-1">活躍使用者</p>
+          <p class="num text-2xl font-bold">48,210</p>
+          <p class="num text-xs up mt-1">▲ 6.2%</p>
+        </div>
+        <div class="card p-4">
+          <p class="text-xs text-[#5b6472] mb-1">平均停留時間</p>
+          <p class="num text-2xl font-bold">4m 12s</p>
+          <p class="num text-xs up mt-1">▲ 1.1%</p>
+        </div>
+        <div class="card p-4">
+          <p class="text-xs text-[#5b6472] mb-1">7 日留存率</p>
+          <p class="num text-2xl font-bold">38.4%</p>
+          <p class="num text-xs down mt-1">▼ 2.3%</p>
+        </div>
+        <div class="card p-4">
+          <p class="text-xs text-[#5b6472] mb-1">跳出率</p>
+          <p class="num text-2xl font-bold">22.7%</p>
+          <p class="num text-xs up mt-1">▲ 0.4%</p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-5 gap-4 mb-6">
+        <div class="card p-5 md:col-span-3">
+          <h2 class="font-semibold mb-4">轉換漏斗 · 註冊到付費</h2>
+          <div class="space-y-3">
+            <div>
+              <div class="flex justify-between text-xs mb-1"><span>瀏覽首頁</span><span class="num">100%</span></div>
+              <div class="h-6 bg-[#eef2ff] rounded"><div class="h-6 bg-[#4f46e5] rounded" style="width:100%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-1"><span>完成註冊</span><span class="num">61%</span></div>
+              <div class="h-6 bg-[#eef2ff] rounded"><div class="h-6 bg-[#4f46e5] rounded" style="width:61%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-1"><span>啟用首個功能</span><span class="num">37%</span></div>
+              <div class="h-6 bg-[#eef2ff] rounded"><div class="h-6 bg-[#4f46e5] rounded" style="width:37%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-1"><span>升級付費方案</span><span class="num">12%</span></div>
+              <div class="h-6 bg-[#eef2ff] rounded"><div class="h-6 bg-[#4f46e5] rounded" style="width:12%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card p-5 md:col-span-2">
+          <h2 class="font-semibold mb-4">留存曲線</h2>
+          <svg viewBox="0 0 220 120" class="w-full h-32">
+            <polyline points="0,20 40,45 80,58 120,68 160,74 200,78" fill="none" stroke="#4f46e5" stroke-width="2.5"/>
+            <polyline points="0,20 40,60 80,80 120,92 160,98 200,102" fill="none" stroke="#c7d2fe" stroke-width="2.5" stroke-dasharray="4 4"/>
+          </svg>
+          <div class="flex justify-between text-xs text-[#5b6472] num mt-1">
+            <span>D0</span><span>D1</span><span>D3</span><span>D7</span><span>D14</span><span>D30</span>
+          </div>
+          <p class="text-xs text-[#5b6472] mt-3">
+            <span class="inline-block w-2 h-2 bg-[#4f46e5] rounded-full mr-1"></span>本月使用者
+            <span class="inline-block w-2 h-2 bg-[#c7d2fe] rounded-full ml-3 mr-1"></span>上月使用者
+          </p>
+        </div>
+      </div>
+
+      <div class="card p-5">
+        <h2 class="font-semibold mb-4">常見操作路徑 Top 5</h2>
+        <table class="w-full text-sm">
+          <thead class="text-[#5b6472] text-xs border-b border-[#e3e8ed]">
+            <tr><th class="text-left py-2">路徑</th><th class="text-right py-2">使用者數</th><th class="text-right py-2">平均步數</th></tr>
+          </thead>
+          <tbody class="divide-y divide-[#edf0f3]">
+            <tr><td class="py-2.5">首頁 → 搜尋 → 商品頁 → 結帳</td><td class="num text-right">12,840</td><td class="num text-right">4</td></tr>
+            <tr><td class="py-2.5">首頁 → 推薦牆 → 商品頁</td><td class="num text-right">9,112</td><td class="num text-right">3</td></tr>
+            <tr><td class="py-2.5">登入 → 我的收藏 → 商品頁 → 結帳</td><td class="num text-right">6,530</td><td class="num text-right">5</td></tr>
+            <tr><td class="py-2.5">首頁 → 分類頁 → 篩選 → 商品頁</td><td class="num text-right">5,204</td><td class="num text-right">4</td></tr>
+            <tr><td class="py-2.5">搜尋 → 無結果 → 離開</td><td class="num text-right">3,871</td><td class="num text-right">2</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+
+</body>
+</html>

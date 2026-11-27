@@ -1,0 +1,112 @@
+<!-- style #40 Y2K Revival -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>千禧電幻祭 Y2K FEST · 售票頁</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Rajdhani','Noto Sans TC',sans-serif; background:#0d0a1a; color:#f3eaff; }
+  .chrome{ font-family:'Orbitron','Noto Sans TC',sans-serif; }
+  .chrome-text{
+    background: linear-gradient(180deg,#ffffff 0%, #c9c9d9 25%, #8f8fae 50%, #ffffff 75%, #d9d9ff 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    text-shadow: 0 2px 0 rgba(255,255,255,.3);
+  }
+  .glow{ text-shadow: 0 0 12px #ff00ff, 0 0 24px #00ffff; }
+  .starburst{
+    background: radial-gradient(circle, #ff71ce 0%, transparent 70%);
+  }
+  .grid-floor{
+    background-image:
+      linear-gradient(rgba(255,0,255,.4) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,0,255,.4) 1px, transparent 1px);
+    background-size: 40px 40px;
+    transform: perspective(300px) rotateX(60deg);
+    height: 220px;
+  }
+  .card{ background: linear-gradient(145deg,#1b1530,#140f28); border:1px solid #3d2e66; border-radius:16px; }
+</style>
+</head>
+<body class="overflow-x-hidden">
+
+  <header class="max-w-5xl mx-auto px-6 pt-8 flex items-center justify-between">
+    <span class="chrome chrome-text text-xl font-bold">Y2K FEST</span>
+    <button class="chrome text-xs font-bold px-4 py-2 rounded-full border border-[#ff71ce] text-[#ff71ce]">立即購票</button>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6">
+
+    <section class="pt-14 pb-10 text-center relative">
+      <div class="starburst absolute -top-10 left-1/2 -translate-x-1/2 w-96 h-96 opacity-30 pointer-events-none"></div>
+      <p class="text-[#9ad8ff] text-sm font-semibold tracking-widest mb-4">2026.12.31　跨年夜　千禧電幻再臨</p>
+      <h1 class="chrome chrome-text text-5xl md:text-7xl font-black mb-4 relative">千禧電幻祭</h1>
+      <p class="glow text-[#ff71ce] font-semibold mb-8">穿上你的金屬感戰袍，回到那個相信未來很閃的年代</p>
+      <div class="grid-floor max-w-xl mx-auto opacity-60"></div>
+    </section>
+
+    <section class="grid md:grid-cols-3 gap-5 py-10">
+      <div class="card p-6 text-center">
+        <p class="chrome text-[#9ad8ff] text-xs mb-2">EARLY BIRD</p>
+        <p class="chrome chrome-text text-3xl font-bold mb-2">NT$1,200</p>
+        <p class="text-sm text-[#cdbfe8]">單日入場 · 限量 500 張</p>
+      </div>
+      <div class="card p-6 text-center border-2 border-[#ff71ce]">
+        <p class="chrome text-[#ff71ce] text-xs mb-2">VIP 雷射區</p>
+        <p class="chrome chrome-text text-3xl font-bold mb-2">NT$2,800</p>
+        <p class="text-sm text-[#cdbfe8]">雙日入場 + 專屬紀念鉻合金徽章</p>
+      </div>
+      <div class="card p-6 text-center">
+        <p class="chrome text-[#9ad8ff] text-xs mb-2">一般票</p>
+        <p class="chrome chrome-text text-3xl font-bold mb-2">NT$1,680</p>
+        <p class="text-sm text-[#cdbfe8]">單日入場</p>
+      </div>
+    </section>
+
+    <section class="py-10 text-center">
+      <p class="chrome text-sm text-[#9ad8ff] mb-3">距離開場倒數</p>
+      <div id="countdown" class="flex justify-center gap-4 chrome chrome-text text-3xl md:text-4xl font-bold">
+        <div><span id="cd-d">--</span><p class="text-xs text-[#cdbfe8] font-sans">天</p></div>
+        <div><span id="cd-h">--</span><p class="text-xs text-[#cdbfe8] font-sans">時</p></div>
+        <div><span id="cd-m">--</span><p class="text-xs text-[#cdbfe8] font-sans">分</p></div>
+        <div><span id="cd-s">--</span><p class="text-xs text-[#cdbfe8] font-sans">秒</p></div>
+      </div>
+    </section>
+
+    <section class="py-10">
+      <h2 class="chrome chrome-text text-2xl font-bold text-center mb-8">演出陣容</h2>
+      <div class="grid md:grid-cols-4 gap-4 text-center">
+        <div class="card p-4"><p class="font-bold">DJ 鉻光</p><p class="text-xs text-[#9ad8ff] mt-1">電子舞曲</p></div>
+        <div class="card p-4"><p class="font-bold">VHS 幽靈</p><p class="text-xs text-[#9ad8ff] mt-1">合成器流行</p></div>
+        <div class="card p-4"><p class="font-bold">星芒少女</p><p class="text-xs text-[#9ad8ff] mt-1">千禧流行</p></div>
+        <div class="card p-4"><p class="font-bold">像素浪潮</p><p class="text-xs text-[#9ad8ff] mt-1">電馳音樂</p></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-xs text-[#6b5c94] pb-10">© 2026 千禧電幻祭 Y2K FEST · 一夜回到未來</footer>
+
+  <script>
+    var target = new Date(2026, 11, 31, 0, 0, 0).getTime();
+    function tick() {
+      var diff = target - Date.now();
+      if (diff < 0) diff = 0;
+      var d = Math.floor(diff / 86400000);
+      var h = Math.floor(diff % 86400000 / 3600000);
+      var m = Math.floor(diff % 3600000 / 60000);
+      var s = Math.floor(diff % 60000 / 1000);
+      document.getElementById('cd-d').textContent = String(d).padStart(2,'0');
+      document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+      document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+      document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+    }
+    tick();
+    setInterval(tick, 1000);
+  </script>
+</body>
+</html>

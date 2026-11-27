@@ -1,0 +1,102 @@
+<!-- style #06 Vibrant Block -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>色塊牆 ColorWall · 創作社群</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Space Grotesk','Noto Sans TC',sans-serif; background:#0f0f14; color:#fff; }
+  .display{ font-family:'Archivo Black','Noto Sans TC',sans-serif; }
+  .block{ border-radius:0; }
+</style>
+</head>
+<body class="overflow-x-hidden">
+
+  <header class="max-w-5xl mx-auto px-6 pt-7 flex items-center justify-between">
+    <span class="display text-lg">色塊牆</span>
+    <button class="display text-xs bg-[#39ff14] text-black px-4 py-2">立刻加入</button>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6">
+
+    <section class="pt-10 pb-10 grid md:grid-cols-2 gap-6 items-center">
+      <div>
+        <h1 class="display text-4xl md:text-5xl leading-[1.15] mb-5">
+          <span class="bg-[#00ffff] text-black px-2">丟一塊顏色</span><br>
+          <span class="bg-[#bf00ff] px-2">讓世界接著畫</span>
+        </h1>
+        <p class="text-[#cfcfe0] mb-6 leading-relaxed">
+          色塊牆是給創作者的接畫社群：你畫一塊，別人接下一塊，
+          拼成誰也沒想過的作品。每週評選「最瘋色塊」。
+        </p>
+        <div class="flex gap-3">
+          <button class="display text-sm bg-[#ff1493] px-5 py-3">開始創作</button>
+          <button class="display text-sm border-2 border-white px-5 py-3">看看作品牆</button>
+        </div>
+      </div>
+      <div class="grid grid-cols-3 gap-2">
+        <div class="block bg-[#00ffff] h-20"></div>
+        <div class="block bg-[#bf00ff] h-20"></div>
+        <div class="block bg-[#39ff14] h-20"></div>
+        <div class="block bg-[#ff1493] h-20"></div>
+        <div class="block bg-white h-20"></div>
+        <div class="block bg-[#00ffff] h-20"></div>
+        <div class="block bg-[#39ff14] h-20"></div>
+        <div class="block bg-[#ff1493] h-20"></div>
+        <div class="block bg-[#bf00ff] h-20"></div>
+      </div>
+    </section>
+
+    <section class="py-10 border-t-4 border-white">
+      <h2 class="display text-2xl mb-6">本週最瘋色塊牆</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="block bg-[#bf00ff] p-4 h-44 flex flex-col justify-between">
+          <span class="display text-xs">#042</span>
+          <span class="display text-xl">霓虹<br>水母</span>
+        </div>
+        <div class="block bg-[#00ffff] text-black p-4 h-44 flex flex-col justify-between">
+          <span class="display text-xs">#108</span>
+          <span class="display text-xl">方塊<br>星球</span>
+        </div>
+        <div class="block bg-[#39ff14] text-black p-4 h-44 flex flex-col justify-between">
+          <span class="display text-xs">#211</span>
+          <span class="display text-xl">雷射<br>貓咪</span>
+        </div>
+        <div class="block bg-[#ff1493] p-4 h-44 flex flex-col justify-between">
+          <span class="display text-xs">#305</span>
+          <span class="display text-xl">碎片<br>城市</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-10 border-t-4 border-white grid md:grid-cols-3 gap-4 text-center">
+      <div class="block bg-[#1a1a24] border-2 border-[#00ffff] p-6">
+        <p class="display text-3xl text-[#00ffff] mb-1">38,204</p>
+        <p class="text-sm text-[#cfcfe0]">已接畫的色塊數</p>
+      </div>
+      <div class="block bg-[#1a1a24] border-2 border-[#ff1493] p-6">
+        <p class="display text-3xl text-[#ff1493] mb-1">6,710</p>
+        <p class="text-sm text-[#cfcfe0]">創作者社群人數</p>
+      </div>
+      <div class="block bg-[#1a1a24] border-2 border-[#39ff14] p-6">
+        <p class="display text-3xl text-[#39ff14] mb-1">182</p>
+        <p class="text-sm text-[#cfcfe0]">本週累積接龍長度</p>
+      </div>
+    </section>
+
+    <section class="py-14 text-center border-t-4 border-white">
+      <h2 class="display text-3xl mb-6">丟出你的第一塊顏色</h2>
+      <button class="display bg-[#ffff00] text-black px-8 py-4 text-sm">免費加入色塊牆</button>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-xs text-[#8c8ca0] pb-10">© 2026 色塊牆 ColorWall · 顏色拼出來的，不是畫出來的</footer>
+
+</body>
+</html>

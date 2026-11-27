@@ -1,0 +1,143 @@
+<!-- style #19 Soft UI Evolution -->
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>毛日記 PawDiary · 寵物健康日常</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#eef3f6; --card:#f6f9fb; --ink:#44525f; --muted:#8a99a6;
+    --pink:#ffc9d4; --blue:#bfe3f0; --mint:#c9ecd9; --peach:#ffe2c2;
+  }
+  body{ font-family:'Quicksand','Zen Maru Gothic',sans-serif; background:var(--bg); color:var(--ink); }
+  .maru{ font-family:'Zen Maru Gothic','Quicksand',sans-serif; }
+  .soft-raised{ border-radius:28px; background:var(--card);
+    box-shadow: 8px 8px 20px rgba(163,177,191,0.45), -8px -8px 20px rgba(255,255,255,0.9); }
+  .soft-pressed{ border-radius:28px; background:var(--card);
+    box-shadow: inset 6px 6px 14px rgba(163,177,191,0.4), inset -6px -6px 14px rgba(255,255,255,0.85); }
+  .pill-btn{ border-radius:999px; background:var(--card);
+    box-shadow: 6px 6px 14px rgba(163,177,191,0.45), -6px -6px 14px rgba(255,255,255,0.9);
+    transition: box-shadow .15s, transform .15s; }
+  .pill-btn:active{ box-shadow: inset 4px 4px 10px rgba(163,177,191,0.4), inset -4px -4px 10px rgba(255,255,255,0.85); transform: scale(0.98); }
+  .ring{ border-radius:50%; }
+</style>
+</head>
+<body class="min-h-screen pb-16">
+
+  <header class="max-w-md mx-auto px-6 pt-8 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <div class="w-9 h-9 ring bg-[var(--pink)] flex items-center justify-center text-lg">🐾</div>
+      <span class="maru font-bold text-lg">毛日記</span>
+    </div>
+    <div class="pill-btn w-10 h-10 flex items-center justify-center text-base">🔔</div>
+  </header>
+
+  <main class="max-w-md mx-auto px-6 mt-6 space-y-6">
+
+    <section class="soft-raised p-5 flex items-center gap-4">
+      <div class="ring w-16 h-16 bg-[var(--peach)] flex items-center justify-center text-3xl">🐶</div>
+      <div class="flex-1">
+        <p class="text-sm text-[var(--muted)]">早安，豆豆的主人</p>
+        <h1 class="maru font-bold text-xl">今天也要好好照顧豆豆</h1>
+      </div>
+    </section>
+
+    <section class="soft-raised p-6 text-center">
+      <p class="text-sm text-[var(--muted)] mb-3">本週健康指數</p>
+      <div class="relative w-36 h-36 mx-auto mb-3">
+        <svg viewBox="0 0 120 120" class="w-full h-full -rotate-90">
+          <circle cx="60" cy="60" r="50" fill="none" stroke="#e3ecf1" stroke-width="12"/>
+          <circle cx="60" cy="60" r="50" fill="none" stroke="#9fd9b8" stroke-width="12"
+            stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="47"/>
+        </svg>
+        <div class="absolute inset-0 flex flex-col items-center justify-center">
+          <span class="maru font-bold text-3xl">85</span>
+          <span class="text-xs text-[var(--muted)]">分</span>
+        </div>
+      </div>
+      <p class="text-sm text-[var(--muted)]">比上週好一點，散步次數要再增加喔</p>
+    </section>
+
+    <section class="grid grid-cols-2 gap-4">
+      <div class="soft-raised p-4">
+        <div class="ring w-10 h-10 bg-[var(--blue)] flex items-center justify-center text-lg mb-2">💧</div>
+        <p class="text-xs text-[var(--muted)]">今日飲水</p>
+        <p class="maru font-bold text-lg">480<span class="text-sm font-normal">ml</span></p>
+      </div>
+      <div class="soft-raised p-4">
+        <div class="ring w-10 h-10 bg-[var(--mint)] flex items-center justify-center text-lg mb-2">🦴</div>
+        <p class="text-xs text-[var(--muted)]">今日散步</p>
+        <p class="maru font-bold text-lg">32<span class="text-sm font-normal">分</span></p>
+      </div>
+    </section>
+
+    <section class="soft-raised p-5">
+      <h2 class="maru font-bold mb-4">今日照顧清單</h2>
+      <ul class="space-y-3" id="checklist">
+        <li class="flex items-center gap-3">
+          <button class="task-check soft-pressed w-7 h-7 flex items-center justify-center text-sm" data-done="true">✓</button>
+          <span class="text-sm flex-1 line-through text-[var(--muted)]">早餐 · 離乳飼料一份</span>
+        </li>
+        <li class="flex items-center gap-3">
+          <button class="task-check pill-btn w-7 h-7 flex items-center justify-center text-sm" data-done="false"></button>
+          <span class="text-sm flex-1">下午散步 20 分鐘</span>
+        </li>
+        <li class="flex items-center gap-3">
+          <button class="task-check pill-btn w-7 h-7 flex items-center justify-center text-sm" data-done="false"></button>
+          <span class="text-sm flex-1">刷牙 · 睡前保健</span>
+        </li>
+        <li class="flex items-center gap-3">
+          <button class="task-check pill-btn w-7 h-7 flex items-center justify-center text-sm" data-done="false"></button>
+          <span class="text-sm flex-1">心絲蟲預防藥（本月）</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="soft-raised p-5">
+      <h2 class="maru font-bold mb-4">下次回診</h2>
+      <div class="flex items-center justify-between soft-pressed p-4">
+        <div>
+          <p class="text-sm font-semibold">安心動物醫院 · 定期健檢</p>
+          <p class="text-xs text-[var(--muted)] mt-1">12 月 3 日（三）下午 2:30</p>
+        </div>
+        <div class="ring w-11 h-11 bg-[var(--pink)] flex items-center justify-center text-lg">📅</div>
+      </div>
+    </section>
+
+    <button class="pill-btn w-full py-4 maru font-bold text-[var(--ink)]">＋ 新增一筆照顧紀錄</button>
+
+  </main>
+
+  <nav class="max-w-md mx-auto px-6 mt-8 flex justify-around">
+    <div class="pill-btn w-14 h-14 flex items-center justify-center text-xl">🏠</div>
+    <div class="soft-pressed w-14 h-14 flex items-center justify-center text-xl">📋</div>
+    <div class="pill-btn w-14 h-14 flex items-center justify-center text-xl">📈</div>
+    <div class="pill-btn w-14 h-14 flex items-center justify-center text-xl">👤</div>
+  </nav>
+
+  <script>
+    document.querySelectorAll('.task-check').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var done = btn.getAttribute('data-done') === 'true';
+        var label = btn.nextElementSibling;
+        if (done) {
+          btn.setAttribute('data-done', 'false');
+          btn.classList.remove('soft-pressed'); btn.classList.add('pill-btn');
+          btn.textContent = '';
+          label.classList.remove('line-through', 'text-[var(--muted)]');
+        } else {
+          btn.setAttribute('data-done', 'true');
+          btn.classList.remove('pill-btn'); btn.classList.add('soft-pressed');
+          btn.textContent = '✓';
+          label.classList.add('line-through', 'text-[var(--muted)]');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
