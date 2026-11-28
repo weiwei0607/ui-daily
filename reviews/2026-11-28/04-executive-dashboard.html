@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<!-- style #30 Executive Summary Dashboard -->
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>手搖通 BrewSight｜連鎖手搖飲營運戰情室</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f7f8fa; --panel:#ffffff; --ink:#111827; --sub:#6b7280;
+    --up:#10b981; --down:#ef4444; --brand:#7c3aed; --line:#e5e7eb;
+  }
+  *{ box-sizing:border-box; }
+  body{ font-family:'Plus Jakarta Sans','Noto Sans TC',sans-serif; background:var(--bg); color:var(--ink); }
+  .mono{ font-family:'JetBrains Mono',monospace; font-variant-numeric:tabular-nums; }
+  .panel{ background:var(--panel); border:1px solid var(--line); border-radius:16px; }
+  .kpi-num{ font-family:'JetBrains Mono',monospace; font-weight:700; letter-spacing:-0.02em; }
+  .up{ color:var(--up); } .down{ color:var(--down); }
+  .range-btn{ border-radius:10px; padding:6px 14px; font-size:.82rem; font-weight:600; border:1px solid var(--line); color:var(--sub); }
+  .range-btn.active{ background:var(--ink); color:#fff; border-color:var(--ink); }
+  .bar{ transition:height .5s cubic-bezier(.2,.8,.2,1); }
+  th{ text-align:left; color:var(--sub); font-weight:600; font-size:.78rem; text-transform:uppercase; letter-spacing:.03em; }
+  tbody tr:hover{ background:#faf8ff; }
+  .store-bar{ height:8px; border-radius:999px; background:var(--line); overflow:hidden; }
+  .store-fill{ height:100%; background:var(--brand); transition:width .5s ease; }
+</style>
+</head>
+<body>
+
+<div class="max-w-6xl mx-auto px-5 py-8">
+
+  <header class="flex items-center justify-between mb-7 flex-wrap gap-4">
+    <div>
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-[var(--brand)] flex items-center justify-center text-white text-sm font-bold">茶</div>
+        <h1 class="font-extrabold text-xl">手搖通 BrewSight</h1>
+      </div>
+      <p class="text-sm text-[var(--sub)] mt-1">全台 86 家門市・營運戰情室</p>
+    </div>
+    <div class="flex items-center gap-2" id="rangeGroup">
+      <button class="range-btn" data-r="week">本週</button>
+      <button class="range-btn active" data-r="month">本月</button>
+      <button class="range-btn" data-r="quarter">本季</button>
+    </div>
+  </header>
+
+  <!-- KPI 卡 -->
+  <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6" id="kpiGrid">
+    <div class="panel p-5">
+      <div class="text-sm text-[var(--sub)] mb-2">總營收</div>
+      <div class="kpi-num text-2xl" id="kpiRevenue">NT$ 38.2M</div>
+      <div class="up text-xs font-semibold mt-1 mono" id="kpiRevenueDelta">▲ 6.4%</div>
+    </div>
+    <div class="panel p-5">
+      <div class="text-sm text-[var(--sub)] mb-2">訂單數</div>
+      <div class="kpi-num text-2xl" id="kpiOrders">612,480</div>
+      <div class="up text-xs font-semibold mt-1 mono" id="kpiOrdersDelta">▲ 3.1%</div>
+    </div>
+    <div class="panel p-5">
+      <div class="text-sm text-[var(--sub)] mb-2">平均客單價</div>
+      <div class="kpi-num text-2xl" id="kpiAov">NT$ 62.3</div>
+      <div class="down text-xs font-semibold mt-1 mono" id="kpiAovDelta">▼ 1.2%</div>
+    </div>
+    <div class="panel p-5">
+      <div class="text-sm text-[var(--sub)] mb-2">會員回購率</div>
+      <div class="kpi-num text-2xl" id="kpiRepeat">47.8%</div>
+      <div class="up text-xs font-semibold mt-1 mono" id="kpiRepeatDelta">▲ 2.0pt</div>
+    </div>
+  </section>
+
+  <div class="grid md:grid-cols-3 gap-6 mb-6">
+
+    <section class="panel p-6 md:col-span-2">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="font-bold">每日營收趨勢</h2>
+        <span class="text-xs text-[var(--sub)] mono" id="trendRange">11/01 – 11/28</span>
+      </div>
+      <svg viewBox="0 0 560 180" class="w-full h-44" id="trendChart">
+        <line x1="0" y1="45" x2="560" y2="45" stroke="#eef0f3" stroke-width="1"/>
+        <line x1="0" y1="90" x2="560" y2="90" stroke="#eef0f3" stroke-width="1"/>
+        <line x1="0" y1="135" x2="560" y2="135" stroke="#eef0f3" stroke-width="1"/>
+        <polyline id="trendLine" fill="none" stroke="#7c3aed" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+        <polygon id="trendFill" fill="rgba(124,58,237,.08)"/>
+      </svg>
+      <div class="flex justify-between text-xs text-[var(--sub)] mt-1 mono">
+        <span>第 1 週</span><span>第 2 週</span><span>第 3 週</span><span>第 4 週</span>
+      </div>
+    </section>
+
+    <section class="panel p-6">
+      <h2 class="font-bold mb-4">各區門市達成率</h2>
+      <div class="space-y-4" id="storeBars">
+        <div>
+          <div class="flex justify-between text-sm mb-1"><span>北區（32 店）</span><span class="mono font-semibold">108%</span></div>
+          <div class="store-bar"><div class="store-fill" style="width:0%" data-w="100%"></div></div>
+        </div>
+        <div>
+          <div class="flex justify-between text-sm mb-1"><span>中區（21 店）</span><span class="mono font-semibold">96%</span></div>
+          <div class="store-bar"><div class="store-fill" style="width:0%" data-w="96%"></div></div>
+        </div>
+        <div>
+          <div class="flex justify-between text-sm mb-1"><span>南區（24 店）</span><span class="mono font-semibold">101%</span></div>
+          <div class="store-bar"><div class="store-fill" style="width:0%" data-w="100%"></div></div>
+        </div>
+        <div>
+          <div class="flex justify-between text-sm mb-1"><span>東區（9 店）</span><span class="mono font-semibold">88%</span></div>
+          <div class="store-bar"><div class="store-fill" style="width:0%" data-w="88%"></div></div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <section class="panel p-6">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="font-bold">熱銷品項排行</h2>
+      <input id="searchInput" oninput="filterRows()" placeholder="搜尋飲品名稱…" class="border border-[var(--line)] rounded-lg px-3 py-1.5 text-sm w-48">
+    </div>
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="border-b border-[var(--line)]">
+          <th class="py-2">排名</th><th>品項</th><th class="cursor-pointer" onclick="sortBy('qty')">銷售量 ↕</th><th class="cursor-pointer" onclick="sortBy('rev')">營收貢獻 ↕</th><th>月增減</th>
+        </tr>
+      </thead>
+      <tbody id="rankTable"></tbody>
+    </table>
+  </section>
+
+</div>
+
+<script>
+  const products = [
+    {name:'珍珠鮮奶茶', qty:88210, rev:5.4, delta: 8.2},
+    {name:'冬瓜檸檬', qty:76940, rev:3.8, delta: 12.5},
+    {name:'四季春青茶', qty:71200, rev:3.2, delta: -2.1},
+    {name:'厚奶茶', qty:65810, rev:4.6, delta: 5.0},
+    {name:'芋香波波鮮奶', qty:52330, rev:4.1, delta: -1.4},
+    {name:'黑糖珍珠拿鐵', qty:48120, rev:4.4, delta: 3.3},
+  ];
+  function renderTable(list){
+    const sorted = [...list];
+    document.getElementById('rankTable').innerHTML = sorted.map((p,i)=>`
+      <tr class="border-b border-[var(--line)]">
+        <td class="py-2 mono">#${i+1}</td>
+        <td class="font-medium">${p.name}</td>
+        <td class="mono">${p.qty.toLocaleString()}</td>
+        <td class="mono">NT$ ${p.rev.toFixed(1)}M</td>
+        <td class="mono ${p.delta>=0?'up':'down'}">${p.delta>=0?'▲':'▼'} ${Math.abs(p.delta).toFixed(1)}%</td>
+      </tr>`).join('');
+  }
+  let currentSort = null;
+  function sortBy(key){
+    currentSort = currentSort === key ? key+'_rev' : key;
+    const dir = currentSort.endsWith('_rev') ? -1 : 1;
+    const list = [...products].sort((a,b)=>(a[key]-b[key])*dir);
+    renderTable(list);
+  }
+  function filterRows(){
+    const q = document.getElementById('searchInput').value.trim();
+    renderTable(products.filter(p=>p.name.includes(q)));
+  }
+  renderTable(products);
+
+  // trend chart
+  function drawTrend(mult){
+    const base = [28,30,27,33,31,36,34,38,37,41,39,44];
+    const pts = base.map(v=>v*mult);
+    const max = Math.max(...pts), min = Math.min(...pts);
+    const w = 560, h = 180, pad = 10;
+    const coords = pts.map((v,i)=>{
+      const x = (i/(pts.length-1)) * w;
+      const y = h - pad - ((v-min)/(max-min)) * (h-2*pad);
+      return [x,y];
+    });
+    document.getElementById('trendLine').setAttribute('points', coords.map(c=>c.join(',')).join(' '));
+    document.getElementById('trendFill').setAttribute('points', `0,${h} ` + coords.map(c=>c.join(',')).join(' ') + ` ${w},${h}`);
+  }
+  drawTrend(1);
+
+  document.getElementById('rangeGroup').addEventListener('click', (e)=>{
+    const btn = e.target.closest('.range-btn');
+    if(!btn) return;
+    document.querySelectorAll('.range-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const r = btn.dataset.r;
+    const data = {
+      week:   {rev:'NT$ 9.1M',  revD:'▲ 2.1%', orders:'148,220', ordersD:'▲ 1.0%', aov:'NT$ 61.4', aovD:'▼ 0.4%', repeat:'46.2%', repeatD:'▲ 0.4pt', range:'11/22 – 11/28', mult:0.25, up:[1,1,0,1]},
+      month:  {rev:'NT$ 38.2M', revD:'▲ 6.4%', orders:'612,480', ordersD:'▲ 3.1%', aov:'NT$ 62.3', aovD:'▼ 1.2%', repeat:'47.8%', repeatD:'▲ 2.0pt', range:'11/01 – 11/28', mult:1, up:[1,1,0,1]},
+      quarter:{rev:'NT$ 109.6M',revD:'▲ 11.8%',orders:'1,780,340',ordersD:'▲ 7.5%', aov:'NT$ 61.9', aovD:'▲ 0.6%', repeat:'49.1%', repeatD:'▲ 3.3pt', range:'Q4 09/01 – 11/28', mult:3, up:[1,1,1,1]},
+    }[r];
+    document.getElementById('kpiRevenue').textContent = data.rev;
+    document.getElementById('kpiRevenueDelta').textContent = data.revD;
+    document.getElementById('kpiOrders').textContent = data.orders;
+    document.getElementById('kpiOrdersDelta').textContent = data.ordersD;
+    document.getElementById('kpiAov').textContent = data.aov;
+    document.getElementById('kpiAovDelta').textContent = data.aovD;
+    document.getElementById('kpiRepeat').textContent = data.repeat;
+    document.getElementById('kpiRepeatDelta').textContent = data.repeatD;
+    document.getElementById('trendRange').textContent = data.range;
+    [['kpiRevenueDelta',data.up[0]],['kpiOrdersDelta',data.up[1]],['kpiAovDelta',data.up[2]],['kpiRepeatDelta',data.up[3]]].forEach(([id,up])=>{
+      const el = document.getElementById(id);
+      el.classList.toggle('up', !!up);
+      el.classList.toggle('down', !up);
+    });
+    drawTrend(data.mult);
+  });
+
+  window.addEventListener('DOMContentLoaded', ()=>{
+    document.querySelectorAll('.store-fill').forEach(el=>{
+      setTimeout(()=>{ el.style.width = el.dataset.w; }, 100);
+    });
+  });
+  document.querySelectorAll('.store-fill').forEach(el=>{
+    requestAnimationFrame(()=> setTimeout(()=>{ el.style.width = el.dataset.w; }, 100));
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<!-- style #16 Micro-interactions -->
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>輕觸 TapHome｜智慧居家控制</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f5f7; --card:#ffffff; --ink:#15171c; --sub:#6b7280;
+    --accent:#3b6df0; --accent2:#22c55e; --warn:#f59e0b;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    font-family:'Manrope','Noto Sans TC',sans-serif;
+    background:var(--bg); color:var(--ink);
+  }
+  .serif-ui{ font-family:'Manrope','Noto Sans TC',sans-serif; }
+  .card{
+    background:var(--card);
+    border-radius:22px;
+    box-shadow:0 1px 2px rgba(15,23,42,.04), 0 10px 24px -10px rgba(15,23,42,.08);
+    transition:transform .35s cubic-bezier(.2,.9,.3,1.3), box-shadow .35s ease;
+  }
+  .card:hover{ transform:translateY(-4px); box-shadow:0 1px 2px rgba(15,23,42,.05), 0 20px 34px -12px rgba(15,23,42,.14); }
+
+  /* toggle switch with spring-like feedback */
+  .switch{ width:52px; height:30px; border-radius:999px; background:#e2e4ea; position:relative; cursor:pointer; transition:background .3s ease; flex-shrink:0; }
+  .switch.on{ background:var(--accent); }
+  .knob{ width:24px; height:24px; border-radius:50%; background:#fff; position:absolute; top:3px; left:3px; box-shadow:0 1px 3px rgba(0,0,0,.25); transition:transform .4s cubic-bezier(.34,1.56,.64,1); }
+  .switch.on .knob{ transform:translateX(22px); }
+  .switch:active .knob{ transform:scale(.88) translateX(var(--tx,0)); }
+  .switch.on:active .knob{ --tx:22px; }
+
+  .ripple-btn{ position:relative; overflow:hidden; }
+  .ripple{
+    position:absolute; border-radius:50%; background:rgba(255,255,255,.55);
+    transform:scale(0); animation:rip .6s ease-out forwards; pointer-events:none;
+  }
+  @keyframes rip{ to{ transform:scale(1); opacity:0; } }
+
+  .pulse-dot{ width:8px; height:8px; border-radius:50%; background:var(--accent2); box-shadow:0 0 0 0 rgba(34,197,94,.6); animation:pulseDot 2s infinite; }
+  @keyframes pulseDot{ 0%{ box-shadow:0 0 0 0 rgba(34,197,94,.55); } 70%{ box-shadow:0 0 0 8px rgba(34,197,94,0); } 100%{ box-shadow:0 0 0 0 rgba(34,197,94,0); } }
+
+  .mode-card{ transition:transform .25s ease, border-color .25s ease, background .25s ease; border:2px solid transparent; }
+  .mode-card.active{ border-color:var(--accent); background:#eef3ff; }
+  .mode-card:active{ transform:scale(.97); }
+
+  input[type="range"]{ -webkit-appearance:none; width:100%; height:8px; border-radius:999px; background:#e5e7eb; }
+  input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none; width:26px; height:26px; border-radius:50%; background:#fff;
+    border:5px solid var(--accent); cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,.15);
+    transition:transform .15s ease;
+  }
+  input[type="range"]:active::-webkit-slider-thumb{ transform:scale(1.15); }
+
+  .tap-pop{ animation:pop .3s ease; }
+  @keyframes pop{ 0%{ transform:scale(1); } 40%{ transform:scale(1.14); } 100%{ transform:scale(1); } }
+
+  .fav-heart{ transition:transform .25s cubic-bezier(.34,1.56,.64,1), color .25s ease; }
+  .fav-heart.liked{ color:#ef4444; transform:scale(1.3) rotate(-8deg); }
+
+  .num-mono{ font-variant-numeric:tabular-nums; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="max-w-5xl mx-auto px-5 py-8 md:py-12">
+
+  <header class="flex items-center justify-between mb-8">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-2xl bg-[var(--accent)] flex items-center justify-center text-white font-extrabold">輕</div>
+      <div>
+        <div class="font-extrabold text-lg leading-tight">輕觸 TapHome</div>
+        <div class="text-xs text-[var(--sub)]">每一次點擊都有回應</div>
+      </div>
+    </div>
+    <div class="flex items-center gap-2 text-sm text-[var(--sub)]">
+      <span class="pulse-dot"></span>
+      <span>已連線・8 個裝置在家</span>
+    </div>
+  </header>
+
+  <!-- 情境模式 -->
+  <section class="mb-8">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="font-bold text-lg">情境模式</h2>
+      <span class="text-xs text-[var(--sub)]">點一下立即套用</span>
+    </div>
+    <div id="modes" class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <button data-mode="home" class="mode-card active card p-4 text-left">
+        <div class="text-2xl mb-2">🏠</div>
+        <div class="font-bold text-sm">在家</div>
+        <div class="text-xs text-[var(--sub)] mt-1">暖白燈・26°C</div>
+      </button>
+      <button data-mode="away" class="mode-card card p-4 text-left">
+        <div class="text-2xl mb-2">🚪</div>
+        <div class="font-bold text-sm">外出</div>
+        <div class="text-xs text-[var(--sub)] mt-1">全關・保全啟動</div>
+      </button>
+      <button data-mode="sleep" class="mode-card card p-4 text-left">
+        <div class="text-2xl mb-2">🌙</div>
+        <div class="font-bold text-sm">睡眠</div>
+        <div class="text-xs text-[var(--sub)] mt-1">夜燈・24°C</div>
+      </button>
+      <button data-mode="movie" class="mode-card card p-4 text-left">
+        <div class="text-2xl mb-2">🎬</div>
+        <div class="font-bold text-sm">電影</div>
+        <div class="text-xs text-[var(--sub)] mt-1">調暗・音響開</div>
+      </button>
+    </div>
+    <div id="modeBanner" class="mt-3 text-sm text-[var(--accent)] font-semibold opacity-0 transition-opacity duration-300">已切換至「在家」模式</div>
+  </section>
+
+  <!-- 裝置清單 -->
+  <section class="mb-8">
+    <h2 class="font-bold text-lg mb-3">客廳</h2>
+    <div class="grid md:grid-cols-2 gap-4">
+
+      <div class="card p-5">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <div class="font-bold">主燈</div>
+            <div class="text-xs text-[var(--sub)]">客廳吸頂燈</div>
+          </div>
+          <div class="switch on" id="sw-light" onclick="toggleSwitch(this)"><div class="knob"></div></div>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="text-xs text-[var(--sub)]">亮度</span>
+          <input type="range" id="brightness" min="0" max="100" value="72" oninput="updateBrightness(this.value)">
+          <span class="text-sm font-bold num-mono w-10 text-right" id="brightVal">72%</span>
+        </div>
+      </div>
+
+      <div class="card p-5">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <div class="font-bold">空調</div>
+            <div class="text-xs text-[var(--sub)]">冷氣・除濕模式</div>
+          </div>
+          <div class="switch on" id="sw-ac" onclick="toggleSwitch(this)"><div class="knob"></div></div>
+        </div>
+        <div class="flex items-center justify-between">
+          <button class="w-10 h-10 rounded-full bg-gray-100 font-bold text-lg" onclick="adjustTemp(-1)">−</button>
+          <div class="text-2xl font-extrabold num-mono" id="tempVal">26.0°C</div>
+          <button class="w-10 h-10 rounded-full bg-gray-100 font-bold text-lg" onclick="adjustTemp(1)">＋</button>
+        </div>
+      </div>
+
+      <div class="card p-5">
+        <div class="flex items-center justify-between mb-2">
+          <div>
+            <div class="font-bold">窗簾</div>
+            <div class="text-xs text-[var(--sub)]">電動軌道</div>
+          </div>
+          <div class="switch" id="sw-curtain" onclick="toggleSwitch(this)"><div class="knob"></div></div>
+        </div>
+        <div class="flex gap-2 mt-3">
+          <button class="ripple-btn flex-1 py-2 rounded-xl bg-gray-100 text-sm font-semibold" onclick="rippleTap(event,this,'curtainStatus','已全開')">全開</button>
+          <button class="ripple-btn flex-1 py-2 rounded-xl bg-gray-100 text-sm font-semibold" onclick="rippleTap(event,this,'curtainStatus','半開')">半開</button>
+          <button class="ripple-btn flex-1 py-2 rounded-xl bg-gray-100 text-sm font-semibold" onclick="rippleTap(event,this,'curtainStatus','已全關')">全關</button>
+        </div>
+        <div class="text-xs text-[var(--sub)] mt-2" id="curtainStatus">目前：已全關</div>
+      </div>
+
+      <div class="card p-5">
+        <div class="flex items-center justify-between mb-2">
+          <div>
+            <div class="font-bold">音響</div>
+            <div class="text-xs text-[var(--sub)]">客廳環繞喇叭</div>
+          </div>
+          <button class="fav-heart text-2xl" onclick="toggleHeart(this)">♡</button>
+        </div>
+        <div class="flex items-center gap-3 mt-3">
+          <span class="text-xs text-[var(--sub)]">音量</span>
+          <input type="range" id="volume" min="0" max="100" value="38" oninput="updateVolume(this.value)">
+          <span class="text-sm font-bold num-mono w-10 text-right" id="volVal">38%</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="text-center text-xs text-[var(--sub)] pt-4 pb-2">
+    輕觸 TapHome・每個開關都有觸感回饋
+  </footer>
+
+</div>
+
+<script>
+  function toggleSwitch(el){
+    el.classList.toggle('on');
+    el.closest('.card').classList.add('tap-pop');
+    setTimeout(()=>el.closest('.card').classList.remove('tap-pop'),300);
+  }
+  function updateBrightness(v){ document.getElementById('brightVal').textContent = v + '%'; }
+  function updateVolume(v){ document.getElementById('volVal').textContent = v + '%'; }
+  let temp = 26.0;
+  function adjustTemp(d){
+    temp = Math.max(18, Math.min(30, temp + d * 0.5));
+    document.getElementById('tempVal').textContent = temp.toFixed(1) + '°C';
+    const el = document.getElementById('tempVal');
+    el.classList.add('tap-pop');
+    setTimeout(()=>el.classList.remove('tap-pop'),300);
+  }
+  function rippleTap(e, btn, targetId, text){
+    const r = document.createElement('span');
+    const rect = btn.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height) * 1.6;
+    r.className = 'ripple';
+    r.style.width = r.style.height = size + 'px';
+    r.style.left = (e.clientX - rect.left - size/2) + 'px';
+    r.style.top = (e.clientY - rect.top - size/2) + 'px';
+    btn.appendChild(r);
+    setTimeout(()=>r.remove(), 650);
+    document.getElementById(targetId).textContent = '目前：' + text;
+  }
+  function toggleHeart(el){
+    el.classList.toggle('liked');
+    el.textContent = el.classList.contains('liked') ? '♥' : '♡';
+  }
+  document.getElementById('modes').addEventListener('click', (e)=>{
+    const btn = e.target.closest('.mode-card');
+    if(!btn) return;
+    document.querySelectorAll('.mode-card').forEach(c=>c.classList.remove('active'));
+    btn.classList.add('active');
+    const names = {home:'在家', away:'外出', sleep:'睡眠', movie:'電影'};
+    const banner = document.getElementById('modeBanner');
+    banner.textContent = '已切換至「' + names[btn.dataset.mode] + '」模式';
+    banner.classList.remove('opacity-0');
+    clearTimeout(window._mt);
+    window._mt = setTimeout(()=>banner.classList.add('opacity-0'), 1800);
+  });
+</script>
+
+</body>
+</html>

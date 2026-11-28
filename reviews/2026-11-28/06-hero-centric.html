@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<!-- style #20 Hero-Centric -->
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>匠鍵所 CraftKey｜新品機械鍵盤發表</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900&family=Hanken+Grotesk:wght@400;500;600;700&family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#f8f5f0; --ink:#1c1812; --brass:#9c6b2e; --sub:#78705f; }
+  *{ box-sizing:border-box; }
+  body{ font-family:'Hanken Grotesk','Noto Sans TC',sans-serif; background:var(--bg); color:var(--ink); }
+  .display{ font-family:'Fraunces','Noto Serif TC',serif; }
+  .kicker{ letter-spacing:.18em; text-transform:uppercase; font-size:.72rem; font-weight:600; color:var(--brass); }
+
+  .hero-key{
+    width:46px; height:46px; border-radius:10px; background:#fff;
+    border:1px solid #e4ddd1; box-shadow:0 2px 0 #e4ddd1, 0 10px 18px -8px rgba(28,24,18,.18);
+    display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.85rem;
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .hero-key:active, .hero-key.pressed{
+    transform:translateY(3px); box-shadow:0 0 0 #e4ddd1, 0 3px 8px -4px rgba(28,24,18,.18);
+  }
+
+  .cta-main{
+    background:var(--ink); color:#fff; font-weight:600; border-radius:999px;
+    padding:18px 40px; transition:transform .2s ease, background .2s ease;
+  }
+  .cta-main:hover{ background:#000; transform:translateY(-2px); }
+
+  .spec-card{ border-top:1px solid #e4ddd1; padding:22px 0; }
+  .switch-swatch{
+    width:100%; aspect-ratio:1; border-radius:14px; display:flex; align-items:center; justify-content:center;
+    font-weight:700; color:#fff; cursor:pointer; transition:transform .25s ease, box-shadow .25s ease; border:3px solid transparent;
+  }
+  .switch-swatch.active{ border-color:var(--ink); transform:translateY(-4px); }
+
+  .count-num{ font-family:'Fraunces','Noto Serif TC',serif; font-weight:700; }
+
+  @keyframes floaty{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-6px); } }
+  .float1{ animation:floaty 4s ease-in-out infinite; }
+  .float2{ animation:floaty 4.6s ease-in-out infinite .4s; }
+  .float3{ animation:floaty 5.2s ease-in-out infinite .8s; }
+</style>
+</head>
+<body>
+
+<header class="max-w-5xl mx-auto px-6 pt-8 flex items-center justify-between">
+  <div class="display font-bold text-lg">匠鍵所 <span class="text-[var(--brass)]">CraftKey</span></div>
+  <div class="text-sm text-[var(--sub)] hidden md:block">純粹的敲擊感，從選料開始</div>
+</header>
+
+<!-- HERO -->
+<section class="max-w-5xl mx-auto px-6 pt-14 pb-10 text-center">
+  <div class="kicker mb-4">十一月限量發表</div>
+  <h1 class="display font-black leading-[0.98] mb-6" style="font-size:clamp(2.6rem,7.5vw,5.4rem);">
+    第七把鍵盤，<br>終於值得被聽見。
+  </h1>
+  <p class="text-[var(--sub)] max-w-lg mx-auto mb-10 text-lg">
+    手工軸體潤油、CNC 鋁合金外殼、三種聲學填充——「靜語 Hush」機械鍵盤，12 月 1 日開放預購。
+  </p>
+
+  <div class="flex items-center justify-center gap-4 flex-wrap mb-14">
+    <button class="cta-main" onclick="startReserve()">立即預購（現省 NT$1,200）</button>
+    <button class="text-sm font-semibold underline" onclick="document.getElementById('specs').scrollIntoView({behavior:'smooth'})">看完整規格</button>
+  </div>
+
+  <!-- 互動鍵盤展示 -->
+  <div class="flex items-center justify-center gap-2 flex-wrap mb-3" id="keyRow">
+    <div class="hero-key float1">靜</div>
+    <div class="hero-key float2">語</div>
+    <div class="hero-key float3">Hush</div>
+    <div class="hero-key float1">87</div>
+    <div class="hero-key float2">鍵</div>
+  </div>
+  <p class="text-xs text-[var(--sub)]">點一下試試手感回饋 ↑</p>
+</section>
+
+<!-- 倒數與庫存 -->
+<section class="max-w-3xl mx-auto px-6 mb-16">
+  <div class="border border-[#e4ddd1] rounded-2xl p-6 flex items-center justify-between flex-wrap gap-6">
+    <div>
+      <div class="kicker mb-1">預購倒數</div>
+      <div class="flex items-center gap-4" id="countdown">
+        <div class="text-center"><div class="count-num text-3xl" id="cd-d">—</div><div class="text-xs text-[var(--sub)]">天</div></div>
+        <div class="text-center"><div class="count-num text-3xl" id="cd-h">—</div><div class="text-xs text-[var(--sub)]">時</div></div>
+        <div class="text-center"><div class="count-num text-3xl" id="cd-m">—</div><div class="text-xs text-[var(--sub)]">分</div></div>
+        <div class="text-center"><div class="count-num text-3xl" id="cd-s">—</div><div class="text-xs text-[var(--sub)]">秒</div></div>
+      </div>
+    </div>
+    <div class="text-right">
+      <div class="kicker mb-1">限量庫存</div>
+      <div class="count-num text-3xl" id="stockNum">312</div>
+      <div class="text-xs text-[var(--sub)]">把・售完為止</div>
+    </div>
+  </div>
+</section>
+
+<!-- 軸體選擇 -->
+<section id="specs" class="max-w-5xl mx-auto px-6 mb-16">
+  <h2 class="display font-bold text-2xl mb-6 text-center">選一種你喜歡的觸感</h2>
+  <div class="grid grid-cols-3 gap-4 max-w-md mx-auto mb-6" id="switchGrid">
+    <div class="switch-swatch active" style="background:#b5553a;" data-s="linear" onclick="selectSwitch(this)">線性</div>
+    <div class="switch-swatch" style="background:#4a6b57;" data-s="tactile" onclick="selectSwitch(this)">觸感</div>
+    <div class="switch-swatch" style="background:#3a4a6b;" data-s="clicky" onclick="selectSwitch(this)">段落</div>
+  </div>
+  <p class="text-center text-[var(--sub)] max-w-md mx-auto" id="switchDesc">
+    線性軸：全程平滑無卡點，適合打字與遊戲皆重視的流暢手感。
+  </p>
+</section>
+
+<!-- 規格列表 -->
+<section class="max-w-3xl mx-auto px-6 mb-20">
+  <div class="spec-card flex justify-between items-baseline">
+    <span class="font-semibold">外殼材質</span><span class="text-[var(--sub)]">CNC 鋁合金陽極處理</span>
+  </div>
+  <div class="spec-card flex justify-between items-baseline">
+    <span class="font-semibold">連接方式</span><span class="text-[var(--sub)]">2.4GHz 無線 / 藍牙 5.1 / Type-C 有線</span>
+  </div>
+  <div class="spec-card flex justify-between items-baseline">
+    <span class="font-semibold">電池續航</span><span class="text-[var(--sub)]">約 180 小時（關閉背光）</span>
+  </div>
+  <div class="spec-card flex justify-between items-baseline">
+    <span class="font-semibold">保固</span><span class="text-[var(--sub)]">兩年保固・台灣在地維修</span>
+  </div>
+</section>
+
+<footer class="max-w-5xl mx-auto px-6 pb-10 text-center text-xs text-[var(--sub)]">
+  匠鍵所 CraftKey・每一把鍵盤，手工潤軸後才出貨
+</footer>
+
+<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-[var(--ink)] text-white px-6 py-3 rounded-full text-sm font-semibold opacity-0 transition-opacity duration-300 pointer-events-none"></div>
+
+<script>
+  document.getElementById('keyRow').addEventListener('click', (e)=>{
+    const key = e.target.closest('.hero-key');
+    if(!key) return;
+    key.classList.add('pressed');
+    setTimeout(()=>key.classList.remove('pressed'), 150);
+  });
+
+  const switchInfo = {
+    linear: '線性軸：全程平滑無卡點，適合打字與遊戲皆重視的流暢手感。',
+    tactile: '觸感軸：按壓中段有明顯凸起回饋，手感清晰但聲音溫和。',
+    clicky: '段落軸：清脆「喀」聲搭配明確段落感，最有存在感的打字體驗。',
+  };
+  function selectSwitch(el){
+    document.querySelectorAll('.switch-swatch').forEach(s=>s.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('switchDesc').textContent = switchInfo[el.dataset.s];
+  }
+
+  function showToast(msg){
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.style.opacity = 1;
+    setTimeout(()=> t.style.opacity = 0, 2200);
+  }
+  let stock = 312;
+  function startReserve(){
+    if(stock <= 0){ showToast('已售完，請留信箱等補貨通知'); return; }
+    stock -= 1;
+    document.getElementById('stockNum').textContent = stock;
+    showToast('已加入預購清單！12/1 開始出貨通知您');
+  }
+
+  // countdown to 12/1 00:00 Taipei-ish (local)
+  const target = new Date();
+  target.setMonth(11); target.setDate(1); target.setHours(0,0,0,0);
+  if(target < new Date()) target.setFullYear(target.getFullYear()+1);
+  function tick(){
+    const now = new Date();
+    let diff = Math.max(0, target - now);
+    const d = Math.floor(diff/86400000); diff -= d*86400000;
+    const h = Math.floor(diff/3600000); diff -= h*3600000;
+    const m = Math.floor(diff/60000); diff -= m*60000;
+    const s = Math.floor(diff/1000);
+    document.getElementById('cd-d').textContent = d;
+    document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+  }
+  tick();
+  setInterval(tick, 1000);
+</script>
+
+</body>
+</html>

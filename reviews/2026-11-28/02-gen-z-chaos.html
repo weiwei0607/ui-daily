@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<!-- style #57 Gen Z Chaos -->
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>拼圖衣櫃 ReMixCloset｜二手古著接力市集</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&family=Space+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fff2e3; --ink:#161616;
+    --c1:#4ecdc4; --c2:#ff6b6b; --c3:#ffe66d; --c4:#a388ee;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    font-family:'Noto Sans TC','Bricolage Grotesque',sans-serif;
+    background:var(--bg); color:var(--ink);
+    background-image: radial-gradient(circle at 10% 20%, rgba(78,205,196,.18) 0, transparent 40%),
+                       radial-gradient(circle at 90% 10%, rgba(255,107,107,.18) 0, transparent 40%),
+                       radial-gradient(circle at 50% 90%, rgba(163,136,238,.18) 0, transparent 40%);
+  }
+  .display{ font-family:'Bricolage Grotesque','Noto Sans TC',sans-serif; }
+  .mono{ font-family:'Space Mono',monospace; }
+
+  .sticker{
+    display:inline-block; transform:rotate(-4deg);
+    border:3px solid var(--ink); border-radius:999px; padding:4px 14px;
+    background:var(--c3); font-weight:700; font-size:.75rem;
+  }
+  .wobble{ animation:wobble 4s ease-in-out infinite; }
+  @keyframes wobble{ 0%,100%{ transform:rotate(-2deg); } 50%{ transform:rotate(2deg); } }
+
+  .tape{
+    position:absolute; width:90px; height:26px; background:rgba(255,230,109,.85);
+    border:1px dashed var(--ink); top:-14px; left:50%; transform:translateX(-50%) rotate(-3deg);
+  }
+
+  .scribble-underline{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='12' viewBox='0 0 200 12'%3E%3Cpath d='M2 8 Q20 2 40 8 T80 8 T120 8 T160 8 T198 8' stroke='%23161616' stroke-width='4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat:repeat-x; background-position:0 94%; background-size:120px 12px;
+  }
+
+  .chaos-card{
+    background:#fff; border:3px solid var(--ink); border-radius:18px;
+    box-shadow:6px 6px 0 var(--ink); position:relative;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .chaos-card:nth-child(odd){ transform:rotate(-1.5deg); }
+  .chaos-card:nth-child(even){ transform:rotate(1.5deg); }
+  .chaos-card:hover{ transform:rotate(0deg) translateY(-6px); box-shadow:9px 9px 0 var(--ink); }
+
+  .marquee-wrap{ overflow:hidden; border-top:3px solid var(--ink); border-bottom:3px solid var(--ink); background:var(--ink); }
+  .marquee{ display:inline-flex; white-space:nowrap; animation:scroll 16s linear infinite; }
+  @keyframes scroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+  .glitch-btn{
+    border:3px solid var(--ink); border-radius:999px; background:var(--c2); color:#fff;
+    font-weight:800; padding:14px 28px; box-shadow:5px 5px 0 var(--ink);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .glitch-btn:active{ transform:translate(4px,4px); box-shadow:1px 1px 0 var(--ink); }
+
+  .heart-btn.liked{ background:var(--c2); color:#fff; }
+
+  .dashed-badge{ border:2px dashed var(--ink); border-radius:12px; }
+
+  .tilt-img{ border:3px solid var(--ink); border-radius:16px; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="marquee-wrap text-white py-2">
+  <div class="marquee mono text-sm">
+    <span class="px-6">✨ 本週新上架 214 件 ✨ 全站配送 48 小時到貨 ✨ 接力成功再賺一筆 ✨ 本週新上架 214 件 ✨ 全站配送 48 小時到貨 ✨ 接力成功再賺一筆 ✨</span>
+    <span class="px-6">✨ 本週新上架 214 件 ✨ 全站配送 48 小時到貨 ✨ 接力成功再賺一筆 ✨ 本週新上架 214 件 ✨ 全站配送 48 小時到貨 ✨ 接力成功再賺一筆 ✨</span>
+  </div>
+</div>
+
+<div class="max-w-5xl mx-auto px-5 py-10">
+
+  <header class="flex items-center justify-between mb-10">
+    <div class="display font-extrabold text-2xl wobble">拼圖衣櫃🧷</div>
+    <div class="flex items-center gap-2">
+      <span class="sticker">#古著不死</span>
+      <span class="sticker" style="background:var(--c1); transform:rotate(3deg);">#接力中</span>
+    </div>
+  </header>
+
+  <section class="relative mb-14 text-center">
+    <div class="tape"></div>
+    <h1 class="display font-extrabold leading-[0.95] mb-4" style="font-size:clamp(2.6rem,9vw,5.2rem);">
+      你的舊衣<span class="relative inline-block px-2" style="background:var(--c4); color:#fff; transform:rotate(-2deg);">不是垂死</span>是接力賽！
+    </h1>
+    <p class="scribble-underline inline-block pb-3 text-lg font-medium max-w-md mx-auto">
+      上架、換物、接力穿下去——每一件都寫著上一個主人的故事。
+    </p>
+    <div class="mt-8 flex items-center justify-center gap-4 flex-wrap">
+      <button class="glitch-btn" onclick="openSheet()">立刻挖寶 🔍</button>
+      <button class="dashed-badge px-5 py-3 font-bold" onclick="scrollToList()">我要上架我的衣服</button>
+    </div>
+  </section>
+
+  <section class="mb-12">
+    <div class="flex items-center justify-between mb-5">
+      <h2 class="display font-extrabold text-xl">🔥 本週接力榜</h2>
+      <span class="mono text-xs px-3 py-1 bg-[var(--c3)] border-2 border-[var(--ink)] rounded-full">即時更新</span>
+    </div>
+    <div id="list" class="grid grid-cols-2 md:grid-cols-4 gap-5">
+      <div class="chaos-card p-4">
+        <div class="h-28 rounded-xl mb-3 flex items-center justify-center text-4xl tilt-img" style="background:var(--c1);">🧥</div>
+        <div class="font-bold text-sm">90s 寬版牛仔外套</div>
+        <div class="mono text-xs text-gray-500 mb-2">第 3 手・NT$450</div>
+        <button class="heart-btn w-full py-1.5 rounded-full border-2 border-[var(--ink)] font-bold text-sm" onclick="toggleLike(this)">♡ 接力</button>
+      </div>
+      <div class="chaos-card p-4">
+        <div class="h-28 rounded-xl mb-3 flex items-center justify-center text-4xl tilt-img" style="background:var(--c3);">👖</div>
+        <div class="font-bold text-sm">解構工裝褲</div>
+        <div class="mono text-xs text-gray-500 mb-2">第 2 手・NT$380</div>
+        <button class="heart-btn w-full py-1.5 rounded-full border-2 border-[var(--ink)] font-bold text-sm" onclick="toggleLike(this)">♡ 接力</button>
+      </div>
+      <div class="chaos-card p-4">
+        <div class="h-28 rounded-xl mb-3 flex items-center justify-center text-4xl tilt-img" style="background:var(--c4);">🎒</div>
+        <div class="font-bold text-sm">帆布貼布繡書包</div>
+        <div class="mono text-xs text-gray-500 mb-2">第 5 手・NT$260</div>
+        <button class="heart-btn w-full py-1.5 rounded-full border-2 border-[var(--ink)] font-bold text-sm" onclick="toggleLike(this)">♡ 接力</button>
+      </div>
+      <div class="chaos-card p-4">
+        <div class="h-28 rounded-xl mb-3 flex items-center justify-center text-4xl tilt-img" style="background:var(--c2);">🧢</div>
+        <div class="font-bold text-sm">刺繡復古棒球帽</div>
+        <div class="mono text-xs text-gray-500 mb-2">第 1 手・NT$220</div>
+        <button class="heart-btn w-full py-1.5 rounded-full border-2 border-[var(--ink)] font-bold text-sm" onclick="toggleLike(this)">♡ 接力</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="upload" class="chaos-card p-6 md:p-8 mb-10" style="transform:rotate(-0.6deg);">
+    <h2 class="display font-extrabold text-xl mb-1">📦 上架你的接力品</h2>
+    <p class="text-sm text-gray-600 mb-5">填三格，等它找到下一個主人。</p>
+    <form onsubmit="submitItem(event)" class="grid md:grid-cols-3 gap-4">
+      <input required placeholder="單品名稱，例如：格紋襯衫" class="border-2 border-[var(--ink)] rounded-xl px-4 py-3 font-medium" id="itemName">
+      <input required type="number" placeholder="你想收的金額 NT$" class="border-2 border-[var(--ink)] rounded-xl px-4 py-3 font-medium mono" id="itemPrice">
+      <select required class="border-2 border-[var(--ink)] rounded-xl px-4 py-3 font-medium" id="itemHand">
+        <option value="">這是第幾手？</option>
+        <option>第 1 手</option><option>第 2 手</option><option>第 3 手以上</option>
+      </select>
+      <button type="submit" class="glitch-btn md:col-span-3">送出上架 🚀</button>
+    </form>
+    <div id="submitMsg" class="mt-4 font-bold hidden"></div>
+  </section>
+
+  <footer class="text-center mono text-xs text-gray-500 pb-6">
+    拼圖衣櫃 ReMixCloset・每件衣服都值得第二個人生
+  </footer>
+
+</div>
+
+<script>
+  function toggleLike(btn){
+    btn.classList.toggle('liked');
+    btn.textContent = btn.classList.contains('liked') ? '♥ 已接力！' : '♡ 接力';
+  }
+  function scrollToList(){ document.getElementById('upload').scrollIntoView({behavior:'smooth'}); }
+  function openSheet(){ document.getElementById('list').scrollIntoView({behavior:'smooth'}); }
+  function submitItem(e){
+    e.preventDefault();
+    const name = document.getElementById('itemName').value;
+    const price = document.getElementById('itemPrice').value;
+    const hand = document.getElementById('itemHand').value;
+    const msg = document.getElementById('submitMsg');
+    msg.textContent = `已收到「${name}」（${hand}・NT$${price}），審核通過就會出現在接力榜！`;
+    msg.classList.remove('hidden');
+    e.target.reset();
+  }
+</script>
+
+</body>
+</html>

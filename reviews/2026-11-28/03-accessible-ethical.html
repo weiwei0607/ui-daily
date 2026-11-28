@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<!-- style #08 Accessible / Ethical -->
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>安心到訪 CareVisit｜社區長者關懷訪視登記</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --ink:#0a0a0a; --blue:#0052b3; --orange:#c75000;
+    --focus:#0052b3;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    font-family:'Lexend','Noto Sans TC',sans-serif;
+    background:var(--bg); color:var(--ink);
+    font-size:1.05rem; line-height:1.7;
+  }
+  body.large-text{ font-size:1.3rem; line-height:1.85; }
+  a, button{ font-family:inherit; }
+  *:focus-visible{ outline:4px solid var(--focus); outline-offset:2px; border-radius:4px; }
+
+  .btn-primary{
+    background:var(--blue); color:#fff; font-weight:700;
+    min-height:64px; border-radius:14px; border:3px solid var(--blue);
+    transition:background .15s ease;
+  }
+  .btn-primary:hover{ background:#003d85; }
+  .btn-secondary{
+    background:#fff; color:var(--blue); font-weight:700;
+    min-height:64px; border-radius:14px; border:3px solid var(--blue);
+  }
+  .btn-secondary:hover{ background:#eaf1fb; }
+
+  .high-contrast{ background:var(--ink) !important; color:#fff !important; }
+  .high-contrast .card{ background:#1a1a1a !important; border-color:#fff !important; }
+  .high-contrast .btn-primary{ background:var(--orange) !important; border-color:var(--orange) !important; color:#000 !important; }
+
+  .card{ border:3px solid #cfd4db; border-radius:16px; }
+  .step-dot{ width:44px; height:44px; border-radius:50%; border:3px solid #cfd4db; display:flex; align-items:center; justify-content:center; font-weight:800; }
+  .step-dot.active{ border-color:var(--blue); background:var(--blue); color:#fff; }
+  .step-dot.done{ border-color:var(--blue); background:#fff; color:var(--blue); }
+
+  .toggle-pill{
+    border:3px solid var(--ink); border-radius:999px; padding:10px 18px; font-weight:700;
+    min-height:52px;
+  }
+  .toggle-pill[aria-pressed="true"]{ background:var(--blue); color:#fff; border-color:var(--blue); }
+</style>
+</head>
+<body>
+
+<a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-[var(--blue)] text-white px-4 py-2 rounded-lg font-bold z-50">跳到主要內容</a>
+
+<header class="border-b-[3px] border-black">
+  <div class="max-w-4xl mx-auto px-5 py-4 flex items-center justify-between flex-wrap gap-3">
+    <div class="font-extrabold text-xl flex items-center gap-2">
+      <span aria-hidden="true">🤝</span> 安心到訪 CareVisit
+    </div>
+    <div class="flex items-center gap-3">
+      <button class="toggle-pill" id="textSizeBtn" aria-pressed="false" onclick="toggleTextSize()">
+        <span aria-hidden="true">🔎</span> 放大文字
+      </button>
+      <button class="toggle-pill" id="contrastBtn" aria-pressed="false" onclick="toggleContrast()">
+        <span aria-hidden="true">◐</span> 高對比模式
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="max-w-4xl mx-auto px-5 py-10">
+
+  <section class="mb-12">
+    <h1 class="font-extrabold mb-4" style="font-size:clamp(1.8rem,5vw,2.6rem);">
+      幫社區裡的長輩，<br>登記一次安心的訪視。
+    </h1>
+    <p class="max-w-xl mb-6 text-gray-700">
+      填寫表單後，里辦公室的關懷員會在 <strong>3 個工作日內</strong>安排志工到府訪視。全程免費，不需要任何證明文件。
+    </p>
+    <div class="flex gap-4 flex-wrap">
+      <button class="btn-primary px-8" onclick="document.getElementById('form-section').scrollIntoView({behavior:'smooth'})">
+        開始登記訪視
+      </button>
+      <a href="#faq" class="btn-secondary px-8 inline-flex items-center justify-center">先看常見問題</a>
+    </div>
+  </section>
+
+  <!-- 步驟指示 -->
+  <section class="mb-10" aria-label="登記進度">
+    <div class="flex items-center gap-3 mb-2" id="stepIndicator">
+      <div class="step-dot active" data-step="1">1</div>
+      <div class="flex-1 h-1 bg-gray-300 rounded"></div>
+      <div class="step-dot" data-step="2">2</div>
+      <div class="flex-1 h-1 bg-gray-300 rounded"></div>
+      <div class="step-dot" data-step="3">3</div>
+    </div>
+    <div class="flex justify-between text-sm font-semibold text-gray-600" style="font-size:.9em;">
+      <span>填寫資料</span><span>選擇時段</span><span>完成送出</span>
+    </div>
+  </section>
+
+  <section id="form-section" class="card p-6 md:p-8 mb-12">
+    <div id="step1">
+      <h2 class="font-bold text-xl mb-4">步驟一：長輩與聯絡人資料</h2>
+      <div class="grid md:grid-cols-2 gap-5">
+        <label class="block">
+          <span class="font-semibold block mb-2">長輩姓名</span>
+          <input required id="elderName" class="w-full border-3 border-gray-400 rounded-xl px-4 py-3 text-lg" style="border-width:3px;">
+        </label>
+        <label class="block">
+          <span class="font-semibold block mb-2">長輩年齡</span>
+          <input required type="number" id="elderAge" class="w-full border-3 border-gray-400 rounded-xl px-4 py-3 text-lg" style="border-width:3px;">
+        </label>
+        <label class="block md:col-span-2">
+          <span class="font-semibold block mb-2">居住地址（里別即可，不需詳細門牌）</span>
+          <input required id="elderAddr" placeholder="例如：大安區龍門里" class="w-full border-3 border-gray-400 rounded-xl px-4 py-3 text-lg" style="border-width:3px;">
+        </label>
+        <label class="block md:col-span-2">
+          <span class="font-semibold block mb-2">您與長輩的關係</span>
+          <select required id="elderRel" class="w-full border-3 border-gray-400 rounded-xl px-4 py-3 text-lg" style="border-width:3px;">
+            <option value="">請選擇</option>
+            <option>子女 / 家人</option>
+            <option>鄰居</option>
+            <option>里幹事 / 志工</option>
+            <option>其他關心的人</option>
+          </select>
+        </label>
+      </div>
+      <button class="btn-primary px-8 mt-6" onclick="goStep(2)">下一步：選擇訪視時段</button>
+    </div>
+
+    <div id="step2" class="hidden">
+      <h2 class="font-bold text-xl mb-4">步驟二：方便的訪視時段</h2>
+      <p class="text-gray-700 mb-4">請選擇一個最方便的時段，志工會提前一天致電確認。</p>
+      <div class="grid md:grid-cols-3 gap-3 mb-6" id="timeSlots">
+        <button type="button" class="toggle-pill slot" aria-pressed="false">平日上午</button>
+        <button type="button" class="toggle-pill slot" aria-pressed="false">平日下午</button>
+        <button type="button" class="toggle-pill slot" aria-pressed="false">週末上午</button>
+        <button type="button" class="toggle-pill slot" aria-pressed="false">週末下午</button>
+      </div>
+      <div class="flex gap-3">
+        <button class="btn-secondary px-8" onclick="goStep(1)">上一步</button>
+        <button class="btn-primary px-8" onclick="goStep(3)">下一步：確認送出</button>
+      </div>
+    </div>
+
+    <div id="step3" class="hidden">
+      <h2 class="font-bold text-xl mb-4">步驟三：確認資料並送出</h2>
+      <div id="summaryBox" class="bg-gray-50 border-3 border-gray-300 rounded-xl p-5 mb-6" style="border-width:3px;"></div>
+      <div class="flex gap-3">
+        <button class="btn-secondary px-8" onclick="goStep(2)">上一步</button>
+        <button class="btn-primary px-8" onclick="finalSubmit()">確認送出登記</button>
+      </div>
+      <div id="doneMsg" class="hidden mt-6 bg-[#eaf1fb] border-3 border-[var(--blue)] rounded-xl p-5 font-semibold" style="border-width:3px;"></div>
+    </div>
+  </section>
+
+  <section id="faq" class="mb-10">
+    <h2 class="font-bold text-xl mb-4">常見問題</h2>
+    <div class="space-y-3" id="faqList">
+      <div class="card p-5">
+        <button class="font-bold w-full text-left flex justify-between items-center" onclick="toggleFaq(this)" aria-expanded="false">
+          <span>這項服務需要付費嗎？</span><span aria-hidden="true" class="faq-icon">＋</span>
+        </button>
+        <div class="faq-ans hidden mt-3 text-gray-700">完全免費，由里辦公室與社區志工共同提供，不會收取任何費用。</div>
+      </div>
+      <div class="card p-5">
+        <button class="font-bold w-full text-left flex justify-between items-center" onclick="toggleFaq(this)" aria-expanded="false">
+          <span>我不是長輩的家人，可以幫忙登記嗎？</span><span aria-hidden="true" class="faq-icon">＋</span>
+        </button>
+        <div class="faq-ans hidden mt-3 text-gray-700">可以。鄰居、里幹事或任何關心長輩生活狀況的人都能代為登記。</div>
+      </div>
+      <div class="card p-5">
+        <button class="font-bold w-full text-left flex justify-between items-center" onclick="toggleFaq(this)" aria-expanded="false">
+          <span>志工會做什麼？</span><span aria-hidden="true" class="faq-icon">＋</span>
+        </button>
+        <div class="faq-ans hidden mt-3 text-gray-700">志工會關心長輩的生活起居、用藥狀況與情緒，並視需要轉介社工或醫療資源。</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="border-t-[3px] border-black">
+  <div class="max-w-4xl mx-auto px-5 py-6 text-sm text-gray-600">
+    安心到訪 CareVisit・服務專線 0800-100-200（週一至週五 09:00–18:00）
+  </div>
+</footer>
+
+<script>
+  function toggleTextSize(){
+    document.body.classList.toggle('large-text');
+    const btn = document.getElementById('textSizeBtn');
+    btn.setAttribute('aria-pressed', document.body.classList.contains('large-text'));
+  }
+  function toggleContrast(){
+    document.body.classList.toggle('high-contrast');
+    const btn = document.getElementById('contrastBtn');
+    btn.setAttribute('aria-pressed', document.body.classList.contains('high-contrast'));
+  }
+  document.getElementById('timeSlots').addEventListener('click', (e)=>{
+    const btn = e.target.closest('.slot');
+    if(!btn) return;
+    document.querySelectorAll('.slot').forEach(s=>s.setAttribute('aria-pressed','false'));
+    btn.setAttribute('aria-pressed','true');
+  });
+  function goStep(n){
+    [1,2,3].forEach(i=>{
+      document.getElementById('step'+i).classList.toggle('hidden', i!==n);
+      const dot = document.querySelector(`.step-dot[data-step="${i}"]`);
+      dot.classList.remove('active','done');
+      if(i < n) dot.classList.add('done');
+      if(i === n) dot.classList.add('active');
+    });
+    if(n === 3){
+      const name = document.getElementById('elderName').value || '（未填寫）';
+      const age = document.getElementById('elderAge').value || '（未填寫）';
+      const addr = document.getElementById('elderAddr').value || '（未填寫）';
+      const rel = document.getElementById('elderRel').value || '（未填寫）';
+      const slot = document.querySelector('.slot[aria-pressed="true"]');
+      document.getElementById('summaryBox').innerHTML =
+        `<p><strong>長輩姓名：</strong>${name}</p><p><strong>年齡：</strong>${age}</p><p><strong>地址（里別）：</strong>${addr}</p><p><strong>關係：</strong>${rel}</p><p><strong>訪視時段：</strong>${slot ? slot.textContent : '（未選擇）'}</p>`;
+    }
+  }
+  function finalSubmit(){
+    document.getElementById('doneMsg').classList.remove('hidden');
+    document.getElementById('doneMsg').textContent = '登記已送出！里辦公室將在 3 個工作日內致電確認訪視時間，謝謝您關心社區長輩。';
+  }
+  function toggleFaq(btn){
+    const ans = btn.parentElement.querySelector('.faq-ans');
+    const open = !ans.classList.contains('hidden');
+    ans.classList.toggle('hidden');
+    btn.setAttribute('aria-expanded', !open);
+    btn.querySelector('.faq-icon').textContent = open ? '＋' : '－';
+  }
+</script>
+
+</body>
+</html>

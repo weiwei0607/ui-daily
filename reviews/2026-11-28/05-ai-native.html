@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<!-- style #43 AI-Native -->
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>會記 MeetNote AI｜會議紀要整理助理</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{ --p1:#667eea; --p2:#764ba2; --p3:#9d7bea; --ink:#1c1b29; --sub:#6b6880; }
+  *{ box-sizing:border-box; }
+  body{
+    font-family:'Sora','Noto Sans TC',sans-serif; color:var(--ink);
+    background:
+      radial-gradient(circle at 15% 0%, rgba(102,126,234,.18), transparent 45%),
+      radial-gradient(circle at 85% 20%, rgba(157,123,234,.2), transparent 45%),
+      #fbfaff;
+  }
+  .grad-text{ background:linear-gradient(100deg,var(--p1),var(--p2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .glow-card{
+    background:rgba(255,255,255,.75); backdrop-filter:blur(14px);
+    border:1px solid rgba(255,255,255,.6); border-radius:22px;
+    box-shadow:0 20px 50px -24px rgba(102,76,220,.35);
+  }
+  .breathe{ animation:breathe 3s ease-in-out infinite; }
+  @keyframes breathe{ 0%,100%{ transform:scale(1); opacity:.7; } 50%{ transform:scale(1.25); opacity:1; } }
+
+  .pill-btn{
+    background:linear-gradient(100deg,var(--p1),var(--p2)); color:#fff; font-weight:700;
+    border-radius:999px; padding:14px 30px; box-shadow:0 12px 24px -10px rgba(102,76,220,.6);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .pill-btn:hover{ transform:translateY(-2px); box-shadow:0 16px 30px -10px rgba(102,76,220,.7); }
+  .pill-btn:disabled{ opacity:.5; cursor:not-allowed; transform:none; }
+
+  .chat-bubble{ border-radius:18px; max-width:85%; }
+  .chat-ai{ background:#fff; border:1px solid #eee3ff; }
+  .chat-user{ background:linear-gradient(100deg,var(--p1),var(--p2)); color:#fff; margin-left:auto; }
+
+  .dot-flash span{ display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--p2); margin:0 2px; animation:flash 1.3s infinite; }
+  .dot-flash span:nth-child(2){ animation-delay:.2s; } .dot-flash span:nth-child(3){ animation-delay:.4s; }
+  @keyframes flash{ 0%,80%,100%{ opacity:.25; } 40%{ opacity:1; } }
+
+  .tag-chip{ background:#f1edff; color:var(--p2); border-radius:10px; padding:3px 10px; font-size:.75rem; font-weight:600; }
+  .progress-step{ opacity:.3; transition:opacity .4s ease; }
+  .progress-step.active{ opacity:1; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="max-w-4xl mx-auto px-5 py-10">
+
+  <header class="flex items-center justify-between mb-10">
+    <div class="flex items-center gap-2">
+      <div class="w-9 h-9 rounded-xl flex items-center justify-center text-white font-bold breathe" style="background:linear-gradient(135deg,var(--p1),var(--p2)); animation:none; opacity:1;">會</div>
+      <span class="font-bold text-lg">會記 <span class="grad-text">MeetNote AI</span></span>
+    </div>
+    <span class="tag-chip">測試版・免費體驗 5 次</span>
+  </header>
+
+  <section class="text-center mb-12">
+    <h1 class="font-extrabold leading-tight mb-4" style="font-size:clamp(2rem,5.5vw,3.2rem);">
+      開完會別急著整理，<br><span class="grad-text">讓 AI 幫你寫紀要。</span>
+    </h1>
+    <p class="text-[var(--sub)] max-w-md mx-auto mb-7">
+      貼上逐字稿或錄音轉文字，30 秒內拆出決議、待辦與負責人，自動同步到你的任務清單。
+    </p>
+  </section>
+
+  <section class="glow-card p-6 md:p-8 mb-10">
+    <div class="flex items-center gap-2 mb-4">
+      <span class="w-2 h-2 rounded-full bg-[var(--p2)] breathe"></span>
+      <span class="font-semibold text-sm text-[var(--sub)]">貼上會議逐字稿</span>
+    </div>
+    <textarea id="transcript" rows="5" placeholder="例如：產品會議討論了下季行銷預算，小美負責在週五前提出三個方案…" class="w-full rounded-xl border border-[#e4ddff] p-4 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--p1)] resize-none"></textarea>
+    <div class="flex items-center justify-between mt-4 flex-wrap gap-3">
+      <div class="flex gap-2">
+        <span class="tag-chip">自動偵測繁體中文</span>
+        <span class="tag-chip">支援多人會議</span>
+      </div>
+      <button class="pill-btn" id="analyzeBtn" onclick="startAnalyze()">開始分析 ✨</button>
+    </div>
+  </section>
+
+  <section id="progressSection" class="glow-card p-6 mb-10 hidden">
+    <div class="flex items-center gap-3 mb-5">
+      <div class="dot-flash"><span></span><span></span><span></span></div>
+      <span class="font-semibold text-sm" id="progressText">AI 正在閱讀逐字稿…</span>
+    </div>
+    <div class="space-y-2 text-sm text-[var(--sub)]">
+      <div class="progress-step" id="ps1">① 拆解發言段落與主題</div>
+      <div class="progress-step" id="ps2">② 辨識決議事項與時間點</div>
+      <div class="progress-step" id="ps3">③ 配對待辦負責人</div>
+      <div class="progress-step" id="ps4">④ 產出摘要與紀要全文</div>
+    </div>
+  </section>
+
+  <section id="resultSection" class="hidden">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="font-bold text-lg">紀要結果</h2>
+      <span class="tag-chip">分析完成・耗時 4.2 秒</span>
+    </div>
+
+    <div class="chat-bubble chat-ai p-5 mb-4">
+      <div class="font-semibold mb-2 text-[var(--p2)]">📋 會議摘要</div>
+      <p class="text-sm text-gray-700" id="summaryText">本次會議聚焦下季行銷預算分配，團隊同意優先投入社群內容與聯名活動，並在本週五前完成方案提案。</p>
+    </div>
+
+    <div class="chat-bubble chat-ai p-5 mb-4">
+      <div class="font-semibold mb-3 text-[var(--p2)]">✅ 待辦事項</div>
+      <ul class="space-y-2 text-sm" id="todoList">
+        <li class="flex items-center gap-2"><input type="checkbox" class="w-4 h-4 accent-[#764ba2]"><span>小美：週五前提出三個行銷方案</span></li>
+        <li class="flex items-center gap-2"><input type="checkbox" class="w-4 h-4 accent-[#764ba2]"><span>阿凱：確認聯名合作窗口的時程</span></li>
+        <li class="flex items-center gap-2"><input type="checkbox" class="w-4 h-4 accent-[#764ba2]"><span>Ivy：下週一前彙整競品社群數據</span></li>
+      </ul>
+    </div>
+
+    <div class="flex gap-3 flex-wrap">
+      <button class="pill-btn" onclick="copyResult()">複製完整紀要</button>
+      <button class="chat-bubble chat-ai px-6 py-3 font-semibold text-sm" style="max-width:none;" onclick="resetDemo()">分析下一份逐字稿</button>
+    </div>
+    <div id="copyMsg" class="text-sm text-[var(--p2)] font-semibold mt-3 hidden">已複製到剪貼簿！</div>
+  </section>
+
+</div>
+
+<script>
+  function startAnalyze(){
+    const btn = document.getElementById('analyzeBtn');
+    btn.disabled = true;
+    document.getElementById('progressSection').classList.remove('hidden');
+    document.getElementById('resultSection').classList.add('hidden');
+    const steps = ['ps1','ps2','ps3','ps4'];
+    const texts = ['AI 正在閱讀逐字稿…','AI 正在辨識決議事項…','AI 正在配對負責人…','AI 正在產出紀要全文…'];
+    steps.forEach((id,i)=>{
+      setTimeout(()=>{
+        document.querySelectorAll('.progress-step').forEach(s=>s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        document.getElementById('progressText').textContent = texts[i];
+      }, i*600);
+    });
+    setTimeout(()=>{
+      document.getElementById('progressSection').classList.add('hidden');
+      document.getElementById('resultSection').classList.remove('hidden');
+      btn.disabled = false;
+      document.getElementById('resultSection').scrollIntoView({behavior:'smooth'});
+    }, 2600);
+  }
+  function copyResult(){
+    const text = document.getElementById('summaryText').textContent;
+    navigator.clipboard?.writeText(text).catch(()=>{});
+    const msg = document.getElementById('copyMsg');
+    msg.classList.remove('hidden');
+    setTimeout(()=>msg.classList.add('hidden'), 2000);
+  }
+  function resetDemo(){
+    document.getElementById('resultSection').classList.add('hidden');
+    document.getElementById('transcript').value = '';
+    document.getElementById('transcript').scrollIntoView({behavior:'smooth'});
+  }
+</script>
+
+</body>
+</html>
